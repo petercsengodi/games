@@ -11,6 +11,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 
+import hu.csega.alpoc.game.GameField;
+
 public class AlpocCanvas extends Canvas implements MouseListener, MouseMotionListener {
 
 	private static final Dimension PREFERRED_SIZE = new Dimension(800, 600);
@@ -49,8 +51,12 @@ public class AlpocCanvas extends Canvas implements MouseListener, MouseMotionLis
 	private void paint2d(Graphics2D g) {
 		g.translate(PREFERRED_SIZE.width / 2, PREFERRED_SIZE.height / 2);
 		g.translate(-translate.x, -translate.y);
+		
 		g.drawLine(0, -100, 0, 100);
 		g.drawLine(-100, 0, 100, 0);
+		
+		GameField.drawWorld(g);
+		
 		g.translate(translate.x, translate.y);
 		g.translate(-PREFERRED_SIZE.width / 2, -PREFERRED_SIZE.height / 2);
 	}

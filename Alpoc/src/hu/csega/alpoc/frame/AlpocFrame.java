@@ -15,7 +15,7 @@ public class AlpocFrame extends JFrame {
 		getContentPane().add(canvas);
 	}
 	
-	public static void main(String[] args) throws Exception {
+	public static void start() throws Exception {
 		AlpocFrame alpoc = new AlpocFrame();
 		alpoc.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		alpoc.pack();
