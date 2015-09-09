@@ -54,8 +54,24 @@ public class AlpocFrame extends JFrame implements WindowListener {
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		processHandlerThread.interrupt();
-		processHandler.logMeasurement();
+		try {
+ 			try {
+				processHandlerThread.join(100);
+				Thread.yield();
+			} catch (InterruptedException ex) {
+			}
+ 			
+ 			try {
+				Thread.sleep(900);
+			} catch (InterruptedException ex) {
+			}
+ 			
+ 			System.out.flush();
+			processHandler.logMeasurement();
+		} catch(RuntimeException ex) {
+			// do not throw error, or the frame won't close
+			ex.printStackTrace();
+		}
 	}
 
 	@Override

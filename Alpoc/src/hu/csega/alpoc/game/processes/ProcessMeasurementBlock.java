@@ -4,5 +4,6 @@ class ProcessMeasurementBlock {
 
 	long second;
 	long numberOfRuns;
+	long millisSpent;
 	
 }
