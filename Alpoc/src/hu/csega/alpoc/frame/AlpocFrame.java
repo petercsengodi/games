@@ -1,5 +1,6 @@
 package hu.csega.alpoc.frame;
 
+import java.awt.Graphics;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -25,7 +26,7 @@ public class AlpocFrame extends JFrame implements WindowListener {
 	}
 	
 	public static void start() throws Exception {
-		final AlpocFrame alpoc = new AlpocFrame();
+		alpoc = new AlpocFrame();
 		alpoc.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		alpoc.pack();
 		alpoc.setVisible(true);
@@ -46,6 +47,11 @@ public class AlpocFrame extends JFrame implements WindowListener {
 		};
 		
 		alpoc.processHandlerThread.start();
+	}
+	
+	public static void redrawWorld() {
+		Graphics g = alpoc.canvas.getGraphics();
+		alpoc.canvas.paint(g);
 	}
 
 	@Override
@@ -94,4 +100,5 @@ public class AlpocFrame extends JFrame implements WindowListener {
 	public void windowDeactivated(WindowEvent e) {
 	}
 
+	private static AlpocFrame alpoc;
 }

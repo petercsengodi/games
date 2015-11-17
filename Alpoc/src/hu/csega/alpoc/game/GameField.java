@@ -23,10 +23,10 @@ public class GameField {
 		gameObjects.add(new Demolisher(2, new Vector3d(-40, -20, 0), 5000.0));
 	}
 	
-	public static void drawWorld(Graphics2D g) {
+	public static void renderWorld(Graphics2D g, double t) {
 		for(GameObject go : gameObjects) {
 			g.translate(go.position.location.x, go.position.location.y);
-			go.draw(g);
+			go.render(g, t);
 			g.translate(-go.position.location.x, -go.position.location.y);
 		}
 	}

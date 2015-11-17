@@ -55,8 +55,12 @@ public class AlpocCanvas extends Canvas implements MouseListener, MouseMotionLis
 		g.drawLine(0, -100, 0, 100);
 		g.drawLine(-100, 0, 100, 0);
 		
-		GameField.drawWorld(g);
+		g.scale(3.0, 3.0);
 		
+		GameField.renderWorld(g, System.currentTimeMillis() / 1000.0);
+		
+		g.scale(1/3.0, 1/3.0);
+
 		g.translate(translate.x, translate.y);
 		g.translate(-PREFERRED_SIZE.width / 2, -PREFERRED_SIZE.height / 2);
 	}
