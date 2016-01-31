@@ -19,7 +19,7 @@ public class SayHello {
             host = InetAddress.getByName(hostname);
             socket = new DatagramSocket (null);
             byte[] bytes = "hello".getBytes(ConstantsHello.CHARSET);
-			packet=new DatagramPacket (bytes, 0,host, port);
+			packet=new DatagramPacket (bytes, bytes.length, host, port);
             socket.send (packet);
             // packet.setLength(100);
             // socket.receive (packet);
