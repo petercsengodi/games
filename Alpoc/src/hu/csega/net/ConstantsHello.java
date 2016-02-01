@@ -1,4 +1,4 @@
-package hu.csega.alpoc.net;
+package hu.csega.net;
 
 import java.nio.charset.Charset;
 

@@ -1,4 +1,4 @@
-package hu.csega.alpoc.net;
+package hu.csega.net;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
