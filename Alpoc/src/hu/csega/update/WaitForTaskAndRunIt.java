@@ -1,17 +1,19 @@
 package hu.csega.update;
 
+import hu.csega.dyn.DynamicFramework;
+import hu.csega.net.ConstantsHello;
+import hu.csega.net.ReceiveHelloBr;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Base64;
-
-import hu.csega.net.ConstantsHello;
-import hu.csega.net.ReceiveHelloBr;
 
 public class WaitForTaskAndRunIt extends Thread {
 
@@ -65,15 +67,18 @@ public class WaitForTaskAndRunIt extends Thread {
 				System.out.println("File size: " + file.size);
 				byte[] data = Base64.getDecoder().decode(file.content);
 
-				String dir = ConstantsHello.STORAGE_DIRECTORY + '/' + file.name;
-				int index = dir.lastIndexOf('/');
-				dir = dir.substring(0, index);
+				String fullFileName = ConstantsHello.STORAGE_DIRECTORY + '/' + file.name;
+
+				int index = fullFileName.lastIndexOf('/');
+				String dir = fullFileName.substring(0, index);
 				new File(dir).mkdirs();
-				
-				Path path = Paths.get(ConstantsHello.STORAGE_DIRECTORY + '/' + file.name);
+
+				Path path = Paths.get(fullFileName);
 				Files.write(path, data);
 
 				System.out.println("File written.");
+
+				DynamicFramework.seekAndRun(new URL("file://" + fullFileName));
 			} else {
 				System.err.println(message);
 			}
