@@ -5,7 +5,7 @@ import java.util.StringTokenizer;
 public class DownloadRequest {
 
 	public static DownloadRequest fromString(String content) {
-		StringTokenizer tokenizer = new StringTokenizer(content, "\n");
+		StringTokenizer tokenizer = new StringTokenizer(content, "|");
 
 		DownloadRequest downloadRequest = new DownloadRequest();
 		downloadRequest.message = tokenizer.nextToken().trim();
@@ -16,7 +16,7 @@ public class DownloadRequest {
 	}
 
 	public String toString() {
-		return message + '\n' + taskName + '\n' + version;
+		return message + '|' + taskName + '|' + version;
 	}
 
 	public static DownloadRequest fromUpdateRequest(UpdateRequest updateRequest) {

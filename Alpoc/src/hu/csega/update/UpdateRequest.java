@@ -5,7 +5,7 @@ import java.util.StringTokenizer;
 public class UpdateRequest {
 
 	public static UpdateRequest fromString(String content) {
-		StringTokenizer tokenizer = new StringTokenizer(content, "\n");
+		StringTokenizer tokenizer = new StringTokenizer(content, "|");
 
 		UpdateRequest updateRequest = new UpdateRequest();
 		updateRequest.message = tokenizer.nextToken().trim();
@@ -18,7 +18,7 @@ public class UpdateRequest {
 	}
 
 	public String toString() {
-		return message + '\n' + host + '\n' + port + '\n' + taskName + '\n' + version;
+		return message + '|' + host + '|' + port + '|' + taskName + '|' + version;
 	}
 
 	public String message;

@@ -1,5 +1,8 @@
 package hu.csega.net;
 
+import hu.csega.update.DownloadRequest;
+import hu.csega.update.FileResponse;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -25,42 +28,42 @@ public class DownloadUpdateThread extends Thread {
 
 			String line;
 			while((line = inFromClient.readLine()) != null) {
-				String clientSentence = line;
 
-				switch(clientSentence) {
-				case "download-task":
+				if(line.startsWith("download-task")) {
+					DownloadRequest downloadRequest = DownloadRequest.fromString(line);
+					String jarname = downloadRequest.taskName + '/' + downloadRequest.version +
+							'/' + downloadRequest.taskName + ".jar";
+					String fn = ConstantsHello.STORAGE_DIRECTORY + '/' + jarname;
 
-					{
-						String taskName = inFromClient.readLine();
-						String version = inFromClient.readLine();
-						String jarname = taskName + '/' + version + '/' + taskName + ".jar";
-						String fn = ConstantsHello.STORAGE_DIRECTORY + '/' + jarname;
-
-						File f = new File(fn);
-						if(!f.exists()) {
-							String msg = "error – file missing: " + jarname;
-							System.out.println(msg);
-							outToClient.writeBytes(msg + "\n");
-							break;
-						}
-
-						outToClient.writeBytes("file: " + jarname + "\n");
-						outToClient.writeBytes("size: " + f.length() + "\n");
-
-						Path path = Paths.get(f.getPath());
-						byte[] data = Files.readAllBytes(path);
-						String encoded = Base64.getEncoder().encodeToString(data);
-						outToClient.writeBytes(encoded);
-						outToClient.flush();
+					File f = new File(fn);
+					if(!f.exists()) {
+						String msg = "error – file missing: " + jarname;
+						System.out.println(msg);
+						outToClient.writeBytes(msg + "\n");
+						break;
 					}
 
-					break;
-				default:
-					String msg = "error – no such request command: " + clientSentence;
+					FileResponse response = new FileResponse();
+					response.message = "file";
+					response.name = jarname;
+					response.size = f.length();
+
+					Path path = Paths.get(f.getPath());
+					byte[] data = Files.readAllBytes(path);
+					response.content = Base64.getEncoder().encodeToString(data);
+
+					outToClient.writeBytes(response.toString());
+					outToClient.flush();
+
+				} else {
+
+					int index = line.indexOf('|');
+					String command = (index < 0 ? line : line.substring(0, index));
+					String msg = "error – no such request command: " + command;
 					System.out.println(msg);
 					outToClient.writeBytes(msg + "\n");
 					outToClient.flush();
-					break;
+
 				}
 			}
 

@@ -55,17 +55,16 @@ public class WaitForTaskAndRunIt extends Thread {
 
 			DownloadRequest downloadRequest = DownloadRequest.fromUpdateRequest(updateRequest);
 			outToServer.writeBytes(downloadRequest.toString());
+			outToServer.flush();
 
 			String message = inFromServer.readLine();
 			if(message.startsWith("file")) {
-				String fn = message.substring(5).trim();
-				System.out.println("File name: " + fn);
-				int size = Integer.parseInt(inFromServer.readLine().substring(5).trim());
-				System.out.println("File size: " + size);
-				String encoded = inFromServer.readLine();
-				byte[] data = Base64.getDecoder().decode(encoded);
+				FileResponse file = FileResponse.fromString(message);
+				System.out.println("File name: " + file.name);
+				System.out.println("File size: " + file.size);
+				byte[] data = Base64.getDecoder().decode(file.content);
 
-				Path path = Paths.get(ConstantsHello.STORAGE_DIRECTORY + '/' + fn);
+				Path path = Paths.get(ConstantsHello.STORAGE_DIRECTORY + '/' + file.name);
 				Files.write(path, data);
 
 				System.out.println("File written.");
