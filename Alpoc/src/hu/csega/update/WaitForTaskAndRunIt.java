@@ -2,6 +2,7 @@ package hu.csega.update;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import java.nio.file.Files;
@@ -54,7 +55,7 @@ public class WaitForTaskAndRunIt extends Thread {
 			// TODO: check if we already have that file in our storage
 
 			DownloadRequest downloadRequest = DownloadRequest.fromUpdateRequest(updateRequest);
-			outToServer.writeBytes(downloadRequest.toString());
+			outToServer.writeBytes(downloadRequest.toString() + '\n');
 			outToServer.flush();
 
 			String message = inFromServer.readLine();
@@ -64,6 +65,11 @@ public class WaitForTaskAndRunIt extends Thread {
 				System.out.println("File size: " + file.size);
 				byte[] data = Base64.getDecoder().decode(file.content);
 
+				String dir = ConstantsHello.STORAGE_DIRECTORY + '/' + file.name;
+				int index = dir.lastIndexOf('/');
+				dir = dir.substring(0, index);
+				new File(dir).mkdirs();
+				
 				Path path = Paths.get(ConstantsHello.STORAGE_DIRECTORY + '/' + file.name);
 				Files.write(path, data);
 
