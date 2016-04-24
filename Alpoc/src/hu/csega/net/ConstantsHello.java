@@ -8,5 +8,5 @@ public class ConstantsHello {
 	public static final int TCP_PORT = 1081;
 	public static final Charset CHARSET = Charset.forName("UTF-8");
 
-	public static final String STORAGE_DIRECTORY = "~/storage";
+	public static final String STORAGE_DIRECTORY = "/home/peter/storage";
 }

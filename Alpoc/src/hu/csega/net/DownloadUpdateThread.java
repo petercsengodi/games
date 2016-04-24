@@ -51,6 +51,7 @@ public class DownloadUpdateThread extends Thread {
 						byte[] data = Files.readAllBytes(path);
 						String encoded = Base64.getEncoder().encodeToString(data);
 						outToClient.writeBytes(encoded);
+						outToClient.flush();
 					}
 
 					break;
@@ -58,6 +59,7 @@ public class DownloadUpdateThread extends Thread {
 					String msg = "error – no such request command: " + clientSentence;
 					System.out.println(msg);
 					outToClient.writeBytes(msg + "\n");
+					outToClient.flush();
 					break;
 				}
 			}
