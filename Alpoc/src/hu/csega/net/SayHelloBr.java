@@ -10,18 +10,22 @@ import java.util.Enumeration;
 public class SayHelloBr {
 
 	public static void main(String[] args) throws Exception {
-		byte[] sendData = "hello".getBytes(ConstantsHello.CHARSET);
+		sendNotification("hello");
+	}
+
+	public static void sendNotification(String message) throws Exception {
+		byte[] sendData = message.getBytes(ConstantsHello.CHARSET);
 
 		try {
 			try (DatagramSocket socket = new DatagramSocket()) {
 				socket.setBroadcast(true);
-				
+
 				{
 					DatagramPacket sendPacket = new DatagramPacket(sendData,
 							sendData.length,
 							InetAddress.getByName("255.255.255.255"),
-							ConstantsHello.PORT);
-	
+							ConstantsHello.BROADCAST_PORT);
+
 					socket.send(sendPacket);
 					System.out.println(">>> Request packet sent to: 255.255.255.255 (DEFAULT)");
 				}
@@ -60,8 +64,8 @@ public class SayHelloBr {
 
 				System.out.println(">>> Broadcast response from server: " + receivePacket.getAddress().getHostAddress());
 
-				String message = new String(receivePacket.getData()).trim();
-				System.out.println(">>> message: " + message);
+				String response = new String(receivePacket.getData()).trim();
+				System.out.println(">>> respopnse message: " + response);
 			} catch (Exception e) {
 			}
 		} catch (Exception e) {

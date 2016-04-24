@@ -8,7 +8,7 @@ public class SayHello {
 
 	public static void main(String[] args) throws Exception {
 	    String hostname= "localhost";
-	    int port=ConstantsHello.PORT;
+	    int port=ConstantsHello.BROADCAST_PORT;
 	    InetAddress host;
 	    DatagramSocket socket;
 	    DatagramPacket packet;	

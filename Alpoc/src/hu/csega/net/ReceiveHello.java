@@ -7,7 +7,7 @@ public class ReceiveHello {
 
 	public static void main(String[] args) throws Exception {
 		// Create a socket to listen on the port.
-		try (DatagramSocket dsocket = new DatagramSocket(ConstantsHello.PORT)) {
+		try (DatagramSocket dsocket = new DatagramSocket(ConstantsHello.BROADCAST_PORT)) {
 
 			// Create a buffer to read datagrams into. If a
 			// packet is larger than this buffer, the
