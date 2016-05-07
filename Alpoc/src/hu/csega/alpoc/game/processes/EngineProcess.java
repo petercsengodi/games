@@ -4,8 +4,8 @@ public class EngineProcess implements Runnable {
 
 	@Override
 	public void run() {
-		System.out.println("Thread: " + this.getClass().getSimpleName());
-		
+		// System.out.println("Thread: " + this.getClass().getSimpleName());
+
 		try {
 			processIt();
 			Thread.sleep(10);
@@ -15,5 +15,5 @@ public class EngineProcess implements Runnable {
 
 	protected void processIt() {
 	}
-	
+
 }

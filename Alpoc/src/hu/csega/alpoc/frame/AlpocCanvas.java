@@ -15,7 +15,7 @@ import hu.csega.alpoc.game.GameField;
 
 public class AlpocCanvas extends Canvas implements MouseListener, MouseMotionListener {
 
-	private static final Dimension PREFERRED_SIZE = new Dimension(800, 600);
+	public static final Dimension PREFERRED_SIZE = new Dimension(800, 600);
 	private static final long serialVersionUID = 1L;
 
 	private BufferedImage buffer = new BufferedImage(PREFERRED_SIZE.width, PREFERRED_SIZE.height, BufferedImage.TYPE_INT_RGB);
@@ -24,41 +24,41 @@ public class AlpocCanvas extends Canvas implements MouseListener, MouseMotionLis
 	private Point mouseLeftAt = new Point(0, 0);
 	private Point mouseRightAt = new Point(0, 0);
 	private Point translate = new Point(0, 0);
-	
+
 	public AlpocCanvas() {
 		setPreferredSize(PREFERRED_SIZE);
 		addMouseListener(this);
 		addMouseMotionListener(this);
 	}
-	
+
 	@Override
 	public void update(Graphics g) {
 		paint(g);
-	}	
-	
+	}
+
 	@Override
 	public void paint(Graphics g) {
 		Graphics2D g2d = (Graphics2D)buffer.getGraphics();
 		g2d.setColor(Color.LIGHT_GRAY);
 		g2d.fillRect(0, 0, PREFERRED_SIZE.width, PREFERRED_SIZE.height);
 		g2d.setColor(Color.black);
-		
+
 		paint2d(g2d);
-		
+
 		g.drawImage(buffer, 0, 0, null);
 	}
-	
+
 	private void paint2d(Graphics2D g) {
 		g.translate(PREFERRED_SIZE.width / 2, PREFERRED_SIZE.height / 2);
 		g.translate(-translate.x, -translate.y);
-		
+
 		g.drawLine(0, -100, 0, 100);
 		g.drawLine(-100, 0, 100, 0);
-		
+
 		g.scale(3.0, 3.0);
-		
+
 		GameField.renderWorld(g, System.currentTimeMillis() / 1000.0);
-		
+
 		g.scale(1/3.0, 1/3.0);
 
 		g.translate(translate.x, translate.y);
@@ -68,11 +68,11 @@ public class AlpocCanvas extends Canvas implements MouseListener, MouseMotionLis
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		Point p = new Point(e.getX(), e.getY());
-			
+
 		if(mouseRightPressed) {
 			translate.x += mouseRightAt.x - p.x;
 			translate.y += mouseRightAt.y - p.y;
-			
+
 			mouseRightAt.x = p.x;
 			mouseRightAt.y = p.y;
 			repaint();
@@ -82,11 +82,11 @@ public class AlpocCanvas extends Canvas implements MouseListener, MouseMotionLis
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		Point p = new Point(e.getX(), e.getY());
-		
+
 		if(mouseRightPressed) {
 			translate.x += mouseRightAt.x - p.x;
 			translate.y += mouseRightAt.y - p.y;
-			
+
 			mouseRightAt.x = p.x;
 			mouseRightAt.y = p.y;
 			repaint();
@@ -96,7 +96,7 @@ public class AlpocCanvas extends Canvas implements MouseListener, MouseMotionLis
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -124,13 +124,13 @@ public class AlpocCanvas extends Canvas implements MouseListener, MouseMotionLis
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
