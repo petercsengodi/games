@@ -93,6 +93,7 @@ public class AlpocTerrainCanvas extends Canvas {
 	private BufferedImage buffer = new BufferedImage(PREFERRED_SIZE.width, PREFERRED_SIZE.height, BufferedImage.TYPE_INT_ARGB);
 	private int[] background;
 	private int[] terrain;
+	private int[] controlBuffer; // if you click, what is selected?
 
 	private static int BLUE = 1;
 	private static int GREEN = 256;
