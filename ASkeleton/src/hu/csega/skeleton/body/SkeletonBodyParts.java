@@ -18,6 +18,8 @@ public class SkeletonBodyParts {
 		UsedPart leftLowerLeg = new UsedPart(BODY_PARTS.get("lowerLeg"));
 		UsedPart rightLowerLeg = new UsedPart(BODY_PARTS.get("lowerLeg"));
 
+		// leftLowerArm.angles = new double[] {Math.PI / 4, 0.0, 0.0};
+
 		UsedPart leftUpperArm = new UsedPart(BODY_PARTS.get("upperArm"), leftLowerArm);
 		UsedPart rightUpperArm = new UsedPart(BODY_PARTS.get("upperArm"), rightLowerArm);
 		UsedPart leftUpperLeg = new UsedPart(BODY_PARTS.get("upperLeg"), leftLowerLeg);

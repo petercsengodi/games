@@ -40,9 +40,9 @@ public class SkeletonRendering {
 		res2.position[2] = rotateY(res1.position[0], res1.position[2], angles[1]);
 
 		Point res3 = new Point();
-		res3.position[0] = res1.position[0];
-		res3.position[1] = rotateX(res2.position[1], res2.position[1], angles[2]);
-		res3.position[2] = rotateY(res2.position[2], res2.position[2], angles[2]);
+		res3.position[0] = res2.position[0];
+		res3.position[1] = rotateX(res2.position[1], res2.position[2], angles[2]);
+		res3.position[2] = rotateY(res2.position[1], res2.position[2], angles[2]);
 
 		return res3;
 	}

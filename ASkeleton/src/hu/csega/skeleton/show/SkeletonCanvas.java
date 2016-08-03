@@ -16,6 +16,7 @@ public class SkeletonCanvas extends JPanel {
 
 	public SkeletonCanvas(UsedPart skeleton) {
 		this.skeleton = skeleton;
+		// skeleton.angles = new double[] {Math.PI / 4, 0.0, 0.0};
 	}
 
 	@Override
@@ -33,11 +34,6 @@ public class SkeletonCanvas extends JPanel {
 	}
 
 	private void drawSkeleton(Graphics g, UsedPart part, Point sourcePoint, double[] sourceAngles) {
-		Point accumulatedPoint = SkeletonRendering.add(sourcePoint, SkeletonRendering.invert(part.bodyPart.sourceJoint));
-
-		g.drawLine((int)accumulatedPoint.position[0] - 3, (int)accumulatedPoint.position[1], (int)accumulatedPoint.position[0] + 3, (int)accumulatedPoint.position[1]);
-		g.drawLine((int)accumulatedPoint.position[0], (int)accumulatedPoint.position[1] - 3, (int)accumulatedPoint.position[0], (int)accumulatedPoint.position[1] + 3);
-
 		// calculate current part's exact position
 
 		double[] accumulatedAngles = new double[DIMENSIONS];
@@ -45,6 +41,15 @@ public class SkeletonCanvas extends JPanel {
 		for(int d = 0; d < DIMENSIONS; d++) {
 			accumulatedAngles[d] = sourceAngles[d] + part.angles[d];
 		}
+
+
+		Point accumulatedPoint = SkeletonRendering.add(sourcePoint, SkeletonRendering.invert(
+				SkeletonRendering.rotate(part.bodyPart.sourceJoint, accumulatedAngles)
+
+				));
+
+		g.drawLine((int)accumulatedPoint.position[0] - 3, (int)accumulatedPoint.position[1], (int)accumulatedPoint.position[0] + 3, (int)accumulatedPoint.position[1]);
+		g.drawLine((int)accumulatedPoint.position[0], (int)accumulatedPoint.position[1] - 3, (int)accumulatedPoint.position[0], (int)accumulatedPoint.position[1] + 3);
 
 
 		// draw lines
@@ -64,16 +69,13 @@ public class SkeletonCanvas extends JPanel {
 
 		// draw sub parts on joints
 
-		Point targetPoint2 = new Point();
+		new Point();
 		int numberOfTargets = min(part.bodyPart.targetJoint.length, part.targetParts.length);
 		for(int i = 0; i < numberOfTargets; i++) {
 
 			Point targetJoint = part.bodyPart.targetJoint[i];
 			Point targetPoint1 = SkeletonRendering.rotate(targetJoint, accumulatedAngles);
-			for(int d = 0; d < DIMENSIONS; d++) {
-				targetPoint2.position[d] = sourcePoint.position[d] + targetPoint1.position[d];
-			}
-
+			Point targetPoint2 = SkeletonRendering.add(targetPoint1, accumulatedPoint);
 			drawSkeleton(g, part.targetParts[i], targetPoint2, accumulatedAngles);
 
 		}
