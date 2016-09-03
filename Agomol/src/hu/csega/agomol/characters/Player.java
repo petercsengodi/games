@@ -4,27 +4,7 @@ import hu.csega.toolshed.v1.json.common.JSONGetter;
 import hu.csega.toolshed.v1.json.common.JSONSetter;
 import hu.csega.toolshed.v1.json.common.JSONUtil;
 
-public class Player {
-
-	@JSONGetter
-	public String getName() {
-		return name;
-	}
-
-	@JSONSetter
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	@JSONGetter(Long.class)
-	public Long getHealthPoints() {
-		return healthPoints;
-	}
-
-	@JSONSetter(Long.class)
-	public void setHealthPoints(Long healthPoints) {
-		this.healthPoints = healthPoints;
-	}
+public class Player extends Character {
 
 	@JSONGetter
 	public String getGuardianId() {
@@ -34,66 +14,6 @@ public class Player {
 	@JSONSetter
 	public void setGuardianId(String guardianId) {
 		this.guardianId = guardianId;
-	}
-
-	@JSONGetter(Long.class)
-	public Long getHeight() {
-		return height;
-	}
-
-	@JSONSetter(Long.class)
-	public void setHeight(Long height) {
-		this.height = height;
-	}
-
-	@JSONGetter(Long.class)
-	public Long getWeight() {
-		return weight;
-	}
-
-	@JSONSetter(Long.class)
-	public void setWeight(Long weight) {
-		this.weight = weight;
-	}
-
-	@JSONGetter(Long.class)
-	public Long getStrengthPoints() {
-		return strengthPoints;
-	}
-
-	@JSONSetter(Long.class)
-	public void setStrengthPoints(Long strengthPoints) {
-		this.strengthPoints = strengthPoints;
-	}
-
-	@JSONGetter(Long.class)
-	public Long getIntelligencePoint() {
-		return intelligencePoint;
-	}
-
-	@JSONSetter(Long.class)
-	public void setIntelligencePoint(Long intelligencePoint) {
-		this.intelligencePoint = intelligencePoint;
-	}
-
-	@JSONGetter(Long.class)
-	public Long getCharmPoints() {
-		return charmPoints;
-	}
-
-	@JSONSetter(Long.class)
-	public void setCharmPoints(Long charmPoints) {
-		this.charmPoints = charmPoints;
-	}
-
-	@JSONGetter(Long.class)
-	public Long getManaPoints() {
-		return manaPoints;
-	}
-
-	@JSONSetter(Long.class)
-	public void setManaPoints(Long manaPoints) {
-		this.manaPoints = manaPoints;
 	}
 
 	@JSONGetter
@@ -126,15 +46,7 @@ public class Player {
 		this.inventory = inventory;
 	}
 
-	private String name;
-	private Long healthPoints;
 	private String guardianId;
-	private Long height;
-	private Long weight;
-	private Long strengthPoints;
-	private Long intelligencePoint;
-	private Long charmPoints;
-	private Long manaPoints;
 	private String lastUpdateDate;
 	private String spells;
 	private String inventory;
