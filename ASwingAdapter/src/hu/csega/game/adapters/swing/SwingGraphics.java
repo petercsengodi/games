@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import hu.csega.game.engine.GameColor;
 import hu.csega.game.engine.GameGraphics;
 import hu.csega.game.engine.GamePoint;
+import hu.csega.game.engine.GameSprite;
 
 public class SwingGraphics implements GameGraphics {
 
@@ -60,8 +61,14 @@ public class SwingGraphics implements GameGraphics {
 
 	}
 
+	@Override
+	public void drawSprite(GameSprite sprite, double x, double y) {
+		g.drawImage(sprite.getImage(), (int)x, (int)y, null);
+	}
+
 	private int[] xPoints = new int[3];
 	private int[] yPoints = new int[3];
 
 	private Graphics2D g;
+
 }

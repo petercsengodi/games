@@ -13,7 +13,6 @@ public class UnchartedPhysics implements GamePhysics, GameKeyListener {
 
 	@Override
 	public void hit(char key) {
-		System.out.println("hit: " + key);
 	}
 
 	@Override
@@ -43,7 +42,7 @@ public class UnchartedPhysics implements GamePhysics, GameKeyListener {
 			y = 599;
 	}
 
-	double velocity = 10; // pixel / sec
+	double velocity = 100; // pixel / sec
 
 	double x;
 	double y;
