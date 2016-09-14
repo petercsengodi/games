@@ -3,6 +3,7 @@ package hu.csega.game.uncharted.play;
 import hu.csega.game.engine.GameControl;
 import hu.csega.game.engine.GameKeyListener;
 import hu.csega.game.engine.GamePhysics;
+import hu.csega.game.uncharted.objects.UnchartedPlayer;
 
 public class UnchartedPhysics implements GamePhysics, GameKeyListener {
 
@@ -20,32 +21,30 @@ public class UnchartedPhysics implements GamePhysics, GameKeyListener {
 		if(control == null)
 			return;
 
-		double diff = (nanoTimeNow - nanoTimeLastTime) / 1_000_000_000.0;
+		double delta = (nanoTimeNow - nanoTimeLastTime) / 1_000_000_000.0;
 
-		if(control.isUpOn())
-			y -= velocity * diff;
-		if(control.isDownOn())
-			y += velocity * diff;
+		if(control.isUpOn() && !control.isDownOn())
+			player.movementAcceleration.y = -verticalForce;
+		else if(control.isDownOn() && !control.isUpOn())
+			player.movementAcceleration.y = verticalForce;
+		else
+			player.movementAcceleration.y = 0;
 
-		if(control.isLeftOn())
-			x -= velocity * diff;
-		if(control.isRightOn())
-			x += velocity * diff;
+		if(control.isLeftOn() && !control.isRightOn())
+			player.movementAcceleration.x = -horizontalForce;
+		else if(control.isRightOn() && !control.isLeftOn())
+			player.movementAcceleration.x = horizontalForce;
+		else
+			player.movementAcceleration.x = 0;
 
-		if(x > 799)
-			x = 799;
-		if(x < 0)
-			x = 0;
-		if(y < 0)
-			y = 0;
-		if(y > 599)
-			y = 599;
+		player.move(delta);
+		player.checkConstraints();
 	}
 
-	double velocity = 100; // pixel / sec
+	public UnchartedPlayer player;
 
-	double x;
-	double y;
+	private double verticalForce = 200;
+	private double horizontalForce = 200;
 
 	private GameControl control;
 }
