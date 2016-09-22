@@ -2,6 +2,8 @@ package hu.csega.game.adapters.swing;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
 import hu.csega.game.engine.GameColor;
 import hu.csega.game.engine.GameGraphics;
 import hu.csega.game.engine.GameHitBox;
@@ -67,6 +69,11 @@ public class SwingGraphics implements GameGraphics {
 	@Override
 	public void drawSprite(GameSprite sprite, double x, double y) {
 		g.drawImage(sprite.getImage(), (int)x, (int)y, null);
+	}
+
+	@Override
+	public void drawSprite(BufferedImage image, double x, double y) {
+		g.drawImage(image, (int)x, (int)y, null);
 	}
 
 	@Override

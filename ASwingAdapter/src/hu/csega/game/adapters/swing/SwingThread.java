@@ -21,7 +21,7 @@ public class SwingThread extends Thread {
 				physics.call(nanoTimeNow, nanoTimeLastTime);
 				nanoTimeLastTime = nanoTimeNow;
 				canvas.repaint();
-				Thread.sleep(1);
+				Thread.sleep(10);
 			}
 
 		} catch(InterruptedException ex) {
