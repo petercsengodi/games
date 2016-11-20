@@ -3,16 +3,16 @@ package hu.csega.game.uncharted.objects;
 import hu.csega.game.engine.GameField;
 import hu.csega.game.engine.GameHitBox;
 
-public class UnchartedPlayer extends UnchartedObject {
+public class UnchartedEnemy extends UnchartedObject {
 
-	public UnchartedPlayer(GameField gameField) {
+	public UnchartedEnemy(GameField gameField) {
 		super(gameField);
 
-		hitShapes.add(new GameHitBox(0, 100, 0, 30));
+		hitShapes.add(new GameHitBox(0, 50, 0, 40));
 		outerBox.minX = 0;
 		outerBox.minY = 0;
-		outerBox.maxX = 100;
-		outerBox.maxY = 30;
+		outerBox.maxX = 50;
+		outerBox.maxY = 40;
 	}
 
 	@Override
@@ -44,5 +44,5 @@ public class UnchartedPlayer extends UnchartedObject {
 
 	}
 
-	public double timeBeforeShoot;
+
 }

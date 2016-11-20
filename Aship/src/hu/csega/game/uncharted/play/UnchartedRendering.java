@@ -8,12 +8,14 @@ import hu.csega.game.engine.GameHitShape;
 import hu.csega.game.engine.GameObject;
 import hu.csega.game.engine.GamePoint;
 import hu.csega.game.engine.GameRendering;
+import hu.csega.game.uncharted.objects.UnchartedEnemy;
+import hu.csega.game.uncharted.objects.UnchartedEnemyBullet;
+import hu.csega.game.uncharted.objects.UnchartedPlayerBullet;
 import hu.csega.game.uncharted.pics.UnchartedSprites;
 
 public class UnchartedRendering implements GameRendering {
 
-	public UnchartedRendering(UnchartedPhysics physics, UnchartedRenderingOptions options) {
-		this.physics = physics;
+	public UnchartedRendering(UnchartedRenderingOptions options) {
 		this.options = options;
 	}
 
@@ -23,7 +25,7 @@ public class UnchartedRendering implements GameRendering {
 		GameColor red = new GameColor(255, 0, 0);
 		GameColor green = new GameColor(0, 255, 0);
 
-		GameObject player = physics.player;
+		GameObject player = universe.player;
 		GamePoint position = player.movementPosition;
 
 		if(options.renderHitShapes) {
@@ -32,6 +34,17 @@ public class UnchartedRendering implements GameRendering {
 
 		g.drawSprite(UnchartedSprites.SHIP, position.x, position.y);
 
+		for(UnchartedEnemy enemy : universe.enemies) {
+			g.drawSprite(UnchartedSprites.ENEMY, enemy.movementPosition.x, enemy.movementPosition.y);
+		}
+
+		for(UnchartedPlayerBullet playerBullet : universe.playerBullets) {
+			g.drawSprite(UnchartedSprites.SHIP_BULLET, playerBullet.movementPosition.x, playerBullet.movementPosition.y);
+		}
+
+		for(UnchartedEnemyBullet enemyBullet : universe.enemyBullets) {
+			g.drawSprite(UnchartedSprites.ENEMY_BULLET, enemyBullet.movementPosition.x, enemyBullet.movementPosition.y);
+		}
 
 		if(options.renderHitShapes) {
 
@@ -43,7 +56,7 @@ public class UnchartedRendering implements GameRendering {
 		}
 	}
 
-	private UnchartedPhysics physics;
+	public UnchartedUniverse universe;
 
 	private UnchartedRenderingOptions options;
 }

@@ -3,9 +3,9 @@ package hu.csega.game.uncharted.objects;
 import hu.csega.game.engine.GameField;
 import hu.csega.game.engine.GameHitBox;
 
-public class UnchartedPlayer extends UnchartedObject {
+public class UnchartedPlayerBullet extends UnchartedObject {
 
-	public UnchartedPlayer(GameField gameField) {
+	public UnchartedPlayerBullet(GameField gameField) {
 		super(gameField);
 
 		hitShapes.add(new GameHitBox(0, 100, 0, 30));
@@ -44,5 +44,5 @@ public class UnchartedPlayer extends UnchartedObject {
 
 	}
 
-	public double timeBeforeShoot;
+
 }
