@@ -1,0 +1,6 @@
+*.class
+Alpoc/bin/*
+Agomol/bin/*
+Aship/bin/*
+
+/bin/
