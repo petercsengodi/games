@@ -1,15 +1,14 @@
 package hu.csega.game.rotary.play;
 
-import java.awt.Color;
 import java.util.List;
 
 import hu.csega.game.engine.GameColor;
 import hu.csega.game.engine.GameGraphics;
 import hu.csega.game.engine.GameHitShape;
-import hu.csega.game.engine.GameObject;
 import hu.csega.game.engine.GamePoint;
 import hu.csega.game.engine.GameRendering;
 import hu.csega.game.rotary.objects.RotaryMapElement;
+import hu.csega.game.rotary.objects.RotaryPlayer;
 
 public class RotaryRendering implements GameRendering {
 
@@ -19,12 +18,14 @@ public class RotaryRendering implements GameRendering {
 
 	@Override
 	public void render(GameGraphics g) {
-
 		GameColor red = new GameColor(255, 0, 0);
 		GameColor black = new GameColor(0, 0, 0);
 
-		GameObject player = universe.player;
+		RotaryPlayer player = universe.player;
 		GamePoint position = player.movementPosition;
+
+		g.rotate(player.gravitationalPull);
+		g.translate(-position.x, -position.y);
 
 		if(options.renderHitShapes) {
 			g.drawHitShape(player.outerBox, position.x, position.y, red);

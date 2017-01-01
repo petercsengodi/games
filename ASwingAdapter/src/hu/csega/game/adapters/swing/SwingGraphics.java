@@ -19,6 +19,16 @@ public class SwingGraphics implements GameGraphics {
 	}
 
 	@Override
+	public void rotate(double angle) {
+		g.rotate(angle);
+	}
+
+	@Override
+	public void translate(double tx, double ty) {
+		g.translate(tx, ty);
+	}
+
+	@Override
 	public void crossHair(double x, double y) {
 		g.setColor(Color.black);
 		g.drawLine((int)(x - 20), (int)(y), (int)(x + 20), (int)(y));

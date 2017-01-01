@@ -2,7 +2,6 @@ package hu.csega.game.rotary.objects;
 
 import hu.csega.game.engine.GameField;
 import hu.csega.game.engine.GameHitCircle;
-import hu.csega.game.engine.GameVector;
 
 public class RotaryPlayer extends RotaryObject {
 
@@ -16,12 +15,43 @@ public class RotaryPlayer extends RotaryObject {
 		outerBox.maxY = 50;
 	}
 
+	public void adjustGravitationalPull(double delta) {
+		if(turning) {
+			if(gravitationalPullToReach < gravitationalPull) {
+				gravitationalPull -= delta * GRAVITATIONAL_PULL_TURNING;
+				if(gravitationalPull < gravitationalPullToReach) {
+					gravitationalPull = gravitationalPullToReach;
+					turning = false;
+				}
+			} else if(gravitationalPullToReach > gravitationalPull) {
+				gravitationalPull += delta * GRAVITATIONAL_PULL_TURNING;
+				if(gravitationalPull > gravitationalPullToReach) {
+					gravitationalPull = gravitationalPullToReach;
+					turning = false;
+				}
+			}
+		}
+
+		if(!turning) {
+			while(gravitationalPull < -FULL_CIRCLE)
+				gravitationalPull += FULL_CIRCLE;
+			while(gravitationalPull > FULL_CIRCLE)
+				gravitationalPull -= FULL_CIRCLE;
+		}
+	}
+
 	@Override
 	public void checkConstraints() {
 
 		// ??? collision detection?
 	}
 
-	public GameVector gravitationalPull = new GameVector();
 
+
+	public double gravitationalPull = 0.0; // angle
+	public double gravitationalPullToReach = 0.0;
+	public boolean turning = false;
+
+	private static final double FULL_CIRCLE = Math.PI * 2;
+	private static final double GRAVITATIONAL_PULL_TURNING = 3;
 }

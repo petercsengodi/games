@@ -2,7 +2,6 @@ package hu.csega.game.rotary.play;
 
 import hu.csega.game.engine.GameControl;
 import hu.csega.game.engine.GameKeyListener;
-import hu.csega.game.engine.GameObject;
 import hu.csega.game.engine.GamePhysics;
 import hu.csega.game.rotary.objects.RotaryPlayer;
 
@@ -15,6 +14,15 @@ public class RotaryPhysics implements GamePhysics, GameKeyListener {
 
 	@Override
 	public void hit(char key) {
+		RotaryPlayer player = universe.player;
+		if(key == 'w' && !player.turning) {
+			player.turning = true;
+			player.gravitationalPullToReach = player.gravitationalPull + Math.PI / 2.0;
+		}
+		if(key == 'q' && !player.turning) {
+			player.turning = true;
+			player.gravitationalPullToReach = player.gravitationalPull - Math.PI / 2.0;
+		}
 	}
 
 	@Override
@@ -40,6 +48,7 @@ public class RotaryPhysics implements GamePhysics, GameKeyListener {
 		else
 			player.movementAcceleration.x = 0;
 
+		player.adjustGravitationalPull(delta);
 		player.move(delta);
 		player.checkConstraints();
 	}
