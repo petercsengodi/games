@@ -1,0 +1,327 @@
+<VisualStudioProject>
+    <CSHARP
+        ProjectType = "Local"
+        ProductVersion = "7.10.3077"
+        SchemaVersion = "2.0"
+        ProjectGuid = "{8FF575EA-12FB-414C-8DD6-BA1A0BA81041}"
+    >
+        <Build>
+            <Settings
+                ApplicationIcon = "App.ico"
+                AssemblyKeyContainerName = ""
+                AssemblyName = "T3DCreator"
+                AssemblyOriginatorKeyFile = ""
+                DefaultClientScript = "JScript"
+                DefaultHTMLPageLayout = "Grid"
+                DefaultTargetSchema = "IE50"
+                DelaySign = "false"
+                OutputType = "WinExe"
+                PreBuildEvent = ""
+                PostBuildEvent = ""
+                RootNamespace = "T3DCreator"
+                RunPostBuildEvent = "OnBuildSuccess"
+                StartupObject = ""
+            >
+                <Config
+                    Name = "Debug"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "285212672"
+                    CheckForOverflowUnderflow = "false"
+                    ConfigurationOverrideFile = ""
+                    DefineConstants = "DEBUG;TRACE"
+                    DocumentationFile = ""
+                    DebugSymbols = "true"
+                    FileAlignment = "4096"
+                    IncrementalBuild = "false"
+                    NoStdLib = "false"
+                    NoWarn = ""
+                    Optimize = "false"
+                    OutputPath = "bin\Debug\"
+                    RegisterForComInterop = "false"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "4"
+                />
+                <Config
+                    Name = "Release"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "285212672"
+                    CheckForOverflowUnderflow = "false"
+                    ConfigurationOverrideFile = ""
+                    DefineConstants = "TRACE"
+                    DocumentationFile = ""
+                    DebugSymbols = "false"
+                    FileAlignment = "4096"
+                    IncrementalBuild = "false"
+                    NoStdLib = "false"
+                    NoWarn = ""
+                    Optimize = "true"
+                    OutputPath = "bin\Release\"
+                    RegisterForComInterop = "false"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "4"
+                />
+            </Settings>
+            <References>
+                <Reference
+                    Name = "System"
+                    AssemblyName = "System"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.dll"
+                />
+                <Reference
+                    Name = "System.Data"
+                    AssemblyName = "System.Data"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Data.dll"
+                />
+                <Reference
+                    Name = "System.Drawing"
+                    AssemblyName = "System.Drawing"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Drawing.dll"
+                />
+                <Reference
+                    Name = "System.Windows.Forms"
+                    AssemblyName = "System.Windows.Forms"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.dll"
+                />
+                <Reference
+                    Name = "System.XML"
+                    AssemblyName = "System.Xml"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
+                />
+                <Reference
+                    Name = "Microsoft.DirectX"
+                    AssemblyName = "Microsoft.DirectX"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Managed DirectX\v9.02.2904\Microsoft.DirectX.dll"
+                    AssemblyFolderKey = "hklm\current managed directx 9.2"
+                />
+                <Reference
+                    Name = "Microsoft.DirectX.Direct3D"
+                    AssemblyName = "Microsoft.DirectX.Direct3D"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Managed DirectX\v9.02.2904\Microsoft.DirectX.Direct3D.dll"
+                    AssemblyFolderKey = "hklm\current managed directx 9.2"
+                />
+                <Reference
+                    Name = "Microsoft.DirectX.Direct3DX"
+                    AssemblyName = "Microsoft.DirectX.Direct3DX"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Managed DirectX\v9.02.2904\Microsoft.DirectX.Direct3DX.dll"
+                    AssemblyFolderKey = "hklm\current managed directx 9.2"
+                />
+                <Reference
+                    Name = "FileOperations"
+                    Project = "{FEAF59FB-5FC9-43CE-AB8B-670B0F168C29}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+            </References>
+        </Build>
+        <Files>
+            <Include>
+                <File
+                    RelPath = "App.ico"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "AssemblyInfo.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "CEdge.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "CFigure.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "CModel.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ColorDisplay.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ColorDisplay.resx"
+                    DependentUpon = "ColorDisplay.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "CTriangle.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "CVertex.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "CView.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "CView.resx"
+                    DependentUpon = "CView.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "DirectXView.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "DirectXView.resx"
+                    DependentUpon = "DirectXView.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "FigureProperties.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "FigureProperties.resx"
+                    DependentUpon = "FigureProperties.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "IPart.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Memento.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MeshText.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MeshText.resx"
+                    DependentUpon = "MeshText.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MeshUtils.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ModelProperties.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ModelProperties.resx"
+                    DependentUpon = "ModelProperties.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Operations.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Sphere.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Sphere.resx"
+                    DependentUpon = "Sphere.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "T3DCreator.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "T3DCreator.en.resx"
+                    DependentUpon = "T3DCreator.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "T3DCreator.resx"
+                    DependentUpon = "T3DCreator.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "T3DCreator.ur.resx"
+                    DependentUpon = "T3DCreator.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "T3DCreator.ur-PK.resx"
+                    DependentUpon = "T3DCreator.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "T3DCreator.vi.resx"
+                    DependentUpon = "T3DCreator.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "TextureLibrary.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextureView.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TextureView.resx"
+                    DependentUpon = "TextureView.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Torus.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Torus.resx"
+                    DependentUpon = "Torus.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "TreeObjectView.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TreeObjectView.resx"
+                    DependentUpon = "TreeObjectView.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "WireFrameView.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "WireFrameView.resx"
+                    DependentUpon = "WireFrameView.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "XmlSerialize.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+            </Include>
+        </Files>
+    </CSHARP>
+</VisualStudioProject>
+

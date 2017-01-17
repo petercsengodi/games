@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<xs:schema id="Story" targetNamespace="http://tempuri.org/StorySchema.xsd" xmlns:mstns="http://tempuri.org/StorySchema.xsd"
+	xmlns="http://tempuri.org/StorySchema.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+	<xs:element name="Story" msdata:IsDataSet="true" msdata:Locale="hu-HU" msdata:EnforceConstraints="False">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="Node">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Link" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:attribute name="ref" form="unqualified" type="xs:string" />
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="Text" form="unqualified" type="xs:string" />
+						<xs:attribute name="Texture" form="unqualified" type="xs:string" />
+						<xs:attribute name="Element" form="unqualified" type="xs:string" />
+						<xs:attribute name="Special" form="unqualified" type="xs:string" />
+						<xs:attribute name="Weapon" form="unqualified" type="xs:string" />
+						<xs:attribute name="X" form="unqualified" type="xs:integer" />
+						<xs:attribute name="Y" form="unqualified" type="xs:integer" />
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
