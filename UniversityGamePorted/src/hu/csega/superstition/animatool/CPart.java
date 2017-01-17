@@ -3,8 +3,8 @@ package hu.csega.superstition.animatool;
 import org.joml.Matrix3f;
 import org.joml.Vector3f;
 
-import hu.csega.superstition.gamelib.CConnection;
-import hu.csega.superstition.gamelib.CPartData;
+import hu.csega.superstition.gamelib.animationdata.CConnection;
+import hu.csega.superstition.gamelib.animationdata.CPartData;
 import hu.csega.superstition.stubs.CModel;
 import hu.csega.superstition.stubs.CustomVertex;
 import hu.csega.superstition.stubs.LockFlags;

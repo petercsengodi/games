@@ -1,4 +1,4 @@
-package hu.csega.superstition.gamelib;
+package hu.csega.superstition.gamelib.animationdata;
 
 import java.util.ArrayList;
 
