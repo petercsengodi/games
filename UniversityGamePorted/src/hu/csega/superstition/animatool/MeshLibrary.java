@@ -1,10 +1,14 @@
 package hu.csega.superstition.animatool;
 
-public class MeshLibrary : IDisposable
-{
+import java.util.List;
+
+import javafx.scene.shape.Mesh;
+
+public class MeshLibrary {
+
 	private static MeshLibrary instance;
 
-	private ArrayList list;
+	private List<Mesh> list;
 	private Device device;
 	private OpenFileDialog dialog;
 
@@ -15,11 +19,11 @@ public class MeshLibrary : IDisposable
 		dialog = new OpenFileDialog();
 		dialog.Filter = "Mesh files (*.x)|*.x|All Files (*.*)|*.*";
 		dialog.InitialDirectory = @"..\..\..\Superstition\bin\meshes\";
-		dialog.Multiselect = false;
+				dialog.Multiselect = false;
 		dialog.RestoreDirectory = true;
 	}
 
-	public static void Initialize(Device device)
+	static
 	{
 		if(instance == null)
 			instance = new MeshLibrary(device);
@@ -30,12 +34,12 @@ public class MeshLibrary : IDisposable
 		if(instance != null) instance.Dispose();
 	}
 
-	public static MeshLibrary Instance()
+	public static MeshLibrary instance()
 	{
 		return instance;
 	}
 
-	public MeshID LoadMesh(string name)
+	public MeshID LoadMesh(String name)
 	{
 		int idx, c = list.Count;
 		for(idx = 0; idx < c; idx++)
@@ -48,10 +52,10 @@ public class MeshLibrary : IDisposable
 		idx = c;
 
 		string fname = @"..\..\..\Superstition\bin\meshes\" + name;
-		ExtendedMaterial[] mats;
+				ExtendedMaterial[] mats;
 		Mesh mesh = Mesh.FromFile(fname, 0, device, out mats);
 		Mesh simple_mesh = mesh.Clone(MeshFlags.Use32Bit,
-			CustomVertex.PositionOnly.Format, device);
+				CustomVertex.PositionOnly.Format, device);
 
 		int subsets = mats.Length;
 		Material[] materials = new Material[subsets];
@@ -61,11 +65,11 @@ public class MeshLibrary : IDisposable
 		{
 			materials[i] = mats[i].Material3D;
 			textures[i] = TextureLibrary.Instance().LoadImage(
-				mats[i].TextureFilename);
+					mats[i].TextureFilename);
 		}
 
 		MeshID id = new MeshID(name, mesh, simple_mesh,
-			materials, textures, subsets);
+				materials, textures, subsets);
 		list.Add(id);
 		return id;
 	}
@@ -75,10 +79,10 @@ public class MeshLibrary : IDisposable
 		string filename;
 		DialogResult res = instance.dialog.ShowDialog();
 		if((res != DialogResult.Cancel) &&
-			(res != DialogResult.No))
+				(res != DialogResult.No))
 		{
 			filename = Path.GetFileName(
-				instance.dialog.FileName);
+					instance.dialog.FileName);
 			return instance.LoadMesh(filename);
 		}
 		return null;

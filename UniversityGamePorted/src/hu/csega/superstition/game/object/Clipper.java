@@ -1,108 +1,136 @@
 package hu.csega.superstition.game.object;
 
-public class Clipper : IClipping
+import org.joml.Vector3f;
+
+import hu.csega.superstition.collection.VectorStack;
+import hu.csega.superstition.game.StaticVectorLibrary;
+import hu.csega.superstition.util.StaticMathLibrary;
+import hu.csega.superstition.util.Vectors;
+
+public class Clipper implements IClipping
 {
-	public Vector3 position, // Position of the object
-		corner1, corner2; // Relative to position;
+	public Vector3f position = new Vector3f(); // Position of the object
+	public Vector3f corner1 = new Vector3f(), corner2 = new Vector3f(); // Relative to position;
+
 	// usually corner1 negative, corner 2 positive
 	public static float STEP = 0.2f, HALFSTEP = STEP / 2f;
 
-	public Clipper(Vector3 _corner1, Vector3 _corner2)
-	{
-		corner1 = Vector3.Minimize(_corner1, _corner2);
-		corner2 = Vector3.Maximize(_corner1, _corner2);
-		position = new Vector3(0f, 0f, 0f);
+	public Clipper(Vector3f _corner1, Vector3f _corner2) {
+		Vectors.minimize(_corner1, _corner2, corner1);
+		Vectors.maximize(_corner1, _corner2, corner2);
 	}
 
-	public Clipper(Vector3 _corner1, Vector3 _corner2, Vector3 _position)
-	{
-		corner1 = Vector3.Minimize(_corner1, _corner2);
-		corner2 = Vector3.Maximize(_corner1, _corner2);
-		position = _position;
+	public Clipper(Vector3f _corner1, Vector3f _corner2, Vector3f _position) {
+		Vectors.minimize(_corner1, _corner2, corner1);
+		Vectors.maximize(_corner1, _corner2, corner2);
+		this.position.set(_position);
 	}
 
-	public Vector3 Position
-	{
-		get { return position; }
-		set { position = value; }
+	public Vector3f getPosition() {
+		return position;
 	}
 
-	#region IClipping Members
+	public void setPosition(Vector3f position) {
+		this.position.set(position);
+	}
 
-	public virtual void Clip(Clipable clipable)
-	{
-		Vector3 box1 = Vector3.Add(Vector3.Subtract(corner1, clipable.corner2), position);
-		Vector3 box2 = Vector3.Add(Vector3.Subtract(corner2, clipable.corner1), position);
+	@Override
+	public void Clip(Clipable clipable) {
+
+		Vector3f box1 = VectorStack.newVector3f();
+		Vector3f box2 = VectorStack.newVector3f();
+		Vector3f tmp = VectorStack.newVector3f();
+
+		// box1 = corner1 - clipable.corner2 + position
+		corner1.sub(clipable.corner2, tmp);
+		tmp.add(position, box1);
+
+		// box2 = corner2 - clipable.corner1 + position
+		corner2.sub(clipable.corner1, tmp);
+		tmp.add(position, box2);
+
 		float t, x, y, z;
 
 		// Clipping for all directions
-		if((clipable.position.X <= box1.X) && (clipable.position.X + clipable.diff.X > box1.X))
+		if((clipable.position.x <= box1.x) && (clipable.position.x + clipable.diff.x > box1.x))
 		{ // Left -> Right
-			t = (box1.X - clipable.position.X) / clipable.diff.X;
-			y = clipable.position.Y + clipable.diff.Y * t;
-			z = clipable.position.Z + clipable.diff.Z * t;
-			if(StaticMathLibrary.InSquare(y, z, box1.Y, box1.Z, box2.Y, box2.Z))
-				clipable.Squash(this,
-					StaticVectorLibrary.Right, box1, box2,
-					new Vector3(box1.X, y, z));
-		}
-		else if((clipable.position.X >= box2.X) && (clipable.position.X + clipable.diff.X < box2.X))
+
+			t = (box1.x - clipable.position.x) / clipable.diff.x;
+			y = clipable.position.y + clipable.diff.y * t;
+			z = clipable.position.z + clipable.diff.z * t;
+
+			tmp.set(box1.x, y, z);
+
+			if(StaticMathLibrary.inSquare(y, z, box1.y, box1.z, box2.y, box2.z))
+				clipable.squash(this, StaticVectorLibrary.Right, box1, box2, tmp);
+
+		} else if((clipable.position.x >= box2.x) && (clipable.position.x + clipable.diff.x < box2.x))
 		{ // Right -> Left
-			t = (box2.X - clipable.position.X) / clipable.diff.X;
-			y = clipable.position.Y + clipable.diff.Y * t;
-			z = clipable.position.Z + clipable.diff.Z * t;
-			if(StaticMathLibrary.InSquare(y, z, box1.Y, box1.Z, box2.Y, box2.Z))
-				clipable.Squash(this,
-					StaticVectorLibrary.Left, box1, box2,
-					new Vector3(box2.X, y, z));
+
+			t = (box2.x - clipable.position.x) / clipable.diff.x;
+			y = clipable.position.y + clipable.diff.y * t;
+			z = clipable.position.z + clipable.diff.z * t;
+
+			tmp.set(box2.x, y, z);
+
+			if(StaticMathLibrary.inSquare(y, z, box1.y, box1.z, box2.y, box2.z))
+				clipable.squash(this, StaticVectorLibrary.Left, box1, box2, tmp);
 		}
 
-		if((clipable.position.Y <= box1.Y) && (clipable.position.Y + clipable.diff.Y > box1.Y))
+		if((clipable.position.y <= box1.y) && (clipable.position.y + clipable.diff.y > box1.y))
 		{ // Bottom -> Top
-			t = (box1.Y - clipable.position.Y) / clipable.diff.Y;
-			x = clipable.position.X + clipable.diff.X * t;
-			z = clipable.position.Z + clipable.diff.Z * t;
-			if(StaticMathLibrary.InSquare(x, z, box1.X, box1.Z, box2.X, box2.Z))
-				clipable.Squash(this,
-					StaticVectorLibrary.Top, box1, box2,
-					new Vector3(x, box1.Y, z));
-		}
-		else if((clipable.position.Y >= box2.Y) && (clipable.position.Y + clipable.diff.Y < box2.Y))
+
+			t = (box1.y - clipable.position.y) / clipable.diff.y;
+			x = clipable.position.x + clipable.diff.x * t;
+			z = clipable.position.z + clipable.diff.z * t;
+
+			tmp.set(x, box1.y, z);
+
+			if(StaticMathLibrary.inSquare(x, z, box1.x, box1.z, box2.x, box2.z))
+				clipable.squash(this, StaticVectorLibrary.Top, box1, box2, tmp);
+
+		} else if((clipable.position.y >= box2.y) && (clipable.position.y + clipable.diff.y < box2.y))
 		{ // Top -> Bottom
-			t = (box2.Y - clipable.position.Y) / clipable.diff.Y;
-			x = clipable.position.X + clipable.diff.X * t;
-			z = clipable.position.Z + clipable.diff.Z * t;
-			if(StaticMathLibrary.InSquare(x, z, box1.X, box1.Z, box2.X, box2.Z))
-				clipable.Squash(this,
-					StaticVectorLibrary.Bottom, box1, box2,
-					new Vector3(x, box2.Y, z));
+			t = (box2.y - clipable.position.y) / clipable.diff.y;
+			x = clipable.position.x + clipable.diff.x * t;
+			z = clipable.position.z + clipable.diff.z * t;
+
+			tmp.set(x, box2.y, z);
+
+			if(StaticMathLibrary.inSquare(x, z, box1.x, box1.z, box2.x, box2.z))
+				clipable.squash(this, StaticVectorLibrary.Bottom, box1, box2, tmp);
 		}
 
-		if((clipable.position.Z <= box1.Z) && (clipable.position.Z + clipable.diff.Z > box1.Z))
+		if((clipable.position.z <= box1.z) && (clipable.position.z + clipable.diff.z > box1.z))
 		{ // Front -> Back
-			t = (box1.Z - clipable.position.Z) / clipable.diff.Z;
-			x = clipable.position.X + clipable.diff.X * t;
-			y = clipable.position.Y + clipable.diff.Y * t;
-			if(StaticMathLibrary.InSquare(x, y, box1.X, box1.Y, box2.X, box2.Y))
-				clipable.Squash(this,
-					StaticVectorLibrary.Back, box1, box2,
-					new Vector3(x, y, box1.Z));
-		}
-		else if((clipable.position.Z >= box2.Z) && (clipable.position.Z + clipable.diff.Z < box2.Z))
+
+			t = (box1.z - clipable.position.z) / clipable.diff.z;
+			x = clipable.position.x + clipable.diff.x * t;
+			y = clipable.position.y + clipable.diff.y * t;
+
+			tmp.set(x, y, box1.z);
+
+			if(StaticMathLibrary.inSquare(x, y, box1.x, box1.y, box2.x, box2.y))
+				clipable.squash(this, StaticVectorLibrary.Back, box1, box2, tmp);
+
+		} else if((clipable.position.z >= box2.z) && (clipable.position.z + clipable.diff.z < box2.z))
 		{ // Back -> Front
-			t = (box2.Z - clipable.position.Z) / clipable.diff.Z;
-			x = clipable.position.X + clipable.diff.X * t;
-			y = clipable.position.Y + clipable.diff.Y * t;
-			if(StaticMathLibrary.InSquare(x, y, box1.X, box1.Y, box2.X, box2.Y))
-				clipable.Squash(this,
-					StaticVectorLibrary.Front, box1, box2,
-					new Vector3(x, y, box2.Z));
+			t = (box2.z - clipable.position.z) / clipable.diff.z;
+			x = clipable.position.x + clipable.diff.x * t;
+			y = clipable.position.y + clipable.diff.y * t;
+
+			tmp.set(x, y, box2.z);
+
+			if(StaticMathLibrary.inSquare(x, y, box1.x, box1.y, box2.x, box2.y))
+				clipable.squash(this, StaticVectorLibrary.Front, box1, box2, tmp);
 		}
+
+		VectorStack.release(tmp);
+		VectorStack.release(box2);
+		VectorStack.release(box1);
 	}
 
-	#endregion
-
-	public virtual void PlayerEffect(object player)
+	public void PlayerEffect(Object player)
 	{
 	}
 }

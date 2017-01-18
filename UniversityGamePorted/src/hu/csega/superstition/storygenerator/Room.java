@@ -1,5 +1,7 @@
 package hu.csega.superstition.storygenerator;
 
+import hu.csega.superstition.util.StaticMathLibrary;
+
 class Room : TWLNode
 {
 	#region Direction Constants

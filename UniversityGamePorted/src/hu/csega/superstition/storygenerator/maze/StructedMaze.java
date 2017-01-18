@@ -1,7 +1,7 @@
 package hu.csega.superstition.storygenerator.maze;
 
 import hu.csega.superstition.storygenerator.Room;
-import hu.csega.superstition.storygenerator.StaticRandomLibrary;
+import hu.csega.superstition.util.StaticRandomLibrary;
 
 class StructedMaze : GridMaze
 {

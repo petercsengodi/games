@@ -5,12 +5,7 @@ import org.joml.Vector3f;
 
 import hu.csega.superstition.gamelib.animationdata.CConnection;
 import hu.csega.superstition.gamelib.animationdata.CPartData;
-import hu.csega.superstition.stubs.CModel;
-import hu.csega.superstition.stubs.CustomVertex;
-import hu.csega.superstition.stubs.LockFlags;
-import hu.csega.superstition.stubs.Mesh;
-import hu.csega.superstition.stubs.MeshID;
-import hu.csega.superstition.stubs.MeshLibrary;
+import hu.csega.superstition.util.Vectors;
 
 public class CPart implements IPart {
 
@@ -137,8 +132,8 @@ public class CPart implements IPart {
 			for(int v = 1; v < m.numberVertices; v++)
 			{
 				vertices[v].Position.mul(model_transform[i], temp);
-				minimize(ret.bounding_box1[i], temp, ret.bounding_box1[i]);
-				maximize(ret.bounding_box2[i], temp, ret.bounding_box2[i]);
+				Vectors.minimize(ret.bounding_box1[i], temp, ret.bounding_box1[i]);
+				Vectors.maximize(ret.bounding_box2[i], temp, ret.bounding_box2[i]);
 				average = average.add(temp.mul(f));
 			}
 
@@ -159,17 +154,5 @@ public class CPart implements IPart {
 		m.unlockVertexBuffer();
 
 		return ret;
-	}
-
-	public static void minimize(Vector3f a, Vector3f b, Vector3f to) {
-		to.x = Math.min(a.x, b.x);
-		to.y = Math.min(a.y, b.y);
-		to.z = Math.min(a.z, b.z);
-	}
-
-	public static void maximize(Vector3f a, Vector3f b, Vector3f to) {
-		to.x = Math.max(a.x, b.x);
-		to.y = Math.max(a.y, b.y);
-		to.z = Math.max(a.z, b.z);
 	}
 }

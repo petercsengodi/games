@@ -1,23 +1,21 @@
 package hu.csega.superstition.game;
 
+import org.joml.Vector3f;
+
 public class StaticVectorLibrary
 {
-	static public bool inited = false;
+	static public boolean inited = false;
 
 	public class Direction
 	{
-		public Vector3 NormalVector;
+		public Vector3f NormalVector;
 		public SquarePointFunction SquarePoint;
 	}
 
 	static public Direction Left = null, Right = null, Front = null,
-		Back = null, Top = null, Bottom = null;
+			Back = null, Top = null, Bottom = null;
 
-	/// <summary>
-	/// Initializing statical Vector3 variables.
-	/// </summary>
-	static public void StaticInitializer()
-	{
+	static {
 		if(inited) return; else inited = true;
 
 		Left = new Direction(); Left.NormalVector = new Vector3(-1f, 0f, 0f);
@@ -34,8 +32,6 @@ public class StaticVectorLibrary
 		Bottom.SquarePoint = new SquarePointFunction(BottomSquarePoint);
 	}
 
-	#region Square Point Function Definitions
-
 	/// <summary>
 	/// Left Square Point Function.
 	/// </summary>
@@ -47,21 +43,21 @@ public class StaticVectorLibrary
 	{
 		switch(num)
 		{
-			case 1:
-				return new CustomVertex.PositionNormalTextured(
+		case 1:
+			return new CustomVertex.PositionNormalTextured(
 					Min.X, Min.Y, Max.Z, -1f, 0f, 0f, -Max.Z, -Min.Y);
 
-			case 2:
-				return new CustomVertex.PositionNormalTextured(
+		case 2:
+			return new CustomVertex.PositionNormalTextured(
 					Min.X, Max.Y, Max.Z, -1f, 0f, 0f, -Max.Z, -Max.Y);
 
-			case 3:
-				return new CustomVertex.PositionNormalTextured(
+		case 3:
+			return new CustomVertex.PositionNormalTextured(
 					Min.X, Max.Y, Min.Z, -1f, 0f, 0f, -Min.Z, -Max.Y);
 
-			case 0:
-			default:
-				return new CustomVertex.PositionNormalTextured(
+		case 0:
+		default:
+			return new CustomVertex.PositionNormalTextured(
 					Min.X, Min.Y, Min.Z, -1f, 0f, 0f, -Min.Z, -Min.Y);
 		}
 	}
@@ -77,21 +73,21 @@ public class StaticVectorLibrary
 	{
 		switch(num)
 		{
-			case 1:
-				return new CustomVertex.PositionNormalTextured(
+		case 1:
+			return new CustomVertex.PositionNormalTextured(
 					Max.X, Max.Y, Min.Z, 1f, 0f, 0f, Min.Z, -Max.Y);
 
-			case 2:
-				return new CustomVertex.PositionNormalTextured(
+		case 2:
+			return new CustomVertex.PositionNormalTextured(
 					Max.X, Max.Y, Max.Z, 1f, 0f, 0f, Max.Z, -Max.Y);
 
-			case 3:
-				return new CustomVertex.PositionNormalTextured(
+		case 3:
+			return new CustomVertex.PositionNormalTextured(
 					Max.X, Min.Y, Max.Z, 1f, 0f, 0f, Max.Z, -Min.Y);
 
-			case 0:
-			default:
-				return new CustomVertex.PositionNormalTextured(
+		case 0:
+		default:
+			return new CustomVertex.PositionNormalTextured(
 					Max.X, Min.Y, Min.Z, 1f, 0f, 0f, Min.Z, -Min.Y);
 		}
 	}
@@ -107,21 +103,21 @@ public class StaticVectorLibrary
 	{
 		switch(num)
 		{
-			case 1:
-				return new CustomVertex.PositionNormalTextured(
+		case 1:
+			return new CustomVertex.PositionNormalTextured(
 					Max.X, Min.Y, Max.Z, 0f, 0f, 1f, -Max.X, -Min.Y);
 
-			case 2:
-				return new CustomVertex.PositionNormalTextured(
+		case 2:
+			return new CustomVertex.PositionNormalTextured(
 					Max.X, Max.Y, Max.Z, 0f, 0f, 1f, -Max.X, -Max.Y);
 
-			case 3:
-				return new CustomVertex.PositionNormalTextured(
+		case 3:
+			return new CustomVertex.PositionNormalTextured(
 					Min.X, Max.Y, Max.Z, 0f, 0f, 1f, -Min.X, -Max.Y);
 
-			case 0:
-			default:
-				return new CustomVertex.PositionNormalTextured(
+		case 0:
+		default:
+			return new CustomVertex.PositionNormalTextured(
 					Min.X, Min.Y, Max.Z, 0f, 0f, 1f, -Min.X, -Min.Y);
 		}
 	}
@@ -137,21 +133,21 @@ public class StaticVectorLibrary
 	{
 		switch(num)
 		{
-			case 1:
-				return new CustomVertex.PositionNormalTextured(
+		case 1:
+			return new CustomVertex.PositionNormalTextured(
 					Min.X, Max.Y, Min.Z, 0f, 0f, -1f, Min.X, -Max.Y);
 
-			case 2:
-				return new CustomVertex.PositionNormalTextured(
+		case 2:
+			return new CustomVertex.PositionNormalTextured(
 					Max.X, Max.Y, Min.Z, 0f, 0f, -1f, Max.X, -Max.Y);
 
-			case 3:
-				return new CustomVertex.PositionNormalTextured(
+		case 3:
+			return new CustomVertex.PositionNormalTextured(
 					Max.X, Min.Y, Min.Z, 0f, 0f, -1f, Max.X, -Min.Y);
 
-			case 0:
-			default:
-				return new CustomVertex.PositionNormalTextured(
+		case 0:
+		default:
+			return new CustomVertex.PositionNormalTextured(
 					Min.X, Min.Y, Min.Z, 0f, 0f, -1f, Min.X, -Min.Y);			}
 	}
 
@@ -166,21 +162,21 @@ public class StaticVectorLibrary
 	{
 		switch(num)
 		{
-			case 1:
-				return new CustomVertex.PositionNormalTextured(
+		case 1:
+			return new CustomVertex.PositionNormalTextured(
 					Min.X, Min.Y, Max.Z, 0f, 1f, 0f, Min.X, Max.Z);
 
-			case 2:
-				return new CustomVertex.PositionNormalTextured(
+		case 2:
+			return new CustomVertex.PositionNormalTextured(
 					Max.X, Min.Y, Max.Z, 0f, 1f, 0f, Max.X, Max.Z);
 
-			case 3:
-				return new CustomVertex.PositionNormalTextured(
+		case 3:
+			return new CustomVertex.PositionNormalTextured(
 					Max.X, Min.Y, Min.Z, 0f, 1f, 0f, Max.X, Min.Z);
 
-			case 0:
-			default:
-				return new CustomVertex.PositionNormalTextured(
+		case 0:
+		default:
+			return new CustomVertex.PositionNormalTextured(
 					Min.X, Min.Y, Min.Z, 0f, 1f, 0f, Min.X, Min.Z);
 		}
 	}
@@ -196,24 +192,23 @@ public class StaticVectorLibrary
 	{
 		switch(num)
 		{
-			case 1:
-				return new CustomVertex.PositionNormalTextured(
+		case 1:
+			return new CustomVertex.PositionNormalTextured(
 					Max.X, Max.Y, Min.Z, 0f, -1f, 0f, Max.X, Min.Z);
 
-			case 2:
-				return new CustomVertex.PositionNormalTextured(
+		case 2:
+			return new CustomVertex.PositionNormalTextured(
 					Max.X, Max.Y, Max.Z, 0f, -1f, 0f, Max.X, Max.Z);
 
-			case 3:
-				return new CustomVertex.PositionNormalTextured(
+		case 3:
+			return new CustomVertex.PositionNormalTextured(
 					Min.X, Max.Y, Max.Z, 0f, -1f, 0f, Min.X, Max.Z);
 
-			case 0:
-			default:
-				return new CustomVertex.PositionNormalTextured(
+		case 0:
+		default:
+			return new CustomVertex.PositionNormalTextured(
 					Min.X, Max.Y, Min.Z, 0f, -1f, 0f, Min.X, Min.Z);
 		}
 	}
 
-	#endregion
 }

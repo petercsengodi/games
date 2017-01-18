@@ -1,6 +1,7 @@
 package hu.csega.superstition.storygenerator;
 
 import hu.csega.superstition.storygenerator.maze.StructedGridMaze;
+import hu.csega.superstition.util.StaticRandomLibrary;
 
 public class DirectXPreview : System.Windows.Forms.Form
 {

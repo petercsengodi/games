@@ -1,6 +1,6 @@
 package hu.csega.superstition.game.meshes;
 
-sealed public class MeshLibrary : Library
+public class MeshLibrary implements Library
 {
 
 	/// <summary>
@@ -22,7 +22,7 @@ sealed public class MeshLibrary : Library
 
 		public void Dispose()
 		{
-//			mesh.Dispose();
+			//			mesh.Dispose();
 		}
 
 		#endregion
@@ -50,7 +50,7 @@ sealed public class MeshLibrary : Library
 			idstring = idstring + "|NoShadow";
 		if((flags & EngineMeshFlags.Colored) > 0)
 			idstring = idstring + "|Color " + color.R.ToString() +
-				":" + color.G.ToString() + ":" + color.A.ToString();
+			":" + color.G.ToString() + ":" + color.A.ToString();
 
 		foreach(object o in library)
 		{
