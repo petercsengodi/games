@@ -1,47 +1,53 @@
 package hu.csega.superstition.game.menu;
 
-public class TranslateLight : IMovingLight
+import java.awt.Color;
+
+import org.joml.Vector3f;
+
+import hu.csega.superstition.game.Engine;
+import hu.csega.superstition.game.lights.Light;
+import hu.csega.superstition.game.lights.PointLight;
+
+public class TranslateLight implements IMovingLight
 {
 	protected Light light;
 	protected double radiusX, radiusY, phaseX, phaseY;
-	protected Vector3 center, position;
+	protected Vector3f center, position;
 	public static double PI2 = 2.0 * Math.PI;
-	public static bool circle;
+	public static boolean circle;
 
-	public TranslateLight(Engine engine, Color color, Vector3 center,
-		double radiusX, double radiusY, double phaseX, double phaseY)
-	{
+	public TranslateLight(Engine engine, Color color, Vector3f center,
+			double radiusX, double radiusY, double phaseX, double phaseY) {
 		this.center = center;
 		this.radiusX = radiusX;
 		this.radiusY = radiusY;
 		this.phaseX = phaseX;
 		this.phaseY = phaseY;
 		DoPeriod();
-		this.light = engine.GetPointLight(10f, color, position);
+		this.light = engine.getPointLight(10f, color, position);
 	}
 
-	#region IMovingLight Members
-
+	@Override
 	public void Activate()
 	{
-		(light as PointLight).Position = position;
-		light.Activate();
+		((PointLight)light).Position = position;
+		light.activate();
 	}
 
+	@Override
 	public void DeActivate()
 	{
-		light.DeActivate();
+		light.deActivate();
 	}
 
-	public void DoPeriod()
-	{
+	public void doPeriod() {
 		phaseX += 0.01;
 		if(phaseX > PI2) phaseX -= PI2;
 		phaseY += 0.01;
 		if(phaseY > PI2) phaseY -= PI2;
-		position.X = center.X + (float)(radiusX * Math.Cos(phaseX)) + (float)(radiusX * Math.Sin(phaseY));
-		position.Y = center.Y + (float)(radiusY * Math.Sin(phaseY)) + (float)(radiusX * Math.Sin(phaseX));
-		position.Z = center.Z;
+		position.x = center.x + (float)(radiusX * Math.cos(phaseX)) + (float)(radiusX * Math.sin(phaseY));
+		position.y = center.y + (float)(radiusY * Math.sin(phaseY)) + (float)(radiusX * Math.sin(phaseX));
+		position.z = center.z;
 	}
 
 	#endregion

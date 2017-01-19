@@ -1,5 +1,11 @@
 package hu.csega.superstition.game.enemy;
 
+import org.joml.Vector3f;
+
+import hu.csega.superstition.game.Engine;
+import hu.csega.superstition.game.Library;
+import hu.csega.superstition.game.StaticVectorLibrary;
+import hu.csega.superstition.game.animation.Animation;
 import hu.csega.superstition.game.object.Clipable;
 import hu.csega.superstition.gamelib.network.GameObjectData;
 
@@ -7,20 +13,18 @@ public class Spider extends Enemy {
 
 	protected class Representative extends Clipable
 	{
-		public bool modified;
+		public boolean modified;
 
-		public Representative()
-		: base(new Vector3(0f, 0f, 0f),
-				new Vector3(0f, 0f, 0f),
-				new Vector3(0f, 0f, 0f))
-		{
-			velocity = new Vector3(0f, 0f, 0f);
+		public Representative() {
+			super(new Vector3f(), new Vector3f(), new Vector3f());
+			velocity = new Vector3f();
 			modified = false;
 		}
 
-		public override void Squash(Engine.StaticVectorLibrary.Direction dir, Vector3 box1, Vector3 box2, Vector3 sqpoint)
+		@Override
+		public void squash(StaticVectorLibrary.Direction dir, Vector3f box1, Vector3f box2, Vector3f sqpoint)
 		{
-			diff = sqpoint - position;
+			sqpoint.sub(position, diff);
 			modified = true;
 		}
 
@@ -28,8 +32,8 @@ public class Spider extends Enemy {
 
 	protected Representative[] representatives;
 
-	protected const int STAND = 0, RUNNING = 1;
-	protected const float P_HEIGHT = 0.1f,
+	protected static final int STAND = 0, RUNNING = 1;
+	protected static final float P_HEIGHT = 0.1f,
 			P_FORE = 0.04f, P_SIDE = 0.1f,
 			P_WALK = 0.01f, P_FALL = 1f,
 			P_RANDOM_CIRCLE = 0.001f;
@@ -37,15 +41,15 @@ public class Spider extends Enemy {
 	public Spider()
 	{
 		representatives = new Representative[4];
-		for(int i = 0; i < representatives.Length; i++)
+		for(int i = 0; i < representatives.length; i++)
 		{
 			representatives[i] = new Representative();
 		}
-		up = new Vector3(0f, 1f, 0f);
-		direction = new Vector3(0f, 0f, -1f);
+		up = new Vector3f(0f, 1f, 0f);
+		direction = new Vector3f(0f, 0f, -1f);
 	}
 
-	public void Build(Engine.Engine engine)
+	public void Build(Engine engine)
 	{
 		animations = new Animation[2];
 		animations[0] = Library.Animations().getAnimation("spider_stand");
@@ -57,18 +61,18 @@ public class Spider extends Enemy {
 
 	class SpiderData extends GameObjectData
 	{
-		public bool alive;
-		public Vector3 direction;
-		public Vector3 position;
+		public boolean alive;
+		public Vector3f direction;
+		public Vector3f position;
 		public EnemyState state;
-		public Vector3 up;
+		public Vector3f up;
 
 		public SpiderData()
 		{
 			description = "Spider Data";
 		}
 
-		public  object create()
+		public Object create()
 		{
 			return new Spider(this);
 		}
@@ -77,7 +81,7 @@ public class Spider extends Enemy {
 		private static final long serialVersionUID = -1l;
 	}
 
-	public  GameLib.GameObjectData getData()
+	public GameObjectData getData()
 	{
 		SpiderData ret = new SpiderData();
 		ret.alive = this.alive;
@@ -90,9 +94,9 @@ public class Spider extends Enemy {
 
 	public Spider(GameObjectData spider)
 	{
-		SpiderData data = spider as SpiderData;
+		SpiderData data = (Spider)spider;
 		representatives = new Representative[4];
-		for(int i = 0; i < representatives.Length; i++)
+		for(int i = 0; i < representatives.length; i++)
 		{
 			representatives[i] = new Representative();
 		}
@@ -109,9 +113,9 @@ public class Spider extends Enemy {
 	{
 		if(CurrentRoom != null)
 		{
-			Vector3 right = Vector3.Cross(up, direction);
-			Vector3 left = - right;
-			bool modified = false;
+			Vector3f right = Vector3f.Cross(up, direction);
+			Vector3f left = - right;
+			boolean modified = false;
 			up.Multiply(P_HEIGHT);
 
 			representatives[0].position =
@@ -191,7 +195,7 @@ public class Spider extends Enemy {
 
 		}
 
-		base.Period();
+		super.period();
 	}
 
 

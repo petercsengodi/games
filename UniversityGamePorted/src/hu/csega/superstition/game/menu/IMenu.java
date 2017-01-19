@@ -1,7 +1,6 @@
 package hu.csega.superstition.game.menu;
 
-interface IMenu : IDisposable
-{
+interface IMenu {
 	MenuElement[] getMenuElements();
 	IMenu getParent();
 	void RenderElements();

@@ -1,26 +1,30 @@
 package hu.csega.superstition.game.menu;
 
-class MeshShadows : MenuElement
+public class MeshShadows extends MenuElement
 {
-	public MeshShadows(ModelParams param) : base(param)
+	public MeshShadows(ModelParams param)
 	{
+		super(param);
 	}
 
-	public override string getText()
+	@Override
+	public String getText()
 	{
 		return "Mesh Shadows";
 	}
 
-	public override IMenu DoItem()
+	@Override
+	public IMenu DoItem()
 	{
 		param.engine.Options.renderMeshShadow = !param.engine.Options.renderMeshShadow;
 		return null;
 	}
 
-	public override void Render()
+	@Override
+	public void Render()
 	{
 		bool val = param.engine.Options.renderMeshShadow;
-		base.Render();
+		super.Render();
 		param.onoff.Render(translation + OnOff.DEFAULT, val);
 	}
 }

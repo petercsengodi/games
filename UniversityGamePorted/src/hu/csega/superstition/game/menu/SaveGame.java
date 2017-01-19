@@ -1,7 +1,6 @@
 package hu.csega.superstition.game.menu;
 
-class SaveGame : MenuElement, IMenu, IFileParent
-{
+public class SaveGame extends MenuElement implements IMenu, IFileParent {
 	protected IMenu parent;
 
 	public SaveGame(ModelParams param, IMenu parent) : base(param)
@@ -9,51 +8,53 @@ class SaveGame : MenuElement, IMenu, IFileParent
 		this.parent = parent;
 	}
 
-	public override string getText()
+	@Override
+	public string getText()
 	{
 		return "Save Game";
 	}
 
-	public override IMenu DoItem()
+	@Override
+	public IMenu DoItem()
 	{
 		param.filemenu.Refresh(@"..\saves", "*.save", 15, this);
 		return param.filemenu;
 	}
 
-	#region IMenu Members
-
+	@Override
 	public MenuElement[] getMenuElements()
 	{
 		return null;
 	}
 
+	@Override
 	public IMenu getParent()
 	{
 		return parent;
 	}
 
+	@Override
 	public void RenderElements()
 	{
 		param.filemenu.RenderElements();
 	}
 
+	@Override
 	public IMenu DoEscape()
 	{
 		return parent;
 	}
 
+	@Override
 	public void setLastIndex(int idx)
 	{
 	}
 
+	@Override
 	public int getLastIndex()
 	{
 		return 0;
 	}
-
-	#endregion
-
-	#region IFileParent Members
 
 	public IMenu DoChildrenItem(string filename)
 	{
@@ -61,11 +62,10 @@ class SaveGame : MenuElement, IMenu, IFileParent
 
 		string fn;
 		fn = @"..\saves\save" + (idx / 10).ToString()
-			+ (idx % 10).ToString() + ".save";
+				+ (idx % 10).ToString() + ".save";
 		param.engine.State.trigger(
-			new TriggerParams(MainMenuSelection.SAVE_GAME, fn));
+				new TriggerParams(MainMenuSelection.SAVE_GAME, fn));
 		return null;
 	}
 
-	#endregion
 }

@@ -1,23 +1,26 @@
 package hu.csega.superstition.game.menu;
 
-class Shadows extends MenuElement
-{
-	public Shadows(ModelParams param) : base(param)
+class Shadows extends MenuElement {
+	public Shadows(ModelParams param)
 	{
+		super(param);
 	}
 
-	public override string getText()
+	@Override
+	public String getText()
 	{
 		return "Dynamic Shadows";
 	}
 
-	public override IMenu DoItem()
+	@Override
+	public IMenu DoItem()
 	{
 		param.engine.Options.renderShadow = !param.engine.Options.renderShadow;
 		return null;
 	}
 
-	public override void Render()
+	@Override
+	public void Render()
 	{
 		bool val = param.engine.Options.renderShadow;
 		base.Render();

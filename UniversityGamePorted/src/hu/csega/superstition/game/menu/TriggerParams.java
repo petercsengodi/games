@@ -1,28 +1,24 @@
 package hu.csega.superstition.game.menu;
 
-public class TriggerParams
-{
-	public MainMenuSelection command;
-	public string StringParameter;
-	public object ObjectParameter;
+public class TriggerParams {
 
-	public TriggerParams(MainMenuSelection command)
-	{
+	public MainMenuSelection command;
+	public String StringParameter;
+	public Object ObjectParameter;
+
+	public TriggerParams(MainMenuSelection command) {
 		this.command = command;
 		this.StringParameter = null;
 		this.ObjectParameter = null;
 	}
 
-	public TriggerParams(MainMenuSelection command, string StringParameter)
-	{
+	public TriggerParams(MainMenuSelection command, String StringParameter) {
 		this.command = command;
 		this.StringParameter = StringParameter;
 		this.ObjectParameter = null;
 	}
 
-	public TriggerParams(MainMenuSelection command,
-		string StringParameter, object ObjectParameter)
-	{
+	public TriggerParams(MainMenuSelection command, String StringParameter, Object ObjectParameter) {
 		this.command = command;
 		this.StringParameter = StringParameter;
 		this.ObjectParameter = ObjectParameter;

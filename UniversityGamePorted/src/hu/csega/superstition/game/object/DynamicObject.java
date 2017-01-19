@@ -1,49 +1,57 @@
 package hu.csega.superstition.game.object;
 
-abstract class DynamicObject : Clipable, IGameObject
+import org.joml.Vector3f;
+
+import hu.csega.superstition.game.Engine;
+import hu.csega.superstition.gamelib.network.GameObjectData;
+import hu.csega.superstition.storygenerator.Room;
+
+public abstract class DynamicObject extends Clipable implements IGameObject
 {
-	protected bool alive;
-	public bool Alive { get { return alive; } }
+	protected boolean alive;
+
+	public boolean isAlive() {
+		return alive;
+	}
 
 	// Others
 	public Room CurrentRoom = null;
 	protected Engine engine; // !! Only for On-Line building
 
-	public DynamicObject(Vector3 _position, Vector3 _corner1, Vector3 _corner2) : base(_position, _corner1, _corner2)
-	{
+	public DynamicObject(Vector3f _position, Vector3f _corner1, Vector3f _corner2) {
+		super(_position, _corner1, _corner2);
 		alive = true;
 	}
 
-	public DynamicObject()
-		: base(new Vector3(0f, 0f, 0f),
-		new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 0f))
-	{
+	public DynamicObject() {
+		super(new Vector3f(), new Vector3f(), new Vector3f());
 		alive = true;
 	}
 
-	#region IRenderObject Members
-
-	public abstract void Render();
-
-	#endregion
+	public abstract void render();
 
 	/// <summary>
 	/// Preparation of rendeing. For example: light activation.
 	/// </summary>
-	public virtual void PreRender(){}
+	@Override
+	public void preRender() {
+	}
 
 	/// <summary>
 	/// Post functions of rendeing. For example: light deactivation.
 	/// </summary>
-	public virtual void PostRender(){}
+	@Override
+	public void postRender() {
+	}
 
+	@Override
 	public abstract GameObjectData getData();
 	public abstract void Build(Engine engine);
 
-	public virtual void Period()
+	public void period()
 	{
 		float deltat = 0.04f;
-		position = Vector3.Add(position, diff);
-		diff = Vector3.Multiply(velocity, deltat);
+		position.add(diff, position);
+		velocity.mul(deltat, diff);
 	}
 }

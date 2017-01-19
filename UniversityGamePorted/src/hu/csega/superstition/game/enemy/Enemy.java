@@ -1,5 +1,11 @@
 package hu.csega.superstition.game.enemy;
 
+import org.joml.Vector3f;
+
+import hu.csega.superstition.game.animation.Animation;
+import hu.csega.superstition.game.object.DynamicObject;
+import hu.csega.superstition.storygenerator.Room;
+
 public abstract class Enemy extends DynamicObject {
 
 	protected Animation[] animations;
@@ -8,7 +14,7 @@ public abstract class Enemy extends DynamicObject {
 	protected Animation current;
 	protected EnemyState state;
 
-	public Vector3 direction, up;
+	public Vector3f direction, up;
 
 	public Enemy()
 	{
@@ -18,36 +24,38 @@ public abstract class Enemy extends DynamicObject {
 		state = EnemyState.Stand; // Default value
 	}
 
-	public override void Render()
+	@Override
+	public void Render()
 	{
 		current.Render(position, -direction, up, rotation / slow);
 	}
 
-	public override void Period()
+	@Override
+	public void period()
 	{
-		base.Period();
+		super.period();
 		Room OldRoom = CurrentRoom;
 		if(CurrentRoom != null)
 		{
-			CurrentRoom.FollowPlayer(this);
+			CurrentRoom.followPlayer(this);
 		}
 
 		if(OldRoom != CurrentRoom)
 		{
 			if(OldRoom != null)
-				OldRoom.RemoveObjectTurn(this);
+				OldRoom.removeObjectTurn(this);
 			if(CurrentRoom != null)
-				CurrentRoom.AddObjectTurn(this);
+				CurrentRoom.addObjectTurn(this);
 		}
 
 		if(current == null) return;
 		rotation++;
-		if(rotation >= current.MaxScenes * slow)
+		if(rotation >= current.getMaxScenes() * slow)
 			rotation = 0;
 
 		int scene = rotation / slow;
-		corner1 = current.GetBoundingBox1(scene);
-		corner2 = current.GetBoundingBox2(scene);
+		corner1 = current.getBoundingBox1(scene);
+		corner2 = current.getBoundingBox2(scene);
 	}
 
 

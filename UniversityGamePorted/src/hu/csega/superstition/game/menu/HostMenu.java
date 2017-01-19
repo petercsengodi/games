@@ -1,6 +1,6 @@
 package hu.csega.superstition.game.menu;
 
-class HostMenu : IMenu
+public class HostMenu implements IMenu
 {
 	protected ModelParams param;
 	protected IMenu parent;
@@ -12,8 +12,8 @@ class HostMenu : IMenu
 	protected IPAddress address;
 
 	public HostMenu(ModelParams param, IMenu parent,
-		Network.NetworkClient nclient, Network.NetHost host,
-		IPAddress address)
+			Network.NetworkClient nclient, Network.NetHost host,
+			IPAddress address)
 	{
 		this.host = host;
 		this.param = param;
@@ -37,16 +37,16 @@ class HostMenu : IMenu
 				{
 					if(param.game_menu)
 						elements[i] = new HostEntry(param, parent,
-							host_list.list[i], host, address,
-							nclient, true);
+								host_list.list[i], host, address,
+								nclient, true);
 
 					else elements[i] = new HostEntry(param);
 				}
 				else
 				{
 					elements[i] = new HostEntry(param, parent,
-						host_list.list[i], host, address,
-						nclient);
+							host_list.list[i], host, address,
+							nclient);
 				}
 			}
 
@@ -58,31 +58,37 @@ class HostMenu : IMenu
 
 	#region IMenu Members
 
+	@Override
 	public MenuElement[] getMenuElements()
 	{
 		return elements;
 	}
 
+	@Override
 	public IMenu getParent()
 	{
 		return parent;
 	}
 
+	@Override
 	public void RenderElements()
 	{
 		menuhelp.RenderElements();
 	}
 
+	@Override
 	public IMenu DoEscape()
 	{
 		nclient.TcpDisconnect();
 		return parent;
 	}
 
+	@Override
 	public void setLastIndex(int idx)
 	{
 	}
 
+	@Override
 	public int getLastIndex()
 	{
 		return 0;

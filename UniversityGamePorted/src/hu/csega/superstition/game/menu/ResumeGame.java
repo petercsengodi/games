@@ -1,17 +1,20 @@
 package hu.csega.superstition.game.menu;
 
-class ResumeGame : MenuElement
+public class ResumeGame extends MenuElement
 {
-	public ResumeGame(ModelParams param) : base(param)
+	public ResumeGame(ModelParams param)
 	{
+		super(param);
 	}
 
-	public override string getText()
+	@Override
+	public String getText()
 	{
 		return "Resume Game";
 	}
 
-	public override IMenu DoItem()
+	@Override
+	public IMenu DoItem()
 	{
 		param.engine.State.trigger(new TriggerParams(MainMenuSelection.FAILURE));
 		return null;

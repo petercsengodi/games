@@ -1,6 +1,6 @@
 package hu.csega.superstition.game.menu;
 
-class HostEntry : MenuElement
+public class HostEntry extends MenuElement
 {
 	protected IMenu menu;
 	protected HostData data;
@@ -10,11 +10,11 @@ class HostEntry : MenuElement
 	protected IPAddress address;
 
 	public HostEntry(ModelParams param, IMenu menu,
-		HostData data, Network.NetHost host,
-		IPAddress address, Network.NetworkClient nclient)
-		: base(param, "Join Game:" +
-		data.player_count.ToString() + "/" +
-		data.limit.ToString())
+			HostData data, Network.NetHost host,
+			IPAddress address, Network.NetworkClient nclient)
+	: base(param, "Join Game:" +
+			data.player_count.ToString() + "/" +
+			data.limit.ToString())
 	{
 		this.menu = menu;
 		this.param = param;
@@ -26,9 +26,9 @@ class HostEntry : MenuElement
 	}
 
 	public HostEntry(ModelParams param, IMenu menu,
-		HostData data, Network.NetHost host, IPAddress address,
-		Network.NetworkClient nclient, bool publish)
-		: base(param, "Publish Game")
+			HostData data, Network.NetHost host, IPAddress address,
+			Network.NetworkClient nclient, bool publish)
+	: base(param, "Publish Game")
 	{
 		this.menu = menu;
 		this.param = param;
@@ -40,7 +40,7 @@ class HostEntry : MenuElement
 	}
 
 	public HostEntry(ModelParams param)
-		: base(param, "< empty >")
+	: base(param, "< empty >")
 	{
 		this.menu = menu;
 		this.param = param;
@@ -77,10 +77,10 @@ class HostEntry : MenuElement
 			parameters[3] = user_info;
 
 			param.engine.State.trigger(
-				new TriggerParams(
-				MainMenuSelection.PUBLISH_HOST,
-				"Publish Host",
-				parameters));
+					new TriggerParams(
+							MainMenuSelection.PUBLISH_HOST,
+							"Publish Host",
+							parameters));
 		}
 		else
 		{
@@ -92,10 +92,10 @@ class HostEntry : MenuElement
 			parameters[4] = map;
 
 			param.engine.State.trigger(
-				new TriggerParams(
-				MainMenuSelection.JOIN_HOST,
-				"Join Host",
-				parameters));
+					new TriggerParams(
+							MainMenuSelection.JOIN_HOST,
+							"Join Host",
+							parameters));
 
 		}
 

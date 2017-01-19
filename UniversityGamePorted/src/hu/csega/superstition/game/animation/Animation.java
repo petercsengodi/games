@@ -1,5 +1,15 @@
 package hu.csega.superstition.game.animation;
 
+import org.joml.Matrix3f;
+import org.joml.Vector3f;
+
+import hu.csega.superstition.game.Engine;
+import hu.csega.superstition.game.Library;
+import hu.csega.superstition.game.elements.MeshElement;
+import hu.csega.superstition.gamelib.animationdata.CModelData;
+import hu.csega.superstition.gamelib.animationdata.CNamedConnection;
+import hu.csega.superstition.gamelib.animationdata.CPartData;
+
 public class Animation {
 
 	private int max_scenes;
@@ -7,13 +17,12 @@ public class Animation {
 	private Engine engine;
 	private CNamedConnection[] named_connections;
 
-	public Vector3[] bounding_box1, bounding_box2;
-	public Vector3[] bounding_sphere_center;
+	public Vector3f[] bounding_box1, bounding_box2;
+	public Vector3f[] bounding_sphere_center;
 	public float[] bounding_sphere_radius;
 
-	public int MaxScenes
-	{
-		get { return max_scenes; }
+	public int getMaxScenes() {
+		return max_scenes;
 	}
 
 	public Animation(Engine engine)
@@ -21,44 +30,44 @@ public class Animation {
 		this.engine = engine;
 	}
 
-	public Vector3 GetBoundingBox1(int scene)
+	public Vector3f getBoundingBox1(int scene)
 	{
 		return bounding_box1[scene];
 	}
 
-	public Vector3 GetBoundingBox2(int scene)
+	public Vector3f getBoundingBox2(int scene)
 	{
 		return bounding_box2[scene];
 	}
 
-	public Vector3 GetBoundingSphereCenter(int scene)
+	public Vector3f getBoundingSphereCenter(int scene)
 	{
 		return bounding_sphere_center[scene];
 	}
 
-	public float GetBoundingSphereRadius(int scene)
+	public float getBoundingSphereRadius(int scene)
 	{
 		return bounding_sphere_radius[scene];
 	}
 
-	public void Load(string file_name)
+	public void Load(String file_name)
 	{
 		CModelData data = (CModelData)XmlHandler.Load(file_name);
 		this.max_scenes = data.max_scenes;
-		this.parts = new AnimPart[data.parts.Count];
+		this.parts = new AnimPart[data.parts.size()];
 
-		for(int i = 0; i < this.parts.Length; i++)
+		for(int i = 0; i < this.parts.length; i++)
 		{
-			CPartData d = (CPartData)data.parts[i];
-			this.parts[i].element = (MeshElement)
-					Library.Meshes().getMesh(d.mesh_file);
-			this.parts[i].worlds = d.model_transform;
-			this.parts[i].center = d.center_point;
+			CPartData d = data.parts.get(i);
+			AnimPart thisPart = this.parts[i];
+			thisPart.element = (MeshElement)Library.Meshes().getMesh(d.mesh_file);
+			thisPart.worlds = d.model_transform;
+			thisPart.center = d.center_point;
 
-			this.parts[i].bounding_box1 = d.bounding_box1;
-			this.parts[i].bounding_box2 = d.bounding_box2;
-			this.parts[i].bounding_sphere_center = d.bounding_sphere_center;
-			this.parts[i].bounding_sphere_radius = d.bounding_sphere_radius;
+			thisPart.bounding_box1 = d.bounding_box1;
+			thisPart.bounding_box2 = d.bounding_box2;
+			thisPart.bounding_sphere_center = d.bounding_sphere_center;
+			thisPart.bounding_sphere_radius = d.bounding_sphere_radius;
 		}
 
 		if(data.named_connections == null)
@@ -67,10 +76,10 @@ public class Animation {
 		}
 		else
 		{
-			this.named_connections = new CNamedConnection[data.named_connections.Count];
-			for(int i = 0; i < this.named_connections.Length; i++)
+			this.named_connections = new CNamedConnection[data.named_connections.size()];
+			for(int i = 0; i < this.named_connections.length; i++)
 			{
-				this.named_connections[i] = data.named_connections[i] as CNamedConnection;
+				this.named_connections[i] = (CNamedConnection)data.named_connections[i];
 			}
 		}
 
@@ -81,20 +90,20 @@ public class Animation {
 
 	} // End of function Load
 
-	public void Render(Vector3 position, Vector3 direction, Vector3 up, int scene)
+	public void Render(Vector3f position, Vector3f direction, Vector3f up, int scene)
 	{
-		Matrix m = Matrix.LookAtLH(position,
+		Matrix3f m = Matrix.LookAtLH(position,
 				position + direction, up);
 		m.Invert();
 		Draw(m, scene);
 	}
 
-	public void Draw(Matrix common_world, int scene)
+	public void Draw(Matrix3f common_world, int scene)
 	{
 		if(scene < 0 || scene >= max_scenes) return;
-		Matrix actual;
-		Matrix old = engine.Device.Transform.World;
-		foreach(AnimPart part in parts)
+		Matrix3f actual;
+		Matrix3f old = engine.Device.Transform.World;
+		for(AnimPart part : parts)
 		{
 			actual = part.worlds[scene] *
 					Matrix.Translation(part.center[scene]) *
@@ -105,43 +114,41 @@ public class Animation {
 		engine.Device.Transform.World = old;
 	}
 
-	public bool Shot(Matrix common_world, int scene,
-			Vector3 start_point, Vector3 end_point, bool infinity)
+	public boolean shot(Matrix3f common_world, int scene, Vector3f start_point, Vector3f end_point, boolean infinity)
 	{
-		Matrix world;
-		Vector3 start, end;
-		bool ret = false;
-		for(int i = 0; i < parts.Length; i++)
+		Matrix3f world;
+		Vector3f start, end;
+		boolean ret = false;
+		for(int i = 0; i < parts.length; i++)
 		{
 			world = parts[i].worlds[scene] *
-					Matrix.Translation(parts[i].center[scene]) *
+					Matrix3f.Translation(parts[i].center[scene]) *
 					common_world;
 			world.Invert();
-			start = Vector3.TransformCoordinate(
+			start = Vector3f.TransformCoordinate(
 					start_point, world);
-			end = Vector3.TransformCoordinate(
+			end = Vector3f.TransformCoordinate(
 					end_point, world);
 			ret |= parts[i].element.Shot(start, end, infinity);
 		}
 		return ret;
 	}
 
-	public NamedConnectionResult GetNamedConnection(
-			string name, Matrix common_world, int scene)
+	public NamedConnectionResult getNamedConnection(String name, Matrix3f common_world, int scene)
 	{
 		NamedConnectionResult ret = null;
-		if((name == null) || (name.Length == 0)) return ret;
+		if((name == null) || (name.length() == 0)) return ret;
 
-		foreach(CNamedConnection nc in this.named_connections)
+		for(CNamedConnection nc : this.named_connections)
 		{
-			if(nc.name.Equals(name))
+			if(nc.name.equals(name))
 			{
 				ret = new NamedConnectionResult();
 				AnimPart part = parts[nc.object_index];
-				Matrix actual = part.worlds[scene] *
-						Matrix.Translation(part.center[scene]) *
+				Matrix3f actual = part.worlds[scene] *
+						Matrix3f.Translation(part.center[scene]) *
 						common_world;
-				ret.position = Vector3.TransformCoordinate(
+				ret.position = Vector3f.TransformCoordinate(
 						nc.point, actual);
 				return ret;
 			}
@@ -150,9 +157,9 @@ public class Animation {
 		return ret;
 	}
 
-	public static Matrix LookAt(Vector3 position, Vector3 direction, Vector3 up)
+	public static Matrix3f LookAt(Vector3f position, Vector3f direction, Vector3f up)
 	{
-		Matrix ret = Matrix.LookAtLH(position, direction + position, up);
+		Matrix3f ret = Matrix.LookAtLH(position, direction + position, up);
 		ret.Invert();
 		return ret;
 	}

@@ -9,5 +9,5 @@ public class ModelParams
 	public FileMenu filemenu;
 	public bool game_menu;
 	public Model.Model game_model;
-//	public Texts texts;
+	//	public Texts texts;
 }

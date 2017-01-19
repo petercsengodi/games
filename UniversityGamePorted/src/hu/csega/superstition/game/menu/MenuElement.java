@@ -47,18 +47,18 @@ abstract class MenuElement
 
 	public abstract string getText();
 
-	public virtual void OnEnter(){}
-	public virtual void OnLeft(){}
-	public virtual void OnRight(){}
+	public void OnEnter(){}
+	public void OnLeft(){}
+	public void OnRight(){}
 
-	public virtual void Render()
+	public void Render()
 	{
 		if(text != null) text.Render(translation);
 	}
 
 	public abstract IMenu DoItem();
 
-	public virtual void Dispose()
+	public void Dispose()
 	{
 		if(text != null) text.Dispose();
 	}

@@ -1,7 +1,6 @@
 package hu.csega.superstition.game.menu;
 
-class MenuHelpClass : IDisposable
-{
+public class MenuHelpClass {
 	protected ModelParams param;
 	public static float Space = 0.8f;
 	public static float LeftExtr = 3.8f;
@@ -18,13 +17,13 @@ class MenuHelpClass : IDisposable
 		this.elements = elements;
 		if(elements != null)
 		{
-			int n = elements.Length;
+			int n = elements.length;
 			for(int i = 0; i < n; i++)
 			{
-				elements[i].Translation = new Vector3(
-					- LeftExtr,
-					(float) ( (n / 2.0 - i) * 2 * Space - LowerExtr ),
-					MenuHelpClass.TextExtr / 2f);
+				elements[i].Translation = new Vector3f(
+						- LeftExtr,
+						(float) ( (n / 2.0 - i) * 2 * Space - LowerExtr ),
+						MenuHelpClass.TextExtr / 2f);
 			}
 		}
 		else this.elements = new MenuElement[0];
@@ -32,21 +31,18 @@ class MenuHelpClass : IDisposable
 
 	public void RenderElements()
 	{
-		for(int i=0; i < elements.Length; i ++)
+		for(int i=0; i < elements.length; i ++)
 		{
 			elements[i].Render();
 		}
 	}
 
-	#region IDisposable Members
-
 	public void Dispose()
 	{
-		for(int i = 0; i < elements.Length; i++)
+		for(int i = 0; i < elements.length; i++)
 		{
 			elements[i].Dispose();
 		}
 	}
 
-	#endregion
 }

@@ -1,6 +1,6 @@
 package hu.csega.superstition.game.menu;
 
-public class LoadingTitle : IModel
+public class LoadingTitle implements IModel
 {
 	protected double angle = 0.0;
 	protected double speed = 0.03;
@@ -16,7 +16,7 @@ public class LoadingTitle : IModel
 		engine = _engine;
 		Font font = new Font("Arial", MenuHelpClass.TextSize * 2);
 		text = engine.GetTextMesh(font, "Loading...",
-			MenuHelpClass.TextBend, MenuHelpClass.TextExtr);
+				MenuHelpClass.TextBend, MenuHelpClass.TextExtr);
 		text.Shadow = false;
 		light = engine.GetDirectedLight(Color.LightBlue, new Vector3(4f, 4f, 8f));
 	}
@@ -25,10 +25,10 @@ public class LoadingTitle : IModel
 	{
 		light.Activate();
 		Matrix m =
-			Matrix.Translation(new Vector3(1f, 0f, 0f) - (text as MeshText).Center)*
-			Matrix.RotationX(0.3f) *
-			Matrix.RotationZ(0.3f) *
-			Matrix.RotationY(-(float)angle);
+				Matrix.Translation(new Vector3(1f, 0f, 0f) - (text as MeshText).Center)*
+				Matrix.RotationX(0.3f) *
+				Matrix.RotationZ(0.3f) *
+				Matrix.RotationY(-(float)angle);
 		engine.Device.Transform.World = m;
 		text.Render();
 		engine.Device.Transform.World = Matrix.Identity;

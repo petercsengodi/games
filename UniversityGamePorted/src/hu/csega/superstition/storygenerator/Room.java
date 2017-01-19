@@ -2,26 +2,20 @@ package hu.csega.superstition.storygenerator;
 
 import hu.csega.superstition.util.StaticMathLibrary;
 
-class Room : TWLNode
+public class Room extends TWLNode
 {
-	#region Direction Constants
-
 	public const int WALL_LEFT = 1,
-		WALL_RIGHT = 2,
-		WALL_FRONT = 4,
-		WALL_BACK = 8,
-		WALL_FLOOR = 16,
-		WALL_CEILING = 32,
-		WALL_SUM = 63;
+			WALL_RIGHT = 2,
+			WALL_FRONT = 4,
+			WALL_BACK = 8,
+			WALL_FLOOR = 16,
+			WALL_CEILING = 32,
+			WALL_SUM = 63;
 
 	public const int DG_LEFT = 0,
-		DG_RIGHT = 180,
-		DG_FRONT = 90,
-		DG_BACK = 270;
-
-	#endregion
-
-	#region Variables, constants
+			DG_RIGHT = 180,
+			DG_FRONT = 90,
+			DG_BACK = 270;
 
 	protected int walls;
 	protected Vector3 corner1, corner2;
@@ -36,12 +30,12 @@ class Room : TWLNode
 	public Vector3 Upper{ get{ return corner2;} }
 
 	public string Face{ get{ return (string)face.Clone(); }
-		set
-		{
-			face = (string)value.Clone();
-			if((face != null) && (face.CompareTo("") != 0))
-				bitmap = Bitmap.FromFile(face);
-		}
+	set
+	{
+		face = (string)value.Clone();
+		if((face != null) && (face.CompareTo("") != 0))
+			bitmap = Bitmap.FromFile(face);
+	}
 	}
 
 	public string DirectXTexture
@@ -55,7 +49,7 @@ class Room : TWLNode
 	}
 
 	public string Mark{ get{ return face; }
-		set	{ face = value; }
+	set	{ face = value; }
 	}
 
 	public Image BITMAP
@@ -67,17 +61,11 @@ class Room : TWLNode
 	private Node node;
 	public Node NODE { get { return node; } set { node = value; } }
 
-	#endregion
-
 	public Room(Vector3 _corner1, Vector3 _corner2)
 	{
-		#region Initializations
-
 		walls = WALL_SUM;
 		corner1 = Vector3.Minimize(_corner1, _corner2);
 		corner2 = Vector3.Maximize(_corner1, _corner2);
-
-		#endregion
 	}
 
 	public Vector3 CenterOnFloor
@@ -109,7 +97,7 @@ class Room : TWLNode
 	{
 		this.device = device;
 		buffer = new VertexBuffer(typeof(CustomVertex.PositionTextured),
-			36, this.device, 0, CustomVertex.PositionTextured.Format, Pool.Default);
+				36, this.device, 0, CustomVertex.PositionTextured.Format, Pool.Default);
 		buffer.Created += new EventHandler(OnReCreate);
 		OnReCreate(buffer, null);
 	}

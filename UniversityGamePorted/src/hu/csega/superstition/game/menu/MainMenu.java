@@ -1,6 +1,6 @@
 package hu.csega.superstition.game.menu;
 
-public class MainMenu : IModel
+public class MainMenu implements IModel
 {
 
 	protected Engine engine;
@@ -35,7 +35,7 @@ public class MainMenu : IModel
 		param.menu = this;
 		param.game_menu = false;
 		param.game_model = null;
-//		param.texts = new Texts(engine);
+		//		param.texts = new Texts(engine);
 		lights = new TranslateLight[7];
 	}
 
@@ -47,7 +47,7 @@ public class MainMenu : IModel
 		param.menu = this;
 		param.game_menu = game_menu;
 		param.game_model = game_model;
-//		param.texts = new Texts(engine);
+		//		param.texts = new Texts(engine);
 		lights = new TranslateLight[7];
 	}
 
@@ -66,18 +66,18 @@ public class MainMenu : IModel
 		correction = new Vector3(MenuHelpClass.LeftExtr, 0f, 0f);
 
 		triangle1 = engine.Pr_TesselatedTriangle(
-			new Vector3(-6f, -6f, 3f),
-			new Vector3(-6f,  6f, 3f),
-			new Vector3( 6f,  6f, 3f),
-			@"..\textures\menu_textures\web2.bmp");
+				new Vector3(-6f, -6f, 3f),
+				new Vector3(-6f,  6f, 3f),
+				new Vector3( 6f,  6f, 3f),
+				@"..\textures\menu_textures\web2.bmp");
 		triangle1.Shadow = false;
 		triangle1.NotEffectedByLight = true;
 
 		triangle2 = engine.Pr_TesselatedTriangle(
-			new Vector3(  6f,   6f, 3f),
-			new Vector3(  6f,  -6f, 3f),
-			new Vector3( -6f,  -6f, 3f),
-			@"..\textures\menu_textures\web2.bmp");
+				new Vector3(  6f,   6f, 3f),
+				new Vector3(  6f,  -6f, 3f),
+				new Vector3( -6f,  -6f, 3f),
+				@"..\textures\menu_textures\web2.bmp");
 		triangle2.Shadow = false;
 		triangle2.NotEffectedByLight = true;
 
@@ -97,14 +97,14 @@ public class MainMenu : IModel
 			//					StaticRandomLibrary.DoubleValue() * 2.0 * Math.PI);
 
 			lights[i] = new TranslateLight(_engine, Color.FromArgb(
-				(int)(StaticRandomLibrary.DoubleValue() * 255),
-				(int)(StaticRandomLibrary.DoubleValue() * 255),
-				(int)(StaticRandomLibrary.DoubleValue() * 255)),
-				new Vector3(0f, 0f, -1f),
-				StaticRandomLibrary.DoubleValue() * 2.0 + 2.0,
-				StaticRandomLibrary.DoubleValue() * 1.0 + 0.5,
-				StaticRandomLibrary.DoubleValue() * 2.0 * Math.PI,
-				StaticRandomLibrary.DoubleValue() * 2.0 * Math.PI);
+					(int)(StaticRandomLibrary.DoubleValue() * 255),
+					(int)(StaticRandomLibrary.DoubleValue() * 255),
+					(int)(StaticRandomLibrary.DoubleValue() * 255)),
+					new Vector3(0f, 0f, -1f),
+					StaticRandomLibrary.DoubleValue() * 2.0 + 2.0,
+					StaticRandomLibrary.DoubleValue() * 1.0 + 0.5,
+					StaticRandomLibrary.DoubleValue() * 2.0 * Math.PI,
+					StaticRandomLibrary.DoubleValue() * 2.0 * Math.PI);
 		}
 
 		// plus animation
@@ -113,9 +113,9 @@ public class MainMenu : IModel
 		for(int i = 0; i < agents.Length; i++)
 		{
 			agents[i] = new SpiderAgent(spider,
-				new Vector3(0f, 0f, -1f),
-				new Vector3(-5.5f, -5.5f, 3f),
-				new Vector3(5.5f, 5.5f, 3f));
+					new Vector3(0f, 0f, -1f),
+					new Vector3(-5.5f, -5.5f, 3f),
+					new Vector3(5.5f, 5.5f, 3f));
 		}
 
 		Period();
@@ -172,14 +172,14 @@ public class MainMenu : IModel
 	public void OnKeyDown(int key)
 	{
 		if(key == 0xC8) if(item > 0)
-						{ // on key up
-							menu.setLastIndex(--item);
-						}
+		{ // on key up
+			menu.setLastIndex(--item);
+		}
 
 		if(key == 0xD0) if(item < menu.getMenuElements().Length-1)
-						{ // on key down
-							menu.setLastIndex(++item);
-						}
+		{ // on key down
+			menu.setLastIndex(++item);
+		}
 
 		if(key == 0x01)
 		{

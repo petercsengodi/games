@@ -47,7 +47,15 @@ public class StaticRandomLibrary {
 		return random.nextDouble();
 	}
 
-	public static double DoubleValue(double scale) {
+	public static float floatValue() {
+		return random.nextFloat();
+	}
+
+	public static float floatValue(float min, float max) {
+		return random.nextFloat() * (max - min) + min;
+	}
+
+	public static double doubleValue(double scale) {
 		return random.nextDouble() * scale;
 	}
 

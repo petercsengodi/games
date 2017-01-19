@@ -1,17 +1,20 @@
 package hu.csega.superstition.game.menu;
 
-class Quit : MenuElement
+public class Quit extends MenuElement
 {
-	public Quit(ModelParams param) : base(param)
+	public Quit(ModelParams param)
 	{
+		super(param);
 	}
 
-	public override string getText()
+	@Override
+	public String getText()
 	{
 		return "Quit";
 	}
 
-	public override IMenu DoItem()
+	@Override
+	public IMenu DoItem()
 	{
 		param.engine.State.trigger(new TriggerParams(MainMenuSelection.QUIT));
 		return null;
