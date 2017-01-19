@@ -1,6 +1,6 @@
 package hu.csega.superstition.animatool;
 
-public class SceneEditor : CView
+public class SceneEditor extends CView
 {
 	private System.Windows.Forms.Button change_button;
 	private System.Windows.Forms.Label label1;
@@ -119,15 +119,15 @@ public class SceneEditor : CView
 		//
 		this.numericUpDown1.Location = new System.Drawing.Point(64, 48);
 		this.numericUpDown1.Maximum = new System.Decimal(new int[] {
-																	   10000,
-																	   0,
-																	   0,
-																	   0});
+				10000,
+				0,
+				0,
+				0});
 		this.numericUpDown1.Minimum = new System.Decimal(new int[] {
-																	   1,
-																	   0,
-																	   0,
-																	   -2147483648});
+				1,
+				0,
+				0,
+				-2147483648});
 		this.numericUpDown1.Name = "numericUpDown1";
 		this.numericUpDown1.Size = new System.Drawing.Size(56, 20);
 		this.numericUpDown1.TabIndex = 4;
@@ -147,10 +147,10 @@ public class SceneEditor : CView
 		//
 		this.numericUpDown2.Location = new System.Drawing.Point(248, 48);
 		this.numericUpDown2.Maximum = new System.Decimal(new int[] {
-																	   10000,
-																	   0,
-																	   0,
-																	   0});
+				10000,
+				0,
+				0,
+				0});
 		this.numericUpDown2.Name = "numericUpDown2";
 		this.numericUpDown2.Size = new System.Drawing.Size(56, 20);
 		this.numericUpDown2.TabIndex = 6;
@@ -160,10 +160,10 @@ public class SceneEditor : CView
 		//
 		this.lerp_start.Location = new System.Drawing.Point(80, 152);
 		this.lerp_start.Maximum = new System.Decimal(new int[] {
-																   10000,
-																   0,
-																   0,
-																   0});
+				10000,
+				0,
+				0,
+				0});
 		this.lerp_start.Name = "lerp_start";
 		this.lerp_start.Size = new System.Drawing.Size(56, 20);
 		this.lerp_start.TabIndex = 7;
@@ -173,10 +173,10 @@ public class SceneEditor : CView
 		//
 		this.lerp_end.Location = new System.Drawing.Point(208, 152);
 		this.lerp_end.Maximum = new System.Decimal(new int[] {
-																 10000,
-																 0,
-																 0,
-																 0});
+				10000,
+				0,
+				0,
+				0});
 		this.lerp_end.Name = "lerp_end";
 		this.lerp_end.Size = new System.Drawing.Size(56, 20);
 		this.lerp_end.TabIndex = 8;
@@ -186,10 +186,10 @@ public class SceneEditor : CView
 		//
 		this.lerp_from.Location = new System.Drawing.Point(72, 184);
 		this.lerp_from.Maximum = new System.Decimal(new int[] {
-																  10000,
-																  0,
-																  0,
-																  0});
+				10000,
+				0,
+				0,
+				0});
 		this.lerp_from.Name = "lerp_from";
 		this.lerp_from.Size = new System.Drawing.Size(56, 20);
 		this.lerp_from.TabIndex = 9;
@@ -199,10 +199,10 @@ public class SceneEditor : CView
 		//
 		this.lerp_until.Location = new System.Drawing.Point(168, 184);
 		this.lerp_until.Maximum = new System.Decimal(new int[] {
-																   10000,
-																   0,
-																   0,
-																   0});
+				10000,
+				0,
+				0,
+				0});
 		this.lerp_until.Name = "lerp_until";
 		this.lerp_until.Size = new System.Drawing.Size(56, 20);
 		this.lerp_until.TabIndex = 10;
@@ -370,9 +370,9 @@ public class SceneEditor : CView
 		foreach(CPart part in model.parts)
 		{
 			part.model_transform[dest] =
-				part.model_transform[source];
+					part.model_transform[source];
 			part.center_point[dest] =
-				part.center_point[source];
+					part.center_point[source];
 		}
 
 		model.UpdateViews();
@@ -450,9 +450,9 @@ public class SceneEditor : CView
 				p.center_point[i] = center;
 				p.model_transform[i] = VectorsToMatrix(m);
 
-//				// Preserve connections
-//				model.scene = i;
-//				model.PreserveConnections(p);
+				//				// Preserve connections
+				//				model.scene = i;
+				//				model.PreserveConnections(p);
 			}
 		}
 
@@ -477,19 +477,19 @@ public class SceneEditor : CView
 
 		// Target: Direction (maybe X = 1)
 		ret[0] = Vector3.TransformCoordinate(
-			new Vector3(0f, 0f, 1f), i);
+				new Vector3(0f, 0f, 1f), i);
 
 		// Up: Y = 1
 		ret[1] = Vector3.TransformCoordinate(
-			new Vector3(0f, 1f, 0f), i);
+				new Vector3(0f, 1f, 0f), i);
 
 		// Scaling Vector
 		Matrix inv = Matrix.LookAtLH(
-			new Vector3(0f, 0f, 0f), ret[0], ret[1]);
+				new Vector3(0f, 0f, 0f), ret[0], ret[1]);
 		inv.Invert();
 		Matrix only_scale = m * inv;
 		ret[2] = Vector3.TransformCoordinate(
-			new Vector3(1f, 1f, 1f), only_scale);
+				new Vector3(1f, 1f, 1f), only_scale);
 
 		return ret;
 	}
@@ -497,8 +497,8 @@ public class SceneEditor : CView
 	private Matrix VectorsToMatrix(Vector3[] v)
 	{
 		Matrix ret = Matrix.LookAtLH(
-			new Vector3(0f, 0f, 0f), v[0], v[1]);
-//		ret.Invert();
+				new Vector3(0f, 0f, 0f), v[0], v[1]);
+		//		ret.Invert();
 		ret = Matrix.Scaling(v[2].X, v[2].Y, v[2].Z) * ret;
 
 		return ret;

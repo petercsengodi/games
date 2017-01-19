@@ -1,10 +1,8 @@
-package hu.csega.superstition;
+package hu.csega.superstition.gamelib.network;
 
-[Serializable]
-class ModelData : GameObjectData
+public class ModelData extends GameObjectData
 {
-	public ModelData()
-	{
+	public ModelData() {
 		description = "Game Model Infromation v0.1";
 	}
 
@@ -13,5 +11,7 @@ class ModelData : GameObjectData
 	public GameObjectData[] entrances;
 	public GameObjectData[] game_elements;
 	public GameObjectData[] start_places;
-}
+
+	/** Default serial version UID. */
+	private static final long serialVersionUID = 1L;
 }
