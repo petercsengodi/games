@@ -1,7 +1,7 @@
 package hu.csega.superstition.game.elements;
 
-public class ETesselatedTriangle : Primitive
-{
+public class ETesselatedTriangle extends Primitive {
+
 	private Vector3 a, b, c, normal;
 	private float lAB, lAC, lBC;
 	private int n;
@@ -59,9 +59,9 @@ public class ETesselatedTriangle : Primitive
 		pre_array[0] = a;
 
 		//	Counting matrix for Textures
-        Matrix m,
-			t1 = Matrix.Identity,
-			t2 = Matrix.Identity;
+		Matrix m,
+		t1 = Matrix.Identity,
+		t2 = Matrix.Identity;
 
 		t2.M11 =  normal.X;
 		t2.M13 = -normal.Z;
@@ -90,20 +90,20 @@ public class ETesselatedTriangle : Primitive
 
 			tX = Vector3.TransformCoordinate(next_array[i], m);
 			stream.Write(new CustomVertex.PositionNormalTextured(
-				next_array[i], normal, tX.Z, tX.Y
-				));
+					next_array[i], normal, tX.Z, tX.Y
+					));
 
 			for(int j = i - 1; j >= 0; j--)
 			{
 				tX = Vector3.TransformCoordinate(pre_array[j], m);
 				stream.Write(new CustomVertex.PositionNormalTextured(
-					pre_array[j], normal, tX.Z, tX.Y
-					));
+						pre_array[j], normal, tX.Z, tX.Y
+						));
 
 				tX = Vector3.TransformCoordinate(next_array[j], m);
 				stream.Write(new CustomVertex.PositionNormalTextured(
-					next_array[j], normal, tX.Z, tX.Y
-					));
+						next_array[j], normal, tX.Z, tX.Y
+						));
 			}
 
 			pre_array = next_array;
@@ -111,20 +111,21 @@ public class ETesselatedTriangle : Primitive
 
 		tX = Vector3.TransformCoordinate(a, m);
 		stream.Write(new CustomVertex.PositionNormalTextured(
-			a, normal, tX.Z, tX.Y
-			));
+				a, normal, tX.Z, tX.Y
+				));
 		tX = Vector3.TransformCoordinate(b, m);
 		stream.Write(new CustomVertex.PositionNormalTextured(
-			b, normal, tX.Z, tX.Y
-			));
+				b, normal, tX.Z, tX.Y
+				));
 		tX = Vector3.TransformCoordinate(c, m);
 		stream.Write(new CustomVertex.PositionNormalTextured(
-			c, normal, tX.Z, tX.Y
-			));
+				c, normal, tX.Z, tX.Y
+				));
 
 		((VertexBuffer)(buf)).Unlock();
 	}
 
+	@Override
 	public override void Render()
 	{
 		if(engine.IsShadowRendering)
@@ -133,7 +134,7 @@ public class ETesselatedTriangle : Primitive
 			return;
 		}
 
-	//	RenderShadow(); return;
+		//	RenderShadow(); return;
 
 		engine.Device.SetTexture(0, face);
 		engine.Device.SetStreamSource(0, buffer, lock_index);
@@ -155,6 +156,7 @@ public class ETesselatedTriangle : Primitive
 		engine.Device.SetTexture(0, null);
 	}
 
+	@Override
 	public override void RenderShadow()
 	{
 		engine.RenderVolume(a, b, c);

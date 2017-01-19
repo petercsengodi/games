@@ -10,8 +10,8 @@ import hu.csega.superstition.gamelib.animationdata.CModelData;
 import hu.csega.superstition.gamelib.animationdata.CNamedConnection;
 import hu.csega.superstition.gamelib.animationdata.CPartData;
 
-public class CModel
-{
+public class CModel {
+
 	protected ArrayList<CView> views;
 	protected Object selected;
 	protected boolean snap_to_grid;
@@ -21,7 +21,7 @@ public class CModel
 	public int max_scenes;
 
 	public double grid_from = -1, grid_to = 1,
-		grid_step = 0.1, grid_error = 0.001;
+			grid_step = 0.1, grid_error = 0.001;
 
 	public boolean isSnapToGrid() {
 		return snap_to_grid;
@@ -99,17 +99,17 @@ public class CModel
 				if((con.name != null) && (con.name.length() > 0))
 				{
 					ret.named_connections.add(
-						new CNamedConnection(con.name,
-						con.point,
-						object_index,
-						connection_index));
+							new CNamedConnection(con.name,
+									con.point,
+									object_index,
+									connection_index));
 				}
 			}
 		}
 
 		int start = 0;
 		while((ret.get(start).bounding_box1 == null)
-			|| (start >= max_scenes)) start++;
+				|| (start >= max_scenes)) start++;
 		if(start >= max_scenes) return ret;
 
 		ret.bounding_box1 = new Vector3f[max_scenes];
@@ -270,14 +270,14 @@ public class CModel
 					// Calculate root's connection position
 					con1 = root.connections[con.connection_index].point;
 					con1 = Vector3.TransformCoordinate(con1,
-						root.model_transform[scene] *
-						Matrix4f..Translation(root.center_point[scene]));
+							root.model_transform[scene] *
+							Matrix4f..Translation(root.center_point[scene]));
 
 					// Calculate child's connection position
 					con2 = con.point;
 					con2 = Vector3.TransformCoordinate(con2,
-						p.model_transform[scene] *
-						Matrix.Translation(p.center_point[scene]));
+							p.model_transform[scene] *
+							Matrix.Translation(p.center_point[scene]));
 
 					// Calculating difference, moving
 					diff = con1.sub(con2);

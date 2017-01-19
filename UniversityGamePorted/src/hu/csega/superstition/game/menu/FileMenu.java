@@ -1,7 +1,7 @@
 package hu.csega.superstition.game.menu;
 
-class FileMenu : IMenu
-{
+public class FileMenu implements IMenu {
+
 	protected ModelParams param;
 	protected int lastIndex;
 	protected IMenu parent;
@@ -35,16 +35,19 @@ class FileMenu : IMenu
 
 	#region IMenu Members
 
+	@Override
 	public MenuElement[] getMenuElements()
 	{
 		return elements;
 	}
 
+	@Override
 	public IMenu getParent()
 	{
 		return parent;
 	}
 
+	@Override
 	public void RenderElements()
 	{
 		for(int i = 0; i < 6; i++)
@@ -53,16 +56,19 @@ class FileMenu : IMenu
 		}
 	}
 
+	@Override
 	public IMenu DoEscape()
 	{
 		return parent.getParent();
 	}
 
+	@Override
 	public void setLastIndex(int idx)
 	{
 		lastIndex = idx;
 	}
 
+	@Override
 	public int getLastIndex()
 	{
 		return lastIndex;

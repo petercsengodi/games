@@ -1,5 +1,7 @@
 package hu.csega.superstition.game;
 
+import org.joml.Vector3f;
+
 public interface PositionNormalTextured {
-	void SquarePointFunction(Vector3 Min, Vector3 Max, int num);
+	void squarePointFunction(Vector3f Min, Vector3f Max, int num);
 }

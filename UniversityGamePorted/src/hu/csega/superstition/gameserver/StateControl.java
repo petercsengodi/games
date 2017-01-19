@@ -2,8 +2,8 @@ package hu.csega.superstition.gameserver;
 
 import hu.csega.superstition.gameserver.states.State;
 
-public class StateControl
-{
+public class StateControl {
+
 	private State state;
 
 	public StateControl()

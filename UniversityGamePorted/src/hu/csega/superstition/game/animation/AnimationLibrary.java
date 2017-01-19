@@ -1,6 +1,8 @@
 package hu.csega.superstition.game.animation;
 
-public class AnimationLibrary : Library
+import hu.csega.superstition.game.Library;
+
+public class AnimationLibrary extends Library
 {
 	public static AnimationLibrary create(Engine engine)
 	{
@@ -34,6 +36,7 @@ public class AnimationLibrary : Library
 		return id.anim;
 	}
 
+	@Override
 	public override void Clear()
 	{
 		library.Clear();

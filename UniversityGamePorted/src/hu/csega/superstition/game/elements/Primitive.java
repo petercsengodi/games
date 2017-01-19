@@ -1,7 +1,7 @@
 package hu.csega.superstition.game.elements;
 
-public abstract class Primitive : Element
-{
+public abstract class Primitive extends Element {
+
 	protected Texture face = null;
 	protected VertexBuffer buffer = null;
 	protected int count, lock_index;
@@ -45,10 +45,10 @@ public abstract class Primitive : Element
 		if(!foreign_buffer)
 		{
 			buffer = new VertexBuffer(typeof(CustomVertex.PositionNormalTextured),
-				count, engine.Device, 0, CustomVertex.PositionNormalTextured.Format, Pool.Managed);
+					count, engine.Device, 0, CustomVertex.PositionNormalTextured.Format, Pool.Managed);
 			engine.AddToDisposeList(buffer);
 		}
-		
+
 		buffer.Created += new EventHandler(Initialize);
 		Initialize(buffer, null);
 	}
@@ -68,6 +68,7 @@ public abstract class Primitive : Element
 	/// <summary>
 	/// Dispose function.
 	/// </summary>
+	@Override
 	public override void Dispose()
 	{
 		engine.RemoveFromDisposeList(buffer);

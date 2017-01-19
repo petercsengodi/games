@@ -1,11 +1,13 @@
 package hu.csega.superstition.game.animation;
 
-public class AnimPart
-{
+import org.joml.Matrix3f;
+import org.joml.Vector3f;
+
+public class AnimPart {
 	public MeshElement element;
-	public Vector3[] center;
-	public Matrix[] worlds;
-	public Vector3[] bounding_box1, bounding_box2;
-	public Vector3[] bounding_sphere_center;
+	public Vector3f[] center;
+	public Matrix3f[] worlds;
+	public Vector3f[] bounding_box1, bounding_box2;
+	public Vector3f[] bounding_sphere_center;
 	public float[] bounding_sphere_radius;
 }

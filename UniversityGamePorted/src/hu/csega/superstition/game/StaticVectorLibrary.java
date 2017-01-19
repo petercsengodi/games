@@ -2,8 +2,8 @@ package hu.csega.superstition.game;
 
 import org.joml.Vector3f;
 
-public class StaticVectorLibrary
-{
+public class StaticVectorLibrary {
+
 	static public boolean inited = false;
 
 	public class Direction

@@ -1,9 +1,13 @@
 package hu.csega.superstition.game.lights;
 
-public class DirectedLight : Light
-{
+import org.joml.Vector3f;
+
+import hu.csega.superstition.game.Engine;
+
+public class DirectedLight extends Light {
+
 	private Color color;
-	private Vector3 direction;
+	private Vector3f direction;
 
 	/// <summary>
 	/// Direction of the light
@@ -55,14 +59,15 @@ public class DirectedLight : Light
 	/// <param name="_engine">Engine.</param>
 	/// <param name="_color">Color of the light.</param>
 	/// <param name="_direction">Direction of the rays.</param>
-	public DirectedLight(Engine _engine, Color _color, Vector3 _direction)
+	public DirectedLight(Engine _engine, Color _color, Vector3f _direction)
 	{
 		engine = _engine;
 		color = _color;
 		direction = _direction;
 	}
 
-	protected override void SetParameters()
+	@Override
+	protected void SetParameters()
 	{
 		engine.Device.Lights[index].Diffuse = color;
 		engine.Device.Lights[index].Type = LightType.Directional;

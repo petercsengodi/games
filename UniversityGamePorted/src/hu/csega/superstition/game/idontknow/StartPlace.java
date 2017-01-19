@@ -1,8 +1,10 @@
 package hu.csega.superstition.game.idontknow;
 
-class StartPlace : IGameObject
-{
-	protected Vector3 position, direction;
+import org.joml.Vector3f;
+
+class StartPlace implements IGameObject {
+
+	protected Vector3f position, direction;
 
 	public StartPlace(Vector3 position)
 	{
@@ -16,9 +18,6 @@ class StartPlace : IGameObject
 		this.direction = direction;
 	}
 
-	#region IGameObject Members
-
-	[Serializable]
 	public class StartData : GameObjectData
 	{
 		public Vector3 position, direction;
@@ -66,22 +65,12 @@ class StartPlace : IGameObject
 	{
 	}
 
-	#endregion
-
-	#region IRenderObject Members
-
 	public void Render()
 	{
 	}
 
-	#endregion
-
-	#region IPeriod Members
-
 	public void Period()
 	{
 	}
-
-	#endregion
 
 }

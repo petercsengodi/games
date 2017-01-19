@@ -4,8 +4,7 @@ public class HostList extends GameObjectData
 {
 	public HostData[] list;
 
-	public HostList()
-	{
+	public HostList() {
 		description = "Host List";
 	}
 

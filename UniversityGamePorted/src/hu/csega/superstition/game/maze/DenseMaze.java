@@ -1,10 +1,10 @@
 package hu.csega.superstition.game.maze;
 
-class DenseMaze : GridMaze
-{
-	public DenseMaze(int xsize, int ysize) :
-		base(xsize, ysize)
+public class DenseMaze extends GridMaze {
+
+	public DenseMaze(int xsize, int ysize)
 	{
+		super(xsize, ysize);
 		ConnectAll();
 		AddStartPlaces();
 	}

@@ -1,8 +1,9 @@
 package hu.csega.superstition.game;
 
-public struct Parameters
-{
-	public bool FullScreen;
+public class Parameters {
+
+	public boolean fullScreen;
 	public ScreenSize size;
 	public Form main;
+
 }

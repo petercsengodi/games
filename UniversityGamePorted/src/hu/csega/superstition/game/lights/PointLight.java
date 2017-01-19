@@ -1,10 +1,12 @@
 package hu.csega.superstition.game.lights;
 
-public class PointLight : Light
-{
+import org.joml.Vector3f;
+
+public class PointLight extends Light {
+
 	private float range;
 	private Color color;
-	private Vector3 position;
+	private Vector3f position;
 
 	/// <summary>
 	/// Position of the light.
@@ -39,6 +41,7 @@ public class PointLight : Light
 		position = _position;
 	}
 
+	@Override
 	protected override void SetParameters()
 	{
 		engine.Device.Lights[index].Diffuse = color;

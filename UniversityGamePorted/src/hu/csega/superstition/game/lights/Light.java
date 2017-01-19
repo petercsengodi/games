@@ -1,10 +1,12 @@
 package hu.csega.superstition.game.lights;
 
-public abstract class Light
-{
+import hu.csega.superstition.game.Engine;
+
+public abstract class Light {
+
 	protected Engine engine;
 	protected int index;
-	protected bool activated = false;
+	protected boolean activated = false;
 
 	/// <summary>
 	/// Sets up light parameters. Called from Activate().

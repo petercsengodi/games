@@ -1,7 +1,7 @@
 package hu.csega.superstition.game;
 
-public class PlayClient
-{
+public class PlayClient {
+
 	private Socket socket;
 	private IPAddress host;
 	private IPEndPoint server;
@@ -38,7 +38,7 @@ public class PlayClient
 	public bool UdpConnect()
 	{
 		socket = new Socket(AddressFamily.InterNetwork,
-			SocketType.Dgram, ProtocolType.Udp);
+				SocketType.Dgram, ProtocolType.Udp);
 		socket.Bind(new IPEndPoint(IPAddress.Any, client_port));
 		socket.Blocking = false;
 
@@ -85,30 +85,30 @@ public class PlayClient
 		int result = socket.ReceiveFrom(buffer, ref point);
 		switch(result)
 		{
-			case 0:
-				ret = null;
-				break;
+		case 0:
+			ret = null;
+			break;
 
-			default:
-				MemoryStream stream = new MemoryStream(buffer);
-				try
-				{
-					Packet packet = (Packet)formatter.Deserialize(stream);
-					if(packet.sender != -1) break;
-					if(packet.counter < last_counter) break;
-					last_counter = packet.counter;
-					ret = packet.data;
-				}
-				catch(Exception e)
-				{
-					Console.WriteLine(result + ":" + e.Message);
-					ret = null;
-				}
-				finally
-				{
-					stream.Close();
-				}
-				break;
+		default:
+			MemoryStream stream = new MemoryStream(buffer);
+			try
+			{
+				Packet packet = (Packet)formatter.Deserialize(stream);
+				if(packet.sender != -1) break;
+				if(packet.counter < last_counter) break;
+				last_counter = packet.counter;
+				ret = packet.data;
+			}
+			catch(Exception e)
+			{
+				Console.WriteLine(result + ":" + e.Message);
+				ret = null;
+			}
+			finally
+			{
+				stream.Close();
+			}
+			break;
 		}
 
 		return ret;

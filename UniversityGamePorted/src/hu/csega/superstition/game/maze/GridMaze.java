@@ -1,14 +1,9 @@
 package hu.csega.superstition.game.maze;
 
-class GridMaze : IGeneratedMaze
-{
-	#region Texture Libraries
+public class GridMaze implements IGeneratedMaze {
 
 	string[] walls, floors, stairs;
 
-	#endregion
-
-	#region Attributes
 
 	private int xsize, ysize;
 	public int XSize
@@ -37,30 +32,26 @@ class GridMaze : IGeneratedMaze
 	}
 
 	private const float
-		max_room_width = 12f,
-		max_room_height = 10f,
-		max_corridor_height = 4f,
-		max_corridor_width = 4f,
-		min_room_height = 4f,
-		min_corridor_height = 2.0f,
-		min_room_width = 5f,
-		min_corridor_width = 1.5f,
-		room_difference = 2f,
-		room_corridor_diff = 1f,
-		room_corridor_hdiff = 0.75f,
-		min_corridor_length = 4f;
+	max_room_width = 12f,
+	max_room_height = 10f,
+	max_corridor_height = 4f,
+	max_corridor_width = 4f,
+	min_room_height = 4f,
+	min_corridor_height = 2.0f,
+	min_room_width = 5f,
+	min_corridor_width = 1.5f,
+	room_difference = 2f,
+	room_corridor_diff = 1f,
+	room_corridor_hdiff = 0.75f,
+	min_corridor_length = 4f;
 
 	protected double[] distribution;
-
-	#endregion
-
-	#region Node Type
 
 	protected enum Connection
 	{
 		None = 0,
-		Available,
-		Connected
+				Available,
+				Connected
 	}
 
 	protected class Node
@@ -88,7 +79,6 @@ class GridMaze : IGeneratedMaze
 
 	}
 
-	#endregion
 
 	ArrayList start_rooms;
 
@@ -111,12 +101,9 @@ class GridMaze : IGeneratedMaze
 		#endregion
 	}
 
-	#region Graph Building
-
-	private Node[,] graph;
+	private Node[][] graph;
 	private void SetUpGraph()
 	{
-		#region Instatiate
 
 		graph = new Node[xsize, ysize];
 		for(int i = 0; i < xsize; i++)
@@ -128,9 +115,6 @@ class GridMaze : IGeneratedMaze
 			}
 		}
 
-		#endregion
-
-		#region Set Borders
 
 		for(int i = 0; i < xsize; i++)
 		{
@@ -146,10 +130,6 @@ class GridMaze : IGeneratedMaze
 			if(graph[xsize - 1, i] != null)
 				graph[xsize-1, i].right = Connection.None;
 		}
-
-		#endregion
-
-		#region Set Structure
 
 		for(int i = 0; i < xsize; i++)
 		{
@@ -180,7 +160,6 @@ class GridMaze : IGeneratedMaze
 			}
 		}
 
-		#endregion
 
 	} // End of function SetUpGraph
 
@@ -188,10 +167,6 @@ class GridMaze : IGeneratedMaze
 	{
 		return graph[x,y];
 	}
-
-	#endregion
-
-	#region Randomizing
 
 	protected double[] Distribution()
 	{
@@ -207,7 +182,6 @@ class GridMaze : IGeneratedMaze
 		return ret;
 	}
 
-	#region Randomizing Algorythm
 
 	protected virtual Vector3[,,] CountRoomBoxes()
 	{
@@ -221,21 +195,21 @@ class GridMaze : IGeneratedMaze
 				// Placing the room horizontally
 
 				xmin = StaticRandomLibrary.FloatValue(
-					-max_room_size / 2f, -min_room_width / 2f);
+						-max_room_size / 2f, -min_room_width / 2f);
 				xmax = StaticRandomLibrary.FloatValue(
-					min_room_width / 2f, max_room_size / 2f);
+						min_room_width / 2f, max_room_size / 2f);
 
 				ymin = StaticRandomLibrary.FloatValue(
-					-max_room_size / 2f, -min_room_width / 2f);
+						-max_room_size / 2f, -min_room_width / 2f);
 				ymax = StaticRandomLibrary.FloatValue(
-					min_room_width / 2f, max_room_size / 2f);
+						min_room_width / 2f, max_room_size / 2f);
 
 				// Placing the room vertically
 
 				hpos = StaticRandomLibrary.FloatValue(
-					room_difference);
+						room_difference);
 				height = StaticRandomLibrary.FloatValue(
-					min_room_height, max_room_height);
+						min_room_height, max_room_height);
 
 				// Creating vector
 
@@ -265,32 +239,32 @@ class GridMaze : IGeneratedMaze
 				min = Math.Max(rooms[x,y,0].Z, rooms[x+1,y,0].Z);
 				max = Math.Min(rooms[x,y,1].Z, rooms[x+1,y,1].Z);
 				diff = StaticRandomLibrary.FloatValue(
-					min_corridor_width, max_corridor_width);
+						min_corridor_width, max_corridor_width);
 				ret[x,y,0].Z = StaticRandomLibrary.FloatValue(
-					min, max - diff);
+						min, max - diff);
 				ret[x,y,1].Z = ret[x,y,0].Z + diff;
 
 				// counting ymin
 
 				min = Math.Min(
-					rooms[x, y, 0].Y - room_corridor_hdiff,
-					rooms[x + 1, y, 0].Y - room_corridor_hdiff);
+						rooms[x, y, 0].Y - room_corridor_hdiff,
+						rooms[x + 1, y, 0].Y - room_corridor_hdiff);
 				max = Math.Max(
-					rooms[x, y, 0].Y + room_corridor_hdiff,
-					rooms[x + 1, y, 0].Y + room_corridor_hdiff);
+						rooms[x, y, 0].Y + room_corridor_hdiff,
+						rooms[x + 1, y, 0].Y + room_corridor_hdiff);
 				ret[x, y, 0].Y = StaticRandomLibrary.FloatValue(
-					min, max);
+						min, max);
 
 				// counting ymax
 
 				min = Math.Min(
-					rooms[x, y, 1].Y - room_corridor_hdiff,
-					rooms[x + 1, y, 1].Y - room_corridor_hdiff);
+						rooms[x, y, 1].Y - room_corridor_hdiff,
+						rooms[x + 1, y, 1].Y - room_corridor_hdiff);
 				max = Math.Max(
-					rooms[x, y, 1].Y + room_corridor_hdiff,
-					rooms[x + 1, y, 1].Y + room_corridor_hdiff);
+						rooms[x, y, 1].Y + room_corridor_hdiff,
+						rooms[x + 1, y, 1].Y + room_corridor_hdiff);
 				ret[x, y, 1].Y = StaticRandomLibrary.FloatValue(
-					min, max);
+						min, max);
 
 				// counting appropriate difference
 
@@ -330,32 +304,32 @@ class GridMaze : IGeneratedMaze
 				min = Math.Max(rooms[x,y,0].X, rooms[x,y+1,0].X);
 				max = Math.Min(rooms[x,y,1].X, rooms[x,y+1,1].X);
 				diff = StaticRandomLibrary.FloatValue(
-					min_corridor_width, max_corridor_width);
+						min_corridor_width, max_corridor_width);
 				ret[x,y,0].X = StaticRandomLibrary.FloatValue(
-					min, max - diff);
+						min, max - diff);
 				ret[x,y,1].X = ret[x,y,0].X + diff;
 
 				// counting ymin
 
 				min = Math.Min(
-					rooms[x, y, 0].Y - room_corridor_hdiff,
-					rooms[x, y + 1, 0].Y - room_corridor_hdiff);
+						rooms[x, y, 0].Y - room_corridor_hdiff,
+						rooms[x, y + 1, 0].Y - room_corridor_hdiff);
 				max = Math.Max(
-					rooms[x, y, 0].Y + room_corridor_hdiff,
-					rooms[x, y + 1, 0].Y + room_corridor_hdiff);
+						rooms[x, y, 0].Y + room_corridor_hdiff,
+						rooms[x, y + 1, 0].Y + room_corridor_hdiff);
 				ret[x, y, 0].Y = StaticRandomLibrary.FloatValue(
-					min, max);
+						min, max);
 
 				// counting ymax
 
 				min = Math.Min(
-					rooms[x, y, 1].Y - room_corridor_hdiff,
-					rooms[x, y + 1, 1].Y - room_corridor_hdiff);
+						rooms[x, y, 1].Y - room_corridor_hdiff,
+						rooms[x, y + 1, 1].Y - room_corridor_hdiff);
 				max = Math.Max(
-					rooms[x, y, 1].Y + room_corridor_hdiff,
-					rooms[x, y + 1, 1].Y + room_corridor_hdiff);
+						rooms[x, y, 1].Y + room_corridor_hdiff,
+						rooms[x, y + 1, 1].Y + room_corridor_hdiff);
 				ret[x, y, 1].Y = StaticRandomLibrary.FloatValue(
-					min, max);
+						min, max);
 
 				// counting appropriate difference
 
@@ -377,7 +351,7 @@ class GridMaze : IGeneratedMaze
 	}
 
 	protected void IdentifyRoomsCorridors(Vector3[,,] rooms,
-		Vector3[,,] hor_corr, Vector3[,,] ver_corr)
+			Vector3[,,] hor_corr, Vector3[,,] ver_corr)
 	{
 		float grid = min_corridor_length + max_room_size;
 
@@ -390,14 +364,14 @@ class GridMaze : IGeneratedMaze
 				if(room == null) continue;
 
 				room.Lower = new Vector3(
-					grid * x + rooms[x, y, 0].X,
-					rooms[x, y, 0].Y,
-					grid * y + rooms[x, y, 0].Z);
+						grid * x + rooms[x, y, 0].X,
+						rooms[x, y, 0].Y,
+						grid * y + rooms[x, y, 0].Z);
 
 				room.Upper = new Vector3(
-					grid * x + rooms[x, y, 1].X,
-					rooms[x, y, 1].Y,
-					grid * y + rooms[x, y, 1].Z);
+						grid * x + rooms[x, y, 1].X,
+						rooms[x, y, 1].Y,
+						grid * y + rooms[x, y, 1].Z);
 
 				room.RePlaceObjects();
 
@@ -406,16 +380,16 @@ class GridMaze : IGeneratedMaze
 				room = graph[x,y].RCorr;
 				if(room != null)
 				{
-                    float x1 = grid * x + rooms[x, y, 1].X;
+					float x1 = grid * x + rooms[x, y, 1].X;
 					float x2 = grid * (x+1) + rooms[x+1, y, 0].X;
 
 					room.Lower = new Vector3(
-						x1, hor_corr[x, y, 0].Y,
-						grid * y + hor_corr[x, y, 0].Z);
+							x1, hor_corr[x, y, 0].Y,
+							grid * y + hor_corr[x, y, 0].Z);
 
 					room.Upper = new Vector3(
-						x2, hor_corr[x, y, 1].Y,
-						grid * y + hor_corr[x, y, 1].Z);
+							x2, hor_corr[x, y, 1].Y,
+							grid * y + hor_corr[x, y, 1].Z);
 
 					room.RePlaceObjects();
 				}
@@ -429,20 +403,18 @@ class GridMaze : IGeneratedMaze
 					float y2 = grid * (y+1) + rooms[x, y+1, 0].Z;
 
 					room.Lower = new Vector3(
-						grid * x + ver_corr[x, y, 0].X,
-						ver_corr[x, y, 0].Y, y1);
+							grid * x + ver_corr[x, y, 0].X,
+							ver_corr[x, y, 0].Y, y1);
 
 					room.Upper = new Vector3(
-						grid * x + ver_corr[x, y, 1].X,
-						ver_corr[x, y, 1].Y, y2);
+							grid * x + ver_corr[x, y, 1].X,
+							ver_corr[x, y, 1].Y, y2);
 
 					room.RePlaceObjects();
 				}
 
 			}
 	}
-
-	#endregion
 
 	/// <summary>
 	/// Makes room size variables varied by random.
@@ -485,7 +457,7 @@ class GridMaze : IGeneratedMaze
 				else
 				{
 					if((GetRoom(x-1, y) != null)
-						&& (graph[x, y].left != Connection.None))
+							&& (graph[x, y].left != Connection.None))
 					{
 						ret[idx] = 1.0;
 						modified = true;
@@ -493,7 +465,7 @@ class GridMaze : IGeneratedMaze
 					}
 
 					if((GetRoom(x+1, y) != null)
-						&& (graph[x, y].right != Connection.None))
+							&& (graph[x, y].right != Connection.None))
 					{
 						ret[idx] = 1.0;
 						modified = true;
@@ -501,7 +473,7 @@ class GridMaze : IGeneratedMaze
 					}
 
 					if((GetRoom(x, y-1) != null)
-						&& (graph[x, y].up != Connection.None))
+							&& (graph[x, y].up != Connection.None))
 					{
 						ret[idx] = 1.0;
 						modified = true;
@@ -509,7 +481,7 @@ class GridMaze : IGeneratedMaze
 					}
 
 					if((GetRoom(x, y+1) != null)
-						&& (graph[x, y].down != Connection.None))
+							&& (graph[x, y].down != Connection.None))
 					{
 						ret[idx] = 1.0;
 						modified = true;
@@ -532,7 +504,6 @@ class GridMaze : IGeneratedMaze
 	/// </summary>
 	public void MakeDense()
 	{
-			#region Density Algorythm
 
 		int idx, x, y;
 		double[] dense = createNDis();
@@ -564,13 +535,9 @@ class GridMaze : IGeneratedMaze
 			dense = createNDis();
 		}
 
-		#endregion
 	}
 
-	#endregion
-
-	#region IGeneratedMaze Members
-
+	@Override
 	public TwoWayLinkedGraph Generate()
 	{
 		TwoWayLinkedGraph ret = new TwoWayLinkedGraph();
@@ -593,10 +560,6 @@ class GridMaze : IGeneratedMaze
 				}
 			}
 		}
-
-		#endregion
-
-		#region Add Spiders to Rooms
 
 		for(int i = 0; i < xsize; i++)
 		{
@@ -621,11 +584,6 @@ class GridMaze : IGeneratedMaze
 			}
 		}
 
-
-		#endregion
-
-		#region Add Corridors
-
 		for(int i = 0; i < xsize; i++)
 		{
 			for(int j = 0; j < ysize; j++)
@@ -638,14 +596,14 @@ class GridMaze : IGeneratedMaze
 						ret.AddNode(node.RCorr);
 
 						ret.Link(node.room, node.RCorr,
-							new Entrance(Room.DG_RIGHT,
-							FaceLibrary.RandomGetFromLibrary(stairs),
-							FaceLibrary.RandomGetFromLibrary(floors)));
+								new Entrance(Room.DG_RIGHT,
+										FaceLibrary.RandomGetFromLibrary(stairs),
+										FaceLibrary.RandomGetFromLibrary(floors)));
 
 						ret.Link(graph[i+1,j].room, node.RCorr,
-							new Entrance(Room.DG_LEFT,
-							FaceLibrary.RandomGetFromLibrary(stairs),
-							FaceLibrary.RandomGetFromLibrary(floors)));
+								new Entrance(Room.DG_LEFT,
+										FaceLibrary.RandomGetFromLibrary(stairs),
+										FaceLibrary.RandomGetFromLibrary(floors)));
 					}
 
 					if(node.DCorr != null)
@@ -653,22 +611,18 @@ class GridMaze : IGeneratedMaze
 						ret.AddNode(node.DCorr);
 
 						ret.Link(node.room, node.DCorr,
-							new Entrance(Room.DG_FRONT,
-							FaceLibrary.RandomGetFromLibrary(stairs),
-							FaceLibrary.RandomGetFromLibrary(floors)));
+								new Entrance(Room.DG_FRONT,
+										FaceLibrary.RandomGetFromLibrary(stairs),
+										FaceLibrary.RandomGetFromLibrary(floors)));
 
 						ret.Link(graph[i,j+1].room, node.DCorr,
-							new Entrance(Room.DG_BACK,
-							FaceLibrary.RandomGetFromLibrary(stairs),
-							FaceLibrary.RandomGetFromLibrary(floors)));
+								new Entrance(Room.DG_BACK,
+										FaceLibrary.RandomGetFromLibrary(stairs),
+										FaceLibrary.RandomGetFromLibrary(floors)));
 					}
 				}
 			}
 		}
-
-		#endregion
-
-		#region Set Room Sights
 
 		for(int i = 0; i < xsize; i++)
 		{
@@ -722,10 +676,6 @@ class GridMaze : IGeneratedMaze
 				}
 			}
 		}
-
-		#endregion
-
-		#region Set Corridor Sights
 
 		for(int i = 0; i < xsize; i++)
 		{
@@ -785,10 +735,6 @@ class GridMaze : IGeneratedMaze
 			}
 		}
 
-		#endregion
-
-		#region Set Room Lights
-
 		for(int i = 0; i < xsize; i++)
 		{
 			for(int j = 0; j < ysize; j++)
@@ -807,8 +753,6 @@ class GridMaze : IGeneratedMaze
 				}
 			}
 		}
-
-		#endregion
 
 		return ret;
 	}
@@ -832,12 +776,12 @@ class GridMaze : IGeneratedMaze
 		#region Create Default Room
 
 		Room room = new Room(
-			new Vector3(grid * x - max_room_size,
-			- room_height, grid * y - max_room_size),
-			new Vector3(grid * x + max_room_size,
-			+ room_height, grid * y + max_room_size),
-			FaceLibrary.RandomGetFromLibrary(walls),
-			FaceLibrary.RandomGetFromLibrary(floors));
+				new Vector3(grid * x - max_room_size,
+						- room_height, grid * y - max_room_size),
+				new Vector3(grid * x + max_room_size,
+						+ room_height, grid * y + max_room_size),
+				FaceLibrary.RandomGetFromLibrary(walls),
+				FaceLibrary.RandomGetFromLibrary(floors));
 
 		#endregion
 
@@ -859,8 +803,6 @@ class GridMaze : IGeneratedMaze
 		float grid = max_room_size * 2f + 4f;
 		float corridor = 2f;
 
-		#region Four Direction Check
-
 		if(x1 == x2 && y1 == y2 - 1)
 		{
 			if(graph[x1, y1] == null) return null;
@@ -876,16 +818,16 @@ class GridMaze : IGeneratedMaze
 			Room lower_room = graph[x2, y2].room;
 
 			Room Corridor = new Room(
-				new Vector3(
-				grid * x1 - corridor,
-				-corridor,
-				upper_room.Upper.Z),
-				new Vector3(
-				grid * x1 + corridor,
-				+corridor,
-				lower_room.Lower.Z),
-				FaceLibrary.RandomGetFromLibrary(walls),
-				FaceLibrary.RandomGetFromLibrary(floors));
+					new Vector3(
+							grid * x1 - corridor,
+							-corridor,
+							upper_room.Upper.Z),
+					new Vector3(
+							grid * x1 + corridor,
+							+corridor,
+							lower_room.Lower.Z),
+					FaceLibrary.RandomGetFromLibrary(walls),
+					FaceLibrary.RandomGetFromLibrary(floors));
 
 			graph[x1, y1].down = Connection.Connected;
 			graph[x1, y1].DCorr = Corridor;
@@ -910,16 +852,16 @@ class GridMaze : IGeneratedMaze
 			Room lower_room = graph[x1, y1].room;
 
 			Room Corridor = new Room(
-				new Vector3(
-				grid * x1 - corridor,
-				-corridor,
-				upper_room.Upper.Z),
-				new Vector3(
-				grid * x1 + corridor,
-				+corridor,
-				lower_room.Lower.Z),
-				FaceLibrary.RandomGetFromLibrary(walls),
-				FaceLibrary.RandomGetFromLibrary(floors));
+					new Vector3(
+							grid * x1 - corridor,
+							-corridor,
+							upper_room.Upper.Z),
+					new Vector3(
+							grid * x1 + corridor,
+							+corridor,
+							lower_room.Lower.Z),
+					FaceLibrary.RandomGetFromLibrary(walls),
+					FaceLibrary.RandomGetFromLibrary(floors));
 
 			graph[x2, y2].down = Connection.Connected;
 			graph[x2, y2].DCorr = Corridor;
@@ -944,14 +886,14 @@ class GridMaze : IGeneratedMaze
 			Room right_room = graph[x2, y2].room;
 
 			Room Corridor = new Room(
-				new Vector3(left_room.Upper.X,
-				-corridor,
-				grid * y1 -corridor),
-				new Vector3(right_room.Lower.X,
-				+corridor,
-				grid * y1 + corridor),
-				FaceLibrary.RandomGetFromLibrary(walls),
-				FaceLibrary.RandomGetFromLibrary(floors));
+					new Vector3(left_room.Upper.X,
+							-corridor,
+							grid * y1 -corridor),
+					new Vector3(right_room.Lower.X,
+							+corridor,
+							grid * y1 + corridor),
+					FaceLibrary.RandomGetFromLibrary(walls),
+					FaceLibrary.RandomGetFromLibrary(floors));
 
 			graph[x1, y1].right = Connection.Connected;
 			graph[x1, y1].RCorr = Corridor;
@@ -976,14 +918,14 @@ class GridMaze : IGeneratedMaze
 			Room right_room = graph[x1, y1].room;
 
 			Room Corridor = new Room(
-				new Vector3(left_room.Upper.X,
-				-corridor,
-				grid * y1 -corridor),
-				new Vector3(right_room.Lower.X,
-				+corridor,
-				grid * y1 + corridor),
-				FaceLibrary.RandomGetFromLibrary(walls),
-				FaceLibrary.RandomGetFromLibrary(floors));
+					new Vector3(left_room.Upper.X,
+							-corridor,
+							grid * y1 -corridor),
+					new Vector3(right_room.Lower.X,
+							+corridor,
+							grid * y1 + corridor),
+					FaceLibrary.RandomGetFromLibrary(walls),
+					FaceLibrary.RandomGetFromLibrary(floors));
 
 			graph[x2, y2].right = Connection.Connected;
 			graph[x2, y2].RCorr = Corridor;
@@ -994,8 +936,6 @@ class GridMaze : IGeneratedMaze
 		}
 
 		else return null;
-
-		#endregion
 
 	} // End of Function Default Corridor
 
@@ -1010,9 +950,7 @@ class GridMaze : IGeneratedMaze
 	/// <summary>
 	/// Prints Maze to Console
 	/// </summary>
-	public void print()
-	{
-		#region Print Algorythm
+	public void print() {
 
 		for(int j = 0; j < ysize; j++)
 		{
@@ -1049,7 +987,6 @@ class GridMaze : IGeneratedMaze
 			Console.WriteLine();
 		}
 
-		#endregion
 	}
 
 	public void addStartRoom(Room room)
@@ -1057,6 +994,7 @@ class GridMaze : IGeneratedMaze
 		start_rooms.Add(room);
 	}
 
+	@Override
 	public ArrayList getStartPlaces()
 	{
 		ArrayList ret = new ArrayList();

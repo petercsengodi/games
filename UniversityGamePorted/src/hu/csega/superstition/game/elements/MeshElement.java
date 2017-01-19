@@ -1,7 +1,7 @@
 package hu.csega.superstition.game.elements;
 
-public class MeshElement : Element
-{
+public class MeshElement extends Element {
+
 	private Material[] mats;
 	private Texture[] texs;
 	private Mesh mesh/*, shadowMesh2*/;
@@ -10,7 +10,7 @@ public class MeshElement : Element
 	private Shadow shadow_mesh;
 
 	public MeshElement(Engine engine, string filename, bool shadow)
-		: base(engine)
+	: base(engine)
 	{
 		ExtendedMaterial[] exmats;
 		GraphicsStream stream;
@@ -21,8 +21,8 @@ public class MeshElement : Element
 		}
 
 		mesh = Mesh.FromFile(@"..\meshes\" + filename,
-			MeshFlags.SystemMemory, engine.Device,
-			out stream, out exmats);
+				MeshFlags.SystemMemory, engine.Device,
+				out stream, out exmats);
 
 		#region Extracting Material Information
 
@@ -32,9 +32,9 @@ public class MeshElement : Element
 		for(int i = 0; i < exmats.Length; i++)
 		{
 			if(exmats[i].TextureFilename != null) texs[i] =
-				Library.Textures().getTexture(
-				@"..\textures\mesh_textures\" +
-				exmats[i].TextureFilename);
+					Library.Textures().getTexture(
+							@"..\textures\mesh_textures\" +
+							exmats[i].TextureFilename);
 			mats[i] = exmats[i].Material3D;
 			mats[i].Ambient = exmats[i].Material3D.Diffuse;
 		}
@@ -44,7 +44,7 @@ public class MeshElement : Element
 		#region Extracting Adjacency Information
 
 		int[,] adjacency = (int[,])stream.Read(
-			typeof(System.Int32), mesh.NumberFaces, 3);
+				typeof(System.Int32), mesh.NumberFaces, 3);
 		stream.Close();
 
 		#endregion
@@ -56,7 +56,7 @@ public class MeshElement : Element
 		if(shadow)
 		{
 			this.shadow_mesh = new Shadow(engine, mesh,
-				attributes.Length, adjacency);
+					attributes.Length, adjacency);
 			engine.AddToDisposeList(this.shadow_mesh);
 		}
 		else
@@ -71,23 +71,24 @@ public class MeshElement : Element
 			mats[i].Emissive = color;
 	}
 
+	@Override
 	public override void Render()
 	{
 		if(engine.IsShadowRendering)
 		{
 			if(shadow && (shadow_mesh != null) &&
-				engine.Options.renderMeshShadow)
+					engine.Options.renderMeshShadow)
 			{
 				shadow_mesh.Render(inverz);
 			}
 			return;
 		}
 
-//		// For testing
-//		if(shadow_mesh != null)
-//		{
-//			shadow_mesh.Render(inverz);
-//		}
+		//		// For testing
+		//		if(shadow_mesh != null)
+		//		{
+		//			shadow_mesh.Render(inverz);
+		//		}
 
 
 		Material temp = engine.Device.Material;
@@ -101,6 +102,7 @@ public class MeshElement : Element
 		engine.Device.Material = temp;
 	}
 
+	@Override
 	public override void Dispose()
 	{
 		engine.RemoveFromDisposeList(mesh);
@@ -121,16 +123,16 @@ public class MeshElement : Element
 		#region Counting Boundig Sphere
 
 		CustomVertex.PositionNormalTextured[] array =
-			(CustomVertex.PositionNormalTextured[])
-			mesh.LockVertexBuffer(
-			typeof(CustomVertex.PositionNormalTextured),
-			LockFlags.ReadOnly,
-			mesh.NumberVertices);
+		(CustomVertex.PositionNormalTextured[])
+		mesh.LockVertexBuffer(
+				typeof(CustomVertex.PositionNormalTextured),
+				LockFlags.ReadOnly,
+				mesh.NumberVertices);
 
 		for(int i = 0; i < array.Length; i++)
 		{
 			average += array[i].Position *
-				(1f / mesh.NumberVertices);
+					(1f / mesh.NumberVertices);
 		}
 
 		float length;
@@ -154,11 +156,11 @@ public class MeshElement : Element
 		Vector3[] corners = null;
 
 		CustomVertex.PositionNormalTextured[] array =
-			(CustomVertex.PositionNormalTextured[])
-			mesh.LockVertexBuffer(
-			typeof(CustomVertex.PositionNormalTextured),
-			LockFlags.ReadOnly,
-			mesh.NumberVertices);
+				(CustomVertex.PositionNormalTextured[])
+				mesh.LockVertexBuffer(
+						typeof(CustomVertex.PositionNormalTextured),
+						LockFlags.ReadOnly,
+						mesh.NumberVertices);
 
 		if(array.Length > 0)
 		{
@@ -169,9 +171,9 @@ public class MeshElement : Element
 			for(int i = 1; i < array.Length; i++)
 			{
 				corners[0] = Vector3.Minimize(
-					corners[0], array[i].Position);
+						corners[0], array[i].Position);
 				corners[1] = Vector3.Maximize(
-					corners[1], array[i].Position);
+						corners[1], array[i].Position);
 			}
 		}
 

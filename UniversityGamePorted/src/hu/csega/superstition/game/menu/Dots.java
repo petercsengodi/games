@@ -1,7 +1,6 @@
 package hu.csega.superstition.game.menu;
 
-class Dots : MenuElement
-{
+public class Dots extends MenuElement {
 	protected FileMenu menu;
 	protected IFileParent parent;
 	protected bool show;
@@ -34,6 +33,7 @@ class Dots : MenuElement
 		return "...";
 	}
 
+	@Override
 	public override void Render()
 	{
 		if(show) base.Render();

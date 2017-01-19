@@ -1,7 +1,6 @@
 package hu.csega.superstition.gameserver;
 
-public class Player : IDisposable
-{
+public class Player {
 	private static float PUSHAWAY = 0.1f;
 	private static float MINDISTANCE = 0.5f;
 

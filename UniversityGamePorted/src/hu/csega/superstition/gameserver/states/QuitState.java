@@ -1,8 +1,9 @@
 package hu.csega.superstition.gameserver.states;
 
-class QuitState : State
+public class QuitState extends State
 {
-	public override void enter()
+	@Override
+	public void enter()
 	{
 		base.enter();
 		Server.Instance.ReadOnly = true;

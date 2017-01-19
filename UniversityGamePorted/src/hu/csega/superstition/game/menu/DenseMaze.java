@@ -1,19 +1,21 @@
 package hu.csega.superstition.game.menu;
 
-class DenseMaze : MenuElement
-{
-	public DenseMaze(ModelParams param) : base(param)
+public class DenseMaze extends MenuElement {
+	public DenseMaze(ModelParams param)
 	{
+		super(param);
 	}
 
-	public override IMenu DoItem()
+	@Override
+	public IMenu DoItem()
 	{
 		param.engine.State.trigger(
-			new TriggerParams(MainMenuSelection.DENSE_MAP, null));
+				new TriggerParams(MainMenuSelection.DENSE_MAP, null));
 		return null;
 	}
 
-	public override string getText()
+	@Override
+	public String getText()
 	{
 		return "Dense Maze";
 	}

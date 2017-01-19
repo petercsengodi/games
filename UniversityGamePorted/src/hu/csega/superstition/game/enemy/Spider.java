@@ -1,15 +1,18 @@
 package hu.csega.superstition.game.enemy;
 
-class Spider : Enemy
-{
-	protected class Representative : Clipable
+import hu.csega.superstition.game.object.Clipable;
+import hu.csega.superstition.gamelib.network.GameObjectData;
+
+public class Spider extends Enemy {
+
+	protected class Representative extends Clipable
 	{
 		public bool modified;
 
 		public Representative()
-			: base(new Vector3(0f, 0f, 0f),
-			new Vector3(0f, 0f, 0f),
-			new Vector3(0f, 0f, 0f))
+		: base(new Vector3(0f, 0f, 0f),
+				new Vector3(0f, 0f, 0f),
+				new Vector3(0f, 0f, 0f))
 		{
 			velocity = new Vector3(0f, 0f, 0f);
 			modified = false;
@@ -27,9 +30,9 @@ class Spider : Enemy
 
 	protected const int STAND = 0, RUNNING = 1;
 	protected const float P_HEIGHT = 0.1f,
-		P_FORE = 0.04f, P_SIDE = 0.1f,
-		P_WALK = 0.01f, P_FALL = 1f,
-		P_RANDOM_CIRCLE = 0.001f;
+			P_FORE = 0.04f, P_SIDE = 0.1f,
+			P_WALK = 0.01f, P_FALL = 1f,
+			P_RANDOM_CIRCLE = 0.001f;
 
 	public Spider()
 	{
@@ -42,7 +45,7 @@ class Spider : Enemy
 		direction = new Vector3(0f, 0f, -1f);
 	}
 
-	public override void Build(Engine.Engine engine)
+	public void Build(Engine.Engine engine)
 	{
 		animations = new Animation[2];
 		animations[0] = Library.Animations().getAnimation("spider_stand");
@@ -52,8 +55,7 @@ class Spider : Enemy
 		corner2 = current.GetBoundingBox2(0);
 	}
 
-	[Serializable]
-	class SpiderData : GameObjectData
+	class SpiderData extends GameObjectData
 	{
 		public bool alive;
 		public Vector3 direction;
@@ -66,14 +68,16 @@ class Spider : Enemy
 			description = "Spider Data";
 		}
 
-		public override object create()
+		public  object create()
 		{
 			return new Spider(this);
 		}
 
+		/** Default serial version UID. */
+		private static final long serialVersionUID = -1l;
 	}
 
-	public override GameLib.GameObjectData getData()
+	public  GameLib.GameObjectData getData()
 	{
 		SpiderData ret = new SpiderData();
 		ret.alive = this.alive;
@@ -100,7 +104,8 @@ class Spider : Enemy
 		this.up = data.up;
 	}
 
-	public override void Period()
+	@Override
+	public void Period()
 	{
 		if(CurrentRoom != null)
 		{
@@ -110,21 +115,21 @@ class Spider : Enemy
 			up.Multiply(P_HEIGHT);
 
 			representatives[0].position =
-				position + up + direction * P_FORE;
+					position + up + direction * P_FORE;
 			representatives[0].diff =
-				up * (-2) + direction * (P_FORE * 3);
+					up * (-2) + direction * (P_FORE * 3);
 			representatives[1].position =
-				position + up - direction * P_FORE;
+					position + up - direction * P_FORE;
 			representatives[1].diff =
-				up * (-2) - direction * (P_FORE * 3);
+					up * (-2) - direction * (P_FORE * 3);
 			representatives[2].position =
-				position + up + right * P_SIDE;
+					position + up + right * P_SIDE;
 			representatives[2].diff =
-				up * (-2) + right * (P_SIDE * 3);
+					up * (-2) + right * (P_SIDE * 3);
 			representatives[3].position =
-				position + up + left * P_SIDE;
+					position + up + left * P_SIDE;
 			representatives[3].diff =
-				up * (-2) + left * (P_SIDE * 3);
+					up * (-2) + left * (P_SIDE * 3);
 
 			for(int i = 0; i < representatives.Length; i++)
 			{
@@ -132,7 +137,7 @@ class Spider : Enemy
 				CurrentRoom.ClipRoomsInSight(representatives[i]);
 				modified |= representatives[i].modified;
 				representatives[i].position +=
-					representatives[i].diff;
+						representatives[i].diff;
 			}
 
 			if(!modified)
@@ -142,7 +147,7 @@ class Spider : Enemy
 				// TODO: Normal falling clipping
 				up = new Vector3(0f, 1f, 0f);
 				if(Math.Abs(direction.X) < 0.001f &&
-					Math.Abs(direction.Z) < 0.001f)
+						Math.Abs(direction.Z) < 0.001f)
 				{
 					direction = new Vector3(0f, 0f, -1f);
 				}
@@ -159,23 +164,23 @@ class Spider : Enemy
 
 				// Crawling on wall
 				direction = representatives[0].position -
-					representatives[1].position;
+						representatives[1].position;
 				right = representatives[2].position -
-					representatives[3].position;
+						representatives[3].position;
 
 
 				right.Normalize();
 				direction += right * StaticRandomLibrary.
-					FloatValue(-P_RANDOM_CIRCLE, P_RANDOM_CIRCLE);
+						FloatValue(-P_RANDOM_CIRCLE, P_RANDOM_CIRCLE);
 
 
 				direction.Normalize();
 
 				position =
-					(representatives[0].position +
-					representatives[1].position +
-					representatives[2].position +
-					representatives[3].position) * 0.25f;
+						(representatives[0].position +
+								representatives[1].position +
+								representatives[2].position +
+								representatives[3].position) * 0.25f;
 
 
 				position += direction * P_WALK;

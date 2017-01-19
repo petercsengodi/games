@@ -1,7 +1,7 @@
 package hu.csega.superstition.game.elements;
 
-class Shadow : IDisposable
-{
+public class Shadow {
+
 	private VertexBuffer vbuffer; // Rendering only the vbuffer
 	// you get the original mesh
 	private IndexBuffer ibuffer; // Rendering with help of ibuffer
@@ -14,23 +14,23 @@ class Shadow : IDisposable
 	private int subsets;
 
 	public Shadow(Engine engine, Mesh mesh, int subsets,
-		int[,] adjacency)
+			int[,] adjacency)
 	{
 		this.engine = engine;
 		this.mesh = mesh;
 		this.subsets = subsets;
 
 		Mesh temp = mesh.Clone( MeshFlags.Use32Bit,
-			CustomVertex.PositionNormal.Format, engine.Device);
+				CustomVertex.PositionNormal.Format, engine.Device);
 
 		CustomVertex.PositionNormal[] vertices =
-			(CustomVertex.PositionNormal[])temp.LockVertexBuffer(
-			typeof(CustomVertex.PositionNormal),
-			LockFlags.ReadOnly, temp.NumberVertices);
+				(CustomVertex.PositionNormal[])temp.LockVertexBuffer(
+						typeof(CustomVertex.PositionNormal),
+						LockFlags.ReadOnly, temp.NumberVertices);
 
 		int[] indices = (int[])
-			temp.LockIndexBuffer(typeof(System.Int32),
-			LockFlags.ReadOnly, temp.NumberFaces * 3);
+				temp.LockIndexBuffer(typeof(System.Int32),
+						LockFlags.ReadOnly, temp.NumberFaces * 3);
 
 		int n = temp.NumberFaces;
 
@@ -76,7 +76,7 @@ class Shadow : IDisposable
 			else  // compute normals of face-normals
 			{
 				normals[i] = Vector3.Normalize(
-					Vector3.Cross(t[1] - t[0], t[2] - t[0]));
+						Vector3.Cross(t[1] - t[0], t[2] - t[0]));
 			}
 		}
 
@@ -92,11 +92,11 @@ class Shadow : IDisposable
 		sides = n * 3;
 
 		vbuffer = new VertexBuffer(typeof(CustomVertex.PositionNormal),
-			n * 3, engine.Device, 0,
-			CustomVertex.PositionNormal.Format, Pool.Managed);
+				n * 3, engine.Device, 0,
+				CustomVertex.PositionNormal.Format, Pool.Managed);
 
 		ibuffer = new IndexBuffer(typeof(short),
-			sides * 3, engine.Device, 0, Pool.Managed);
+				sides * 3, engine.Device, 0, Pool.Managed);
 
 		GraphicsStream vstream = vbuffer.Lock(0, 0, 0);
 
@@ -104,7 +104,7 @@ class Shadow : IDisposable
 			for(int j = 0; j < 3; j++)
 			{
 				vstream.Write(new CustomVertex.PositionNormal(
-					positions[i, j], normals[i]));
+						positions[i, j], normals[i]));
 			}
 
 		vstream.Dispose();
@@ -119,14 +119,14 @@ class Shadow : IDisposable
 				int jdx = adjacency[idx, i];
 
 				short[] res = GetCommonVertices(
-					positions, idx, jdx);
+						positions, idx, jdx);
 
 				istream.Write(res[0]);
 				istream.Write(res[2]);
 				istream.Write(res[1]);
 
-//				Console.Write(res[0] + " " + res[2] + " " + res[1]);
-//				Console.WriteLine();
+				//				Console.Write(res[0] + " " + res[2] + " " + res[1]);
+				//				Console.WriteLine();
 
 			}
 		}
@@ -146,7 +146,7 @@ class Shadow : IDisposable
 			for(int j = 0; j < 3; j++)
 			{
 				if( positions[idx, i].Equals(positions[jdx, (j+1)%3]) &&
-					positions[idx, (i+1)%3].Equals(positions[jdx, j]))
+						positions[idx, (i+1)%3].Equals(positions[jdx, j]))
 				{
 					ret = new short[4];
 					ret[0] = (short)(idx * 3 + i);
@@ -163,7 +163,7 @@ class Shadow : IDisposable
 	public void Render(Matrix inverse)
 	{
 		engine.RenderVolume(new VolumeRender(RenderVolume),
-			mesh, subsets, inverse);
+				mesh, subsets, inverse);
 	}
 
 	protected void RenderVolume()
@@ -179,13 +179,13 @@ class Shadow : IDisposable
 			engine.Device.RenderState.CullMode = Cull.CounterClockwise;
 			engine.Device.RenderState.StencilPass = StencilOperation.Increment;
 			engine.Device.DrawIndexedPrimitives(PrimitiveType.TriangleList,
-				0, 0, originals * 3, 0, sides);
+					0, 0, originals * 3, 0, sides);
 
 			// Rendering back-face
 			engine.Device.RenderState.CullMode = Cull.Clockwise;
 			engine.Device.RenderState.StencilPass = StencilOperation.Decrement;
 			engine.Device.DrawIndexedPrimitives(PrimitiveType.TriangleList,
-				0, 0, originals * 3, 0, sides);
+					0, 0, originals * 3, 0, sides);
 
 			engine.Device.RenderState.CullMode = Cull.CounterClockwise;
 		}
@@ -201,7 +201,7 @@ class Shadow : IDisposable
 			engine.Device.RenderState.CullMode = Cull.Clockwise;
 			engine.Device.RenderState.StencilZBufferFail = StencilOperation.Increment;
 			engine.Device.DrawIndexedPrimitives(PrimitiveType.TriangleList,
-				0, 0, originals * 3, 0, sides);
+					0, 0, originals * 3, 0, sides);
 			engine.Device.RenderState.ZBufferFunction = Compare.Never;
 			engine.Device.DrawPrimitives(PrimitiveType.TriangleList, 0, originals);
 			engine.Device.RenderState.ZBufferFunction = Compare.LessEqual;
@@ -210,7 +210,7 @@ class Shadow : IDisposable
 			engine.Device.RenderState.CullMode = Cull.CounterClockwise;
 			engine.Device.RenderState.StencilZBufferFail = StencilOperation.Decrement;
 			engine.Device.DrawIndexedPrimitives(PrimitiveType.TriangleList,
-				0, 0, originals * 3, 0, sides);
+					0, 0, originals * 3, 0, sides);
 			engine.Device.RenderState.ZBufferFunction = Compare.Never;
 			engine.Device.DrawPrimitives(PrimitiveType.TriangleList, 0, originals);
 			engine.Device.RenderState.ZBufferFunction = Compare.LessEqual;

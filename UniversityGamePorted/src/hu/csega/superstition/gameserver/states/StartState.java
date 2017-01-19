@@ -2,8 +2,9 @@ package hu.csega.superstition.gameserver.states;
 
 import hu.csega.superstition.gameserver.Server;
 
-class StartState : State
-{
+public class StartState extends State {
+
+	@Override
 	public override void enter()
 	{
 		base.enter();
@@ -11,6 +12,7 @@ class StartState : State
 		Server.Instance.ReadOnly = true;
 	}
 
+	@Override
 	public override void exit()
 	{
 		base.exit();

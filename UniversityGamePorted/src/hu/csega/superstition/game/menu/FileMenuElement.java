@@ -1,6 +1,6 @@
 package hu.csega.superstition.game.menu;
 
-class FileMenuElement : MenuElement
+public class FileMenuElement extends MenuElement
 {
 	protected string file;
 	protected IFileParent parent;
@@ -37,12 +37,14 @@ class FileMenuElement : MenuElement
 		return null;
 	}
 
+	@Override
 	public override void Dispose()
 	{
 		disposed = true;
 		filename.Dispose();
 	}
 
+	@Override
 	public override void Render()
 	{
 		if(disposed) return;

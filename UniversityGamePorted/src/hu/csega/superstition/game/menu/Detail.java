@@ -1,7 +1,6 @@
 package hu.csega.superstition.game.menu;
 
-class Detail : MenuElement
-{
+public class Detail extends MenuElement {
 	public Detail(ModelParams param) : base(param)
 	{
 	}
@@ -11,6 +10,7 @@ class Detail : MenuElement
 		return "Detail";
 	}
 
+	@Override
 	public override void Render()
 	{
 		int val;

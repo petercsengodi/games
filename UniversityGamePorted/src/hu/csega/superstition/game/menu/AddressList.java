@@ -1,6 +1,6 @@
 package hu.csega.superstition.game.menu;
 
-class AddressList : IMenu
+public class AddressList implements IMenu
 {
 	protected ModelParams param;
 	protected IMenu parent;
@@ -27,30 +27,36 @@ class AddressList : IMenu
 
 	#region IMenu Members
 
+	@Override
 	public MenuElement[] getMenuElements()
 	{
 		return elements;
 	}
 
+	@Override
 	public IMenu getParent()
 	{
 		return parent;
 	}
 
+	@Override
 	public void RenderElements()
 	{
 		helpclass.RenderElements();
 	}
 
+	@Override
 	public IMenu DoEscape()
 	{
 		return parent;
 	}
 
+	@Override
 	public void setLastIndex(int idx)
 	{
 	}
 
+	@Override
 	public int getLastIndex()
 	{
 		return 0;

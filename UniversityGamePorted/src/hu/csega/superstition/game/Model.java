@@ -1,7 +1,7 @@
 package hu.csega.superstition.game;
 
-public class Model : IModel, IPeriod
-{
+public class Model implements IModel, IPeriod {
+
 	protected Engine engine;
 	private PlayerObject player;
 	private TwoWayLinkedGraph Map;
@@ -51,6 +51,7 @@ public class Model : IModel, IPeriod
 		((Entrance) theme).Build(engine);
 	}
 
+	@Override
 	public Color GetAmbient()
 	{
 		return Color.FromArgb(5, 5, 5);
@@ -90,8 +91,8 @@ public class Model : IModel, IPeriod
 			start_places.Add(sp.create());
 		}
 
-//		game_elements = new ArrayList();
-//		to_remove = new ArrayList();
+		//		game_elements = new ArrayList();
+		//		to_remove = new ArrayList();
 	}
 
 	public GameObjectData GetDataModel()
@@ -140,27 +141,27 @@ public class Model : IModel, IPeriod
 	{
 		DenseMaze maze = new DenseMaze(10, 10);
 		player = new PlayerObject(new Vector3(0f, 0f, 0f),
-			new Vector3(-0.25f, -0.75f, -0.25f),
-			new Vector3(0.25f, 0.25f, 0.25f));
+				new Vector3(-0.25f, -0.75f, -0.25f),
+				new Vector3(0.25f, 0.25f, 0.25f));
 		player.Model = this;
 		Map = maze.Generate();
 
 		start_places = maze.getStartPlaces();
 		int rand = StaticRandomLibrary.IntValue(
-			start_places.Count);
+				start_places.Count);
 		player.position = (start_places[rand]
-			as StartPlace).Position;
+				as StartPlace).Position;
 		Map.DoForAllNodes(new TWLFunc(IdentifyCurrentRoom));
 	}
 
 	public void LoadXmlMap(string filename)
 	{
-//		game_elements = new ArrayList();
-//		to_remove = new ArrayList();
+		//		game_elements = new ArrayList();
+		//		to_remove = new ArrayList();
 
 		StructedMaze generator; // !!!
 		player = new PlayerObject(new Vector3(4f, 0f, 4f),
-			new Vector3(-0.25f, -0.5f, -0.25f), new Vector3(0.25f, 0.75f, 0.25f));
+				new Vector3(-0.25f, -0.5f, -0.25f), new Vector3(0.25f, 0.75f, 0.25f));
 		player.Model = this;
 
 		#region Load Story from an Xml File
@@ -192,7 +193,7 @@ public class Model : IModel, IPeriod
 			else if(tmp.CompareTo("Finish") == 0)
 			{
 				FinishPlace fp = new FinishPlace(
-					actual.CenterOnFloor, 2f);
+						actual.CenterOnFloor, 2f);
 				fp.SetModel(this);
 				actual.AddObject(fp);
 			}
@@ -211,7 +212,7 @@ public class Model : IModel, IPeriod
 			{
 				Symbol symbol;
 				symbol = new Symbol(actual.CenterOnFloor,
-					tmp, Color.FromArgb(0, 0, 255), 4f);
+						tmp, Color.FromArgb(0, 0, 255), 4f);
 				actual.AddObject(symbol);
 			}
 
@@ -219,8 +220,8 @@ public class Model : IModel, IPeriod
 			if(tmp.CompareTo("Gun") == 0)
 			{
 				Weapon weapon = new Weapon(
-					actual.CenterOnFloor,
-					WeaponType.Gun);
+						actual.CenterOnFloor,
+						WeaponType.Gun);
 				weapon_rooms.Add(actual);
 				weapon.Status = WeaponStatus.Ground;
 				weapon.SetModel(this);
@@ -250,25 +251,26 @@ public class Model : IModel, IPeriod
 
 		#endregion
 
-//		generator.MakeDense(); // !!!
+		//		generator.MakeDense(); // !!!
 		Map = generator.Generate();
 		generator.print();
 
 		for(int idx = 0; idx < weapon_rooms.Count; idx++)
 		{
 			(game_elements[idx] as Clipper).Position =
-				(weapon_rooms[idx] as Room).CenterOnFloor;
+					(weapon_rooms[idx] as Room).CenterOnFloor;
 		}
 
 		start_places = generator.getStartPlaces();
 		int rand = StaticRandomLibrary.IntValue(
-			start_places.Count);
+				start_places.Count);
 		player.position = (start_places[rand]
-			as StartPlace).Position;
+				as StartPlace).Position;
 	}
 
 	#region IModel Members
 
+	@Override
 	public void Initialize(Engine _engine)
 	{
 		this.engine = _engine;
@@ -286,104 +288,109 @@ public class Model : IModel, IPeriod
 		ModelOptions.view = ViewStatus.Normal;
 	}
 
+	@Override
 	public void Render()
 	{
 		player.Render();
 	}
 
+	@Override
 	public Vector3 GetViewPosition()
 	{
 		Vector3 ret = player.position;
 
 		switch(ModelOptions.view)
 		{
-			case ViewStatus.Map:
-				ret.Y += 20f;
-				break;
+		case ViewStatus.Map:
+			ret.Y += 20f;
+			break;
 
-			case ViewStatus.Side:
+		case ViewStatus.Side:
+			ret.X += 2f;
+			ret.Y += 2f;
+			ret.Z += 2f;
+			break;
+
+		default:
+			if(player.camera_pos == null)
+			{
 				ret.X += 2f;
 				ret.Y += 2f;
 				ret.Z += 2f;
-				break;
-
-			default:
-				if(player.camera_pos == null)
-				{
-					ret.X += 2f;
-					ret.Y += 2f;
-					ret.Z += 2f;
-				} else ret = player.camera_pos.position;
-				break;
+			} else ret = player.camera_pos.position;
+			break;
 		}
 
 		return ret;
 	}
 
+	@Override
 	public Vector3 GetViewDirection()
 	{
 		Vector3 ret = player.getDirection();
 
 		switch(ModelOptions.view)
 		{
-			case ViewStatus.Map:
-				ret.X = 0f;
-				ret.Y = -1f;
-				ret.Z = 0f;
-				break;
+		case ViewStatus.Map:
+			ret.X = 0f;
+			ret.Y = -1f;
+			ret.Z = 0f;
+			break;
 
-			case ViewStatus.Side:
+		case ViewStatus.Side:
+			ret.X = -2f;
+			ret.Y = -2f;
+			ret.Z = -2f;
+			break;
+
+		default:
+			if((player.camera_dir == null) || (player.camera_pos == null))
+			{
 				ret.X = -2f;
 				ret.Y = -2f;
 				ret.Z = -2f;
-				break;
-
-			default:
-				if((player.camera_dir == null) || (player.camera_pos == null))
-				{
-					ret.X = -2f;
-					ret.Y = -2f;
-					ret.Z = -2f;
-				}
-//				else ret = player.camera_dir.position - player.camera_pos.position;
-				else ret = player.getDirection();
-				break;
+			}
+			//				else ret = player.camera_dir.position - player.camera_pos.position;
+			else ret = player.getDirection();
+			break;
 		}
 
 		return ret;
 	}
 
+	@Override
 	public Vector3 GetVUp()
 	{
 		Vector3 ret = new Vector3(0f, 1f, 0f);
 
 		switch(ModelOptions.view)
 		{
-			case ViewStatus.Map:
-				ret = player.getDirection();
-				ret.Normalize();
-				break;
+		case ViewStatus.Map:
+			ret = player.getDirection();
+			ret.Normalize();
+			break;
 
-			case ViewStatus.Side:
-				ret.X = 0f;
-				ret.Y = 1f;
-				ret.Z = 0f;
-				break;
+		case ViewStatus.Side:
+			ret.X = 0f;
+			ret.Y = 1f;
+			ret.Z = 0f;
+			break;
 
-			default:
-				if((player.camera_up == null) || (player.camera_pos == null))
-				{
-					ret.X = -2f;
-					ret.Y = 2f;
-					ret.Z = -2f;
-				}
-				else ret = player.camera_up.position - player.camera_pos.position;
-				break;
+		default:
+			if((player.camera_up == null) || (player.camera_pos == null))
+			{
+				ret.X = -2f;
+				ret.Y = 2f;
+				ret.Z = -2f;
+			}
+			else ret = player.camera_up.position - player.camera_pos.position;
+			break;
 		}
 
 		return ret;
 	}
 
+	@Override
 	public void OnKeyDown(int key)
 	{
 		if(key == 0x10)
@@ -402,8 +409,8 @@ public class Model : IModel, IPeriod
 		{
 			if(key == 0x1C)
 			{
-//				engine.State.trigger(Menu.MainMenuSelection.QUIT_GAME);
-//				ModelOptions.view = ViewStatus.Side;
+				//				engine.State.trigger(Menu.MainMenuSelection.QUIT_GAME);
+				//				ModelOptions.view = ViewStatus.Side;
 				engine.State.trigger(null);
 			}
 
@@ -428,6 +435,7 @@ public class Model : IModel, IPeriod
 		}
 	}
 
+	@Override
 	public void OnKeyUp(int key)
 	{
 		if(key == 0xC8) player.GoForward = false;
@@ -436,6 +444,7 @@ public class Model : IModel, IPeriod
 		if(key == 0xCD) player.GoRight = false;
 	}
 
+	@Override
 	public void OnButtonDown(int button)
 	{
 		if(end_of_game.finished)
@@ -447,10 +456,12 @@ public class Model : IModel, IPeriod
 		if(button == 1) player._OnceShot(false);
 	}
 
+	@Override
 	public void OnButtonUp(int button)
 	{
 	}
 
+	@Override
 	public void OnMovement(int x, int y)
 	{
 		if(end_of_game.finished)
@@ -492,6 +503,7 @@ public class Model : IModel, IPeriod
 
 	#region IPeriod Members
 
+	@Override
 	public void Period()
 	{
 		// Clipping

@@ -1,7 +1,6 @@
 package hu.csega.superstition.animatool;
 
-public class TreeObjectView : CView
-{
+public class TreeObjectView extends CView {
 	private System.Windows.Forms.TreeView treeView1;
 	/// <summary>
 	/// Required designer variable.
@@ -66,13 +65,13 @@ public class TreeObjectView : CView
 	public override void UpdateView(Updates update)
 	{
 		if((update == Updates.Selection) ||
-			(update == Updates.Move))
+				(update == Updates.Move))
 		{
-//			treeView1.SelectedNode = null;
+			//			treeView1.SelectedNode = null;
 			return;
 		}
 
-//		TreeNode selected = null;
+		//		TreeNode selected = null;
 		treeView1.BeginUpdate();
 		treeView1.Nodes.Clear();
 		CModel model = (CModel)GetData();
@@ -99,7 +98,7 @@ public class TreeObjectView : CView
 	{
 		if(e.Action != TreeViewAction.ByMouse) return;
 		CModel model = (GetData() as CModel);
-        model.Selected = GetSelectedItem(e.Node);
+		model.Selected = GetSelectedItem(e.Node);
 		model.UpdateViews(Updates.Selection);
 	}
 

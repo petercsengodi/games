@@ -1,7 +1,6 @@
 package hu.csega.superstition.game.menu;
 
-class DownArrow : MenuElement
-{
+public class DownArrow extends MenuElement {
 	protected FileMenu menu;
 
 	public DownArrow(ModelParams param, FileMenu menu) : base(param)

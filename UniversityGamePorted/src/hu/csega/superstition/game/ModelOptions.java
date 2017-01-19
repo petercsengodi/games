@@ -1,6 +1,7 @@
 package hu.csega.superstition.game;
 
-class ModelOptions
-{
+class ModelOptions {
+
 	public static ViewStatus view = ViewStatus.Normal;
+
 }

@@ -1,6 +1,6 @@
 package hu.csega.superstition.game;
 
-public class InitWindow : System.Windows.Forms.Form
+public class InitWindow extends System.Windows.Forms.Form
 {
 	private System.Windows.Forms.Label label1;
 	private System.Windows.Forms.ComboBox comboBox1;
@@ -59,11 +59,11 @@ public class InitWindow : System.Windows.Forms.Form
 		// comboBox1
 		//
 		this.comboBox1.Items.AddRange(new object[] {
-													   "default",
-													   "1024 x 768",
-													   "800 x 600",
-													   "640 x 480",
-													   "320 x 240"});
+				"default",
+				"1024 x 768",
+				"800 x 600",
+				"640 x 480",
+		"320 x 240"});
 		this.comboBox1.Location = new System.Drawing.Point(104, 8);
 		this.comboBox1.Name = "comboBox1";
 		this.comboBox1.Size = new System.Drawing.Size(128, 21);

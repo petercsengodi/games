@@ -1,9 +1,8 @@
 package hu.csega.superstition.game;
 
-public interface IPeriod
-{
-	/// <summary>
-	/// Periodic Functionality.
-	/// </summary>
+/** Periodic Functionality. */
+public interface IPeriod {
+
 	void Period();
+
 }

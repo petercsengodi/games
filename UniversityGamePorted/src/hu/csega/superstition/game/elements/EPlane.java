@@ -1,18 +1,18 @@
 package hu.csega.superstition.game.elements;
 
-public class EPlane : Primitive
-{
+public class EPlane extends Primitive {
+
 	protected Vector3 Min, Max;
 	protected StaticVectorLibrary.Direction direction;
 	protected int x, y, z;
-	
+
 	public StaticVectorLibrary.Direction Direction
 	{
 		get{ return direction; }
 	}
 
-	public EPlane(Engine engine, Vector3 MinVec, Vector3 MaxVec, 
-		StaticVectorLibrary.Direction _direction, Texture _face) : base(engine)
+	public EPlane(Engine engine, Vector3 MinVec, Vector3 MaxVec,
+			StaticVectorLibrary.Direction _direction, Texture _face) : base(engine)
 	{
 		Min = MinVec;
 		Max = MaxVec;
@@ -23,30 +23,30 @@ public class EPlane : Primitive
 		x = (int) Math.Ceiling((Max.X - Min.X) / STEP);
 		y = (int) Math.Ceiling((Max.Y - Min.Y) / STEP);
 		z = (int) Math.Ceiling((Max.Z - Min.Z) / STEP);
-		
+
 		if((direction == StaticVectorLibrary.Left) || (direction == StaticVectorLibrary.Right))
 		{
 			x = 1;
-			count = (z + 1) * 2 * y /* For simplified version */ + 6;			
+			count = (z + 1) * 2 * y /* For simplified version */ + 6;
 		}
 
 		if((direction == StaticVectorLibrary.Front) || (direction == StaticVectorLibrary.Back))
 		{
 			z = 1;
-			count = (x + 1) * 2 * y  /* For simplified version */ + 6;			
+			count = (x + 1) * 2 * y  /* For simplified version */ + 6;
 		}
 
 		if((direction == StaticVectorLibrary.Top) || (direction == StaticVectorLibrary.Bottom))
 		{
 			y = 1;
-			count = (x + 1) * 2 * z /* For simplified version */ + 6;			
+			count = (x + 1) * 2 * z /* For simplified version */ + 6;
 		}
 
 		ReCreate();
 	}
-								   
-	public EPlane(Engine engine, Vector3 MinVec, Vector3 MaxVec, 
-		StaticVectorLibrary.Direction _direction, Texture _face, VertexBuffer buffer) : base(engine, buffer)
+
+	public EPlane(Engine engine, Vector3 MinVec, Vector3 MaxVec,
+			StaticVectorLibrary.Direction _direction, Texture _face, VertexBuffer buffer) : base(engine, buffer)
 	{
 		Min = MinVec;
 		Max = MaxVec;
@@ -57,26 +57,26 @@ public class EPlane : Primitive
 		x = (int) Math.Ceiling((Max.X - Min.X) / STEP);
 		y = (int) Math.Ceiling((Max.Y - Min.Y) / STEP);
 		z = (int) Math.Ceiling((Max.Z - Min.Z) / STEP);
-		
+
 		if((direction == StaticVectorLibrary.Left) || (direction == StaticVectorLibrary.Right))
 		{
 			x = 1;
-			count = (z + 1) * 2 * y /* For simplified version */ + 6;			
+			count = (z + 1) * 2 * y /* For simplified version */ + 6;
 		}
 
 		if((direction == StaticVectorLibrary.Front) || (direction == StaticVectorLibrary.Back))
 		{
 			z = 1;
-			count = (x + 1) * 2 * y  /* For simplified version */ + 6;			
+			count = (x + 1) * 2 * y  /* For simplified version */ + 6;
 		}
 
 		if((direction == StaticVectorLibrary.Top) || (direction == StaticVectorLibrary.Bottom))
 		{
 			y = 1;
-			count = (x + 1) * 2 * z /* For simplified version */ + 6;			
+			count = (x + 1) * 2 * z /* For simplified version */ + 6;
 		}
 
-		
+
 		ReCreate();
 	}
 
@@ -95,16 +95,16 @@ public class EPlane : Primitive
 				for(i = 0; i <= z; i++)
 				{
 					stream.Write(new CustomVertex.PositionNormalTextured(
-						new Vector3(Max.X, Min.Y + (j + 1) * stepy, Min.Z + i * stepz),
-						new Vector3(-1f, 0f, 0f),
-						Min.Z + i * stepz, Min.Y + (j + 1) * stepy
-						));
+							new Vector3(Max.X, Min.Y + (j + 1) * stepy, Min.Z + i * stepz),
+							new Vector3(-1f, 0f, 0f),
+							Min.Z + i * stepz, Min.Y + (j + 1) * stepy
+							));
 
 					stream.Write(new CustomVertex.PositionNormalTextured(
-						new Vector3(Min.X, Min.Y + j * stepy, Min.Z + i * stepz),
-						new Vector3(-1f, 0f, 0f),
-						Min.Z + i * stepz, Min.Y + j * stepy
-						));
+							new Vector3(Min.X, Min.Y + j * stepy, Min.Z + i * stepz),
+							new Vector3(-1f, 0f, 0f),
+							Min.Z + i * stepz, Min.Y + j * stepy
+							));
 				}
 			}
 		} // End of: Left
@@ -116,16 +116,16 @@ public class EPlane : Primitive
 				for(i = 0; i <= z; i++)
 				{
 					stream.Write(new CustomVertex.PositionNormalTextured(
-						new Vector3(Min.X, Min.Y + j * stepy, Min.Z + i * stepz),
-						new Vector3(1f, 0f, 0f),
-						Min.Z + i * stepz, Min.Y + j * stepy
-						));
+							new Vector3(Min.X, Min.Y + j * stepy, Min.Z + i * stepz),
+							new Vector3(1f, 0f, 0f),
+							Min.Z + i * stepz, Min.Y + j * stepy
+							));
 
 					stream.Write(new CustomVertex.PositionNormalTextured(
-						new Vector3(Max.X, Min.Y + (j + 1) * stepy, Min.Z + i * stepz),
-						new Vector3(1f, 0f, 0f),
-						Min.Z + i * stepz, Min.Y + (j + 1) * stepy
-						));
+							new Vector3(Max.X, Min.Y + (j + 1) * stepy, Min.Z + i * stepz),
+							new Vector3(1f, 0f, 0f),
+							Min.Z + i * stepz, Min.Y + (j + 1) * stepy
+							));
 				}
 			}
 		} // End of: Right
@@ -137,16 +137,16 @@ public class EPlane : Primitive
 				for(i = 0; i <= x; i++)
 				{
 					stream.Write(new CustomVertex.PositionNormalTextured(
-						new Vector3(Min.X + i * stepx, Min.Y + (j + 1) * stepy, Max.Z),
-						new Vector3(0f, 0f, 1f),
-						Min.X + i * stepx, Min.Y + (j + 1) * stepy
-						));
+							new Vector3(Min.X + i * stepx, Min.Y + (j + 1) * stepy, Max.Z),
+							new Vector3(0f, 0f, 1f),
+							Min.X + i * stepx, Min.Y + (j + 1) * stepy
+							));
 
 					stream.Write(new CustomVertex.PositionNormalTextured(
-						new Vector3(Min.X + i * stepx, Min.Y + j * stepy, Min.Z),
-						new Vector3(0f, 0f, 1f),
-						Min.X + i * stepx, Min.Y + j * stepy
-						));
+							new Vector3(Min.X + i * stepx, Min.Y + j * stepy, Min.Z),
+							new Vector3(0f, 0f, 1f),
+							Min.X + i * stepx, Min.Y + j * stepy
+							));
 				}
 			}
 		} // End of: Front
@@ -158,16 +158,16 @@ public class EPlane : Primitive
 				for(i = 0; i <= x; i++)
 				{
 					stream.Write(new CustomVertex.PositionNormalTextured(
-						new Vector3(Min.X + i * stepx, Min.Y + j * stepy, Min.Z),
-						new Vector3(0f, 0f, -1f),
-						Min.X + i * stepx, Min.Y + j * stepy
-						));
+							new Vector3(Min.X + i * stepx, Min.Y + j * stepy, Min.Z),
+							new Vector3(0f, 0f, -1f),
+							Min.X + i * stepx, Min.Y + j * stepy
+							));
 
 					stream.Write(new CustomVertex.PositionNormalTextured(
-						new Vector3(Min.X + i * stepx, Min.Y + (j + 1) * stepy, Max.Z),
-						new Vector3(0f, 0f, -1f),
-						Min.X + i * stepx, Min.Y + (j + 1) * stepy
-						));
+							new Vector3(Min.X + i * stepx, Min.Y + (j + 1) * stepy, Max.Z),
+							new Vector3(0f, 0f, -1f),
+							Min.X + i * stepx, Min.Y + (j + 1) * stepy
+							));
 				}
 			}
 		} // End of: Back
@@ -179,16 +179,16 @@ public class EPlane : Primitive
 				for(i = 0; i <= x; i++)
 				{
 					stream.Write(new CustomVertex.PositionNormalTextured(
-						new Vector3(Min.X + i * stepx, Max.Y, Min.Z  + j * stepz),
-						new Vector3(0f, 1f, 0f),
-						Min.X + i * stepx, Min.Z + j * stepz
-						));
+							new Vector3(Min.X + i * stepx, Max.Y, Min.Z  + j * stepz),
+							new Vector3(0f, 1f, 0f),
+							Min.X + i * stepx, Min.Z + j * stepz
+							));
 
 					stream.Write(new CustomVertex.PositionNormalTextured(
-						new Vector3(Min.X + i * stepx, Min.Y, Min.Z + (j + 1) * stepz),
-						new Vector3(0f, 1f, 0f),
-						Min.X + i * stepx, Min.Z + (j + 1) * stepz
-						));
+							new Vector3(Min.X + i * stepx, Min.Y, Min.Z + (j + 1) * stepz),
+							new Vector3(0f, 1f, 0f),
+							Min.X + i * stepx, Min.Z + (j + 1) * stepz
+							));
 				}
 			}
 		} // End of: Top
@@ -200,16 +200,16 @@ public class EPlane : Primitive
 				for(i = 0; i <= x; i++)
 				{
 					stream.Write(new CustomVertex.PositionNormalTextured(
-						new Vector3(Min.X + i * stepx, Min.Y, Min.Z + (j + 1) * stepz),
-						new Vector3(0f, -1f, 0f),
-						Min.X + i * stepx, Min.Z + (j + 1) * stepz
-						));
+							new Vector3(Min.X + i * stepx, Min.Y, Min.Z + (j + 1) * stepz),
+							new Vector3(0f, -1f, 0f),
+							Min.X + i * stepx, Min.Z + (j + 1) * stepz
+							));
 
 					stream.Write(new CustomVertex.PositionNormalTextured(
-						new Vector3(Min.X + i * stepx, Max.Y, Min.Z  + j * stepz),
-						new Vector3(0f, -1f, 0f),
-						Min.X + i * stepx, Min.Z + j * stepz
-						));
+							new Vector3(Min.X + i * stepx, Max.Y, Min.Z  + j * stepz),
+							new Vector3(0f, -1f, 0f),
+							Min.X + i * stepx, Min.Z + j * stepz
+							));
 				}
 			}
 		} // End of: Bottom
@@ -226,16 +226,17 @@ public class EPlane : Primitive
 		buffer.Unlock();
 	}
 
+	@Override
 	public override void Render()
 	{
 		if(engine.IsShadowRendering)
-		{ 
-			if(shadow) RenderShadow(); 
+		{
+			if(shadow) RenderShadow();
 			return;
 		}
 		if(face == null) return;
 
-//		RenderShadow(); return;
+		//		RenderShadow(); return;
 
 		engine.Device.SetTexture(0, face);
 
@@ -245,8 +246,8 @@ public class EPlane : Primitive
 			engine.Device.SetStreamSource(0, buffer, lock_index);
 			engine.Device.VertexFormat = CustomVertex.PositionNormalTextured.Format;
 			engine.Device.DrawPrimitives(PrimitiveType.TriangleList, count - 6, 2);
-		} 
-		else 
+		}
+		else
 		{
 			engine.Device.SetStreamSource(0, buffer, lock_index);
 			engine.Device.VertexFormat = CustomVertex.PositionNormalTextured.Format;
@@ -273,6 +274,7 @@ public class EPlane : Primitive
 		engine.Device.SetTexture(0, null);
 	}
 
+	@Override
 	public override void RenderShadow()
 	{
 		if(direction == StaticVectorLibrary.Left)

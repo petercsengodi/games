@@ -1,6 +1,6 @@
 package hu.csega.superstition.animatool;
 
-public class WireFrameView : CView
+public class WireFrameView extends CView
 {
 	/// <summary>
 	/// Required designer variable.
@@ -99,7 +99,7 @@ public class WireFrameView : CView
 	private bool show_grid;
 	private Vector3 angle = new Vector3(0f, 0f, 0f);
 	private const float rotation =
-		(float)Math.PI / (float)18;
+			(float)Math.PI / 18;
 
 	public void SetView(Perspectives perspective)
 	{
@@ -115,32 +115,32 @@ public class WireFrameView : CView
 
 		switch(perspective)
 		{
-			case Perspectives.Left:
-				view.M31 = 1f;
-				view.M22 = -1f;
-				invert.M13 = 1f;
-				invert.M22 = -1f;
-				label1.Text = "Left";
-				angle.X = rotation;
-				break;
+		case Perspectives.Left:
+			view.M31 = 1f;
+			view.M22 = -1f;
+			invert.M13 = 1f;
+			invert.M22 = -1f;
+			label1.Text = "Left";
+			angle.X = rotation;
+			break;
 
-			case Perspectives.Top:
-				view.M11 = 1f;
-				view.M32 = -1f;
-				invert.M11 = 1f;
-				invert.M23 = -1f;
-				label1.Text = "Top";
-				angle.Y = rotation;
-				break;
+		case Perspectives.Top:
+			view.M11 = 1f;
+			view.M32 = -1f;
+			invert.M11 = 1f;
+			invert.M23 = -1f;
+			label1.Text = "Top";
+			angle.Y = rotation;
+			break;
 
-			default:
-				view.M11 = 1f;
-				view.M22 = -1f;
-				invert.M11 = 1f;
-				invert.M22 = -1f;
-				label1.Text = "Front";
-				angle.Z = -rotation;
-				break;
+		default:
+			view.M11 = 1f;
+			view.M22 = -1f;
+			invert.M11 = 1f;
+			invert.M22 = -1f;
+			label1.Text = "Front";
+			angle.Z = -rotation;
+			break;
 		}
 
 	}
@@ -183,8 +183,8 @@ public class WireFrameView : CView
 		Graphics g = args.Graphics;
 		g.Clear(Color.LightCyan);
 		g.TranslateTransform(
-			(float)this.Width / 2f,
-			(float)this.Height / 2f);
+				(float)this.Width / 2f,
+				(float)this.Height / 2f);
 
 		Brush brush_normal = new SolidBrush(Color.Black);
 		Pen pen_normal = new Pen(brush_normal);
@@ -201,9 +201,9 @@ public class WireFrameView : CView
 		Vector3 vorigo = new Vector3(0f, 0f, 0f);
 		Point porigo = Transform(vorigo);
 		g.DrawLine(pen_yellow, porigo.X - 10, porigo.Y,
-			porigo.X + 10, porigo.Y);
+				porigo.X + 10, porigo.Y);
 		g.DrawLine(pen_yellow, porigo.X, porigo.Y - 10,
-			porigo.X, porigo.Y + 10);
+				porigo.X, porigo.Y + 10);
 
 		// Drawing Grid
 		if(show_grid) DrawGrid(pen_grid, g);
@@ -228,30 +228,30 @@ public class WireFrameView : CView
 			{
 				pos1 = con.point;
 				pos1 = Vector3.TransformCoordinate(pos1,
-					part.model_transform[model.scene]);
+						part.model_transform[model.scene]);
 				pos1 += part.center_point[model.scene];
 				line1 = Transform(pos1);
 				if(con == model.Selected)
 				{
 					g.DrawEllipse(pen_selected, line1.X - 5,
-						line1.Y - 5, 11, 11);
+							line1.Y - 5, 11, 11);
 				}
 				else
 				{
 					g.DrawEllipse(pen_violet, line1.X - 5,
-						line1.Y - 5, 11, 11);
+							line1.Y - 5, 11, 11);
 				}
 			}
 
-            Mesh mesh = part.GetMesh().SimpleMesh;
+			Mesh mesh = part.GetMesh().SimpleMesh;
 			CustomVertex.PositionOnly[] vertices =
-				(CustomVertex.PositionOnly[])
-				mesh.LockVertexBuffer(
-				typeof(CustomVertex.PositionOnly),
-				LockFlags.ReadOnly, mesh.NumberVertices);
+					(CustomVertex.PositionOnly[])
+					mesh.LockVertexBuffer(
+							typeof(CustomVertex.PositionOnly),
+							LockFlags.ReadOnly, mesh.NumberVertices);
 			int[] indices = (int[])mesh.LockIndexBuffer(
-				typeof(System.Int32), LockFlags.ReadOnly,
-				mesh.NumberFaces * 3);
+					typeof(System.Int32), LockFlags.ReadOnly,
+					mesh.NumberFaces * 3);
 
 			for(int i = 0; i < mesh.NumberFaces; i++)
 			{
@@ -259,11 +259,11 @@ public class WireFrameView : CView
 				pos2 = vertices[indices[i * 3 + 1]].Position;
 				pos3 = vertices[indices[i * 3 + 2]].Position;
 				pos1 = Vector3.TransformCoordinate(pos1,
-					part.model_transform[model.scene]);
+						part.model_transform[model.scene]);
 				pos2 = Vector3.TransformCoordinate(pos2,
-					part.model_transform[model.scene]);
+						part.model_transform[model.scene]);
 				pos3 = Vector3.TransformCoordinate(pos3,
-					part.model_transform[model.scene]);
+						part.model_transform[model.scene]);
 				pos1 += part.center_point[model.scene];
 				pos2 += part.center_point[model.scene];
 				pos3 += part.center_point[model.scene];
@@ -353,11 +353,11 @@ public class WireFrameView : CView
 			{
 				pos = c.point;
 				pos = Vector3.TransformCoordinate(pos,
-					p.model_transform[model.scene]);
+						p.model_transform[model.scene]);
 				pos += p.center_point[model.scene];
 				line = Transform(pos);
 				d = (line.X - e.X + this.Width / 2f)*(line.X - e.X + this.Width / 2f)
-					+ (line.Y - e.Y + this.Height / 2f)*(line.Y - e.Y + this.Height / 2f);
+						+ (line.Y - e.Y + this.Height / 2f)*(line.Y - e.Y + this.Height / 2f);
 				if(d < 25) model.Selected = c;
 			}
 		}
@@ -397,14 +397,14 @@ public class WireFrameView : CView
 			//Vector3 direction = InverseTransform(difference.X, difference.Y);
 
 			if(model.SnapToGrid &&
-				AnimaTool.GetOperatoion() == 0)
+					AnimaTool.GetOperatoion() == 0)
 			{
 				direction = SnapToGrid(direction);
 			}
 
 			if((direction.X != 0f) ||
-				(direction.Y != 0f) ||
-				(direction.Z != 0f))
+					(direction.Y != 0f) ||
+					(direction.Z != 0f))
 			{
 
 				if(part != null)
@@ -420,25 +420,25 @@ public class WireFrameView : CView
 
 					switch(AnimaTool.GetOperatoion())
 					{
-						case MoveOperation.Rotate:
-							m = Matrix.Translation(-tr) *
-								Matrix.RotationX((difference.X + difference.Y) * angle.X * rotation) *
-								Matrix.RotationY((difference.X + difference.Y) * angle.Y * rotation) *
-								Matrix.RotationZ((difference.X + difference.Y) * angle.Z * rotation) *
-								Matrix.Translation(tr);
-							part.scale(m, model.scene);
-							break;
+					case MoveOperation.Rotate:
+						m = Matrix.Translation(-tr) *
+						Matrix.RotationX((difference.X + difference.Y) * angle.X * rotation) *
+						Matrix.RotationY((difference.X + difference.Y) * angle.Y * rotation) *
+						Matrix.RotationZ((difference.X + difference.Y) * angle.Z * rotation) *
+						Matrix.Translation(tr);
+						part.scale(m, model.scene);
+						break;
 
-						case MoveOperation.Scale:
-							m = Matrix.Translation(-tr) *
-								Matrix.Scaling(scale.X, scale.Y, scale.Z) *
-								Matrix.Translation(tr);
-							part.scale(m, model.scene);
-							break;
+					case MoveOperation.Scale:
+						m = Matrix.Translation(-tr) *
+						Matrix.Scaling(scale.X, scale.Y, scale.Z) *
+						Matrix.Translation(tr);
+						part.scale(m, model.scene);
+						break;
 
-						default:
-							part.move(direction, model.scene);
-							break;
+					default:
+						part.move(direction, model.scene);
+						break;
 					}
 
 					model.PreserveConnections(part as CPart);
@@ -469,9 +469,9 @@ public class WireFrameView : CView
 		if(bcontrol[idx].down)
 		{
 			Vector3 tr = new Vector3(
-				(float)((e.X - bcontrol[idx].start_x) * move_step),
-				(float)((e.Y - bcontrol[idx].start_y) * move_step),
-				0f);
+					(float)((e.X - bcontrol[idx].start_x) * move_step),
+					(float)((e.Y - bcontrol[idx].start_y) * move_step),
+					0f);
 			translation += tr;
 			bcontrol[idx].start_x = e.X;
 			bcontrol[idx].start_y = e.Y;

@@ -8,34 +8,27 @@ public class MeshID
 	private TexID[] textures;
 	private int subsets;
 
-	public Mesh Mesh
-	{
-		get { return mesh; }
+	public Mesh getMesh() {
+		return mesh;
 	}
 
-	public Mesh SimpleMesh
-	{
-		get { return simple_mesh; }
+	public Mesh getSimpleMesh() {
+		return simple_mesh;
 	}
 
-	public int Subsets
-	{
-		get { return subsets; }
+	public int getSubsets() {
+		return subsets;
 	}
 
-	public Material[] Materials
-	{
-		get { return materials; }
+	public Material[] getMaterials() {
+		return materials;
 	}
 
-	public TexID[] Textures
-	{
-		get { return textures; }
+	public TexID[] getTextures() {
+		return textures;
 	}
 
-	public MeshID(string name, Mesh mesh, Mesh simple_mesh,
-		Material[] materials, TexID[] textures, int subsets)
-	{
+	public MeshID(string name, Mesh mesh, Mesh simple_mesh, Material[] materials, TexID[] textures, int subsets) {
 		this.name = name;
 		this.mesh = mesh;
 		this.simple_mesh = simple_mesh;
@@ -44,8 +37,7 @@ public class MeshID
 		this.subsets = subsets;
 	}
 
-	private MeshID()
-	{
+	private MeshID() {
 		this.name = null;
 		this.mesh = null;
 		this.materials = null;
@@ -53,8 +45,7 @@ public class MeshID
 		this.subsets = 0;
 	}
 
-	public static object GetNullInstance()
-	{
+	public static Object GetNullInstance() {
 		return new MeshID();
 	}
 

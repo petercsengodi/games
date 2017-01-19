@@ -1,6 +1,7 @@
 package hu.csega.superstition.gamelib.network;
 
 public class NetworkOptions {
+
 	public static int PacketLength() {
 		return 4000;
 	}

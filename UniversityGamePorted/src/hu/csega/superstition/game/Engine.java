@@ -1,6 +1,6 @@
 package hu.csega.superstition.game;
 
-public class Engine : IPeriod
+public class Engine implements IPeriod
 {
 	// General attributes
 	protected Device device = null; // Direct3D device
@@ -115,30 +115,30 @@ public class Engine : IPeriod
 
 				switch(parameters.size)
 				{
-					case ScreenSize.W320H240:
-						pparams.BackBufferWidth = 320;
-						pparams.BackBufferHeight = 240;
-						break;
+				case ScreenSize.W320H240:
+					pparams.BackBufferWidth = 320;
+					pparams.BackBufferHeight = 240;
+					break;
 
-					case ScreenSize.W640H480:
-						pparams.BackBufferWidth = 640;
-						pparams.BackBufferHeight = 480;
-						break;
+				case ScreenSize.W640H480:
+					pparams.BackBufferWidth = 640;
+					pparams.BackBufferHeight = 480;
+					break;
 
-					case ScreenSize.W800H600:
-						pparams.BackBufferWidth = 800;
-						pparams.BackBufferHeight = 600;
-						break;
+				case ScreenSize.W800H600:
+					pparams.BackBufferWidth = 800;
+					pparams.BackBufferHeight = 600;
+					break;
 
-					case ScreenSize.W1024H768:
-						pparams.BackBufferWidth = 1024;
-						pparams.BackBufferHeight = 768;
-						break;
+				case ScreenSize.W1024H768:
+					pparams.BackBufferWidth = 1024;
+					pparams.BackBufferHeight = 768;
+					break;
 
-					default:
-						pparams.BackBufferWidth = Manager.Adapters.Default.CurrentDisplayMode.Width;
-						pparams.BackBufferHeight = Manager.Adapters.Default.CurrentDisplayMode.Height;
-						break;
+				default:
+					pparams.BackBufferWidth = Manager.Adapters.Default.CurrentDisplayMode.Width;
+					pparams.BackBufferHeight = Manager.Adapters.Default.CurrentDisplayMode.Height;
+					break;
 				}
 
 				pparams.FullScreenRefreshRateInHz = Manager.Adapters.Default.CurrentDisplayMode.RefreshRate;
@@ -170,14 +170,14 @@ public class Engine : IPeriod
 		try
 		{
 			shadowEffect = Effect.FromFile(device, @"..\progs\shadow.fx",
-				null, ShaderFlags.None, null);
+					null, ShaderFlags.None, null);
 			shadowEffect.Technique = "ShadowVolume";
 		}
 		catch(Exception)
 		{
 			string err;
 			shadowEffect = Effect.FromFile(device, @"..\progs\shadow.fx",
-				null, ShaderFlags.None, null, out err);
+					null, ShaderFlags.None, null, out err);
 			throw new Exception(err);
 		}
 
@@ -195,11 +195,11 @@ public class Engine : IPeriod
 			KeyDevice.SetEventNotification(KeyFire); // Thread should be activated because of an Event
 			(new Thread(new ThreadStart(HandleKeyboard))).Start(); // Starting Handle Thread
 			if(!parameters.FullScreen) KeyDevice.SetCooperativeLevel(parameters.main,  // If windowed
-									 DInput.CooperativeLevelFlags.NonExclusive |   //          not Exclusive
-									 DInput.CooperativeLevelFlags.Background);     //          not Foreground
+					DInput.CooperativeLevelFlags.NonExclusive |   //          not Exclusive
+					DInput.CooperativeLevelFlags.Background);     //          not Foreground
 			else KeyDevice.SetCooperativeLevel(parameters.main,
-					 DInput.CooperativeLevelFlags.Exclusive |
-					 DInput.CooperativeLevelFlags.Foreground);
+					DInput.CooperativeLevelFlags.Exclusive |
+					DInput.CooperativeLevelFlags.Foreground);
 			KeyDevice.Properties.BufferSize = 8; // Enough? Too much? Buffer is read very repeatative
 			KeyDevice.Acquire();
 			MainFrame.WriteConsole("Keyboard Inited.");
@@ -222,11 +222,11 @@ public class Engine : IPeriod
 			MouseFire = new AutoResetEvent(false); // For Thread Synchronization
 			(new Thread(new ThreadStart(HandleMouse))).Start(); // Starting Handle Thread
 			if(!parameters.FullScreen) MouseDevice.SetCooperativeLevel(parameters.main, // If windowed
-									 DInput.CooperativeLevelFlags.NonExclusive |    //    not Exclusive
-									 DInput.CooperativeLevelFlags.Background);      //    not Foreground
+					DInput.CooperativeLevelFlags.NonExclusive |    //    not Exclusive
+					DInput.CooperativeLevelFlags.Background);      //    not Foreground
 			else MouseDevice.SetCooperativeLevel(parameters.main,
-					 DInput.CooperativeLevelFlags.Exclusive |
-					 DInput.CooperativeLevelFlags.Foreground);
+					DInput.CooperativeLevelFlags.Exclusive |
+					DInput.CooperativeLevelFlags.Foreground);
 			MouseDevice.SetEventNotification(MouseFire); // Setting Eventhandler
 			MouseDevice.Acquire(); // Here?
 			MainFrame.WriteConsole("Mouse Inited.");
@@ -266,7 +266,7 @@ public class Engine : IPeriod
 
 		// For shadow volume
 		volume = new VertexBuffer(typeof(CustomVertex.PositionOnly),
-			12, device, 0, CustomVertex.PositionOnly.Format, Pool.Managed);
+				12, device, 0, CustomVertex.PositionOnly.Format, Pool.Managed);
 
 		CustomVertex.PositionOnly[] array = (CustomVertex.PositionOnly[]) volume.Lock(0, 0);
 
@@ -299,7 +299,7 @@ public class Engine : IPeriod
 		#region Render Initialization
 
 		camera = Matrix.PerspectiveFovLH( (float)(Math.PI / 4.0),
-			1.5f, 0.125f /* 1.0f */, 1000.0f);
+				1.5f, 0.125f /* 1.0f */, 1000.0f);
 		Vup = new Vector3(0f, 1f, 0f);
 		initMaterial = new Material();
 		initMaterial.Diffuse = Color.White;
@@ -309,9 +309,9 @@ public class Engine : IPeriod
 		device.RenderState.Clipping = true;
 
 		fpsFont = new Microsoft.DirectX.Direct3D.Font(device, 20, 10,
-			FontWeight.Bold, 1, false, CharacterSet.Ansi, Precision.Raster,
-			FontQuality.Default, PitchAndFamily.FamilyDoNotCare | PitchAndFamily.DefaultPitch,
-			"Comic Sans MS");
+				FontWeight.Bold, 1, false, CharacterSet.Ansi, Precision.Raster,
+				FontQuality.Default, PitchAndFamily.FamilyDoNotCare | PitchAndFamily.DefaultPitch,
+				"Comic Sans MS");
 
 		// DisposeList.Add(fpsFont); // do not dispose when disposing model
 
@@ -459,7 +459,7 @@ public class Engine : IPeriod
 
 			if(this.state.Model == null) continue;
 			if(parameters.main.WindowState ==
-				FormWindowState.Minimized) continue;
+					FormWindowState.Minimized) continue;
 
 			Monitor.Enter(this); // Allocating Engine
 
@@ -540,7 +540,7 @@ public class Engine : IPeriod
 			if(buffer == null) continue;
 			if(state.Model == null) continue;
 			if(parameters.main.WindowState ==
-				FormWindowState.Minimized) continue;
+					FormWindowState.Minimized) continue;
 
 			Monitor.Enter(this); // Allocating Engine
 			foreach(DInput.BufferedData data in buffer)
@@ -574,11 +574,11 @@ public class Engine : IPeriod
 	/// <param name="face">Texture.</param>
 	/// <returns>Plane Primitve.</returns>
 	public Primitive Pr_Plane(Vector3 Left, Vector3 Right,
-		StaticVectorLibrary.Direction direction, string face)
+			StaticVectorLibrary.Direction direction, string face)
 	{
 		return new EPlane(this, Vector3.Minimize(Left, Right),
-			Vector3.Maximize(Left, Right), direction,
-			Library.Textures().getTexture(face));
+				Vector3.Maximize(Left, Right), direction,
+				Library.Textures().getTexture(face));
 	}
 
 	/// <summary>
@@ -592,7 +592,7 @@ public class Engine : IPeriod
 	public Primitive Pr_TesselatedTriangle(Vector3 a, Vector3 b, Vector3 c, string face)
 	{
 		return new ETesselatedTriangle(this, a, b, c,
-			Library.Textures().getTexture(face));
+				Library.Textures().getTexture(face));
 	}
 
 	/// <summary>
@@ -633,7 +633,7 @@ public class Engine : IPeriod
 	{
 		Animation ret = new Animation(this);
 		ret.Load(@"..\anims\" + file_name + ".anm");
-		return ret;
+				return ret;
 	}
 
 	/// <summary>
@@ -719,14 +719,14 @@ public class Engine : IPeriod
 		device.RenderState.StencilMask = 0x7F; // 11111111�2
 		actualReferenceValue = 0x20;
 		device.RenderState.Ambient = model.GetAmbient();
-//		device.RenderState.SpecularEnable = true;
-//		device.RenderState.Wrap0 = WrapCoordinates.One;
+		//		device.RenderState.SpecularEnable = true;
+		//		device.RenderState.Wrap0 = WrapCoordinates.One;
 
-//		device.SamplerState[0].MagFilter = TextureFilter.GaussianQuad;
+		//		device.SamplerState[0].MagFilter = TextureFilter.GaussianQuad;
 
 		#endregion
 
-//		device.RenderState.Lighting = false;
+		//		device.RenderState.Lighting = false;
 
 		#region Projection Matrix
 
@@ -738,16 +738,16 @@ public class Engine : IPeriod
 
 
 		view_matrix = Matrix.LookAtLH(model.GetViewPosition(),
-				 Vector3.Add(model.GetViewPosition(), model.GetViewDirection()),
-				 model.GetVUp());
+				Vector3.Add(model.GetViewPosition(), model.GetViewDirection()),
+				model.GetVUp());
 
 		device.Transform.View = view_matrix;
 
 		#endregion
 
-//		device.RenderState.Lighting = false;
+		//		device.RenderState.Lighting = false;
 
-//		options.depth_algorythm = DepthAlgorythm.Pass;
+		//		options.depth_algorythm = DepthAlgorythm.Pass;
 
 		#region First Rendering: With Lights
 
@@ -761,7 +761,7 @@ public class Engine : IPeriod
 
 		#endregion
 
-//		device.RenderState.Lighting = true;
+		//		device.RenderState.Lighting = true;
 
 		if(options.renderShadow)
 		{
@@ -769,37 +769,37 @@ public class Engine : IPeriod
 
 			// Second rendering: Two faces of volumes
 			device.RenderState.Lighting = false;
-			device.RenderState.StencilEnable = true;
-			device.SetTexture(0, null);
-			isShadowRendering = true;
-			device.RenderState.ZBufferWriteEnable = false;
-			device.RenderState.StencilFunction = Compare.Always;
-			device.RenderState.ColorWriteEnable = 0;
+		device.RenderState.StencilEnable = true;
+		device.SetTexture(0, null);
+		isShadowRendering = true;
+		device.RenderState.ZBufferWriteEnable = false;
+		device.RenderState.StencilFunction = Compare.Always;
+		device.RenderState.ColorWriteEnable = 0;
 
-			model.Render();
+		model.Render();
 
-			device.RenderState.ColorWriteEnable = ColorWriteEnable.RedGreenBlueAlpha;
-			device.RenderState.StencilZBufferFail = StencilOperation.Keep;
-			device.RenderState.StencilPass = StencilOperation.Keep;
-			device.RenderState.ColorVertex = true;
-			isShadowRendering = false;
-			device.RenderState.Lighting = true;
+		device.RenderState.ColorWriteEnable = ColorWriteEnable.RedGreenBlueAlpha;
+		device.RenderState.StencilZBufferFail = StencilOperation.Keep;
+		device.RenderState.StencilPass = StencilOperation.Keep;
+		device.RenderState.ColorVertex = true;
+		isShadowRendering = false;
+		device.RenderState.Lighting = true;
 
-			#endregion
+		#endregion
 
-			#region Third Rendering: Without Lights
+		#region Third Rendering: Without Lights
 
-			// Third Rendering: Without lights
-			device.RenderState.ReferenceStencil = actualReferenceValue;
-			device.Clear(ClearFlags.ZBuffer, Color.Cyan, 1.0f, 0);
-			device.RenderState.ZBufferWriteEnable = true;
-//			device.RenderState.StencilFunction = Compare.Less;
-			device.RenderState.StencilFunction = Compare.NotEqual;
+		// Third Rendering: Without lights
+		device.RenderState.ReferenceStencil = actualReferenceValue;
+		device.Clear(ClearFlags.ZBuffer, Color.Cyan, 1.0f, 0);
+		device.RenderState.ZBufferWriteEnable = true;
+		//			device.RenderState.StencilFunction = Compare.Less;
+		device.RenderState.StencilFunction = Compare.NotEqual;
 
-			model.Render();
-			device.RenderState.StencilEnable = false;
+		model.Render();
+		device.RenderState.StencilEnable = false;
 
-			#endregion
+		#endregion
 		}
 
 		Monitor.Exit(this);
@@ -809,7 +809,7 @@ public class Engine : IPeriod
 		if(options.fpsView)
 		{
 			fpsFont.DrawText(null, MainFrame.lastfps.ToString(), new Rectangle(0, 0, 100, 40),
-				DrawTextFormat.NoClip, Color.WhiteSmoke);
+					DrawTextFormat.NoClip, Color.WhiteSmoke);
 		}
 
 		#endregion
@@ -863,9 +863,9 @@ public class Engine : IPeriod
 			Vector3 i = (a - light) * (1f + 20f / d) + light;
 			d = d / (20f + d);
 			float
-				m1 = i.X * d - a.X,
-				m2 = i.Y * d - a.Y,
-				m3 = i.Z * d - a.Z;
+			m1 = i.X * d - a.X,
+			m2 = i.Y * d - a.Y,
+			m3 = i.Z * d - a.Z;
 
 			other.M11 = b.X - a.X; other.M12 = b.Y - a.Y; other.M13 = b.Z - a.Z; other.M14 = 0;
 			other.M21 = c.X - a.X; other.M22 = c.Y - a.Y; other.M23 = c.Z - a.Z; other.M24 = 0;
@@ -907,8 +907,8 @@ public class Engine : IPeriod
 					Vector3 fx = Vector3.TransformCoordinate(new Vector3(0f, 1f, 1f), device.Transform.World);
 
 					if((Vector3.Dot(Vector3.Subtract(p, a), Vector3.Cross(Vector3.Subtract(b, a), Vector3.Subtract(dx, a))) > 0f) &&
-						(Vector3.Dot(Vector3.Subtract(p, b), Vector3.Cross(Vector3.Subtract(c, b), Vector3.Subtract(ex, b))) > 0f) &&
-						(Vector3.Dot(Vector3.Subtract(p, c), Vector3.Cross(Vector3.Subtract(a, c), Vector3.Subtract(fx, c))) > 0f))
+							(Vector3.Dot(Vector3.Subtract(p, b), Vector3.Cross(Vector3.Subtract(c, b), Vector3.Subtract(ex, b))) > 0f) &&
+							(Vector3.Dot(Vector3.Subtract(p, c), Vector3.Cross(Vector3.Subtract(a, c), Vector3.Subtract(fx, c))) > 0f))
 					{
 						actualReferenceValue--;
 					} // end if
@@ -954,74 +954,75 @@ public class Engine : IPeriod
 	/// <param name="subsets">Number of mesh's subsets.</param>
 	/// <param name="inverz">Invert matrix of world transformation.</param>
 	public void RenderVolume(VolumeRender volume_render,
-		Mesh mesh, int subsets, Matrix inverz)
+			Mesh mesh, int subsets, Matrix inverz)
 	{
 		#region Setting up effect parameters - OLD : COMMENTED
 
 		Matrix w = device.Transform.World,
-			vp = device.Transform.View * device.Transform.Projection;
-		shadowEffect.SetValue("World", w);
-		shadowEffect.SetValue("WIT", Matrix.TransposeMatrix(Matrix.Invert(w)));
-		shadowEffect.SetValue("ViewProj", vp);
-		shadowEffect.SetValue("LightPos", new Vector4(light.X, light.Y, light.Z, 20f));
+		vp = device.Transform.View * device.Transform.Projection;
+	shadowEffect.SetValue("World", w);
+	shadowEffect.SetValue("WIT", Matrix.TransposeMatrix(Matrix.Invert(w)));
+	shadowEffect.SetValue("ViewProj", vp);
+	shadowEffect.SetValue("LightPos", new Vector4(light.X, light.Y, light.Z, 20f));
 
-		#endregion
+	#endregion
 
-		#region Setting uo effect parameters - ACTUAL
+	#region Setting uo effect parameters - ACTUAL
 
-//		Matrix w = device.Transform.World,
-//			vp = device.Transform.View * device.Transform.Projection;
-//		shadowEffect.SetValue("World", w);
-//		shadowEffect.SetValue("ViewProj", vp);
-//		shadowEffect.SetValue("LightPos",
-//			new Vector4(light.X, light.Y, light.Z, 20f));
-//		Vector3 matrix_center = Vector3.TransformCoordinate(
-//			new Vector3(0f, 0f, 0f), w);
-//		shadowEffect.SetValue("mpos", new Vector4(
-//			matrix_center.X, matrix_center.Y, matrix_center.Z, 1f));
+	//		Matrix w = device.Transform.World,
+	//			vp = device.Transform.View * device.Transform.Projection;
+	//		shadowEffect.SetValue("World", w);
+	//		shadowEffect.SetValue("ViewProj", vp);
+	//		shadowEffect.SetValue("LightPos",
+	//			new Vector4(light.X, light.Y, light.Z, 20f));
+	//		Vector3 matrix_center = Vector3.TransformCoordinate(
+	//			new Vector3(0f, 0f, 0f), w);
+	//		shadowEffect.SetValue("mpos", new Vector4(
+	//			matrix_center.X, matrix_center.Y, matrix_center.Z, 1f));
 
-		#endregion
+	#endregion
 
-		device.RenderState.Clipping = false;
+	device.RenderState.Clipping = false;
 
-		shadowEffect.Begin(0);
-		shadowEffect.BeginPass(0);
+	shadowEffect.Begin(0);
+	shadowEffect.BeginPass(0);
 
-		volume_render();
+	volume_render();
 
-		shadowEffect.EndPass();
-		shadowEffect.End();
+	shadowEffect.EndPass();
+	shadowEffect.End();
 
-		device.RenderState.Clipping = true;
+	device.RenderState.Clipping = true;
 
-		if(options.depth_algorythm == DepthAlgorythm.Pass)
+	if(options.depth_algorythm == DepthAlgorythm.Pass)
+	{
+
+		#region Checking if player is inside of Shadow Volume
+
+		//			inverz = device.Transform.World;
+		//			inverz.Invert();
+
+		Vector3 p = Vector3.TransformCoordinate(state.Model.GetViewPosition(), inverz);
+		Vector3 l = Vector3.TransformCoordinate(this.light, inverz);
+		Vector3 difference = l-p;
+		Vector3 dir = Vector3.Normalize(difference);
+		IntersectInformation inf;
+		if(mesh.Intersect(p, dir, out inf) && (inf.Dist < difference.Length()))
 		{
-
-			#region Checking if player is inside of Shadow Volume
-
-			//			inverz = device.Transform.World;
-			//			inverz.Invert();
-
-			Vector3 p = Vector3.TransformCoordinate(state.Model.GetViewPosition(), inverz);
-			Vector3 l = Vector3.TransformCoordinate(this.light, inverz);
-			Vector3 difference = l-p;
-			Vector3 dir = Vector3.Normalize(difference);
-			IntersectInformation inf;
-			if(mesh.Intersect(p, dir, out inf) && (inf.Dist < difference.Length()))
-			{
-				actualReferenceValue--;
-				//				if(actualReferenceValue <= 0)
-				//					Console.WriteLine(actualReferenceValue);
-			}
-
-			#endregion
-
+			actualReferenceValue--;
+			//				if(actualReferenceValue <= 0)
+			//					Console.WriteLine(actualReferenceValue);
 		}
+
+		#endregion
+
+	}
 
 	} // End of method
 
 	#region IPeriod Members
 
+	@Override
 	public void Period()
 	{
 		IModel model = state.Model;

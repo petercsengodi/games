@@ -1,7 +1,7 @@
 package hu.csega.superstition.t3dcreator.texture;
 
-public class TextureView : CView
-{
+public class TextureView extends CView {
+
 	/// <summary>
 	/// Required designer variable.
 	/// </summary>
@@ -28,7 +28,6 @@ public class TextureView : CView
 		base.Dispose( disposing );
 	}
 
-	#region Component Designer generated code
 	/// <summary>
 	/// Required method for Designer support - do not modify
 	/// the contents of this method with the code editor.
@@ -45,7 +44,6 @@ public class TextureView : CView
 		this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.WireFrameView_MouseDown);
 
 	}
-	#endregion
 
 	private const double move_step = 1.0;
 	private ButtonControl[] bcontrol;
@@ -92,7 +90,7 @@ public class TextureView : CView
 			if((selected_figure != null) && (selected_figure.texID != null))
 			{
 				pevent.Graphics.DrawImage(selected_figure.texID.Map,
-					0, 0, this.Width, this.Height);
+						0, 0, this.Width, this.Height);
 				return;
 			}
 
@@ -139,8 +137,8 @@ public class TextureView : CView
 						tex2 += model.SelectedTexture;
 				}
 				g.DrawLine(pen,
-					Transform(tex1),
-					Transform(tex2));
+						Transform(tex1),
+						Transform(tex2));
 
 				pen = pen_normal;
 				tex1 = e.from.texture_coordinates;
@@ -205,7 +203,7 @@ public class TextureView : CView
 				{
 					position = Transform(vertex.texture_coordinates);
 					if((m.X >= position.X - 4) && (m.X <= position.X + 4)
-						&& (m.Y >= position.Y - 4) && (m.Y <= position.Y + 4))
+							&& (m.Y >= position.Y - 4) && (m.Y <= position.Y + 4))
 					{
 						model.Selected = vertex;
 						return;
@@ -232,7 +230,7 @@ public class TextureView : CView
 			IPart part = model.Selected as IPart;
 			if(part == null) return;
 			Operation op = new MoveTexture(part,
-				model.SelectedTexture);
+					model.SelectedTexture);
 			model.SelectedTexture = new Vector2(0f, 0f);
 			model.Memento.Push(op);
 			model.UpdateViews(Updates.Move);
@@ -253,12 +251,12 @@ public class TextureView : CView
 			if(part != null)
 			{
 				Vector2 direction = InverseTransform(
-					e.X - bcontrol[idx].start_x,
-					e.Y - bcontrol[idx].start_y);
+						e.X - bcontrol[idx].start_x,
+						e.Y - bcontrol[idx].start_y);
 				if((direction.X != 0f) ||
-					(direction.Y != 0f))
+						(direction.Y != 0f))
 				{
-//					part.moveTexture(direction);
+					//					part.moveTexture(direction);
 					model.SelectedTexture += direction;
 					model.UpdateViews(Updates.Move);
 					bcontrol[idx].start_x = e.X;

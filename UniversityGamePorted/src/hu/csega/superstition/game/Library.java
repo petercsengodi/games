@@ -1,7 +1,7 @@
 package hu.csega.superstition.game;
 
-public abstract class Library
-{
+public abstract class Library {
+
 	private static MeshLibrary meshes;
 	private static AnimationLibrary animations;
 	private static TextureLibrary textures;

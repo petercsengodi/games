@@ -1,7 +1,12 @@
 package hu.csega.superstition.game.idontknow;
 
-public class Weapon : Clipable, IGameElement
-{
+import org.joml.Vector3f;
+
+import hu.csega.superstition.game.Model;
+import hu.csega.superstition.game.object.Clipable;
+
+public class Weapon extends Clipable implements IGameElement {
+
 	protected WeaponStatus status;
 	protected WeaponType type;
 	protected float Angle;
@@ -22,9 +27,8 @@ public class Weapon : Clipable, IGameElement
 		set{ status = value; }
 	}
 
-	public Weapon(Vector3 position, WeaponType type) :
-		base(position, position, position)
-	{
+	public Weapon(Vector3 position, WeaponType type) {
+		super(position, position, position);
 		this.status = WeaponStatus.Ground;
 		this.type = type;
 		this.Angle = 0f;
@@ -32,8 +36,8 @@ public class Weapon : Clipable, IGameElement
 		this.radius = 0f;
 	}
 
-	[Serializable]
-		public class WeaponData : GameObjectData
+
+	public class WeaponData extends GameObjectData
 	{
 		public Vector3 position;
 		public WeaponStatus status;
@@ -52,10 +56,8 @@ public class Weapon : Clipable, IGameElement
 		}
 	}
 
-	public Weapon(WeaponData data) :
-		base(new Vector3(0f, 0f, 0f),
-		new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 0f))
-	{
+	public Weapon(WeaponData data) {
+		super(new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 0f));
 		this.position = data.position;
 		this.status = data.status;
 		this.type = data.type;
@@ -64,31 +66,28 @@ public class Weapon : Clipable, IGameElement
 		this.radius = 0f;
 	}
 
-	#region IPeriod Members
 
+	@Override
 	public void Period()
 	{
 		switch(status)
 		{
-			case WeaponStatus.Ground:
-				Angle += 0.005f;
-				if(Angle > limit) Angle -= limit;
-				break;
+		case WeaponStatus.Ground:
+			Angle += 0.005f;
+			if(Angle > limit) Angle -= limit;
+			break;
 
-			default:
-				if(anim < 1f)
-				{
-					if(anim > -1f) anim -= speed;
-					else anim = 1f;
-				}
-				break;
+		default:
+			if(anim < 1f)
+			{
+				if(anim > -1f) anim -= speed;
+				else anim = 1f;
+			}
+			break;
 		}
 	} // End of function Period
 
-	#endregion
-
-	#region IGameObject Members
-
+	@Override
 	public GameObjectData getData()
 	{
 		WeaponData data = new WeaponData();
@@ -105,20 +104,20 @@ public class Weapon : Clipable, IGameElement
 		this.engine = engine;
 		switch(type)
 		{
-			case WeaponType.Gun:
-				weapon = (MeshElement)engine.GetMeshElement(
+		case WeaponType.Gun:
+			weapon = (MeshElement)engine.GetMeshElement(
 					"gun.x", EngineMeshFlags.Colored, Color.White);
-				break;
+			break;
 
-			case WeaponType.Torch:
-				weapon = (MeshElement)engine.GetMeshElement(
+		case WeaponType.Torch:
+			weapon = (MeshElement)engine.GetMeshElement(
 					"torch.x", EngineMeshFlags.Colored, Color.White);
-				break;
+			break;
 
-			default:
-				weapon = (MeshElement)engine.GetMeshElement(
+		default:
+			weapon = (MeshElement)engine.GetMeshElement(
 					"sword.x", EngineMeshFlags.Colored, Color.White);
-				break;
+			break;
 		}
 
 		radius = weapon.Radius();
@@ -126,22 +125,20 @@ public class Weapon : Clipable, IGameElement
 		corner2 = new Vector3(radius, radius, radius);
 	}
 
+	@Override
 	public void PreRender()
 	{
-//		if(status != WeaponStatus.Grabbed)
-//		{
-//			weapon.Shadow = true;
-//		}
-//		else weapon.Shadow = false;
+		//		if(status != WeaponStatus.Grabbed)
+		//		{
+		//			weapon.Shadow = true;
+		//		}
+		//		else weapon.Shadow = false;
 	}
 
+	@Override
 	public void PostRender()
 	{
 	}
-
-	#endregion
-
-	#region IRenderObject Members
 
 	public void Render(Vector3 position, Vector3 orientation)
 	{
@@ -149,13 +146,13 @@ public class Weapon : Clipable, IGameElement
 		{
 			Vector3[] res = GetGrabVectors();
 			Vector3 po = Vector3.Lerp(
-				res[1], res[0], Math.Abs(anim));
+					res[1], res[0], Math.Abs(anim));
 			Vector3 or = Vector3.Lerp(
-				res[3], res[2], Math.Abs(anim));
+					res[3], res[2], Math.Abs(anim));
 			Vector3 vp = Vector3.Lerp(
-				res[5], res[4], Math.Abs(anim));
+					res[5], res[4], Math.Abs(anim));
 			Matrix w1 = Matrix.LookAtLH(position,
-				orientation + position, vup);
+					orientation + position, vup);
 			w1.Invert();
 			Matrix w2 = Matrix.LookAtLH(po, or + po, vp);
 			w2.Invert();
@@ -171,9 +168,8 @@ public class Weapon : Clipable, IGameElement
 		}
 	} // End of function Render
 
-	#endregion
 
-	public override void Squash(StaticVectorLibrary.Direction dir, Vector3 box1, Vector3 box2, Vector3 sqpoint)
+	public void squash(StaticVectorLibrary.Direction dir, Vector3 box1, Vector3 box2, Vector3 sqpoint)
 	{
 		#region Falls Back with Energy Loss
 
@@ -203,7 +199,7 @@ public class Weapon : Clipable, IGameElement
 		#endregion
 	}
 
-	public override void PlayerEffect(object player)
+	public void playerEffect(object player)
 	{
 		PlayerObject p = player as PlayerObject;
 		if(status == WeaponStatus.Ground)
@@ -215,38 +211,38 @@ public class Weapon : Clipable, IGameElement
 		}
 	}
 
-	protected Vector3[] GetGrabVectors()
+	protected Vector3f[] GetGrabVectors()
 	{
 		Vector3[] ret = new Vector3[6];
 
 		switch(type)
 		{
-			case WeaponType.Gun:
-				ret[0] = new Vector3(0.15f, -0.15f, 0.2f);
-				ret[1] = new Vector3(0.15f, -0.15f, 0.1f);
-				ret[2] = new Vector3(0f, 0f, -1f);
-				ret[3] = new Vector3(0f, 0f, -1f);
-				ret[4] = new Vector3(0f, 1f, 0f);
-				ret[5] = new Vector3(0f, 1f, 0f);
-				break;
+		case WeaponType.Gun:
+			ret[0] = new Vector3(0.15f, -0.15f, 0.2f);
+			ret[1] = new Vector3(0.15f, -0.15f, 0.1f);
+			ret[2] = new Vector3(0f, 0f, -1f);
+			ret[3] = new Vector3(0f, 0f, -1f);
+			ret[4] = new Vector3(0f, 1f, 0f);
+			ret[5] = new Vector3(0f, 1f, 0f);
+			break;
 
-			case WeaponType.Torch:
-				ret[0] = new Vector3(0.15f, -0.15f, 0.2f);
-				ret[1] = new Vector3(0.15f, -0.15f, 0.1f);
-				ret[2] = new Vector3(0f, 0f, -1f);
-				ret[3] = new Vector3(0f, 0f, -1f);
-				ret[4] = new Vector3(0f, 1f, 0f);
-				ret[5] = new Vector3(0f, 1f, 0f);
-				break;
+		case WeaponType.Torch:
+			ret[0] = new Vector3(0.15f, -0.15f, 0.2f);
+			ret[1] = new Vector3(0.15f, -0.15f, 0.1f);
+			ret[2] = new Vector3(0f, 0f, -1f);
+			ret[3] = new Vector3(0f, 0f, -1f);
+			ret[4] = new Vector3(0f, 1f, 0f);
+			ret[5] = new Vector3(0f, 1f, 0f);
+			break;
 
-			default:
-				ret[0] = new Vector3(0.2f, -0.5f, 0f);
-				ret[1] = new Vector3(0.2f, -0.25f, 0.5f);
-				ret[2] = new Vector3(0f, 1.5f, 1f);
-				ret[3] = new Vector3(-2f, 0f, 2f);
-				ret[4] = new Vector3(0f, 1f, 0f);
-				ret[5] = new Vector3(1f, 1f, 0f);
-				break;
+		default:
+			ret[0] = new Vector3(0.2f, -0.5f, 0f);
+			ret[1] = new Vector3(0.2f, -0.25f, 0.5f);
+			ret[2] = new Vector3(0f, 1.5f, 1f);
+			ret[3] = new Vector3(-2f, 0f, 2f);
+			ret[4] = new Vector3(0f, 1f, 0f);
+			ret[5] = new Vector3(1f, 1f, 0f);
+			break;
 		}
 
 
@@ -261,26 +257,26 @@ public class Weapon : Clipable, IGameElement
 
 			switch(type)
 			{
-				case WeaponType.Gun:
-					Bullet bullet = new Bullet(
+			case WeaponType.Gun:
+				Bullet bullet = new Bullet(
 						position + direction,
 						Vector3.Normalize(direction) * 15f,
-                        model);
-					bullet.Build(engine);
-					model.GameElements.Add(bullet);
-					break;
+						model);
+				bullet.Build(engine);
+				model.GameElements.Add(bullet);
+				break;
 
-				default:
+			default:
 
-					break;
+				break;
 			}
 		}
 	}
 
-	public void SetModel(Model model)
+	@Override
+	public void setModel(Model model)
 	{
 		this.model = model;
 	}
 
 } // End of class Weapon
-}

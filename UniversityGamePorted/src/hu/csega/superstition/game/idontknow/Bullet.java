@@ -1,7 +1,7 @@
 package hu.csega.superstition.game.idontknow;
 
-class Bullet : DynamicObject, IGameElement
-{
+public class Bullet extends DynamicObject implements IGameElement {
+
 	protected Model model;
 	protected float radius;
 	protected MeshElement bullet;
@@ -10,16 +10,16 @@ class Bullet : DynamicObject, IGameElement
 
 	public Bullet(Vector3 position, Vector3 velocity, Model model) :
 		base(position, position, position)
-	{
+		{
 		this.radius = 0f;
 		this.model = model;
 		this.position = position;
 		this.velocity = velocity;
-	}
+		}
 
 	[Serializable]
-	public class BulletData : GameObjectData
-	{
+			public class BulletData : GameObjectData
+			{
 		public Vector3 position;
 		public Vector3 velocity;
 
@@ -32,16 +32,16 @@ class Bullet : DynamicObject, IGameElement
 		{
 			return new Bullet(this);
 		}
-	}
+			}
 
 	public Bullet(BulletData data) :
 		base(new Vector3(0f, 0f, 0f),
-		new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 0f))
-	{
+				new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 0f))
+		{
 		this.position = data.position;
 		this.velocity = velocity;
 		this.radius = 0f;
-	}
+		}
 
 	#region IGameElement Members
 
@@ -76,8 +76,8 @@ class Bullet : DynamicObject, IGameElement
 	public override void Build(Engine engine)
 	{
 		bullet = (MeshElement)engine.GetMeshElement("bullet.x",
-			EngineMeshFlags.Colored | EngineMeshFlags.NoShadow,
-			Color.Yellow);
+				EngineMeshFlags.Colored | EngineMeshFlags.NoShadow,
+				Color.Yellow);
 		radius = bullet.Radius();
 		corner1 = new Vector3(-radius, -radius, -radius);
 		corner2 = new Vector3(radius, radius, radius);

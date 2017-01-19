@@ -1,6 +1,6 @@
 package hu.csega.superstition.gameserver.states;
 
-class StopState : State
+public class StopState extends State
 {
 
 	public override State trigger(object Object)

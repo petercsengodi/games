@@ -1,6 +1,6 @@
 package hu.csega.superstition.animatool;
 
-public class DirectXView : CView
+public class DirectXView extends CView
 {
 	/// <summary>
 	/// Required designer variable.
@@ -84,9 +84,9 @@ public class DirectXView : CView
 	private const double move_step = 0.01;
 
 	private Device device;
-//	private VertexBuffer vertices;
+	//	private VertexBuffer vertices;
 	private VertexBuffer grid;
-//	private int triangle_count = 0;
+	//	private int triangle_count = 0;
 	private int line_count;
 
 	private double alfa = 0f, beta = 0f;
@@ -212,7 +212,7 @@ public class DirectXView : CView
 		pp.Windowed = true;
 
 		device = new Device(0, DeviceType.Hardware, this,
-			CreateFlags.HardwareVertexProcessing, pp);
+				CreateFlags.HardwareVertexProcessing, pp);
 
 		TextureLibrary.Initialize(device);
 
@@ -243,10 +243,10 @@ public class DirectXView : CView
 		line_count = count*count * 3;
 
 		grid = new VertexBuffer(
-			typeof(CustomVertex.PositionColored),
-			line_count * 2, device, 0,
-			CustomVertex.PositionColored.Format,
-			Pool.Managed);
+				typeof(CustomVertex.PositionColored),
+				line_count * 2, device, 0,
+				CustomVertex.PositionColored.Format,
+				Pool.Managed);
 
 		GraphicsStream stream = grid.Lock(0, 0, 0);
 
@@ -254,23 +254,23 @@ public class DirectXView : CView
 			for(double d2 = model.grid_from; d2 < model.grid_to + model.grid_error; d2 += model.grid_step)
 			{
 				stream.Write(new CustomVertex.PositionColored(
-					new Vector3((float)(d1), (float)(d2),
-					(float)(model.grid_from)), color));
+						new Vector3((float)(d1), (float)(d2),
+								(float)(model.grid_from)), color));
 				stream.Write(new CustomVertex.PositionColored(
-					new Vector3((float)(d1), (float)(d2),
-					(float)(model.grid_to)), color));
+						new Vector3((float)(d1), (float)(d2),
+								(float)(model.grid_to)), color));
 				stream.Write(new CustomVertex.PositionColored(
-					new Vector3((float)(d1), (float)(model.grid_from),
-					(float)(d2)), color));
+						new Vector3((float)(d1), (float)(model.grid_from),
+								(float)(d2)), color));
 				stream.Write(new CustomVertex.PositionColored(
-					new Vector3((float)(d1), (float)(model.grid_to),
-					(float)(d2)), color));
+						new Vector3((float)(d1), (float)(model.grid_to),
+								(float)(d2)), color));
 				stream.Write(new CustomVertex.PositionColored(
-					new Vector3((float)(model.grid_from), (float)(d1),
-					(float)(d2)), color));
+						new Vector3((float)(model.grid_from), (float)(d1),
+								(float)(d2)), color));
 				stream.Write(new CustomVertex.PositionColored(
-					new Vector3((float)(model.grid_to), (float)(d1),
-					(float)(d2)), color));
+						new Vector3((float)(model.grid_to), (float)(d1),
+								(float)(d2)), color));
 			}
 
 		stream.Close();
@@ -301,7 +301,7 @@ public class DirectXView : CView
 		}
 
 		device.Clear(ClearFlags.Target | ClearFlags.ZBuffer,
-			Color.White, 1.0f, 0);
+				Color.White, 1.0f, 0);
 
 		device.BeginScene();
 		device.RenderState.Lighting = false;
@@ -309,22 +309,22 @@ public class DirectXView : CView
 		device.RenderState.Wrap0 = WrapCoordinates.Zero;
 
 		device.Transform.View = Matrix.LookAtLH(
-			cam_pos,
-			new Vector3(0f, 0f, 0f),
-			new Vector3(0f, 1f, 0f));
+				cam_pos,
+				new Vector3(0f, 0f, 0f),
+				new Vector3(0f, 1f, 0f));
 
 		device.Transform.View = Matrix.RotationY((float)alfa) *
-			Matrix.RotationX((float)beta) *
-			device.Transform.View;
+				Matrix.RotationX((float)beta) *
+				device.Transform.View;
 
 		device.Transform.View = Matrix.Translation(translation) *
-			device.Transform.View;
+				device.Transform.View;
 
 		device.Transform.Projection = Matrix.PerspectiveFovLH(
-			(float)(Math.PI/2),
-			(float)((double)this.Width / this.Height),
-			0.125f,
-			1000f);
+				(float)(Math.PI/2),
+				(float)((double)this.Width / this.Height),
+				0.125f,
+				1000f);
 
 		if(show_grid)
 		{
@@ -342,8 +342,8 @@ public class DirectXView : CView
 			if(part.GetMesh().Mesh == null) continue;
 
 			device.Transform.World =
-				part.model_transform[model.scene] *
-				Matrix.Translation(part.center_point[model.scene]);
+					part.model_transform[model.scene] *
+					Matrix.Translation(part.center_point[model.scene]);
 
 			for(int i = 0; i < part.GetMesh().Subsets; i++)
 			{
@@ -414,8 +414,8 @@ public class DirectXView : CView
 			//				invalidated = true;
 
 			float ftr =
-				(float)((e.X - bcontrol[idx].start_x) * zoom_step) +
-				(float)((e.Y - bcontrol[idx].start_y) * zoom_step);
+					(float)((e.X - bcontrol[idx].start_x) * zoom_step) +
+					(float)((e.Y - bcontrol[idx].start_y) * zoom_step);
 			Vector3 tr = new Vector3(ftr, ftr, -ftr);
 			//				Matrix m = Matrix.RotationY((float)alfa) *
 			//					Matrix.RotationX((float)beta);
@@ -437,9 +437,9 @@ public class DirectXView : CView
 		if(bcontrol[idx].down)
 		{
 			Vector3 tr = new Vector3(
-				(float)((e.X - bcontrol[idx].start_x) * move_step),
-				(float)((bcontrol[idx].start_y - e.Y) * move_step),
-				0f);
+					(float)((e.X - bcontrol[idx].start_x) * move_step),
+					(float)((bcontrol[idx].start_y - e.Y) * move_step),
+					0f);
 
 			Matrix m = Matrix.Identity;
 
@@ -448,7 +448,7 @@ public class DirectXView : CView
 			//					new Vector3(0f, 1f, 0f));
 
 			m = Matrix.RotationY((float)alfa) *
-				Matrix.RotationX((float)beta) * m;
+					Matrix.RotationX((float)beta) * m;
 
 			//				m = Matrix.Translation(translation) * m;
 

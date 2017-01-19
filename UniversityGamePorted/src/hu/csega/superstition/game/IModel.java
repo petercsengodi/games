@@ -1,6 +1,6 @@
 package hu.csega.superstition.game;
 
-public interface IModel : IPeriod, IDisposable
+public interface IModel extends IPeriod, IDisposable
 {
 	/// <summary>
 	/// Doing Initialization Functionalities.

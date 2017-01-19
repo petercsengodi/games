@@ -3,8 +3,7 @@ package hu.csega.superstition.gameserver;
 import hu.csega.superstition.gameserver.states.QuitState;
 import hu.csega.superstition.gameserver.states.StartState;
 
-class NoneState : State
-{
+public class NoneState extends State {
 	public override State trigger(object Object)
 	{
 		base.trigger(Object);

@@ -1,7 +1,6 @@
 package hu.csega.superstition.gameserver;
 
-public class Host : IDisposable
-{
+public class Host {
 	private HostData host_data;
 	private GameObjectData map;
 	private Player[] players;
@@ -48,8 +47,8 @@ public class Host : IDisposable
 	}
 
 	public static Host StartNewHost(
-		int game_port, string info, int ID,
-		int limit, GameObjectData map)
+			int game_port, string info, int ID,
+			int limit, GameObjectData map)
 	{
 		if(limit < 1) limit = 1;
 		else if(limit > NetworkOptions.MaxLimit())
@@ -84,10 +83,10 @@ public class Host : IDisposable
 					if(players[i] == null)
 					{
 						IPEndPoint ep = (IPEndPoint)
-							socket.RemoteEndPoint;
+								socket.RemoteEndPoint;
 						players[i] = new Player(game_socket,
-							ep.Address, i,
-							NetworkOptions.GeneratePlayerPort(game_port, i));
+								ep.Address, i,
+								NetworkOptions.GeneratePlayerPort(game_port, i));
 						result = players[i];
 						break;
 					}
@@ -101,11 +100,11 @@ public class Host : IDisposable
 	public void Start()
 	{
 		game_socket = new Socket(AddressFamily.InterNetwork,
-			SocketType.Dgram, ProtocolType.Udp);
+				SocketType.Dgram, ProtocolType.Udp);
 		game_socket.Bind(new IPEndPoint(IPAddress.Any, game_port));
 		game_socket.Blocking = false;
-//		game_socket.SetSocketOption(SocketOptionLevel.Socket,
-//			SocketOptionName.Broadcast, 1);
+		//		game_socket.SetSocketOption(SocketOptionLevel.Socket,
+		//			SocketOptionName.Broadcast, 1);
 
 		thread = new Thread(new ThreadStart(Run));
 		thread.Start();
@@ -142,11 +141,11 @@ public class Host : IDisposable
 	{
 		GameObjectData ret = null;
 		EndPoint point = new IPEndPoint(IPAddress.Any, game_port);
-//		int result = game_socket.ReceiveFrom(buffer, ref point);
+		//		int result = game_socket.ReceiveFrom(buffer, ref point);
 
 		int result = -1;
 		IAsyncResult res = game_socket.BeginReceiveFrom(buffer, 0,
-			packet_length, SocketFlags.None, ref point, null, null);
+				packet_length, SocketFlags.None, ref point, null, null);
 		result = game_socket.EndReceiveFrom(res, ref point);
 
 		if(result == 0)
@@ -162,12 +161,12 @@ public class Host : IDisposable
 				if(packet.sender != -1)
 				{
 					if((players[packet.sender] != null) &&
-						(players[packet.sender].CheckCounter(packet.counter)))
+							(players[packet.sender].CheckCounter(packet.counter)))
 					{
 						players[packet.sender].SetActive();
 						ProcessCommand(packet.data, packet.sender);
 						Server.Instance.WriteStatus("Incoming packet: " +
-							packet.data.Description);
+								packet.data.Description);
 					}
 				}
 			}

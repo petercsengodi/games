@@ -1,7 +1,7 @@
 package hu.csega.superstition.game.animation;
 
-public class Animation
-{
+public class Animation {
+
 	private int max_scenes;
 	private AnimPart[] parts;
 	private Engine engine;
@@ -51,7 +51,7 @@ public class Animation
 		{
 			CPartData d = (CPartData)data.parts[i];
 			this.parts[i].element = (MeshElement)
-				Library.Meshes().getMesh(d.mesh_file);
+					Library.Meshes().getMesh(d.mesh_file);
 			this.parts[i].worlds = d.model_transform;
 			this.parts[i].center = d.center_point;
 
@@ -84,7 +84,7 @@ public class Animation
 	public void Render(Vector3 position, Vector3 direction, Vector3 up, int scene)
 	{
 		Matrix m = Matrix.LookAtLH(position,
-			position + direction, up);
+				position + direction, up);
 		m.Invert();
 		Draw(m, scene);
 	}
@@ -97,8 +97,8 @@ public class Animation
 		foreach(AnimPart part in parts)
 		{
 			actual = part.worlds[scene] *
-				Matrix.Translation(part.center[scene]) *
-				common_world;
+					Matrix.Translation(part.center[scene]) *
+					common_world;
 			part.element.Render(actual);
 		}
 
@@ -106,7 +106,7 @@ public class Animation
 	}
 
 	public bool Shot(Matrix common_world, int scene,
-		Vector3 start_point, Vector3 end_point, bool infinity)
+			Vector3 start_point, Vector3 end_point, bool infinity)
 	{
 		Matrix world;
 		Vector3 start, end;
@@ -114,20 +114,20 @@ public class Animation
 		for(int i = 0; i < parts.Length; i++)
 		{
 			world = parts[i].worlds[scene] *
-				Matrix.Translation(parts[i].center[scene]) *
-				common_world;
+					Matrix.Translation(parts[i].center[scene]) *
+					common_world;
 			world.Invert();
 			start = Vector3.TransformCoordinate(
-				start_point, world);
+					start_point, world);
 			end = Vector3.TransformCoordinate(
-				end_point, world);
+					end_point, world);
 			ret |= parts[i].element.Shot(start, end, infinity);
 		}
 		return ret;
 	}
 
 	public NamedConnectionResult GetNamedConnection(
-		string name, Matrix common_world, int scene)
+			string name, Matrix common_world, int scene)
 	{
 		NamedConnectionResult ret = null;
 		if((name == null) || (name.Length == 0)) return ret;
@@ -139,10 +139,10 @@ public class Animation
 				ret = new NamedConnectionResult();
 				AnimPart part = parts[nc.object_index];
 				Matrix actual = part.worlds[scene] *
-					Matrix.Translation(part.center[scene]) *
-					common_world;
+						Matrix.Translation(part.center[scene]) *
+						common_world;
 				ret.position = Vector3.TransformCoordinate(
-					nc.point, actual);
+						nc.point, actual);
 				return ret;
 			}
 		}

@@ -1,24 +1,21 @@
 package hu.csega.superstition.xml;
 
-class XmlReader
-{
-	private object[] reference_list;
+public class XmlReader {
+
+	private Object[] reference_list;
 	private XmlDocument doc;
 	private XmlNode root;
 
-	public XmlReader()
-	{
+	public XmlReader() {
 	}
 
-	public void Open(string file_name)
-	{
+	public void Open(String file_name) {
 		doc = new XmlDocument();
 		doc.Load(file_name);
 		root = doc.FirstChild;
 	}
 
-	public object Read()
-	{
+	public Object Read() {
 		int count = root.ChildNodes.Count;
 		reference_list = new object[count];
 		RInstances();
@@ -42,7 +39,7 @@ class XmlReader
 			{
 				string tex = node.Attributes["name"].Value;
 				reference_list[i] = TextureLibrary.Instance().
-					LoadImage(tex);
+						LoadImage(tex);
 				continue;
 			}
 
@@ -50,7 +47,7 @@ class XmlReader
 			{
 				string msh = node.Attributes["name"].Value;
 				reference_list[i] = MeshLibrary.Instance().
-					LoadMesh(msh);
+						LoadMesh(msh);
 				continue;
 			}
 
@@ -117,13 +114,13 @@ class XmlReader
 		}
 
 		else if(info.FieldType == typeof(Vector2) ||
-			info.FieldType == typeof(Vector3) ||
-			info.FieldType == typeof(Matrix))
+				info.FieldType == typeof(Vector3) ||
+				info.FieldType == typeof(Matrix))
 		{
 			XmlNode val = field.FirstChild;
 			Type val_type = info.FieldType;
 			ConstructorInfo ctor = val_type.GetConstructor(
-				new Type[0]);
+					new Type[0]);
 			object val_obj = ctor.Invoke(new object[0]);
 
 			for(int i = 0; i < val.Attributes.Count; i++)

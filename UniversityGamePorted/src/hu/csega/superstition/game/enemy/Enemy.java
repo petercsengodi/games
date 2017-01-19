@@ -1,7 +1,7 @@
 package hu.csega.superstition.game.enemy;
 
-abstract class Enemy : DynamicObject
-{
+public abstract class Enemy extends DynamicObject {
+
 	protected Animation[] animations;
 	protected int slow;
 	protected int rotation;

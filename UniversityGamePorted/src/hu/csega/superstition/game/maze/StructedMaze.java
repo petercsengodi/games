@@ -1,10 +1,9 @@
 package hu.csega.superstition.game.maze;
 
-class StructedMaze : GridMaze
-{
-	public StructedMaze(int xsize, int ysize) :
-		base(xsize, ysize)
+public class StructedMaze extends GridMaze {
+	public StructedMaze(int xsize, int ysize)
 	{
+		super(xsize, ysize);
 	}
 
 	public Room SelectRandomRoom()
@@ -17,8 +16,6 @@ class StructedMaze : GridMaze
 
 	public void Connect(Room from, Room to)
 	{
-		#region Algorythm
-
 		int i, j, fromX = 0, fromY = 0, toX = 0, toY = 0;
 		for(i=j=0; j < YSize; i+=1, j+= (i / XSize), i %= XSize)
 		{
@@ -38,7 +35,7 @@ class StructedMaze : GridMaze
 			if(Graph(lastX, lastY).left != Connection.None)
 			{ // LEFT DIRECTION
 				hval2 = - Math.Sqrt((toX-lastX+1)*(toX-lastX+1) + (toY-lastY)*(toY-lastY))
-					+ StaticRandomLibrary.DoubleValue();
+						+ StaticRandomLibrary.DoubleValue();
 				if(hval1 < hval2)
 				{
 					hval1 = hval2;
@@ -50,7 +47,7 @@ class StructedMaze : GridMaze
 			if(Graph(lastX, lastY).right != Connection.None)
 			{ // RIGHT DIRECTION
 				hval2 = - Math.Sqrt((toX-lastX-1)*(toX-lastX-1) + (toY-lastY)*(toY-lastY))
-					+ StaticRandomLibrary.DoubleValue();
+						+ StaticRandomLibrary.DoubleValue();
 				if(hval1 < hval2)
 				{
 					hval1 = hval2;
@@ -62,7 +59,7 @@ class StructedMaze : GridMaze
 			if(Graph(lastX, lastY).up != Connection.None)
 			{ // UP DIRECTION
 				hval2 = - Math.Sqrt((toX-lastX)*(toX-lastX) + (toY-lastY+1)*(toY-lastY+1))
-					+ StaticRandomLibrary.DoubleValue();
+						+ StaticRandomLibrary.DoubleValue();
 				if(hval1 < hval2)
 				{
 					hval1 = hval2;
@@ -74,7 +71,7 @@ class StructedMaze : GridMaze
 			if(Graph(lastX, lastY).down != Connection.None)
 			{ // DOWN DIRECTION
 				hval2 = - Math.Sqrt((toX-lastX)*(toX-lastX) + (toY-lastY-1)*(toY-lastY-1))
-					+ StaticRandomLibrary.DoubleValue();
+						+ StaticRandomLibrary.DoubleValue();
 				if(hval1 < hval2)
 				{
 					hval1 = hval2;
@@ -96,6 +93,5 @@ class StructedMaze : GridMaze
 			last = Graph(actX, actY).room;
 		}
 
-		#endregion
 	}
 }

@@ -1,7 +1,6 @@
 package hu.csega.superstition.gameserver;
 
-public class ServerControl : IDisposable
-{
+public class ServerControl {
 	private Socket socket;
 	private Server server;
 	private byte[] buffer;
@@ -34,7 +33,7 @@ public class ServerControl : IDisposable
 		while((pos == 0) || (result > packet_size))
 		{
 			IAsyncResult res = socket.BeginReceive(buffer,
-				pos, packet_size + 1, SocketFlags.None, null, null);
+					pos, packet_size + 1, SocketFlags.None, null, null);
 			result = socket.EndReceive(res);
 			pos += packet_size;
 		}

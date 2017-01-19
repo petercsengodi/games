@@ -1,7 +1,7 @@
 package hu.csega.superstition.game.elements;
 
-public class MeshText : Element
-{
+public class MeshText extends Element {
+
 	private Material material;
 	private Mesh mesh;
 	private GlyphMetricsFloat[] metrics;
@@ -11,7 +11,7 @@ public class MeshText : Element
 	public string test;
 
 	public MeshText(Engine engine, System.Drawing.Font font, string text, float deviation, float extrusion)
-		: base(engine)
+	: base(engine)
 	{
 		test = text;
 		mesh = Mesh.TextFromFont(engine.Device, font, text, deviation, extrusion, out metrics);
@@ -30,7 +30,8 @@ public class MeshText : Element
 		center.Z = -extrusion / 2f;
 	}
 
-	public override void Render()
+	public override @Override
+	void Render()
 	{
 		if(engine.IsShadowRendering)
 		{
@@ -41,7 +42,7 @@ public class MeshText : Element
 			}
 		}
 
-//		RenderShadow(); return;
+		//		RenderShadow(); return;
 
 		Material temp = engine.Device.Material;
 		engine.Device.Material = material;
@@ -49,12 +50,14 @@ public class MeshText : Element
 		engine.Device.Material = temp;
 	}
 
+	@Override
 	public override void Dispose()
 	{
 		engine.RemoveFromDisposeList(mesh);
 		mesh.Dispose();
 	}
 
+	@Override
 	public override void RenderShadow()
 	{
 		Matrix temp = engine.Device.Transform.World;
@@ -62,11 +65,11 @@ public class MeshText : Element
 
 		Vector3 light = engine.LightPosition;
 		Vector3 b = Vector3.TransformCoordinate(
-			new Vector3(center.X, center.Y, 0f),
-			engine.Device.Transform.World);
+				new Vector3(center.X, center.Y, 0f),
+				engine.Device.Transform.World);
 		Vector3 a = Vector3.TransformCoordinate(
-			new Vector3(center.X, center.Y, -extrusion),
-			engine.Device.Transform.World);
+				new Vector3(center.X, center.Y, -extrusion),
+				engine.Device.Transform.World);
 		float l = (light - a).Length();
 		float d = l / (20f + l);
 		float z1 = a.Z, z2 = b.Z;
@@ -83,12 +86,12 @@ public class MeshText : Element
 
 
 		engine.Device.RenderState.CullMode = Cull.CounterClockwise;
-//		Device.RenderState.CullMode = Cull.CounterClockwise;
+		//		Device.RenderState.CullMode = Cull.CounterClockwise;
 		engine.Device.RenderState.StencilPass = StencilOperation.Increment;
 		mesh.DrawSubset(0);
 
 		engine.Device.RenderState.CullMode = Cull.Clockwise;
-//		Device.RenderState.CullMode = Cull.Clockwise;
+		//		Device.RenderState.CullMode = Cull.Clockwise;
 		engine.Device.RenderState.StencilPass = StencilOperation.Decrement;
 		mesh.DrawSubset(0);
 

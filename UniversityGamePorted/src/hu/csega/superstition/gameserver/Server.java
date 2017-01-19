@@ -1,6 +1,6 @@
 package hu.csega.superstition.gameserver;
 
-public class Server : System.Windows.Forms.Form
+public class Server extends System.Windows.Forms.Form
 {
 	/// <summary>
 	/// Required designer variable.
@@ -19,7 +19,7 @@ public class Server : System.Windows.Forms.Form
 	private System.Windows.Forms.ListBox control_box;
 
 	private const string
-		ServerIsRunning = "Server is Running";
+	ServerIsRunning = "Server is Running";
 
 	private int timeval;
 	private static Thread thread;
@@ -70,7 +70,7 @@ public class Server : System.Windows.Forms.Form
 		thread = new Thread(new ThreadStart(Run));
 
 		socket = new Socket(AddressFamily.InterNetwork,
-			SocketType.Stream, ProtocolType.Tcp);
+				SocketType.Stream, ProtocolType.Tcp);
 		socket.Bind(new IPEndPoint(IPAddress.Any, main_port));
 		socket.Blocking = false;
 		socket.Listen(10);
@@ -221,21 +221,21 @@ public class Server : System.Windows.Forms.Form
 
 			if(id < 0) return; // TODO: Exception
 			hosts[id] = Host.StartNewHost(
-				NetworkOptions.GenerateHostPort(main_port, id),
-				ph.Description,
-				id,
-				ph.max_players,
-				ph.map);
+					NetworkOptions.GenerateHostPort(main_port, id),
+					ph.Description,
+					id,
+					ph.max_players,
+					ph.map);
 
 			Player result = ctrl.AttachPlayerToHost(hosts[id]);
 			if(result != null)
 			{
-//				ctrl.Send(hosts[id].Map); // Not needed
+				//				ctrl.Send(hosts[id].Map); // Not needed
 
 				ctrl.SendUserInfo(
-					result.PlayerID,
-					hosts[id].GamePort,
-					result.ClientPort);
+						result.PlayerID,
+						hosts[id].GamePort,
+						result.ClientPort);
 
 				rmlist.Add(ctrl);
 				OnControlsChanged();
@@ -253,9 +253,9 @@ public class Server : System.Windows.Forms.Form
 				ctrl.Send(hosts[id].Map);
 
 				ctrl.SendUserInfo(
-					result.PlayerID,
-					hosts[id].GamePort,
-					result.ClientPort);
+						result.PlayerID,
+						hosts[id].GamePort,
+						result.ClientPort);
 
 				rmlist.Add(ctrl);
 				OnControlsChanged();
@@ -292,9 +292,9 @@ public class Server : System.Windows.Forms.Form
 			data = hosts[i].HostData;
 
 			temp =
-				"ID=" + data.ID + "; " +
-				"lim=" + data.limit + "; " +
-				"plyrs=" + data.player_count + "; ";
+					"ID=" + data.ID + "; " +
+							"lim=" + data.limit + "; " +
+							"plyrs=" + data.player_count + "; ";
 
 
 			host_box.Items.Add(temp);
@@ -369,23 +369,23 @@ public class Server : System.Windows.Forms.Form
 		//
 		this.numericUpDown1.Location = new System.Drawing.Point(88, 16);
 		this.numericUpDown1.Maximum = new System.Decimal(new int[] {
-																	   65535,
-																	   0,
-																	   0,
-																	   0});
+				65535,
+				0,
+				0,
+				0});
 		this.numericUpDown1.Minimum = new System.Decimal(new int[] {
-																	   5000,
-																	   0,
-																	   0,
-																	   0});
+				5000,
+				0,
+				0,
+				0});
 		this.numericUpDown1.Name = "numericUpDown1";
 		this.numericUpDown1.Size = new System.Drawing.Size(96, 20);
 		this.numericUpDown1.TabIndex = 2;
 		this.numericUpDown1.Value = new System.Decimal(new int[] {
-																	 10555,
-																	 0,
-																	 0,
-																	 0});
+				10555,
+				0,
+				0,
+				0});
 		this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
 		//
 		// start_button
@@ -492,7 +492,7 @@ public class Server : System.Windows.Forms.Form
 	/// The main entry point for the application.
 	/// </summary>
 	[STAThread]
-	static void Main()
+			static void Main()
 	{
 		instance = new Server();
 		Application.Run(instance);

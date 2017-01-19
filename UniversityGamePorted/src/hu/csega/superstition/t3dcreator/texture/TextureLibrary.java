@@ -1,7 +1,7 @@
 package hu.csega.superstition.t3dcreator.texture;
 
-public class TextureLibrary : IDisposable
-{
+public class TextureLibrary {
+
 	private static TextureLibrary instance;
 
 	private ArrayList list;
@@ -48,7 +48,7 @@ public class TextureLibrary : IDisposable
 		idx = c;
 
 		string fname = @"..\..\..\Superstition\bin\textures\mesh_textures\" + name;
-		Texture texture = TextureLoader.FromFile(device, fname);
+				Texture texture = TextureLoader.FromFile(device, fname);
 		Image map = Image.FromFile(fname);
 		TexID id = new TexID(name, texture, map);
 		list.Add(id);
@@ -60,10 +60,10 @@ public class TextureLibrary : IDisposable
 		string filename;
 		DialogResult res = instance.dialog.ShowDialog();
 		if((res != DialogResult.Cancel) &&
-			(res != DialogResult.No))
+				(res != DialogResult.No))
 		{
 			filename = Path.GetFileName(
-				instance.dialog.FileName);
+					instance.dialog.FileName);
 			return instance.LoadImage(filename);
 		}
 		return null;

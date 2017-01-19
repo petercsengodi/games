@@ -1,7 +1,7 @@
 package hu.csega.superstition.game;
 
-public class MainFrame : System.Windows.Forms.Form
-{
+public class MainFrame extends System.Windows.Forms.Form {
+
 	/// <summary>
 	/// Required designer variable.
 	/// </summary>
@@ -60,25 +60,25 @@ public class MainFrame : System.Windows.Forms.Form
 		{
 			switch(parameters.size)
 			{
-				case ScreenSize.W320H240:
-					Size = new Size(320, 240);
-					break;
+			case ScreenSize.W320H240:
+				Size = new Size(320, 240);
+				break;
 
-				case ScreenSize.W640H480:
-					Size = new Size(640, 480);
-					break;
+			case ScreenSize.W640H480:
+				Size = new Size(640, 480);
+				break;
 
-				case ScreenSize.W800H600:
-					Size = new Size(800, 600);
-					break;
+			case ScreenSize.W800H600:
+				Size = new Size(800, 600);
+				break;
 
-				case ScreenSize.W1024H768:
-					Size = new Size(800, 600);
-					break;
+			case ScreenSize.W1024H768:
+				Size = new Size(800, 600);
+				break;
 
-				default:
-					Size = new Size(640, 480);
-					break;
+			default:
+				Size = new Size(640, 480);
+				break;
 			}
 		}
 
@@ -216,7 +216,7 @@ public class MainFrame : System.Windows.Forms.Form
 	/// The main entry point for the application.
 	/// </summary>
 	[STAThread]
-	static void Main()
+			static void Main()
 	{
 		//			Application.Run(new MainFrame());
 		using(MainFrame frame = new MainFrame())
