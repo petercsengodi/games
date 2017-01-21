@@ -252,6 +252,11 @@ class XmlLegacyAnimationHandler implements XmlHandler {
 		return Float.parseFloat(c.content.toString().replace(',', '.'));
 	}
 
+	@Override
+	public void complete(XmlObjectProxy proxy) throws XmlException {
+		throw new UnsupportedOperationException("complete");
+	}
+
 	private float[] f16 = new float[16];
 	private float[] f3 = new float[3];
 	private float[] f2 = new float[2];

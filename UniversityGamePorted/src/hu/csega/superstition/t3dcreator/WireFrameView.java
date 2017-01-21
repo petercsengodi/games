@@ -1,5 +1,9 @@
 package hu.csega.superstition.t3dcreator;
 
+import hu.csega.superstition.gamelib.legacy.modeldata.CEdge;
+import hu.csega.superstition.gamelib.legacy.modeldata.CTriangle;
+import hu.csega.superstition.gamelib.legacy.modeldata.CVertex;
+
 public class WireFrameView extends CView
 {
 	/// <summary>

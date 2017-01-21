@@ -1,11 +1,11 @@
-package hu.csega.superstition.gamelib.animationdata;
+package hu.csega.superstition.gamelib.legacy.animationdata;
 
 import org.joml.Vector3f;
 
 import hu.csega.superstition.xml.XmlClass;
 import hu.csega.superstition.xml.XmlField;
 
-@XmlClass("Superstition.CConnection")
+@XmlClass("Legacy.CConnection")
 public class CConnection {
 
 	@XmlField("point")

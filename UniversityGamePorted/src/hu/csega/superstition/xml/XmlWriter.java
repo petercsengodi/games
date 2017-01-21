@@ -158,8 +158,7 @@ public class XmlWriter implements Closeable {
 
 		} else {
 
-			openNode(fb.field);
-			finishOpeningNode();
+			startOpeningNode(fb.field);
 
 			int reference = reference_list.indexOf(value);
 			if(reference == -1) {
@@ -358,7 +357,7 @@ public class XmlWriter implements Closeable {
 		writer.close();
 	}
 
-	public static final String ROOT_TAG = "DATAFILE";
+	public static final String ROOT_TAG = "Superstition.Model";
 	private static final String SPACES = "                                        ";
 	private static final int SPACES_LENGTH = SPACES.length();
 

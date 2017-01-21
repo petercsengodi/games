@@ -8,7 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import hu.csega.superstition.t3dcreator.CVertex;
+import hu.csega.superstition.gamelib.legacy.modeldata.CVertex;
 import hu.csega.superstition.util.FileUtil;
 
 public class XmlWriterTest {

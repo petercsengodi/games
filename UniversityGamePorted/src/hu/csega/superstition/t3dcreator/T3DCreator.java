@@ -1,5 +1,8 @@
 package hu.csega.superstition.t3dcreator;
 
+import hu.csega.superstition.gamelib.legacy.modeldata.CEdge;
+import hu.csega.superstition.gamelib.legacy.modeldata.CTriangle;
+
 public class T3DCreator : System.Windows.Forms.Form
 {
 	private System.Windows.Forms.MainMenu main_menu;

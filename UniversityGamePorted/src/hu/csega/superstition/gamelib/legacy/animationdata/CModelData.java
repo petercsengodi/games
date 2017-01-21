@@ -1,4 +1,4 @@
-package hu.csega.superstition.gamelib.animationdata;
+package hu.csega.superstition.gamelib.legacy.animationdata;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.joml.Vector3f;
 import hu.csega.superstition.xml.XmlClass;
 import hu.csega.superstition.xml.XmlField;
 
-@XmlClass("Superstition.CModelData")
+@XmlClass("Legacy.CModelData")
 public class CModelData
 {
 

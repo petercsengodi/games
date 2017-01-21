@@ -8,6 +8,8 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 import hu.csega.superstition.fileoperations.FileControl;
+import hu.csega.superstition.gamelib.legacy.modeldata.CVertex;
+import hu.csega.superstition.gamelib.legacy.modeldata.IModelPart;
 import hu.csega.superstition.util.Vectors;
 import hu.csega.superstition.xml.XmlClass;
 import hu.csega.superstition.xml.XmlField;

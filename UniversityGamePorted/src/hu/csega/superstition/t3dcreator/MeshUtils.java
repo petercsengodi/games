@@ -1,5 +1,8 @@
 package hu.csega.superstition.t3dcreator;
 
+import hu.csega.superstition.gamelib.legacy.modeldata.CTriangle;
+import hu.csega.superstition.gamelib.legacy.modeldata.CVertex;
+
 public class MeshUtils {
 	private SaveFileDialog dialog;
 

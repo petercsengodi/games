@@ -4,10 +4,8 @@ import org.joml.Matrix3f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
-import hu.csega.superstition.xml.XmlClass;
 import hu.csega.superstition.xml.XmlField;
 
-@XmlClass("T3DCreator.CVertex")
 public class CVertex implements IModelPart {
 
 	public Vector3f position;

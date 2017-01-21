@@ -19,10 +19,13 @@ class XmlRootHandler extends DefaultHandler implements XmlHandler {
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		if (subHandler == null) {
 			if ("meta".equals(qName)) {
-				logger.info("Using legacy handler.");
+				logger.info("Using legacy animation handler.");
 				subHandler = new XmlLegacyAnimationHandler();
+			} else if ("DATAFILE".equals(qName)) {
+				logger.info("Using legacy T3DCreator handler.");
+				subHandler = new XmlLegacyT3DCreatorHandler();
 			} else if (XmlWriter.ROOT_TAG.equals(qName)) {
-				logger.info("Using legacy handler.");
+				logger.info("Using brand new handler.");
 				subHandler = new XmlNewFormatHandler();
 			} else {
 				logger.error("Root tag:" + qName);
@@ -48,11 +51,15 @@ class XmlRootHandler extends DefaultHandler implements XmlHandler {
 			XmlNode node = stack.pop();
 			Object convertedTo = handle(node, stack);
 
-			XmlNode top = stack.top();
-			if (top != null)
-				top.children.add(convertedTo);
-			else
-				root = convertedTo;
+			if(convertedTo != null) {
+
+				XmlNode top = stack.top();
+				if (top != null)
+					top.children.add(convertedTo);
+				else
+					root = convertedTo;
+
+			}
 
 		} catch(XmlException ex) {
 			throw new SAXException("Error when closing tag found!", ex);
@@ -69,6 +76,11 @@ class XmlRootHandler extends DefaultHandler implements XmlHandler {
 	@Override
 	public Object handle(XmlNode node, XmlNodeStack parents) throws XmlException {
 		return subHandler.handle(node, parents);
+	}
+
+	@Override
+	public void complete(XmlObjectProxy proxy) throws XmlException {
+		throw new UnsupportedOperationException("complete");
 	}
 
 	private static final Logger logger = Logger.getLogger(XmlHandler.class);

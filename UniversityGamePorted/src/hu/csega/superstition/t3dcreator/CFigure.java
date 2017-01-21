@@ -8,6 +8,9 @@ import org.joml.Matrix3f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
+import hu.csega.superstition.gamelib.legacy.modeldata.CTriangle;
+import hu.csega.superstition.gamelib.legacy.modeldata.CVertex;
+import hu.csega.superstition.gamelib.legacy.modeldata.IModelPart;
 import hu.csega.superstition.t3dcreator.texture.TexID;
 import hu.csega.superstition.util.StaticRandomLibrary;
 import hu.csega.superstition.util.Vectors;

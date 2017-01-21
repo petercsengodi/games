@@ -1,11 +1,8 @@
 package hu.csega.superstition.xml;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -15,10 +12,11 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
-class XmlNewFormatHandler implements XmlHandler {
+class XmlLegacyT3DCreatorHandler implements XmlHandler {
 
+	@Override
 	public Object handle(XmlNode node, XmlNodeStack parents) throws XmlException {
-		if(XmlWriter.ROOT_TAG.equals(node.tag) && parents.isEmpty()) {
+		if("DATAFILE".equals(node.tag) && parents.isEmpty()) {
 			// root element, end of processing
 			XmlObjectProxy rootProxy = proxies.get("0");
 			if(rootProxy != null)
@@ -189,6 +187,7 @@ class XmlNewFormatHandler implements XmlHandler {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void complete(XmlObjectProxy xmlObjectProxy) throws XmlException {
 		XmlNode node = xmlObjectProxy.node;
 		Object objectToComplete = xmlObjectProxy.value();
@@ -216,95 +215,49 @@ class XmlNewFormatHandler implements XmlHandler {
 				XmlNode parameterNode = (XmlNode)c;
 				XmlFieldBinding binding = fields.get(parameterNode.tag);
 
-				Class<?> valueClass = binding.setter.getParameterTypes()[0];
-				if(Collection.class.isAssignableFrom(valueClass)) {
-					Collection<?> coll;
+				if(binding == null)
+					throw new XmlException("No setter for: " + tagClass.getName() + '.' + parameterNode.tag);
 
-					if(valueClass.isAssignableFrom(ArrayList.class)) {
-						List<Object> l = new ArrayList<>();
-						l.addAll(parameterNode.children);
-						coll = l;
-					} else if(valueClass.isAssignableFrom(HashSet.class)) {
-						Set<Object> l = new HashSet<>();
-						l.addAll(parameterNode.children);
-						coll = l;
+				Class<?> valueClass = binding.setter.getParameterTypes()[0];
+
+				Object parameterValue;
+				String ref = parameterNode.attributes.get("ref");
+				if(ref != null) {
+					parameterValue = proxies.get(ref).value();
+				} else if(parameterNode.children.size() == 1){
+					parameterValue = parameterNode.children.get(0);
+				} else {
+					String s = parameterNode.content.toString();
+					if(s != null && s.length() > 0 && XmlBinding.isKindOfPrimitive(valueClass)) {
+						parameterValue = parse(s, valueClass);
 					} else {
 						throw new XmlException("Couldn't set: " + tagClass.getName() + '.' + parameterNode.tag);
 					}
+				}
 
+				if(Collection.class.isAssignableFrom(valueClass)) {
 					try {
-						binding.setter.invoke(objectToComplete, coll);
+						Object coll = binding.getter.invoke(objectToComplete);
+						if(coll instanceof List<?>) {
+							List<Object> list = (List<Object>)coll;
+							list.add(parameterValue);
+						} else if(coll instanceof List<?>) {
+							Set<Object> set = (Set<Object>)coll;
+							set.add(parameterValue);
+						} else {
+							throw new XmlException("Couldn't set: " + tagClass.getName() + '.' + parameterNode.tag);
+						}
 					} catch (IllegalAccessException | InvocationTargetException ex) {
 						throw new XmlException("Error calling setter: " + tagClass.getName() + '.' + parameterNode.tag, ex);
 					}
 				} else if(valueClass.isArray()) {
-					Class<?> componentType = valueClass.getComponentType();
-					int size = parameterNode.children.size();
-					Object array = Array.newInstance(componentType, size);
-
-					if(size > 0) {
-						for(int i = 0; i < size; i++)
-							Array.set(array, i, parameterNode.children.get(i));
-					}
-
-					try {
-						binding.setter.invoke(objectToComplete, array);
-					} catch (IllegalAccessException | InvocationTargetException ex) {
-						throw new XmlException("Error calling setter: " + tagClass.getName() + '.' + parameterNode.tag, ex);
-					}
-				} else if(valueClass == Vector4f.class) {
-					Object param = vector4Of(parameterNode);
-					try {
-						binding.setter.invoke(objectToComplete, param);
-					} catch (IllegalAccessException | InvocationTargetException ex) {
-						throw new XmlException("Error calling setter: " + tagClass.getName() + '.' + parameterNode.tag, ex);
-					}
-				} else if(valueClass == Vector3f.class) {
-					Object param = vector3Of(parameterNode);
-					try {
-						binding.setter.invoke(objectToComplete, param);
-					} catch (IllegalAccessException | InvocationTargetException ex) {
-						throw new XmlException("Error calling setter: " + tagClass.getName() + '.' + parameterNode.tag, ex);
-					}
-				} else if(valueClass == Vector2f.class) {
-					Object param = vector2Of(parameterNode);
-					try {
-						binding.setter.invoke(objectToComplete, param);
-					} catch (IllegalAccessException | InvocationTargetException ex) {
-						throw new XmlException("Error calling setter: " + tagClass.getName() + '.' + parameterNode.tag, ex);
-					}
-				} else if(valueClass == Matrix4f.class) {
-					Object param = matrix4Of(parameterNode);
-					try {
-						binding.setter.invoke(objectToComplete, param);
-					} catch (IllegalAccessException | InvocationTargetException ex) {
-						throw new XmlException("Error calling setter: " + tagClass.getName() + '.' + parameterNode.tag, ex);
-					}
-				} else if(parameterNode.children.isEmpty()) {
-					String s = parameterNode.content.toString();
-					if(s != null && s.length() > 0) {
-						Object param = parse(s, valueClass);
-						try {
-							binding.setter.invoke(objectToComplete, param);
-						} catch (IllegalAccessException | InvocationTargetException ex) {
-							throw new XmlException("Error calling setter: " + tagClass.getName() + '.' + parameterNode.tag, ex);
-						}
-					} else {
-						throw new XmlException("Couldn't set: " + tagClass.getName() + '.' + parameterNode.tag);
-					}
-				} else if(parameterNode.children.size() == 1) {
-					Object child = parameterNode.children.get(0);
-					if(child != null && valueClass.isAssignableFrom(child.getClass())) {
-						try {
-							binding.setter.invoke(objectToComplete, child);
-						} catch (IllegalAccessException | InvocationTargetException ex) {
-							throw new XmlException("Error calling setter: " + tagClass.getName() + '.' + parameterNode.tag, ex);
-						}
-					} else {
-						throw new XmlException("Couldn't set: " + tagClass.getName() + '.' + parameterNode.tag);
-					}
+					throw new UnsupportedOperationException("array");
 				} else {
-					throw new XmlException("Couldn't set: " + tagClass.getName() + '.' + parameterNode.tag);
+					try {
+						binding.setter.invoke(objectToComplete, parameterValue);
+					} catch (IllegalAccessException | InvocationTargetException ex) {
+						throw new XmlException("Error calling setter: " + tagClass.getName() + '.' + parameterNode.tag, ex);
+					}
 				}
 
 			} // end for c - children

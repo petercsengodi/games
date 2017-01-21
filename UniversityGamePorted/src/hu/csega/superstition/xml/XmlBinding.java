@@ -9,10 +9,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import hu.csega.superstition.gamelib.animationdata.CConnection;
-import hu.csega.superstition.gamelib.animationdata.CModelData;
-import hu.csega.superstition.gamelib.animationdata.CPartData;
-import hu.csega.superstition.t3dcreator.CVertex;
+import hu.csega.superstition.gamelib.legacy.animationdata.CConnection;
+import hu.csega.superstition.gamelib.legacy.animationdata.CModelData;
+import hu.csega.superstition.gamelib.legacy.animationdata.CPartData;
+import hu.csega.superstition.gamelib.legacy.modeldata.CEdge;
+import hu.csega.superstition.gamelib.legacy.modeldata.CFigure;
+import hu.csega.superstition.gamelib.legacy.modeldata.CModel;
+import hu.csega.superstition.gamelib.legacy.modeldata.CTexID;
+import hu.csega.superstition.gamelib.legacy.modeldata.CTriangle;
+import hu.csega.superstition.gamelib.legacy.modeldata.CVertex;
 
 public class XmlBinding {
 
@@ -97,6 +102,23 @@ public class XmlBinding {
 				Class<?> returnType = m.getReturnType();
 				fb.attribute = ATTRIBUTES.contains(returnType);
 
+			} else if(methodName.startsWith("is")) {
+
+				if(m.getParameterTypes().length > 0 || methodName.length() <= 2) {
+					throw new RuntimeException("Not a real getter (isXXX): " + classToRegister.getName() + '.' + methodName);
+				}
+
+				if(fb.getter != null) {
+					throw new RuntimeException("At least two getters found for field " + field + " : "
+							+ classToRegister.getName() + '.' + fb.getter.getName() + " and "
+							+ classToRegister.getName() + '.' + methodName);
+				}
+
+				fb.getter = m;
+
+				Class<?> returnType = m.getReturnType();
+				fb.attribute = ATTRIBUTES.contains(returnType);
+
 			} else if(methodName.startsWith("set")) {
 
 				if(m.getParameterTypes().length != 1 || methodName.length() <= 3) {
@@ -137,11 +159,20 @@ public class XmlBinding {
 
 		/* Insert bound java classes here! */
 
-		// registerClass(CModel.class);
+		// Legacy animation objects
 		registerClass(CModelData.class);
 		registerClass(CConnection.class);
 		registerClass(CPartData.class);
+
+		// Legacy T3DCreator model objects
+		registerClass(CModel.class);
+		registerClass(CFigure.class);
+		registerClass(CTriangle.class);
+		registerClass(CEdge.class);
 		registerClass(CVertex.class);
+		registerClass(CTexID.class);
+
+		// New model in game
 	}
 
 }

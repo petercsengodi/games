@@ -1,4 +1,4 @@
-package hu.csega.superstition.t3dcreator;
+package hu.csega.superstition.gamelib.legacy.modeldata;
 
 import org.joml.Matrix3f;
 import org.joml.Vector2f;

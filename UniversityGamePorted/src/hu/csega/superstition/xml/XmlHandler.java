@@ -8,4 +8,6 @@ interface XmlHandler {
 	 */
 	Object handle(XmlNode node, XmlNodeStack parents) throws XmlException;
 
+	void complete(XmlObjectProxy proxy) throws XmlException;
+
 }

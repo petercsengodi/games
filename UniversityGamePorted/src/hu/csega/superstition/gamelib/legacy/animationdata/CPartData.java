@@ -1,4 +1,4 @@
-package hu.csega.superstition.gamelib.animationdata;
+package hu.csega.superstition.gamelib.legacy.animationdata;
 
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
@@ -6,7 +6,7 @@ import org.joml.Vector3f;
 import hu.csega.superstition.xml.XmlClass;
 import hu.csega.superstition.xml.XmlField;
 
-@XmlClass("Superstition.CPartData")
+@XmlClass("Legacy.CPartData")
 public class CPartData {
 
 	@XmlField("connections")
