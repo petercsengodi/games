@@ -1,23 +1,24 @@
 package hu.csega.superstition.t3dcreator;
 
-public class CTriangle : IPart
-{
+import org.joml.Matrix3f;
+import org.joml.Vector2f;
+import org.joml.Vector3f;
+
+public class CTriangle implements IModelPart {
 	public CEdge[] edges;
 	public CTriangle[] neighbours;
 
 	static int _count = 0;
 	int count;
 
-	public CTriangle()
-	{
+	public CTriangle() {
 		neighbours = new CTriangle[3];
 		edges = new CEdge[3];
 
 		count = _count++;
 	}
 
-	public CTriangle(CVertex a, CVertex b, CVertex c)
-	{
+	public CTriangle(CVertex a, CVertex b, CVertex c) {
 		neighbours = new CTriangle[3];
 		edges = new CEdge[3];
 		edges[0] = new CEdge(a, b);
@@ -27,8 +28,7 @@ public class CTriangle : IPart
 		count = _count++;
 	}
 
-	public CTriangle(object a, object b, object c)
-	{
+	public CTriangle(Object a, Object b, Object c) {
 		neighbours = new CTriangle[3];
 		edges = new CEdge[3];
 		edges[0] = new CEdge((CVertex)a, (CVertex)b);
@@ -39,69 +39,60 @@ public class CTriangle : IPart
 
 	}
 
-	public void SwitchNeighbours(CTriangle from, CTriangle to)
-	{
+	public void SwitchNeighbours(CTriangle from, CTriangle to) {
 		for(int i = 0; i < 3; i++)
 		{
-			if(neighbours[i].Equals(from))
+			if(neighbours[i].equals(from))
 				neighbours[i] = to;
 		}
 	}
 
 
-	public override string ToString()
-	{
+	public String toString() {
 		return "Triangle"+ " " + count;
 	}
 
-	#region IPart Members
-
-	public void move(Vector3 direction)
-	{
-		foreach(CEdge e in edges)
-		{
+	public void move(Vector3f direction) {
+		for(CEdge e : edges) {
 			e.from.move(direction);
 		}
 	}
 
-	public void moveTexture(Vector2 direction)
+	public void moveTexture(Vector2f direction)
 	{
-		foreach(CEdge e in edges)
-		{
+		for(CEdge e : edges) {
 			e.from.moveTexture(direction);
 		}
 	}
 
-	public bool hasPart(IPart part)
+	public boolean hasPart(IModelPart part)
 	{
-		if(part.Equals(this)) return true;
-		bool ret = false;
-		foreach(CEdge e in edges)
-		{
-			ret |= part.Equals(e);
-			ret |= part.Equals(e.from);
+		if(part.equals(this))
+			return true;
+
+		boolean ret = false;
+		for(CEdge e : edges) {
+			ret |= part.equals(e);
+			ret |= part.equals(e.from);
 		}
+
 		return ret;
 	}
 
-	public Vector3 centerPoint()
-	{
-		Vector3 ret = new Vector3(0f, 0f, 0f);
-		ret += edges[0].from.position;
-		ret += edges[1].from.position;
-		ret += edges[2].from.position;
-		ret = ret * (1f/3f);
+	public Vector3f centerPoint() {
+		// TODO allocationless
+		Vector3f ret = new Vector3f(0f, 0f, 0f);
+		ret.add(edges[0].from.position, ret);
+		ret.add(edges[1].from.position, ret);
+		ret.add(edges[2].from.position, ret);
+		ret.mul(1f/3f, ret);
 		return ret;
 	}
 
-	public void scale(Matrix matrix)
-	{
-		foreach(CEdge edge in edges)
-		{
+	public void scale(Matrix3f matrix) {
+		for(CEdge edge : edges) {
 			edge.from.scale(matrix);
 		}
 	}
-
-	#endregion
 
 } // End of class CTriangle

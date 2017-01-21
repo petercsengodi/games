@@ -1,66 +1,130 @@
 package hu.csega.superstition.t3dcreator;
 
-public class CModel : IPart
+import java.util.ArrayList;
+import java.util.List;
+
+import org.joml.Matrix3f;
+import org.joml.Vector2f;
+import org.joml.Vector3f;
+
+import hu.csega.superstition.fileoperations.FileControl;
+import hu.csega.superstition.util.Vectors;
+import hu.csega.superstition.xml.XmlClass;
+import hu.csega.superstition.xml.XmlField;
+
+@XmlClass("T3DCreator.CModel")
+public class CModel implements IModelPart
 {
-	public ArrayList figures;
-	protected ArrayList views;
-	protected object selected;
-	protected bool snap_to_grid;
+	public List<CFigure> figures;
+	protected List<CView> views;
+	protected Object selected;
+	protected boolean snap_to_grid;
 
 	private Memento memento;
-	private Matrix selected_matrix;
-	private Vector2 selected_texture;
+	private Matrix3f selected_matrix;
+	private Vector2f selected_texture;
 
 	public double grid_from = -3, grid_to = 3,
 		grid_step = 1.0, grid_error = 0.001;
 
-	public bool SnapToGrid
-	{
-		get{ return snap_to_grid; }
+	@XmlField("figures")
+	public List<CFigure> getFigures() {
+		return figures;
 	}
 
-	public void SetSnapToGrid(bool snap_to_grid)
-	{
+	@XmlField("figures")
+	public void setFigures(List<CFigure> figures) {
+		this.figures = figures;
+	}
+
+	@XmlField("grid_from")
+	public double getGrid_from() {
+		return grid_from;
+	}
+
+	@XmlField("grid_from")
+	public void setGrid_from(double grid_from) {
+		this.grid_from = grid_from;
+	}
+
+	@XmlField("grid_to")
+	public double getGrid_to() {
+		return grid_to;
+	}
+
+	@XmlField("grid_to")
+	public void setGrid_to(double grid_to) {
+		this.grid_to = grid_to;
+	}
+
+	@XmlField("grid_step")
+	public double getGrid_step() {
+		return grid_step;
+	}
+
+	@XmlField("grid_step")
+	public void setGrid_step(double grid_step) {
+		this.grid_step = grid_step;
+	}
+
+	@XmlField("grid_error")
+	public double getGrid_error() {
+		return grid_error;
+	}
+
+	@XmlField("grid_error")
+	public void setGrid_error(double grid_error) {
+		this.grid_error = grid_error;
+	}
+
+	@XmlField("snap_to_grid")
+	public boolean isSnapToGrid() {
+		return snap_to_grid;
+	}
+
+	@XmlField("snap_to_grid")
+	public void setSnapToGrid(boolean snap_to_grid) {
 		this.snap_to_grid = snap_to_grid;
 	}
 
-	public object Selected
-	{
-		get { return selected; }
-		set	{
-			selected = value;
-			selected_matrix = Matrix.Identity;
-			selected_texture = new Vector2(0f, 0f);
-			UpdateViews(Updates.Selection);
-		}
+	public Object getSelected() {
+		return selected;
 	}
 
-	public Memento Memento
-	{
-		get{ return memento; }
+	public void setSelected(Object value) {
+		selected = value;
+		selected_matrix = new Matrix3f().identity();
+		selected_texture = new Vector2f(0f, 0f);
+		UpdateViews(Updates.Selection);
 	}
 
-	public Matrix SelectedMatrix
-	{
-		get { return selected_matrix; }
-		set { selected_matrix = value; }
+	public Memento getMemento()	{
+		return memento;
 	}
 
-	public Vector2 SelectedTexture
-	{
-		get { return selected_texture; }
-		set { selected_texture = value; }
+	public Matrix3f getSelectedMatrix() {
+		return selected_matrix;
 	}
 
-	public void ClearSelection()
-	{
+	public void setSelectedMatrix(Matrix3f value) {
+		this.selected_matrix = value;
+	}
+
+	public Vector2f getSelectedTexture() {
+		return selected_texture;
+	}
+
+	public void setSelectedTexture(Vector2f value) {
+		this.selected_texture = value;
+	}
+
+	public void clearSelection() {
 		selected = "";
 	}
 
-	public CModel()
-	{
-		this.figures = new ArrayList();
-		this.views = new ArrayList();
+	public CModel() {
+		this.figures = new ArrayList<>();
+		this.views = new ArrayList<>();
 		this.selected = null;
 		this.snap_to_grid = true;
 		this.memento = new Memento();
@@ -68,41 +132,38 @@ public class CModel : IPart
 
 	public CModel(FileControl control)
 	{
-		this.figures = new ArrayList();
-		this.views = new ArrayList();
+		this.figures = new ArrayList<>();
+		this.views = new ArrayList<>();
 		this.selected = null;
 		this.snap_to_grid = true;
 		this.memento = new Memento(control);
 	}
 
-	public void RegisterView(CView view)
-	{
-		views.Add(view);
-		view.SetData(this);
-		view.Invalidate();
+	public void RegisterView(CView view) {
+		views.add(view);
+		view.setData(this);
+		view.invalidate();
 	}
 
-	public void RemoveView(CView view)
-	{
-		views.Remove(view);
+	public void RemoveView(CView view) {
+		views.remove(view);
 	}
 
-	public void UpdateViews()
-	{
+	public void UpdateViews() {
 		UpdateViews(Updates.Full);
 	}
 
-	public void UpdateViews(Updates update)
-	{
-		foreach(CView view in views)
-		{
-			view.UpdateView(update);
+	public void UpdateViews(Updates update) {
+		for(CView view : views) {
+			view.updateView(update);
 		}
 	}
 
 	public void Resize(float factor)
 	{
-		Vector3 average = new Vector3(0f, 0f, 0f);
+		// TODO allocationless
+		Vector3f average = new Vector3f(0f, 0f, 0f);
+		Vector3f tmp = new Vector3f();
 //		int num = 0;
 //		foreach(CFigure f in figures)
 //		{
@@ -118,91 +179,88 @@ public class CModel : IPart
 //			}
 //		}
 
-		foreach(CFigure f in figures)
-		{
-			foreach(CVertex v in f.vertices)
-			{
-				v.position = (v.position - average) * factor
-					+ average;
+		for(CFigure f : figures) {
+			for(CVertex v : f.vertices) {
+				v.position.sub(average, tmp);
+				tmp.mul(factor, tmp);
+				tmp.add(average, v.position);
 			}
 		}
 	}
 
-	public Vector3 CountBoundingBox()
+	public Vector3f countBoundingBox()
 	{
-		if(figures == null) return new Vector3(0f, 0f, 0f);
-		if(figures.Count == 0) return new Vector3(0f, 0f, 0f);
-		Vector3 ret = ((figures[0] as CFigure).vertices[0]
-			as CVertex).position;
-		Vector3 min = ret, max = ret;
+		// TODO allocationless
+		if(figures == null || figures.isEmpty())
+			return new Vector3f(0f, 0f, 0f);
 
-		foreach(CFigure f in figures)
-		{
-			foreach(CVertex v in f.vertices)
-			{
-				min = Vector3.Minimize(min, v.position);
-				max = Vector3.Maximize(max, v.position);
+		Vector3f ret = new Vector3f();
+		Vector3f min = new Vector3f();
+		Vector3f max = new Vector3f();
+
+		ret.set(figures.get(0).vertices.get(0).position);
+		min.set(ret);
+		max.set(ret);
+
+		for(CFigure f : figures) {
+			for(CVertex v : f.vertices) {
+				Vectors.minimize(min, v.position, min);
+				Vectors.maximize(max, v.position, max);
 			}
 		}
 
-		ret = max - min;
+		max.sub(min, ret);
 		return ret;
 	}
 
-	public bool Verify()
-	{
-		bool ret = true;
-		foreach(CFigure figure in figures)
-		{
-			ret &= figure.Verify();
+	public boolean verify() {
+		boolean ret = true;
+		for(CFigure figure : figures) {
+			ret &= figure.verify();
 		}
 		return ret;
 	}
 
-	#region IPart Members
-
-	public void move(Vector3 direction)
-	{
-		foreach(CFigure figure in figures)
+	public void move(Vector3f direction) {
+		for(CFigure figure : figures)
 			figure.move(direction);
 	}
 
-	public void moveTexture(Vector2 direction)
-	{
-		foreach(CFigure figure in figures)
+	public void moveTexture(Vector2f direction) {
+		for(CFigure figure : figures)
 			figure.moveTexture(direction);
 	}
 
-	public bool hasPart(IPart part)
-	{
-		if(part.Equals(this)) return true;
-		bool ret = false;
-		foreach(CFigure figure in figures)
+	public boolean hasPart(IModelPart part) {
+		if(part.equals(this))
+			return true;
+
+		boolean ret = false;
+		for(CFigure figure : figures)
 			ret |= figure.hasPart(part);
+
 		return ret;
 	}
 
-	public Vector3 centerPoint()
-	{
-		Vector3 ret = new Vector3(0f, 0f, 0f);
-		float n = 1f / (float)figures.Count;
-		foreach(CFigure figure in figures)
-		{
-			ret += figure.centerPoint() * n;
+	public Vector3f centerPoint() {
+		// TODO allocationless
+		Vector3f ret = new Vector3f(0f, 0f, 0f);
+		Vector3f tmp = new Vector3f();
+
+		float n = 1f / (float)figures.size();
+		for(CFigure figure : figures) {
+			figure.centerPoint().mul(n, tmp);
+			ret.add(tmp, ret);
 		}
+
 		return ret;
 	}
 
-	public void scale(Matrix matrix)
-	{
-		foreach(CFigure figure in figures)
-		{
+	public void scale(Matrix3f matrix) {
+		for(CFigure figure : figures) {
 			figure.scale(matrix);
 		}
 	}
-
-
-	#endregion
 
 	public void AddMeshFigure(InitialFigure figure, Device device)
 	{

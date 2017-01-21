@@ -1,70 +1,63 @@
 package hu.csega.superstition.t3dcreator;
 
-public class CEdge : IPart
-{
+import org.joml.Matrix3f;
+import org.joml.Vector2f;
+import org.joml.Vector3f;
+
+public class CEdge implements IModelPart {
+
 	public CVertex from, to;
 
-	public CEdge()
-	{
+	public CEdge() {
 		this.from = null;
 		this.to = null;
 	}
 
-	public CEdge(CVertex from, CVertex to)
-	{
+	public CEdge(CVertex from, CVertex to) {
 		this.from = from;
 		this.to = to;
 	}
 
-	public override string ToString()
+	public String toString()
 	{
-		if(from == null) return base.ToString();
-		return "Edge (" + from.position.X.ToString() + ";" +
-			from.position.Y.ToString() + ";" +
-			from.position.Z.ToString() + ") -> (" +
-			to.position.X.ToString() + ";" +
-			to.position.Y.ToString() + ";" +
-			to.position.Z.ToString() + ")";
+		if(from == null)
+			return super.toString();
+
+		return "Edge (" +
+			from.position.x + ";" + from.position.y + ";" + from.position.z + ") -> (" +
+			to.position.x + ";" + to.position.y + ";" + to.position.z + ")";
 	}
 
-	public float Length()
-	{
-		return (from.position - to.position).Length();
+	public float length() {
+		double xl = from.position.x - to.position.x;
+		double yl = from.position.y - to.position.y;
+		return (float)Math.sqrt(xl * xl + yl * yl);
 	}
 
-	#region IPart Members
-
-	public void move(Microsoft.DirectX.Vector3 direction)
-	{
+	public void move(Vector3f direction) {
 		this.to.move(direction);
 		this.from.move(direction);
 	}
 
-	public void moveTexture(Vector2 direction)
-	{
+	public void moveTexture(Vector2f direction) {
 		this.to.moveTexture(direction);
 		this.from.moveTexture(direction);
 	}
 
-	public bool hasPart(IPart part)
-	{
-		if(part.Equals(this)) return true;
-		if(part.Equals(from)) return true;
-		if(part.Equals(to)) return true;
-		return false;
+	public boolean hasPart(IModelPart part) {
+		return part.equals(this) || part.equals(from) || part.equals(to);
 	}
 
-	public Vector3 centerPoint()
-	{
-		Vector3 ret = (from.position + to.position) * 0.5f;
+	public Vector3f centerPoint() {
+		// TODO not allocationless
+		Vector3f ret = from.position.add(to.position);
+		ret.mul(0.5f, ret);
 		return ret;
 	}
 
-	public void scale(Matrix matrix)
-	{
+	public void scale(Matrix3f matrix) {
 		from.scale(matrix);
 		to.scale(matrix);
 	}
 
-	#endregion
 }

@@ -1,143 +1,223 @@
 package hu.csega.superstition.xml;
 
-class XmlWriter
-{
-	private ArrayList reference_list;
-	private object obj;
-	private XmlDocument doc;
+import java.io.Closeable;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.joml.Vector2f;
+import org.joml.Vector3f;
+
+import hu.csega.superstition.util.FileUtil;
+
+public class XmlWriter implements Closeable {
+
+	private List<Object> reference_list;
+	private OutputStreamWriter writer;
 	private int index;
+	private int indentation;
 
-	public XmlWriter(object obj)
-	{
-		this.reference_list = new ArrayList();
-		this.obj = obj;
-		this.doc = new XmlDocument();
+	public XmlWriter(String fileName) throws IOException {
+		this(new FileOutputStream(fileName));
+	}
+
+	public XmlWriter(OutputStream stream) throws IOException {
+		this.reference_list = new ArrayList<>();
 		this.index = 0;
+		this.indentation = 0;
+		this.writer = FileUtil.openWriter(stream);
+
+		this.openNode(ROOT_TAG);
 	}
 
-	public void Save(string file_name)
-	{
-		doc.Save(file_name);
-	}
-
-	public void Write()
-	{
-		XmlNode root = doc.CreateElement("DATAFILE");
-		doc.AppendChild(root);
-		reference_list.Add(obj);
+	public void write(Object obj) throws IOException, XmlReflectionException {
+		reference_list.add(obj);
 		index = 0;
-		while(index < reference_list.Count)
+		while(index < reference_list.size())
 		{
-			object tmp = reference_list[index];
-			Type type = tmp.GetType();
+			Object tmp = reference_list.get(index);
+			Class<?> tmpClass = tmp.getClass();
 
-			XmlNode node = doc.CreateElement(type.FullName);
-			root.AppendChild(node);
-			XmlAttribute a = doc.CreateAttribute("ref");
-			a.Value = index.ToString();
-			node.Attributes.Append(a);
+			XmlClass xmlClass = tmpClass.getAnnotation(XmlClass.class);
+			String xmlType = xmlClass.value();
 
-			FieldInfo[] infos = type.GetFields();
-			foreach(FieldInfo i in infos)
-			{
-				WField(tmp, i, node);
+			startOpeningNode(xmlType);
+			printAttribute("ref", String.valueOf(index));
+
+			Collection<XmlFieldBinding> bindings = XmlBinding.fieldBindingsOf(xmlType);
+
+			// possible attributes
+			for(XmlFieldBinding fb : bindings) {
+				if(fb.attribute) {
+					writeAttribute(obj, fb);
+				}
 			}
+
+			finishOpeningNode();
+
+			// possible children
+			for(XmlFieldBinding fb : bindings) {
+				writeField(obj, fb);
+			}
+
+			closeNode(xmlType);
 			index++;
 		}
 	}
 
-	public void WField(object obj, FieldInfo info, XmlNode root)
-	{
+	private void writeAttribute(Object obj, XmlFieldBinding fb) throws IOException, XmlReflectionException {
+
+		Object value;
+
+		try {
+			value = fb.getter.invoke(obj);
+		} catch(Exception ex) {
+			throw new XmlReflectionException(fb.field, ex);
+		}
+
+		if(value == null)
+			return;
+
+		printAttribute(fb.field, value.toString());
+
+	} // End of function
+
+	private void writeField(Object obj, XmlFieldBinding fb) throws IOException, XmlReflectionException {
+
+		Object value;
+
+		try {
+			value = fb.getter.invoke(obj);
+		} catch(Exception ex) {
+			throw new XmlReflectionException(fb.field, ex);
+		}
+
+		if(value == null)
+			return;
+
 		int reference;
-		if(info.FieldType.IsArray)
+		if(value instanceof Collection<?>)
 		{
-			Array array = (Array)info.GetValue(obj);
-			foreach(object o in array)
+			Collection<?> list = (Collection<?>)value;
+			for(Object o : list)
 			{
-				reference = reference_list.IndexOf(o);
+				reference = reference_list.indexOf(o);
 				if(reference == -1)
 				{
-					reference = reference_list.Count;
-					reference_list.Add(o);
+					reference = reference_list.size();
+					reference_list.add(o);
 				}
-				XmlNode node = doc.CreateElement(info.Name);
-				XmlAttribute attr = doc.CreateAttribute("ref");
-				attr.Value = reference.ToString();
-				node.Attributes.Append(attr);
-				root.AppendChild(node);
+
+				startOpeningNode(fb.field);
+				printAttribute("ref", String.valueOf(reference));
+				finishOpeningNodeWithSelfClosure();
 			}
 			return;
 		}
 
-		else if(info.FieldType == typeof(ArrayList))
-		{
-			ArrayList list = (ArrayList)info.GetValue(obj);
-			foreach(object o in list)
-			{
-				reference = reference_list.IndexOf(o);
-				if(reference == -1)
-				{
-					reference = reference_list.Count;
-					reference_list.Add(o);
-				}
-				XmlNode node = doc.CreateElement(info.Name);
-				XmlAttribute attr = doc.CreateAttribute("ref");
-				attr.Value = reference.ToString();
-				node.Attributes.Append(attr);
-				root.AppendChild(node);
+		else if(value instanceof Vector2f) {
+			Vector2f v = (Vector2f) value;
+			openNode(fb.field);
+
+			startOpeningNode("T3DCreator.Vector2");
+			printAttribute("X", String.valueOf(v.x));
+			printAttribute("Y", String.valueOf(v.y));
+			finishOpeningNodeWithSelfClosure();
+
+			closeNode(fb.field);
+
+		} else if (value instanceof Vector3f) {
+			Vector3f v = (Vector3f) value;
+			openNode(fb.field);
+
+			startOpeningNode("T3DCreator.Vector3");
+			printAttribute("X", String.valueOf(v.x));
+			printAttribute("Y", String.valueOf(v.y));
+			printAttribute("Z", String.valueOf(v.y));
+			finishOpeningNodeWithSelfClosure();
+
+			closeNode(fb.field);
+
+		} else {
+
+			openNode(fb.field);
+			finishOpeningNode();
+
+			reference = reference_list.indexOf(value);
+			if(reference == -1) {
+				reference = reference_list.size();
+				reference_list.add(value);
 			}
-			return;
-		}
 
-		else if(info.FieldType == typeof(float) ||
-			info.FieldType == typeof(double) ||
-			info.FieldType == typeof(int) ||
-			info.FieldType == typeof(string))
-		{
-			XmlAttribute attr = doc.CreateAttribute(info.Name);
-			attr.Value = info.GetValue(obj).ToString();
-			root.Attributes.Append(attr);
-			return;
-		}
+			printAttribute("ref", String.valueOf(reference));
+			finishOpeningNodeWithSelfClosure();
 
-		else if(info.FieldType == typeof(Vector2) ||
-			info.FieldType == typeof(Vector3) ||
-			info.FieldType == typeof(Matrix))
-		{
-			FieldInfo[] array = info.FieldType.GetFields();
-			XmlNode tmp = doc.CreateElement(info.Name);
-			root.AppendChild(tmp);
-			XmlNode n = doc.CreateElement(info.FieldType.FullName);
-			tmp.AppendChild(n);
-
-			foreach(FieldInfo i in array)
-			{
-				object field = info.GetValue(obj);
-				WField(field, i, n);
-			}
-		}
-
-		else
-		{
-			XmlNode node = doc.CreateElement(info.Name);
-			root.AppendChild(node);
-			object field = info.GetValue(obj);
-
-			if(field != null)
-			{
-				XmlAttribute attr = doc.CreateAttribute("ref");
-				node.Attributes.Append(attr);
-
-				reference = reference_list.IndexOf(field);
-				if(reference == -1)
-				{
-					reference = reference_list.Count;
-					reference_list.Add(field);
-				}
-				attr.Value = reference.ToString();
-			}
 		}
 
 	} // End of function
+
+	private void openNode(String tag) throws IOException {
+		startOpeningNode(tag);
+		finishOpeningNode();
+	}
+
+	private void startOpeningNode(String tag) throws IOException {
+		printIndentation();
+		writer.write("<" + tag);
+	}
+
+	private void printAttribute(String name, String value) throws IOException {
+		writer.write(" " + name + "=\"" + StringEscapeUtils.escapeJava(value) + '\"');
+	}
+
+	private void finishOpeningNodeWithSelfClosure() throws IOException {
+		writer.write("/>\n");
+	}
+
+	private void finishOpeningNode() throws IOException {
+		writer.write(">\n");
+		indentation += 2;
+	}
+
+	@SuppressWarnings("unused")
+	private void printContent(String text) throws IOException {
+		printIndentation();
+		writer.write(StringEscapeUtils.escapeXml11(text));
+		writer.write("\n");
+	}
+
+	private void closeNode(String tag) throws IOException {
+		indentation -= 2;
+		printIndentation();
+		writer.write("</" + tag + ">\n");
+	}
+
+	private void printIndentation() throws IOException {
+		int tmp = indentation;
+
+		while(tmp > SPACES_LENGTH) {
+			writer.write(SPACES_LENGTH);
+			tmp -= SPACES_LENGTH;
+		}
+
+		if(tmp > 0) {
+			writer.write(SPACES.substring(0, tmp));
+		}
+	}
+
+	@Override
+	public void close() throws IOException {
+		closeNode(ROOT_TAG);
+		writer.close();
+	}
+
+	private static final String ROOT_TAG = "DATAFILE";
+	private static final String SPACES = "                                        ";
+	private static final int SPACES_LENGTH = SPACES.length();
 
 } // End of class

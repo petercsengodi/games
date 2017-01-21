@@ -1,45 +1,39 @@
 package hu.csega.superstition.t3dcreator;
 
-public class CView : System.Windows.Forms.UserControl
-{
-	private bool initialized;
-	private object data;
+public class CView {
+	private boolean initialized;
+	private Object data;
 
-	protected bool Initialized
-	{
-		get { return initialized; }
+	protected boolean isInitialized() {
+		return initialized;
 	}
 
-	public CView()
-	{
+	public CView() {
 		initialized = false;
 		data = null;
 	}
 
-	/// <summary>
-	/// Clean up any resources being used.
-	/// </summary>
-	protected override void Dispose( bool disposing )
+	protected void Dispose( boolean disposing )
 	{
 		if( disposing )
 		{
-			CloseView();
+			closeView();
 			data = null;
 		}
+
 		initialized = false;
-		base.Dispose( disposing );
 	}
 
 	/// <summary>
 	/// Sets Model for View and initializes the View.
 	/// </summary>
 	/// <param name="data">Model to show.</param>
-	public void SetData(object data)
+	public void setData(Object data)
 	{
 		this.data = data;
 		if(!initialized)
 		{
-			InitializeView();
+			initializeView();
 			initialized = true;
 		}
 	}
@@ -48,7 +42,7 @@ public class CView : System.Windows.Forms.UserControl
 	/// Gets Model shown by this View.
 	/// </summary>
 	/// <returns>Model shown by this View.</returns>
-	public object GetData()
+	public Object getData()
 	{
 		return data;
 	}
@@ -56,29 +50,32 @@ public class CView : System.Windows.Forms.UserControl
 	/// <summary>
 	/// Signals the View to update itself.
 	/// </summary>
-	public void UpdateView()
+	public void updateView()
 	{
-		UpdateView(Updates.Full);
+		updateView(Updates.Full);
 	}
 
 	/// <summary>
 	/// Signals the View to update itself.
 	/// </summary>
-	public virtual void UpdateView(Updates update)
+	public void updateView(Updates update)
 	{
 	}
 
 	/// <summary>
 	/// Makes View-special initializations.
 	/// </summary>
-	protected virtual void InitializeView()
+	protected void initializeView()
 	{
 	}
 
 	/// <summary>
 	/// Makes View-special Disposing functions.
 	/// </summary>
-	protected virtual void CloseView()
+	protected void closeView()
 	{
+	}
+
+	public void invalidate() {
 	}
 }

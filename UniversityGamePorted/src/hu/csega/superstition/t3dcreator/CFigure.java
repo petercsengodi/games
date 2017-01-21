@@ -1,38 +1,50 @@
 package hu.csega.superstition.t3dcreator;
 
-public class CFigure : IPart
-{
-	public ArrayList vertices;
-	public ArrayList triangles;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.joml.Matrix3f;
+import org.joml.Vector2f;
+import org.joml.Vector3f;
+
+import hu.csega.superstition.t3dcreator.texture.TexID;
+import hu.csega.superstition.util.StaticRandomLibrary;
+import hu.csega.superstition.util.Vectors;
+
+public class CFigure implements IModelPart {
+
+	public List<CVertex> vertices;
+	public List<CTriangle> triangles;
 	public TexID texID;
-	public int ambient_color;
-	public int diffuse_color;
-	public int emissive_color;
+
+	public Color ambient_color;
+	public Color diffuse_color;
+	public Color emissive_color;
 
 	public CFigure()
 	{
-		vertices = new ArrayList();
-		triangles = new ArrayList();
+		vertices = new ArrayList<>();
+		triangles = new ArrayList<>();
 		texID = null;
 
-		ambient_color = Color.White.ToArgb();
-		diffuse_color = Color.White.ToArgb();
-		emissive_color = Color.Black.ToArgb();
+		ambient_color = Color.white;
+		diffuse_color = Color.white;
+		emissive_color = Color.black;
 	}
 
-	public CFigure(InitialFigure figure)
-	{
-		vertices = new ArrayList();
-		triangles = new ArrayList();
+	public CFigure(InitialFigure figure) {
+		vertices = new ArrayList<>();
+		triangles = new ArrayList<>();
 		texID = null;
 
-		ambient_color = Color.White.ToArgb();
-		diffuse_color = Color.White.ToArgb();
-		emissive_color = Color.Black.ToArgb();
+		ambient_color = Color.white;
+		diffuse_color = Color.white;
+		emissive_color = Color.black;
 
 		switch(figure)
 		{
-			case InitialFigure.Cube:
+			case Cube:
 				AddNewCube();
 				break;
 
@@ -44,135 +56,139 @@ public class CFigure : IPart
 
 	public void AddNewTetra()
 	{
-		vertices.Add(new CVertex(new Vector3(-1f, 0f, 0f)));
-		vertices.Add(new CVertex(new Vector3(1f, 0f, 0f)));
-		vertices.Add(new CVertex(new Vector3(0f, 0f, 1f)));
-		vertices.Add(new CVertex(new Vector3(0f, 1f, 0f)));
+		vertices.add(new CVertex(new Vector3f(-1f, 0f, 0f)));
+		vertices.add(new CVertex(new Vector3f(1f, 0f, 0f)));
+		vertices.add(new CVertex(new Vector3f(0f, 0f, 1f)));
+		vertices.add(new CVertex(new Vector3f(0f, 1f, 0f)));
 
 		CTriangle t1 = new CTriangle(
-			vertices[0], vertices[1], vertices[2]);
+			vertices.get(0), vertices.get(1), vertices.get(2));
 		CTriangle t2 = new CTriangle(
-			vertices[1], vertices[0], vertices[3]);
+			vertices.get(1), vertices.get(0), vertices.get(3));
 		CTriangle t3 = new CTriangle(
-			vertices[2], vertices[1], vertices[3]);
+			vertices.get(2), vertices.get(1), vertices.get(3));
 		CTriangle t4 = new CTriangle(
-			vertices[0], vertices[2], vertices[3]);
+			vertices.get(0), vertices.get(2), vertices.get(3));
 
 		t1.neighbours[0] = t2; t1.neighbours[1] = t3; t1.neighbours[2] = t4;
 		t2.neighbours[0] = t1; t2.neighbours[1] = t4; t2.neighbours[2] = t3;
 		t3.neighbours[0] = t1; t3.neighbours[1] = t2; t3.neighbours[2] = t4;
 		t4.neighbours[0] = t1; t4.neighbours[1] = t3; t4.neighbours[2] = t2;
 
-		triangles.Add(t1);
-		triangles.Add(t2);
-		triangles.Add(t3);
-		triangles.Add(t4);
+		triangles.add(t1);
+		triangles.add(t2);
+		triangles.add(t3);
+		triangles.add(t4);
 
-		(vertices[0] as CVertex).texture_coordinates = new Vector2(0f, 0f);
-		(vertices[1] as CVertex).texture_coordinates = new Vector2(0f, 1f);
-		(vertices[2] as CVertex).texture_coordinates = new Vector2(1f, 0f);
-		(vertices[3] as CVertex).texture_coordinates = new Vector2(1f, 1f);
+		vertices.get(0).texture_coordinates = new Vector2f(0f, 0f);
+		vertices.get(1).texture_coordinates = new Vector2f(0f, 1f);
+		vertices.get(2).texture_coordinates = new Vector2f(1f, 0f);
+		vertices.get(3).texture_coordinates = new Vector2f(1f, 1f);
 	}
 
 	public void AddNewCube()
 	{
-		vertices.Add(new CVertex(new Vector3(0f, 0f, 0f)));
-		vertices.Add(new CVertex(new Vector3(1f, 0f, 0f)));
-		vertices.Add(new CVertex(new Vector3(0f, 1f, 0f)));
-		vertices.Add(new CVertex(new Vector3(1f, 1f, 0f)));
-		vertices.Add(new CVertex(new Vector3(0f, 0f, 1f)));
-		vertices.Add(new CVertex(new Vector3(1f, 0f, 1f)));
-		vertices.Add(new CVertex(new Vector3(0f, 1f, 1f)));
-		vertices.Add(new CVertex(new Vector3(1f, 1f, 1f)));
+		vertices.add(new CVertex(new Vector3f(0f, 0f, 0f)));
+		vertices.add(new CVertex(new Vector3f(1f, 0f, 0f)));
+		vertices.add(new CVertex(new Vector3f(0f, 1f, 0f)));
+		vertices.add(new CVertex(new Vector3f(1f, 1f, 0f)));
+		vertices.add(new CVertex(new Vector3f(0f, 0f, 1f)));
+		vertices.add(new CVertex(new Vector3f(1f, 0f, 1f)));
+		vertices.add(new CVertex(new Vector3f(0f, 1f, 1f)));
+		vertices.add(new CVertex(new Vector3f(1f, 1f, 1f)));
 
 		CTriangle t1 = new CTriangle(
-			vertices[2], vertices[1], vertices[0]);
+			vertices.get(2), vertices.get(1), vertices.get(0));
 		CTriangle t2 = new CTriangle(
-			vertices[2], vertices[3], vertices[1]);
+			vertices.get(2), vertices.get(3), vertices.get(1));
 
 		CTriangle t3 = new CTriangle(
-			vertices[4], vertices[5], vertices[6]);
+			vertices.get(4), vertices.get(5), vertices.get(6));
 		CTriangle t4 = new CTriangle(
-			vertices[7], vertices[6], vertices[5]);
+			vertices.get(7), vertices.get(6), vertices.get(5));
 
 		CTriangle t5 = new CTriangle(
-			vertices[1], vertices[3], vertices[5]);
+			vertices.get(1), vertices.get(3), vertices.get(5));
 		CTriangle t6 = new CTriangle(
-			vertices[3], vertices[7], vertices[5]);
+			vertices.get(3), vertices.get(7), vertices.get(5));
 
 		CTriangle t7 = new CTriangle(
-			vertices[2], vertices[0], vertices[6]);
+			vertices.get(2), vertices.get(0), vertices.get(6));
 		CTriangle t8 = new CTriangle(
-			vertices[0], vertices[4], vertices[6]);
+			vertices.get(0), vertices.get(4), vertices.get(6));
 
 		CTriangle t9 = new CTriangle(
-			vertices[4], vertices[0], vertices[1]);
+			vertices.get(4), vertices.get(0), vertices.get(1));
 		CTriangle t10 = new CTriangle(
-			vertices[4], vertices[1], vertices[5]);
+			vertices.get(4), vertices.get(1), vertices.get(5));
 
 		CTriangle t11 = new CTriangle(
-			vertices[2], vertices[6], vertices[3]);
+			vertices.get(2), vertices.get(6), vertices.get(3));
 		CTriangle t12 = new CTriangle(
-			vertices[6], vertices[7], vertices[3]);
+			vertices.get(6), vertices.get(7), vertices.get(3));
 
-		triangles.Add(t1);
-		triangles.Add(t2);
-		triangles.Add(t3);
-		triangles.Add(t4);
-		triangles.Add(t5);
-		triangles.Add(t6);
-		triangles.Add(t7);
-		triangles.Add(t8);
-		triangles.Add(t9);
-		triangles.Add(t10);
-		triangles.Add(t11);
-		triangles.Add(t12);
+		triangles.add(t1);
+		triangles.add(t2);
+		triangles.add(t3);
+		triangles.add(t4);
+		triangles.add(t5);
+		triangles.add(t6);
+		triangles.add(t7);
+		triangles.add(t8);
+		triangles.add(t9);
+		triangles.add(t10);
+		triangles.add(t11);
+		triangles.add(t12);
 
 		CalculateNeighbours();
 
-		(vertices[0] as CVertex).texture_coordinates = new Vector2(0.333f, 0.666f);
-		(vertices[1] as CVertex).texture_coordinates = new Vector2(0.666f, 0.666f);
-		(vertices[2] as CVertex).texture_coordinates = new Vector2(0.333f, 0.333f);
-		(vertices[3] as CVertex).texture_coordinates = new Vector2(0.666f, 0.333f);
-		(vertices[4] as CVertex).texture_coordinates = new Vector2(0f, 1f);
-		(vertices[5] as CVertex).texture_coordinates = new Vector2(1f, 1f);
-		(vertices[6] as CVertex).texture_coordinates = new Vector2(0f, 0f);
-		(vertices[7] as CVertex).texture_coordinates = new Vector2(1f, 0f);
+		vertices.get(0).texture_coordinates = new Vector2f(0.333f, 0.666f);
+		vertices.get(1).texture_coordinates = new Vector2f(0.666f, 0.666f);
+		vertices.get(2).texture_coordinates = new Vector2f(0.333f, 0.333f);
+		vertices.get(3).texture_coordinates = new Vector2f(0.666f, 0.333f);
+		vertices.get(4).texture_coordinates = new Vector2f(0f, 1f);
+		vertices.get(5).texture_coordinates = new Vector2f(1f, 1f);
+		vertices.get(6).texture_coordinates = new Vector2f(0f, 0f);
+		vertices.get(7).texture_coordinates = new Vector2f(1f, 0f);
 	}
 
 	public void CalculateNeighbours()
 	{
 		// for test // TODO: delete
-		foreach(CTriangle t in triangles)
-		{
+		for(CTriangle t : triangles) {
 			t.neighbours = new CTriangle[3];
 		}
 
 		CalculateNeighbours(triangles);
 	}
 
-	public void CalculateNeighbours(CTriangle[] old_triangles,
-		CTriangle[] new_triangles)
-	{
-		ArrayList list = new ArrayList(old_triangles.Length +
-			new_triangles.Length);
-		foreach(CTriangle t in old_triangles) list.Add(t);
-		foreach(CTriangle t in new_triangles) list.Add(t);
+	public void CalculateNeighbours(CTriangle[] old_triangles, CTriangle[] new_triangles) {
+
+		List<CTriangle> list = new ArrayList<>(old_triangles.length + new_triangles.length);
+
+		for(CTriangle t : old_triangles)
+			list.add(t);
+
+		for(CTriangle t : new_triangles)
+			list.add(t);
+
 		CalculateNeighbours(list);
 //		list.Clear();
 	}
 
-	protected void CalculateNeighbours(ArrayList list)
+	protected void CalculateNeighbours(List<CTriangle> list)
 	{
-		foreach(CTriangle t1 in list)
-			foreach(CTriangle t2 in list)
+		for(CTriangle t1 : list)
+			for(CTriangle t2 : list)
 			{
-				if(t1.Equals(t2)) continue;
+				if(t1.equals(t2))
+					continue;
+
 				for(int i = 0; i < 3; i++)
 					for(int j = 0; j < 3; j++)
 					{
-						if(t1.edges[i].from.Equals(t2.edges[j].to) &&
-							t1.edges[i].to.Equals(t2.edges[j].from))
+						if(t1.edges[i].from.equals(t2.edges[j].to) &&
+							t1.edges[i].to.equals(t2.edges[j].from))
 						{
 							t1.neighbours[i] = t2;
 							t2.neighbours[j] = t1;
@@ -181,11 +197,11 @@ public class CFigure : IPart
 			}
 	}
 
-	public bool Verify()
-	{
-		bool ret = true;
+	public boolean verify() {
 
-		foreach(CTriangle t in triangles)
+		boolean ret = true;
+
+		for(CTriangle t : triangles)
 		{
 			ret &= (t.neighbours[0] != null);
 			ret &= (t.neighbours[1] != null);
@@ -195,130 +211,129 @@ public class CFigure : IPart
 		return ret;
 	}
 
-	public void AddNewSphere()
-	{
+	public void AddNewSphere() {
 		// TODO: Sphere
 	}
 
-	public override string ToString()
-	{
+	public String toString() {
 		return "Figure";
 	}
 
-	#region IPart Members
-
-	public void move(Vector3 direction)
-	{
-		foreach(CVertex v in this.vertices)
-		{
+	public void move(Vector3f direction) {
+		for(CVertex v : this.vertices) {
 			v.move(direction);
 		}
 	}
 
-	public void moveTexture(Vector2 direction)
-	{
-		foreach(CVertex v in this.vertices)
-		{
+	public void moveTexture(Vector2f direction) {
+		for(CVertex v : this.vertices) {
 			v.moveTexture(direction);
 		}
 	}
 
-	public bool hasPart(IPart part)
+	public boolean hasPart(IModelPart part)
 	{
-		if(part.Equals(this)) return true;
-		bool ret = false;
-		foreach(CTriangle t in triangles)
+		if(part.equals(this))
+			return true;
+
+		boolean ret = false;
+		for(CTriangle t : triangles)
 		{
 			ret |= t.hasPart(part);
 		}
 		return ret;
 	}
 
-	public Vector3 centerPoint()
+	public Vector3f centerPoint()
 	{
-		Vector3 ret = new Vector3(0f, 0f, 0f);
-		float n = 1f / (float)vertices.Count;
-		foreach(CVertex vertex in vertices)
-		{
-			ret += vertex.position * n;
+		// TODO allocationless
+		Vector3f ret = new Vector3f(0f, 0f, 0f);
+		Vector3f tmp = new Vector3f(0f, 0f, 0f);
+		float n = 1f / (float)vertices.size();
+		for(CVertex vertex : vertices) {
+			vertex.position.mul(n, tmp);
+			ret.add(tmp, ret);
 		}
 		return ret;
 	}
 
-	public void scale(Matrix matrix)
+	public void scale(Matrix3f matrix)
 	{
-		foreach(CVertex vertex in vertices)
-		{
+		for(CVertex vertex : vertices) {
 			vertex.scale(matrix);
 		}
 	}
 
-	#endregion
-
 	public void zoom(float factor)
 	{
-		Vector3 average = new Vector3(0f, 0f, 0f);
-		float num = 1f / vertices.Count;
-		foreach(CVertex v in vertices)
+		// TODO allocationless
+		Vector3f average = new Vector3f(0f, 0f, 0f);
+		Vector3f tmp = new Vector3f(0f, 0f, 0f);
+
+		float num = 1f / vertices.size();
+		for(CVertex v : vertices)
 		{
-			average += v.position * num;
+			v.position.mul(num, tmp);
+			average.add(tmp, average);
 		}
 
-		foreach(CVertex v in vertices)
+		for(CVertex v : vertices)
 		{
-			v.position = ((v.position - average) * factor)
-				+ average;
+			v.position.sub(average, tmp);
+			tmp.mul(factor, tmp);
+			tmp.add(average, v.position);
 		}
 	}
 
-	public void SphereTexture()
+	public void sphereTexture()
 	{
-		Vector3 min, max, average;
+		Vector3f min = new Vector3f();
+		Vector3f max = new Vector3f();
+		Vector3f average = new Vector3f();
 		float radius = 0f;
 
-		min = (vertices[0] as CVertex).position;
-		max = (vertices[0] as CVertex).position;
+		min.set(vertices.get(0).position);
+		max.set(vertices.get(0).position);
 
-		for(int i = 1; i < vertices.Count; i++)
+		for(int i = 1; i < vertices.size(); i++)
 		{
-			CVertex v = vertices[i] as CVertex;
-			min = Vector3.Minimize(min, v.position);
-			max = Vector3.Maximize(max, v.position);
+			CVertex v = vertices.get(i);
+			Vectors.minimize(min, v.position, min);
+			Vectors.maximize(max, v.position, max);
 		}
 
-		average = (min + max) * 0.5f;
-		radius = Math.Max(average.X - min.X, Math.Max(
-			average.Y - min.Y, average.Z - min.Z));
+		min.add(max, average);
+		average.mul(0.5f, average);
 
-		foreach(CVertex v in vertices)
-		{
-			Vector3 tmp = v.position - average;
-			tmp.Normalize();
-			double ty = Math.Acos(tmp.Y) / Math.PI;
-			tmp.Y = 0f;
-			tmp.Normalize();
+		radius = Math.max(average.x - min.x, Math.max(
+			average.y - min.y, average.z - min.z));
+
+		Vector3f tmp = new Vector3f();
+
+		for(CVertex v : vertices) {
+			v.position.sub(average, tmp);
+			tmp.normalize(tmp);
+			double ty = Math.acos(tmp.y) / Math.PI;
+			tmp.y = 0f;
+			tmp.normalize(tmp);
 			double tx;
 
-			if(tmp.Z >= 0f)
-			{
-				tx = Math.Acos(tmp.X) / Math.PI;
-			}
-			else
-			{
-				tx = 1.0 - Math.Acos(tmp.X) / Math.PI;
+			if(tmp.z >= 0f) {
+				tx = Math.acos(tmp.x) / Math.PI;
+			} else {
+				tx = 1.0 - Math.acos(tmp.x) / Math.PI;
 			}
 
-            v.texture_coordinates = new Vector2((float)tx, (float)ty);
+            v.texture_coordinates = new Vector2f((float)tx, (float)ty);
 		}
 	}
 
-	public void RandomTexture()
+	public void randomTexture()
 	{
-		Random random = new Random();
-		foreach(CVertex v in vertices)
+		for(CVertex v : vertices)
 		{
-			v.texture_coordinates.X = (float)random.NextDouble();
-			v.texture_coordinates.Y = (float)random.NextDouble();
+			v.texture_coordinates.x = StaticRandomLibrary.floatValue();
+			v.texture_coordinates.y = StaticRandomLibrary.floatValue();
 		}
 	}
 

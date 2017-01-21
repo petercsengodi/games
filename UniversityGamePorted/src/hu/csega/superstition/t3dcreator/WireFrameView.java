@@ -1,6 +1,6 @@
 package hu.csega.superstition.t3dcreator;
 
-public class WireFrameView : CView
+public class WireFrameView extends CView
 {
 	/// <summary>
 	/// Required designer variable.

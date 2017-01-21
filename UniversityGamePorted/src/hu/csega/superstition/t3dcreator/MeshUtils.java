@@ -1,7 +1,6 @@
 package hu.csega.superstition.t3dcreator;
 
-public class MeshUtils : IDisposable
-{
+public class MeshUtils {
 	private SaveFileDialog dialog;
 
 	protected Device device;

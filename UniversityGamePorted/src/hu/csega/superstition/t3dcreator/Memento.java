@@ -1,58 +1,64 @@
 package hu.csega.superstition.t3dcreator;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import hu.csega.superstition.fileoperations.FileControl;
+import hu.csega.superstition.t3dcreator.operations.Operation;
+
 public class Memento
 {
-	private ArrayList for_redo, for_undo;
+	private List<Operation> for_redo, for_undo;
 	private FileControl control;
 
 	public Memento()
 	{
 		this.control = null;
-		this.for_redo = new ArrayList();
-		this.for_undo = new ArrayList();
+		this.for_redo = new ArrayList<>();
+		this.for_undo = new ArrayList<>();
 	}
 
 	public Memento(FileControl control)
 	{
 		this.control = control;
-		this.for_redo = new ArrayList();
-		this.for_undo = new ArrayList();
+		this.for_redo = new ArrayList<>();
+		this.for_undo = new ArrayList<>();
 	}
 
 	public void Push(Operation operation)
 	{
-		for_undo.Add(operation);
-		for_redo.Clear();
+		for_undo.add(operation);
+		for_redo.clear();
 		operation.Transform();
-		control.Change();
+		control.change();
 	}
 
 	public void Undo()
 	{
-		if(for_undo.Count == 0) return;
-		int last_index = for_undo.Count - 1;
-		Operation operation = for_undo[last_index] as Operation;
-		for_undo.RemoveAt(last_index);
-		for_redo.Add(operation);
+		if(for_undo.size() == 0) return;
+		int last_index = for_undo.size() - 1;
+		Operation operation = for_undo.get(last_index);
+		for_undo.remove(last_index);
+		for_redo.add(operation);
 		operation.Invert();
-		control.Change();
+		control.change();
 	}
 
 	public void Redo()
 	{
-		if(for_redo.Count == 0) return;
-		int last_index = for_redo.Count - 1;
-		Operation operation = for_redo[last_index] as Operation;
-		for_redo.RemoveAt(last_index);
-		for_undo.Add(operation);
+		if(for_redo.size() == 0) return;
+		int last_index = for_redo.size() - 1;
+		Operation operation = for_redo.get(last_index);
+		for_redo.remove(last_index);
+		for_undo.add(operation);
 		operation.Transform();
-		control.Change();
+		control.change();
 	}
 
 	public void Clear()
 	{
-		for_undo.Clear();
-		for_redo.Clear();
+		for_undo.clear();
+		for_redo.clear();
 	}
 
 } // End of class Memento

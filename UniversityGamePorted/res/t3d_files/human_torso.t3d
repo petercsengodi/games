@@ -171,10 +171,10 @@
   </T3DCreator.CFigure>
   <T3DCreator.CVertex ref="8">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,02" Y="-0,16" Z="0" />
+      <T3DCreator.Vector3 X="0,02" Y="-0,16" Z="0" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0,333" Y="0,666" />
+      <T3DCreator.Vector2 X="0,333" Y="0,666" />
     </texture_coordinates>
     <neighbours ref="10" />
     <neighbours ref="9" />
@@ -195,10 +195,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="9">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,06" Y="-0,16" Z="0" />
+      <T3DCreator.Vector3 X="0,06" Y="-0,16" Z="0" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0,666" Y="0,666" />
+      <T3DCreator.Vector2 X="0,666" Y="0,666" />
     </texture_coordinates>
     <neighbours ref="10" />
     <neighbours ref="8" />
@@ -223,10 +223,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="10">
     <position>
-      <Microsoft.DirectX.Vector3 X="-0,06" Y="-0,04" Z="-0,04" />
+      <T3DCreator.Vector3 X="-0,06" Y="-0,04" Z="-0,04" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0,333" Y="0,333" />
+      <T3DCreator.Vector2 X="0,333" Y="0,333" />
     </texture_coordinates>
     <neighbours ref="9" />
     <neighbours ref="8" />
@@ -247,10 +247,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="11">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,14" Y="-0,04" Z="-0,04" />
+      <T3DCreator.Vector3 X="0,14" Y="-0,04" Z="-0,04" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0,666" Y="0,333" />
+      <T3DCreator.Vector2 X="0,666" Y="0,333" />
     </texture_coordinates>
     <neighbours ref="10" />
     <neighbours ref="9" />
@@ -275,10 +275,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="12">
     <position>
-      <Microsoft.DirectX.Vector3 X="-0,04" Y="-0,16" Z="0,16" />
+      <T3DCreator.Vector3 X="-0,04" Y="-0,16" Z="0,16" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0" Y="1" />
+      <T3DCreator.Vector2 X="0" Y="1" />
     </texture_coordinates>
     <neighbours ref="13" />
     <neighbours ref="14" />
@@ -299,10 +299,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="13">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,12" Y="-0,16" Z="0,16" />
+      <T3DCreator.Vector3 X="0,12" Y="-0,16" Z="0,16" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="1" Y="1" />
+      <T3DCreator.Vector2 X="1" Y="1" />
     </texture_coordinates>
     <neighbours ref="12" />
     <neighbours ref="14" />
@@ -327,10 +327,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="14">
     <position>
-      <Microsoft.DirectX.Vector3 X="-0,06" Y="-0,04" Z="0,18" />
+      <T3DCreator.Vector3 X="-0,06" Y="-0,04" Z="0,18" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0" Y="0" />
+      <T3DCreator.Vector2 X="0" Y="0" />
     </texture_coordinates>
     <neighbours ref="12" />
     <neighbours ref="13" />
@@ -359,10 +359,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="15">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,14" Y="-0,04" Z="0,18" />
+      <T3DCreator.Vector3 X="0,14" Y="-0,04" Z="0,18" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="1" Y="0" />
+      <T3DCreator.Vector2 X="1" Y="0" />
     </texture_coordinates>
     <neighbours ref="14" />
     <neighbours ref="13" />
@@ -476,10 +476,10 @@
   <T3DCreator.TexID ref="28" name="metal.bmp" />
   <T3DCreator.CVertex ref="29">
     <position>
-      <Microsoft.DirectX.Vector3 X="-0,06" Y="-0,04" Z="-0,04" />
+      <T3DCreator.Vector3 X="-0,06" Y="-0,04" Z="-0,04" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0,333" Y="0,666" />
+      <T3DCreator.Vector2 X="0,333" Y="0,666" />
     </texture_coordinates>
     <neighbours ref="31" />
     <neighbours ref="30" />
@@ -500,10 +500,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="30">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,14" Y="-0,04" Z="-0,04" />
+      <T3DCreator.Vector3 X="0,14" Y="-0,04" Z="-0,04" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0,666" Y="0,666" />
+      <T3DCreator.Vector2 X="0,666" Y="0,666" />
     </texture_coordinates>
     <neighbours ref="31" />
     <neighbours ref="29" />
@@ -528,10 +528,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="31">
     <position>
-      <Microsoft.DirectX.Vector3 X="-0,08" Y="0,22" Z="-0,06" />
+      <T3DCreator.Vector3 X="-0,08" Y="0,22" Z="-0,06" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0,333" Y="0,333" />
+      <T3DCreator.Vector2 X="0,333" Y="0,333" />
     </texture_coordinates>
     <neighbours ref="30" />
     <neighbours ref="29" />
@@ -552,10 +552,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="32">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,16" Y="0,22" Z="-0,06" />
+      <T3DCreator.Vector3 X="0,16" Y="0,22" Z="-0,06" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0,666" Y="0,333" />
+      <T3DCreator.Vector2 X="0,666" Y="0,333" />
     </texture_coordinates>
     <neighbours ref="31" />
     <neighbours ref="30" />
@@ -580,10 +580,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="33">
     <position>
-      <Microsoft.DirectX.Vector3 X="-0,06" Y="-0,04" Z="0,18" />
+      <T3DCreator.Vector3 X="-0,06" Y="-0,04" Z="0,18" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0" Y="1" />
+      <T3DCreator.Vector2 X="0" Y="1" />
     </texture_coordinates>
     <neighbours ref="34" />
     <neighbours ref="35" />
@@ -604,10 +604,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="34">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,14" Y="-0,04" Z="0,18" />
+      <T3DCreator.Vector3 X="0,14" Y="-0,04" Z="0,18" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="1" Y="1" />
+      <T3DCreator.Vector2 X="1" Y="1" />
     </texture_coordinates>
     <neighbours ref="33" />
     <neighbours ref="35" />
@@ -632,10 +632,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="35">
     <position>
-      <Microsoft.DirectX.Vector3 X="-0,08" Y="0,22" Z="0,2" />
+      <T3DCreator.Vector3 X="-0,08" Y="0,22" Z="0,2" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0" Y="0" />
+      <T3DCreator.Vector2 X="0" Y="0" />
     </texture_coordinates>
     <neighbours ref="33" />
     <neighbours ref="34" />
@@ -664,10 +664,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="36">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,16" Y="0,22" Z="0,2" />
+      <T3DCreator.Vector3 X="0,16" Y="0,22" Z="0,2" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="1" Y="0" />
+      <T3DCreator.Vector2 X="1" Y="0" />
     </texture_coordinates>
     <neighbours ref="35" />
     <neighbours ref="34" />
@@ -780,10 +780,10 @@
   </T3DCreator.CTriangle>
   <T3DCreator.CVertex ref="49">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,06" Y="0,22" Z="-0,06" />
+      <T3DCreator.Vector3 X="0,06" Y="0,22" Z="-0,06" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0,333" Y="0,666" />
+      <T3DCreator.Vector2 X="0,333" Y="0,666" />
     </texture_coordinates>
     <neighbours ref="51" />
     <neighbours ref="50" />
@@ -804,10 +804,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="50">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,16" Y="0,22" Z="-0,06" />
+      <T3DCreator.Vector3 X="0,16" Y="0,22" Z="-0,06" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0,666" Y="0,666" />
+      <T3DCreator.Vector2 X="0,666" Y="0,666" />
     </texture_coordinates>
     <neighbours ref="51" />
     <neighbours ref="49" />
@@ -832,10 +832,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="51">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,12" Y="0,28" Z="0,06" />
+      <T3DCreator.Vector3 X="0,12" Y="0,28" Z="0,06" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0,333" Y="0,333" />
+      <T3DCreator.Vector2 X="0,333" Y="0,333" />
     </texture_coordinates>
     <neighbours ref="50" />
     <neighbours ref="49" />
@@ -856,10 +856,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="52">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,18" Y="0,28" Z="0,06" />
+      <T3DCreator.Vector3 X="0,18" Y="0,28" Z="0,06" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0,666" Y="0,333" />
+      <T3DCreator.Vector2 X="0,666" Y="0,333" />
     </texture_coordinates>
     <neighbours ref="51" />
     <neighbours ref="50" />
@@ -884,10 +884,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="53">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,06" Y="0,22" Z="0,2" />
+      <T3DCreator.Vector3 X="0,06" Y="0,22" Z="0,2" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0" Y="1" />
+      <T3DCreator.Vector2 X="0" Y="1" />
     </texture_coordinates>
     <neighbours ref="54" />
     <neighbours ref="55" />
@@ -908,10 +908,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="54">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,16" Y="0,22" Z="0,2" />
+      <T3DCreator.Vector3 X="0,16" Y="0,22" Z="0,2" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="1" Y="1" />
+      <T3DCreator.Vector2 X="1" Y="1" />
     </texture_coordinates>
     <neighbours ref="53" />
     <neighbours ref="55" />
@@ -936,10 +936,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="55">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,12" Y="0,28" Z="0,18" />
+      <T3DCreator.Vector3 X="0,12" Y="0,28" Z="0,18" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0" Y="0" />
+      <T3DCreator.Vector2 X="0" Y="0" />
     </texture_coordinates>
     <neighbours ref="53" />
     <neighbours ref="54" />
@@ -968,10 +968,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="56">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,18" Y="0,28" Z="0,18" />
+      <T3DCreator.Vector3 X="0,18" Y="0,28" Z="0,18" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="1" Y="0" />
+      <T3DCreator.Vector2 X="1" Y="0" />
     </texture_coordinates>
     <neighbours ref="55" />
     <neighbours ref="54" />
@@ -1084,10 +1084,10 @@
   </T3DCreator.CTriangle>
   <T3DCreator.CVertex ref="69">
     <position>
-      <Microsoft.DirectX.Vector3 X="-0,08" Y="0,22" Z="-0,06" />
+      <T3DCreator.Vector3 X="-0,08" Y="0,22" Z="-0,06" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0,333" Y="0,666" />
+      <T3DCreator.Vector2 X="0,333" Y="0,666" />
     </texture_coordinates>
     <neighbours ref="71" />
     <neighbours ref="70" />
@@ -1108,10 +1108,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="70">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,02" Y="0,22" Z="-0,06" />
+      <T3DCreator.Vector3 X="0,02" Y="0,22" Z="-0,06" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0,666" Y="0,666" />
+      <T3DCreator.Vector2 X="0,666" Y="0,666" />
     </texture_coordinates>
     <neighbours ref="71" />
     <neighbours ref="69" />
@@ -1136,10 +1136,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="71">
     <position>
-      <Microsoft.DirectX.Vector3 X="-0,09999999" Y="0,28" Z="0,06" />
+      <T3DCreator.Vector3 X="-0,09999999" Y="0,28" Z="0,06" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0,333" Y="0,333" />
+      <T3DCreator.Vector2 X="0,333" Y="0,333" />
     </texture_coordinates>
     <neighbours ref="70" />
     <neighbours ref="69" />
@@ -1160,10 +1160,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="72">
     <position>
-      <Microsoft.DirectX.Vector3 X="-0,04" Y="0,28" Z="0,06" />
+      <T3DCreator.Vector3 X="-0,04" Y="0,28" Z="0,06" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0,666" Y="0,333" />
+      <T3DCreator.Vector2 X="0,666" Y="0,333" />
     </texture_coordinates>
     <neighbours ref="71" />
     <neighbours ref="70" />
@@ -1188,10 +1188,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="73">
     <position>
-      <Microsoft.DirectX.Vector3 X="-0,08" Y="0,22" Z="0,2" />
+      <T3DCreator.Vector3 X="-0,08" Y="0,22" Z="0,2" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0" Y="1" />
+      <T3DCreator.Vector2 X="0" Y="1" />
     </texture_coordinates>
     <neighbours ref="74" />
     <neighbours ref="75" />
@@ -1212,10 +1212,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="74">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,02" Y="0,22" Z="0,2" />
+      <T3DCreator.Vector3 X="0,02" Y="0,22" Z="0,2" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="1" Y="1" />
+      <T3DCreator.Vector2 X="1" Y="1" />
     </texture_coordinates>
     <neighbours ref="73" />
     <neighbours ref="75" />
@@ -1240,10 +1240,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="75">
     <position>
-      <Microsoft.DirectX.Vector3 X="-0,09999999" Y="0,28" Z="0,18" />
+      <T3DCreator.Vector3 X="-0,09999999" Y="0,28" Z="0,18" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0" Y="0" />
+      <T3DCreator.Vector2 X="0" Y="0" />
     </texture_coordinates>
     <neighbours ref="73" />
     <neighbours ref="74" />
@@ -1272,10 +1272,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="76">
     <position>
-      <Microsoft.DirectX.Vector3 X="-0,04" Y="0,28" Z="0,18" />
+      <T3DCreator.Vector3 X="-0,04" Y="0,28" Z="0,18" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="1" Y="0" />
+      <T3DCreator.Vector2 X="1" Y="0" />
     </texture_coordinates>
     <neighbours ref="75" />
     <neighbours ref="74" />
@@ -1388,10 +1388,10 @@
   </T3DCreator.CTriangle>
   <T3DCreator.CVertex ref="89">
     <position>
-      <Microsoft.DirectX.Vector3 X="-0,02" Y="0,22" Z="0,09999999" />
+      <T3DCreator.Vector3 X="-0,02" Y="0,22" Z="0,09999999" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0,333" Y="0,666" />
+      <T3DCreator.Vector2 X="0,333" Y="0,666" />
     </texture_coordinates>
     <neighbours ref="91" />
     <neighbours ref="90" />
@@ -1412,10 +1412,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="90">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,09999999" Y="0,22" Z="0,09999999" />
+      <T3DCreator.Vector3 X="0,09999999" Y="0,22" Z="0,09999999" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0,666" Y="0,666" />
+      <T3DCreator.Vector2 X="0,666" Y="0,666" />
     </texture_coordinates>
     <neighbours ref="91" />
     <neighbours ref="89" />
@@ -1440,10 +1440,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="91">
     <position>
-      <Microsoft.DirectX.Vector3 X="-0,02" Y="0,34" Z="0,09999999" />
+      <T3DCreator.Vector3 X="-0,02" Y="0,34" Z="0,09999999" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0,333" Y="0,333" />
+      <T3DCreator.Vector2 X="0,333" Y="0,333" />
     </texture_coordinates>
     <neighbours ref="90" />
     <neighbours ref="89" />
@@ -1464,10 +1464,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="92">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,09999999" Y="0,34" Z="0,09999999" />
+      <T3DCreator.Vector3 X="0,09999999" Y="0,34" Z="0,09999999" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0,666" Y="0,333" />
+      <T3DCreator.Vector2 X="0,666" Y="0,333" />
     </texture_coordinates>
     <neighbours ref="91" />
     <neighbours ref="90" />
@@ -1492,10 +1492,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="93">
     <position>
-      <Microsoft.DirectX.Vector3 X="-0,02" Y="0,22" Z="0,16" />
+      <T3DCreator.Vector3 X="-0,02" Y="0,22" Z="0,16" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0" Y="1" />
+      <T3DCreator.Vector2 X="0" Y="1" />
     </texture_coordinates>
     <neighbours ref="94" />
     <neighbours ref="95" />
@@ -1516,10 +1516,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="94">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,09999999" Y="0,22" Z="0,16" />
+      <T3DCreator.Vector3 X="0,09999999" Y="0,22" Z="0,16" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="1" Y="1" />
+      <T3DCreator.Vector2 X="1" Y="1" />
     </texture_coordinates>
     <neighbours ref="93" />
     <neighbours ref="95" />
@@ -1544,10 +1544,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="95">
     <position>
-      <Microsoft.DirectX.Vector3 X="0" Y="0,32" Z="0,16" />
+      <T3DCreator.Vector3 X="0" Y="0,32" Z="0,16" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0" Y="0" />
+      <T3DCreator.Vector2 X="0" Y="0" />
     </texture_coordinates>
     <neighbours ref="93" />
     <neighbours ref="94" />
@@ -1576,10 +1576,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="96">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,08" Y="0,32" Z="0,16" />
+      <T3DCreator.Vector3 X="0,08" Y="0,32" Z="0,16" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="1" Y="0" />
+      <T3DCreator.Vector2 X="1" Y="0" />
     </texture_coordinates>
     <neighbours ref="95" />
     <neighbours ref="94" />
@@ -1693,10 +1693,10 @@
   <T3DCreator.TexID ref="109" name="leather.bmp" />
   <T3DCreator.CVertex ref="110">
     <position>
-      <Microsoft.DirectX.Vector3 X="0" Y="0,28" Z="-0,02" />
+      <T3DCreator.Vector3 X="0" Y="0,28" Z="-0,02" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0,333" Y="0,666" />
+      <T3DCreator.Vector2 X="0,333" Y="0,666" />
     </texture_coordinates>
     <neighbours ref="112" />
     <neighbours ref="111" />
@@ -1717,10 +1717,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="111">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,08" Y="0,28" Z="-0,02" />
+      <T3DCreator.Vector3 X="0,08" Y="0,28" Z="-0,02" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0,666" Y="0,666" />
+      <T3DCreator.Vector2 X="0,666" Y="0,666" />
     </texture_coordinates>
     <neighbours ref="112" />
     <neighbours ref="110" />
@@ -1745,10 +1745,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="112">
     <position>
-      <Microsoft.DirectX.Vector3 X="-0,02" Y="0,34" Z="0,02" />
+      <T3DCreator.Vector3 X="-0,02" Y="0,34" Z="0,02" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0,333" Y="0,333" />
+      <T3DCreator.Vector2 X="0,333" Y="0,333" />
     </texture_coordinates>
     <neighbours ref="111" />
     <neighbours ref="110" />
@@ -1769,10 +1769,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="113">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,09999999" Y="0,34" Z="0,02" />
+      <T3DCreator.Vector3 X="0,09999999" Y="0,34" Z="0,02" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0,666" Y="0,333" />
+      <T3DCreator.Vector2 X="0,666" Y="0,333" />
     </texture_coordinates>
     <neighbours ref="112" />
     <neighbours ref="111" />
@@ -1797,10 +1797,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="114">
     <position>
-      <Microsoft.DirectX.Vector3 X="-0,02" Y="0,22" Z="0,09999999" />
+      <T3DCreator.Vector3 X="-0,02" Y="0,22" Z="0,09999999" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0" Y="1" />
+      <T3DCreator.Vector2 X="0" Y="1" />
     </texture_coordinates>
     <neighbours ref="115" />
     <neighbours ref="116" />
@@ -1821,10 +1821,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="115">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,09999999" Y="0,22" Z="0,09999999" />
+      <T3DCreator.Vector3 X="0,09999999" Y="0,22" Z="0,09999999" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="1" Y="1" />
+      <T3DCreator.Vector2 X="1" Y="1" />
     </texture_coordinates>
     <neighbours ref="114" />
     <neighbours ref="116" />
@@ -1849,10 +1849,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="116">
     <position>
-      <Microsoft.DirectX.Vector3 X="-0,02" Y="0,34" Z="0,09999999" />
+      <T3DCreator.Vector3 X="-0,02" Y="0,34" Z="0,09999999" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0" Y="0" />
+      <T3DCreator.Vector2 X="0" Y="0" />
     </texture_coordinates>
     <neighbours ref="114" />
     <neighbours ref="115" />
@@ -1881,10 +1881,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="117">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,09999999" Y="0,34" Z="0,09999999" />
+      <T3DCreator.Vector3 X="0,09999999" Y="0,34" Z="0,09999999" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="1" Y="0" />
+      <T3DCreator.Vector2 X="1" Y="0" />
     </texture_coordinates>
     <neighbours ref="116" />
     <neighbours ref="115" />
@@ -1997,10 +1997,10 @@
   </T3DCreator.CTriangle>
   <T3DCreator.CVertex ref="130">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,02" Y="0,24" Z="0" />
+      <T3DCreator.Vector3 X="0,02" Y="0,24" Z="0" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0,333" Y="0,666" />
+      <T3DCreator.Vector2 X="0,333" Y="0,666" />
     </texture_coordinates>
     <neighbours ref="132" />
     <neighbours ref="131" />
@@ -2021,10 +2021,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="131">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,06" Y="0,24" Z="0" />
+      <T3DCreator.Vector3 X="0,06" Y="0,24" Z="0" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0,666" Y="0,666" />
+      <T3DCreator.Vector2 X="0,666" Y="0,666" />
     </texture_coordinates>
     <neighbours ref="132" />
     <neighbours ref="130" />
@@ -2049,10 +2049,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="132">
     <position>
-      <Microsoft.DirectX.Vector3 X="0" Y="0,3" Z="0,02" />
+      <T3DCreator.Vector3 X="0" Y="0,3" Z="0,02" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0,333" Y="0,333" />
+      <T3DCreator.Vector2 X="0,333" Y="0,333" />
     </texture_coordinates>
     <neighbours ref="131" />
     <neighbours ref="130" />
@@ -2073,10 +2073,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="133">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,08" Y="0,3" Z="0,02" />
+      <T3DCreator.Vector3 X="0,08" Y="0,3" Z="0,02" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0,666" Y="0,333" />
+      <T3DCreator.Vector2 X="0,666" Y="0,333" />
     </texture_coordinates>
     <neighbours ref="132" />
     <neighbours ref="131" />
@@ -2101,10 +2101,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="134">
     <position>
-      <Microsoft.DirectX.Vector3 X="0" Y="0,22" Z="0,06" />
+      <T3DCreator.Vector3 X="0" Y="0,22" Z="0,06" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0" Y="1" />
+      <T3DCreator.Vector2 X="0" Y="1" />
     </texture_coordinates>
     <neighbours ref="135" />
     <neighbours ref="136" />
@@ -2125,10 +2125,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="135">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,08" Y="0,22" Z="0,06" />
+      <T3DCreator.Vector3 X="0,08" Y="0,22" Z="0,06" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="1" Y="1" />
+      <T3DCreator.Vector2 X="1" Y="1" />
     </texture_coordinates>
     <neighbours ref="134" />
     <neighbours ref="136" />
@@ -2153,10 +2153,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="136">
     <position>
-      <Microsoft.DirectX.Vector3 X="0" Y="0,22" Z="0,09999999" />
+      <T3DCreator.Vector3 X="0" Y="0,22" Z="0,09999999" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="0" Y="0" />
+      <T3DCreator.Vector2 X="0" Y="0" />
     </texture_coordinates>
     <neighbours ref="134" />
     <neighbours ref="135" />
@@ -2185,10 +2185,10 @@
   </T3DCreator.CVertex>
   <T3DCreator.CVertex ref="137">
     <position>
-      <Microsoft.DirectX.Vector3 X="0,08" Y="0,22" Z="0,09999999" />
+      <T3DCreator.Vector3 X="0,08" Y="0,22" Z="0,09999999" />
     </position>
     <texture_coordinates>
-      <Microsoft.DirectX.Vector2 X="1" Y="0" />
+      <T3DCreator.Vector2 X="1" Y="0" />
     </texture_coordinates>
     <neighbours ref="136" />
     <neighbours ref="135" />
