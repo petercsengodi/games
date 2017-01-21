@@ -1,9 +1,9 @@
 <meta description="Xml Data Binder" version="0.5.0000">
-  <GameLib.CModelData>
+  <Legacy.CModelData>
     <parts>
-      <GameLib.CPartData>
+      <Legacy.CPartData>
         <connections>
-          <GameLib.CConnection>
+          <Legacy.CConnection>
             <point>
               <X>-0,1047349</X>
               <Y>0,2116518</Y>
@@ -11,8 +11,8 @@
             </point>
             <object_index>-2</object_index>
             <connection_index>-1</connection_index>
-          </GameLib.CConnection>
-          <GameLib.CConnection>
+          </Legacy.CConnection>
+          <Legacy.CConnection>
             <point>
               <X>0,1767402</X>
               <Y>0,2138338</Y>
@@ -20,8 +20,8 @@
             </point>
             <object_index>-2</object_index>
             <connection_index>-1</connection_index>
-          </GameLib.CConnection>
-          <GameLib.CConnection>
+          </Legacy.CConnection>
+          <Legacy.CConnection>
             <point>
               <X>-0,01478758</X>
               <Y>-0,1607753</Y>
@@ -29,8 +29,8 @@
             </point>
             <object_index>-1</object_index>
             <connection_index>-1</connection_index>
-          </GameLib.CConnection>
-          <GameLib.CConnection>
+          </Legacy.CConnection>
+          <Legacy.CConnection>
             <point>
               <X>0,09131323</X>
               <Y>-0,1587349</Y>
@@ -38,113 +38,113 @@
             </point>
             <object_index>-2</object_index>
             <connection_index>-1</connection_index>
-          </GameLib.CConnection>
+          </Legacy.CConnection>
         </connections>
         <center_point>
-          <Microsoft.DirectX.Vector3>
+          <Legacy.Vector3>
             <X>-0,03443183</X>
             <Y>0,141986</Y>
             <Z>-0,1171051</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,03443183</X>
             <Y>0,116986</Y>
             <Z>-0,1071051</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,03443183</X>
             <Y>0,09198599</Y>
             <Z>-0,09710512</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,03443183</X>
             <Y>0,105986</Y>
             <Z>-0,09710512</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,03443183</X>
             <Y>0,119986</Y>
             <Z>-0,09710512</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,03443183</X>
             <Y>0,133986</Y>
             <Z>-0,09710512</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,03443183</X>
             <Y>0,147986</Y>
             <Z>-0,09710512</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,03443183</X>
             <Y>0,161986</Y>
             <Z>-0,09710512</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,03443183</X>
             <Y>0,151986</Y>
             <Z>-0,09710512</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,03443183</X>
             <Y>0,141986</Y>
             <Z>-0,09710512</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,03443183</X>
             <Y>0,131986</Y>
             <Z>-0,09710512</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,03443183</X>
             <Y>0,121986</Y>
             <Z>-0,09710512</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,03443183</X>
             <Y>0,111986</Y>
             <Z>-0,09710512</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,03443183</X>
             <Y>0,122986</Y>
             <Z>-0,09610511</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,03443183</X>
             <Y>0,133986</Y>
             <Z>-0,09510512</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,03443183</X>
             <Y>0,144986</Y>
             <Z>-0,09410512</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,03443183</X>
             <Y>0,155986</Y>
             <Z>-0,09310512</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,03443183</X>
             <Y>0,166986</Y>
             <Z>-0,09210512</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,03443183</X>
             <Y>0,1586526</Y>
             <Z>-0,1004384</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,03443183</X>
             <Y>0,1503193</Y>
             <Z>-0,1087718</Z>
-          </Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
         </center_point>
         <mesh_file>htorso.x</mesh_file>
         <model_transform>
-          <Microsoft.DirectX.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -161,8 +161,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -179,8 +179,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -197,8 +197,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -215,8 +215,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -233,8 +233,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -251,8 +251,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -269,8 +269,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -287,8 +287,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -305,8 +305,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -323,8 +323,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -341,8 +341,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -359,8 +359,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -377,8 +377,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -395,8 +395,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -413,8 +413,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -431,8 +431,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -449,8 +449,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -467,8 +467,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -485,8 +485,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -503,12 +503,12 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
         </model_transform>
-      </GameLib.CPartData>
-      <GameLib.CPartData>
+      </Legacy.CPartData>
+      <Legacy.CPartData>
         <connections>
-          <GameLib.CConnection>
+          <Legacy.CConnection>
             <point>
               <X>0,04582152</X>
               <Y>0,1629064</Y>
@@ -516,8 +516,8 @@
             </point>
             <object_index>0</object_index>
             <connection_index>0</connection_index>
-          </GameLib.CConnection>
-          <GameLib.CConnection>
+          </Legacy.CConnection>
+          <Legacy.CConnection>
             <point>
               <X>0,03842612</X>
               <Y>-0,06493771</Y>
@@ -525,113 +525,113 @@
             </point>
             <object_index>-2</object_index>
             <connection_index>-1</connection_index>
-          </GameLib.CConnection>
+          </Legacy.CConnection>
         </connections>
         <center_point>
-          <Microsoft.DirectX.Vector3>
+          <Legacy.Vector3>
             <X>-0,2909667</X>
             <Y>0,3377702</Y>
             <Z>-0,1494397</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2909667</X>
             <Y>0,3127702</Y>
             <Z>-0,1394397</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2909667</X>
             <Y>0,2877702</Y>
             <Z>-0,1294397</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2909667</X>
             <Y>0,3017702</Y>
             <Z>-0,1294397</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2909667</X>
             <Y>0,3157702</Y>
             <Z>-0,1294397</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2909667</X>
             <Y>0,3297702</Y>
             <Z>-0,1294397</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2909667</X>
             <Y>0,3437702</Y>
             <Z>-0,1294397</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2909667</X>
             <Y>0,3577702</Y>
             <Z>-0,1294397</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2909667</X>
             <Y>0,3477702</Y>
             <Z>-0,1294397</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2909667</X>
             <Y>0,3377702</Y>
             <Z>-0,1294397</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2909667</X>
             <Y>0,3277701</Y>
             <Z>-0,1294397</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2909667</X>
             <Y>0,3177702</Y>
             <Z>-0,1294397</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2909667</X>
             <Y>0,3077702</Y>
             <Z>-0,1294397</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2909667</X>
             <Y>0,3187701</Y>
             <Z>-0,1284397</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2909667</X>
             <Y>0,3297701</Y>
             <Z>-0,1274397</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2909667</X>
             <Y>0,3407702</Y>
             <Z>-0,1264397</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2909667</X>
             <Y>0,3517701</Y>
             <Z>-0,1254397</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2909667</X>
             <Y>0,3627701</Y>
             <Z>-0,1244397</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2909667</X>
             <Y>0,3544368</Y>
             <Z>-0,132773</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2909667</X>
             <Y>0,3461035</Y>
             <Z>-0,1411063</Z>
-          </Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
         </center_point>
         <mesh_file>harm_upper.x</mesh_file>
         <model_transform>
-          <Microsoft.DirectX.Matrix>
+          <Legacy.Matrix>
             <M11>0,7184001</M11>
             <M12>-0,3872688</M12>
             <M13>-0,5778617</M13>
@@ -648,8 +648,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,7184001</M11>
             <M12>-0,3872688</M12>
             <M13>-0,5778617</M13>
@@ -666,8 +666,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,7184001</M11>
             <M12>-0,3872688</M12>
             <M13>-0,5778616</M13>
@@ -684,8 +684,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,7184001</M11>
             <M12>-0,3872688</M12>
             <M13>-0,5778616</M13>
@@ -702,8 +702,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,7184001</M11>
             <M12>-0,3872688</M12>
             <M13>-0,5778616</M13>
@@ -720,8 +720,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,7184001</M11>
             <M12>-0,3872688</M12>
             <M13>-0,5778616</M13>
@@ -738,8 +738,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,7184001</M11>
             <M12>-0,3872688</M12>
             <M13>-0,5778616</M13>
@@ -756,8 +756,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,7184002</M11>
             <M12>-0,3872689</M12>
             <M13>-0,5778616</M13>
@@ -774,8 +774,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,7184002</M11>
             <M12>-0,3872689</M12>
             <M13>-0,5778616</M13>
@@ -792,8 +792,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,7184002</M11>
             <M12>-0,3872689</M12>
             <M13>-0,5778616</M13>
@@ -810,8 +810,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,7184002</M11>
             <M12>-0,3872689</M12>
             <M13>-0,5778616</M13>
@@ -828,8 +828,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,7184002</M11>
             <M12>-0,3872689</M12>
             <M13>-0,5778616</M13>
@@ -846,8 +846,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,7184002</M11>
             <M12>-0,3872689</M12>
             <M13>-0,5778615</M13>
@@ -864,8 +864,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,7184002</M11>
             <M12>-0,3872689</M12>
             <M13>-0,5778615</M13>
@@ -882,8 +882,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,7184002</M11>
             <M12>-0,3872689</M12>
             <M13>-0,5778615</M13>
@@ -900,8 +900,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,7184002</M11>
             <M12>-0,3872689</M12>
             <M13>-0,5778615</M13>
@@ -918,8 +918,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,7184002</M11>
             <M12>-0,3872689</M12>
             <M13>-0,5778615</M13>
@@ -936,8 +936,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,7184002</M11>
             <M12>-0,387269</M12>
             <M13>-0,5778615</M13>
@@ -954,8 +954,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,7184002</M11>
             <M12>-0,3872689</M12>
             <M13>-0,5778615</M13>
@@ -972,8 +972,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,7184001</M11>
             <M12>-0,3872688</M12>
             <M13>-0,5778616</M13>
@@ -990,12 +990,12 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
         </model_transform>
-      </GameLib.CPartData>
-      <GameLib.CPartData>
+      </Legacy.CPartData>
+      <Legacy.CPartData>
         <connections>
-          <GameLib.CConnection>
+          <Legacy.CConnection>
             <point>
               <X>0,02618372</X>
               <Y>0,1636483</Y>
@@ -1003,8 +1003,8 @@
             </point>
             <object_index>0</object_index>
             <connection_index>1</connection_index>
-          </GameLib.CConnection>
-          <GameLib.CConnection>
+          </Legacy.CConnection>
+          <Legacy.CConnection>
             <point>
               <X>0,03826277</X>
               <Y>-0,06691688</Y>
@@ -1012,113 +1012,113 @@
             </point>
             <object_index>-1</object_index>
             <connection_index>-1</connection_index>
-          </GameLib.CConnection>
+          </Legacy.CConnection>
         </connections>
         <center_point>
-          <Microsoft.DirectX.Vector3>
+          <Legacy.Vector3>
             <X>0,1161246</X>
             <Y>0,1780858</Y>
             <Z>-0,05079281</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,1161246</X>
             <Y>0,1530858</Y>
             <Z>-0,04079282</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,1161246</X>
             <Y>0,1280858</Y>
             <Z>-0,03079283</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,1161246</X>
             <Y>0,1420858</Y>
             <Z>-0,03079283</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,1161246</X>
             <Y>0,1560858</Y>
             <Z>-0,03079283</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,1161246</X>
             <Y>0,1700858</Y>
             <Z>-0,03079283</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,1161246</X>
             <Y>0,1840858</Y>
             <Z>-0,03079283</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,1161246</X>
             <Y>0,1980858</Y>
             <Z>-0,03079283</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,1161246</X>
             <Y>0,1880858</Y>
             <Z>-0,03079283</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,1161246</X>
             <Y>0,1780858</Y>
             <Z>-0,03079283</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,1161246</X>
             <Y>0,1680858</Y>
             <Z>-0,03079283</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,1161246</X>
             <Y>0,1580858</Y>
             <Z>-0,03079283</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,1161246</X>
             <Y>0,1480858</Y>
             <Z>-0,03079283</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,1161246</X>
             <Y>0,1590858</Y>
             <Z>-0,02979283</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,1161246</X>
             <Y>0,1700858</Y>
             <Z>-0,02879284</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,1161246</X>
             <Y>0,1810858</Y>
             <Z>-0,02779283</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,1161246</X>
             <Y>0,1920858</Y>
             <Z>-0,02679284</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,1161246</X>
             <Y>0,2030858</Y>
             <Z>-0,02579284</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,1161246</X>
             <Y>0,1947525</Y>
             <Z>-0,03412616</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,1161246</X>
             <Y>0,1864192</Y>
             <Z>-0,04245949</Z>
-          </Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
         </center_point>
         <mesh_file>harm_upper.x</mesh_file>
         <model_transform>
-          <Microsoft.DirectX.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -1135,8 +1135,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -1153,8 +1153,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -1171,8 +1171,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -1189,8 +1189,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -1207,8 +1207,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -1225,8 +1225,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -1243,8 +1243,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -1261,8 +1261,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -1279,8 +1279,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -1297,8 +1297,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -1315,8 +1315,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -1333,8 +1333,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -1351,8 +1351,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -1369,8 +1369,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -1387,8 +1387,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -1405,8 +1405,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -1423,8 +1423,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -1441,8 +1441,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -1459,8 +1459,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -1477,12 +1477,12 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
         </model_transform>
-      </GameLib.CPartData>
-      <GameLib.CPartData>
+      </Legacy.CPartData>
+      <Legacy.CPartData>
         <connections>
-          <GameLib.CConnection>
+          <Legacy.CConnection>
             <point>
               <X>0,07907081</X>
               <Y>0,2247361</Y>
@@ -1490,8 +1490,8 @@
             </point>
             <object_index>1</object_index>
             <connection_index>1</connection_index>
-          </GameLib.CConnection>
-          <GameLib.CConnection>
+          </Legacy.CConnection>
+          <Legacy.CConnection>
             <point>
               <X>0,07690532</X>
               <Y>-0,0545716</Y>
@@ -1499,113 +1499,113 @@
             </point>
             <object_index>-2</object_index>
             <connection_index>-1</connection_index>
-          </GameLib.CConnection>
+          </Legacy.CConnection>
         </connections>
         <center_point>
-          <Microsoft.DirectX.Vector3>
+          <Legacy.Vector3>
             <X>-0,2195661</X>
             <Y>0,2679335</Y>
             <Z>-0,3837589</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2195661</X>
             <Y>0,2429335</Y>
             <Z>-0,3737589</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2195661</X>
             <Y>0,2179335</Y>
             <Z>-0,3637589</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2195661</X>
             <Y>0,2319335</Y>
             <Z>-0,3637589</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2195661</X>
             <Y>0,2459335</Y>
             <Z>-0,3637589</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2195661</X>
             <Y>0,2599335</Y>
             <Z>-0,3637589</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2195661</X>
             <Y>0,2739335</Y>
             <Z>-0,3637589</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2195661</X>
             <Y>0,2879334</Y>
             <Z>-0,3637589</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2195661</X>
             <Y>0,2779334</Y>
             <Z>-0,3637589</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2195661</X>
             <Y>0,2679334</Y>
             <Z>-0,3637589</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2195661</X>
             <Y>0,2579334</Y>
             <Z>-0,3637589</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2195661</X>
             <Y>0,2479334</Y>
             <Z>-0,3637589</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2195661</X>
             <Y>0,2379334</Y>
             <Z>-0,3637589</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2195661</X>
             <Y>0,2489334</Y>
             <Z>-0,3627589</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2195661</X>
             <Y>0,2599334</Y>
             <Z>-0,3617589</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2195661</X>
             <Y>0,2709334</Y>
             <Z>-0,3607589</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2195661</X>
             <Y>0,2819334</Y>
             <Z>-0,3597589</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2195661</X>
             <Y>0,2929334</Y>
             <Z>-0,3587589</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2195661</X>
             <Y>0,2846001</Y>
             <Z>-0,3670922</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,2195661</X>
             <Y>0,2762669</Y>
             <Z>-0,3754256</Z>
-          </Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
         </center_point>
         <mesh_file>harm_lower.x</mesh_file>
         <model_transform>
-          <Microsoft.DirectX.Matrix>
+          <Legacy.Matrix>
             <M11>0,4522946</M11>
             <M12>-0,7937508</M12>
             <M13>0,4066807</M13>
@@ -1622,8 +1622,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,4522946</M11>
             <M12>-0,7937508</M12>
             <M13>0,4066807</M13>
@@ -1640,8 +1640,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,4522946</M11>
             <M12>-0,7937508</M12>
             <M13>0,4066806</M13>
@@ -1658,8 +1658,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,4522946</M11>
             <M12>-0,7937508</M12>
             <M13>0,4066806</M13>
@@ -1676,8 +1676,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,4522946</M11>
             <M12>-0,7937508</M12>
             <M13>0,4066806</M13>
@@ -1694,8 +1694,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,4522946</M11>
             <M12>-0,7937508</M12>
             <M13>0,4066806</M13>
@@ -1712,8 +1712,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,4522946</M11>
             <M12>-0,7937508</M12>
             <M13>0,4066806</M13>
@@ -1730,8 +1730,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,4522946</M11>
             <M12>-0,7937509</M12>
             <M13>0,4066806</M13>
@@ -1748,8 +1748,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,4522946</M11>
             <M12>-0,7937509</M12>
             <M13>0,4066806</M13>
@@ -1766,8 +1766,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,4522946</M11>
             <M12>-0,7937509</M12>
             <M13>0,4066806</M13>
@@ -1784,8 +1784,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,4522946</M11>
             <M12>-0,7937509</M12>
             <M13>0,4066806</M13>
@@ -1802,8 +1802,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,4522946</M11>
             <M12>-0,7937509</M12>
             <M13>0,4066806</M13>
@@ -1820,8 +1820,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,4522946</M11>
             <M12>-0,7937509</M12>
             <M13>0,4066806</M13>
@@ -1838,8 +1838,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,4522946</M11>
             <M12>-0,7937509</M12>
             <M13>0,4066806</M13>
@@ -1856,8 +1856,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,4522946</M11>
             <M12>-0,7937509</M12>
             <M13>0,4066806</M13>
@@ -1874,8 +1874,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,4522946</M11>
             <M12>-0,7937509</M12>
             <M13>0,4066806</M13>
@@ -1892,8 +1892,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,4522946</M11>
             <M12>-0,7937509</M12>
             <M13>0,4066806</M13>
@@ -1910,8 +1910,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,4522946</M11>
             <M12>-0,7937509</M12>
             <M13>0,4066806</M13>
@@ -1928,8 +1928,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,4522946</M11>
             <M12>-0,7937509</M12>
             <M13>0,4066806</M13>
@@ -1946,8 +1946,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,4522946</M11>
             <M12>-0,7937508</M12>
             <M13>0,4066806</M13>
@@ -1964,12 +1964,12 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
         </model_transform>
-      </GameLib.CPartData>
-      <GameLib.CPartData>
+      </Legacy.CPartData>
+      <Legacy.CPartData>
         <connections>
-          <GameLib.CConnection>
+          <Legacy.CConnection>
             <point>
               <X>0,07498999</X>
               <Y>0,2228199</Y>
@@ -1977,113 +1977,113 @@
             </point>
             <object_index>2</object_index>
             <connection_index>1</connection_index>
-          </GameLib.CConnection>
+          </Legacy.CConnection>
         </connections>
         <center_point>
-          <Microsoft.DirectX.Vector3>
+          <Legacy.Vector3>
             <X>0,01633197</X>
             <Y>0,1355049</Y>
             <Z>-0,153404</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,01633197</X>
             <Y>0,1105049</Y>
             <Z>-0,143404</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,01633197</X>
             <Y>0,08550493</Y>
             <Z>-0,133404</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,01633197</X>
             <Y>0,09950493</Y>
             <Z>-0,133404</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,01633197</X>
             <Y>0,1135049</Y>
             <Z>-0,133404</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,01633197</X>
             <Y>0,1275049</Y>
             <Z>-0,133404</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,01633197</X>
             <Y>0,1415049</Y>
             <Z>-0,133404</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,01633199</X>
             <Y>0,1555049</Y>
             <Z>-0,133404</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,01633199</X>
             <Y>0,1455049</Y>
             <Z>-0,133404</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,01633199</X>
             <Y>0,1355049</Y>
             <Z>-0,133404</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,01633199</X>
             <Y>0,125505</Y>
             <Z>-0,133404</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,01633199</X>
             <Y>0,1155049</Y>
             <Z>-0,133404</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,01633199</X>
             <Y>0,105505</Y>
             <Z>-0,133404</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,01633199</X>
             <Y>0,1165049</Y>
             <Z>-0,132404</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,01633199</X>
             <Y>0,1275049</Y>
             <Z>-0,131404</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,01633199</X>
             <Y>0,1385049</Y>
             <Z>-0,130404</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,01633199</X>
             <Y>0,1495049</Y>
             <Z>-0,129404</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,01633199</X>
             <Y>0,1605049</Y>
             <Z>-0,128404</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,01633198</X>
             <Y>0,1521716</Y>
             <Z>-0,1367373</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,01633199</X>
             <Y>0,1438383</Y>
             <Z>-0,1450706</Z>
-          </Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
         </center_point>
         <mesh_file>harm_lower.x</mesh_file>
         <model_transform>
-          <Microsoft.DirectX.Matrix>
+          <Legacy.Matrix>
             <M11>0,9553365</M11>
             <M12>3,352761E-08</M12>
             <M13>-0,29552</M13>
@@ -2100,8 +2100,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9553365</M11>
             <M12>3,352761E-08</M12>
             <M13>-0,29552</M13>
@@ -2118,8 +2118,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9553365</M11>
             <M12>3,352761E-08</M12>
             <M13>-0,29552</M13>
@@ -2136,8 +2136,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9553365</M11>
             <M12>3,352761E-08</M12>
             <M13>-0,29552</M13>
@@ -2154,8 +2154,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9553365</M11>
             <M12>3,352761E-08</M12>
             <M13>-0,29552</M13>
@@ -2172,8 +2172,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9553365</M11>
             <M12>3,352761E-08</M12>
             <M13>-0,29552</M13>
@@ -2190,8 +2190,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9553365</M11>
             <M12>3,352761E-08</M12>
             <M13>-0,29552</M13>
@@ -2208,8 +2208,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9553365</M11>
             <M12>3,72529E-08</M12>
             <M13>-0,29552</M13>
@@ -2226,8 +2226,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9553365</M11>
             <M12>3,72529E-08</M12>
             <M13>-0,29552</M13>
@@ -2244,8 +2244,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9553365</M11>
             <M12>3,72529E-08</M12>
             <M13>-0,29552</M13>
@@ -2262,8 +2262,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9553365</M11>
             <M12>3,72529E-08</M12>
             <M13>-0,29552</M13>
@@ -2280,8 +2280,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9553365</M11>
             <M12>3,72529E-08</M12>
             <M13>-0,29552</M13>
@@ -2298,8 +2298,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9553366</M11>
             <M12>4,097819E-08</M12>
             <M13>-0,2955199</M13>
@@ -2316,8 +2316,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9553366</M11>
             <M12>4,097819E-08</M12>
             <M13>-0,2955199</M13>
@@ -2334,8 +2334,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9553366</M11>
             <M12>4,097819E-08</M12>
             <M13>-0,2955199</M13>
@@ -2352,8 +2352,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9553366</M11>
             <M12>4,097819E-08</M12>
             <M13>-0,2955199</M13>
@@ -2370,8 +2370,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9553366</M11>
             <M12>4,097819E-08</M12>
             <M13>-0,2955199</M13>
@@ -2388,8 +2388,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9553366</M11>
             <M12>3,72529E-08</M12>
             <M13>-0,2955199</M13>
@@ -2406,8 +2406,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9553365</M11>
             <M12>3,72529E-08</M12>
             <M13>-0,29552</M13>
@@ -2424,8 +2424,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9553365</M11>
             <M12>4,097819E-08</M12>
             <M13>-0,29552</M13>
@@ -2442,12 +2442,12 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
         </model_transform>
-      </GameLib.CPartData>
-      <GameLib.CPartData>
+      </Legacy.CPartData>
+      <Legacy.CPartData>
         <connections>
-          <GameLib.CConnection>
+          <Legacy.CConnection>
             <point>
               <X>0,04030319</X>
               <Y>0,5615259</Y>
@@ -2455,8 +2455,8 @@
             </point>
             <object_index>0</object_index>
             <connection_index>2</connection_index>
-          </GameLib.CConnection>
-          <GameLib.CConnection>
+          </Legacy.CConnection>
+          <Legacy.CConnection>
             <point>
               <X>0,0382628</X>
               <Y>0,3125973</Y>
@@ -2464,113 +2464,113 @@
             </point>
             <object_index>-1</object_index>
             <connection_index>-1</connection_index>
-          </GameLib.CConnection>
+          </Legacy.CConnection>
         </connections>
         <center_point>
-          <Microsoft.DirectX.Vector3>
+          <Legacy.Vector3>
             <X>-0,0895226</X>
             <Y>-0,4430819</Y>
             <Z>-0,4160575</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,0895226</X>
             <Y>-0,3622901</Y>
             <Z>-0,4993933</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,0895226</X>
             <Y>-0,2616953</Y>
             <Z>-0,5536542</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,0895226</X>
             <Y>-0,3413918</Y>
             <Z>-0,5095948</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,0895226</X>
             <Y>-0,4219183</Y>
             <Z>-0,4399273</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,0895226</X>
             <Y>-0,4892254</Y>
             <Z>-0,347759</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,0895226</X>
             <Y>-0,5325586</Y>
             <Z>-0,245281</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,0895226</X>
             <Y>-0,5505871</Y>
             <Z>-0,1468207</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,0895226</X>
             <Y>-0,5723673</Y>
             <Z>-0,07176147</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,0895226</X>
             <Y>-0,5837482</Y>
             <Z>0,008917071</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,0895226</X>
             <Y>-0,5833019</Y>
             <Z>0,0906449</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,0895226</X>
             <Y>-0,5716724</Y>
             <Z>0,1683822</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,0895226</X>
             <Y>-0,5513912</Y>
             <Z>0,2380652</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,0895226</X>
             <Y>-0,5706723</Y>
             <Z>0,1693822</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,0895226</X>
             <Y>-0,5813018</Y>
             <Z>0,09264486</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,0895226</X>
             <Y>-0,5807482</Y>
             <Z>0,01191706</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,0895226</X>
             <Y>-0,5683673</Y>
             <Z>-0,0677615</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,0895226</X>
             <Y>-0,5455871</Y>
             <Z>-0,1418208</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,0895226</X>
             <Y>-0,5258658</Y>
             <Z>-0,2391371</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,0895226</X>
             <Y>-0,4904918</Y>
             <Z>-0,3329061</Z>
-          </Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
         </center_point>
         <mesh_file>hleg_upper.x</mesh_file>
         <model_transform>
-          <Microsoft.DirectX.Matrix>
+          <Legacy.Matrix>
             <M11>0,9999999</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -2587,8 +2587,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -2605,8 +2605,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -2623,8 +2623,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -2641,8 +2641,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -2659,8 +2659,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9999999</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -2677,8 +2677,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -2695,8 +2695,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -2713,8 +2713,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -2731,8 +2731,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -2749,8 +2749,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -2767,8 +2767,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -2785,8 +2785,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9999999</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -2803,8 +2803,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9999999</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -2821,8 +2821,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9999999</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -2839,8 +2839,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9999999</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -2857,8 +2857,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9999999</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -2875,8 +2875,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -2893,8 +2893,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9999999</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -2911,8 +2911,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -2929,12 +2929,12 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
         </model_transform>
-      </GameLib.CPartData>
-      <GameLib.CPartData>
+      </Legacy.CPartData>
+      <Legacy.CPartData>
         <connections>
-          <GameLib.CConnection>
+          <Legacy.CConnection>
             <point>
               <X>0,03214164</X>
               <Y>0,5646489</Y>
@@ -2942,8 +2942,8 @@
             </point>
             <object_index>0</object_index>
             <connection_index>3</connection_index>
-          </GameLib.CConnection>
-          <GameLib.CConnection>
+          </Legacy.CConnection>
+          <Legacy.CConnection>
             <point>
               <X>0,0382628</X>
               <Y>0,3125973</Y>
@@ -2951,113 +2951,113 @@
             </point>
             <object_index>-2</object_index>
             <connection_index>-1</connection_index>
-          </GameLib.CConnection>
+          </Legacy.CConnection>
         </connections>
         <center_point>
-          <Microsoft.DirectX.Vector3>
+          <Legacy.Vector3>
             <X>0,02473976</X>
             <Y>-0,583919</Y>
             <Z>0,002452634</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02473976</X>
             <Y>-0,5959426</Y>
             <Z>0,09671295</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02473976</X>
             <Y>-0,5955203</Y>
             <Z>0,1880879</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02473976</X>
             <Y>-0,609153</Y>
             <Z>0,09677467</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02473976</X>
             <Y>-0,6074746</Y>
             <Z>-0,008046694</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02473976</X>
             <Y>-0,5855821</Y>
             <Z>-0,1171746</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02473976</X>
             <Y>-0,5443057</Y>
             <Z>-0,2191321</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02473976</X>
             <Y>-0,4898211</Y>
             <Z>-0,3055189</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02473976</X>
             <Y>-0,4635007</Y>
             <Z>-0,3609023</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02473976</X>
             <Y>-0,4289413</Y>
             <Z>-0,4138538</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02473976</X>
             <Y>-0,3874679</Y>
             <Z>-0,4616718</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02473976</X>
             <Y>-0,3413831</Y>
             <Z>-0,5022169</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02473976</X>
             <Y>-0,2934788</Y>
             <Z>-0,5343665</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02473976</X>
             <Y>-0,3489344</Y>
             <Z>-0,495687</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02473976</X>
             <Y>-0,4023082</Y>
             <Z>-0,445306</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02473976</X>
             <Y>-0,4491094</Y>
             <Z>-0,3849582</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02473976</X>
             <Y>-0,4857739</Y>
             <Z>-0,3183033</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02473976</X>
             <Y>-0,510686</Y>
             <Z>-0,2498762</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02473976</X>
             <Y>-0,5502737</Y>
             <Z>-0,1697569</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02473976</X>
             <Y>-0,5751407</Y>
             <Z>-0,08302498</Z>
-          </Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
         </center_point>
         <mesh_file>hleg_upper.x</mesh_file>
         <model_transform>
-          <Microsoft.DirectX.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3074,8 +3074,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3092,8 +3092,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9999999</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3110,8 +3110,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3128,8 +3128,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3146,8 +3146,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3164,8 +3164,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3182,8 +3182,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9999999</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3200,8 +3200,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3218,8 +3218,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3236,8 +3236,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3254,8 +3254,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3272,8 +3272,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3290,8 +3290,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3308,8 +3308,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3326,8 +3326,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3344,8 +3344,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9999999</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3362,8 +3362,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3380,8 +3380,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9999999</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3398,8 +3398,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9999999</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3416,12 +3416,12 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
         </model_transform>
-      </GameLib.CPartData>
-      <GameLib.CPartData>
+      </Legacy.CPartData>
+      <Legacy.CPartData>
         <connections>
-          <GameLib.CConnection>
+          <Legacy.CConnection>
             <point>
               <X>0,04234362</X>
               <Y>0,3105569</Y>
@@ -3429,113 +3429,113 @@
             </point>
             <object_index>5</object_index>
             <connection_index>1</connection_index>
-          </GameLib.CConnection>
+          </Legacy.CConnection>
         </connections>
         <center_point>
-          <Microsoft.DirectX.Vector3>
+          <Legacy.Vector3>
             <X>-0,09360342</X>
             <Y>-0,5466032</Y>
             <Z>-0,107913</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,09360342</X>
             <Y>-0,539104</Y>
             <Z>-0,21023</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,09360342</X>
             <Y>-0,5080423</Y>
             <Z>-0,3013925</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,09360342</X>
             <Y>-0,5371194</Y>
             <Z>-0,2325014</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,09360342</X>
             <Y>-0,5587155</Y>
             <Z>-0,1493857</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,09360342</X>
             <Y>-0,5662025</Y>
             <Z>-0,05701885</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,09360342</X>
             <Y>-0,5562139</Y>
             <Z>0,03567435</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,09360342</X>
             <Y>-0,5306917</Y>
             <Z>0,12009</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,09360342</X>
             <Y>-0,5306871</Y>
             <Z>0,1701258</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,09360342</X>
             <Y>-0,5246766</Y>
             <Z>0,2214316</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,09360342</X>
             <Y>-0,5124551</Y>
             <Z>0,2717338</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,09360342</X>
             <Y>-0,4947844</Y>
             <Z>0,3187175</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,09360342</X>
             <Y>-0,4732053</Y>
             <Z>0,3606515</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,09360342</X>
             <Y>-0,4514604</Y>
             <Z>0,3579215</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,09360342</X>
             <Y>-0,4224011</Y>
             <Z>0,348433</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,09360342</X>
             <Y>-0,3858026</Y>
             <Z>0,3325115</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,09360342</X>
             <Y>-0,3426368</Y>
             <Z>0,3115032</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,09360342</X>
             <Y>-0,294913</Y>
             <Z>0,2873288</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,09360342</X>
             <Y>-0,4110266</Y>
             <Z>0,1967468</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,09360342</X>
             <Y>-0,510563</Y>
             <Z>0,04860058</Z>
-          </Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
         </center_point>
         <mesh_file>hleg_lower.x</mesh_file>
         <model_transform>
-          <Microsoft.DirectX.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3552,8 +3552,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3570,8 +3570,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3588,8 +3588,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3606,8 +3606,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3624,8 +3624,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3642,8 +3642,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3660,8 +3660,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3678,8 +3678,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3696,8 +3696,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3714,8 +3714,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3732,8 +3732,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3750,8 +3750,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3768,8 +3768,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3786,8 +3786,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3804,8 +3804,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3822,8 +3822,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9999999</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3840,8 +3840,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9999999</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3858,8 +3858,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3876,8 +3876,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -3894,12 +3894,12 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
         </model_transform>
-      </GameLib.CPartData>
-      <GameLib.CPartData>
+      </Legacy.CPartData>
+      <Legacy.CPartData>
         <connections>
-          <GameLib.CConnection>
+          <Legacy.CConnection>
             <point>
               <X>0,04030322</X>
               <Y>0,3095989</Y>
@@ -3907,113 +3907,113 @@
             </point>
             <object_index>6</object_index>
             <connection_index>1</connection_index>
-          </GameLib.CConnection>
+          </Legacy.CConnection>
         </connections>
         <center_point>
-          <Microsoft.DirectX.Vector3>
+          <Legacy.Vector3>
             <X>0,02269934</X>
             <Y>-0,5589097</Y>
             <Z>0,1451919</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02269934</X>
             <Y>-0,5498834</Y>
             <Z>0,2341121</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02269934</X>
             <Y>-0,5294456</Y>
             <Z>0,3170612</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02269934</X>
             <Y>-0,4993699</Y>
             <Z>0,3137135</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02269934</X>
             <Y>-0,4552476</Y>
             <Z>0,2999011</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02269934</X>
             <Y>-0,3966584</Y>
             <Z>0,2759385</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02269934</X>
             <Y>-0,327149</Y>
             <Z>0,2449173</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02269934</X>
             <Y>-0,2529566</Y>
             <Z>0,2110753</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02269934</X>
             <Y>-0,3309174</Y>
             <Z>0,1689178</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02269934</X>
             <Y>-0,4369633</Y>
             <Z>0,07910484</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02269934</X>
             <Y>-0,5179399</Y>
             <Z>-0,0752186</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02269934</X>
             <Y>-0,5267135</Y>
             <Z>-0,2238776</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02269934</X>
             <Y>-0,5001013</Y>
             <Z>-0,32233</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02269934</X>
             <Y>-0,5252845</Y>
             <Z>-0,2578784</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02269934</X>
             <Y>-0,5430362</Y>
             <Z>-0,1848296</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02269934</X>
             <Y>-0,5505143</Y>
             <Z>-0,1068047</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02269934</X>
             <Y>-0,5465797</Y>
             <Z>-0,02855348</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02269934</X>
             <Y>-0,5321219</Y>
             <Z>0,04540807</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02269934</X>
             <Y>-0,5479741</Y>
             <Z>0,07798007</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>0,02269934</X>
             <Y>-0,5569202</Y>
             <Z>0,1124213</Z>
-          </Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
         </center_point>
         <mesh_file>hleg_lower.x</mesh_file>
         <model_transform>
-          <Microsoft.DirectX.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -4030,8 +4030,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -4048,8 +4048,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -4066,8 +4066,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -4084,8 +4084,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -4102,8 +4102,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -4120,8 +4120,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -4138,8 +4138,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -4156,8 +4156,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -4174,8 +4174,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -4192,8 +4192,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9999999</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -4210,8 +4210,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>0,9999999</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -4228,8 +4228,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -4246,8 +4246,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -4264,8 +4264,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -4282,8 +4282,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -4300,8 +4300,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -4318,8 +4318,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -4336,8 +4336,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -4354,8 +4354,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>1</M11>
             <M12>0</M12>
             <M13>0</M13>
@@ -4372,12 +4372,12 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
         </model_transform>
-      </GameLib.CPartData>
-      <GameLib.CPartData>
+      </Legacy.CPartData>
+      <Legacy.CPartData>
         <connections>
-          <GameLib.CConnection>
+          <Legacy.CConnection>
             <point>
               <X>0,02110198</X>
               <Y>0,05451876</Y>
@@ -4385,113 +4385,113 @@
             </point>
             <object_index>3</object_index>
             <connection_index>1</connection_index>
-          </GameLib.CConnection>
+          </Legacy.CConnection>
         </connections>
         <center_point>
-          <Microsoft.DirectX.Vector3>
+          <Legacy.Vector3>
             <X>-0,05359975</X>
             <Y>0,2512923</Y>
             <Z>-0,4190582</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,05359975</X>
             <Y>0,2262923</Y>
             <Z>-0,4090582</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,05359972</X>
             <Y>0,2012923</Y>
             <Z>-0,3990582</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,05359972</X>
             <Y>0,2152923</Y>
             <Z>-0,3990582</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,05359972</X>
             <Y>0,2292923</Y>
             <Z>-0,3990582</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,05359972</X>
             <Y>0,2432923</Y>
             <Z>-0,3990582</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,05359972</X>
             <Y>0,2572923</Y>
             <Z>-0,3990582</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,05359972</X>
             <Y>0,2712922</Y>
             <Z>-0,3990582</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,05359972</X>
             <Y>0,2612922</Y>
             <Z>-0,3990582</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,05359972</X>
             <Y>0,2512922</Y>
             <Z>-0,3990582</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,05359972</X>
             <Y>0,2412922</Y>
             <Z>-0,3990582</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,05359972</X>
             <Y>0,2312922</Y>
             <Z>-0,3990582</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,05359975</X>
             <Y>0,2212922</Y>
             <Z>-0,3990582</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,05359975</X>
             <Y>0,2322922</Y>
             <Z>-0,3980582</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,05359975</X>
             <Y>0,2432922</Y>
             <Z>-0,3970582</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,05359975</X>
             <Y>0,2542922</Y>
             <Z>-0,3960582</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,05359975</X>
             <Y>0,2652922</Y>
             <Z>-0,3950582</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,05359975</X>
             <Y>0,2762922</Y>
             <Z>-0,3940582</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,05359975</X>
             <Y>0,2679589</Y>
             <Z>-0,4023915</Z>
-          </Microsoft.DirectX.Vector3>
-          <Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
+          <Legacy.Vector3>
             <X>-0,05359975</X>
             <Y>0,2596257</Y>
             <Z>-0,4107249</Z>
-          </Microsoft.DirectX.Vector3>
+          </Legacy.Vector3>
         </center_point>
         <mesh_file>kard3.x</mesh_file>
         <model_transform>
-          <Microsoft.DirectX.Matrix>
+          <Legacy.Matrix>
             <M11>-0,6515958</M11>
             <M12>0,6859846</M12>
             <M13>-0,3238023</M13>
@@ -4508,8 +4508,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>-0,6515958</M11>
             <M12>0,6859846</M12>
             <M13>-0,3238023</M13>
@@ -4526,8 +4526,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>-0,6515958</M11>
             <M12>0,6859846</M12>
             <M13>-0,3238023</M13>
@@ -4544,8 +4544,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>-0,6515958</M11>
             <M12>0,6859846</M12>
             <M13>-0,3238023</M13>
@@ -4562,8 +4562,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>-0,6515958</M11>
             <M12>0,6859846</M12>
             <M13>-0,3238023</M13>
@@ -4580,8 +4580,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>-0,6515958</M11>
             <M12>0,6859846</M12>
             <M13>-0,3238023</M13>
@@ -4598,8 +4598,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>-0,6515958</M11>
             <M12>0,6859846</M12>
             <M13>-0,3238023</M13>
@@ -4616,8 +4616,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>-0,6515958</M11>
             <M12>0,6859846</M12>
             <M13>-0,3238023</M13>
@@ -4634,8 +4634,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>-0,6515958</M11>
             <M12>0,6859846</M12>
             <M13>-0,3238023</M13>
@@ -4652,8 +4652,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>-0,6515958</M11>
             <M12>0,6859846</M12>
             <M13>-0,3238023</M13>
@@ -4670,8 +4670,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>-0,6515958</M11>
             <M12>0,6859846</M12>
             <M13>-0,3238023</M13>
@@ -4688,8 +4688,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>-0,6515958</M11>
             <M12>0,6859846</M12>
             <M13>-0,3238023</M13>
@@ -4706,8 +4706,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>-0,6515958</M11>
             <M12>0,6859846</M12>
             <M13>-0,3238023</M13>
@@ -4724,8 +4724,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>-0,6515958</M11>
             <M12>0,6859846</M12>
             <M13>-0,3238023</M13>
@@ -4742,8 +4742,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>-0,6515958</M11>
             <M12>0,6859846</M12>
             <M13>-0,3238023</M13>
@@ -4760,8 +4760,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>-0,6515958</M11>
             <M12>0,6859846</M12>
             <M13>-0,3238023</M13>
@@ -4778,8 +4778,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>-0,6515958</M11>
             <M12>0,6859846</M12>
             <M13>-0,3238023</M13>
@@ -4796,8 +4796,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>-0,6515958</M11>
             <M12>0,6859846</M12>
             <M13>-0,3238023</M13>
@@ -4814,8 +4814,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>-0,6515958</M11>
             <M12>0,6859846</M12>
             <M13>-0,3238023</M13>
@@ -4832,8 +4832,8 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
-          <Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
+          <Legacy.Matrix>
             <M11>-0,6515958</M11>
             <M12>0,6859846</M12>
             <M13>-0,3238023</M13>
@@ -4850,10 +4850,10 @@
             <M42>0</M42>
             <M43>0</M43>
             <M44>1</M44>
-          </Microsoft.DirectX.Matrix>
+          </Legacy.Matrix>
         </model_transform>
-      </GameLib.CPartData>
+      </Legacy.CPartData>
     </parts>
     <max_scenes>20</max_scenes>
-  </GameLib.CModelData>
+  </Legacy.CModelData>
 </meta>
