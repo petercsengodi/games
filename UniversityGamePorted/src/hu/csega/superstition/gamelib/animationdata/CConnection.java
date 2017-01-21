@@ -2,7 +2,51 @@ package hu.csega.superstition.gamelib.animationdata;
 
 import org.joml.Vector3f;
 
+import hu.csega.superstition.xml.XmlClass;
+import hu.csega.superstition.xml.XmlField;
+
+@XmlClass("Legacy.CConnection")
 public class CConnection {
+
+	@XmlField("point")
+	public Vector3f getPoint() {
+		return point;
+	}
+
+	@XmlField("point")
+	public void setPoint(Vector3f point) {
+		this.point = point;
+	}
+
+	@XmlField("object_index")
+	public int getObject_index() {
+		return object_index;
+	}
+
+	@XmlField("object_index")
+	public void setObject_index(int object_index) {
+		this.object_index = object_index;
+	}
+
+	@XmlField("connection_index")
+	public int getConnection_index() {
+		return connection_index;
+	}
+
+	@XmlField("connection_index")
+	public void setConnection_index(int connection_index) {
+		this.connection_index = connection_index;
+	}
+
+	@XmlField("name")
+	public String getName() {
+		return name;
+	}
+
+	@XmlField("name")
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public Vector3f point;
 	public int object_index;

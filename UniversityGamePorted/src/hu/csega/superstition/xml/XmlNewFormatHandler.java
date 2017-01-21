@@ -3,7 +3,7 @@ package hu.csega.superstition.xml;
 class XmlNewFormatHandler implements XmlHandler {
 
 	@Override
-	public Object handle(XmlNode node, XmlNodeStack parents) {
+	public Object handle(XmlNode node, XmlNodeStack parents) throws XmlException {
 		if(parents.isEmpty()) {
 			// we arrived at the root element
 

@@ -9,12 +9,27 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import hu.csega.superstition.gamelib.animationdata.CConnection;
+import hu.csega.superstition.gamelib.animationdata.CModelData;
+import hu.csega.superstition.gamelib.animationdata.CPartData;
 import hu.csega.superstition.t3dcreator.CVertex;
 
 public class XmlBinding {
 
 	public static Collection<XmlFieldBinding> fieldBindingsOf(String xmlTypeName) {
 		return nameToBinding.get(xmlTypeName).fieldToBindings.values();
+	}
+
+	public static Map<String, XmlFieldBinding> fieldBindingsMap(String xmlTypeName) {
+		return nameToBinding.get(xmlTypeName).fieldToBindings;
+	}
+
+	public static Class<?> classOf(String type) {
+		return nameToClass.get(type);
+	}
+
+	public static boolean isKindOfPrimitive(Class<?> c) {
+		return ATTRIBUTES.contains(c);
 	}
 
 	public Map<String, XmlFieldBinding> fieldToBindings = new TreeMap<>();
@@ -123,6 +138,9 @@ public class XmlBinding {
 		/* Insert bound java classes here! */
 
 		// registerClass(CModel.class);
+		registerClass(CModelData.class);
+		registerClass(CConnection.class);
+		registerClass(CPartData.class);
 		registerClass(CVertex.class);
 	}
 

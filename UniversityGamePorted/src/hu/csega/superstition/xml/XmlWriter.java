@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -47,6 +48,10 @@ public class XmlWriter implements Closeable {
 			Class<?> tmpClass = tmp.getClass();
 
 			XmlClass xmlClass = tmpClass.getAnnotation(XmlClass.class);
+			if(xmlClass == null) {
+				throw new XmlReflectionException("No annotation for class: " + tmpClass.getName());
+			}
+
 			String xmlType = xmlClass.value();
 
 			startOpeningNode(xmlType);
@@ -57,18 +62,29 @@ public class XmlWriter implements Closeable {
 			// possible attributes
 			for(XmlFieldBinding fb : bindings) {
 				if(fb.attribute) {
-					writeAttribute(obj, fb);
+					writeAttribute(tmp, fb);
 				}
 			}
 
-			finishOpeningNode();
+			boolean first = true; // if no children tags, we write a self-closing tag
 
 			// possible children
 			for(XmlFieldBinding fb : bindings) {
-				writeField(obj, fb);
+				if(!fb.attribute) {
+					if(first) {
+						finishOpeningNode();
+						first = false;
+					}
+
+					writeField(tmp, fb);
+				}
 			}
 
-			closeNode(xmlType);
+			if(first) {
+				finishOpeningNodeWithSelfClosure();
+			} else {
+				closeNode(xmlType);
+			}
 			index++;
 		}
 	}
@@ -103,105 +119,41 @@ public class XmlWriter implements Closeable {
 		if(value == null)
 			return;
 
-		int reference;
 		if(value instanceof Collection<?>)
 		{
 			Collection<?> list = (Collection<?>)value;
-			for(Object o : list)
-			{
-				reference = reference_list.indexOf(o);
-				if(reference == -1)
-				{
-					reference = reference_list.size();
-					reference_list.add(o);
-				}
-
-				startOpeningNode(fb.field);
-				printAttribute("ref", String.valueOf(reference));
-				finishOpeningNodeWithSelfClosure();
+			for(Object o : list) {
+				writeItem(fb, o);
 			}
 			return;
-		}
 
-		else if(value instanceof Vector2f) {
-			Vector2f v = (Vector2f) value;
-			openNode(fb.field);
+		} else if(value.getClass().isArray()) {
+			int size = Array.getLength(value);
 
-			startOpeningNode("T3DCreator.Vector2");
-			printAttribute("X", String.valueOf(v.x));
-			printAttribute("Y", String.valueOf(v.y));
-			finishOpeningNodeWithSelfClosure();
+			for(int i = 0; i < size; i++)
+			{
+				Object o = Array.get(value, i);
+				writeItem(fb, o);
+			}
+			return;
 
-			closeNode(fb.field);
+
+		} else if(value instanceof Vector2f) {
+
+			printVector2(fb, value);
 
 		} else if (value instanceof Vector3f) {
-			Vector3f v = (Vector3f) value;
-			openNode(fb.field);
-
-			startOpeningNode("T3DCreator.Vector3");
-			printAttribute("X", String.valueOf(v.x));
-			printAttribute("Y", String.valueOf(v.y));
-			printAttribute("Z", String.valueOf(v.y));
-			finishOpeningNodeWithSelfClosure();
-
-			closeNode(fb.field);
+			printVector3(fb, value);
 
 		} else if (value instanceof Vector4f) {
-			Vector4f v = (Vector4f) value;
-			openNode(fb.field);
-
-			startOpeningNode("T3DCreator.Vector4");
-			printAttribute("X", String.valueOf(v.x));
-			printAttribute("Y", String.valueOf(v.y));
-			printAttribute("Z", String.valueOf(v.y));
-			printAttribute("W", String.valueOf(v.w));
-			finishOpeningNodeWithSelfClosure();
-
-			closeNode(fb.field);
+			printVector4(fb, value);
 
 
 		} else if (value instanceof Matrix3f) {
-			Matrix3f m = (Matrix3f) value;
-			openNode(fb.field);
-
-			startOpeningNode("T3DCreator.Matrix3");
-			printAttribute("M00", String.valueOf(m.m00));
-			printAttribute("M01", String.valueOf(m.m01));
-			printAttribute("M02", String.valueOf(m.m02));
-			printAttribute("M10", String.valueOf(m.m10));
-			printAttribute("M11", String.valueOf(m.m11));
-			printAttribute("M12", String.valueOf(m.m12));
-			printAttribute("M20", String.valueOf(m.m20));
-			printAttribute("M21", String.valueOf(m.m21));
-			printAttribute("M22", String.valueOf(m.m22));
-			finishOpeningNodeWithSelfClosure();
-
-			closeNode(fb.field);
+			printMatrix3(fb, value);
 
 		} else if (value instanceof Matrix4f) {
-			Matrix4f m = (Matrix4f) value;
-			openNode(fb.field);
-
-			startOpeningNode("T3DCreator.Matrix4");
-			printAttribute("M00", String.valueOf(m.m00()));
-			printAttribute("M01", String.valueOf(m.m01()));
-			printAttribute("M02", String.valueOf(m.m02()));
-			printAttribute("M03", String.valueOf(m.m03()));
-			printAttribute("M10", String.valueOf(m.m10()));
-			printAttribute("M11", String.valueOf(m.m11()));
-			printAttribute("M12", String.valueOf(m.m12()));
-			printAttribute("M13", String.valueOf(m.m13()));
-			printAttribute("M20", String.valueOf(m.m20()));
-			printAttribute("M21", String.valueOf(m.m21()));
-			printAttribute("M22", String.valueOf(m.m22()));
-			printAttribute("M23", String.valueOf(m.m23()));
-			printAttribute("M30", String.valueOf(m.m30()));
-			printAttribute("M31", String.valueOf(m.m31()));
-			printAttribute("M32", String.valueOf(m.m32()));
-			printAttribute("M33", String.valueOf(m.m33()));
-			finishOpeningNodeWithSelfClosure();
-
-			closeNode(fb.field);
+			printMatrix4(fb, value);
 
 
 		} else {
@@ -209,7 +161,7 @@ public class XmlWriter implements Closeable {
 			openNode(fb.field);
 			finishOpeningNode();
 
-			reference = reference_list.indexOf(value);
+			int reference = reference_list.indexOf(value);
 			if(reference == -1) {
 				reference = reference_list.size();
 				reference_list.add(value);
@@ -221,6 +173,136 @@ public class XmlWriter implements Closeable {
 		}
 
 	} // End of function
+
+	private void printMatrix4(XmlFieldBinding fb, Object value) throws IOException {
+		Matrix4f m = (Matrix4f) value;
+		openNode(fb.field);
+
+		startOpeningNode("T3DCreator.Matrix4");
+		printAttribute("M00", String.valueOf(m.m00()));
+		printAttribute("M01", String.valueOf(m.m01()));
+		printAttribute("M02", String.valueOf(m.m02()));
+		printAttribute("M03", String.valueOf(m.m03()));
+		printAttribute("M10", String.valueOf(m.m10()));
+		printAttribute("M11", String.valueOf(m.m11()));
+		printAttribute("M12", String.valueOf(m.m12()));
+		printAttribute("M13", String.valueOf(m.m13()));
+		printAttribute("M20", String.valueOf(m.m20()));
+		printAttribute("M21", String.valueOf(m.m21()));
+		printAttribute("M22", String.valueOf(m.m22()));
+		printAttribute("M23", String.valueOf(m.m23()));
+		printAttribute("M30", String.valueOf(m.m30()));
+		printAttribute("M31", String.valueOf(m.m31()));
+		printAttribute("M32", String.valueOf(m.m32()));
+		printAttribute("M33", String.valueOf(m.m33()));
+		finishOpeningNodeWithSelfClosure();
+
+		closeNode(fb.field);
+	}
+
+	private void printMatrix3(XmlFieldBinding fb, Object value) throws IOException {
+		Matrix3f m = (Matrix3f) value;
+		openNode(fb.field);
+
+		startOpeningNode("T3DCreator.Matrix3");
+		printAttribute("M00", String.valueOf(m.m00));
+		printAttribute("M01", String.valueOf(m.m01));
+		printAttribute("M02", String.valueOf(m.m02));
+		printAttribute("M10", String.valueOf(m.m10));
+		printAttribute("M11", String.valueOf(m.m11));
+		printAttribute("M12", String.valueOf(m.m12));
+		printAttribute("M20", String.valueOf(m.m20));
+		printAttribute("M21", String.valueOf(m.m21));
+		printAttribute("M22", String.valueOf(m.m22));
+		finishOpeningNodeWithSelfClosure();
+
+		closeNode(fb.field);
+	}
+
+	private void printVector4(XmlFieldBinding fb, Object value) throws IOException {
+		Vector4f v = (Vector4f) value;
+		openNode(fb.field);
+
+		startOpeningNode("T3DCreator.Vector4");
+		printAttribute("X", String.valueOf(v.x));
+		printAttribute("Y", String.valueOf(v.y));
+		printAttribute("Z", String.valueOf(v.y));
+		printAttribute("W", String.valueOf(v.w));
+		finishOpeningNodeWithSelfClosure();
+
+		closeNode(fb.field);
+	}
+
+	private void printVector3(XmlFieldBinding fb, Object value) throws IOException {
+		Vector3f v = (Vector3f) value;
+		openNode(fb.field);
+
+		startOpeningNode("T3DCreator.Vector3");
+		printAttribute("X", String.valueOf(v.x));
+		printAttribute("Y", String.valueOf(v.y));
+		printAttribute("Z", String.valueOf(v.y));
+		finishOpeningNodeWithSelfClosure();
+
+		closeNode(fb.field);
+	}
+
+	private void printVector2(XmlFieldBinding fb, Object value) throws IOException {
+		Vector2f v = (Vector2f) value;
+		openNode(fb.field);
+
+		startOpeningNode("T3DCreator.Vector2");
+		printAttribute("X", String.valueOf(v.x));
+		printAttribute("Y", String.valueOf(v.y));
+		finishOpeningNodeWithSelfClosure();
+
+		closeNode(fb.field);
+	}
+
+	private void writeItem(XmlFieldBinding fb, Object value) throws IOException {
+		if(value == null)
+			return;
+
+		Class<?> c = value.getClass();
+		if(XmlBinding.isKindOfPrimitive(c)) {
+			openNode(fb.field);
+			printContent(value.toString());
+			closeNode(fb.field);
+			return;
+		} else if(value instanceof Vector2f) {
+
+			printVector2(fb, value);
+			return;
+
+		} else if (value instanceof Vector3f) {
+			printVector3(fb, value);
+			return;
+
+		} else if (value instanceof Vector4f) {
+			printVector4(fb, value);
+			return;
+
+
+		} else if (value instanceof Matrix3f) {
+			printMatrix3(fb, value);
+			return;
+
+		} else if (value instanceof Matrix4f) {
+			printMatrix4(fb, value);
+			return;
+		}
+
+		int reference = reference_list.indexOf(value);
+		if(reference == -1)
+		{
+			reference = reference_list.size();
+			reference_list.add(value);
+		}
+
+		startOpeningNode(fb.field);
+		printAttribute("ref", String.valueOf(reference));
+		finishOpeningNodeWithSelfClosure();
+		return;
+	}
 
 	private void openNode(String tag) throws IOException {
 		startOpeningNode(tag);
@@ -245,7 +327,6 @@ public class XmlWriter implements Closeable {
 		indentation += 2;
 	}
 
-	@SuppressWarnings("unused")
 	private void printContent(String text) throws IOException {
 		printIndentation();
 		writer.write(StringEscapeUtils.escapeXml11(text));

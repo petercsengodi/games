@@ -43,14 +43,20 @@ class XmlRootHandler extends DefaultHandler implements XmlHandler {
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 
-		XmlNode node = stack.pop();
-		Object convertedTo = handle(node, stack);
+		try {
 
-		XmlNode top = stack.top();
-		if (top != null)
-			top.children.add(convertedTo);
-		else
-			root = convertedTo;
+			XmlNode node = stack.pop();
+			Object convertedTo = handle(node, stack);
+
+			XmlNode top = stack.top();
+			if (top != null)
+				top.children.add(convertedTo);
+			else
+				root = convertedTo;
+
+		} catch(XmlException ex) {
+			throw new SAXException("Error when closing tag found!", ex);
+		}
 	}
 
 	@Override
@@ -61,7 +67,7 @@ class XmlRootHandler extends DefaultHandler implements XmlHandler {
 	}
 
 	@Override
-	public Object handle(XmlNode node, XmlNodeStack parents) throws SAXException {
+	public Object handle(XmlNode node, XmlNodeStack parents) throws XmlException {
 		return subHandler.handle(node, parents);
 	}
 
