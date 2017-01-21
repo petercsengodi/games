@@ -10,8 +10,11 @@ import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
+import org.joml.Vector4f;
 
 import hu.csega.superstition.util.FileUtil;
 
@@ -142,6 +145,64 @@ public class XmlWriter implements Closeable {
 			finishOpeningNodeWithSelfClosure();
 
 			closeNode(fb.field);
+
+		} else if (value instanceof Vector4f) {
+			Vector4f v = (Vector4f) value;
+			openNode(fb.field);
+
+			startOpeningNode("T3DCreator.Vector4");
+			printAttribute("X", String.valueOf(v.x));
+			printAttribute("Y", String.valueOf(v.y));
+			printAttribute("Z", String.valueOf(v.y));
+			printAttribute("W", String.valueOf(v.w));
+			finishOpeningNodeWithSelfClosure();
+
+			closeNode(fb.field);
+
+
+		} else if (value instanceof Matrix3f) {
+			Matrix3f m = (Matrix3f) value;
+			openNode(fb.field);
+
+			startOpeningNode("T3DCreator.Matrix3");
+			printAttribute("M00", String.valueOf(m.m00));
+			printAttribute("M01", String.valueOf(m.m01));
+			printAttribute("M02", String.valueOf(m.m02));
+			printAttribute("M10", String.valueOf(m.m10));
+			printAttribute("M11", String.valueOf(m.m11));
+			printAttribute("M12", String.valueOf(m.m12));
+			printAttribute("M20", String.valueOf(m.m20));
+			printAttribute("M21", String.valueOf(m.m21));
+			printAttribute("M22", String.valueOf(m.m22));
+			finishOpeningNodeWithSelfClosure();
+
+			closeNode(fb.field);
+
+		} else if (value instanceof Matrix4f) {
+			Matrix4f m = (Matrix4f) value;
+			openNode(fb.field);
+
+			startOpeningNode("T3DCreator.Matrix4");
+			printAttribute("M00", String.valueOf(m.m00()));
+			printAttribute("M01", String.valueOf(m.m01()));
+			printAttribute("M02", String.valueOf(m.m02()));
+			printAttribute("M03", String.valueOf(m.m03()));
+			printAttribute("M10", String.valueOf(m.m10()));
+			printAttribute("M11", String.valueOf(m.m11()));
+			printAttribute("M12", String.valueOf(m.m12()));
+			printAttribute("M13", String.valueOf(m.m13()));
+			printAttribute("M20", String.valueOf(m.m20()));
+			printAttribute("M21", String.valueOf(m.m21()));
+			printAttribute("M22", String.valueOf(m.m22()));
+			printAttribute("M23", String.valueOf(m.m23()));
+			printAttribute("M30", String.valueOf(m.m30()));
+			printAttribute("M31", String.valueOf(m.m31()));
+			printAttribute("M32", String.valueOf(m.m32()));
+			printAttribute("M33", String.valueOf(m.m33()));
+			finishOpeningNodeWithSelfClosure();
+
+			closeNode(fb.field);
+
 
 		} else {
 
