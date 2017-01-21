@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Story xmlns="http://tempuri.org/StorySchema.xsd">
+  <Node Text="Start" Texture="" Element="" Special="Start" Weapon="None" X="216" Y="81">
+    <Link ref="Gun" />
+  </Node>
+  <Node Text="Gun" Texture="" Element="" Special="None" Weapon="Gun" X="120" Y="170">
+    <Link ref="Start" />
+    <Link ref="Finish" />
+  </Node>
+  <Node Text="Finish" Texture="" Element="" Special="Finish" Weapon="None" X="144" Y="261">
+    <Link ref="Gun" />
+    <Link ref="Finish" />
+  </Node>
+</Story>

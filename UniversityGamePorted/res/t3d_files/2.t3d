@@ -1,0 +1,513 @@
+<DATAFILE>
+  <T3DCreator.CModel ref="0" grid_from="-10" grid_to="10" grid_step="1" grid_error="0,001">
+    <figures ref="1" />
+  </T3DCreator.CModel>
+  <T3DCreator.CFigure ref="1">
+    <vertices ref="2" />
+    <vertices ref="3" />
+    <vertices ref="4" />
+    <vertices ref="5" />
+    <vertices ref="6" />
+    <vertices ref="7" />
+    <vertices ref="8" />
+    <vertices ref="9" />
+    <triangles ref="10" />
+    <triangles ref="11" />
+    <triangles ref="12" />
+    <triangles ref="13" />
+    <triangles ref="14" />
+    <triangles ref="15" />
+    <triangles ref="16" />
+    <triangles ref="17" />
+    <triangles ref="18" />
+    <triangles ref="19" />
+    <triangles ref="20" />
+    <triangles ref="21" />
+    <texID ref="22" />
+  </T3DCreator.CFigure>
+  <T3DCreator.CVertex ref="2">
+    <position>
+      <Microsoft.DirectX.Vector3 X="0" Y="0" Z="0" />
+    </position>
+    <texture_coordinates>
+      <Microsoft.DirectX.Vector2 X="0,333" Y="0,666" />
+    </texture_coordinates>
+    <neighbours ref="4" />
+    <neighbours ref="3" />
+    <neighbours ref="8" />
+    <neighbours ref="6" />
+    <triangles ref="10" />
+    <triangles ref="16" />
+    <triangles ref="17" />
+    <triangles ref="18" />
+    <edges ref="23" />
+    <edges ref="24" />
+    <edges ref="25" />
+    <edges ref="26" />
+    <edges ref="27" />
+    <edges ref="28" />
+    <edges ref="29" />
+    <edges ref="30" />
+  </T3DCreator.CVertex>
+  <T3DCreator.CVertex ref="3">
+    <position>
+      <Microsoft.DirectX.Vector3 X="1" Y="0" Z="0" />
+    </position>
+    <texture_coordinates>
+      <Microsoft.DirectX.Vector2 X="0,666" Y="0,666" />
+    </texture_coordinates>
+    <neighbours ref="4" />
+    <neighbours ref="2" />
+    <neighbours ref="5" />
+    <neighbours ref="7" />
+    <neighbours ref="6" />
+    <triangles ref="10" />
+    <triangles ref="11" />
+    <triangles ref="14" />
+    <triangles ref="18" />
+    <triangles ref="19" />
+    <edges ref="31" />
+    <edges ref="23" />
+    <edges ref="32" />
+    <edges ref="33" />
+    <edges ref="34" />
+    <edges ref="35" />
+    <edges ref="30" />
+    <edges ref="36" />
+    <edges ref="37" />
+    <edges ref="38" />
+  </T3DCreator.CVertex>
+  <T3DCreator.CVertex ref="4">
+    <position>
+      <Microsoft.DirectX.Vector3 X="0" Y="1" Z="0" />
+    </position>
+    <texture_coordinates>
+      <Microsoft.DirectX.Vector2 X="0,333" Y="0,333" />
+    </texture_coordinates>
+    <neighbours ref="3" />
+    <neighbours ref="2" />
+    <neighbours ref="5" />
+    <neighbours ref="8" />
+    <triangles ref="10" />
+    <triangles ref="11" />
+    <triangles ref="16" />
+    <triangles ref="20" />
+    <edges ref="31" />
+    <edges ref="24" />
+    <edges ref="39" />
+    <edges ref="33" />
+    <edges ref="25" />
+    <edges ref="40" />
+    <edges ref="41" />
+    <edges ref="42" />
+  </T3DCreator.CVertex>
+  <T3DCreator.CVertex ref="5">
+    <position>
+      <Microsoft.DirectX.Vector3 X="1" Y="1" Z="0" />
+    </position>
+    <texture_coordinates>
+      <Microsoft.DirectX.Vector2 X="0,666" Y="0,333" />
+    </texture_coordinates>
+    <neighbours ref="4" />
+    <neighbours ref="3" />
+    <neighbours ref="7" />
+    <neighbours ref="9" />
+    <neighbours ref="8" />
+    <triangles ref="11" />
+    <triangles ref="14" />
+    <triangles ref="15" />
+    <triangles ref="20" />
+    <triangles ref="21" />
+    <edges ref="39" />
+    <edges ref="32" />
+    <edges ref="34" />
+    <edges ref="43" />
+    <edges ref="44" />
+    <edges ref="45" />
+    <edges ref="46" />
+    <edges ref="42" />
+    <edges ref="47" />
+    <edges ref="48" />
+  </T3DCreator.CVertex>
+  <T3DCreator.CVertex ref="6">
+    <position>
+      <Microsoft.DirectX.Vector3 X="0" Y="0" Z="1" />
+    </position>
+    <texture_coordinates>
+      <Microsoft.DirectX.Vector2 X="0" Y="1" />
+    </texture_coordinates>
+    <neighbours ref="7" />
+    <neighbours ref="8" />
+    <neighbours ref="2" />
+    <neighbours ref="3" />
+    <triangles ref="12" />
+    <triangles ref="17" />
+    <triangles ref="18" />
+    <triangles ref="19" />
+    <edges ref="49" />
+    <edges ref="50" />
+    <edges ref="27" />
+    <edges ref="51" />
+    <edges ref="29" />
+    <edges ref="36" />
+    <edges ref="37" />
+    <edges ref="52" />
+  </T3DCreator.CVertex>
+  <T3DCreator.CVertex ref="7">
+    <position>
+      <Microsoft.DirectX.Vector3 X="1" Y="0" Z="1" />
+    </position>
+    <texture_coordinates>
+      <Microsoft.DirectX.Vector2 X="1" Y="1" />
+    </texture_coordinates>
+    <neighbours ref="6" />
+    <neighbours ref="8" />
+    <neighbours ref="9" />
+    <neighbours ref="3" />
+    <neighbours ref="5" />
+    <triangles ref="12" />
+    <triangles ref="13" />
+    <triangles ref="14" />
+    <triangles ref="15" />
+    <triangles ref="19" />
+    <edges ref="49" />
+    <edges ref="53" />
+    <edges ref="54" />
+    <edges ref="55" />
+    <edges ref="43" />
+    <edges ref="35" />
+    <edges ref="56" />
+    <edges ref="45" />
+    <edges ref="38" />
+    <edges ref="52" />
+  </T3DCreator.CVertex>
+  <T3DCreator.CVertex ref="8">
+    <position>
+      <Microsoft.DirectX.Vector3 X="0" Y="1" Z="1" />
+    </position>
+    <texture_coordinates>
+      <Microsoft.DirectX.Vector2 X="0" Y="0" />
+    </texture_coordinates>
+    <neighbours ref="6" />
+    <neighbours ref="7" />
+    <neighbours ref="9" />
+    <neighbours ref="4" />
+    <neighbours ref="2" />
+    <neighbours ref="5" />
+    <triangles ref="12" />
+    <triangles ref="13" />
+    <triangles ref="16" />
+    <triangles ref="17" />
+    <triangles ref="20" />
+    <triangles ref="21" />
+    <edges ref="53" />
+    <edges ref="50" />
+    <edges ref="57" />
+    <edges ref="54" />
+    <edges ref="26" />
+    <edges ref="40" />
+    <edges ref="51" />
+    <edges ref="28" />
+    <edges ref="41" />
+    <edges ref="46" />
+    <edges ref="58" />
+    <edges ref="48" />
+  </T3DCreator.CVertex>
+  <T3DCreator.CVertex ref="9">
+    <position>
+      <Microsoft.DirectX.Vector3 X="1" Y="1" Z="1" />
+    </position>
+    <texture_coordinates>
+      <Microsoft.DirectX.Vector2 X="1" Y="0" />
+    </texture_coordinates>
+    <neighbours ref="8" />
+    <neighbours ref="7" />
+    <neighbours ref="5" />
+    <triangles ref="13" />
+    <triangles ref="15" />
+    <triangles ref="21" />
+    <edges ref="57" />
+    <edges ref="55" />
+    <edges ref="44" />
+    <edges ref="56" />
+    <edges ref="58" />
+    <edges ref="47" />
+  </T3DCreator.CVertex>
+  <T3DCreator.CTriangle ref="10">
+    <vertices ref="4" />
+    <vertices ref="3" />
+    <vertices ref="2" />
+    <edges ref="31" />
+    <edges ref="23" />
+    <edges ref="24" />
+  </T3DCreator.CTriangle>
+  <T3DCreator.CTriangle ref="11">
+    <vertices ref="4" />
+    <vertices ref="5" />
+    <vertices ref="3" />
+    <edges ref="39" />
+    <edges ref="32" />
+    <edges ref="33" />
+  </T3DCreator.CTriangle>
+  <T3DCreator.CTriangle ref="12">
+    <vertices ref="6" />
+    <vertices ref="7" />
+    <vertices ref="8" />
+    <edges ref="49" />
+    <edges ref="53" />
+    <edges ref="50" />
+  </T3DCreator.CTriangle>
+  <T3DCreator.CTriangle ref="13">
+    <vertices ref="9" />
+    <vertices ref="8" />
+    <vertices ref="7" />
+    <edges ref="57" />
+    <edges ref="54" />
+    <edges ref="55" />
+  </T3DCreator.CTriangle>
+  <T3DCreator.CTriangle ref="14">
+    <vertices ref="3" />
+    <vertices ref="5" />
+    <vertices ref="7" />
+    <edges ref="34" />
+    <edges ref="43" />
+    <edges ref="35" />
+  </T3DCreator.CTriangle>
+  <T3DCreator.CTriangle ref="15">
+    <vertices ref="5" />
+    <vertices ref="9" />
+    <vertices ref="7" />
+    <edges ref="44" />
+    <edges ref="56" />
+    <edges ref="45" />
+  </T3DCreator.CTriangle>
+  <T3DCreator.CTriangle ref="16">
+    <vertices ref="4" />
+    <vertices ref="2" />
+    <vertices ref="8" />
+    <edges ref="25" />
+    <edges ref="26" />
+    <edges ref="40" />
+  </T3DCreator.CTriangle>
+  <T3DCreator.CTriangle ref="17">
+    <vertices ref="2" />
+    <vertices ref="6" />
+    <vertices ref="8" />
+    <edges ref="27" />
+    <edges ref="51" />
+    <edges ref="28" />
+  </T3DCreator.CTriangle>
+  <T3DCreator.CTriangle ref="18">
+    <vertices ref="6" />
+    <vertices ref="2" />
+    <vertices ref="3" />
+    <edges ref="29" />
+    <edges ref="30" />
+    <edges ref="36" />
+  </T3DCreator.CTriangle>
+  <T3DCreator.CTriangle ref="19">
+    <vertices ref="6" />
+    <vertices ref="3" />
+    <vertices ref="7" />
+    <edges ref="37" />
+    <edges ref="38" />
+    <edges ref="52" />
+  </T3DCreator.CTriangle>
+  <T3DCreator.CTriangle ref="20">
+    <vertices ref="4" />
+    <vertices ref="8" />
+    <vertices ref="5" />
+    <edges ref="41" />
+    <edges ref="46" />
+    <edges ref="42" />
+  </T3DCreator.CTriangle>
+  <T3DCreator.CTriangle ref="21">
+    <vertices ref="8" />
+    <vertices ref="9" />
+    <vertices ref="5" />
+    <edges ref="58" />
+    <edges ref="47" />
+    <edges ref="48" />
+  </T3DCreator.CTriangle>
+  <T3DCreator.TexID ref="22" name="metal.bmp" />
+  <T3DCreator.CEdge ref="23">
+    <from ref="3" />
+    <to ref="2" />
+    <triangle ref="10" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="24">
+    <from ref="2" />
+    <to ref="4" />
+    <triangle ref="10" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="25">
+    <from ref="4" />
+    <to ref="2" />
+    <triangle ref="16" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="26">
+    <from ref="2" />
+    <to ref="8" />
+    <triangle ref="16" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="27">
+    <from ref="2" />
+    <to ref="6" />
+    <triangle ref="17" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="28">
+    <from ref="8" />
+    <to ref="2" />
+    <triangle ref="17" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="29">
+    <from ref="6" />
+    <to ref="2" />
+    <triangle ref="18" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="30">
+    <from ref="2" />
+    <to ref="3" />
+    <triangle ref="18" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="31">
+    <from ref="4" />
+    <to ref="3" />
+    <triangle ref="10" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="32">
+    <from ref="5" />
+    <to ref="3" />
+    <triangle ref="11" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="33">
+    <from ref="3" />
+    <to ref="4" />
+    <triangle ref="11" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="34">
+    <from ref="3" />
+    <to ref="5" />
+    <triangle ref="14" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="35">
+    <from ref="7" />
+    <to ref="3" />
+    <triangle ref="14" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="36">
+    <from ref="3" />
+    <to ref="6" />
+    <triangle ref="18" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="37">
+    <from ref="6" />
+    <to ref="3" />
+    <triangle ref="19" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="38">
+    <from ref="3" />
+    <to ref="7" />
+    <triangle ref="19" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="39">
+    <from ref="4" />
+    <to ref="5" />
+    <triangle ref="11" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="40">
+    <from ref="8" />
+    <to ref="4" />
+    <triangle ref="16" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="41">
+    <from ref="4" />
+    <to ref="8" />
+    <triangle ref="20" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="42">
+    <from ref="5" />
+    <to ref="4" />
+    <triangle ref="20" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="43">
+    <from ref="5" />
+    <to ref="7" />
+    <triangle ref="14" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="44">
+    <from ref="5" />
+    <to ref="9" />
+    <triangle ref="15" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="45">
+    <from ref="7" />
+    <to ref="5" />
+    <triangle ref="15" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="46">
+    <from ref="8" />
+    <to ref="5" />
+    <triangle ref="20" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="47">
+    <from ref="9" />
+    <to ref="5" />
+    <triangle ref="21" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="48">
+    <from ref="5" />
+    <to ref="8" />
+    <triangle ref="21" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="49">
+    <from ref="6" />
+    <to ref="7" />
+    <triangle ref="12" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="50">
+    <from ref="8" />
+    <to ref="6" />
+    <triangle ref="12" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="51">
+    <from ref="6" />
+    <to ref="8" />
+    <triangle ref="17" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="52">
+    <from ref="7" />
+    <to ref="6" />
+    <triangle ref="19" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="53">
+    <from ref="7" />
+    <to ref="8" />
+    <triangle ref="12" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="54">
+    <from ref="8" />
+    <to ref="7" />
+    <triangle ref="13" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="55">
+    <from ref="7" />
+    <to ref="9" />
+    <triangle ref="13" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="56">
+    <from ref="9" />
+    <to ref="7" />
+    <triangle ref="15" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="57">
+    <from ref="9" />
+    <to ref="8" />
+    <triangle ref="13" />
+  </T3DCreator.CEdge>
+  <T3DCreator.CEdge ref="58">
+    <from ref="8" />
+    <to ref="9" />
+    <triangle ref="21" />
+  </T3DCreator.CEdge>
+</DATAFILE>
