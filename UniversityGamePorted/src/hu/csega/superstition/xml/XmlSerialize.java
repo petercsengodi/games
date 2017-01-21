@@ -1,6 +1,6 @@
 package hu.csega.superstition.xml;
 
-public class XmlSerialize
+class XmlSerialize
 {
 	private XmlSerialize(){}
 

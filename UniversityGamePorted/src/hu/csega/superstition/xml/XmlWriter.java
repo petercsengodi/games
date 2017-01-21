@@ -277,7 +277,7 @@ public class XmlWriter implements Closeable {
 		writer.close();
 	}
 
-	private static final String ROOT_TAG = "DATAFILE";
+	public static final String ROOT_TAG = "DATAFILE";
 	private static final String SPACES = "                                        ";
 	private static final int SPACES_LENGTH = SPACES.length();
 

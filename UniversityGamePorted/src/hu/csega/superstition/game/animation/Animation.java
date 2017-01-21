@@ -52,7 +52,7 @@ public class Animation {
 
 	public void Load(String file_name)
 	{
-		CModelData data = (CModelData)XmlHandler.Load(file_name);
+		CModelData data = (CModelData)XmlRootHandler.Load(file_name);
 		this.max_scenes = data.max_scenes;
 		this.parts = new AnimPart[data.parts.size()];
 
