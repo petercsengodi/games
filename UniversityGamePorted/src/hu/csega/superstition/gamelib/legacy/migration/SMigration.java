@@ -5,21 +5,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.joml.Matrix4f;
+import org.joml.Vector3f;
+
+import hu.csega.superstition.gamelib.legacy.animationdata.CConnection;
 import hu.csega.superstition.gamelib.legacy.animationdata.CModelData;
+import hu.csega.superstition.gamelib.legacy.animationdata.CPartData;
 import hu.csega.superstition.gamelib.legacy.modeldata.CEdge;
 import hu.csega.superstition.gamelib.legacy.modeldata.CFigure;
 import hu.csega.superstition.gamelib.legacy.modeldata.CModel;
 import hu.csega.superstition.gamelib.legacy.modeldata.CTexID;
 import hu.csega.superstition.gamelib.legacy.modeldata.CTriangle;
 import hu.csega.superstition.gamelib.legacy.modeldata.CVertex;
-import hu.csega.superstition.gamelib.model.SAnimation;
-import hu.csega.superstition.gamelib.model.SEdge;
-import hu.csega.superstition.gamelib.model.SMesh;
 import hu.csega.superstition.gamelib.model.SObject;
-import hu.csega.superstition.gamelib.model.SShape;
-import hu.csega.superstition.gamelib.model.STextureRef;
-import hu.csega.superstition.gamelib.model.STriangle;
-import hu.csega.superstition.gamelib.model.SVertex;
+import hu.csega.superstition.gamelib.model.animation.SAnimation;
+import hu.csega.superstition.gamelib.model.animation.SBodyPart;
+import hu.csega.superstition.gamelib.model.animation.SConnection;
+import hu.csega.superstition.gamelib.model.animation.SMeshRef;
+import hu.csega.superstition.gamelib.model.mesh.SEdge;
+import hu.csega.superstition.gamelib.model.mesh.SMesh;
+import hu.csega.superstition.gamelib.model.mesh.SShape;
+import hu.csega.superstition.gamelib.model.mesh.STextureRef;
+import hu.csega.superstition.gamelib.model.mesh.STriangle;
+import hu.csega.superstition.gamelib.model.mesh.SVertex;
 
 public class SMigration {
 
@@ -57,8 +65,15 @@ public class SMigration {
 		converted = new SAnimation();
 		alreadyConverted.put(obj, converted);
 
+		List<SBodyPart> bodyParts = new ArrayList<>();
+		for(CPartData p: obj.getParts()) {
+			bodyParts.add(migrateCPartData(p));
+		}
+
 		SAnimation animation = new SAnimation();
 		animation.setName(name);
+		animation.setMaxScenes(obj.getMax_scenes());
+		animation.setBodyParts(bodyParts);
 		return animation;
 	}
 
@@ -185,6 +200,60 @@ public class SMigration {
 		converted.setNeighbours(neighbours);
 		converted.setVertices(vertices);
 		converted.setCount(input.getCount());
+
+		return converted;
+	}
+
+	private SBodyPart migrateCPartData(CPartData input) {
+		SBodyPart converted = (SBodyPart)alreadyConverted.get(input);
+		if(converted != null)
+			return converted;
+
+		converted = new SBodyPart();
+		alreadyConverted.put(input, converted);
+
+		SMeshRef meshRef = new SMeshRef();
+		meshRef.setName(input.getMesh_file());
+
+		Vector3f[] oldCenterPoints = input.getCenter_point();
+		Vector3f[] centerPoints = new Vector3f[oldCenterPoints.length];
+		for(int i = 0; i < oldCenterPoints.length; i++) {
+			centerPoints[i] = new Vector3f(oldCenterPoints[i]);
+		}
+
+		Matrix4f[] oldMatrixTransformations = input.getModel_transform();
+		Matrix4f[] modelTransformations = new Matrix4f[oldMatrixTransformations.length];
+		for(int i = 0; i < oldMatrixTransformations.length; i++) {
+			modelTransformations[i] = new Matrix4f(oldMatrixTransformations[i]);
+		}
+
+		CConnection[] oldConnections = input.getConnections();
+		SConnection[] connections = new SConnection[oldConnections.length];
+		for(int i = 0; i < oldConnections.length; i++) {
+			connections[i] = migrateCConnection(oldConnections[i]);
+		}
+
+		converted.setCenterPoints(centerPoints);
+		converted.setConnections(connections);
+		converted.setMesh(meshRef);
+		converted.setModelTransformations(modelTransformations);
+
+		return converted;
+	}
+
+
+	private SConnection migrateCConnection(CConnection input) {
+		SConnection converted = (SConnection)alreadyConverted.get(input);
+		if(converted != null)
+			return converted;
+
+		converted = new SConnection();
+		alreadyConverted.put(input, converted);
+
+		converted.setConnectionIndex(input.getConnection_index());
+		converted.setName(input.getName());
+		converted.setObjectIndex(input.getObject_index());
+		converted.setPoint(new Vector3f(input.getPoint()));
 
 		return converted;
 	}

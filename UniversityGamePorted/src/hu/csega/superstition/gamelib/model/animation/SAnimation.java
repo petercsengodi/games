@@ -1,7 +1,8 @@
-package hu.csega.superstition.gamelib.model;
+package hu.csega.superstition.gamelib.model.animation;
 
 import java.util.List;
 
+import hu.csega.superstition.gamelib.model.SObject;
 import hu.csega.superstition.xml.XmlClass;
 import hu.csega.superstition.xml.XmlField;
 

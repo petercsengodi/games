@@ -61,6 +61,10 @@ public class XmlWriter implements Closeable {
 
 			Collection<XmlFieldBinding> bindings = XmlBinding.fieldBindingsOf(xmlType);
 
+			if(bindings == null) {
+				throw new XmlReflectionException("No bindings for class: " + tmpClass.getName());
+			}
+
 			// possible attributes
 			for(XmlFieldBinding fb : bindings) {
 				if(fb.attribute) {

@@ -18,15 +18,27 @@ import hu.csega.superstition.gamelib.legacy.modeldata.CModel;
 import hu.csega.superstition.gamelib.legacy.modeldata.CTexID;
 import hu.csega.superstition.gamelib.legacy.modeldata.CTriangle;
 import hu.csega.superstition.gamelib.legacy.modeldata.CVertex;
+import hu.csega.superstition.gamelib.model.animation.SAnimation;
+import hu.csega.superstition.gamelib.model.animation.SBodyPart;
+import hu.csega.superstition.gamelib.model.animation.SConnection;
+import hu.csega.superstition.gamelib.model.animation.SMeshRef;
+import hu.csega.superstition.gamelib.model.mesh.SEdge;
+import hu.csega.superstition.gamelib.model.mesh.SMesh;
+import hu.csega.superstition.gamelib.model.mesh.SShape;
+import hu.csega.superstition.gamelib.model.mesh.STextureRef;
+import hu.csega.superstition.gamelib.model.mesh.STriangle;
+import hu.csega.superstition.gamelib.model.mesh.SVertex;
 
 public class XmlBinding {
 
 	public static Collection<XmlFieldBinding> fieldBindingsOf(String xmlTypeName) {
-		return nameToBinding.get(xmlTypeName).fieldToBindings.values();
+		Map<String, XmlFieldBinding> map = fieldBindingsMap(xmlTypeName);
+		return (map == null ? null : map.values());
 	}
 
 	public static Map<String, XmlFieldBinding> fieldBindingsMap(String xmlTypeName) {
-		return nameToBinding.get(xmlTypeName).fieldToBindings;
+		XmlBinding binding = nameToBinding.get(xmlTypeName);
+		return (binding == null ? null : binding.fieldToBindings);
 	}
 
 	public static Class<?> classOf(String type) {
@@ -173,15 +185,16 @@ public class XmlBinding {
 		registerClass(CTexID.class);
 
 		// New model in game
-		registerClass(hu.csega.superstition.gamelib.model.SAnimation.class);
-		registerClass(hu.csega.superstition.gamelib.model.SMesh.class);
-		registerClass(hu.csega.superstition.gamelib.model.SMeshRef.class);
-		registerClass(hu.csega.superstition.gamelib.model.STriangle.class);
-		registerClass(hu.csega.superstition.gamelib.model.SVertex.class);
-		registerClass(hu.csega.superstition.gamelib.model.SBodyPart.class);
-		registerClass(hu.csega.superstition.gamelib.model.SEdge.class);
-		registerClass(hu.csega.superstition.gamelib.model.SShape.class);
-		registerClass(hu.csega.superstition.gamelib.model.STextureRef.class);
+		registerClass(SAnimation.class);
+		registerClass(SBodyPart.class);
+		registerClass(SConnection.class);
+		registerClass(SMeshRef.class);
+		registerClass(SMesh.class);
+		registerClass(STriangle.class);
+		registerClass(SVertex.class);
+		registerClass(SEdge.class);
+		registerClass(SShape.class);
+		registerClass(STextureRef.class);
 
 	}
 

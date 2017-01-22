@@ -1,4 +1,4 @@
-package hu.csega.superstition.gamelib.model;
+package hu.csega.superstition.gamelib.model.mesh;
 
 import hu.csega.superstition.xml.XmlClass;
 import hu.csega.superstition.xml.XmlField;

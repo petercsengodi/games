@@ -9,10 +9,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import hu.csega.superstition.gamelib.legacy.animationdata.CModelData;
 import hu.csega.superstition.gamelib.legacy.migration.SMigration;
 import hu.csega.superstition.gamelib.legacy.modeldata.CModel;
-import hu.csega.superstition.gamelib.model.SMesh;
 import hu.csega.superstition.gamelib.model.SObject;
+import hu.csega.superstition.gamelib.model.animation.SAnimation;
+import hu.csega.superstition.gamelib.model.mesh.SMesh;
 import hu.csega.superstition.util.FileUtil;
 
 public class XmlMigrationTest {
@@ -48,6 +50,31 @@ public class XmlMigrationTest {
 		ByteArrayInputStream bais = new ByteArrayInputStream(result.getBytes(FileUtil.CHARSET));
 		Object read = XmlReader.read(bais);
 		Assert.assertTrue(read instanceof SMesh);
+	}
+
+	@Test
+	public void testAnimationMigration() throws Exception {
+		String path = FileUtil.workspaceRootOrTmp() + "/UniversityGamePorted/res/anims/human_run.anm";
+		System.out.println(path);
+		Assert.assertTrue(new File(path).exists());
+
+		Object root = XmlReader.read(path);
+		Assert.assertTrue(root instanceof CModelData);
+
+		SObject migrated = SMigration.migrate(root, "test");
+		Assert.assertTrue(migrated instanceof SAnimation);
+
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		try (XmlWriter writer = new XmlWriter(stream)) {
+			writer.write(migrated);
+		}
+
+		String result = new String(stream.toByteArray(), FileUtil.CHARSET);
+		System.out.println(result);
+
+		ByteArrayInputStream bais = new ByteArrayInputStream(result.getBytes(FileUtil.CHARSET));
+		Object read = XmlReader.read(bais);
+		Assert.assertTrue(read instanceof SAnimation);
 	}
 
 }

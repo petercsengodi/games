@@ -1,7 +1,8 @@
-package hu.csega.superstition.gamelib.model;
+package hu.csega.superstition.gamelib.model.animation;
 
 import org.joml.Vector3f;
 
+import hu.csega.superstition.gamelib.model.SObject;
 import hu.csega.superstition.xml.XmlClass;
 import hu.csega.superstition.xml.XmlField;
 
@@ -43,7 +44,7 @@ public class SConnection implements SObject {
 	}
 
 	@XmlField("connectionIndex")
-	public void setConnection_index(int connectionIndex) {
+	public void setConnectionIndex(int connectionIndex) {
 		this.connectionIndex = connectionIndex;
 	}
 
