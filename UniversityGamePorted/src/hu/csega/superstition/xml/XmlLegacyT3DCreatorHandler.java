@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
@@ -43,10 +44,11 @@ class XmlLegacyT3DCreatorHandler implements XmlHandler {
 	private Object matrix4Of(XmlNode node) {
 		Matrix4f m = new Matrix4f();
 
-		for(Object c : node.children) {
-			XmlNode n = (XmlNode)c;
+		for(Entry<String, String> e : node.attributes.entrySet()) {
+			String name = e.getKey();
+			String n = e.getValue();
 
-			switch(n.tag) {
+			switch(name) {
 			case "M11": f16[0] = floatOf(n); break;
 			case "M12": f16[1] = floatOf(n); break;
 			case "M13": f16[2] = floatOf(n); break;
@@ -76,10 +78,11 @@ class XmlLegacyT3DCreatorHandler implements XmlHandler {
 	private Object vector4Of(XmlNode node) {
 		Vector4f v = new Vector4f();
 
-		for(Object c : node.children) {
-			XmlNode n = (XmlNode)c;
+		for(Entry<String, String> e : node.attributes.entrySet()) {
+			String name = e.getKey();
+			String n = e.getValue();
 
-			switch(n.tag) {
+			switch(name) {
 			case "X": f4[0] = floatOf(n); break;
 			case "Y": f4[1] = floatOf(n); break;
 			case "Z": f4[2] = floatOf(n); break;
@@ -96,10 +99,11 @@ class XmlLegacyT3DCreatorHandler implements XmlHandler {
 	private Object vector3Of(XmlNode node) {
 		Vector3f v = new Vector3f();
 
-		for(Object c : node.children) {
-			XmlNode n = (XmlNode)c;
+		for(Entry<String, String> e : node.attributes.entrySet()) {
+			String name = e.getKey();
+			String n = e.getValue();
 
-			switch(n.tag) {
+			switch(name) {
 			case "X": f3[0] = floatOf(n); break;
 			case "Y": f3[1] = floatOf(n); break;
 			case "Z": f3[2] = floatOf(n); break;
@@ -115,10 +119,11 @@ class XmlLegacyT3DCreatorHandler implements XmlHandler {
 	private Object vector2Of(XmlNode node) {
 		Vector2f v = new Vector2f();
 
-		for(Object c : node.children) {
-			XmlNode n = (XmlNode)c;
+		for(Entry<String, String> e : node.attributes.entrySet()) {
+			String name = e.getKey();
+			String n = e.getValue();
 
-			switch(n.tag) {
+			switch(name) {
 			case "X": f2[0] = floatOf(n); break;
 			case "Y": f2[1] = floatOf(n); break;
 			default:
@@ -162,8 +167,11 @@ class XmlLegacyT3DCreatorHandler implements XmlHandler {
 		throw new XmlException("Couldn't identify setter parameter: " + class1.getName());
 	}
 
-	private float floatOf(XmlNode c) {
-		return Float.parseFloat(c.content.toString().replace(',', '.'));
+	private float floatOf(String n) {
+		if(n == null || n.length() == 0)
+			return 0f;
+
+		return Float.parseFloat(n);
 	}
 
 	public Object resolveVectorsAndMatrices(XmlNode node) {
@@ -187,6 +195,7 @@ class XmlLegacyT3DCreatorHandler implements XmlHandler {
 		return null;
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public void complete(XmlObjectProxy xmlObjectProxy) throws XmlException {
 		XmlNode node = xmlObjectProxy.node;
@@ -267,7 +276,7 @@ class XmlLegacyT3DCreatorHandler implements XmlHandler {
 	private Map<String, XmlObjectProxy> proxies = new HashMap<>();
 
 	private float[] f16 = new float[16];
-	private float[] f4 = new float[3];
+	private float[] f4 = new float[4];
 	private float[] f3 = new float[3];
 	private float[] f2 = new float[2];
 

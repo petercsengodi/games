@@ -25,8 +25,17 @@ class XmlRootHandler extends DefaultHandler implements XmlHandler {
 				logger.info("Using legacy T3DCreator handler.");
 				subHandler = new XmlLegacyT3DCreatorHandler();
 			} else if (XmlWriter.ROOT_TAG.equals(qName)) {
-				logger.info("Using brand new handler.");
-				subHandler = new XmlNewFormatHandler();
+
+				String version = attributes.getValue("version");
+				logger.info("Format identified, version: " + version);
+
+				if(XmlWriter.ROOT_VERSION.equals(version)) {
+					logger.info("Using brand new handler.");
+					subHandler = new XmlNewFormatHandler();
+				} else {
+					throw new SAXException("Unknown version: " + version);
+				}
+
 			} else {
 				logger.error("Root tag:" + qName);
 				throw new SAXException("Invalid format! Root tag: " + qName);

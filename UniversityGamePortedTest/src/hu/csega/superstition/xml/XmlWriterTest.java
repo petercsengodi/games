@@ -25,7 +25,9 @@ public class XmlWriterTest {
 	public void test() throws Exception {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
-		CVertex obj = new CVertex(new Vector3f(1f, 2f, 3f), new Vector2f(1.2f, 1.5f));
+		CVertex obj = new CVertex();
+		obj.position = new Vector3f(1f, 2f, 3f);
+		obj.texture_coordinates = new Vector2f(1.2f, 1.5f);
 
 		try (XmlWriter writer = new XmlWriter(stream)) {
 			writer.write(obj);

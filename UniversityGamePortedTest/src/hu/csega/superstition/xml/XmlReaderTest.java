@@ -1,5 +1,6 @@
 package hu.csega.superstition.xml;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 
@@ -40,7 +41,6 @@ public class XmlReaderTest {
 		System.out.println(result);
 	}
 
-
 	@Test
 	public void testLegacyT3DCreatorModel() throws Exception {
 		String path = FileUtil.workspaceRootOrTmp() + "/UniversityGamePorted/res/t3d_files/3.t3d";
@@ -57,7 +57,28 @@ public class XmlReaderTest {
 
 		String result = new String(stream.toByteArray(), FileUtil.CHARSET);
 		System.out.println(result);
+	}
 
+	@Test
+	public void testLegacyT3DCreatorModel_To_NewModel() throws Exception {
+		String path = FileUtil.workspaceRootOrTmp() + "/UniversityGamePorted/res/t3d_files/3.t3d";
+		System.out.println(path);
+		Assert.assertTrue(new File(path).exists());
+
+		Object root = XmlReader.read(path);
+		Assert.assertTrue(root instanceof CModel);
+
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		try (XmlWriter writer = new XmlWriter(stream)) {
+			writer.write(root);
+		}
+
+		String result = new String(stream.toByteArray(), FileUtil.CHARSET);
+		System.out.println(result);
+
+		ByteArrayInputStream bais = new ByteArrayInputStream(result.getBytes(FileUtil.CHARSET));
+		Object read = XmlReader.read(bais);
+		Assert.assertTrue(read instanceof CModel);
 	}
 
 }

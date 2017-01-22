@@ -36,7 +36,9 @@ public class XmlWriter implements Closeable {
 		this.indentation = 0;
 		this.writer = FileUtil.openWriter(stream);
 
-		this.openNode(ROOT_TAG);
+		this.startOpeningNode(ROOT_TAG);
+		this.printAttribute("version", XmlWriter.ROOT_VERSION);
+		this.finishOpeningNode();
 	}
 
 	public void write(Object obj) throws IOException, XmlReflectionException {
@@ -55,7 +57,7 @@ public class XmlWriter implements Closeable {
 			String xmlType = xmlClass.value();
 
 			startOpeningNode(xmlType);
-			printAttribute("ref", String.valueOf(index));
+			printAttribute("__id", String.valueOf(index));
 
 			Collection<XmlFieldBinding> bindings = XmlBinding.fieldBindingsOf(xmlType);
 
@@ -119,65 +121,35 @@ public class XmlWriter implements Closeable {
 		if(value == null)
 			return;
 
+		openNode(fb.field);
+
 		if(value instanceof Collection<?>)
 		{
 			Collection<?> list = (Collection<?>)value;
 			for(Object o : list) {
 				writeItem(fb, o);
 			}
-			return;
 
 		} else if(value.getClass().isArray()) {
 			int size = Array.getLength(value);
-
 			for(int i = 0; i < size; i++)
 			{
 				Object o = Array.get(value, i);
 				writeItem(fb, o);
 			}
-			return;
-
-
-		} else if(value instanceof Vector2f) {
-
-			printVector2(fb, value);
-
-		} else if (value instanceof Vector3f) {
-			printVector3(fb, value);
-
-		} else if (value instanceof Vector4f) {
-			printVector4(fb, value);
-
-
-		} else if (value instanceof Matrix3f) {
-			printMatrix3(fb, value);
-
-		} else if (value instanceof Matrix4f) {
-			printMatrix4(fb, value);
-
 
 		} else {
 
-			startOpeningNode(fb.field);
-
-			int reference = reference_list.indexOf(value);
-			if(reference == -1) {
-				reference = reference_list.size();
-				reference_list.add(value);
-			}
-
-			printAttribute("ref", String.valueOf(reference));
-			finishOpeningNodeWithSelfClosure();
+			writeItem(fb, value);
 
 		}
 
+		closeNode(fb.field);
 	} // End of function
 
 	private void printMatrix4(XmlFieldBinding fb, Object value) throws IOException {
 		Matrix4f m = (Matrix4f) value;
-		openNode(fb.field);
-
-		startOpeningNode("T3DCreator.Matrix4");
+		startOpeningNode("Math.Matrix4");
 		printAttribute("M00", String.valueOf(m.m00()));
 		printAttribute("M01", String.valueOf(m.m01()));
 		printAttribute("M02", String.valueOf(m.m02()));
@@ -195,15 +167,11 @@ public class XmlWriter implements Closeable {
 		printAttribute("M32", String.valueOf(m.m32()));
 		printAttribute("M33", String.valueOf(m.m33()));
 		finishOpeningNodeWithSelfClosure();
-
-		closeNode(fb.field);
 	}
 
 	private void printMatrix3(XmlFieldBinding fb, Object value) throws IOException {
 		Matrix3f m = (Matrix3f) value;
-		openNode(fb.field);
-
-		startOpeningNode("T3DCreator.Matrix3");
+		startOpeningNode("Math.Matrix3");
 		printAttribute("M00", String.valueOf(m.m00));
 		printAttribute("M01", String.valueOf(m.m01));
 		printAttribute("M02", String.valueOf(m.m02));
@@ -214,61 +182,45 @@ public class XmlWriter implements Closeable {
 		printAttribute("M21", String.valueOf(m.m21));
 		printAttribute("M22", String.valueOf(m.m22));
 		finishOpeningNodeWithSelfClosure();
-
-		closeNode(fb.field);
 	}
 
 	private void printVector4(XmlFieldBinding fb, Object value) throws IOException {
 		Vector4f v = (Vector4f) value;
-		openNode(fb.field);
-
-		startOpeningNode("T3DCreator.Vector4");
+		startOpeningNode("Math.Vector4");
 		printAttribute("X", String.valueOf(v.x));
 		printAttribute("Y", String.valueOf(v.y));
 		printAttribute("Z", String.valueOf(v.y));
 		printAttribute("W", String.valueOf(v.w));
 		finishOpeningNodeWithSelfClosure();
-
-		closeNode(fb.field);
 	}
 
 	private void printVector3(XmlFieldBinding fb, Object value) throws IOException {
 		Vector3f v = (Vector3f) value;
-		openNode(fb.field);
-
-		startOpeningNode("T3DCreator.Vector3");
+		startOpeningNode("Math.Vector3");
 		printAttribute("X", String.valueOf(v.x));
 		printAttribute("Y", String.valueOf(v.y));
 		printAttribute("Z", String.valueOf(v.y));
 		finishOpeningNodeWithSelfClosure();
-
-		closeNode(fb.field);
 	}
 
 	private void printVector2(XmlFieldBinding fb, Object value) throws IOException {
 		Vector2f v = (Vector2f) value;
-		openNode(fb.field);
-
-		startOpeningNode("T3DCreator.Vector2");
+		startOpeningNode("Math.Vector2");
 		printAttribute("X", String.valueOf(v.x));
 		printAttribute("Y", String.valueOf(v.y));
 		finishOpeningNodeWithSelfClosure();
-
-		closeNode(fb.field);
 	}
 
-	private void writeItem(XmlFieldBinding fb, Object value) throws IOException {
+	private void writeItem(XmlFieldBinding fb, Object value) throws IOException, XmlReflectionException {
 		if(value == null)
 			return;
 
 		Class<?> c = value.getClass();
 		if(XmlBinding.isKindOfPrimitive(c)) {
-			openNode(fb.field);
-			printContent(value.toString());
-			closeNode(fb.field);
+			printKindOfPrimitive(value.toString(), c);
 			return;
-		} else if(value instanceof Vector2f) {
 
+		} else if(value instanceof Vector2f) {
 			printVector2(fb, value);
 			return;
 
@@ -290,6 +242,17 @@ public class XmlWriter implements Closeable {
 			return;
 		}
 
+		String tag;
+		XmlClass annotation = c.getAnnotation(XmlClass.class);
+		if(annotation != null) {
+			tag = annotation.value();
+			if(tag == null || tag.length() == 0) {
+				throw new XmlReflectionException("Empty annotation of: " + c.getName());
+			}
+		}  else {
+			throw new XmlReflectionException("Don't know how to write: " + c.getName());
+		}
+
 		int reference = reference_list.indexOf(value);
 		if(reference == -1)
 		{
@@ -297,8 +260,8 @@ public class XmlWriter implements Closeable {
 			reference_list.add(value);
 		}
 
-		startOpeningNode(fb.field);
-		printAttribute("ref", String.valueOf(reference));
+		startOpeningNode(tag);
+		printAttribute("__ref", String.valueOf(reference));
 		finishOpeningNodeWithSelfClosure();
 		return;
 	}
@@ -326,10 +289,41 @@ public class XmlWriter implements Closeable {
 		indentation += 2;
 	}
 
-	private void printContent(String text) throws IOException {
+	private void printKindOfPrimitive(String s, Class<?> class1) throws IOException, XmlReflectionException {
 		printIndentation();
-		writer.write(StringEscapeUtils.escapeXml11(text));
-		writer.write("\n");
+		String tag = tagForClass(class1);
+		writer.write('<' + tag + '>' + StringEscapeUtils.escapeXml11(s) + "</" + tag + ">\n");
+	}
+
+	private String tagForClass(Class<?> class1) throws XmlReflectionException {
+		if(class1 == String.class)
+			return "Lang.String";
+
+		if(class1 == int.class || class1 == Integer.class)
+			return "Lang.Integer";
+
+		if(class1 == byte.class || class1 == Byte.class)
+			return "Lang.Byte";
+
+		if(class1 == boolean.class || class1 == Boolean.class)
+			return "Lang.Boolean";
+
+		if(class1 == long.class || class1 == Long.class)
+			return "Lang.Long";
+
+		if(class1 == short.class || class1 == Short.class)
+			return "Lang.Short";
+
+		if(class1 == char.class || class1 == Character.class)
+			return "Lang.Character";
+
+		if(class1 == float.class || class1 == Float.class)
+			return "Lang.Float";
+
+		if(class1 == double.class || class1 == Double.class)
+			return "Lang.Double";
+
+		throw new XmlReflectionException("Couldn't identify parameter type: " + class1.getName());
 	}
 
 	private void closeNode(String tag) throws IOException {
@@ -358,6 +352,7 @@ public class XmlWriter implements Closeable {
 	}
 
 	public static final String ROOT_TAG = "Superstition.Model";
+	public static final String ROOT_VERSION = "01.00.0000";
 	private static final String SPACES = "                                        ";
 	private static final int SPACES_LENGTH = SPACES.length();
 

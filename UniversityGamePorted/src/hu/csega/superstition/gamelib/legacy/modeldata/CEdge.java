@@ -39,8 +39,8 @@ public class CEdge {
 	public CVertex from, to;
 	public CTriangle triangle;
 
-	public String toString()
-	{
+	@Override
+	public String toString() {
 		if(from == null || to == null)
 			return super.toString();
 
