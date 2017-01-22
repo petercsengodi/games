@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import hu.csega.superstition.gamelib.legacy.animationdata.CModelData;
 import hu.csega.superstition.gamelib.legacy.modeldata.CModel;
+import hu.csega.superstition.gamelib.model.story.SMap;
 import hu.csega.superstition.util.FileUtil;
 
 public class XmlReaderTest {
@@ -79,6 +80,72 @@ public class XmlReaderTest {
 		ByteArrayInputStream bais = new ByteArrayInputStream(result.getBytes(FileUtil.CHARSET));
 		Object read = XmlReader.read(bais);
 		Assert.assertTrue(read instanceof CModel);
+	}
+
+	@Test
+	public void testMap1() throws Exception {
+		String path = FileUtil.workspaceRootOrTmp() + "/UniversityGamePorted/res/maps/fake.xml";
+		System.out.println(path);
+		Assert.assertTrue(new File(path).exists());
+
+		Object root = XmlReader.read(path);
+		Assert.assertTrue(root instanceof SMap);
+
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		try (XmlWriter writer = new XmlWriter(stream)) {
+			writer.write(root);
+		}
+
+		String result = new String(stream.toByteArray(), FileUtil.CHARSET);
+		System.out.println(result);
+
+		ByteArrayInputStream bais = new ByteArrayInputStream(result.getBytes(FileUtil.CHARSET));
+		Object read = XmlReader.read(bais);
+		Assert.assertTrue(read instanceof SMap);
+	}
+
+	@Test
+	public void testMap2() throws Exception {
+		String path = FileUtil.workspaceRootOrTmp() + "/UniversityGamePorted/res/maps/gun.xml";
+		System.out.println(path);
+		Assert.assertTrue(new File(path).exists());
+
+		Object root = XmlReader.read(path);
+		Assert.assertTrue(root instanceof SMap);
+
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		try (XmlWriter writer = new XmlWriter(stream)) {
+			writer.write(root);
+		}
+
+		String result = new String(stream.toByteArray(), FileUtil.CHARSET);
+		System.out.println(result);
+
+		ByteArrayInputStream bais = new ByteArrayInputStream(result.getBytes(FileUtil.CHARSET));
+		Object read = XmlReader.read(bais);
+		Assert.assertTrue(read instanceof SMap);
+	}
+
+	@Test
+	public void testMap3() throws Exception {
+		String path = FileUtil.workspaceRootOrTmp() + "/UniversityGamePorted/res/maps/test.xml";
+		System.out.println(path);
+		Assert.assertTrue(new File(path).exists());
+
+		Object root = XmlReader.read(path);
+		Assert.assertTrue(root instanceof SMap);
+
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		try (XmlWriter writer = new XmlWriter(stream)) {
+			writer.write(root);
+		}
+
+		String result = new String(stream.toByteArray(), FileUtil.CHARSET);
+		System.out.println(result);
+
+		ByteArrayInputStream bais = new ByteArrayInputStream(result.getBytes(FileUtil.CHARSET));
+		Object read = XmlReader.read(bais);
+		Assert.assertTrue(read instanceof SMap);
 	}
 
 }

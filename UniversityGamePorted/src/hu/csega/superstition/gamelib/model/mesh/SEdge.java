@@ -1,10 +1,11 @@
 package hu.csega.superstition.gamelib.model.mesh;
 
+import hu.csega.superstition.gamelib.model.SObject;
 import hu.csega.superstition.xml.XmlClass;
 import hu.csega.superstition.xml.XmlField;
 
 @XmlClass("Superstition.Edge")
-public class SEdge {
+public class SEdge implements SObject {
 
 	@XmlField("from")
 	public SVertex getFrom() {
@@ -36,18 +37,17 @@ public class SEdge {
 		this.triangle = triangle;
 	}
 
-	private SVertex from;
-	private SVertex to;
-	private STriangle triangle;
-
 	@Override
 	public String toString() {
 		if(from == null || to == null)
 			return super.toString();
 
 		return "Edge (" +
-			from.position.x + ";" + from.position.y + ";" + from.position.z + ") -> (" +
-			to.position.x + ";" + to.position.y + ";" + to.position.z + ")";
+		from.position.x + ";" + from.position.y + ";" + from.position.z + ") -> (" +
+		to.position.x + ";" + to.position.y + ";" + to.position.z + ")";
 	}
 
+	private SVertex from;
+	private SVertex to;
+	private STriangle triangle;
 }

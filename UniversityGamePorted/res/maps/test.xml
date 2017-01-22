@@ -1,14 +1,33 @@
-﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Story xmlns="http://tempuri.org/StorySchema.xsd">
-  <Node Text="Start" Texture="" Element="" Special="Start" Weapon="None" X="216" Y="81">
-    <Link ref="Gun" />
-  </Node>
-  <Node Text="Gun" Texture="" Element="" Special="None" Weapon="Gun" X="120" Y="170">
-    <Link ref="Start" />
-    <Link ref="Finish" />
-  </Node>
-  <Node Text="Finish" Texture="" Element="" Special="Finish" Weapon="None" X="144" Y="261">
-    <Link ref="Gun" />
-    <Link ref="Finish" />
-  </Node>
-</Story>
+﻿<Superstition.Model version="01.00.0000">
+  <Superstition.Map __id="0" name="test">
+    <rooms>
+      <Superstition.Room __ref="1" />
+      <Superstition.Room __ref="2" />
+      <Superstition.Room __ref="3" />
+    </rooms>
+  </Superstition.Map>
+  <Superstition.Room __id="1" text="Start" element="" special="Start" weapon="None" x="216" y="81">
+    <wall>
+      <Superstition.TextureRef __ref="4"/>
+    </wall>
+    <floor>
+      <Superstition.TextureRef __ref="5"/>
+    </floor>
+    <corridors>
+        <Superstition.Room __ref="2" />
+    </corridors>
+  </Superstition.Room>
+  <Superstition.Room __id="2" text="Gun" element="" special="None" weapon="Gun" x="120" y="170">
+    <corridors>
+        <Superstition.Room __ref="1" />
+        <Superstition.Room __ref="3" />
+    </corridors>
+  </Superstition.Room>
+  <Superstition.Room __id="3" text="Finish" element="" special="Finish" weapon="None" x="144" y="261">
+    <corridors>
+        <Superstition.Room __ref="2" />
+    </corridors>
+  </Superstition.Room>
+  <Superstition.TextureRef __id="4" name="brick"/>
+  <Superstition.TextureRef __id="5" name="images"/>
+</Superstition.Model>

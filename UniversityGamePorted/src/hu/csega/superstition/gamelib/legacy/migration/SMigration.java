@@ -45,6 +45,9 @@ public class SMigration {
 		if(name.endsWith(".t3d") || name.endsWith(".anm"))
 			name = name.substring(0, name.length() - 4);
 
+		if(name.endsWith(".x"))
+			name = name.substring(0, name.length() - 2);
+
 		SMigration migration = new SMigration();
 
 		Class<?> c = obj.getClass();
@@ -212,8 +215,21 @@ public class SMigration {
 		converted = new SBodyPart();
 		alreadyConverted.put(input, converted);
 
+		String meshName = input.getMesh_file();
+		if(meshName != null) {
+			int index = meshName.lastIndexOf('/');
+			if(index > -1)
+				meshName = meshName.substring(index + 1);
+
+			if(meshName.endsWith(".t3d"))
+				meshName = meshName.substring(0, meshName.length() - 4);
+
+			if(meshName.endsWith(".x"))
+				meshName = meshName.substring(0, meshName.length() - 2);
+		}
+
 		SMeshRef meshRef = new SMeshRef();
-		meshRef.setName(input.getMesh_file());
+		meshRef.setName(meshName);
 
 		Vector3f[] oldCenterPoints = input.getCenter_point();
 		Vector3f[] centerPoints = new Vector3f[oldCenterPoints.length];
@@ -266,7 +282,21 @@ public class SMigration {
 		converted = new STextureRef();
 		alreadyConverted.put(input, converted);
 
-		converted.setName(input.name);
+		String name = input.name;
+
+		if(name != null) {
+			int index = name.lastIndexOf('/');
+			if(index > -1)
+				name = name.substring(index + 1);
+
+			if(name.endsWith(".bmp") || name.endsWith(".jpg") || name.endsWith(".png"))
+				name = name.substring(0, name.length() - 4);
+
+			if(name.endsWith(".jpeg"))
+				name = name.substring(0, name.length() - 5);
+		}
+
+		converted.setName(name);
 
 		return converted;
 	}

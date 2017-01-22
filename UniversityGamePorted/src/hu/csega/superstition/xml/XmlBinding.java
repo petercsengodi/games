@@ -28,6 +28,8 @@ import hu.csega.superstition.gamelib.model.mesh.SShape;
 import hu.csega.superstition.gamelib.model.mesh.STextureRef;
 import hu.csega.superstition.gamelib.model.mesh.STriangle;
 import hu.csega.superstition.gamelib.model.mesh.SVertex;
+import hu.csega.superstition.gamelib.model.story.SMap;
+import hu.csega.superstition.gamelib.model.story.SRoom;
 
 public class XmlBinding {
 
@@ -195,6 +197,8 @@ public class XmlBinding {
 		registerClass(SEdge.class);
 		registerClass(SShape.class);
 		registerClass(STextureRef.class);
+		registerClass(SMap.class);
+		registerClass(SRoom.class);
 
 	}
 

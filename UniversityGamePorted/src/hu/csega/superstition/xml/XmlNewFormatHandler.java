@@ -316,6 +316,9 @@ class XmlNewFormatHandler implements XmlHandler {
 				String name = e.getKey();
 				if(!"__id".equals(name) && !"__ref".equals(name)) {
 					XmlFieldBinding binding = fields.get(name);
+					if(binding == null)
+						throw new XmlException("Can't find field: " + tagClass.getName() + '.' + name);
+
 					Class<?> valueClass = binding.setter.getParameterTypes()[0];
 					Object param = parse(e.getValue(), valueClass);
 
@@ -331,6 +334,8 @@ class XmlNewFormatHandler implements XmlHandler {
 			for(Object c : node.children) {
 				XmlNode parameterNode = (XmlNode)c;
 				XmlFieldBinding binding = fields.get(parameterNode.tag);
+				if(binding == null)
+					throw new XmlException("Can't find field: " + tagClass.getName() + '.' + parameterNode.tag);
 
 				Class<?> valueClass = binding.setter.getParameterTypes()[0];
 				if(Collection.class.isAssignableFrom(valueClass)) {

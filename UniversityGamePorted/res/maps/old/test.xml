@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Story xmlns="http://tempuri.org/StorySchema.xsd">
-  <Node Text="Start" Texture="" Element="start.x" Special="Start" Weapon="None" X="212" Y="89">
-    <Link ref="Gun" />
-  </Node>
-  <Node Text="Gun" Texture="" Element="" Special="None" Weapon="Gun" X="122" Y="165">
-    <Link ref="Start" />
-  </Node>
-</Story>
