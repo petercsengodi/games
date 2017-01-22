@@ -173,6 +173,16 @@ public class XmlBinding {
 		registerClass(CTexID.class);
 
 		// New model in game
+		registerClass(hu.csega.superstition.gamelib.model.SAnimation.class);
+		registerClass(hu.csega.superstition.gamelib.model.SMesh.class);
+		registerClass(hu.csega.superstition.gamelib.model.SMeshRef.class);
+		registerClass(hu.csega.superstition.gamelib.model.STriangle.class);
+		registerClass(hu.csega.superstition.gamelib.model.SVertex.class);
+		registerClass(hu.csega.superstition.gamelib.model.SBodyPart.class);
+		registerClass(hu.csega.superstition.gamelib.model.SEdge.class);
+		registerClass(hu.csega.superstition.gamelib.model.SShape.class);
+		registerClass(hu.csega.superstition.gamelib.model.STextureRef.class);
+
 	}
 
 }
