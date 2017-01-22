@@ -1,11 +1,17 @@
-package hu.csega.superstition.gamelib.model.animation;
+package hu.csega.superstition.gamelib.model;
 
-import hu.csega.superstition.gamelib.model.SObject;
 import hu.csega.superstition.xml.XmlClass;
 import hu.csega.superstition.xml.XmlField;
 
-@XmlClass("Superstition.MeshRef")
-public class SMeshRef implements SObject {
+@XmlClass("Superstition.AnimationRef")
+public class SAnimationRef implements SObject {
+
+	public SAnimationRef() {
+	}
+
+	public SAnimationRef(String name) {
+		this.name = name;
+	}
 
 	@XmlField("name")
 	public String getName() {
@@ -19,7 +25,7 @@ public class SMeshRef implements SObject {
 
 	@Override
 	public String toString() {
-		return "MeshRef: " + name;
+		return "AnimationRef: " + name;
 	}
 
 	@Override
@@ -38,7 +44,7 @@ public class SMeshRef implements SObject {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		SMeshRef other = (SMeshRef) obj;
+		SAnimationRef other = (SAnimationRef) obj;
 		if (name == null) {
 			if (other.name != null)
 				return false;

@@ -3,6 +3,7 @@ package hu.csega.superstition.gamelib.model.animation;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
+import hu.csega.superstition.gamelib.model.SMeshRef;
 import hu.csega.superstition.gamelib.model.SObject;
 import hu.csega.superstition.xml.XmlClass;
 import hu.csega.superstition.xml.XmlField;

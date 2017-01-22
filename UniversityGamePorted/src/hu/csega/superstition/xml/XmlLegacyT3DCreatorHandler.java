@@ -171,7 +171,7 @@ class XmlLegacyT3DCreatorHandler implements XmlHandler {
 		if(n == null || n.length() == 0)
 			return 0f;
 
-		return Float.parseFloat(n);
+		return Float.parseFloat(n.replace(',', '.'));
 	}
 
 	public Object resolveVectorsAndMatrices(XmlNode node) {
@@ -237,10 +237,16 @@ class XmlLegacyT3DCreatorHandler implements XmlHandler {
 					parameterValue = parameterNode.children.get(0);
 				} else {
 					String s = parameterNode.content.toString();
-					if(s != null && s.length() > 0 && XmlBinding.isKindOfPrimitive(valueClass)) {
-						parameterValue = parse(s, valueClass);
+					if(s != null && s.length() > 0) {
+						if(XmlBinding.isKindOfPrimitive(valueClass)) {
+							parameterValue = parse(s, valueClass);
+						} else {
+							throw new XmlException("Couldn't set: " + tagClass.getName() + '.' + parameterNode.tag);
+						}
 					} else {
-						throw new XmlException("Couldn't set: " + tagClass.getName() + '.' + parameterNode.tag);
+						// let it go
+						parameterValue = null;
+						continue;
 					}
 				}
 

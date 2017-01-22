@@ -3,7 +3,7 @@ package hu.csega.superstition.gamelib.model.story;
 import java.util.List;
 
 import hu.csega.superstition.gamelib.model.SObject;
-import hu.csega.superstition.gamelib.model.mesh.STextureRef;
+import hu.csega.superstition.gamelib.model.STextureRef;
 import hu.csega.superstition.xml.XmlClass;
 import hu.csega.superstition.xml.XmlField;
 

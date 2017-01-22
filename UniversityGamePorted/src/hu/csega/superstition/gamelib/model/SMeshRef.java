@@ -1,11 +1,17 @@
-package hu.csega.superstition.gamelib.model.mesh;
+package hu.csega.superstition.gamelib.model;
 
-import hu.csega.superstition.gamelib.model.SObject;
 import hu.csega.superstition.xml.XmlClass;
 import hu.csega.superstition.xml.XmlField;
 
-@XmlClass("Superstition.TextureRef")
-public class STextureRef implements SObject {
+@XmlClass("Superstition.MeshRef")
+public class SMeshRef implements SObject {
+
+	public SMeshRef() {
+	}
+
+	public SMeshRef(String name) {
+		this.name = name;
+	}
 
 	@XmlField("name")
 	public String getName() {
@@ -19,7 +25,7 @@ public class STextureRef implements SObject {
 
 	@Override
 	public String toString() {
-		return "TextureRef: " + name;
+		return "MeshRef: " + name;
 	}
 
 	@Override
@@ -38,7 +44,7 @@ public class STextureRef implements SObject {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		STextureRef other = (STextureRef) obj;
+		SMeshRef other = (SMeshRef) obj;
 		if (name == null) {
 			if (other.name != null)
 				return false;

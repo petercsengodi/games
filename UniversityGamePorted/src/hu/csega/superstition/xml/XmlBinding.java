@@ -18,14 +18,15 @@ import hu.csega.superstition.gamelib.legacy.modeldata.CModel;
 import hu.csega.superstition.gamelib.legacy.modeldata.CTexID;
 import hu.csega.superstition.gamelib.legacy.modeldata.CTriangle;
 import hu.csega.superstition.gamelib.legacy.modeldata.CVertex;
+import hu.csega.superstition.gamelib.model.SAnimationRef;
+import hu.csega.superstition.gamelib.model.SMeshRef;
+import hu.csega.superstition.gamelib.model.STextureRef;
 import hu.csega.superstition.gamelib.model.animation.SAnimation;
 import hu.csega.superstition.gamelib.model.animation.SBodyPart;
 import hu.csega.superstition.gamelib.model.animation.SConnection;
-import hu.csega.superstition.gamelib.model.animation.SMeshRef;
 import hu.csega.superstition.gamelib.model.mesh.SEdge;
 import hu.csega.superstition.gamelib.model.mesh.SMesh;
 import hu.csega.superstition.gamelib.model.mesh.SShape;
-import hu.csega.superstition.gamelib.model.mesh.STextureRef;
 import hu.csega.superstition.gamelib.model.mesh.STriangle;
 import hu.csega.superstition.gamelib.model.mesh.SVertex;
 import hu.csega.superstition.gamelib.model.story.SMap;
@@ -187,16 +188,20 @@ public class XmlBinding {
 		registerClass(CTexID.class);
 
 		// New model in game
+		registerClass(SAnimationRef.class);
+		registerClass(SMeshRef.class);
+		registerClass(STextureRef.class);
+
 		registerClass(SAnimation.class);
 		registerClass(SBodyPart.class);
 		registerClass(SConnection.class);
-		registerClass(SMeshRef.class);
+
 		registerClass(SMesh.class);
 		registerClass(STriangle.class);
 		registerClass(SVertex.class);
 		registerClass(SEdge.class);
 		registerClass(SShape.class);
-		registerClass(STextureRef.class);
+
 		registerClass(SMap.class);
 		registerClass(SRoom.class);
 

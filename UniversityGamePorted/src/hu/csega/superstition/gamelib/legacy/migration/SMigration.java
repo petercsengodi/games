@@ -17,15 +17,15 @@ import hu.csega.superstition.gamelib.legacy.modeldata.CModel;
 import hu.csega.superstition.gamelib.legacy.modeldata.CTexID;
 import hu.csega.superstition.gamelib.legacy.modeldata.CTriangle;
 import hu.csega.superstition.gamelib.legacy.modeldata.CVertex;
+import hu.csega.superstition.gamelib.model.SMeshRef;
 import hu.csega.superstition.gamelib.model.SObject;
+import hu.csega.superstition.gamelib.model.STextureRef;
 import hu.csega.superstition.gamelib.model.animation.SAnimation;
 import hu.csega.superstition.gamelib.model.animation.SBodyPart;
 import hu.csega.superstition.gamelib.model.animation.SConnection;
-import hu.csega.superstition.gamelib.model.animation.SMeshRef;
 import hu.csega.superstition.gamelib.model.mesh.SEdge;
 import hu.csega.superstition.gamelib.model.mesh.SMesh;
 import hu.csega.superstition.gamelib.model.mesh.SShape;
-import hu.csega.superstition.gamelib.model.mesh.STextureRef;
 import hu.csega.superstition.gamelib.model.mesh.STriangle;
 import hu.csega.superstition.gamelib.model.mesh.SVertex;
 
@@ -107,7 +107,8 @@ public class SMigration {
 		converted = new SShape();
 		alreadyConverted.put(input, converted);
 
-		STextureRef texture = migrateCTexID(input.getTexID());
+		CTexID textureRef = input.getTexID();
+		STextureRef texture = (textureRef != null ? migrateCTexID(textureRef) : null);
 
 		List<SVertex> vertices = new ArrayList<>();
 		for(CVertex v : input.getVertices()) {
@@ -275,6 +276,9 @@ public class SMigration {
 	}
 
 	private STextureRef migrateCTexID(CTexID input) {
+		if(input == null)
+			return null;
+
 		STextureRef converted = (STextureRef)alreadyConverted.get(input);
 		if(converted != null)
 			return converted;
