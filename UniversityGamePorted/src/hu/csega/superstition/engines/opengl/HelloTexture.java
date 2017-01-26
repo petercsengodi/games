@@ -13,20 +13,24 @@ import static com.jogamp.opengl.GL.GL_NO_ERROR;
 import static com.jogamp.opengl.GL.GL_OUT_OF_MEMORY;
 import static com.jogamp.opengl.GL2ES2.GL_FRAGMENT_SHADER;
 import static com.jogamp.opengl.GL2ES2.GL_VERTEX_SHADER;
+import static org.apache.log4j.Logger.getLogger;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+import org.apache.log4j.Logger;
+
+import com.jogamp.nativewindow.WindowClosingProtocol.WindowClosingMode;
 import com.jogamp.nativewindow.util.Dimension;
 import com.jogamp.newt.Display;
 import com.jogamp.newt.NewtFactory;
 import com.jogamp.newt.Screen;
 import com.jogamp.newt.event.KeyEvent;
 import com.jogamp.newt.event.KeyListener;
+import com.jogamp.newt.event.WindowAdapter;
+import com.jogamp.newt.event.WindowEvent;
 import com.jogamp.newt.opengl.GLWindow;
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL3;
@@ -81,6 +85,20 @@ public class HelloTexture implements GLEventListener, KeyListener, Disposable {
         glWindow.confinePointer(mouseConfined);
         glWindow.setTitle(title);
         glWindow.setVisible(true);
+
+        glWindow.setDefaultCloseOperation(WindowClosingMode.DO_NOTHING_ON_CLOSE);
+        glWindow.addWindowListener(new WindowAdapter() {
+        	@Override
+        	public void windowDestroyNotify(WindowEvent arg0) {
+        		logger.info("notified");
+                env.notifyExitting();
+        	}
+
+        	@Override
+        	public void windowDestroyed(WindowEvent arg0) {
+        		logger.info("destroyed");
+        	}
+		});
 
         glWindow.addGLEventListener(this);
         glWindow.addKeyListener(this);
@@ -260,7 +278,7 @@ public class HelloTexture implements GLEventListener, KeyListener, Disposable {
             gl3.glBindTexture(GL3.GL_TEXTURE_2D, 0);
 
         } catch (IOException ex) {
-            Logger.getLogger(HelloTexture.class.getName()).log(Level.SEVERE, null, ex);
+        	logger.error("IOException in texture initialization.", ex);
         }
     }
 
@@ -341,22 +359,6 @@ public class HelloTexture implements GLEventListener, KeyListener, Disposable {
     @Override
     public void dispose(GLAutoDrawable drawable) {
         System.out.println("dispose");
-
-        GL3 gl3 = drawable.getGL().getGL3();
-
-        gl3.glDeleteProgram(program);
-        /**
-         * Clean VAO first in order to minimize problems. If you delete IBO
-         * first, VAO will still have the IBO id, this may lead to crashes.
-         */
-        gl3.glDeleteVertexArrays(1, objects, objects[Semantic.Object.VAO]);
-
-        gl3.glDeleteBuffers(1, objects, Semantic.Object.VBO);
-
-        gl3.glDeleteBuffers(1, objects, Semantic.Object.IBO);
-
-        gl3.glDeleteTextures(1, objects, Semantic.Object.TEXTURE);
-
         env.notifyExitting();
     }
 
@@ -481,8 +483,7 @@ public class HelloTexture implements GLEventListener, KeyListener, Disposable {
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            animator.remove(glWindow);
-            glWindow.destroy();
+            env.notifyExitting();
         }
     }
 
@@ -493,6 +494,32 @@ public class HelloTexture implements GLEventListener, KeyListener, Disposable {
 
 	@Override
 	public void dispose() {
+        logger.info("Disposing started.");
+
+        logger.info("Removing window from animator.");
+        animator.remove(glWindow);
+
+		logger.info("Aksing for GL3.");
+        GL3 gl3 = glWindow.getGL().getGL3();
+
+		logger.info("Releasing resources");
+		gl3.glDeleteProgram(program);
+        /**
+         * Clean VAO first in order to minimize problems. If you delete IBO
+         * first, VAO will still have the IBO id, this may lead to crashes.
+         */
+        gl3.glDeleteVertexArrays(1, objects, objects[Semantic.Object.VAO]);
+
+        gl3.glDeleteBuffers(1, objects, Semantic.Object.VBO);
+
+        gl3.glDeleteBuffers(1, objects, Semantic.Object.IBO);
+
+        gl3.glDeleteTextures(1, objects, Semantic.Object.TEXTURE);
+
+		logger.info("Destroying window.");
+        glWindow.destroy();
+
+        logger.info("Disposing done.");
 	}
 
     public void setEnvironment(Environment env) {
@@ -500,5 +527,7 @@ public class HelloTexture implements GLEventListener, KeyListener, Disposable {
     }
 
     private Environment env;
+
+    private static final Logger logger = getLogger(HelloTexture.class);
 
 }
