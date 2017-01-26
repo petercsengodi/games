@@ -34,7 +34,6 @@ public class WireFrameView extends CView
 		base.Dispose( disposing );
 	}
 
-	#region Component Designer generated code
 	/// <summary>
 	/// Required method for Designer support - do not modify
 	/// the contents of this method with the code editor.
@@ -87,7 +86,6 @@ public class WireFrameView extends CView
 		this.ResumeLayout(false);
 
 	}
-	#endregion
 
 	private const double zoom_step = 0.3;
 	private const double move_step = 1.0;

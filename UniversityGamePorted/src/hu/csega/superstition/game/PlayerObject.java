@@ -486,9 +486,9 @@ class PlayerObject extends DynamicObject implements IDisposable {
 					(float)(Math.Cos(Angle - Math.PI / 4.0) * 0.3)));
 		}
 
-		#endregion
 
-		#region Post-Functionalities
+
+
 
 		if(GoForward) diff = Vector3.Add(diff, new Vector3(
 				(float) (Math.Sin(Angle) * step),

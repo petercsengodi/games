@@ -37,18 +37,12 @@ public class Shadow {
 		Vector3[,] positions = new Vector3[n, 3];
 		Vector3[] normals = new Vector3[n];
 
-		#region Getting Vertex Positions
-
 		for(int i = 0; i < n; i++)
 		{
 			positions[i,0] = vertices[indices[i * 3]].Position;
 			positions[i,1] = vertices[indices[i * 3 + 1]].Position;
 			positions[i,2] = vertices[indices[i * 3 + 2]].Position;
 		}
-
-		#endregion
-
-		#region Counting Normals of Triangles
 
 		Vector3[] t = new Vector3[3];
 		Vector3[] vn = new Vector3[3];
@@ -80,13 +74,9 @@ public class Shadow {
 			}
 		}
 
-		#endregion
-
 		temp.UnlockVertexBuffer();
 		temp.UnlockIndexBuffer();
 		temp.Dispose();
-
-		#region Build Shadow Volume Triangles
 
 		originals = n;
 		sides = n * 3;
@@ -134,7 +124,6 @@ public class Shadow {
 		istream.Dispose();
 		ibuffer.Unlock();
 
-		#endregion
 	}
 
 

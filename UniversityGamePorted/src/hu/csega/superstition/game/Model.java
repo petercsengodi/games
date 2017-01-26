@@ -164,7 +164,7 @@ public class Model implements IModel, IPeriod {
 				new Vector3(-0.25f, -0.5f, -0.25f), new Vector3(0.25f, 0.75f, 0.25f));
 		player.Model = this;
 
-		#region Load Story from an Xml File
+
 
 		Room actual; String tmp; XmlNode tmp_node;
 		ArrayList Rooms = new ArrayList(), Texts = new ArrayList();
@@ -249,7 +249,7 @@ public class Model implements IModel, IPeriod {
 			}
 		}
 
-		#endregion
+
 
 		//		generator.MakeDense(); // !!!
 		Map = generator.Generate();
@@ -268,7 +268,7 @@ public class Model implements IModel, IPeriod {
 				as StartPlace).Position;
 	}
 
-	#region IModel Members
+
 
 	@Override
 	public void Initialize(Engine _engine)
@@ -499,9 +499,9 @@ public class Model implements IModel, IPeriod {
 		(theme as IDisposable).Dispose();
 	}
 
-	#endregion
 
-	#region IPeriod Members
+
+
 
 	@Override
 	public void Period()
@@ -544,7 +544,7 @@ public class Model implements IModel, IPeriod {
 		}
 	}
 
-	#endregion
+
 
 	public void RoomPeriod(object theme)
 	{

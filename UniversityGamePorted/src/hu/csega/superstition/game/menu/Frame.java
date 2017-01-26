@@ -118,8 +118,6 @@ public class Frame {
 		}
 	}
 
-	#region IDisposable Members
-
 	public void Dispose()
 	{
 		for(int i = 0; i < triangles.Length; i++)
@@ -128,5 +126,4 @@ public class Frame {
 		}
 	}
 
-	#endregion
 }

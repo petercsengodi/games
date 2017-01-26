@@ -74,7 +74,7 @@ public class NormalPreview extends JPanel
 	}
 
 
-	#region Windows Form Designer generated code
+
 	/// <summary>
 	/// Required method for Designer support - do not modify
 	/// the contents of this method with the code editor.
@@ -104,7 +104,7 @@ public class NormalPreview extends JPanel
 		this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.NormalPreview_MouseMove);
 
 	}
-	#endregion
+
 
 	private void NormalPreview_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
 	{

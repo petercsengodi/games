@@ -48,10 +48,10 @@ public class AnimaTool extends System.Windows.Forms.Form
 		InitializeComponent();
 
 		file_control = new FileOperations.FileControl(
-			"Animation files (*.anm)|*.anm|All files (*.*)|*.*",
-			@"..\..\..\Superstition\bin\anims\",
-			new FileOperations.FileOperation(LoadFile),
-			new FileOperations.FileOperation(SaveFile));
+				"Animation files (*.anm)|*.anm|All files (*.*)|*.*",
+				@"..\..\..\Superstition\bin\anims\",
+				new FileOperations.FileOperation(LoadFile),
+				new FileOperations.FileOperation(SaveFile));
 
 		model = new CModel();
 		model.RegisterView(dxview);
@@ -84,7 +84,6 @@ public class AnimaTool extends System.Windows.Forms.Form
 		base.Dispose( disposing );
 	}
 
-	#region Windows Form Designer generated code
 	/// <summary>
 	/// Required method for Designer support - do not modify
 	/// the contents of this method with the code editor.
@@ -142,19 +141,19 @@ public class AnimaTool extends System.Windows.Forms.Form
 		// mainMenu1
 		//
 		this.mainMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																				  this.menuItem1,
-																				  this.menuItem7,
-																				  this.menuItem8});
+				this.menuItem1,
+				this.menuItem7,
+				this.menuItem8});
 		//
 		// menuItem1
 		//
 		this.menuItem1.Index = 0;
 		this.menuItem1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																				  this.menuItem2,
-																				  this.menuItem3,
-																				  this.menuItem4,
-																				  this.menuItem5,
-																				  this.menuItem6});
+				this.menuItem2,
+				this.menuItem3,
+				this.menuItem4,
+				this.menuItem5,
+				this.menuItem6});
 		this.menuItem1.Text = "File";
 		//
 		// menuItem2
@@ -191,8 +190,8 @@ public class AnimaTool extends System.Windows.Forms.Form
 		//
 		this.menuItem7.Index = 1;
 		this.menuItem7.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																				  this.menuItem10,
-																				  this.menuItem11});
+				this.menuItem10,
+				this.menuItem11});
 		this.menuItem7.Text = "Part";
 		//
 		// menuItem10
@@ -211,7 +210,7 @@ public class AnimaTool extends System.Windows.Forms.Form
 		//
 		this.menuItem8.Index = 2;
 		this.menuItem8.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																				  this.menuItem9});
+				this.menuItem9});
 		this.menuItem8.Text = "Help";
 		//
 		// menuItem9
@@ -372,9 +371,9 @@ public class AnimaTool extends System.Windows.Forms.Form
 		// operation_box
 		//
 		this.operation_box.Items.AddRange(new object[] {
-														   "move",
-														   "zoom",
-														   "rotate"});
+				"move",
+				"zoom",
+		"rotate"});
 		this.operation_box.Location = new System.Drawing.Point(8, 504);
 		this.operation_box.Name = "operation_box";
 		this.operation_box.Size = new System.Drawing.Size(104, 21);
@@ -420,20 +419,13 @@ public class AnimaTool extends System.Windows.Forms.Form
 		this.ResumeLayout(false);
 
 	}
-	#endregion
 
-	/// <summary>
-	/// The main entry point for the application.
-	/// </summary>
-	[STAThread]
 	static void Main()
 	{
 		Application.Run(new AnimaTool());
 	}
 
 	private CModel model;
-
-	#region File Operations
 
 	private FileOperations.FileControl file_control;
 
@@ -446,66 +438,66 @@ public class AnimaTool extends System.Windows.Forms.Form
 
 	private void SaveFile(string file_name)
 	{
-//		XmlDocument doc = new XmlDocument();
-//		XmlNode root = doc.CreateElement("root");
-//		doc.AppendChild(root);
-//
-//		XmlAttribute root_max = doc.CreateAttribute("max");
-//		root_max.Value = model.max_scenes.ToString();
-//		root.Attributes.Append(root_max);
-//
-//		System.Type type = typeof(Matrix);
-//		FieldInfo[] infos = type.GetFields();
-//
-//		foreach(CPart part in model.parts)
-//		{
-//			XmlNode p = doc.CreateElement("part");
-//			root.AppendChild(p);
-//
-//			// mesh file
-//			XmlAttribute source = doc.CreateAttribute("source");
-//			source.Value = part.mesh_file;
-//			p.Attributes.Append(source);
-//
-//			// center_point
-//			XmlNode center = doc.CreateElement("center");
-//			p.AppendChild(center);
-//			XmlAttribute x = doc.CreateAttribute("x");
-//			x.Value = part.center_point.X.ToString();
-//			center.Attributes.Append(x);
-//			XmlAttribute y = doc.CreateAttribute("y");
-//			y.Value = part.center_point.Y.ToString();
-//			center.Attributes.Append(y);
-//			XmlAttribute z = doc.CreateAttribute("z");
-//			z.Value = part.center_point.Z.ToString();
-//			center.Attributes.Append(z);
-//
-//			// connections
-//			XmlAttribute num = doc.CreateAttribute("connections");
-//			num.Value = part.connections.Length.ToString();
-//			p.Attributes.Append(num);
-//
-//			// TODO: connections
-//
-//			// model transform
-//			for(int i = 0; i < model.max_scenes; i++)
-//			{
-//				Matrix m = part.model_transform[i];
-//				XmlNode matrix = doc.CreateElement("matrix");
-//				p.AppendChild(matrix);
-//
-//				for(int j = 0; j < infos.Length; j++)
-//				{
-//					XmlAttribute attr = doc.CreateAttribute(
-//						infos[j].Name);
-//					float val = (float)infos[j].GetValue(m);
-//					attr.Value = val.ToString();
-//					matrix.Attributes.Append(attr);
-//				}
-//			}
-//		}
-//
-//		doc.Save(file_name);
+		//		XmlDocument doc = new XmlDocument();
+		//		XmlNode root = doc.CreateElement("root");
+		//		doc.AppendChild(root);
+		//
+		//		XmlAttribute root_max = doc.CreateAttribute("max");
+		//		root_max.Value = model.max_scenes.ToString();
+		//		root.Attributes.Append(root_max);
+		//
+		//		System.Type type = typeof(Matrix);
+		//		FieldInfo[] infos = type.GetFields();
+		//
+		//		foreach(CPart part in model.parts)
+		//		{
+		//			XmlNode p = doc.CreateElement("part");
+		//			root.AppendChild(p);
+		//
+		//			// mesh file
+		//			XmlAttribute source = doc.CreateAttribute("source");
+		//			source.Value = part.mesh_file;
+		//			p.Attributes.Append(source);
+		//
+		//			// center_point
+		//			XmlNode center = doc.CreateElement("center");
+		//			p.AppendChild(center);
+		//			XmlAttribute x = doc.CreateAttribute("x");
+		//			x.Value = part.center_point.X.ToString();
+		//			center.Attributes.Append(x);
+		//			XmlAttribute y = doc.CreateAttribute("y");
+		//			y.Value = part.center_point.Y.ToString();
+		//			center.Attributes.Append(y);
+		//			XmlAttribute z = doc.CreateAttribute("z");
+		//			z.Value = part.center_point.Z.ToString();
+		//			center.Attributes.Append(z);
+		//
+		//			// connections
+		//			XmlAttribute num = doc.CreateAttribute("connections");
+		//			num.Value = part.connections.Length.ToString();
+		//			p.Attributes.Append(num);
+		//
+		//			// TODO: connections
+		//
+		//			// model transform
+		//			for(int i = 0; i < model.max_scenes; i++)
+		//			{
+		//				Matrix m = part.model_transform[i];
+		//				XmlNode matrix = doc.CreateElement("matrix");
+		//				p.AppendChild(matrix);
+		//
+		//				for(int j = 0; j < infos.Length; j++)
+		//				{
+		//					XmlAttribute attr = doc.CreateAttribute(
+		//						infos[j].Name);
+		//					float val = (float)infos[j].GetValue(m);
+		//					attr.Value = val.ToString();
+		//					matrix.Attributes.Append(attr);
+		//				}
+		//			}
+		//		}
+		//
+		//		doc.Save(file_name);
 
 		CModelData data = model.GetModelData();
 		XmlHandler.Save(file_name, data);
@@ -537,7 +529,7 @@ public class AnimaTool extends System.Windows.Forms.Form
 
 	private void menuItem6_Click(object sender, System.EventArgs e)
 	{
-//		file_control.Save();
+		//		file_control.Save();
 		Close();
 	}
 
@@ -546,9 +538,6 @@ public class AnimaTool extends System.Windows.Forms.Form
 		file_control.Save();
 		base.OnClosing(e);
 	}
-
-
-	#endregion
 
 	private void menuItem10_Click(object sender, System.EventArgs e)
 	{
@@ -561,7 +550,7 @@ public class AnimaTool extends System.Windows.Forms.Form
 		if(model.Selected != null)
 		{
 			model.DeleteConnectedPart(
-				model.parts.IndexOf(model.Selected));
+					model.parts.IndexOf(model.Selected));
 			model.parts.Remove(model.Selected);
 			model.UpdateViews();
 		}
@@ -613,6 +602,7 @@ public class AnimaTool extends System.Windows.Forms.Form
 
 
 	private static MoveOperation operation = MoveOperation.Move;
+
 	public static MoveOperation GetOperatoion()
 	{
 		return operation;

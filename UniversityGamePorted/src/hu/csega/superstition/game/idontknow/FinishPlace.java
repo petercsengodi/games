@@ -62,8 +62,7 @@ public class FinishPlace extends Clipper implements IGameElement {
 		this.range = 10f;
 		}
 
-	#region IGameObject Members
-
+	@Override
 	public GameLib.GameObjectData getData()
 	{
 		FinishPlaceData ret = new FinishPlaceData();
@@ -93,26 +92,18 @@ public class FinishPlace extends Clipper implements IGameElement {
 		light.DeActivate();
 	}
 
-	#endregion
-
-	#region IRenderObject Members
-
+	@Override
 	public void Render()
 	{
 		element.Render(position, 0f, Angle, 0f);
 	}
 
-	#endregion
-
-	#region IPeriod Members
-
+	@Override
 	public void Period()
 	{
 		Angle += 0.005f;
 		if(Angle > limit) Angle -= limit;
 	}
-
-	#endregion
 
 	public override void PlayerEffect(object player)
 	{

@@ -36,7 +36,7 @@ public class ModelProperties extends JPanel {
 		base.Dispose( disposing );
 	}
 
-	#region Windows Form Designer generated code
+
 	/// <summary>
 	/// Required method for Designer support - do not modify
 	/// the contents of this method with the code editor.
@@ -109,7 +109,7 @@ public class ModelProperties extends JPanel {
 		this.ResumeLayout(false);
 
 	}
-	#endregion
+
 
 
 	protected override void OnClosing(CancelEventArgs e)

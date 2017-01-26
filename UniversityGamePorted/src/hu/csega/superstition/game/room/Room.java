@@ -307,7 +307,7 @@ class Room extends TWLNode implements IClipping, IDisposable, IGameObject, IRend
 			Clips.Add(b);
 		}
 
-		#endregion
+
 
 		foreach(object o in Objects)
 		{

@@ -44,7 +44,7 @@ public class MeshText extends JPanel {
 		base.Dispose( disposing );
 	}
 
-	#region Windows Form Designer generated code
+
 	/// <summary>
 	/// Required method for Designer support - do not modify
 	/// the contents of this method with the code editor.
@@ -142,7 +142,7 @@ public class MeshText extends JPanel {
 		this.ResumeLayout(false);
 
 	}
-	#endregion
+
 
 	private Font font;
 	public Font SelectedFont

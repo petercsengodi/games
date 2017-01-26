@@ -25,8 +25,6 @@ public class AddressList implements IMenu
 		this.helpclass = new MenuHelpClass(param, elements);
 	}
 
-	#region IMenu Members
-
 	@Override
 	public MenuElement[] getMenuElements()
 	{
@@ -62,16 +60,10 @@ public class AddressList implements IMenu
 		return 0;
 	}
 
-	#endregion
-
-	#region IDisposable Members
-
 	public void Dispose()
 	{
 		helpclass.Dispose();
 		// TODO:  Add AddressList.Dispose implementation
 	}
-
-	#endregion
 
 }

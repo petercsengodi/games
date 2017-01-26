@@ -160,6 +160,7 @@ public class Weapon extends Clipable implements IGameElement {
 		}
 	}
 
+	@Override
 	public void Render()
 	{
 		if(status != WeaponStatus.Grabbed)
@@ -171,7 +172,6 @@ public class Weapon extends Clipable implements IGameElement {
 
 	public void squash(StaticVectorLibrary.Direction dir, Vector3 box1, Vector3 box2, Vector3 sqpoint)
 	{
-		#region Falls Back with Energy Loss
 
 		if((dir == StaticVectorLibrary.Left) || (dir == StaticVectorLibrary.Right))
 		{
@@ -196,7 +196,6 @@ public class Weapon extends Clipable implements IGameElement {
 			if(Math.Abs(velocity.Z) < 0.01f) velocity.Z = 0.00f;
 		}
 
-		#endregion
 	}
 
 	public void playerEffect(object player)

@@ -38,7 +38,6 @@ public class WireFrameView extends CView
 		base.Dispose( disposing );
 	}
 
-	#region Component Designer generated code
 	/// <summary>
 	/// Required method for Designer support - do not modify
 	/// the contents of this method with the code editor.
@@ -91,7 +90,6 @@ public class WireFrameView extends CView
 		this.ResumeLayout(false);
 
 	}
-	#endregion
 
 	private const double zoom_step = 0.1;
 	private const double move_step = 1.0;
@@ -103,7 +101,7 @@ public class WireFrameView extends CView
 	private bool show_grid;
 	private Vector3 angle;
 	private const float rotation =
-		(float)Math.PI / (float)18;
+			(float)Math.PI / 18;
 
 	public void SetView(Perspectives perspective)
 	{
@@ -119,32 +117,32 @@ public class WireFrameView extends CView
 
 		switch(perspective)
 		{
-			case Perspectives.Left:
-				view.M31 = 1f;
-				view.M22 = -1f;
-				invert.M13 = 1f;
-				invert.M22 = -1f;
-				label1.Text = "Left";
-				angle.X = rotation;
-				break;
+		case Perspectives.Left:
+			view.M31 = 1f;
+			view.M22 = -1f;
+			invert.M13 = 1f;
+			invert.M22 = -1f;
+			label1.Text = "Left";
+			angle.X = rotation;
+			break;
 
-			case Perspectives.Top:
-				view.M11 = 1f;
-				view.M32 = -1f;
-				invert.M11 = 1f;
-				invert.M23 = -1f;
-				label1.Text = "Top";
-				angle.Y = rotation;
-				break;
+		case Perspectives.Top:
+			view.M11 = 1f;
+			view.M32 = -1f;
+			invert.M11 = 1f;
+			invert.M23 = -1f;
+			label1.Text = "Top";
+			angle.Y = rotation;
+			break;
 
-			default:
-				view.M11 = 1f;
-				view.M22 = -1f;
-				invert.M11 = 1f;
-				invert.M22 = -1f;
-				label1.Text = "Front";
-				angle.Z = -rotation;
-				break;
+		default:
+			view.M11 = 1f;
+			view.M22 = -1f;
+			invert.M11 = 1f;
+			invert.M22 = -1f;
+			label1.Text = "Front";
+			angle.Z = -rotation;
+			break;
 		}
 
 	}
@@ -187,8 +185,8 @@ public class WireFrameView extends CView
 		Graphics g = args.Graphics;
 		g.Clear(Color.LightCyan);
 		g.TranslateTransform(
-			(float)this.Width / 2f,
-			(float)this.Height / 2f);
+				(float)this.Width / 2f,
+				(float)this.Height / 2f);
 
 		Brush brush_normal = new SolidBrush(Color.Black);
 		Pen pen_normal = new Pen(brush_normal);
@@ -205,9 +203,9 @@ public class WireFrameView extends CView
 		Vector3 vorigo = new Vector3(0f, 0f, 0f);
 		Point porigo = Transform(vorigo);
 		g.DrawLine(pen_origo, porigo.X - 10, porigo.Y,
-			porigo.X + 10, porigo.Y);
+				porigo.X + 10, porigo.Y);
 		g.DrawLine(pen_origo, porigo.X, porigo.Y - 10,
-			porigo.X, porigo.Y + 10);
+				porigo.X, porigo.Y + 10);
 
 		Pen pen;
 		Point pos;
@@ -220,13 +218,13 @@ public class WireFrameView extends CView
 		{
 			foreach(CTriangle t in f.triangles)
 			{
-/*
+				/*
 				// test // TODO: Delete
 				Vector3 normal = Vector3.Cross(
 					t.edges[1].from.position - t.edges[0].from.position,
 					t.edges[2].from.position - t.edges[0].from.position);
 				normal.Normalize();
-*/
+				 */
 				foreach(CEdge e in t.edges)
 				{
 					// Draw edge
@@ -234,22 +232,22 @@ public class WireFrameView extends CView
 					p1 = e.from.position;
 					p2 = e.to.position;
 
-/*						// test // TODO: Delete
+					/*						// test // TODO: Delete
 					float res;
 					res = Vector3.Dot(new Vector3(1f, 0f, 0f), normal);
 					if(res > 0) p1 = p1*(1f + 1f/p1.Length());
 					res = Vector3.Dot(new Vector3(1f, 0f, 0f), normal);
 					if(res > 0) p2 = p2*(1f + 1f/p2.Length());
-*/
+					 */
 					if(sel != null)
 					{
 						if(sel.hasPart(e)) pen = pen_selected;
 						if(sel.hasPart(e.from))
 							p1 = Vector3.TransformCoordinate(p1,
-								model.SelectedMatrix);
+									model.SelectedMatrix);
 						if(sel.hasPart(e.to))
 							p2 = Vector3.TransformCoordinate(p2,
-								model.SelectedMatrix);
+									model.SelectedMatrix);
 					}
 					g.DrawLine(pen, Transform(p1), Transform(p2));
 
@@ -266,7 +264,7 @@ public class WireFrameView extends CView
 					pos = Transform(p1);
 					g.DrawRectangle(pen, pos.X - 4, pos.Y - 4, 9, 9);
 
-/*
+					/*
 
 					// test // TODO : delete
 					pen = pen_normal;
@@ -318,7 +316,7 @@ public class WireFrameView extends CView
 					brush_blue.Dispose();
 					pen_blue.Dispose();
 
-*/
+					 */
 
 				} // end of for:Edge
 			} // end of for:Triangle
@@ -396,7 +394,7 @@ public class WireFrameView extends CView
 			Point position;
 			CModel model = (CModel)GetData();
 			Point m = new Point(e.X - this.Width / 2,
-				e.Y - this.Height / 2);
+					e.Y - this.Height / 2);
 
 			foreach(CFigure figure in model.figures)
 			{
@@ -404,7 +402,7 @@ public class WireFrameView extends CView
 				{
 					position = Transform(vertex.position);
 					if((m.X >= position.X - 4) && (m.X <= position.X + 4)
-						&& (m.Y >= position.Y - 4) && (m.Y <= position.Y + 4))
+							&& (m.Y >= position.Y - 4) && (m.Y <= position.Y + 4))
 					{
 						model.Selected = vertex;
 						return;
@@ -431,7 +429,7 @@ public class WireFrameView extends CView
 			IPart part = model.Selected as IPart;
 			if(part == null) return;
 			Operation op = new ScaleSelected(part,
-				model.SelectedMatrix);
+					model.SelectedMatrix);
 			model.Memento.Push(op);
 			model.SelectedMatrix = Matrix.Identity;
 			model.UpdateViews(Updates.Move);
@@ -456,7 +454,7 @@ public class WireFrameView extends CView
 				Point difference = new Point(e.X - origin.X, e.Y - origin.Y);
 				Vector3 from_point = InverseTransform(origin.X, origin.Y);
 				Vector3 direction = to_point - from_point;
-			//	Vector3 direction = InverseTransform(difference.X, difference.Y);
+				//	Vector3 direction = InverseTransform(difference.X, difference.Y);
 				Vector3 tr = part.centerPoint();
 				Vector3 scale = new Vector3(0f, 0f, 0f);
 				if(Math.Abs(tr.X - from_point.X) > double.Epsilon)
@@ -467,36 +465,36 @@ public class WireFrameView extends CView
 					scale.Z = (to_point.Z - tr.Z) / (from_point.Z - tr.Z);
 
 				if(model.SnapToGrid &&
-					T3DCreator.GetOperatoion() == 0)
+						T3DCreator.GetOperatoion() == 0)
 				{
 					direction = SnapToGrid(direction);
 				}
 				if((direction.X != 0f) ||
-					(direction.Y != 0f) ||
-					(direction.Z != 0f))
+						(direction.Y != 0f) ||
+						(direction.Z != 0f))
 				{
 					switch(T3DCreator.GetOperatoion())
 					{
-						case MoveOperation.Rotate:
-							model.SelectedMatrix = model.SelectedMatrix *
-								Matrix.Translation(-tr) *
-								Matrix.RotationX((difference.X + difference.Y) * angle.X * rotation) *
-								Matrix.RotationY((difference.X + difference.Y) * angle.Y * rotation) *
-								Matrix.RotationZ((difference.X + difference.Y) * angle.Z * rotation) *
-								Matrix.Translation(tr);
-							break;
+					case MoveOperation.Rotate:
+						model.SelectedMatrix = model.SelectedMatrix *
+						Matrix.Translation(-tr) *
+						Matrix.RotationX((difference.X + difference.Y) * angle.X * rotation) *
+						Matrix.RotationY((difference.X + difference.Y) * angle.Y * rotation) *
+						Matrix.RotationZ((difference.X + difference.Y) * angle.Z * rotation) *
+						Matrix.Translation(tr);
+						break;
 
-						case MoveOperation.Scale:
-							model.SelectedMatrix = model.SelectedMatrix *
-								Matrix.Translation(-tr) *
-								Matrix.Scaling(scale.X, scale.Y, scale.Z) *
-								Matrix.Translation(tr);
-							break;
+					case MoveOperation.Scale:
+						model.SelectedMatrix = model.SelectedMatrix *
+						Matrix.Translation(-tr) *
+						Matrix.Scaling(scale.X, scale.Y, scale.Z) *
+						Matrix.Translation(tr);
+						break;
 
-						default:
-							model.SelectedMatrix = model.SelectedMatrix
-								* Matrix.Translation(direction);
-							break;
+					default:
+						model.SelectedMatrix = model.SelectedMatrix
+						* Matrix.Translation(direction);
+						break;
 					}
 
 					model.UpdateViews(Updates.Move);
@@ -521,9 +519,9 @@ public class WireFrameView extends CView
 		if(bcontrol[idx].down)
 		{
 			Vector3 tr = new Vector3(
-				(float)((e.X - bcontrol[idx].start_x) * move_step),
-				(float)((e.Y - bcontrol[idx].start_y) * move_step),
-				0f);
+					(float)((e.X - bcontrol[idx].start_x) * move_step),
+					(float)((e.Y - bcontrol[idx].start_y) * move_step),
+					0f);
 			translation += tr;
 			bcontrol[idx].start_x = e.X;
 			bcontrol[idx].start_y = e.Y;

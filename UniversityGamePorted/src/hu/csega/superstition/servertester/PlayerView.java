@@ -1,7 +1,9 @@
 package hu.csega.superstition.servertester;
 
-public class PlayerView : System.Windows.Forms.UserControl
-{
+import javax.swing.JPanel;
+
+public class PlayerView extends JPanel {
+
 	/// <summary>
 	/// Required designer variable.
 	/// </summary>
@@ -93,7 +95,7 @@ public class PlayerView : System.Windows.Forms.UserControl
 		base.Dispose( disposing );
 	}
 
-	#region Component Designer generated code
+
 	/// <summary>
 	/// Required method for Designer support - do not modify
 	/// the contents of this method with the code editor.
@@ -102,5 +104,5 @@ public class PlayerView : System.Windows.Forms.UserControl
 	{
 		components = new System.ComponentModel.Container();
 	}
-	#endregion
+
 }

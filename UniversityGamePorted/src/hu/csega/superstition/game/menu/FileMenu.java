@@ -33,8 +33,6 @@ public class FileMenu implements IMenu {
 		menuhelp = new MenuHelpClass(param, elements);
 	}
 
-	#region IMenu Members
-
 	@Override
 	public MenuElement[] getMenuElements()
 	{
@@ -74,10 +72,6 @@ public class FileMenu implements IMenu {
 		return lastIndex;
 	}
 
-	#endregion
-
-	#region IDisposable Members
-
 	public void Dispose()
 	{
 		foreach(object o in files)
@@ -89,7 +83,7 @@ public class FileMenu implements IMenu {
 		down.Dispose();
 	}
 
-	#endregion
+
 
 	public void Refresh(string dir, string filter, int count, IMenu parent)
 	{

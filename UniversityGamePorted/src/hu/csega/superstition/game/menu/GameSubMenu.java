@@ -45,8 +45,6 @@ public class GameSubMenu extends MenuElement implements IMenu
 		return this;
 	}
 
-	#region IMenu Members
-
 	@Override
 	public MenuElement[] getMenuElements()
 	{
@@ -90,5 +88,4 @@ public class GameSubMenu extends MenuElement implements IMenu
 		menuhelp.Dispose();
 	}
 
-	#endregion
 }

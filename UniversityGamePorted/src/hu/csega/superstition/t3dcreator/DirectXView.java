@@ -37,7 +37,7 @@ public class DirectXView extends CView {
 		base.Dispose( disposing );
 	}
 
-	#region Component Designer generated code
+
 	/// <summary>
 	/// Required method for Designer support - do not modify
 	/// the contents of this method with the code editor.
@@ -80,7 +80,7 @@ public class DirectXView extends CView {
 		this.ResumeLayout(false);
 
 	}
-	#endregion
+
 
 	private const double alfa_step = 0.01, beta_step = 0.01;
 	private const double zoom_step = 0.1;

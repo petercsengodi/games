@@ -40,7 +40,7 @@ public class ColorDisplay extends System.Windows.Forms.UserControl
 		base.Dispose( disposing );
 	}
 
-	#region Component Designer generated code
+
 	/// <summary>
 	/// Required method for Designer support - do not modify
 	/// the contents of this method with the code editor.
@@ -85,7 +85,7 @@ public class ColorDisplay extends System.Windows.Forms.UserControl
 		this.ResumeLayout(false);
 
 	}
-	#endregion
+
 
 	public event ColorChanged ChangeEvent;
 

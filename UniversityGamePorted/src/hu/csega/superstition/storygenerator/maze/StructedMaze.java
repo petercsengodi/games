@@ -20,7 +20,7 @@ class StructedMaze extends GridMaze
 
 	public void Connect(Room from, Room to)
 	{
-		#region Algorythm
+
 
 		int i, j, fromX = 0, fromY = 0, toX = 0, toY = 0;
 		for(i=j=0; j < YSize; i+=1, j+= (i / XSize), i %= XSize)
@@ -98,6 +98,6 @@ class StructedMaze extends GridMaze
 			last = Graph(actX, actY).room;
 		}
 
-		#endregion
+
 	}
 }

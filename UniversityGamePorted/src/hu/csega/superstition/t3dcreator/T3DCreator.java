@@ -115,7 +115,6 @@ public class T3DCreator extends JPanel {
 		base.Dispose( disposing );
 	}
 
-	#region Windows Form Designer generated code
 	/// <summary>
 	/// Required method for Designer support - do not modify
 	/// the contents of this method with the code editor.
@@ -618,13 +617,8 @@ public class T3DCreator extends JPanel {
 		this.ResumeLayout(false);
 
 	}
-	#endregion
 
-	/// <summary>
-	/// The main entry point for the application.
-	/// </summary>
-	[STAThread]
-			static void Main()
+	static void Main()
 	{
 		Application.Run(new T3DCreator());
 	}

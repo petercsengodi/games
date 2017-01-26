@@ -98,7 +98,6 @@ class ThrowableTorch extends DynamicObject
 
 	public override void Squash(StaticVectorLibrary.Direction dir, Vector3 box1, Vector3 box2, Vector3 sqpoint)
 	{
-		#region Falls Back with Energy Loss
 
 		if((dir == StaticVectorLibrary.Left) || (dir == StaticVectorLibrary.Right))
 		{
@@ -123,7 +122,6 @@ class ThrowableTorch extends DynamicObject
 			if(Math.Abs(velocity.Z) < 0.01f) velocity.Z = 0.00f;
 		}
 
-		#endregion
 	}
 
 	@Override

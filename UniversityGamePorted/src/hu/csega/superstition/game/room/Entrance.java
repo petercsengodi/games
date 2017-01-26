@@ -117,7 +117,7 @@ class Entrance extends TWLLink implements IClipping, IDisposable, IGameObject, I
 			hole.Build(engine);
 		}
 
-		#endregion
+
 	}
 
 

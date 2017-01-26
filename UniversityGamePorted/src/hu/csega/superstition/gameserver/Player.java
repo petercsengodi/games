@@ -97,14 +97,14 @@ public class Player {
 		} else return false;
 	}
 
-	#region IDisposable Members
+
 
 	public void Dispose()
 	{
 		Disconnect();
 	}
 
-	#endregion
+
 
 	/// <summary>
 	///

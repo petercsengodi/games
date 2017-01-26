@@ -50,6 +50,6 @@ public class TranslateLight implements IMovingLight
 		position.z = center.z;
 	}
 
-	#endregion
+
 
 }

@@ -56,8 +56,6 @@ public class HostMenu implements IMenu
 		menuhelp = new MenuHelpClass(param, elements);
 	}
 
-	#region IMenu Members
-
 	@Override
 	public MenuElement[] getMenuElements()
 	{
@@ -94,15 +92,10 @@ public class HostMenu implements IMenu
 		return 0;
 	}
 
-	#endregion
-
-	#region IDisposable Members
-
 	public void Dispose()
 	{
 		menuhelp.Dispose();
 		// TODO:  Add HostEntry.Dispose implementation
 	}
 
-	#endregion
 }

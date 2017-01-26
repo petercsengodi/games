@@ -24,8 +24,6 @@ public class MeshElement extends Element {
 				MeshFlags.SystemMemory, engine.Device,
 				out stream, out exmats);
 
-		#region Extracting Material Information
-
 		texs = new Texture[exmats.Length];
 		mats = new Material[exmats.Length];
 
@@ -39,15 +37,9 @@ public class MeshElement extends Element {
 			mats[i].Ambient = exmats[i].Material3D.Diffuse;
 		}
 
-		#endregion
-
-		#region Extracting Adjacency Information
-
 		int[,] adjacency = (int[,])stream.Read(
 				typeof(System.Int32), mesh.NumberFaces, 3);
 		stream.Close();
-
-		#endregion
 
 		texes = exmats.Length;
 		engine.AddToDisposeList(mesh);
@@ -120,14 +112,12 @@ public class MeshElement extends Element {
 		float ret = 0f;
 		Vector3 average = new Vector3(0f, 0f, 0f);
 
-		#region Counting Boundig Sphere
-
 		CustomVertex.PositionNormalTextured[] array =
-		(CustomVertex.PositionNormalTextured[])
-		mesh.LockVertexBuffer(
-				typeof(CustomVertex.PositionNormalTextured),
-				LockFlags.ReadOnly,
-				mesh.NumberVertices);
+				(CustomVertex.PositionNormalTextured[])
+				mesh.LockVertexBuffer(
+						typeof(CustomVertex.PositionNormalTextured),
+						LockFlags.ReadOnly,
+						mesh.NumberVertices);
 
 		for(int i = 0; i < array.Length; i++)
 		{
@@ -144,14 +134,11 @@ public class MeshElement extends Element {
 
 		mesh.UnlockVertexBuffer();
 
-		#endregion
-
 		return ret;
 	}
 
 	public Vector3[] Borders()
 	{
-		#region Counting Bounding Box
 
 		Vector3[] corners = null;
 
@@ -178,8 +165,6 @@ public class MeshElement extends Element {
 		}
 
 		mesh.UnlockVertexBuffer();
-
-		#endregion
 
 		return corners;
 	}

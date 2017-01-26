@@ -98,8 +98,6 @@ public class Engine implements IPeriod
 	{
 		MainFrame.WriteConsole("Starting Engine Initialization");
 
-		#region Screen Device
-
 		// Setting up Direct3D Parameters
 		// Common
 		PresentParameters pparams = new PresentParameters();
@@ -162,10 +160,6 @@ public class Engine implements IPeriod
 			return false; // Do not start application
 		}
 
-		#endregion
-
-		#region Shadow Effect Initialization
-
 		// Shadow Volume Effect Initialization
 		try
 		{
@@ -181,11 +175,7 @@ public class Engine implements IPeriod
 			throw new Exception(err);
 		}
 
-		#endregion
-
 		alive = true; // Needed for good thread functionality
-
-		#region Keyboard Device Initialization
 
 		// Direct KeyBoard
 		try
@@ -211,10 +201,6 @@ public class Engine implements IPeriod
 			return false; // Do not start application
 		}
 
-		#endregion
-
-		#region Mouse Device Initialization
-
 		// Direct Mouse
 		try
 		{
@@ -238,18 +224,11 @@ public class Engine implements IPeriod
 			return false; // Do not start application
 		}
 
-		#endregion
-
-		#region Other Initializations
-
 		// Other Initializations
 		Library.Initialize(this);
 		StaticVectorLibrary.StaticInitializer();
 		state.trigger(true);
 		return alive; // Success
-
-		#endregion
-
 	}
 
 	/// <summary>
@@ -259,7 +238,6 @@ public class Engine implements IPeriod
 	/// <param name="ea">Arguments, not used.</param>
 	private void OnDeviceReset(object sender, EventArgs ea)
 	{
-		#region On Device Reset
 
 		Device device = sender as Device;
 		if(fpsFont != null) fpsFont.OnResetDevice();
@@ -288,7 +266,6 @@ public class Engine implements IPeriod
 
 		//			AddToDisposeList(volume); // Do not delete when disposing a model
 
-		#endregion
 	}
 
 	/// <summary>
@@ -296,7 +273,6 @@ public class Engine implements IPeriod
 	/// </summary>
 	private void RenderInitializing()
 	{
-		#region Render Initialization
 
 		camera = Matrix.PerspectiveFovLH( (float)(Math.PI / 4.0),
 				1.5f, 0.125f /* 1.0f */, 1000.0f);
@@ -316,8 +292,6 @@ public class Engine implements IPeriod
 		// DisposeList.Add(fpsFont); // do not dispose when disposing model
 
 		lights = new Light[8]; for(int i = 0; i < 8; i++) lights[i] = null;
-
-		#endregion
 	}
 
 	/// <summary>
@@ -361,17 +335,11 @@ public class Engine implements IPeriod
 	{
 		alive = false; // Threads should stop
 
-		#region Close Screen Device
-
 		if(device != null)
 		{ // Closing Direct3D
 			device.Dispose();
 			device = null;
 		}
-
-		#endregion
-
-		#region Close Keyboard Device
 
 		if(KeyDevice != null)
 		{ // Closing Keyboard Handling and used Thread
@@ -381,10 +349,6 @@ public class Engine implements IPeriod
 			KeyDevice = null;
 		}
 
-		#endregion
-
-		#region Close Mouse Device
-
 		if(MouseDevice != null)
 		{ // Closing Mouse Handling and used Thread
 			if(MouseFire != null) MouseFire.Set(); // Thread notifies that Engine stopped
@@ -392,10 +356,6 @@ public class Engine implements IPeriod
 			MouseDevice.Dispose();
 			MouseDevice = null;
 		}
-
-		#endregion
-
-		#region Dispose Other Things
 
 		// Other Destructions
 		Library.SDispose();
@@ -429,8 +389,6 @@ public class Engine implements IPeriod
 			DisposeList.Clear();
 		}
 
-		#endregion
-
 		MainFrame.WriteConsole("Engine Closed.");
 	}
 
@@ -441,8 +399,6 @@ public class Engine implements IPeriod
 	private void HandleMouse()
 	{
 		MainFrame.WriteConsole("Mouse Handle Thread Started");
-
-		#region Mouse Handling
 
 		while(alive)
 		{
@@ -492,8 +448,6 @@ public class Engine implements IPeriod
 			//				WriteConsole("MouseEvent");
 		}
 
-		#endregion
-
 		MainFrame.WriteConsole("Mouse Handle Thread Closed.");
 	}
 
@@ -504,8 +458,6 @@ public class Engine implements IPeriod
 	private void HandleKeyboard()
 	{
 		MainFrame.WriteConsole("Keyboard Handle Thread Started");
-
-		#region Keyboard Handling
 
 		while(alive)
 		{
@@ -559,8 +511,6 @@ public class Engine implements IPeriod
 
 			Monitor.Exit(this);
 		}
-
-		#endregion
 
 		MainFrame.WriteConsole("Keyboard Handle Thread Closed.");
 	}
@@ -709,8 +659,6 @@ public class Engine implements IPeriod
 		IModel model = state.Model;
 		if(model == null) return;
 
-		#region Initializing
-
 		// Render Initialization
 		device.Clear(ClearFlags.Target | ClearFlags.ZBuffer | ClearFlags.Stencil, Color.Black, 1.0f, 0x20);
 
@@ -724,18 +672,10 @@ public class Engine implements IPeriod
 
 		//		device.SamplerState[0].MagFilter = TextureFilter.GaussianQuad;
 
-		#endregion
 
 		//		device.RenderState.Lighting = false;
 
-		#region Projection Matrix
-
 		device.Transform.Projection = camera;
-
-		#endregion
-
-		#region View Matrix
-
 
 		view_matrix = Matrix.LookAtLH(model.GetViewPosition(),
 				Vector3.Add(model.GetViewPosition(), model.GetViewDirection()),
@@ -743,13 +683,9 @@ public class Engine implements IPeriod
 
 		device.Transform.View = view_matrix;
 
-		#endregion
-
 		//		device.RenderState.Lighting = false;
 
 		//		options.depth_algorythm = DepthAlgorythm.Pass;
-
-		#region First Rendering: With Lights
 
 		// First Rendering: With lights
 		isLighted = true;
@@ -759,52 +695,45 @@ public class Engine implements IPeriod
 		model.Render();
 		isLighted = false;
 
-		#endregion
 
 		//		device.RenderState.Lighting = true;
 
 		if(options.renderShadow)
 		{
-			#region Second Rendering: Volume
+
 
 			// Second rendering: Two faces of volumes
 			device.RenderState.Lighting = false;
-		device.RenderState.StencilEnable = true;
-		device.SetTexture(0, null);
-		isShadowRendering = true;
-		device.RenderState.ZBufferWriteEnable = false;
-		device.RenderState.StencilFunction = Compare.Always;
-		device.RenderState.ColorWriteEnable = 0;
+			device.RenderState.StencilEnable = true;
+			device.SetTexture(0, null);
+			isShadowRendering = true;
+			device.RenderState.ZBufferWriteEnable = false;
+			device.RenderState.StencilFunction = Compare.Always;
+			device.RenderState.ColorWriteEnable = 0;
 
-		model.Render();
+			model.Render();
 
-		device.RenderState.ColorWriteEnable = ColorWriteEnable.RedGreenBlueAlpha;
-		device.RenderState.StencilZBufferFail = StencilOperation.Keep;
-		device.RenderState.StencilPass = StencilOperation.Keep;
-		device.RenderState.ColorVertex = true;
-		isShadowRendering = false;
-		device.RenderState.Lighting = true;
+			device.RenderState.ColorWriteEnable = ColorWriteEnable.RedGreenBlueAlpha;
+			device.RenderState.StencilZBufferFail = StencilOperation.Keep;
+			device.RenderState.StencilPass = StencilOperation.Keep;
+			device.RenderState.ColorVertex = true;
+			isShadowRendering = false;
+			device.RenderState.Lighting = true;
 
-		#endregion
+			// Third Rendering: Without lights
+			device.RenderState.ReferenceStencil = actualReferenceValue;
+			device.Clear(ClearFlags.ZBuffer, Color.Cyan, 1.0f, 0);
+			device.RenderState.ZBufferWriteEnable = true;
+			//			device.RenderState.StencilFunction = Compare.Less;
+			device.RenderState.StencilFunction = Compare.NotEqual;
 
-		#region Third Rendering: Without Lights
+			model.Render();
+			device.RenderState.StencilEnable = false;
 
-		// Third Rendering: Without lights
-		device.RenderState.ReferenceStencil = actualReferenceValue;
-		device.Clear(ClearFlags.ZBuffer, Color.Cyan, 1.0f, 0);
-		device.RenderState.ZBufferWriteEnable = true;
-		//			device.RenderState.StencilFunction = Compare.Less;
-		device.RenderState.StencilFunction = Compare.NotEqual;
-
-		model.Render();
-		device.RenderState.StencilEnable = false;
-
-		#endregion
 		}
 
 		Monitor.Exit(this);
 
-		#region Draw FPS
 
 		if(options.fpsView)
 		{
@@ -812,7 +741,6 @@ public class Engine implements IPeriod
 					DrawTextFormat.NoClip, Color.WhiteSmoke);
 		}
 
-		#endregion
 
 		for(int i = 0; i < 8; i++)
 		{
@@ -833,7 +761,6 @@ public class Engine implements IPeriod
 	/// <param name="c"></param>
 	public void RenderVolume(Vector3 va, Vector3 vb, Vector3 vc)
 	{
-		#region Initializing
 
 		// For element shadows
 		Vector3 a, b, c;
@@ -851,12 +778,9 @@ public class Engine implements IPeriod
 		// results a positive float number
 		float signum = Vector3.Dot(dir, normal);
 
-		#endregion
-
 		// Creating body
 		if(signum >= 0f)
 		{
-			#region Drawing Volume
 
 			Matrix other = new Matrix();
 			float d = (light - a).Length();
@@ -894,7 +818,6 @@ public class Engine implements IPeriod
 
 				device.RenderState.CullMode = Cull.CounterClockwise;
 
-				#region Testing if player inside in volume
 
 				Vector3 p = state.Model.GetViewPosition();
 				Vector3 dir2 = Vector3.Subtract(p, a);
@@ -914,7 +837,6 @@ public class Engine implements IPeriod
 					} // end if
 				} // end if
 
-				#endregion
 
 			}
 			else
@@ -938,8 +860,6 @@ public class Engine implements IPeriod
 				device.RenderState.ZBufferFunction = Compare.LessEqual;
 			}
 
-			#endregion
-
 		} // end if signum > 0f
 
 		// For element shadows
@@ -956,71 +876,62 @@ public class Engine implements IPeriod
 	public void RenderVolume(VolumeRender volume_render,
 			Mesh mesh, int subsets, Matrix inverz)
 	{
-		#region Setting up effect parameters - OLD : COMMENTED
 
 		Matrix w = device.Transform.World,
-		vp = device.Transform.View * device.Transform.Projection;
-	shadowEffect.SetValue("World", w);
-	shadowEffect.SetValue("WIT", Matrix.TransposeMatrix(Matrix.Invert(w)));
-	shadowEffect.SetValue("ViewProj", vp);
-	shadowEffect.SetValue("LightPos", new Vector4(light.X, light.Y, light.Z, 20f));
+				vp = device.Transform.View * device.Transform.Projection;
+		shadowEffect.SetValue("World", w);
+		shadowEffect.SetValue("WIT", Matrix.TransposeMatrix(Matrix.Invert(w)));
+		shadowEffect.SetValue("ViewProj", vp);
+		shadowEffect.SetValue("LightPos", new Vector4(light.X, light.Y, light.Z, 20f));
 
-	#endregion
 
-	#region Setting uo effect parameters - ACTUAL
+		//		Matrix w = device.Transform.World,
+		//			vp = device.Transform.View * device.Transform.Projection;
+		//		shadowEffect.SetValue("World", w);
+		//		shadowEffect.SetValue("ViewProj", vp);
+		//		shadowEffect.SetValue("LightPos",
+		//			new Vector4(light.X, light.Y, light.Z, 20f));
+		//		Vector3 matrix_center = Vector3.TransformCoordinate(
+		//			new Vector3(0f, 0f, 0f), w);
+		//		shadowEffect.SetValue("mpos", new Vector4(
+		//			matrix_center.X, matrix_center.Y, matrix_center.Z, 1f));
 
-	//		Matrix w = device.Transform.World,
-	//			vp = device.Transform.View * device.Transform.Projection;
-	//		shadowEffect.SetValue("World", w);
-	//		shadowEffect.SetValue("ViewProj", vp);
-	//		shadowEffect.SetValue("LightPos",
-	//			new Vector4(light.X, light.Y, light.Z, 20f));
-	//		Vector3 matrix_center = Vector3.TransformCoordinate(
-	//			new Vector3(0f, 0f, 0f), w);
-	//		shadowEffect.SetValue("mpos", new Vector4(
-	//			matrix_center.X, matrix_center.Y, matrix_center.Z, 1f));
+		device.RenderState.Clipping = false;
 
-	#endregion
+		shadowEffect.Begin(0);
+		shadowEffect.BeginPass(0);
 
-	device.RenderState.Clipping = false;
+		volume_render();
 
-	shadowEffect.Begin(0);
-	shadowEffect.BeginPass(0);
+		shadowEffect.EndPass();
+		shadowEffect.End();
 
-	volume_render();
+		device.RenderState.Clipping = true;
 
-	shadowEffect.EndPass();
-	shadowEffect.End();
-
-	device.RenderState.Clipping = true;
-
-	if(options.depth_algorythm == DepthAlgorythm.Pass)
-	{
-
-		#region Checking if player is inside of Shadow Volume
-
-		//			inverz = device.Transform.World;
-		//			inverz.Invert();
-
-		Vector3 p = Vector3.TransformCoordinate(state.Model.GetViewPosition(), inverz);
-		Vector3 l = Vector3.TransformCoordinate(this.light, inverz);
-		Vector3 difference = l-p;
-		Vector3 dir = Vector3.Normalize(difference);
-		IntersectInformation inf;
-		if(mesh.Intersect(p, dir, out inf) && (inf.Dist < difference.Length()))
+		if(options.depth_algorythm == DepthAlgorythm.Pass)
 		{
-			actualReferenceValue--;
-			//				if(actualReferenceValue <= 0)
-			//					Console.WriteLine(actualReferenceValue);
+
+
+			//			inverz = device.Transform.World;
+			//			inverz.Invert();
+
+			Vector3 p = Vector3.TransformCoordinate(state.Model.GetViewPosition(), inverz);
+			Vector3 l = Vector3.TransformCoordinate(this.light, inverz);
+			Vector3 difference = l-p;
+			Vector3 dir = Vector3.Normalize(difference);
+			IntersectInformation inf;
+			if(mesh.Intersect(p, dir, out inf) && (inf.Dist < difference.Length()))
+			{
+				actualReferenceValue--;
+				//				if(actualReferenceValue <= 0)
+				//					Console.WriteLine(actualReferenceValue);
+			}
+
+
 		}
-
-		#endregion
-
-	}
 
 	} // End of method
 
-	#region IPeriod Members
 
 	@Override
 	public void Period()
@@ -1029,6 +940,5 @@ public class Engine implements IPeriod
 		if(model != null) model.Period();
 	}
 
-	#endregion
 
 } // End of Engine

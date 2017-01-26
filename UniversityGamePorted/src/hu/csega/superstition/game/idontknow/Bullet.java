@@ -43,27 +43,18 @@ public class Bullet extends DynamicObject implements IGameElement {
 		this.radius = 0f;
 		}
 
-	#region IGameElement Members
-
 	public void SetModel(Model model)
 	{
 		this.model = model;
 	}
 
-	#endregion
-
-	#region IPeriod Members
-
+	@Override
 	public override void Period()
 	{
 		float deltat = 0.04f;
 		velocity.Y -= /*10f*/5f * deltat / 2f;
 		base.Period();
 	} // End of function Period
-
-	#endregion
-
-	#region IGameObject Members
 
 	public override GameObjectData getData()
 	{
@@ -83,8 +74,7 @@ public class Bullet extends DynamicObject implements IGameElement {
 		corner2 = new Vector3(radius, radius, radius);
 	}
 
-	#endregion
-
+	@Override
 	public override void Render()
 	{
 		bullet.Render(position, velocity);

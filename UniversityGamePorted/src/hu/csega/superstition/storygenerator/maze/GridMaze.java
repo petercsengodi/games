@@ -6,13 +6,13 @@ import hu.csega.superstition.util.StaticRandomLibrary;
 
 class GridMaze implements IGeneratedMaze
 {
-	#region Texture Libraries
+
 
 	//	string[] walls, floors, stairs;
 
-	#endregion
 
-	#region Attributes
+
+
 
 	private int xsize, ysize;
 	public int XSize
@@ -40,9 +40,9 @@ class GridMaze implements IGeneratedMaze
 
 	protected double[] distribution;
 
-	#endregion
 
-	#region Node Type
+
+
 
 	protected enum Connection
 	{
@@ -76,7 +76,7 @@ class GridMaze implements IGeneratedMaze
 
 	}
 
-	#endregion
+
 
 	public GridMaze(int xsize, int ysize)
 	{
@@ -89,12 +89,12 @@ class GridMaze implements IGeneratedMaze
 
 	}
 
-	#region Graph Building
+
 
 	private Node[,] graph;
 	private void SetUpGraph()
 	{
-		#region Instatiate
+
 
 		graph = new Node[xsize, ysize];
 		for(int i = 0; i < xsize; i++)
@@ -106,9 +106,9 @@ class GridMaze implements IGeneratedMaze
 			}
 		}
 
-		#endregion
 
-		#region Set Borders
+
+
 
 		for(int i = 0; i < xsize; i++)
 		{
@@ -125,9 +125,9 @@ class GridMaze implements IGeneratedMaze
 				graph[xsize-1, i].right = Connection.None;
 		}
 
-		#endregion
 
-		#region Set Structure
+
+
 
 		for(int i = 0; i < xsize; i++)
 		{
@@ -158,7 +158,7 @@ class GridMaze implements IGeneratedMaze
 			}
 		}
 
-		#endregion
+
 
 	} // End of function SetUpGraph
 
@@ -167,9 +167,9 @@ class GridMaze implements IGeneratedMaze
 		return graph[x,y];
 	}
 
-	#endregion
 
-	#region Randomizing
+
+
 
 	protected double[] Distribution()
 	{
@@ -291,16 +291,16 @@ class GridMaze implements IGeneratedMaze
 		}
 	}
 
-	#endregion
 
-	#region IGeneratedMaze Members
+
+
 
 	@Override
 	public TwoWayLinkedGraph Generate()
 	{
 		TwoWayLinkedGraph ret = new TwoWayLinkedGraph();
 
-		#region Add Rooms
+
 
 		for(int i = 0; i < xsize; i++)
 		{
@@ -317,9 +317,9 @@ class GridMaze implements IGeneratedMaze
 			}
 		}
 
-		#endregion
 
-		#region Add Corridors
+
+
 
 		for(int i = 0; i < xsize; i++)
 		{
@@ -356,13 +356,13 @@ class GridMaze implements IGeneratedMaze
 			}
 		}
 
-		#endregion
+
 
 
 		return ret;
 	}
 
-	#endregion
+
 
 	/// <summary>
 	/// Generates a Default Room with Random Texture
@@ -378,7 +378,7 @@ class GridMaze implements IGeneratedMaze
 		float grid = max_room_size * 2f + 4f;
 		float room_height = 3f;
 
-		#region Create Default Room
+
 
 		Room room = new Room(
 				new Vector3(grid * x - max_room_size,
@@ -386,7 +386,7 @@ class GridMaze implements IGeneratedMaze
 				new Vector3(grid * x + max_room_size,
 						+ room_height, grid * y + max_room_size));
 
-		#endregion
+
 
 		graph[x,y].room = room;
 		return room;
@@ -406,7 +406,7 @@ class GridMaze implements IGeneratedMaze
 		float grid = max_room_size * 2f + 4f;
 		float corridor = 2f;
 
-		#region Four Direction Check
+
 
 		if(x1 == x2 && y1 == y2 - 1)
 		{
@@ -534,7 +534,7 @@ class GridMaze implements IGeneratedMaze
 
 		else return null;
 
-		#endregion
+
 
 	} // End of Function Default Corridor
 

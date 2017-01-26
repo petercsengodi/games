@@ -94,7 +94,7 @@ public class ServerControl {
 		return ret;
 	}
 
-	#region IDisposable Members
+
 
 	public void Dispose()
 	{
@@ -102,5 +102,5 @@ public class ServerControl {
 		socket = null;
 	}
 
-	#endregion
+
 }

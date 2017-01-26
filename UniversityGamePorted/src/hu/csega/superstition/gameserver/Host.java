@@ -203,13 +203,13 @@ public class Host {
 		}
 	}
 
-	#region IDisposable Members
+
 
 	public void Dispose()
 	{
 		Stop();
 	}
 
-	#endregion
+
 
 }

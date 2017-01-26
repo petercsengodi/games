@@ -150,7 +150,7 @@ public class MainFrame extends System.Windows.Forms.Form {
 		WriteConsole("Cleaning Process Finished.");
 	}
 
-	#region DISPOSE pattern
+
 
 	/// <summary>
 	/// Clean up any resources being used.
@@ -171,17 +171,11 @@ public class MainFrame extends System.Windows.Forms.Form {
 	/// <summary>
 	/// Destructor. There were no Dispose.
 	/// </summary>
-	~MainFrame()
-	{
-		// cleaning
-		Dispose(false);
-		Clean();
-	}
 
 	/// <summary>
 	/// Cleaning. No need to do any further finalization.
 	/// </summary>
-	public new void Dispose() /* "new" kell??? */
+	public void Dispose() /* "new" kell??? */
 	{
 		// cleaning
 		Dispose(true);
@@ -190,9 +184,9 @@ public class MainFrame extends System.Windows.Forms.Form {
 		GC.SuppressFinalize(this);
 	}
 
-	#endregion
 
-	#region Windows Form Designer generated code
+
+
 	/// <summary>
 	/// Required method for Designer support - do not modify
 	/// the contents of this method with the code editor.
@@ -210,13 +204,8 @@ public class MainFrame extends System.Windows.Forms.Form {
 		this.Load += new System.EventHandler(this.ApplicationStart);
 
 	}
-	#endregion
 
-	/// <summary>
-	/// The main entry point for the application.
-	/// </summary>
-	[STAThread]
-			static void Main()
+	static void Main()
 	{
 		//			Application.Run(new MainFrame());
 		using(MainFrame frame = new MainFrame())

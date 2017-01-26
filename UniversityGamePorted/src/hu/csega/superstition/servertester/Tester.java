@@ -1,7 +1,7 @@
 package hu.csega.superstition.servertester;
 
-public class Tester : System.Windows.Forms.Form
-{
+public class Tester extends JPanel {
+
 	private System.Windows.Forms.TextBox hostname;
 	private System.Windows.Forms.Label host_label;
 	private System.Windows.Forms.Label status_label;
@@ -163,9 +163,9 @@ public class Tester : System.Windows.Forms.Form
 				else
 				{
 					hosts_box.Items.Add(
-						"ID=" + list.list[i].ID + "; " +
-						"lim=" + list.list[i].limit + "; " +
-						"plyrs=" + list.list[i].player_count);
+							"ID=" + list.list[i].ID + "; " +
+									"lim=" + list.list[i].limit + "; " +
+									"plyrs=" + list.list[i].player_count);
 				}
 			}
 			if(list.list.Length > 0) hosts_box.SelectedIndex = 0;
@@ -182,7 +182,7 @@ public class Tester : System.Windows.Forms.Form
 		{
 			host_list = null;
 			ChangeHostBox(null);
-//			state.trigger("disconnect"); // Not thread-safe
+			//			state.trigger("disconnect"); // Not thread-safe
 			WriteStatus("Server Disconnected");
 			return;
 		}
@@ -224,7 +224,7 @@ public class Tester : System.Windows.Forms.Form
 			{
 				if(all_player.all_data[i] == null) continue;
 				all_data[i] = all_player.all_data[i].position +
-					all_player.all_data[i].difference;
+						all_player.all_data[i].difference;
 			}
 			playerView1.SetPositions(player_position, all_data);
 			playerView1.Invalidate();
@@ -252,7 +252,7 @@ public class Tester : System.Windows.Forms.Form
 		base.Dispose( disposing );
 	}
 
-	#region Windows Form Designer generated code
+
 	/// <summary>
 	/// Required method for Designer support - do not modify
 	/// the contents of this method with the code editor.
@@ -362,23 +362,23 @@ public class Tester : System.Windows.Forms.Form
 		//
 		this.port_num.Location = new System.Drawing.Point(152, 40);
 		this.port_num.Maximum = new System.Decimal(new int[] {
-																 65535,
-																 0,
-																 0,
-																 0});
+				65535,
+				0,
+				0,
+				0});
 		this.port_num.Minimum = new System.Decimal(new int[] {
-																 5000,
-																 0,
-																 0,
-																 0});
+				5000,
+				0,
+				0,
+				0});
 		this.port_num.Name = "port_num";
 		this.port_num.Size = new System.Drawing.Size(80, 20);
 		this.port_num.TabIndex = 8;
 		this.port_num.Value = new System.Decimal(new int[] {
-															   10555,
-															   0,
-															   0,
-															   0});
+				10555,
+				0,
+				0,
+				0});
 		this.port_num.ValueChanged += new System.EventHandler(this.port_num_ValueChanged);
 		//
 		// address_box
@@ -444,10 +444,10 @@ public class Tester : System.Windows.Forms.Form
 		//
 		this.udpport.Location = new System.Drawing.Point(256, 280);
 		this.udpport.Maximum = new System.Decimal(new int[] {
-																64000,
-																0,
-																0,
-																0});
+				64000,
+				0,
+				0,
+				0});
 		this.udpport.Name = "udpport";
 		this.udpport.ReadOnly = true;
 		this.udpport.Size = new System.Drawing.Size(80, 20);
@@ -474,10 +474,10 @@ public class Tester : System.Windows.Forms.Form
 		//
 		this.clientport.Location = new System.Drawing.Point(256, 312);
 		this.clientport.Maximum = new System.Decimal(new int[] {
-																   64000,
-																   0,
-																   0,
-																   0});
+				64000,
+				0,
+				0,
+				0});
 		this.clientport.Name = "clientport";
 		this.clientport.ReadOnly = true;
 		this.clientport.Size = new System.Drawing.Size(80, 20);
@@ -517,12 +517,7 @@ public class Tester : System.Windows.Forms.Form
 		this.ResumeLayout(false);
 
 	}
-	#endregion
 
-	/// <summary>
-	/// The main entry point for the application.
-	/// </summary>
-	[STAThread]
 	static void Main()
 	{
 		Application.Run(instance = new Tester());

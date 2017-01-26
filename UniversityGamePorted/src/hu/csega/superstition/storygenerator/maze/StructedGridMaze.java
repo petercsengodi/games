@@ -15,7 +15,7 @@ class StructedGridMaze implements IGeneratedMaze
 
 	struct Node
 	{
-		#region Node definition
+
 
 		public Room room;
 
@@ -35,14 +35,14 @@ class StructedGridMaze implements IGeneratedMaze
 			Left = Right = Up = Down = null;
 		}
 
-		#endregion
+
 	}
 
 	Node[,] graph;
 
 	public StructedGridMaze(int _xsize, int _zsize, NormalPreview _it)
 	{
-		#region Static Building Structure
+
 
 		it = _it;
 		xsize = _xsize*3;
@@ -102,12 +102,12 @@ class StructedGridMaze implements IGeneratedMaze
 			}
 		}
 
-		#endregion
+
 	}
 
 	public StructedGridMaze(int _xsize, int _zsize)
 	{
-		#region Static Building Structure
+
 
 		it = null;
 		xsize = _xsize*3;
@@ -167,12 +167,12 @@ class StructedGridMaze implements IGeneratedMaze
 			}
 		}
 
-		#endregion
+
 	}
 
 	public Room SelectRandomRoom()
 	{
-		#region Algorythm
+
 
 		int index = StaticRandomLibrary.SelectValue(distribution);
 		distribution[index] = 0f;
@@ -188,14 +188,14 @@ class StructedGridMaze implements IGeneratedMaze
 
 		Map.AddNode(graph[x,z].room);
 
-		#endregion
+
 
 		return graph[x,z].room;
 	}
 
 	public void Connect(Room from, Room to)
 	{
-		#region Algorythm
+
 
 		int i, j, degree = 0, fromX = 0, fromZ = 0, toX = 0, toZ = 0;
 		for(i=j=0; j < zsize; i+=1, j+= (i / xsize), i %= xsize)
@@ -302,14 +302,14 @@ class StructedGridMaze implements IGeneratedMaze
 			last = graph[actX, actZ].room;
 		}
 
-		#endregion
+
 	}
 
 	public int ToIndex(int x, int z){ return x + z*xsize; }
 	public int ToX(int index) { return index % xsize; }
 	public int ToZ(int index) { return index / xsize; }
 
-	#region IGeneratedMaze Members
+
 
 	@Override
 	public TwoWayLinkedGraph Generate()
@@ -362,5 +362,5 @@ class StructedGridMaze implements IGeneratedMaze
 		return Map;
 	}
 
-	#endregion
+
 }

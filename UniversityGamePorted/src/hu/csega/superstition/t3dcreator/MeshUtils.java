@@ -37,20 +37,20 @@ public class MeshUtils {
 		}
 
 		mesh = new Mesh(num_faces, num_vertices, MeshFlags.Managed,
-			CustomVertex.PositionNormalTextured.Format, device);
+				CustomVertex.PositionNormalTextured.Format, device);
 
 		materials = null;
 
 		BuildMesh(mesh, model);
 
 		mesh.Save(dialog.FileName, adjacency, materials,
-			XFileFormat.Text);
+				XFileFormat.Text);
 	}
 
 	public void BuildMesh(Mesh mesh, CModel model)
 	{
 		int si = 0; // start index
-//		int sf = 0; // start face
+		//		int sf = 0; // start face
 
 
 
@@ -64,10 +64,10 @@ public class MeshUtils {
 				foreach(CVertex v in f.vertices)
 				{
 					vb.Write(new CustomVertex.PositionNormalTextured(
-						v.position,
-						new Vector3(0f, 0f, 0f),
-						v.texture_coordinates.X,
-						v.texture_coordinates.Y));
+							v.position,
+							new Vector3(0f, 0f, 0f),
+							v.texture_coordinates.X,
+							v.texture_coordinates.Y));
 				}
 			}
 
@@ -84,11 +84,11 @@ public class MeshUtils {
 				foreach(CTriangle t in f.triangles)
 				{
 					ib.Write((short)( si +
-						f.vertices.IndexOf(t.edges[0].from)));
+							f.vertices.IndexOf(t.edges[0].from)));
 					ib.Write((short)( si +
-						f.vertices.IndexOf(t.edges[1].from)));
+							f.vertices.IndexOf(t.edges[1].from)));
 					ib.Write((short)( si +
-						f.vertices.IndexOf(t.edges[2].from)));
+							f.vertices.IndexOf(t.edges[2].from)));
 				}
 
 				si += f.vertices.Count;
@@ -99,7 +99,7 @@ public class MeshUtils {
 
 		adjacency = new int[num_faces * 3];
 
-		#region Generate Adjacency
+
 
 		// mesh.GenerateAdjacency(float.Epsilon, adjacency);
 
@@ -112,23 +112,23 @@ public class MeshUtils {
 			{
 				// get neighbours
 				adjacency[tidx*3 + 0] =	start +
-					f.triangles.IndexOf(t.neighbours[0]);
+						f.triangles.IndexOf(t.neighbours[0]);
 				adjacency[tidx*3 + 1] =	start +
-					f.triangles.IndexOf(t.neighbours[1]);
+						f.triangles.IndexOf(t.neighbours[1]);
 				adjacency[tidx*3 + 2] =	start +
-					f.triangles.IndexOf(t.neighbours[2]);
+						f.triangles.IndexOf(t.neighbours[2]);
 				tidx++;
 			}
 			start += f.triangles.Count;
 		}
 
-		#endregion
+
 
 		mesh.ComputeNormals(adjacency);
 		materials = new ExtendedMaterial[model.figures.Count];
 
-//		AttributeRange[] ranges = new AttributeRange[model.figures.Count];
-//		si = sf = 0;
+		//		AttributeRange[] ranges = new AttributeRange[model.figures.Count];
+		//		si = sf = 0;
 
 		for(int i = 0; i < model.figures.Count; i++)
 		{
@@ -149,53 +149,53 @@ public class MeshUtils {
 			mat.Emissive = Color.FromArgb(f.emissive_color);
 			materials[i].Material3D = mat;
 
-//			ranges[i] = new AttributeRange();
-//			ranges[i].AttributeId = i;
-//			ranges[i].FaceCount = f.triangles.Count;
-//			ranges[i].FaceStart = sf;
-//			sf += f.triangles.Count;
-//			ranges[i].VertexCount = f.vertices.Count;
-//			ranges[i].VertexStart = si;
-//			si += f.vertices.Count;
+			//			ranges[i] = new AttributeRange();
+			//			ranges[i].AttributeId = i;
+			//			ranges[i].FaceCount = f.triangles.Count;
+			//			ranges[i].FaceStart = sf;
+			//			sf += f.triangles.Count;
+			//			ranges[i].VertexCount = f.vertices.Count;
+			//			ranges[i].VertexStart = si;
+			//			si += f.vertices.Count;
 		}
 
-//		mesh.SetAttributeTable(ranges);
+		//		mesh.SetAttributeTable(ranges);
 
 		int index = 0;
 		int[] array = mesh.LockAttributeBufferArray(LockFlags.Discard);
-//		GraphicsStream gs = mesh.LockAttributeBuffer(0);
+		//		GraphicsStream gs = mesh.LockAttributeBuffer(0);
 		for(int i = 0; i < model.figures.Count; i++)
 		{
 			CFigure f = (model.figures[i] as CFigure);
 			for(int j = 0; j < f.triangles.Count; j++)
 			{
 				array[index++] = i;
-//				gs.Write((byte)0x1);
+				//				gs.Write((byte)0x1);
 			}
 		}
 
 		mesh.UnlockAttributeBuffer(array);
 		mesh.Optimize(MeshFlags.OptimizeAttributeSort, adjacency);
-//		mesh.OptimizeInPlace(MeshFlags.OptimizeAttributeSort, adjacency);
+		//		mesh.OptimizeInPlace(MeshFlags.OptimizeAttributeSort, adjacency);
 
 	} // End of function
 
-	#region IDisposable Members
+
 
 	public void Dispose()
 	{
 		dialog.Dispose();
 	}
 
-	#endregion
+
 
 
 	public CFigure[] MeshToFigures(Mesh mesh, Device device,
-		GraphicsStream adjacency)
+			GraphicsStream adjacency)
 	{
 		Mesh temp = mesh.Clone(MeshFlags.Use32Bit,
-			CustomVertex.PositionTextured.Format,
-			device);
+				CustomVertex.PositionTextured.Format,
+				device);
 		AttributeRange[] ranges = temp.GetAttributeTable();
 		CFigure[] ret = new CFigure[ranges.Length];
 		int index1, index2, index3;
@@ -203,16 +203,16 @@ public class MeshUtils {
 		using(VertexBuffer vbuf = temp.VertexBuffer)
 		{
 			CustomVertex.PositionTextured[] vertices =
-				(CustomVertex.PositionTextured[])vbuf.Lock(0,
-				typeof(CustomVertex.PositionTextured),
-				LockFlags.ReadOnly, temp.NumberVertices);
+					(CustomVertex.PositionTextured[])vbuf.Lock(0,
+							typeof(CustomVertex.PositionTextured),
+							LockFlags.ReadOnly, temp.NumberVertices);
 
 			using(IndexBuffer ibuf = temp.IndexBuffer)
 			{
 
 				int[] indices = (int[])ibuf.Lock(
-					0, typeof(int), LockFlags.ReadOnly,
-					temp.NumberFaces * 3);
+						0, typeof(int), LockFlags.ReadOnly,
+						temp.NumberFaces * 3);
 
 				for(int a = 0; a < ranges.Length; a++)
 				{
@@ -223,10 +223,10 @@ public class MeshUtils {
 					{
 						CVertex vertex = new CVertex();
 						CustomVertex.PositionTextured pt =
-							vertices[v + range.VertexStart];
+								vertices[v + range.VertexStart];
 						vertex.position = pt.Position;
 						vertex.texture_coordinates =
-							new Vector2(pt.Tu, pt.Tv);
+								new Vector2(pt.Tu, pt.Tv);
 						figure.vertices.Add(vertex);
 					}
 
@@ -236,9 +236,9 @@ public class MeshUtils {
 						index2 = indices[range.FaceStart*3 + i*3+1] - range.VertexStart;
 						index3 = indices[range.FaceStart*3 + i*3+2] - range.VertexStart;
 						CTriangle triangle = new CTriangle(
-							figure.triangles[index1],
-							figure.triangles[index2],
-							figure.triangles[index3]);
+								figure.triangles[index1],
+								figure.triangles[index2],
+								figure.triangles[index3]);
 						figure.triangles.Add(triangle);
 					}
 
@@ -267,36 +267,36 @@ public class MeshUtils {
 	}
 
 	public CFigure SubsetToFigures(Mesh mesh, Device device,
-		GraphicsStream adjacency)
+			GraphicsStream adjacency)
 	{
 		Mesh temp = mesh.Clone(MeshFlags.Use32Bit,
-			CustomVertex.PositionTextured.Format,
-			device);
+				CustomVertex.PositionTextured.Format,
+				device);
 		CFigure figure = new CFigure();
 		int index1, index2, index3;
 
 		using(VertexBuffer vbuf = temp.VertexBuffer)
 		{
 			CustomVertex.PositionTextured[] vertices =
-				(CustomVertex.PositionTextured[])vbuf.Lock(0,
-				typeof(CustomVertex.PositionTextured),
-				LockFlags.ReadOnly, temp.NumberVertices);
+					(CustomVertex.PositionTextured[])vbuf.Lock(0,
+							typeof(CustomVertex.PositionTextured),
+							LockFlags.ReadOnly, temp.NumberVertices);
 
 			using(IndexBuffer ibuf = temp.IndexBuffer)
 			{
 
 				int[] indices = (int[])ibuf.Lock(
-					0, typeof(int), LockFlags.ReadOnly,
-					temp.NumberFaces * 3);
+						0, typeof(int), LockFlags.ReadOnly,
+						temp.NumberFaces * 3);
 
 				for(int v = 0; v < temp.NumberVertices; v++)
 				{
 					CVertex vertex = new CVertex();
 					CustomVertex.PositionTextured pt =
-						vertices[v];
+							vertices[v];
 					vertex.position = pt.Position;
 					vertex.texture_coordinates =
-						new Vector2(pt.Tu, pt.Tv);
+							new Vector2(pt.Tu, pt.Tv);
 					figure.vertices.Add(vertex);
 				}
 
@@ -306,9 +306,9 @@ public class MeshUtils {
 					index2 = indices[i*3+1];
 					index3 = indices[i*3+2];
 					CTriangle triangle = new CTriangle(
-						figure.vertices[index1],
-						figure.vertices[index2],
-						figure.vertices[index3]);
+							figure.vertices[index1],
+							figure.vertices[index2],
+							figure.vertices[index3]);
 					figure.triangles.Add(triangle);
 				}
 

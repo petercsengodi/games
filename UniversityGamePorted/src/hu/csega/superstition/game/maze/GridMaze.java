@@ -92,13 +92,10 @@ public class GridMaze implements IGeneratedMaze {
 		distribution = Distribution();
 		start_rooms = new ArrayList();
 
-		#region Setting Texture Libraries
-
 		walls = FaceLibrary.getLibrary("wall_textures");
 		floors = FaceLibrary.getLibrary("floor_textures");
 		stairs = FaceLibrary.getLibrary("stair_textures");
 
-		#endregion
 	}
 
 	private Node[][] graph;
@@ -436,8 +433,6 @@ public class GridMaze implements IGeneratedMaze {
 	{
 		double[] ret = new double[xsize * ysize];
 
-		#region Create Distribution
-
 		bool modified = false;
 		for(int x = 0; x < xsize; x++)
 		{
@@ -493,8 +488,6 @@ public class GridMaze implements IGeneratedMaze {
 			}
 		} // End of for cycles
 
-		#endregion
-
 		if(modified) return ret;
 		else return null;
 	}
@@ -543,8 +536,6 @@ public class GridMaze implements IGeneratedMaze {
 		TwoWayLinkedGraph ret = new TwoWayLinkedGraph();
 
 		Randomize();
-
-		#region Add Rooms
 
 		for(int i = 0; i < xsize; i++)
 		{
@@ -757,7 +748,6 @@ public class GridMaze implements IGeneratedMaze {
 		return ret;
 	}
 
-	#endregion
 
 	/// <summary>
 	/// Generates a Default Room with Random Texture
@@ -773,8 +763,6 @@ public class GridMaze implements IGeneratedMaze {
 		float grid = max_room_size * 2f + 4f;
 		float room_height = 3f;
 
-		#region Create Default Room
-
 		Room room = new Room(
 				new Vector3(grid * x - max_room_size,
 						- room_height, grid * y - max_room_size),
@@ -782,8 +770,6 @@ public class GridMaze implements IGeneratedMaze {
 						+ room_height, grid * y + max_room_size),
 				FaceLibrary.RandomGetFromLibrary(walls),
 				FaceLibrary.RandomGetFromLibrary(floors));
-
-		#endregion
 
 		graph[x,y].room = room;
 		return room;
