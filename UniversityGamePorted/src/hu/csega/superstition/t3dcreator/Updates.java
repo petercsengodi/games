@@ -1,7 +1,6 @@
 package hu.csega.superstition.t3dcreator;
 
-public enum Updates
-{
+public enum Updates {
 	Full,
 	Move,
 	Selection

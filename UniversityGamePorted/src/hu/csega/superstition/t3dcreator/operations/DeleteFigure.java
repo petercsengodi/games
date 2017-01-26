@@ -1,6 +1,6 @@
 package hu.csega.superstition.t3dcreator.operations;
 
-public class DeleteFigure : Operation
+public class DeleteFigure extends Operation
 {
 	private CModel model;
 	private CFigure figure;
@@ -11,11 +11,13 @@ public class DeleteFigure : Operation
 		this.figure = figure;
 	}
 
+	@Override
 	public override void OnTransform()
 	{
 		model.figures.Remove(figure);
 	}
 
+	@Override
 	public override void OnInvert()
 	{
 		model.figures.Add(figure);

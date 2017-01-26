@@ -1,6 +1,6 @@
 package hu.csega.superstition.t3dcreator.operations;
 
-public class AddMeshOperation : Operation
+public class AddMeshOperation extends Operation
 {
 	private CModel model;
 	private CFigure[] figures;
@@ -17,6 +17,7 @@ public class AddMeshOperation : Operation
 		this.figures = new CFigure[]{figure};
 	}
 
+	@Override
 	public override void OnTransform()
 	{
 		foreach(CFigure figure in figures)
@@ -25,6 +26,7 @@ public class AddMeshOperation : Operation
 		}
 	}
 
+	@Override
 	public override void OnInvert()
 	{
 		foreach(CFigure figure in figures)

@@ -1,31 +1,27 @@
 package hu.csega.superstition.game.room;
 
-class Room : TWLNode, IClipping, IDisposable, IGameObject, IRenderObject
+class Room extends TWLNode implements IClipping, IDisposable, IGameObject, IRenderObject
 {
-	#region Direction Constants
+
 
 	public const int WALL_LEFT = 1,
-		WALL_RIGHT = 2,
-		WALL_FRONT = 4,
-		WALL_BACK = 8,
-		WALL_FLOOR = 16,
-		WALL_CEILING = 32,
-		WALL_SUM = 63;
+			WALL_RIGHT = 2,
+			WALL_FRONT = 4,
+			WALL_BACK = 8,
+			WALL_FLOOR = 16,
+			WALL_CEILING = 32,
+			WALL_SUM = 63;
 
 	public const int DG_LEFT = 0,
-		DG_RIGHT = 180,
-		DG_FRONT = 90,
-		DG_BACK = 270;
-
-	#endregion
-
-	#region Variables, constants
+			DG_RIGHT = 180,
+			DG_FRONT = 90,
+			DG_BACK = 270;
 
 	protected int walls;
 	protected Vector3 corner1, corner2;
 	protected string wall_face, floor_face;
 	protected ArrayList Renders, // This needed to be disposed
-		Clips, Objects; // They don't need any care
+	Clips, Objects; // They don't need any care
 	public ArrayList RoomsInSight, turn_add, turn_remove;
 	protected RoomPostType post;
 	protected Vector3[] roomids;
@@ -36,13 +32,7 @@ class Room : TWLNode, IClipping, IDisposable, IGameObject, IRenderObject
 	public string Floor_face{ get{ return floor_face; } set{ floor_face = value; } }
 	public RoomPostType Post{ get{ return post; } set{ post = value; } }
 
-	#endregion
-
-	/// <summary>
-	/// Serializable data class for rooms
-	/// </summary>
-	[Serializable]
-	protected class RoomData : GameObjectData
+	protected class RoomData extends GameObjectData
 	{
 		public Vector3 corner1, corner2;
 		public string wall_face, floor_face;
@@ -58,7 +48,6 @@ class Room : TWLNode, IClipping, IDisposable, IGameObject, IRenderObject
 
 	public Room(Vector3 _corner1, Vector3 _corner2, string wall_face, string floor_face)
 	{
-		#region Initializations
 
 		walls = WALL_SUM;
 		corner1 = Vector3.Minimize(_corner1, _corner2);
@@ -76,10 +65,6 @@ class Room : TWLNode, IClipping, IDisposable, IGameObject, IRenderObject
 
 		turn_add = new ArrayList();
 		turn_remove = new ArrayList();
-
-		#endregion
-
-
 	}
 
 	public Room(GameObjectData data)
@@ -193,7 +178,6 @@ class Room : TWLNode, IClipping, IDisposable, IGameObject, IRenderObject
 
 	public void AddLighsToAllWalls()
 	{
-		#region For all walls
 
 		DecoratedLight lamp;
 
@@ -229,12 +213,10 @@ class Room : TWLNode, IClipping, IDisposable, IGameObject, IRenderObject
 			Objects.Add(lamp);
 		}
 
-		#endregion
 	}
 
 	public void Build(Engine engine)
 	{
-		#region For all walls
 
 		Primitive p;
 
@@ -283,8 +265,8 @@ class Room : TWLNode, IClipping, IDisposable, IGameObject, IRenderObject
 		if((post & RoomPostType.CenterPost) > 0)
 		{
 			Vector3 c = CenterOnFloor,
-				c1 = new Vector3(c.X - 0.3f, corner1.Y, c.Z - 0.3f),
-				c2 = new Vector3(c.X + 0.3f, corner2.Y, c.Z + 0.3f);
+					c1 = new Vector3(c.X - 0.3f, corner1.Y, c.Z - 0.3f),
+					c2 = new Vector3(c.X + 0.3f, corner2.Y, c.Z + 0.3f);
 			StaticBox b = new StaticBox(c1, c2, wall_face);
 			b.Build(engine);
 			Renders.Add(b);
@@ -340,7 +322,6 @@ class Room : TWLNode, IClipping, IDisposable, IGameObject, IRenderObject
 		walls = walls & (WALL_SUM ^ wall_dif);
 	}
 
-	#region IClipping Members
 
 	public void Clip(Clipable clipable)
 	{
@@ -361,17 +342,11 @@ class Room : TWLNode, IClipping, IDisposable, IGameObject, IRenderObject
 		}
 	}
 
-	#endregion
-
-	#region IRenderObject Members
-
 	public void Render()
 	{
 		foreach(object o in Renders) ((IRenderObject)o).Render();
 		foreach(object o in Objects) ((IRenderObject)o).Render();
 	}
-
-	#endregion
 
 	public void RenderWithEntrances()
 	{
@@ -381,7 +356,6 @@ class Room : TWLNode, IClipping, IDisposable, IGameObject, IRenderObject
 		PostRender();
 	}
 
-	#region IDisposable Members
 
 	public void Dispose()
 	{
@@ -390,10 +364,6 @@ class Room : TWLNode, IClipping, IDisposable, IGameObject, IRenderObject
 			(o as IDisposable).Dispose();
 		}
 	}
-
-	#endregion
-
-	#region IGameObject Members
 
 	public GameObjectData getData()
 	{
@@ -429,9 +399,6 @@ class Room : TWLNode, IClipping, IDisposable, IGameObject, IRenderObject
 		foreach(object o in Objects) (o as IGameObject).PostRender();
 	}
 
-	#endregion
-
-	#region IPeriod Members
 
 	public void Period()
 	{
@@ -444,5 +411,4 @@ class Room : TWLNode, IClipping, IDisposable, IGameObject, IRenderObject
 		turn_remove.Clear();
 	}
 
-	#endregion
 }

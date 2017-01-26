@@ -1,6 +1,6 @@
 package hu.csega.superstition.t3dcreator.operations;
 
-public class TriangleSplit : Operation
+public class TriangleSplit extends Operation
 {
 	private CFigure figure;
 	private CTriangle triangle;
@@ -14,6 +14,7 @@ public class TriangleSplit : Operation
 		this.vertex = null;
 	}
 
+	@Override
 	public override void OnTransform()
 	{
 		// Removes the triangle from figure
@@ -34,11 +35,11 @@ public class TriangleSplit : Operation
 		// Creates new triangles
 		new_triangles = new CTriangle[3];
 		new_triangles[0] = new CTriangle(triangle.edges[0].from,
-			triangle.edges[1].from, vertex);
+				triangle.edges[1].from, vertex);
 		new_triangles[1] = new CTriangle(triangle.edges[1].from,
-			triangle.edges[2].from, vertex);
+				triangle.edges[2].from, vertex);
 		new_triangles[2] = new CTriangle(triangle.edges[2].from,
-			triangle.edges[0].from, vertex);
+				triangle.edges[0].from, vertex);
 
 		// Creates neighbour connections
 		new_triangles[0].neighbours[0] = triangle.neighbours[0];
@@ -61,6 +62,7 @@ public class TriangleSplit : Operation
 		figure.triangles.Add(new_triangles[2]);
 	}
 
+	@Override
 	public override void OnInvert()
 	{
 		// Remove vertex and triangles

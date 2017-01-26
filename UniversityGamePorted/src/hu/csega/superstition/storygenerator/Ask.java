@@ -1,6 +1,8 @@
 package hu.csega.superstition.storygenerator;
 
-public class Ask : System.Windows.Forms.Form
+import javax.swing.JPanel;
+
+public class Ask extends JPanel
 {
 	private System.Windows.Forms.Label askLabel;
 	private System.Windows.Forms.Button bOK;

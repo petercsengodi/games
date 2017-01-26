@@ -1,6 +1,6 @@
 package hu.csega.superstition.game.object;
 
-public class RenderPrimitive : IRenderObject, IDisposable
+public class RenderPrimitive implements IRenderObject, IDisposable
 {
 	protected Primitive primitive;
 	protected bool needToDispose = true;
@@ -19,21 +19,15 @@ public class RenderPrimitive : IRenderObject, IDisposable
 		primitive = _primitive;
 	}
 
-	#region IRenderObject Members
-
+	@Override
 	public void Render()
 	{
 		primitive.Render();
 	}
-
-	#endregion
-
-	#region IDisposable Members
 
 	public void Dispose()
 	{
 		if(needToDispose) primitive.Dispose();
 	}
 
-	#endregion
 }

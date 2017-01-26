@@ -9,7 +9,6 @@ public class LoadingTitle implements IModel
 	protected Engine engine;
 	protected Light light;
 
-	#region IModel Members
 
 	public void Initialize(Engine _engine)
 	{
@@ -75,25 +74,17 @@ public class LoadingTitle implements IModel
 		return Color.Black;
 	}
 
-	#endregion
-
-	#region IPeriod Members
-
 	public void Period()
 	{
 		angle += speed;
 		if(angle > limit) angle -= limit;
 	}
 
-	#endregion
-
-	#region IDisposable Members
 
 	public void Dispose()
 	{
 		text.Dispose();
 	}
 
-	#endregion
 
 }

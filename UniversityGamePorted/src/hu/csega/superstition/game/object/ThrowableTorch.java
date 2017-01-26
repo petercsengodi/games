@@ -1,6 +1,6 @@
 package hu.csega.superstition.game.object;
 
-class ThrowableTorch : DynamicObject
+class ThrowableTorch extends DynamicObject
 {
 	protected PointLight light;
 	protected Element element;
@@ -10,8 +10,8 @@ class ThrowableTorch : DynamicObject
 	/// Serializable data class for torches.
 	/// </summary>
 	[Serializable]
-	protected class TorchData : GameObjectData
-	{
+			protected class TorchData : GameObjectData
+			{
 		public Vector3 position, corner1, corner2, velocity, diff;
 		public bool stand, alive;
 
@@ -24,7 +24,7 @@ class ThrowableTorch : DynamicObject
 		{
 			return new ThrowableTorch(this);
 		}
-	}
+			}
 
 	/// <summary>
 	/// Torch stands or moving.
@@ -36,7 +36,7 @@ class ThrowableTorch : DynamicObject
 	}
 
 	public ThrowableTorch(Vector3 position, Vector3 speed)
-		: base(position, new Vector3(-0.125f, -0.125f, -0.125f), new Vector3(0.125f, 0.125f, 0.125f))
+	: base(position, new Vector3(-0.125f, -0.125f, -0.125f), new Vector3(0.125f, 0.125f, 0.125f))
 	{
 		alive = true;
 		this.velocity = speed;
@@ -44,7 +44,7 @@ class ThrowableTorch : DynamicObject
 
 	public ThrowableTorch(GameObjectData data):
 		base(new Vector3(), new Vector3(), new Vector3())
-	{
+		{
 		TorchData d = data as TorchData;
 		this.alive = d.alive;
 		this.corner1 = d.corner1;
@@ -53,7 +53,7 @@ class ThrowableTorch : DynamicObject
 		this.stand = d.stand;
 		this.velocity = d.velocity;
 		this.position = d.position;
-	}
+		}
 
 	/// <summary>
 	/// Builds visuality.
@@ -85,6 +85,7 @@ class ThrowableTorch : DynamicObject
 		if(engine.IsLighted) light.Activate();
 	}
 
+	@Override
 	public override void Render()
 	{
 		element.Render(position);
@@ -125,6 +126,7 @@ class ThrowableTorch : DynamicObject
 		#endregion
 	}
 
+	@Override
 	public override void Period()
 	{
 		float deltat = 0.04f;

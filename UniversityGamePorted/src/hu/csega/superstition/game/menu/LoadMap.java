@@ -9,18 +9,18 @@ public class LoadMap extends MenuElement implements IMenu, IFileParent
 		this.parent = parent;
 	}
 
-	public override string getText()
+	@Override
+	public string getText()
 	{
 		return "Load Map";
 	}
 
-	public override IMenu DoItem()
+	@Override
+	public IMenu DoItem()
 	{
 		param.filemenu.Refresh(@"..\maps", "*.xml", 0, this);
 		return param.filemenu;
 	}
-
-	#region IMenu Members
 
 	@Override
 	public MenuElement[] getMenuElements()
@@ -57,9 +57,6 @@ public class LoadMap extends MenuElement implements IMenu, IFileParent
 		return 0;
 	}
 
-	#endregion
-
-	#region IFileParent Members
 
 	public IMenu DoChildrenItem(string filename)
 	{
@@ -68,5 +65,4 @@ public class LoadMap extends MenuElement implements IMenu, IFileParent
 						return null;
 	}
 
-	#endregion
 }

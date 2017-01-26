@@ -1,6 +1,6 @@
 package hu.csega.superstition.t3dcreator.operations;
 
-public class EdgeSplit : Operation
+public class EdgeSplit extends Operation
 {
 	private CFigure figure;
 	private CTriangle[] old_triangles;
@@ -34,7 +34,7 @@ public class EdgeSplit : Operation
 		{
 			if(!(t.Equals(old_triangles[0]) || t.Equals(old_triangles[1])))
 			{
-				 if(n.IndexOf(t) == -1) n.Add(t);;
+				if(n.IndexOf(t) == -1) n.Add(t);;
 			}
 		}
 		foreach(CTriangle t in old_triangles[1].neighbours)
@@ -47,6 +47,7 @@ public class EdgeSplit : Operation
 		neighbours = (CTriangle[])n.ToArray(typeof(CTriangle));
 	}
 
+	@Override
 	public override void OnTransform()
 	{
 		// Removing old triangels from model
@@ -55,9 +56,9 @@ public class EdgeSplit : Operation
 
 		// Creating new vertex
 		Vector3 position = (old_vertices[0].position +
-			old_vertices[1].position) * 0.5f;
+				old_vertices[1].position) * 0.5f;
 		Vector2 texture = (old_vertices[0].texture_coordinates +
-			old_vertices[1].texture_coordinates) * 0.5f;
+				old_vertices[1].texture_coordinates) * 0.5f;
 		new_vertex = new CVertex(position, texture);
 
 		// Creating new triangles
@@ -69,7 +70,7 @@ public class EdgeSplit : Operation
 			if(missed)
 			{
 				if(edge.from.Equals(old_vertices[0]) ||
-					edge.from.Equals(old_vertices[1]))
+						edge.from.Equals(old_vertices[1]))
 				{
 					idx = count;
 					quadrat[count++] = new_vertex;
@@ -78,9 +79,9 @@ public class EdgeSplit : Operation
 			}
 		}
 		new_triangles[0] = new CTriangle(quadrat[(idx + 2) % 4],
-			quadrat[(idx + 3) % 4], quadrat[(idx + 4) % 4]);
+				quadrat[(idx + 3) % 4], quadrat[(idx + 4) % 4]);
 		new_triangles[1] = new CTriangle(quadrat[(idx + 2) % 4],
-			quadrat[(idx + 4) % 4], quadrat[(idx + 5) % 4]);
+				quadrat[(idx + 4) % 4], quadrat[(idx + 5) % 4]);
 
 		count = 0; missed = true; idx = -1;
 		foreach(CEdge edge in old_triangles[1].edges)
@@ -89,7 +90,7 @@ public class EdgeSplit : Operation
 			if(missed)
 			{
 				if(edge.from.Equals(old_vertices[0]) ||
-					edge.from.Equals(old_vertices[1]))
+						edge.from.Equals(old_vertices[1]))
 				{
 					idx = count;
 					quadrat[count++] = new_vertex;
@@ -98,9 +99,9 @@ public class EdgeSplit : Operation
 			}
 		}
 		new_triangles[2] = new CTriangle(quadrat[(idx + 2) % 4],
-			quadrat[(idx + 3) % 4], quadrat[(idx + 4) % 4]);
+				quadrat[(idx + 3) % 4], quadrat[(idx + 4) % 4]);
 		new_triangles[3] = new CTriangle(quadrat[(idx + 2) % 4],
-			quadrat[(idx + 4) % 4], quadrat[(idx + 5) % 4]);
+				quadrat[(idx + 4) % 4], quadrat[(idx + 5) % 4]);
 
 		// Addig vertex and triangels to model
 		figure.vertices.Add(new_vertex);
@@ -114,6 +115,7 @@ public class EdgeSplit : Operation
 	}
 
 
+	@Override
 	public override void OnInvert()
 	{
 		// Remove new trianlges and vertices

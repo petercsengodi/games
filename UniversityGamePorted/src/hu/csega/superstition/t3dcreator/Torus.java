@@ -1,7 +1,9 @@
 package hu.csega.superstition.t3dcreator;
 
-public class Torus : System.Windows.Forms.Form
-{
+import javax.swing.JPanel;
+
+public class Torus extends JPanel {
+
 	private System.Windows.Forms.Label label1;
 	private System.Windows.Forms.Label label2;
 	private System.Windows.Forms.Label label3;
@@ -102,19 +104,19 @@ public class Torus : System.Windows.Forms.Form
 		this.inner_rad.DecimalPlaces = 2;
 		this.inner_rad.Location = new System.Drawing.Point(80, 8);
 		this.inner_rad.Minimum = new System.Decimal(new int[] {
-																  1,
-																  0,
-																  0,
-																  131072});
+				1,
+				0,
+				0,
+				131072});
 		this.inner_rad.Name = "inner_rad";
 		this.inner_rad.Size = new System.Drawing.Size(88, 20);
 		this.inner_rad.TabIndex = 4;
 		this.inner_rad.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 		this.inner_rad.Value = new System.Decimal(new int[] {
-																1,
-																0,
-																0,
-																131072});
+				1,
+				0,
+				0,
+				131072});
 		this.inner_rad.ValueChanged += new System.EventHandler(this.inner_rad_ValueChanged);
 		//
 		// outer_rad
@@ -122,56 +124,56 @@ public class Torus : System.Windows.Forms.Form
 		this.outer_rad.DecimalPlaces = 2;
 		this.outer_rad.Location = new System.Drawing.Point(88, 40);
 		this.outer_rad.Minimum = new System.Decimal(new int[] {
-																  1,
-																  0,
-																  0,
-																  131072});
+				1,
+				0,
+				0,
+				131072});
 		this.outer_rad.Name = "outer_rad";
 		this.outer_rad.Size = new System.Drawing.Size(80, 20);
 		this.outer_rad.TabIndex = 5;
 		this.outer_rad.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 		this.outer_rad.Value = new System.Decimal(new int[] {
-																1,
-																0,
-																0,
-																0});
+				1,
+				0,
+				0,
+				0});
 		this.outer_rad.ValueChanged += new System.EventHandler(this.outer_rad_ValueChanged);
 		//
 		// side
 		//
 		this.side.Location = new System.Drawing.Point(48, 72);
 		this.side.Minimum = new System.Decimal(new int[] {
-															 3,
-															 0,
-															 0,
-															 0});
+				3,
+				0,
+				0,
+				0});
 		this.side.Name = "side";
 		this.side.Size = new System.Drawing.Size(56, 20);
 		this.side.TabIndex = 6;
 		this.side.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 		this.side.Value = new System.Decimal(new int[] {
-														   3,
-														   0,
-														   0,
-														   0});
+				3,
+				0,
+				0,
+				0});
 		//
 		// ring
 		//
 		this.ring.Location = new System.Drawing.Point(48, 104);
 		this.ring.Minimum = new System.Decimal(new int[] {
-															 3,
-															 0,
-															 0,
-															 0});
+				3,
+				0,
+				0,
+				0});
 		this.ring.Name = "ring";
 		this.ring.Size = new System.Drawing.Size(56, 20);
 		this.ring.TabIndex = 7;
 		this.ring.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 		this.ring.Value = new System.Decimal(new int[] {
-														   3,
-														   0,
-														   0,
-														   0});
+				3,
+				0,
+				0,
+				0});
 		//
 		// button1
 		//

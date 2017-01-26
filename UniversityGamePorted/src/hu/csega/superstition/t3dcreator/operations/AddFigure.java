@@ -1,6 +1,6 @@
 package hu.csega.superstition.t3dcreator.operations;
 
-class AddFigure : Operation
+class AddFigure extends Operation
 {
 	private CModel model;
 	private InitialFigure initial;
@@ -13,6 +13,7 @@ class AddFigure : Operation
 		this.figure = null;
 	}
 
+	@Override
 	public override void OnTransform()
 	{
 		figure = new CFigure(initial);
@@ -20,6 +21,7 @@ class AddFigure : Operation
 		model.Selected = figure;
 	}
 
+	@Override
 	public override void OnInvert()
 	{
 		model.figures.Remove(figure);

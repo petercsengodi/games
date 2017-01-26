@@ -1,6 +1,6 @@
 package hu.csega.superstition.t3dcreator.operations;
 
-public class ScaleSelected : Operation
+public class ScaleSelected extends Operation
 {
 	private Matrix matrix;
 	private Matrix inverse;
@@ -14,11 +14,13 @@ public class ScaleSelected : Operation
 		this.inverse.Invert();
 	}
 
+	@Override
 	public override void OnTransform()
 	{
 		part.scale(matrix);
 	}
 
+	@Override
 	public override void OnInvert()
 	{
 		part.scale(inverse);

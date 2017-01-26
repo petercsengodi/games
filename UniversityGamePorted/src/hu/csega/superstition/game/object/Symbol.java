@@ -1,6 +1,6 @@
 package hu.csega.superstition.game.object;
 
-class Symbol : IPeriod, IGameObject
+class Symbol implements IPeriod, IGameObject
 {
 	protected Vector3 position;
 	protected Element element;
@@ -19,11 +19,8 @@ class Symbol : IPeriod, IGameObject
 		this.sparkling = sparkling;
 	}
 
-	/// <summary>
-	/// Serializable data class for symbol.
-	/// </summary>
-	[Serializable]
-	protected class SymbolData : GameObjectData
+
+	protected class SymbolData extends GameObjectData
 	{
 		public float angle;
 		public string mesh;
@@ -64,17 +61,12 @@ class Symbol : IPeriod, IGameObject
 		return ret;
 	}
 
-	#region IPeriod Members
-
+	@Override
 	public void Period()
 	{
 		Angle += 0.005f;
 		if(Angle > limit) Angle -= limit;
 	}
-
-	#endregion
-
-	#region IGameObject Members
 
 	public virtual void Build(Engine engine)
 	{
@@ -82,18 +74,11 @@ class Symbol : IPeriod, IGameObject
 		light = engine.GetPointLight(range, sparkling, position);
 	}
 
-	#endregion
-
-	#region IRenderObject Members
-
+	@Override
 	public void Render()
 	{
 		element.Render(position, 0f, Angle, 0f);
 	}
-
-	#endregion
-
-	#region IGameObject Members
 
 	public void PreRender()
 	{
@@ -105,5 +90,4 @@ class Symbol : IPeriod, IGameObject
 		light.DeActivate();
 	}
 
-	#endregion
 }

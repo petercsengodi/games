@@ -1,9 +1,11 @@
 package hu.csega.superstition.storygenerator;
 
+import javax.swing.JPanel;
+
 import hu.csega.superstition.storygenerator.maze.StructedGridMaze;
 import hu.csega.superstition.util.StaticRandomLibrary;
 
-public class NormalPreview : System.Windows.Forms.Form
+public class NormalPreview extends JPanel
 {
 	private System.ComponentModel.IContainer components;
 	private TwoWayLinkedGraph Map = null;

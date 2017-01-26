@@ -4,11 +4,11 @@ import hu.csega.superstition.storygenerator.Room;
 import hu.csega.superstition.storygenerator.TwoWayLinkedGraph;
 import hu.csega.superstition.util.StaticRandomLibrary;
 
-class GridMaze : IGeneratedMaze
+class GridMaze implements IGeneratedMaze
 {
 	#region Texture Libraries
 
-//	string[] walls, floors, stairs;
+	//	string[] walls, floors, stairs;
 
 	#endregion
 
@@ -47,8 +47,8 @@ class GridMaze : IGeneratedMaze
 	protected enum Connection
 	{
 		None = 0,
-		Available,
-		Connected
+				Available,
+				Connected
 	}
 
 	protected class Node
@@ -217,7 +217,7 @@ class GridMaze : IGeneratedMaze
 				else
 				{
 					if((GetRoom(x-1, y) != null)
-						&& (graph[x, y].left != Connection.None))
+							&& (graph[x, y].left != Connection.None))
 					{
 						ret[idx] = 1.0;
 						modified = true;
@@ -225,7 +225,7 @@ class GridMaze : IGeneratedMaze
 					}
 
 					if((GetRoom(x+1, y) != null)
-						&& (graph[x, y].right != Connection.None))
+							&& (graph[x, y].right != Connection.None))
 					{
 						ret[idx] = 1.0;
 						modified = true;
@@ -233,7 +233,7 @@ class GridMaze : IGeneratedMaze
 					}
 
 					if((GetRoom(x, y-1) != null)
-						&& (graph[x, y].up != Connection.None))
+							&& (graph[x, y].up != Connection.None))
 					{
 						ret[idx] = 1.0;
 						modified = true;
@@ -241,7 +241,7 @@ class GridMaze : IGeneratedMaze
 					}
 
 					if((GetRoom(x, y+1) != null)
-						&& (graph[x, y].down != Connection.None))
+							&& (graph[x, y].down != Connection.None))
 					{
 						ret[idx] = 1.0;
 						modified = true;
@@ -295,6 +295,7 @@ class GridMaze : IGeneratedMaze
 
 	#region IGeneratedMaze Members
 
+	@Override
 	public TwoWayLinkedGraph Generate()
 	{
 		TwoWayLinkedGraph ret = new TwoWayLinkedGraph();
@@ -332,11 +333,11 @@ class GridMaze : IGeneratedMaze
 						ret.AddNode(node.RCorr);
 
 						ret.Link(node.room, node.RCorr,
-							new Entrance(Room.DG_RIGHT));
+								new Entrance(Room.DG_RIGHT));
 
 
 						ret.Link(graph[i+1,j].room, node.RCorr,
-							new Entrance(Room.DG_LEFT));
+								new Entrance(Room.DG_LEFT));
 
 					}
 
@@ -345,10 +346,10 @@ class GridMaze : IGeneratedMaze
 						ret.AddNode(node.DCorr);
 
 						ret.Link(node.room, node.DCorr,
-							new Entrance(Room.DG_FRONT));
+								new Entrance(Room.DG_FRONT));
 
 						ret.Link(graph[i,j+1].room, node.DCorr,
-							new Entrance(Room.DG_BACK));
+								new Entrance(Room.DG_BACK));
 
 					}
 				}
@@ -380,10 +381,10 @@ class GridMaze : IGeneratedMaze
 		#region Create Default Room
 
 		Room room = new Room(
-			new Vector3(grid * x - max_room_size,
-			- room_height, grid * y - max_room_size),
-			new Vector3(grid * x + max_room_size,
-			+ room_height, grid * y + max_room_size));
+				new Vector3(grid * x - max_room_size,
+						- room_height, grid * y - max_room_size),
+				new Vector3(grid * x + max_room_size,
+						+ room_height, grid * y + max_room_size));
 
 		#endregion
 
@@ -422,14 +423,14 @@ class GridMaze : IGeneratedMaze
 			Room lower_room = graph[x2, y2].room;
 
 			Room Corridor = new Room(
-				new Vector3(
-				grid * x1 - corridor,
-				-corridor,
-				upper_room.Upper.Z),
-				new Vector3(
-				grid * x1 + corridor,
-				+corridor,
-				lower_room.Lower.Z));
+					new Vector3(
+							grid * x1 - corridor,
+							-corridor,
+							upper_room.Upper.Z),
+					new Vector3(
+							grid * x1 + corridor,
+							+corridor,
+							lower_room.Lower.Z));
 
 			graph[x1, y1].down = Connection.Connected;
 			graph[x1, y1].DCorr = Corridor;
@@ -454,14 +455,14 @@ class GridMaze : IGeneratedMaze
 			Room lower_room = graph[x1, y1].room;
 
 			Room Corridor = new Room(
-				new Vector3(
-				grid * x1 - corridor,
-				-corridor,
-				upper_room.Upper.Z),
-				new Vector3(
-				grid * x1 + corridor,
-				+corridor,
-				lower_room.Lower.Z));
+					new Vector3(
+							grid * x1 - corridor,
+							-corridor,
+							upper_room.Upper.Z),
+					new Vector3(
+							grid * x1 + corridor,
+							+corridor,
+							lower_room.Lower.Z));
 
 			graph[x2, y2].down = Connection.Connected;
 			graph[x2, y2].DCorr = Corridor;
@@ -486,12 +487,12 @@ class GridMaze : IGeneratedMaze
 			Room right_room = graph[x2, y2].room;
 
 			Room Corridor = new Room(
-				new Vector3(left_room.Upper.X,
-				-corridor,
-				grid * y1 -corridor),
-				new Vector3(right_room.Lower.X,
-				+corridor,
-				grid * y1 + corridor));
+					new Vector3(left_room.Upper.X,
+							-corridor,
+							grid * y1 -corridor),
+					new Vector3(right_room.Lower.X,
+							+corridor,
+							grid * y1 + corridor));
 
 			graph[x1, y1].right = Connection.Connected;
 			graph[x1, y1].RCorr = Corridor;
@@ -516,12 +517,12 @@ class GridMaze : IGeneratedMaze
 			Room right_room = graph[x1, y1].room;
 
 			Room Corridor = new Room(
-				new Vector3(left_room.Upper.X,
-				-corridor,
-				grid * y1 -corridor),
-				new Vector3(right_room.Lower.X,
-				+corridor,
-				grid * y1 + corridor));
+					new Vector3(left_room.Upper.X,
+							-corridor,
+							grid * y1 -corridor),
+					new Vector3(right_room.Lower.X,
+							+corridor,
+							grid * y1 + corridor));
 
 			graph[x2, y2].right = Connection.Connected;
 			graph[x2, y2].RCorr = Corridor;

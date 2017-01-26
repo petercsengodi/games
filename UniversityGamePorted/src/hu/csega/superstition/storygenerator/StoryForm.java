@@ -1,6 +1,8 @@
 package hu.csega.superstition.storygenerator;
 
-public class StoryForm : System.Windows.Forms.Form
+import javax.swing.JPanel;
+
+public class StoryForm extends JPanel
 {
 	private StoryGenerator.PanelDrawer GrView;
 	private System.Windows.Forms.MainMenu mMenu;
@@ -109,7 +111,7 @@ public class StoryForm : System.Windows.Forms.Form
 		// properties
 		//
 		this.properties.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-			| System.Windows.Forms.AnchorStyles.Right)));
+				| System.Windows.Forms.AnchorStyles.Right)));
 		this.properties.CommandsVisibleIfAvailable = true;
 		this.properties.LargeButtons = false;
 		this.properties.LineColor = System.Drawing.SystemColors.ScrollBar;
@@ -125,8 +127,8 @@ public class StoryForm : System.Windows.Forms.Form
 		// GrView
 		//
 		this.GrView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-			| System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+				| System.Windows.Forms.AnchorStyles.Left)
+				| System.Windows.Forms.AnchorStyles.Right)));
 		this.GrView.BackColor = System.Drawing.Color.White;
 		this.GrView.Location = new System.Drawing.Point(0, 48);
 		this.GrView.Name = "GrView";
@@ -141,17 +143,17 @@ public class StoryForm : System.Windows.Forms.Form
 		// mMenu
 		//
 		this.mMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																			  this.mFile});
+				this.mFile});
 		//
 		// mFile
 		//
 		this.mFile.Index = 0;
 		this.mFile.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																			  this.mNew,
-																			  this.mOpen,
-																			  this.mSave,
-																			  this.mSaveAs,
-																			  this.mExit});
+				this.mNew,
+				this.mOpen,
+				this.mSave,
+				this.mSaveAs,
+				this.mExit});
 		this.mFile.Text = "File";
 		//
 		// mNew
@@ -187,12 +189,12 @@ public class StoryForm : System.Windows.Forms.Form
 		// tBar
 		//
 		this.tBar.Buttons.AddRange(new System.Windows.Forms.ToolBarButton[] {
-																				this.tNode,
-																				this.tLink,
-																				this.tDelNode,
-																				this.tUnlink,
-																				this.tPreview,
-																				this.tDirectXP});
+				this.tNode,
+				this.tLink,
+				this.tDelNode,
+				this.tUnlink,
+				this.tPreview,
+				this.tDirectXP});
 		this.tBar.DropDownArrows = true;
 		this.tBar.ImageList = this.tImages;
 		this.tBar.Location = new System.Drawing.Point(0, 0);
@@ -266,7 +268,7 @@ public class StoryForm : System.Windows.Forms.Form
 	/// The main entry point for the application.
 	/// </summary>
 	[STAThread]
-	static void Main()
+			static void Main()
 	{
 		Application.Run(new StoryForm());
 	}
@@ -550,7 +552,7 @@ public class StoryForm : System.Windows.Forms.Form
 	private void DrawLink(Node baseNode, Node linkNode)
 	{
 		paint.DrawLine(pen, baseNode.X + scrX, baseNode.Y + scrY,
-			linkNode.X + scrX, linkNode.Y + scrY);
+				linkNode.X + scrX, linkNode.Y + scrY);
 	}
 
 	private void mSave_Click(object sender, System.EventArgs e)

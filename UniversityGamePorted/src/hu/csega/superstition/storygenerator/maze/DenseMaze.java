@@ -1,12 +1,12 @@
 package hu.csega.superstition.storygenerator.maze;
 
-class DenseMaze : GridMaze
+class DenseMaze extends GridMaze
 {
 	public DenseMaze(int xsize, int ysize) :
 		base(xsize, ysize)
-	{
+		{
 		ConnectAll();
-	}
+		}
 
 	protected void ConnectAll()
 	{

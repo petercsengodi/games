@@ -1,9 +1,11 @@
 package hu.csega.superstition.storygenerator;
 
+import javax.swing.JPanel;
+
 import hu.csega.superstition.storygenerator.maze.StructedGridMaze;
 import hu.csega.superstition.util.StaticRandomLibrary;
 
-public class DirectXPreview : System.Windows.Forms.Form
+public class DirectXPreview extends JPanel
 {
 	private System.ComponentModel.IContainer components;
 	private TwoWayLinkedGraph Map = null;
@@ -96,7 +98,7 @@ public class DirectXPreview : System.Windows.Forms.Form
 	private void RenderInitializing()
 	{
 		camera = Matrix.PerspectiveFovLH( (float)(Math.PI / 4.0),
-			1.0f, 0.125f /* 1.0f */, 10000.0f);
+				1.0f, 0.125f /* 1.0f */, 10000.0f);
 		Vup = new Vector3(0f, 1f, 0f);
 		device.RenderState.Lighting = false;
 		device.RenderState.Clipping = true;
@@ -209,10 +211,10 @@ public class DirectXPreview : System.Windows.Forms.Form
 		device.Transform.Projection = camera;
 
 		device.Transform.View =  Matrix.LookAtLH(pos,
-			new Vector3((float)(Math.Sin(angle1) * Math.Cos(angle2)) + pos.X,
-			pos.Y + (float)(Math.Sin(angle2)),
-			(float)(Math.Cos(angle1) * Math.Cos(angle2)) + pos.Z),
-			Vup);
+				new Vector3((float)(Math.Sin(angle1) * Math.Cos(angle2)) + pos.X,
+						pos.Y + (float)(Math.Sin(angle2)),
+						(float)(Math.Cos(angle1) * Math.Cos(angle2)) + pos.Z),
+				Vup);
 
 
 		device.SetTexture(0, null);

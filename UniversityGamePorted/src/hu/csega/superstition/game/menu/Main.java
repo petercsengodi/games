@@ -21,7 +21,6 @@ public class Main implements IMenu
 		menuhelp = new MenuHelpClass(param, elements);
 	}
 
-	#region IMenu Members
 
 	@Override
 	public MenuElement[] getMenuElements()
@@ -65,5 +64,4 @@ public class Main implements IMenu
 		menuhelp.Dispose();
 	}
 
-	#endregion
 }

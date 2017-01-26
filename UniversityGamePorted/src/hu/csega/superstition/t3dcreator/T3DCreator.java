@@ -1,10 +1,12 @@
 package hu.csega.superstition.t3dcreator;
 
+import javax.swing.JPanel;
+
 import hu.csega.superstition.gamelib.legacy.modeldata.CEdge;
 import hu.csega.superstition.gamelib.legacy.modeldata.CTriangle;
 
-public class T3DCreator : System.Windows.Forms.Form
-{
+public class T3DCreator extends JPanel {
+
 	private System.Windows.Forms.MainMenu main_menu;
 	private System.Windows.Forms.MenuItem menuItem1;
 	private System.Windows.Forms.MenuItem menuItem2;
@@ -73,10 +75,10 @@ public class T3DCreator : System.Windows.Forms.Form
 		InitializeComponent();
 
 		control = new FileControl(
-			"T3DC Model file (*.t3d)|*.t3d|XML files (*.xml)|*.xml|All files (*.*)|*.*",
-			@"..\t3d_files",
-			new FileOperation(OpenFile),
-			new FileOperation(SaveFile));
+				"T3DC Model file (*.t3d)|*.t3d|XML files (*.xml)|*.xml|All files (*.*)|*.*",
+				@"..\t3d_files",
+				new FileOperation(OpenFile),
+				new FileOperation(SaveFile));
 
 		model = new CModel(control);
 		model.RegisterView(treeObjectView1);
@@ -183,22 +185,22 @@ public class T3DCreator : System.Windows.Forms.Form
 		// main_menu
 		//
 		this.main_menu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																				  this.menuItem1,
-																				  this.menuItem14,
-																				  this.menuItem28,
-																				  this.menuItem22,
-																				  this.menuItem12,
-																				  this.menuItem7});
+				this.menuItem1,
+				this.menuItem14,
+				this.menuItem28,
+				this.menuItem22,
+				this.menuItem12,
+				this.menuItem7});
 		//
 		// menuItem1
 		//
 		this.menuItem1.Index = 0;
 		this.menuItem1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																				  this.menuItem2,
-																				  this.menuItem3,
-																				  this.menuItem4,
-																				  this.menuItem5,
-																				  this.menuItem6});
+				this.menuItem2,
+				this.menuItem3,
+				this.menuItem4,
+				this.menuItem5,
+				this.menuItem6});
 		this.menuItem1.Text = "File";
 		//
 		// menuItem2
@@ -235,13 +237,13 @@ public class T3DCreator : System.Windows.Forms.Form
 		//
 		this.menuItem14.Index = 1;
 		this.menuItem14.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																				   this.menuItem15,
-																				   this.menuItem16,
-																				   this.menuItem24,
-																				   this.menuItem26,
-																				   this.menuItem25,
-																				   this.menuItem17,
-																				   this.menuItem21});
+				this.menuItem15,
+				this.menuItem16,
+				this.menuItem24,
+				this.menuItem26,
+				this.menuItem25,
+				this.menuItem17,
+				this.menuItem21});
 		this.menuItem14.Text = "Edit";
 		//
 		// menuItem15
@@ -287,9 +289,9 @@ public class T3DCreator : System.Windows.Forms.Form
 		//
 		this.menuItem28.Index = 2;
 		this.menuItem28.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																				   this.menuItem27,
-																				   this.menuItem30,
-																				   this.menuItem18});
+				this.menuItem27,
+				this.menuItem30,
+				this.menuItem18});
 		this.menuItem28.Text = "Model";
 		//
 		// menuItem27
@@ -313,26 +315,26 @@ public class T3DCreator : System.Windows.Forms.Form
 		//
 		this.menuItem22.Index = 3;
 		this.menuItem22.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																				   this.menuItem9,
-																				   this.menuItem23,
-																				   this.menuItem20,
-																				   this.menuItem29,
-																				   this.menuItem19});
+				this.menuItem9,
+				this.menuItem23,
+				this.menuItem20,
+				this.menuItem29,
+				this.menuItem19});
 		this.menuItem22.Text = "Figure";
 		//
 		// menuItem9
 		//
 		this.menuItem9.Index = 0;
 		this.menuItem9.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																				  this.menuItem10,
-																				  this.menuItem11,
-																				  this.menuItem32,
-																				  this.menuItem31,
-																				  this.menuItem33,
-																				  this.menuItem34,
-																				  this.menuItem35,
-																				  this.menuItem36,
-																				  this.menuItem37});
+				this.menuItem10,
+				this.menuItem11,
+				this.menuItem32,
+				this.menuItem31,
+				this.menuItem33,
+				this.menuItem34,
+				this.menuItem35,
+				this.menuItem36,
+				this.menuItem37});
 		this.menuItem9.Text = "Add Figure";
 		//
 		// menuItem10
@@ -415,7 +417,7 @@ public class T3DCreator : System.Windows.Forms.Form
 		//
 		this.menuItem12.Index = 4;
 		this.menuItem12.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																				   this.menuItem13});
+				this.menuItem13});
 		this.menuItem12.Text = "Mesh";
 		//
 		// menuItem13
@@ -428,7 +430,7 @@ public class T3DCreator : System.Windows.Forms.Form
 		//
 		this.menuItem7.Index = 5;
 		this.menuItem7.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																				  this.menuItem8});
+				this.menuItem8});
 		this.menuItem7.Text = "Help";
 		//
 		// menuItem8
@@ -577,9 +579,9 @@ public class T3DCreator : System.Windows.Forms.Form
 		// operation_box
 		//
 		this.operation_box.Items.AddRange(new object[] {
-														   "move",
-														   "zoom",
-														   "rotate"});
+				"move",
+				"zoom",
+		"rotate"});
 		this.operation_box.Location = new System.Drawing.Point(80, 416);
 		this.operation_box.Name = "operation_box";
 		this.operation_box.Size = new System.Drawing.Size(104, 21);
@@ -622,7 +624,7 @@ public class T3DCreator : System.Windows.Forms.Form
 	/// The main entry point for the application.
 	/// </summary>
 	[STAThread]
-	static void Main()
+			static void Main()
 	{
 		Application.Run(new T3DCreator());
 	}
@@ -642,13 +644,13 @@ public class T3DCreator : System.Windows.Forms.Form
 			// For earlier versions
 			CFigure figure = m.figures[0] as CFigure;
 			CTriangle triangle = figure.triangles[0] as CTriangle;
-//			if(triangle.neighbours[0] == null)
-//			{
-				foreach(CFigure f in m.figures)
-				{
-					f.CalculateNeighbours();
-				}
-//			}
+			//			if(triangle.neighbours[0] == null)
+			//			{
+			foreach(CFigure f in m.figures)
+			{
+				f.CalculateNeighbours();
+			}
+			//			}
 
 			if(!model.Verify())
 				throw new Exception("Loaded model is not valid!");

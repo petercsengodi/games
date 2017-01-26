@@ -1,7 +1,9 @@
 package hu.csega.superstition.t3dcreator;
 
-public class MeshText : System.Windows.Forms.Form
-{
+import javax.swing.JPanel;
+
+public class MeshText extends JPanel {
+
 	private System.Windows.Forms.Label label1;
 	private System.Windows.Forms.Label label2;
 	private System.Windows.Forms.Button font_button;

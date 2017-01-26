@@ -1,7 +1,9 @@
 package hu.csega.superstition.t3dcreator;
 
-public class ModelProperties : System.Windows.Forms.Form
-{
+import javax.swing.JPanel;
+
+public class ModelProperties extends JPanel {
+
 	/// <summary>
 	/// Required designer variable.
 	/// </summary>
@@ -78,20 +80,20 @@ public class ModelProperties : System.Windows.Forms.Form
 		this.numericUpDown1.DecimalPlaces = 3;
 		this.numericUpDown1.Location = new System.Drawing.Point(8, 40);
 		this.numericUpDown1.Maximum = new System.Decimal(new int[] {
-																	   1000,
-																	   0,
-																	   0,
-																	   0});
+				1000,
+				0,
+				0,
+				0});
 		this.numericUpDown1.Name = "numericUpDown1";
 		this.numericUpDown1.RightToLeft = System.Windows.Forms.RightToLeft.No;
 		this.numericUpDown1.Size = new System.Drawing.Size(128, 20);
 		this.numericUpDown1.TabIndex = 4;
 		this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 		this.numericUpDown1.Value = new System.Decimal(new int[] {
-																	 100,
-																	 0,
-																	 0,
-																	 0});
+				100,
+				0,
+				0,
+				0});
 		//
 		// ModelProperties
 		//
@@ -145,7 +147,7 @@ public class ModelProperties : System.Windows.Forms.Form
 	{
 		Vector3 box = model.CountBoundingBox();
 		bounding_box.Text = "[" + box.X + "; " +
-			box.Y + "; " + box.Z + "]";
+				box.Y + "; " + box.Z + "]";
 	}
 
 }

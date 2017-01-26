@@ -1,6 +1,6 @@
 package hu.csega.superstition.game.state;
 
-class MainMenuState : State
+class MainMenuState extends State
 {
 	protected Quit_State quit;
 	protected Play_State play;
@@ -15,7 +15,7 @@ class MainMenuState : State
 	protected IPAddress address;
 
 	public MainMenu_State(Engine engine, Model gameModel, Quit_State quit,
-		Play_State play, Load_State load)
+			Play_State play, Load_State load)
 	{
 		this.quit = quit;
 		this.play = play;
@@ -31,40 +31,41 @@ class MainMenuState : State
 		TriggerParams selection = (TriggerParams)Object;
 		switch(selection.command)
 		{
-			case MainMenuSelection.LOAD_MAP:
-				filename = selection.StringParameter;
-				(new Thread(new ThreadStart(loading))).Start();
-				return load;
+		case MainMenuSelection.LOAD_MAP:
+			filename = selection.StringParameter;
+			(new Thread(new ThreadStart(loading))).Start();
+			return load;
 
-			case MainMenuSelection.LOAD_GAME:
-				filename = selection.StringParameter;
-				(new Thread(new ThreadStart(loadgame))).Start();
-				return load;
+		case MainMenuSelection.LOAD_GAME:
+			filename = selection.StringParameter;
+			(new Thread(new ThreadStart(loadgame))).Start();
+			return load;
 
-			case MainMenuSelection.DENSE_MAP:
-				(new Thread(new ThreadStart(densemap))).Start();
-				return load;
+		case MainMenuSelection.DENSE_MAP:
+			(new Thread(new ThreadStart(densemap))).Start();
+			return load;
 
-			case MainMenuSelection.JOIN_HOST:
-				object[] array = (object[])selection.ObjectParameter;
-				host = (Network.NetHost)array[0];
-				address = (IPAddress)array[1];
-				host_data = (HostData)array[2];
-				user = (UserInfo)array[3];
-				map = (MapBuffer)array[4];
-				(new Thread(new ThreadStart(joinhost))).Start();
-				return load;
+		case MainMenuSelection.JOIN_HOST:
+			object[] array = (object[])selection.ObjectParameter;
+			host = (Network.NetHost)array[0];
+			address = (IPAddress)array[1];
+			host_data = (HostData)array[2];
+			user = (UserInfo)array[3];
+			map = (MapBuffer)array[4];
+			(new Thread(new ThreadStart(joinhost))).Start();
+			return load;
 
-			case MainMenuSelection.SAVE_GAME:
-				return this;
+		case MainMenuSelection.SAVE_GAME:
+			return this;
 
-			case MainMenuSelection.QUIT:
-				return quit;
+		case MainMenuSelection.QUIT:
+			return quit;
 		}
 
 		return this;
 	}
 
+	@Override
 	public override void enter()
 	{
 		base.enter();
@@ -74,6 +75,7 @@ class MainMenuState : State
 	}
 
 
+	@Override
 	public override void exit()
 	{
 		base.exit();
@@ -92,11 +94,11 @@ class MainMenuState : State
 	private void joinhost()
 	{
 		gameModel.SetDataModel(
-			ModelIO.ExtractModelData(map.map_buffer));
+				ModelIO.ExtractModelData(map.map_buffer));
 		gameModel.Initialize(engine);
 
 		Network.PlayClient play_client = new Network.PlayClient(
-			address, user.game_port, user.client_port, user.userID);
+				address, user.game_port, user.client_port, user.userID);
 		gameModel.StartNetworkPlay(play_client, (int)user.userID);
 
 		host = null;

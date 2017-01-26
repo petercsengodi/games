@@ -51,8 +51,6 @@ public class MainMenu implements IModel
 		lights = new TranslateLight[7];
 	}
 
-	#region IModel Members
-
 	public void Initialize(Engine _engine)
 	{
 		param.slider = new Slider(_engine);
@@ -234,10 +232,6 @@ public class MainMenu implements IModel
 		main.Dispose();
 	}
 
-	#endregion
-
-	#region IPeriod Members
-
 	public void Period()
 	{
 		if((_alfa > Angle_max) || (_alfa < Angle_min)) d_alfa = -d_alfa;
@@ -267,5 +261,4 @@ public class MainMenu implements IModel
 		}
 	}
 
-	#endregion
 }

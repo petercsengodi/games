@@ -1,6 +1,6 @@
 package hu.csega.superstition.game.state;
 
-class QuitState : State
+class QuitState extends State
 {
 	protected Form main;
 
@@ -9,6 +9,7 @@ class QuitState : State
 		this.main = main;
 	}
 
+	@Override
 	public override void enter()
 	{
 		base.enter();

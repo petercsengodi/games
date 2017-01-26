@@ -1,5 +1,5 @@
 package hu.csega.superstition.game.network;
 
-public class ReceiveData {
-	public void ReceiveData(GameObjectData data);
+public interface ReceiveData {
+	void ReceiveData(GameObjectData data);
 }

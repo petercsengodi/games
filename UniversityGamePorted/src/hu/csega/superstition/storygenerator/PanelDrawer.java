@@ -1,6 +1,8 @@
 package hu.csega.superstition.storygenerator;
 
-public class PanelDrawer : Panel
+import javax.swing.JPanel;
+
+public class PanelDrawer extends JPanel
 {
 	public PanelDrawer()
 	{

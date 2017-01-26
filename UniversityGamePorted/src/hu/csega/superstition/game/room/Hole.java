@@ -1,13 +1,13 @@
 package hu.csega.superstition.game.room;
 
-abstract class Hole : IClipping, IDisposable, IGameObject, IRenderObject
+abstract class Hole implements IClipping, IDisposable, IGameObject, IRenderObject
 {
 	public static float STEP = 0.2f,
-		HALF_STEP = STEP/2f,
-		DoorBottom = 0.05f,
-		DoorSide = 0.15f,
-		DoorCeiling = 1f,
-		DoorExtrude = 0.1f;
+			HALF_STEP = STEP/2f,
+			DoorBottom = 0.05f,
+			DoorSide = 0.15f,
+			DoorCeiling = 1f,
+			DoorExtrude = 0.1f;
 
 	protected ArrayList planes = new ArrayList(), clippers = new ArrayList();
 	protected Room lower_room, upper_room;
@@ -19,7 +19,6 @@ abstract class Hole : IClipping, IDisposable, IGameObject, IRenderObject
 		box_upper = new Vector3();
 		box_lower = new Vector3();
 
-		#region Direction dependent code
 
 		if(direction == StaticVectorLibrary.Left)
 		{
@@ -66,7 +65,6 @@ abstract class Hole : IClipping, IDisposable, IGameObject, IRenderObject
 			box_lower.Z = lower_room.Upper.Z + DoorExtrude;
 		}
 
-		#endregion
 	}
 
 	/// <summary>
@@ -76,8 +74,6 @@ abstract class Hole : IClipping, IDisposable, IGameObject, IRenderObject
 	public abstract void Build(Engine engine);
 
 	public abstract GameObjectData getData();
-
-	#region IRenderObject Members
 
 	public void Render()
 	{
@@ -97,9 +93,6 @@ abstract class Hole : IClipping, IDisposable, IGameObject, IRenderObject
 		}
 	}
 
-	#endregion
-
-	#region IClipping Members
 
 	public void Clip(Clipable clipable)
 	{
@@ -111,9 +104,6 @@ abstract class Hole : IClipping, IDisposable, IGameObject, IRenderObject
 		}
 	}
 
-	#endregion
-
-	#region IGameObject Members
 
 	public void PreRender()
 	{
@@ -123,13 +113,8 @@ abstract class Hole : IClipping, IDisposable, IGameObject, IRenderObject
 	{
 	}
 
-	#endregion
-
-	#region IPeriod Members
-
 	public virtual void Period()
 	{
 	}
 
-	#endregion
 }

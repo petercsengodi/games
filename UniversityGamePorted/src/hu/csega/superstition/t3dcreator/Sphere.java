@@ -1,7 +1,11 @@
 package hu.csega.superstition.t3dcreator;
 
-public class Sphere : System.Windows.Forms.Form
-{
+import java.text.Normalizer.Form;
+
+import javax.swing.JPanel;
+
+public class Sphere extends JPanel {
+
 	private System.Windows.Forms.Label label1;
 	private System.Windows.Forms.Label label2;
 	private System.Windows.Forms.Button button1;
@@ -76,37 +80,37 @@ public class Sphere : System.Windows.Forms.Form
 		//
 		this.slice.Location = new System.Drawing.Point(80, 8);
 		this.slice.Minimum = new System.Decimal(new int[] {
-															  3,
-															  0,
-															  0,
-															  0});
+				3,
+				0,
+				0,
+				0});
 		this.slice.Name = "slice";
 		this.slice.Size = new System.Drawing.Size(64, 20);
 		this.slice.TabIndex = 2;
 		this.slice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 		this.slice.Value = new System.Decimal(new int[] {
-															5,
-															0,
-															0,
-															0});
+				5,
+				0,
+				0,
+				0});
 		//
 		// stack
 		//
 		this.stack.Location = new System.Drawing.Point(80, 40);
 		this.stack.Minimum = new System.Decimal(new int[] {
-															  3,
-															  0,
-															  0,
-															  0});
+				3,
+				0,
+				0,
+				0});
 		this.stack.Name = "stack";
 		this.stack.Size = new System.Drawing.Size(64, 20);
 		this.stack.TabIndex = 3;
 		this.stack.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 		this.stack.Value = new System.Decimal(new int[] {
-															5,
-															0,
-															0,
-															0});
+				5,
+				0,
+				0,
+				0});
 		//
 		// button1
 		//

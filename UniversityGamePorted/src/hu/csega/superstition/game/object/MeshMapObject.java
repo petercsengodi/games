@@ -1,24 +1,20 @@
 package hu.csega.superstition.game.object;
 
-class MeshMapObject : MapObject
+class MeshMapObject extends MapObject
 {
 	protected Element element;
 	protected float Angle;
 	protected string mesh;
 
 	public MeshMapObject(string mesh, Vector3 position)
-		: base(position, position)
+	: base(position, position)
 	{
 		this.position = position;
 		this.Angle = 0f;
 		this.mesh = mesh;
 	}
 
-	/// <summary>
-	/// Serializable data class for Mesh Map Object.
-	/// </summary>
-	[Serializable]
-	protected class MeshMapObjectData : GameObjectData
+	protected class MeshMapObjectData extends GameObjectData
 	{
 		public float angle;
 		public Vector3 position;
@@ -37,7 +33,7 @@ class MeshMapObject : MapObject
 	}
 
 	public MeshMapObject(GameObjectData data)
-		: base(new Vector3(), new Vector3())
+	: base(new Vector3(), new Vector3())
 	{
 		MeshMapObjectData d = data as MeshMapObjectData;
 		this.Angle = d.angle;
@@ -61,6 +57,7 @@ class MeshMapObject : MapObject
 	}
 
 
+	@Override
 	public override void Render()
 	{
 		element.Render(position, 0f, Angle, 0f);

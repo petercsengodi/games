@@ -1,8 +1,10 @@
 package hu.csega.superstition.storygenerator;
 
-public class FileGrabber : System.Drawing.Design.UITypeEditor
+import javax.swing.JPanel;
+
+public class FileGrabber extends JPanel
 {
-	private string filter, inital;
+	private String filter, inital;
 
 	public FileGrabber(string FilterString, string inital)
 	{

@@ -1,8 +1,7 @@
 package hu.csega.superstition.game.room;
 
-class Entrance : TWLLink, IClipping, IDisposable, IGameObject, IRenderObject
+class Entrance extends TWLLink implements IClipping, IDisposable, IGameObject, IRenderObject
 {
-	#region Variables, constatns
 
 	public int degree;
 	protected Vector3 Room1Upper, Room1Lower, Room2Upper, Room2Lower;
@@ -11,13 +10,11 @@ class Entrance : TWLLink, IClipping, IDisposable, IGameObject, IRenderObject
 	protected Hole hole;
 
 	public static float STEP = 0.2f,
-		HALF_STEP = STEP/2f,
-		DoorBottom = 0.05f,
-		DoorSide = 0.15f,
-		DoorCeiling = 1f,
-		DoorExtrude = 0.1f;
-
-	#endregion
+			HALF_STEP = STEP/2f,
+			DoorBottom = 0.05f,
+			DoorSide = 0.15f,
+			DoorCeiling = 1f,
+			DoorExtrude = 0.1f;
 
 	public Entrance(int _degree, string _TextureStair, string _TextureDoor) : base()
 	{
@@ -26,8 +23,8 @@ class Entrance : TWLLink, IClipping, IDisposable, IGameObject, IRenderObject
 		tex_door = _TextureDoor;
 	}
 
-	[Serializable]
-	protected class EntranceData : GameObjectData
+
+	protected class EntranceData extends GameObjectData
 	{
 		public EntranceData()
 		{
@@ -75,14 +72,12 @@ class Entrance : TWLLink, IClipping, IDisposable, IGameObject, IRenderObject
 
 	public override void OnLinked()
 	{
-		#region For four walls
 
 		if((degree <=  45) || (degree >= 315)){ ((Room)To).SubWall(Room.WALL_RIGHT);  ((Room)From).SubWall(Room.WALL_LEFT);  }
 		if((degree >=  45) && (degree <= 135)){ ((Room)To).SubWall(Room.WALL_BACK);   ((Room)From).SubWall(Room.WALL_FRONT); }
 		if((degree >= 135) && (degree <= 225)){ ((Room)To).SubWall(Room.WALL_LEFT);   ((Room)From).SubWall(Room.WALL_RIGHT); }
 		if((degree >= 225) && (degree <= 315)){ ((Room)To).SubWall(Room.WALL_FRONT);  ((Room)From).SubWall(Room.WALL_BACK);  }
 
-		#endregion
 	}
 
 	public void Build(Engine engine)
@@ -92,7 +87,6 @@ class Entrance : TWLLink, IClipping, IDisposable, IGameObject, IRenderObject
 		Room2Upper = ((Room)From).Upper;
 		Room2Lower = ((Room)From).Lower;
 
-		#region Direction dependent code
 
 		if((degree <=  45) || (degree >= 315)) // LEFT
 		{
@@ -126,7 +120,6 @@ class Entrance : TWLLink, IClipping, IDisposable, IGameObject, IRenderObject
 		#endregion
 	}
 
-	#region IClipping Members
 
 	public void Clip(Clipable clipable)
 	{
@@ -134,29 +127,17 @@ class Entrance : TWLLink, IClipping, IDisposable, IGameObject, IRenderObject
 		stair.Clip(clipable);
 	}
 
-	#endregion
-
-	#region IRenderObject Members
-
 	public void Render()
 	{
 		hole.Render();
 		stair.Render();
 	}
 
-	#endregion
-
-	#region IDisposable Members
-
 	public void Dispose()
 	{
 		hole.Dispose();
 		stair.Dispose();
 	}
-
-	#endregion
-
-	#region IGameObject Members
 
 	public void PreRender()
 	{
@@ -166,14 +147,9 @@ class Entrance : TWLLink, IClipping, IDisposable, IGameObject, IRenderObject
 	{
 	}
 
-	#endregion
-
-	#region IPeriod Members
-
 	public void Period()
 	{
 		// TODO:  Add Entrance.Period implementation
 	}
 
-	#endregion
 }

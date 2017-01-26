@@ -1,6 +1,6 @@
 package hu.csega.superstition.game.state;
 
-class LoadState : State
+class LoadState extends State
 {
 	protected Play_State play;
 	protected IModel gameModel;
@@ -26,21 +26,21 @@ class LoadState : State
 		else return (State)Object;
 	}
 
-//	public override void enter()
-//	{
-//		base.enter();
-//		IModel imodel = new LoadingTitle();
-//		imodel.Initialize(engine);
-//		model = imodel;
-//	}
-//
-//
-//	public override void exit()
-//	{
-//		base.exit();
-//		IModel imodel = model;
-//		model = null;
-//		imodel.Dispose();
-//	}
+	//	public override void enter()
+	//	{
+	//		base.enter();
+	//		IModel imodel = new LoadingTitle();
+	//		imodel.Initialize(engine);
+	//		model = imodel;
+	//	}
+	//
+	//
+	//	public override void exit()
+	//	{
+	//		base.exit();
+	//		IModel imodel = model;
+	//		model = null;
+	//		imodel.Dispose();
+	//	}
 
 } // End of Load State

@@ -1,7 +1,9 @@
 package hu.csega.superstition.t3dcreator;
 
-public class FigureProperties : System.Windows.Forms.Form
-{
+import javax.swing.JPanel;
+
+public class FigureProperties extends JPanel {
+
 	private T3DCreatorWindows.ColorDisplay colorDisplay1;
 	private T3DCreatorWindows.ColorDisplay colorDisplay2;
 	private T3DCreatorWindows.ColorDisplay colorDisplay3;
@@ -149,9 +151,9 @@ public class FigureProperties : System.Windows.Forms.Form
 	private void ChangeAmbientColor(Color color)
 	{
 		Operation operation = new ChangeMaterial(figure,
-			color.ToArgb(),
-			figure.diffuse_color,
-			figure.emissive_color);
+				color.ToArgb(),
+				figure.diffuse_color,
+				figure.emissive_color);
 		model.Memento.Push(operation);
 		model.UpdateViews(Updates.Full);
 	}
@@ -159,9 +161,9 @@ public class FigureProperties : System.Windows.Forms.Form
 	private void ChangeDiffuseColor(Color color)
 	{
 		Operation operation = new ChangeMaterial(figure,
-			figure.ambient_color,
-			color.ToArgb(),
-			figure.emissive_color);
+				figure.ambient_color,
+				color.ToArgb(),
+				figure.emissive_color);
 		model.Memento.Push(operation);
 		model.UpdateViews(Updates.Full);
 	}
@@ -169,9 +171,9 @@ public class FigureProperties : System.Windows.Forms.Form
 	private void ChangeEmissiveColor(Color color)
 	{
 		Operation operation = new ChangeMaterial(figure,
-			figure.ambient_color,
-			figure.diffuse_color,
-			color.ToArgb());
+				figure.ambient_color,
+				figure.diffuse_color,
+				color.ToArgb());
 		model.Memento.Push(operation);
 		model.UpdateViews(Updates.Full);
 	}

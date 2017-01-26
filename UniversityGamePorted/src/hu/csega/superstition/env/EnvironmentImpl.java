@@ -31,8 +31,8 @@ public class EnvironmentImpl implements Environment {
 
 		} catch(InterruptedException ex) {
 			throw new GameException("Interruption when waiting.", ex)
-				.description("Main running class was waiting for the game to finish while an "
-						+ "InterruptedException occurred.");
+			.description("Main running class was waiting for the game to finish while an "
+					+ "InterruptedException occurred.");
 		}
 	}
 

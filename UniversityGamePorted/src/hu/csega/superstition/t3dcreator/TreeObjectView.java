@@ -3,7 +3,7 @@ package hu.csega.superstition.t3dcreator;
 import hu.csega.superstition.gamelib.legacy.modeldata.CEdge;
 import hu.csega.superstition.gamelib.legacy.modeldata.CTriangle;
 
-public class TreeObjectView : CView
+public class TreeObjectView extends CView
 {
 	private System.Windows.Forms.TreeView treeView1;
 	/// <summary>
@@ -69,9 +69,9 @@ public class TreeObjectView : CView
 	public override void UpdateView(Updates update)
 	{
 		if((update == Updates.Selection) ||
-			(update == Updates.Move))
+				(update == Updates.Move))
 		{
-//			treeView1.SelectedNode = null;
+			//			treeView1.SelectedNode = null;
 			return;
 		}
 
@@ -110,7 +110,7 @@ public class TreeObjectView : CView
 
 		} // End of foreach Figures
 
-//		if(selected != null) treeView1.SelectedNode = selected;
+		//		if(selected != null) treeView1.SelectedNode = selected;
 
 		treeView1.EndUpdate();
 	}
@@ -170,12 +170,12 @@ public class TreeObjectView : CView
 			if(idx[2] < 3)
 			{
 				ret = ((model.figures[idx[0]] as CFigure).triangles[idx[1]]
-					as CTriangle).edges[idx[2]].from;
+						as CTriangle).edges[idx[2]].from;
 			}
 			else
 			{
 				ret = ((model.figures[idx[0]] as CFigure).triangles[idx[1]]
-					as CTriangle).edges[idx[2] - 3];
+						as CTriangle).edges[idx[2] - 3];
 			}
 		}
 
