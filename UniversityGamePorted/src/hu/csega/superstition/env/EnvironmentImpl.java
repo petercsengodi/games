@@ -1,6 +1,5 @@
 package hu.csega.superstition.env;
 
-import java.io.Closeable;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,8 +7,33 @@ import java.util.Set;
 public class EnvironmentImpl implements Environment {
 
 	@Override
-	public void registerForDisposing(Closeable closeable) {
+	public void registerForDisposing(Disposable closeable) {
 		disposables.add(closeable);
+	}
+
+	@Override
+	public void notifyExitting() {
+		synchronized (this) {
+			this.notify();
+		}
+	}
+
+	/**
+	 * Only reachable by the game main frame.
+	 * @throws IOException
+	 */
+	public void waitForExitting() {
+		try {
+
+			synchronized (this) {
+				this.wait();
+			}
+
+		} catch(InterruptedException ex) {
+			throw new GameException("Interruption when waiting.", ex)
+				.description("Main running class was waiting for the game to finish while an "
+						+ "InterruptedException occurred.");
+		}
 	}
 
 	/**
@@ -17,13 +41,9 @@ public class EnvironmentImpl implements Environment {
 	 * @throws IOException
 	 */
 	public void finish() {
-		try {
-			for(Closeable disposable : disposables)
-				disposable.close();
-		} catch(IOException ex) {
-			throw new GameException("Exception occurred when finishing program.", ex);
-		}
+		for(Disposable disposable : disposables)
+			disposable.dispose();
 	}
 
-	private Set<Closeable> disposables = new HashSet<>();
+	private Set<Disposable> disposables = new HashSet<>();
 }

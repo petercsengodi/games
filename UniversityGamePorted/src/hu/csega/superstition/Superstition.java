@@ -6,7 +6,8 @@ import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 
-import hu.csega.superstition.env.Environment;
+import hu.csega.superstition.engines.connector.Connector;
+import hu.csega.superstition.engines.opengl.ExampleConnector;
 import hu.csega.superstition.env.EnvironmentImpl;
 import hu.csega.superstition.env.GameException;
 import hu.csega.superstition.env.Phase;
@@ -32,8 +33,6 @@ public class Superstition {
 
 			superstition.run();
 
-			throw new GameException("Hello", new Exception()).description("This is description.");
-
 		} catch(GameException ex) {
 
 			handleGameException(ex, superstition);
@@ -46,9 +45,7 @@ public class Superstition {
 
 			try {
 
-				superstition.setPhase(Phase.FINALIZATION);
-				env.finish();
-				superstition.setPhase(Phase.FINALIZATION_OVER);
+				superstition.finish();
 
 			} catch(GameException ex) {
 
@@ -60,6 +57,8 @@ public class Superstition {
 
 			}
 		}
+
+		System.exit(0);
 	}
 
 	public static void handleGameException(GameException ex, Superstition superstition) {
@@ -78,19 +77,42 @@ public class Superstition {
 
 	private void initialize() {
 		phase = Phase.INITIALIZATION;
-		// TODO Auto-generated method stub
+		logger.info("Initialization phase started.");
 
+		logger.info("Creating connector for example program.");
+		connector = new ExampleConnector();
+
+		logger.info("Initialization phase finished.");
 		phase = Phase.INITIALIZATION_OVER;
 	}
 
 	private void run() {
 		phase = Phase.GAME;
-		// TODO Auto-generated method stub
+		logger.info("Game phase started.");
 
+		connector.run(env);
+
+		logger.info("Waiting for game to finish.");
+		env.waitForExitting();
+		logger.info("Exitting from game.");
+
+		logger.info("Game phase finished.");
 		phase = Phase.GAME_OVER;
 	}
 
-	private void setEnvironment(Environment env) {
+	private void finish() {
+		phase = Phase.FINALIZATION;
+		logger.info("Finalization phase started.");
+
+		env.finish();
+
+		connector.dispose();
+
+		logger.info("Finalization phase finished.");
+		phase = Phase.FINALIZATION_OVER;
+	}
+
+	private void setEnvironment(EnvironmentImpl env) {
 		this.env = env;
 	}
 
@@ -106,8 +128,9 @@ public class Superstition {
 		return (phase == null ? "null" : phase.name());
 	}
 
+	private Connector connector;
 	private Phase phase = Phase.ZERO;
-	private Environment env;
+	private EnvironmentImpl env;
 
 	private static final String SEPARATOR = "\n-----------------------";
 	private static final Logger logger = Logger.getLogger(Superstition.class);
