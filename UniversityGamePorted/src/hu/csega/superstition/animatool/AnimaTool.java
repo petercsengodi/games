@@ -70,7 +70,7 @@ public class AnimaTool extends System.Windows.Forms.Form
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected override void Dispose( bool disposing )
+	protected void Dispose( bool disposing )
 	{
 		if( disposing )
 		{
@@ -533,7 +533,7 @@ public class AnimaTool extends System.Windows.Forms.Form
 		Close();
 	}
 
-	protected override void OnClosing(CancelEventArgs e)
+	protected void OnClosing(CancelEventArgs e)
 	{
 		file_control.Save();
 		base.OnClosing(e);

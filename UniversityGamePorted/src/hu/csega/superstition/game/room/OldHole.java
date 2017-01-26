@@ -8,7 +8,7 @@ class OldHole extends Hole
 		super(room1, room2, direction);
 	}
 
-	public override void Build(Engine engine)
+	public void Build(Engine engine)
 	{
 		if(direction == StaticVectorLibrary.Left)
 		{

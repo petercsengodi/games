@@ -20,7 +20,7 @@ class ThrowableTorch extends DynamicObject
 			description = "Thorch";
 		}
 
-		public override object create()
+		public object create()
 		{
 			return new ThrowableTorch(this);
 		}
@@ -95,7 +95,7 @@ class ThrowableTorch extends DynamicObject
 		if(engine.IsLighted) light.DeActivate();
 	}
 
-	public override void Squash(StaticVectorLibrary.Direction dir, Vector3 box1, Vector3 box2, Vector3 sqpoint)
+	public void Squash(StaticVectorLibrary.Direction dir, Vector3 box1, Vector3 box2, Vector3 sqpoint)
 	{
 
 		if((dir == StaticVectorLibrary.Left) || (dir == StaticVectorLibrary.Right))

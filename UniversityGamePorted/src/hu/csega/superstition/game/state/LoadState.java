@@ -20,13 +20,13 @@ class LoadState extends State
 		this.play = play;
 	}
 
-	public override State trigger(object Object)
+	public State trigger(object Object)
 	{
 		if(Object == null) return play;
 		else return (State)Object;
 	}
 
-	//	public override void enter()
+	//	public void enter()
 	//	{
 	//		base.enter();
 	//		IModel imodel = new LoadingTitle();
@@ -35,7 +35,7 @@ class LoadState extends State
 	//	}
 	//
 	//
-	//	public override void exit()
+	//	public void exit()
 	//	{
 	//		base.exit();
 	//		IModel imodel = model;

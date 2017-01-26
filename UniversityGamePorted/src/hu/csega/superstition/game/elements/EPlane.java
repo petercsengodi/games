@@ -83,7 +83,7 @@ public class EPlane extends Primitive {
 	}
 
 
-	public override void Initialize(object buf, EventArgs ea)
+	public void Initialize(object buf, EventArgs ea)
 	{
 		GraphicsStream stream = buffer.Lock(lock_index, 0, 0);
 
@@ -229,7 +229,7 @@ public class EPlane extends Primitive {
 	}
 
 	@Override
-	public override void Render()
+	public void Render()
 	{
 		if(engine.IsShadowRendering)
 		{
@@ -277,7 +277,7 @@ public class EPlane extends Primitive {
 	}
 
 	@Override
-	public override void RenderShadow()
+	public void RenderShadow()
 	{
 		if(direction == StaticVectorLibrary.Left)
 		{

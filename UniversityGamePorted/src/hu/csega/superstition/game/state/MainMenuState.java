@@ -24,7 +24,7 @@ class MainMenuState extends State
 		this.gameModel = gameModel;
 	}
 
-	public override State trigger(object Object)
+	public State trigger(object Object)
 	{
 		base.trigger(Object);
 
@@ -66,7 +66,7 @@ class MainMenuState extends State
 	}
 
 	@Override
-	public override void enter()
+	public void enter()
 	{
 		base.enter();
 		IModel imodel = new MainMenu(engine);
@@ -76,7 +76,7 @@ class MainMenuState extends State
 
 
 	@Override
-	public override void exit()
+	public void exit()
 	{
 		base.exit();
 		IModel imodel = model;

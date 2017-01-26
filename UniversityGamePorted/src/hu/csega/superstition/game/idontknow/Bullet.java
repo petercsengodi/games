@@ -27,7 +27,7 @@ public class Bullet extends DynamicObject implements IGameElement {
 			description = "Bullet Data";
 		}
 
-		public override object create()
+		public object create()
 		{
 			return new Bullet(this);
 		}

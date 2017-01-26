@@ -70,7 +70,7 @@ public class Options extends MenuElement implements IMenu
 	}
 
 	@Override
-	public override void Dispose()
+	public void Dispose()
 	{
 		super.Dispose ();
 		menuhelp.Dispose();

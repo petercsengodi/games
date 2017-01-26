@@ -32,7 +32,7 @@ public class StaticBox extends MapObject implements IDisposable
 			description = "Static Box";
 		}
 
-		public override object create()
+		public object create()
 		{
 			return new StaticBox(this);
 		}

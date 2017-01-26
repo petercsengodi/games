@@ -53,7 +53,7 @@ public class ETesselatedTriangle extends Primitive {
 		ReCreate();
 	}
 
-	public override void Initialize(object buf, EventArgs ea)
+	public void Initialize(object buf, EventArgs ea)
 	{
 		GraphicsStream stream = ((VertexBuffer)buf).Lock(lock_index, 0, 0);
 		Vector3 AB = b - a, AC = c - a, BC = c - b, tB, tC, tX;
@@ -129,7 +129,7 @@ public class ETesselatedTriangle extends Primitive {
 	}
 
 	@Override
-	public override void Render()
+	public void Render()
 	{
 		if(engine.IsShadowRendering)
 		{
@@ -160,7 +160,7 @@ public class ETesselatedTriangle extends Primitive {
 	}
 
 	@Override
-	public override void RenderShadow()
+	public void RenderShadow()
 	{
 		engine.RenderVolume(a, b, c);
 		engine.RenderVolume(c, b, a);

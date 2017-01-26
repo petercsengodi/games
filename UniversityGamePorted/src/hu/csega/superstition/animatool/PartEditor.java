@@ -38,7 +38,7 @@ public class PartEditor extends CView {
 		for(int i = 0; i < part.connections.Length; i++)
 		{
 			conn_list.Items.Add(new ListViewItem(
-				part.connections[i].ToString()));
+					part.connections[i].ToString()));
 		}
 
 		file_box.Text = part.mesh_file;
@@ -57,7 +57,8 @@ public class PartEditor extends CView {
 		var_box.Text = "";
 	}
 
-	public override void updateView(Updates update)
+	@Override
+	public void updateView(Updates update)
 	{
 		this.Part = (GetData() as CModel).Selected as CPart;
 	}
@@ -67,7 +68,7 @@ public class PartEditor extends CView {
 		if(part == null) return;
 		CModel model = GetData() as CModel;
 		ListView.SelectedIndexCollection indices
-			= conn_list.SelectedIndices;
+		= conn_list.SelectedIndices;
 		CConnection[] old = part.connections;
 		CConnection[] _new = new CConnection[old.Length - indices.Count];
 
@@ -82,7 +83,7 @@ public class PartEditor extends CView {
 				if(indices[j] == i)
 				{
 					model.DeleteConnection(
-						model.parts.IndexOf(part), i);
+							model.parts.IndexOf(part), i);
 					real = false;
 				}
 			}
@@ -122,7 +123,7 @@ public class PartEditor extends CView {
 		} else idx2 = -1;
 
 		_new[old.Length] = new CConnection((float)x_num.Value,
-			(float)y_num.Value, (float)z_num.Value, idx1, idx2);
+				(float)y_num.Value, (float)z_num.Value, idx1, idx2);
 		if((var_box.Text != null) && (var_box.Text.Length > 0))
 		{
 			_new[old.Length].name = var_box.Text;
@@ -154,7 +155,7 @@ public class PartEditor extends CView {
 			part.mesh_file = Path.GetFileName(dialog.FileName);
 			file_box.Text = part.mesh_file;
 			part.SetMesh(MeshLibrary.Instance().
-				LoadMesh(part.mesh_file));
+					LoadMesh(part.mesh_file));
 			(GetData() as CModel).UpdateViews();
 		}
 	}
@@ -165,9 +166,9 @@ public class PartEditor extends CView {
 		CModel model = GetData() as CModel;
 		if(side == Side.Right)
 			part.model_transform[model.scene] =
-				part.model_transform[model.scene] * matrix;
+			part.model_transform[model.scene] * matrix;
 		else part.model_transform[model.scene] =
-				 matrix * part.model_transform[model.scene];
+				matrix * part.model_transform[model.scene];
 
 		model.PreserveConnections(part);
 		model.UpdateViews();
@@ -253,7 +254,7 @@ public class PartEditor extends CView {
 		foreach(CConnection con in p.connections)
 		{
 			index_box.Items.Add("x:" + con.point.X +
-				" y:" + con.point.Y + " z:" + con.point.Z);
+					" y:" + con.point.Y + " z:" + con.point.Z);
 		}
 	}
 
@@ -262,7 +263,7 @@ public class PartEditor extends CView {
 		if(part == null) return;
 		CModel model = GetData() as CModel;
 		ListView.SelectedIndexCollection indices
-			= conn_list.SelectedIndices;
+		= conn_list.SelectedIndices;
 		CConnection[] old = part.connections;
 		CConnection[] _new = new CConnection[old.Length];
 

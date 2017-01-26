@@ -143,12 +143,12 @@ public class WireFrameView extends CView
 
 	}
 
-	public override void UpdateView(Updates update)
+	public void UpdateView(Updates update)
 	{
 		Invalidate();
 	}
 
-	protected override void InitializeView()
+	protected void InitializeView()
 	{
 		bcontrol = new ButtonControl[3];
 		for(int i = 0; i < 3; i++)
@@ -160,17 +160,17 @@ public class WireFrameView extends CView
 		zoom = 200.0;
 	}
 
-	protected override void CloseView()
+	protected void CloseView()
 	{
 
 	}
 
-	protected override void OnPaintBackground(PaintEventArgs pevent)
+	protected void OnPaintBackground(PaintEventArgs pevent)
 	{
 		if(!Initialized) base.OnPaintBackground(pevent);
 	}
 
-	protected override void OnPaint(PaintEventArgs args)
+	protected void OnPaint(PaintEventArgs args)
 	{
 		if(!Initialized)
 		{

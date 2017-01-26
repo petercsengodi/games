@@ -5,7 +5,7 @@ import hu.csega.superstition.gameserver.Server;
 public class StartState extends State {
 
 	@Override
-	public override void enter()
+	public void enter()
 	{
 		base.enter();
 		Server.Instance.Start();
@@ -13,14 +13,14 @@ public class StartState extends State {
 	}
 
 	@Override
-	public override void exit()
+	public void exit()
 	{
 		base.exit();
 		Server.Instance.Stop();
 		Server.Instance.ReadOnly = false;
 	}
 
-	public override State trigger(object Object)
+	public State trigger(object Object)
 	{
 		base.trigger(Object);
 		string trigger_string = Object as string;

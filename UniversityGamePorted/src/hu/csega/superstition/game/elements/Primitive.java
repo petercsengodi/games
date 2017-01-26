@@ -71,7 +71,7 @@ public abstract class Primitive extends Element {
 	/// Dispose function.
 	/// </summary>
 	@Override
-	public override void Dispose()
+	public void Dispose()
 	{
 		engine.RemoveFromDisposeList(buffer);
 		if(buffer != null) buffer.Dispose();

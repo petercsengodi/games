@@ -50,7 +50,7 @@ public class Weapon extends Clipable implements IGameElement {
 			description = "Weapon Data";
 		}
 
-		public override object create()
+		public object create()
 		{
 			return new Weapon(this);
 		}

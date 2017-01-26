@@ -64,7 +64,7 @@ public class MeshElement extends Element {
 	}
 
 	@Override
-	public override void Render()
+	public void Render()
 	{
 		if(engine.IsShadowRendering)
 		{
@@ -95,7 +95,7 @@ public class MeshElement extends Element {
 	}
 
 	@Override
-	public override void Dispose()
+	public void Dispose()
 	{
 		engine.RemoveFromDisposeList(mesh);
 		mesh.Dispose();

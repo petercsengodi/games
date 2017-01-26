@@ -24,7 +24,7 @@ class PlayState extends State
 		this.cstate = cstate;
 	}
 
-	public override State trigger(object Object)
+	public State trigger(object Object)
 	{
 		base.trigger(Object);
 		if(Object == null) return menu;
@@ -40,7 +40,7 @@ class PlayState extends State
 	}
 
 	@Override
-	public override void enter()
+	public void enter()
 	{
 		base.enter();
 		//		engine.Options.depth_algorythm =
@@ -50,7 +50,7 @@ class PlayState extends State
 	}
 
 	@Override
-	public override void exit()
+	public void exit()
 	{
 		engine.Options.depth_algorythm =
 				DepthAlgorythm.Pass;

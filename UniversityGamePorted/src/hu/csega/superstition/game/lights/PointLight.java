@@ -42,7 +42,7 @@ public class PointLight extends Light {
 	}
 
 	@Override
-	protected override void SetParameters()
+	protected void SetParameters()
 	{
 		engine.Device.Lights[index].Diffuse = color;
 		engine.Device.Lights[index].Type = LightType.Point;

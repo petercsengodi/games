@@ -50,12 +50,12 @@ public class DecoratedLight extends MapObject {
 		l = engine.GetPointLight(range, color, light);
 	}
 
-	public override void PreRender()
+	public void PreRender()
 	{
 		l.Activate();
 	}
 
-	public override void PostRender()
+	public void PostRender()
 	{
 		l.DeActivate();
 	}

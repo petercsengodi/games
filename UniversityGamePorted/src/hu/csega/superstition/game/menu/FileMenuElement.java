@@ -29,25 +29,27 @@ public class FileMenuElement extends MenuElement
 		get{ return file; }
 	}
 
-	public override IMenu DoItem()
+	@Override
+	public IMenu DoItem()
 	{
 		return parent.DoChildrenItem(file);
 	}
 
-	public override string getText()
+	@Override
+	public string getText()
 	{
 		return null;
 	}
 
 	@Override
-	public override void Dispose()
+	public void Dispose()
 	{
 		disposed = true;
 		filename.Dispose();
 	}
 
 	@Override
-	public override void Render()
+	public void Render()
 	{
 		if(disposed) return;
 		filename.Render(translation);

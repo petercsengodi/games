@@ -30,7 +30,7 @@ public class MeshText extends Element {
 		center.Z = -extrusion / 2f;
 	}
 
-	public override @Override
+	public @Override
 	void Render()
 	{
 		if(engine.IsShadowRendering)
@@ -51,14 +51,14 @@ public class MeshText extends Element {
 	}
 
 	@Override
-	public override void Dispose()
+	public void Dispose()
 	{
 		engine.RemoveFromDisposeList(mesh);
 		mesh.Dispose();
 	}
 
 	@Override
-	public override void RenderShadow()
+	public void RenderShadow()
 	{
 		Matrix temp = engine.Device.Transform.World;
 		Matrix temp2 = Matrix.Identity;

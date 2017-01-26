@@ -1,10 +1,16 @@
 package hu.csega.superstition.storygenerator;
 
+import java.awt.Image;
+
+import org.joml.Vector3f;
+
+import com.jogamp.opengl.util.texture.Texture;
+
 import hu.csega.superstition.util.StaticMathLibrary;
 
 public class Room extends TWLNode
 {
-	public const int WALL_LEFT = 1,
+	public final int WALL_LEFT = 1,
 			WALL_RIGHT = 2,
 			WALL_FRONT = 4,
 			WALL_BACK = 8,
@@ -12,14 +18,14 @@ public class Room extends TWLNode
 			WALL_CEILING = 32,
 			WALL_SUM = 63;
 
-	public const int DG_LEFT = 0,
+	public final int DG_LEFT = 0,
 			DG_RIGHT = 180,
 			DG_FRONT = 90,
 			DG_BACK = 270;
 
 	protected int walls;
-	protected Vector3 corner1, corner2;
-	protected string face, texString;
+	protected Vector3f corner1, corner2;
+	protected String face, texString;
 	protected Image bitmap;
 
 	protected Texture texture = null;
@@ -48,8 +54,12 @@ public class Room extends TWLNode
 		}
 	}
 
-	public string Mark{ get{ return face; }
-	set	{ face = value; }
+	public String getMark() {
+		return face;
+	}
+
+	public void setMark(String face) {
+		this.face = face;
 	}
 
 	public Image BITMAP

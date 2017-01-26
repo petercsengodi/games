@@ -22,7 +22,7 @@ public class DirectXView extends CView
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected override void Dispose( bool disposing )
+	protected void Dispose( bool disposing )
 	{
 		if( disposing )
 		{
@@ -100,12 +100,12 @@ public class DirectXView extends CView
 		get { return device; }
 	}
 
-	public override void UpdateView(Updates update)
+	public void UpdateView(Updates update)
 	{
 		Invalidate();
 	}
 
-	//		public override void UpdateView(Updates update)
+	//		public void UpdateView(Updates update)
 	//		{
 	//			int color, temp_color,
 	//				color_normal = Color.Black.ToArgb(),
@@ -197,7 +197,7 @@ public class DirectXView extends CView
 	//			Invalidate();
 	//		}
 
-	protected override void InitializeView()
+	protected void InitializeView()
 	{
 		PresentParameters pp = new PresentParameters();
 		pp.AutoDepthStencilFormat = DepthFormat.D16;
@@ -271,7 +271,7 @@ public class DirectXView extends CView
 		grid.Unlock();
 	}
 
-	protected override void CloseView()
+	protected void CloseView()
 	{
 		if(device != null)
 		{
@@ -280,13 +280,13 @@ public class DirectXView extends CView
 		}
 	}
 
-	protected override void OnPaintBackground(PaintEventArgs pevent)
+	protected void OnPaintBackground(PaintEventArgs pevent)
 	{
 		if(device == null) base.OnPaintBackground (pevent);
 	}
 
 
-	protected override void OnPaint(PaintEventArgs e)
+	protected void OnPaint(PaintEventArgs e)
 	{
 		if(device == null)
 		{

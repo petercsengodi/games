@@ -70,7 +70,7 @@ class Entrance extends TWLLink implements IClipping, IDisposable, IGameObject, I
 		return ret;
 	}
 
-	public override void OnLinked()
+	public void OnLinked()
 	{
 
 		if((degree <=  45) || (degree >= 315)){ ((Room)To).SubWall(Room.WALL_RIGHT);  ((Room)From).SubWall(Room.WALL_LEFT);  }

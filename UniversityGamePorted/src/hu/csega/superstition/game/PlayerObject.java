@@ -90,7 +90,7 @@ class PlayerObject extends DynamicObject implements IDisposable {
 			description = "Player";
 		}
 
-		public override object create()
+		public object create()
 		{
 			return new PlayerObject(this);
 		}

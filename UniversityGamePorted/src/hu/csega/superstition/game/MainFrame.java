@@ -120,7 +120,7 @@ public class MainFrame extends System.Windows.Forms.Form {
 	/// Closing process. Triggered by an Event.
 	/// </summary>
 	/// <param name="e">Given to parent class.</param>
-	protected override void OnClosing(CancelEventArgs e)
+	protected void OnClosing(CancelEventArgs e)
 	{
 		Clean(); // The program seems to need this.
 		base.OnClosing (e);
@@ -155,7 +155,7 @@ public class MainFrame extends System.Windows.Forms.Form {
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected override void Dispose( bool disposing )
+	protected void Dispose( bool disposing )
 	{
 		if( disposing )
 		{
