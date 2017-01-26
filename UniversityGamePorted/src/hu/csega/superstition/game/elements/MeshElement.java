@@ -37,7 +37,7 @@ public class MeshElement extends Element {
 			mats[i].Ambient = exmats[i].Material3D.Diffuse;
 		}
 
-		int[,] adjacency = (int[,])stream.Read(
+		int[][] adjacency = (int[][])stream.Read(
 				typeof(System.Int32), mesh.NumberFaces, 3);
 		stream.Close();
 

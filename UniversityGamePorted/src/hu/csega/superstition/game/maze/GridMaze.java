@@ -31,7 +31,7 @@ public class GridMaze implements IGeneratedMaze {
 		}
 	}
 
-	private const float
+	private final float
 	max_room_width = 12f,
 	max_room_height = 10f,
 	max_corridor_height = 4f,
@@ -49,9 +49,9 @@ public class GridMaze implements IGeneratedMaze {
 
 	protected enum Connection
 	{
-		None = 0,
-				Available,
-				Connected
+		None,
+		Available,
+		Connected
 	}
 
 	protected class Node
@@ -102,58 +102,58 @@ public class GridMaze implements IGeneratedMaze {
 	private void SetUpGraph()
 	{
 
-		graph = new Node[xsize, ysize];
+		graph = new Node[xsize][ysize];
 		for(int i = 0; i < xsize; i++)
 		{
 			for(int j = 0; j < ysize; j++)
 			{
-				if((i % 3 == 1) && (j % 3 == 1)) graph[i,j] = null;
-				else graph[i,j] = new Node();
+				if((i % 3 == 1) && (j % 3 == 1)) graph[i][j] = null;
+				else graph[i][j] = new Node();
 			}
 		}
 
 
 		for(int i = 0; i < xsize; i++)
 		{
-			if(graph[i, 0] != null)
-				graph[i, 0].up = Connection.None;
-			if(graph[i, ysize-1] != null)
-				graph[i, ysize-1].down = Connection.None;
+			if(graph[i][0] != null)
+				graph[i][0].up = Connection.None;
+			if(graph[i][ysize-1] != null)
+				graph[i][ysize-1].down = Connection.None;
 		}
 		for(int i = 0; i < ysize; i++)
 		{
-			if(graph[0, i] != null)
-				graph[0, i].left = Connection.None;
-			if(graph[xsize - 1, i] != null)
-				graph[xsize-1, i].right = Connection.None;
+			if(graph[0][i] != null)
+				graph[0][i].left = Connection.None;
+			if(graph[xsize - 1][i] != null)
+				graph[xsize-1][i].right = Connection.None;
 		}
 
 		for(int i = 0; i < xsize; i++)
 		{
 			for(int j = 0; j < ysize; j++)
 			{
-				if(graph[i,j] == null) continue;
+				if(graph[i][j] == null) continue;
 
 				// erase right links
 				if((j % 3 != 1) && (i % 3 == 2))
-					graph[i,j].right = Connection.None;
+					graph[i][j].right = Connection.None;
 				if((j % 3 == 1) && (i % 3 < 2))
-					graph[i,j].right = Connection.None;
+					graph[i][j].right = Connection.None;
 				// erase left links
 				if((j % 3 != 1) && (i % 3 == 0))
-					graph[i,j].left = Connection.None;
+					graph[i][j].left = Connection.None;
 				if((j % 3 == 1) && (i % 3 > 0))
-					graph[i,j].left = Connection.None;
+					graph[i][j].left = Connection.None;
 				// erase down links
 				if((i % 3 != 1) && (j % 3 == 2))
-					graph[i,j].down = Connection.None;
+					graph[i][j].down = Connection.None;
 				if((i % 3 == 1) && (j % 3 < 2))
-					graph[i,j].down = Connection.None;
+					graph[i][j].down = Connection.None;
 				// erase up links
 				if((i % 3 != 1) && (j % 3 == 0))
-					graph[i,j].up = Connection.None;
+					graph[i][j].up = Connection.None;
 				if((i % 3 == 1) && (j % 3 > 0))
-					graph[i,j].up = Connection.None;
+					graph[i][j].up = Connection.None;
 			}
 		}
 
@@ -162,7 +162,7 @@ public class GridMaze implements IGeneratedMaze {
 
 	protected Node Graph(int x, int y)
 	{
-		return graph[x,y];
+		return graph[x][y];
 	}
 
 	protected double[] Distribution()
@@ -172,7 +172,7 @@ public class GridMaze implements IGeneratedMaze {
 		{
 			for(int j = 0; j < ysize; j++)
 			{
-				if(graph[i,j] != null) ret[j * xsize + i] = 1.0;
+				if(graph[i][j] != null) ret[j * xsize + i] = 1.0;
 				else ret[j * xsize + i] = 0.0;
 			}
 		}
@@ -180,9 +180,9 @@ public class GridMaze implements IGeneratedMaze {
 	}
 
 
-	protected virtual Vector3[,,] CountRoomBoxes()
+	protected Vector3[][][] CountRoomBoxes()
 	{
-		Vector3[,,] ret = new Vector3[xsize, ysize, 2];
+		Vector3[][][] ret = new Vector3[xsize][ysize][2];
 
 		float xmin, xmax, ymin, ymax, height, hpos;
 
@@ -210,16 +210,16 @@ public class GridMaze implements IGeneratedMaze {
 
 				// Creating vector
 
-				ret[x,y,0] = new Vector3(xmin, hpos, ymin);
-				ret[x,y,1] = new Vector3(xmax, hpos + height, ymax);
+				ret[x][y][0] = new Vector3(xmin, hpos, ymin);
+				ret[x][y][1] = new Vector3(xmax, hpos + height, ymax);
 			}
 
 		return ret;
 	}
 
-	protected Vector3[,,] ApplyHorizontalCorridors(Vector3[,,] rooms)
+	protected Vector3[][][] ApplyHorizontalCorridors(Vector3[][][] rooms)
 	{
-		Vector3[,,] ret = new Vector3[xsize-1, ysize, 2];
+		Vector3[][][] ret = new Vector3[xsize-1][ysize][2];
 
 		float min, max, diff;
 
@@ -228,53 +228,53 @@ public class GridMaze implements IGeneratedMaze {
 			{
 				// filling default values
 
-				ret[x, y, 0].X = 0f;
-				ret[x, y, 1].X = 0f;
+				ret[x][y][0].X = 0f;
+				ret[x][y][1].X = 0f;
 
 				// counting z values
 
-				min = Math.Max(rooms[x,y,0].Z, rooms[x+1,y,0].Z);
-				max = Math.Min(rooms[x,y,1].Z, rooms[x+1,y,1].Z);
+				min = Math.Max(rooms[x][y][0].Z, rooms[x+1][y][0].Z);
+				max = Math.Min(rooms[x][y][1].Z, rooms[x+1][y][1].Z);
 				diff = StaticRandomLibrary.FloatValue(
 						min_corridor_width, max_corridor_width);
-				ret[x,y,0].Z = StaticRandomLibrary.FloatValue(
+				ret[x][y][0].Z = StaticRandomLibrary.FloatValue(
 						min, max - diff);
-				ret[x,y,1].Z = ret[x,y,0].Z + diff;
+				ret[x][y][1].Z = ret[x][y][0].Z + diff;
 
 				// counting ymin
 
 				min = Math.Min(
-						rooms[x, y, 0].Y - room_corridor_hdiff,
-						rooms[x + 1, y, 0].Y - room_corridor_hdiff);
+						rooms[x][y][0].Y - room_corridor_hdiff,
+						rooms[x + 1][y][0].Y - room_corridor_hdiff);
 				max = Math.Max(
-						rooms[x, y, 0].Y + room_corridor_hdiff,
-						rooms[x + 1, y, 0].Y + room_corridor_hdiff);
-				ret[x, y, 0].Y = StaticRandomLibrary.FloatValue(
+						rooms[x][y][0].Y + room_corridor_hdiff,
+						rooms[x + 1][y][0].Y + room_corridor_hdiff);
+				ret[x][y][0].Y = StaticRandomLibrary.FloatValue(
 						min, max);
 
 				// counting ymax
 
 				min = Math.Min(
-						rooms[x, y, 1].Y - room_corridor_hdiff,
-						rooms[x + 1, y, 1].Y - room_corridor_hdiff);
+						rooms[x][y][1].Y - room_corridor_hdiff,
+						rooms[x + 1][y][1].Y - room_corridor_hdiff);
 				max = Math.Max(
-						rooms[x, y, 1].Y + room_corridor_hdiff,
-						rooms[x + 1, y, 1].Y + room_corridor_hdiff);
-				ret[x, y, 1].Y = StaticRandomLibrary.FloatValue(
+						rooms[x][y][1].Y + room_corridor_hdiff,
+						rooms[x + 1][y][1].Y + room_corridor_hdiff);
+				ret[x][y][1].Y = StaticRandomLibrary.FloatValue(
 						min, max);
 
 				// counting appropriate difference
 
-				diff = ret[x, y, 1].Y - ret[x, y, 0].Y;
+				diff = ret[x][y][1].Y - ret[x][y][0].Y;
 				if(diff < min_corridor_height)
 				{
 					diff = (min_corridor_height - diff);
-					ret[x, y, 1].Y += diff;
+					ret[x][y][1].Y += diff;
 				}
 				else if(diff > max_corridor_height)
 				{
 					diff = diff - max_corridor_height;
-					ret[x, y, 1].Y -= diff;
+					ret[x][y][1].Y -= diff;
 				}
 
 			}
@@ -282,9 +282,9 @@ public class GridMaze implements IGeneratedMaze {
 		return ret;
 	}
 
-	protected Vector3[,,] ApplyVerticalCorridors(Vector3[,,] rooms)
+	protected Vector3[][][] ApplyVerticalCorridors(Vector3[][][] rooms)
 	{
-		Vector3[,,] ret = new Vector3[xsize, ysize - 1, 2];
+		Vector3[][][] ret = new Vector3[xsize][ysize - 1][2];
 
 		float min, max, diff;
 
@@ -293,53 +293,53 @@ public class GridMaze implements IGeneratedMaze {
 			{
 				// filling default values
 
-				ret[x, y, 0].Z = 0f;
-				ret[x, y, 1].Z = 0f;
+				ret[x][y][0].Z = 0f;
+				ret[x][y][1].Z = 0f;
 
 				// counting x values
 
-				min = Math.Max(rooms[x,y,0].X, rooms[x,y+1,0].X);
-				max = Math.Min(rooms[x,y,1].X, rooms[x,y+1,1].X);
+				min = Math.Max(rooms[x][y][0].X, rooms[x][y+1][0].X);
+				max = Math.Min(rooms[x][y][1].X, rooms[x][y+1][1].X);
 				diff = StaticRandomLibrary.FloatValue(
 						min_corridor_width, max_corridor_width);
-				ret[x,y,0].X = StaticRandomLibrary.FloatValue(
+				ret[x][y][0].X = StaticRandomLibrary.FloatValue(
 						min, max - diff);
-				ret[x,y,1].X = ret[x,y,0].X + diff;
+				ret[x][y][1].X = ret[x][y][0].X + diff;
 
 				// counting ymin
 
 				min = Math.Min(
-						rooms[x, y, 0].Y - room_corridor_hdiff,
-						rooms[x, y + 1, 0].Y - room_corridor_hdiff);
+						rooms[x][y][0].Y - room_corridor_hdiff,
+						rooms[x][y + 1][0].Y - room_corridor_hdiff);
 				max = Math.Max(
-						rooms[x, y, 0].Y + room_corridor_hdiff,
-						rooms[x, y + 1, 0].Y + room_corridor_hdiff);
-				ret[x, y, 0].Y = StaticRandomLibrary.FloatValue(
+						rooms[x][y][0].Y + room_corridor_hdiff,
+						rooms[x][y + 1][0].Y + room_corridor_hdiff);
+				ret[x][y][0].Y = StaticRandomLibrary.FloatValue(
 						min, max);
 
 				// counting ymax
 
 				min = Math.Min(
-						rooms[x, y, 1].Y - room_corridor_hdiff,
-						rooms[x, y + 1, 1].Y - room_corridor_hdiff);
+						rooms[x][y][1].Y - room_corridor_hdiff,
+						rooms[x][y + 1][1].Y - room_corridor_hdiff);
 				max = Math.Max(
-						rooms[x, y, 1].Y + room_corridor_hdiff,
-						rooms[x, y + 1, 1].Y + room_corridor_hdiff);
-				ret[x, y, 1].Y = StaticRandomLibrary.FloatValue(
+						rooms[x][y][1].Y + room_corridor_hdiff,
+						rooms[x][y + 1][1].Y + room_corridor_hdiff);
+				ret[x][y][1].Y = StaticRandomLibrary.FloatValue(
 						min, max);
 
 				// counting appropriate difference
 
-				diff = ret[x, y, 1].Y - ret[x, y, 0].Y;
+				diff = ret[x][y][1].Y - ret[x][y][0].Y;
 				if(diff < min_corridor_height)
 				{
 					diff = (min_corridor_height - diff);
-					ret[x, y, 1].Y += diff;
+					ret[x][y][1].Y += diff;
 				}
 				else if(diff > max_corridor_height)
 				{
 					diff = diff - max_corridor_height;
-					ret[x, y, 1].Y -= diff;
+					ret[x][y][1].Y -= diff;
 				}
 
 			}
@@ -347,8 +347,8 @@ public class GridMaze implements IGeneratedMaze {
 		return ret;
 	}
 
-	protected void IdentifyRoomsCorridors(Vector3[,,] rooms,
-			Vector3[,,] hor_corr, Vector3[,,] ver_corr)
+	protected void IdentifyRoomsCorridors(Vector3[][][] rooms,
+			Vector3[][][] hor_corr, Vector3[][][] ver_corr)
 	{
 		float grid = min_corridor_length + max_room_size;
 
@@ -361,51 +361,51 @@ public class GridMaze implements IGeneratedMaze {
 				if(room == null) continue;
 
 				room.Lower = new Vector3(
-						grid * x + rooms[x, y, 0].X,
-						rooms[x, y, 0].Y,
-						grid * y + rooms[x, y, 0].Z);
+						grid * x + rooms[x][y][0].X,
+						rooms[x][y][0].Y,
+						grid * y + rooms[x][y][0].Z);
 
 				room.Upper = new Vector3(
-						grid * x + rooms[x, y, 1].X,
-						rooms[x, y, 1].Y,
-						grid * y + rooms[x, y, 1].Z);
+						grid * x + rooms[x][y][1].X,
+						rooms[x][y][1].Y,
+						grid * y + rooms[x][y][1].Z);
 
 				room.RePlaceObjects();
 
 				// Identifying right corridor
 
-				room = graph[x,y].RCorr;
+				room = graph[x][y].RCorr;
 				if(room != null)
 				{
-					float x1 = grid * x + rooms[x, y, 1].X;
+					float x1 = grid * x + rooms[x][y][1].X;
 					float x2 = grid * (x+1) + rooms[x+1, y, 0].X;
 
 					room.Lower = new Vector3(
-							x1, hor_corr[x, y, 0].Y,
-							grid * y + hor_corr[x, y, 0].Z);
+							x1, hor_corr[x][y][0].Y,
+							grid * y + hor_corr[x][y][0].Z);
 
 					room.Upper = new Vector3(
-							x2, hor_corr[x, y, 1].Y,
-							grid * y + hor_corr[x, y, 1].Z);
+							x2, hor_corr[x][y][1].Y,
+							grid * y + hor_corr[x][y][1].Z);
 
 					room.RePlaceObjects();
 				}
 
 				// Identifying down corridor
 
-				room = graph[x,y].DCorr;
+				room = graph[x][y].DCorr;
 				if(room != null)
 				{
-					float y1 = grid * y + rooms[x, y, 1].Z;
-					float y2 = grid * (y+1) + rooms[x, y+1, 0].Z;
+					float y1 = grid * y + rooms[x][y][1].Z;
+					float y2 = grid * (y+1) + rooms[x][y+1][0].Z;
 
 					room.Lower = new Vector3(
-							grid * x + ver_corr[x, y, 0].X,
-							ver_corr[x, y, 0].Y, y1);
+							grid * x + ver_corr[x][y][0].X,
+							ver_corr[x][y][0].Y, y1);
 
 					room.Upper = new Vector3(
-							grid * x + ver_corr[x, y, 1].X,
-							ver_corr[x, y, 1].Y, y2);
+							grid * x + ver_corr[x][y][1].X,
+							ver_corr[x][y][1].Y, y2);
 
 					room.RePlaceObjects();
 				}
@@ -418,9 +418,9 @@ public class GridMaze implements IGeneratedMaze {
 	/// </summary>
 	public void Randomize()
 	{
-		Vector3[,,] rooms = CountRoomBoxes();
-		Vector3[,,] hor_corr = ApplyHorizontalCorridors(rooms);
-		Vector3[,,] ver_corr = ApplyVerticalCorridors(rooms);
+		Vector3[][][] rooms = CountRoomBoxes();
+		Vector3[][][] hor_corr = ApplyHorizontalCorridors(rooms);
+		Vector3[][][] ver_corr = ApplyVerticalCorridors(rooms);
 		IdentifyRoomsCorridors(rooms, hor_corr, ver_corr);
 	}
 
@@ -433,18 +433,18 @@ public class GridMaze implements IGeneratedMaze {
 	{
 		double[] ret = new double[xsize * ysize];
 
-		bool modified = false;
+		boolean modified = false;
 		for(int x = 0; x < xsize; x++)
 		{
 			for(int y = 0; y < ysize; y++)
 			{
 				int idx = y * xsize + x;
-				if(graph[x, y] == null)
+				if(graph[x][y] == null)
 				{
 					ret[idx] = 0.0;
 					continue;
 				}
-				else if(graph[x,y].room != null)
+				else if(graph[x][y].room != null)
 				{
 					ret[idx] = 0.0;
 					continue;
@@ -452,7 +452,7 @@ public class GridMaze implements IGeneratedMaze {
 				else
 				{
 					if((GetRoom(x-1, y) != null)
-							&& (graph[x, y].left != Connection.None))
+							&& (graph[x][y].left != Connection.None))
 					{
 						ret[idx] = 1.0;
 						modified = true;
@@ -460,7 +460,7 @@ public class GridMaze implements IGeneratedMaze {
 					}
 
 					if((GetRoom(x+1, y) != null)
-							&& (graph[x, y].right != Connection.None))
+							&& (graph[x][y].right != Connection.None))
 					{
 						ret[idx] = 1.0;
 						modified = true;
@@ -468,7 +468,7 @@ public class GridMaze implements IGeneratedMaze {
 					}
 
 					if((GetRoom(x, y-1) != null)
-							&& (graph[x, y].up != Connection.None))
+							&& (graph[x][y].up != Connection.None))
 					{
 						ret[idx] = 1.0;
 						modified = true;
@@ -476,7 +476,7 @@ public class GridMaze implements IGeneratedMaze {
 					}
 
 					if((GetRoom(x, y+1) != null)
-							&& (graph[x, y].down != Connection.None))
+							&& (graph[x][y].down != Connection.None))
 					{
 						ret[idx] = 1.0;
 						modified = true;
@@ -507,13 +507,13 @@ public class GridMaze implements IGeneratedMaze {
 			y = idx / xsize;
 
 			dense = new double[4];
-			if((GetRoom(x-1, y) != null) && (graph[x,y].left != Connection.None))
+			if((GetRoom(x-1, y) != null) && (graph[x][y].left != Connection.None))
 				dense[0] = 1.0; else dense[0] = 0.0;
-			if((GetRoom(x+1, y) != null) && (graph[x,y].right != Connection.None))
+			if((GetRoom(x+1, y) != null) && (graph[x][y].right != Connection.None))
 				dense[1] = 1.0; else dense[1] = 0.0;
-			if((GetRoom(x, y-1) != null) && (graph[x,y].up != Connection.None))
+			if((GetRoom(x, y-1) != null) && (graph[x][y].up != Connection.None))
 				dense[2] = 1.0; else dense[2] = 0.0;
-			if((GetRoom(x, y+1) != null) && (graph[x,y].down != Connection.None))
+			if((GetRoom(x, y+1) != null) && (graph[x][y].down != Connection.None))
 				dense[3] = 1.0; else dense[3] = 0.0;
 
 			idx = StaticRandomLibrary.SelectValue(dense);
@@ -541,9 +541,9 @@ public class GridMaze implements IGeneratedMaze {
 		{
 			for(int j = 0; j < ysize; j++)
 			{
-				if(graph[i, j] != null)
+				if(graph[i][j] != null)
 				{
-					Node node = graph[i,j];
+					Node node = graph[i][j];
 					if(node.room != null)
 					{
 						ret.AddNode(node.room);
@@ -556,9 +556,9 @@ public class GridMaze implements IGeneratedMaze {
 		{
 			for(int j = 0; j < ysize; j++)
 			{
-				if(graph[i, j] != null)
+				if(graph[i][j] != null)
 				{
-					Node node = graph[i,j];
+					Node node = graph[i][j];
 					if(node.room != null)
 					{
 						Room room = node.room;
@@ -579,7 +579,7 @@ public class GridMaze implements IGeneratedMaze {
 		{
 			for(int j = 0; j < ysize; j++)
 			{
-				Node node = graph[i,j];
+				Node node = graph[i][j];
 				if(node != null && node.room != null)
 				{
 					if(node.RCorr != null)
@@ -591,7 +591,7 @@ public class GridMaze implements IGeneratedMaze {
 										FaceLibrary.RandomGetFromLibrary(stairs),
 										FaceLibrary.RandomGetFromLibrary(floors)));
 
-						ret.Link(graph[i+1,j].room, node.RCorr,
+						ret.Link(graph[i+1][j].room, node.RCorr,
 								new Entrance(Room.DG_LEFT,
 										FaceLibrary.RandomGetFromLibrary(stairs),
 										FaceLibrary.RandomGetFromLibrary(floors)));
@@ -606,7 +606,7 @@ public class GridMaze implements IGeneratedMaze {
 										FaceLibrary.RandomGetFromLibrary(stairs),
 										FaceLibrary.RandomGetFromLibrary(floors)));
 
-						ret.Link(graph[i,j+1].room, node.DCorr,
+						ret.Link(graph[i][j+1].room, node.DCorr,
 								new Entrance(Room.DG_BACK,
 										FaceLibrary.RandomGetFromLibrary(stairs),
 										FaceLibrary.RandomGetFromLibrary(floors)));
@@ -619,34 +619,34 @@ public class GridMaze implements IGeneratedMaze {
 		{
 			for(int j = 0; j < ysize; j++)
 			{
-				if(graph[i, j] != null)
+				if(graph[i][j] != null)
 				{
-					Room room = graph[i,j].room;
+					Room room = graph[i][j].room;
 					if(room != null)
 					{
-						for(int x = i, y = j; graph[x,y].UCorr != null; y--)
+						for(int x = i, y = j; graph[x][y].UCorr != null; y--)
 						{
-							room.AddRoomToSight(graph[x,y].UCorr);
-							room.AddRoomToSight(graph[x,y-1].room);
+							room.AddRoomToSight(graph[x][y].UCorr);
+							room.AddRoomToSight(graph[x][y-1].room);
 							if(graph[x, y-1].LCorr != null)
-								room.AddRoomToSight(graph[x, y-1].LCorr);
+								room.AddRoomToSight(graph[x][y-1].LCorr);
 							if(graph[x, y-1].RCorr != null)
-								room.AddRoomToSight(graph[x, y-1].RCorr);
+								room.AddRoomToSight(graph[x][y-1].RCorr);
 						}
 
-						for(int x = i, y = j; graph[x,y].DCorr != null; y++)
+						for(int x = i, y = j; graph[x][y].DCorr != null; y++)
 						{
-							room.AddRoomToSight(graph[x,y].DCorr);
-							room.AddRoomToSight(graph[x,y+1].room);
-							if(graph[x, y+1].LCorr != null)
-								room.AddRoomToSight(graph[x, y+1].LCorr);
-							if(graph[x, y+1].RCorr != null)
-								room.AddRoomToSight(graph[x, y+1].RCorr);
+							room.AddRoomToSight(graph[x][y].DCorr);
+							room.AddRoomToSight(graph[x][y+1].room);
+							if(graph[x][y+1].LCorr != null)
+								room.AddRoomToSight(graph[x][y+1].LCorr);
+							if(graph[x][y+1].RCorr != null)
+								room.AddRoomToSight(graph[x][y+1].RCorr);
 						}
 
-						for(int x = i, y = j; graph[x,y].LCorr != null; x--)
+						for(int x = i, y = j; graph[x][y].LCorr != null; x--)
 						{
-							room.AddRoomToSight(graph[x,y].LCorr);
+							room.AddRoomToSight(graph[x][y].LCorr);
 							room.AddRoomToSight(graph[x-1,y].room);
 							if(graph[x-1, y].UCorr != null)
 								room.AddRoomToSight(graph[x-1, y].UCorr);
@@ -654,9 +654,9 @@ public class GridMaze implements IGeneratedMaze {
 								room.AddRoomToSight(graph[x-1, y].DCorr);
 						}
 
-						for(int x = i, y = j; graph[x,y].RCorr != null; x++)
+						for(int x = i, y = j; graph[x][y].RCorr != null; x++)
 						{
-							room.AddRoomToSight(graph[x,y].RCorr);
+							room.AddRoomToSight(graph[x][y].RCorr);
 							room.AddRoomToSight(graph[x+1,y].room);
 							if(graph[x+1, y].UCorr != null)
 								room.AddRoomToSight(graph[x+1, y].UCorr);
@@ -673,10 +673,10 @@ public class GridMaze implements IGeneratedMaze {
 			for(int j = 0; j < ysize; j++)
 			{
 
-				if((graph[i,j] != null) && (graph[i,j].RCorr != null))
+				if((graph[i][j] != null) && (graph[i][j].RCorr != null))
 				{
-					Room corridor = graph[i,j].RCorr;
-					for(int x = i, y = j; graph[x,y].RCorr != null; x++)
+					Room corridor = graph[i][j].RCorr;
+					for(int x = i, y = j; graph[x][y].RCorr != null; x++)
 					{
 						corridor.AddRoomToSight(graph[x+1,y].room);
 						if(graph[x+1,y].RCorr != null)
@@ -686,7 +686,7 @@ public class GridMaze implements IGeneratedMaze {
 						if(graph[x+1,y].DCorr != null)
 							corridor.AddRoomToSight(graph[x+1,y].DCorr);
 					}
-					for(int x = i+1, y = j; graph[x,y].LCorr != null; x--)
+					for(int x = i+1, y = j; graph[x][y].LCorr != null; x--)
 					{
 						corridor.AddRoomToSight(graph[x-1,y].room);
 						if(graph[x-1,y].LCorr != null)
@@ -698,10 +698,10 @@ public class GridMaze implements IGeneratedMaze {
 					}
 				}
 
-				if((graph[i,j] != null) && (graph[i,j].DCorr != null))
+				if((graph[i][j] != null) && (graph[i][j].DCorr != null))
 				{
-					Room corridor = graph[i,j].DCorr;
-					for(int x = i, y = j; graph[x,y].DCorr != null; y++)
+					Room corridor = graph[i][j].DCorr;
+					for(int x = i, y = j; graph[x][y].DCorr != null; y++)
 					{
 						corridor.AddRoomToSight(graph[x,y+1].room);
 						if(graph[x,y+1].DCorr != null)
@@ -711,15 +711,15 @@ public class GridMaze implements IGeneratedMaze {
 						if(graph[x,y+1].RCorr != null)
 							corridor.AddRoomToSight(graph[x,y+1].RCorr);
 					}
-					for(int x = i, y = j+1; graph[x,y].UCorr != null; y--)
+					for(int x = i, y = j+1; graph[x][y].UCorr != null; y--)
 					{
-						corridor.AddRoomToSight(graph[x,y-1].room);
-						if(graph[x,y-1].UCorr != null)
-							corridor.AddRoomToSight(graph[x,y-1].UCorr);
-						if(graph[x,y-1].LCorr != null)
-							corridor.AddRoomToSight(graph[x,y-1].LCorr);
-						if(graph[x,y-1].RCorr != null)
-							corridor.AddRoomToSight(graph[x,y-1].RCorr);
+						corridor.AddRoomToSight(graph[x][y-1].room);
+						if(graph[x][y-1].UCorr != null)
+							corridor.AddRoomToSight(graph[x][y-1].UCorr);
+						if(graph[x][y-1].LCorr != null)
+							corridor.AddRoomToSight(graph[x][y-1].LCorr);
+						if(graph[x][y-1].RCorr != null)
+							corridor.AddRoomToSight(graph[x][y-1].RCorr);
 					}
 				}
 
@@ -730,9 +730,9 @@ public class GridMaze implements IGeneratedMaze {
 		{
 			for(int j = 0; j < ysize; j++)
 			{
-				if(graph[i, j] != null)
+				if(graph[i][j] != null)
 				{
-					Node node = graph[i,j];
+					Node node = graph[i][j];
 					if(node.room != null)
 					{
 						node.room.AddLighsToAllWalls();
@@ -757,7 +757,7 @@ public class GridMaze implements IGeneratedMaze {
 	/// <returns>Instatiated Room</returns>
 	public Room DefaultRoom(int x, int y)
 	{
-		if(graph[x, y] == null) return null;
+		if(graph[x][y] == null) return null;
 
 		// Minimum space between rooms
 		float grid = max_room_size * 2f + 4f;
@@ -771,7 +771,7 @@ public class GridMaze implements IGeneratedMaze {
 				FaceLibrary.RandomGetFromLibrary(walls),
 				FaceLibrary.RandomGetFromLibrary(floors));
 
-		graph[x,y].room = room;
+		graph[x][y].room = room;
 		return room;
 	}
 
@@ -791,17 +791,17 @@ public class GridMaze implements IGeneratedMaze {
 
 		if(x1 == x2 && y1 == y2 - 1)
 		{
-			if(graph[x1, y1] == null) return null;
-			if(graph[x2, y2] == null) return null;
-			if(graph[x1, y1].down != Connection.Available) return null;
-			if(graph[x2, y2].up != Connection.Available) return null;
+			if(graph[x1][y1] == null) return null;
+			if(graph[x2][y2] == null) return null;
+			if(graph[x1][y1].down != Connection.Available) return null;
+			if(graph[x2][y2].up != Connection.Available) return null;
 
-			if(graph[x1, y1].room == null)
-				graph[x1, y1].room = DefaultRoom(x1, y1);
-			if(graph[x2, y2].room == null)
-				graph[x2, y2].room = DefaultRoom(x2, y2);
-			Room upper_room = graph[x1, y1].room;
-			Room lower_room = graph[x2, y2].room;
+			if(graph[x1][y1].room == null)
+				graph[x1][y1].room = DefaultRoom(x1, y1);
+			if(graph[x2][y2].room == null)
+				graph[x2][y2].room = DefaultRoom(x2, y2);
+			Room upper_room = graph[x1][y1].room;
+			Room lower_room = graph[x2][y2].room;
 
 			Room Corridor = new Room(
 					new Vector3(
@@ -815,27 +815,27 @@ public class GridMaze implements IGeneratedMaze {
 					FaceLibrary.RandomGetFromLibrary(walls),
 					FaceLibrary.RandomGetFromLibrary(floors));
 
-			graph[x1, y1].down = Connection.Connected;
-			graph[x1, y1].DCorr = Corridor;
-			graph[x2, y2].up = Connection.Connected;
-			graph[x2, y2].UCorr = Corridor;
+			graph[x1][y1].down = Connection.Connected;
+			graph[x1][y1].DCorr = Corridor;
+			graph[x2][y2].up = Connection.Connected;
+			graph[x2][y2].UCorr = Corridor;
 
 			return Corridor;
 		}
 
 		else if(x1 == x2 && y1 == y2 + 1)
 		{
-			if(graph[x1, y1] == null) return null;
-			if(graph[x2, y2] == null) return null;
-			if(graph[x1, y1].up != Connection.Available) return null;
-			if(graph[x2, y2].down != Connection.Available) return null;
+			if(graph[x1][y1] == null) return null;
+			if(graph[x2][y2] == null) return null;
+			if(graph[x1][y1].up != Connection.Available) return null;
+			if(graph[x2][y2].down != Connection.Available) return null;
 
-			if(graph[x1, y1].room == null)
-				graph[x1, y1].room = DefaultRoom(x1, y1);
-			if(graph[x2, y2].room == null)
-				graph[x2, y2].room = DefaultRoom(x2, y2);
-			Room upper_room = graph[x2, y2].room;
-			Room lower_room = graph[x1, y1].room;
+			if(graph[x1][y1].room == null)
+				graph[x1][y1].room = DefaultRoom(x1, y1);
+			if(graph[x2][y2].room == null)
+				graph[x2][y2].room = DefaultRoom(x2, y2);
+			Room upper_room = graph[x2][y2].room;
+			Room lower_room = graph[x1][y1].room;
 
 			Room Corridor = new Room(
 					new Vector3(
@@ -849,27 +849,27 @@ public class GridMaze implements IGeneratedMaze {
 					FaceLibrary.RandomGetFromLibrary(walls),
 					FaceLibrary.RandomGetFromLibrary(floors));
 
-			graph[x2, y2].down = Connection.Connected;
-			graph[x2, y2].DCorr = Corridor;
-			graph[x1, y1].up = Connection.Connected;
-			graph[x1, y1].UCorr = Corridor;
+			graph[x2][y2].down = Connection.Connected;
+			graph[x2][y2].DCorr = Corridor;
+			graph[x1][y1].up = Connection.Connected;
+			graph[x1][y1].UCorr = Corridor;
 
 			return Corridor;
 		}
 
 		else if(x1 == x2 - 1 && y1 == y2)
 		{
-			if(graph[x1, y1] == null) return null;
-			if(graph[x2, y2] == null) return null;
-			if(graph[x1, y1].right != Connection.Available) return null;
-			if(graph[x2, y2].left != Connection.Available) return null;
+			if(graph[x1][y1] == null) return null;
+			if(graph[x2][y2] == null) return null;
+			if(graph[x1][y1].right != Connection.Available) return null;
+			if(graph[x2][y2].left != Connection.Available) return null;
 
-			if(graph[x1, y1].room == null)
-				graph[x1, y1].room = DefaultRoom(x1, y1);
-			if(graph[x2, y2].room == null)
-				graph[x2, y2].room = DefaultRoom(x2, y2);
-			Room left_room = graph[x1, y1].room;
-			Room right_room = graph[x2, y2].room;
+			if(graph[x1][y1].room == null)
+				graph[x1][y1].room = DefaultRoom(x1, y1);
+			if(graph[x2][y2].room == null)
+				graph[x2][y2].room = DefaultRoom(x2, y2);
+			Room left_room = graph[x1][y1].room;
+			Room right_room = graph[x2][y2].room;
 
 			Room Corridor = new Room(
 					new Vector3(left_room.Upper.X,
@@ -881,27 +881,27 @@ public class GridMaze implements IGeneratedMaze {
 					FaceLibrary.RandomGetFromLibrary(walls),
 					FaceLibrary.RandomGetFromLibrary(floors));
 
-			graph[x1, y1].right = Connection.Connected;
-			graph[x1, y1].RCorr = Corridor;
-			graph[x2, y2].left = Connection.Connected;
-			graph[x2, y2].LCorr = Corridor;
+			graph[x1][y1].right = Connection.Connected;
+			graph[x1][y1].RCorr = Corridor;
+			graph[x2][y2].left = Connection.Connected;
+			graph[x2][y2].LCorr = Corridor;
 
 			return Corridor;
 		}
 
 		else if(x1 == x2 + 1 && y1 == y2)
 		{
-			if(graph[x1, y1] == null) return null;
-			if(graph[x2, y2] == null) return null;
-			if(graph[x1, y1].left != Connection.Available) return null;
-			if(graph[x2, y2].right != Connection.Available) return null;
+			if(graph[x1][y1] == null) return null;
+			if(graph[x2][y2] == null) return null;
+			if(graph[x1][y1].left != Connection.Available) return null;
+			if(graph[x2][y2].right != Connection.Available) return null;
 
-			if(graph[x1, y1].room == null)
-				graph[x1, y1].room = DefaultRoom(x1, y1);
-			if(graph[x2, y2].room == null)
-				graph[x2, y2].room = DefaultRoom(x2, y2);
-			Room left_room = graph[x2, y2].room;
-			Room right_room = graph[x1, y1].room;
+			if(graph[x1][y1].room == null)
+				graph[x1][y1].room = DefaultRoom(x1, y1);
+			if(graph[x2][y2].room == null)
+				graph[x2][y2].room = DefaultRoom(x2, y2);
+			Room left_room = graph[x2][y2].room;
+			Room right_room = graph[x1][y1].room;
 
 			Room Corridor = new Room(
 					new Vector3(left_room.Upper.X,
@@ -913,10 +913,10 @@ public class GridMaze implements IGeneratedMaze {
 					FaceLibrary.RandomGetFromLibrary(walls),
 					FaceLibrary.RandomGetFromLibrary(floors));
 
-			graph[x2, y2].right = Connection.Connected;
-			graph[x2, y2].RCorr = Corridor;
-			graph[x1, y1].left = Connection.Connected;
-			graph[x1, y1].LCorr = Corridor;
+			graph[x2][2].right = Connection.Connected;
+			graph[x2][y2].RCorr = Corridor;
+			graph[x1][y1].left = Connection.Connected;
+			graph[x1][y1].LCorr = Corridor;
 
 			return Corridor;
 		}
@@ -929,8 +929,8 @@ public class GridMaze implements IGeneratedMaze {
 	{
 		if((x < 0) || (x >= xsize)) return null;
 		if((y < 0) || (y >= ysize)) return null;
-		if(graph[x, y] == null) return null;
-		return graph[x,y].room;
+		if(graph[x][y] == null) return null;
+		return graph[x][y].room;
 	}
 
 	/// <summary>
@@ -944,7 +944,7 @@ public class GridMaze implements IGeneratedMaze {
 			{
 				if(GetRoom(i, j) != null)
 				{
-					if(graph[i,j].right == Connection.Connected)
+					if(graph[i][j].right == Connection.Connected)
 						Console.Write("X - ");
 					else Console.Write("X   ");
 				}
@@ -960,7 +960,7 @@ public class GridMaze implements IGeneratedMaze {
 			{
 				if(GetRoom(i, j) != null)
 				{
-					if(graph[i,j].down == Connection.Connected)
+					if(graph[i][j].down == Connection.Connected)
 						Console.Write("|   ");
 					else Console.Write("    ");
 				}

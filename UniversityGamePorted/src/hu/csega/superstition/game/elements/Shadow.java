@@ -14,7 +14,7 @@ public class Shadow {
 	private int subsets;
 
 	public Shadow(Engine engine, Mesh mesh, int subsets,
-			int[,] adjacency)
+			int[][] adjacency)
 	{
 		this.engine = engine;
 		this.mesh = mesh;
@@ -34,14 +34,14 @@ public class Shadow {
 
 		int n = temp.NumberFaces;
 
-		Vector3[,] positions = new Vector3[n, 3];
+		Vector3[] positions = new Vector3[n][3];
 		Vector3[] normals = new Vector3[n];
 
 		for(int i = 0; i < n; i++)
 		{
-			positions[i,0] = vertices[indices[i * 3]].Position;
-			positions[i,1] = vertices[indices[i * 3 + 1]].Position;
-			positions[i,2] = vertices[indices[i * 3 + 2]].Position;
+			positions[i][0] = vertices[indices[i * 3]].Position;
+			positions[i][1] = vertices[indices[i * 3 + 1]].Position;
+			positions[i][2] = vertices[indices[i * 3 + 2]].Position;
 		}
 
 		Vector3[] t = new Vector3[3];
@@ -50,9 +50,9 @@ public class Shadow {
 		for(int i = 0; i < n; i++)
 		{
 			// extracting vertex position informations
-			t[0] = positions[i, 0];
-			t[1] = positions[i, 1];
-			t[2] = positions[i, 2];
+			t[0] = positions[i][0];
+			t[1] = positions[i][1];
+			t[2] = positions[i][2];
 
 			// if null-triangle, then compute normals of vertex-normals
 			if((t[0] == t[1]) || (t[0] == t[2]) || (t[1] == t[2]))
@@ -127,15 +127,15 @@ public class Shadow {
 	}
 
 
-	public short[] GetCommonVertices(Vector3[,] positions, int idx, int jdx)
+	public short[] GetCommonVertices(Vector3[][] positions, int idx, int jdx)
 	{
 		short[] ret = null;
 		for(int i = 0; i < 3; i++)
 		{
 			for(int j = 0; j < 3; j++)
 			{
-				if( positions[idx, i].Equals(positions[jdx, (j+1)%3]) &&
-						positions[idx, (i+1)%3].Equals(positions[jdx, j]))
+				if( positions[idx][i].Equals(positions[jdx][(j+1)%3]) &&
+						positions[idx][(i+1)%3].Equals(positions[jdx][j]))
 				{
 					ret = new short[4];
 					ret[0] = (short)(idx * 3 + i);
