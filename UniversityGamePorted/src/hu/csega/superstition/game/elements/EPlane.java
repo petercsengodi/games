@@ -12,8 +12,9 @@ public class EPlane extends Primitive {
 	}
 
 	public EPlane(Engine engine, Vector3 MinVec, Vector3 MaxVec,
-			StaticVectorLibrary.Direction _direction, Texture _face) : base(engine)
+			StaticVectorLibrary.Direction _direction, Texture _face)
 	{
+		super(engine);
 		Min = MinVec;
 		Max = MaxVec;
 		direction = _direction;
@@ -46,8 +47,9 @@ public class EPlane extends Primitive {
 	}
 
 	public EPlane(Engine engine, Vector3 MinVec, Vector3 MaxVec,
-			StaticVectorLibrary.Direction _direction, Texture _face, VertexBuffer buffer) : base(engine, buffer)
+			StaticVectorLibrary.Direction _direction, Texture _face, VertexBuffer buffer)
 	{
+		super(engine, buffer);
 		Min = MinVec;
 		Max = MaxVec;
 		direction = _direction;

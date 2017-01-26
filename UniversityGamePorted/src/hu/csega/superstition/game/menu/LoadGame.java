@@ -4,13 +4,14 @@ public class LoadGame extends MenuElement implements IMenu, IFileParent
 {
 	protected IMenu parent;
 
-	public LoadGame(ModelParams param, IMenu parent) : base(param)
+	public LoadGame(ModelParams param, IMenu parent)
 	{
+		super(param);
 		this.parent = parent;
 	}
 
 	@Override
-	public string getText()
+	public getText()
 	{
 		return "Load Game";
 	}
@@ -18,7 +19,7 @@ public class LoadGame extends MenuElement implements IMenu, IFileParent
 	@Override
 	public IMenu DoItem()
 	{
-		param.filemenu.Refresh(@"..\saves", "*.save", 15, this);
+		param.filemenu.Refresh("/saves", "*.save", 15, this);
 		return param.filemenu;
 	}
 
@@ -61,8 +62,8 @@ public class LoadGame extends MenuElement implements IMenu, IFileParent
 	public IMenu DoChildrenItem(string filename)
 	{
 		param.engine.State.trigger(
-				new TriggerParams(MainMenuSelection.LOAD_GAME, @"..\saves\" + filename));
-						return null;
+				new TriggerParams(MainMenuSelection.LOAD_GAME, "/saves" + filename));
+		return null;
 	}
 
 }

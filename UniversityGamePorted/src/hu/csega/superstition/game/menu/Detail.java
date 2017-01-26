@@ -1,17 +1,19 @@
 package hu.csega.superstition.game.menu;
 
 public class Detail extends MenuElement {
-	public Detail(ModelParams param) : base(param)
+	public Detail(ModelParams param)
 	{
+		super(param);
 	}
 
-	public override string getText()
+	@Override
+	public string getText()
 	{
 		return "Detail";
 	}
 
 	@Override
-	public override void Render()
+	public void Render()
 	{
 		int val;
 		if(param.engine.Options.detail == EngineOptions.D_LOW)
@@ -24,7 +26,8 @@ public class Detail extends MenuElement {
 		param.slider.Render(translation + Slider.DEFAULT[val], val);
 	}
 
-	public override IMenu DoItem()
+	@Override
+	public IMenu DoItem()
 	{
 		if(param.game_menu) return null;
 		if(param.engine.Options.detail == EngineOptions.D_LOW)

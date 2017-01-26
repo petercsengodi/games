@@ -2,8 +2,8 @@ package hu.csega.superstition.game.object;
 
 public abstract class MapObject implements Clipper, IGameObject
 {
-	public MapObject(Vector3 _corner1, Vector3 _corner2) : base(_corner1, _corner2)
-	{
+	public MapObject(Vector3 _corner1, Vector3 _corner2) {
+		super(_corner1, _corner2);
 	}
 
 	/// <summary>
@@ -16,8 +16,8 @@ public abstract class MapObject implements Clipper, IGameObject
 	public abstract void Build(Engine engine);
 
 
-	public virtual void PreRender(){}
-	public virtual void PostRender(){}
+	public void PreRender(){}
+	public void PostRender(){}
 
 
 	@Override

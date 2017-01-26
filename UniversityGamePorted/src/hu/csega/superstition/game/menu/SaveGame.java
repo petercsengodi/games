@@ -3,8 +3,9 @@ package hu.csega.superstition.game.menu;
 public class SaveGame extends MenuElement implements IMenu, IFileParent {
 	protected IMenu parent;
 
-	public SaveGame(ModelParams param, IMenu parent) : base(param)
+	public SaveGame(ModelParams param, IMenu parent)
 	{
+		super(param);
 		this.parent = parent;
 	}
 

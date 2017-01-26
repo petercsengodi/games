@@ -4,9 +4,8 @@ class OldHole extends Hole
 {
 	private String face = @"..\textures\stair_textures\wood.bmp";
 
-	public OldHole(Room room1, Room room2, StaticVectorLibrary.Direction direction)
-	: base(room1, room2, direction)
-	{
+	public OldHole(Room room1, Room room2, StaticVectorLibrary.Direction direction) {
+		super(room1, room2, direction);
 	}
 
 	public override void Build(Engine engine)

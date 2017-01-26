@@ -15,8 +15,9 @@ public abstract class Primitive extends Element {
 	/// Constructor.
 	/// </summary>
 	/// <param name="device">Device used by DirectX Engine.</param>
-	public Primitive(Engine engine) : base(engine)
+	public Primitive(Engine engine)
 	{
+		super(engine);
 		buffer = null;
 		lock_index = 0;
 		foreign_buffer = false;
@@ -28,8 +29,9 @@ public abstract class Primitive extends Element {
 	/// <param name="engine"></param>
 	/// <param name="buffer"></param>
 	/// <param name="buffer_index"></param>
-	public Primitive(Engine engine, VertexBuffer buffer) : base (engine)
+	public Primitive(Engine engine, VertexBuffer buffer)
 	{
+		super(engine);
 		this.buffer = buffer;
 		foreign_buffer = true;
 		lock_index = buffer.SizeInBytes;

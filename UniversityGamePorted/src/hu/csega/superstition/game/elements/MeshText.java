@@ -11,8 +11,8 @@ public class MeshText extends Element {
 	public string test;
 
 	public MeshText(Engine engine, System.Drawing.Font font, string text, float deviation, float extrusion)
-	: base(engine)
 	{
+		super(engine);
 		test = text;
 		mesh = Mesh.TextFromFont(engine.Device, font, text, deviation, extrusion, out metrics);
 		engine.AddToDisposeList(mesh);

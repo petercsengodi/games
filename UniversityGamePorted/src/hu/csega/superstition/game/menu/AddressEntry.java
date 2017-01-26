@@ -7,23 +7,24 @@ public class AddressEntry extends MenuElement
 	protected hu.csega.superstition.game.network.NetHost host;
 
 	public AddressEntry(ModelParams param, IMenu parent,
-			IPAddress address, Network.NetHost host)
-	: base(param, address.ToString())
-	{
+			IPAddress address, Network.NetHost host) {
+		super(param, address.ToString());
 		this.parent = parent;
 		this.host = host;
 		this.param = param;
 		this.address = address;
 	}
 
-	public override IMenu DoItem()
+	@Override
+	public IMenu DoItem()
 	{
 		Network.NetworkClient nclient = new Network.NetworkClient(
 				address, host.Port);
 		return new HostMenu(param, parent, nclient, host, address);
 	}
 
-	public override string getText()
+	@Override
+	public string getText()
 	{
 		return address.ToString();
 	}

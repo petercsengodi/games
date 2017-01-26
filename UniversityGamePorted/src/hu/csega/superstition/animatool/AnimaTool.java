@@ -49,7 +49,7 @@ public class AnimaTool extends System.Windows.Forms.Form
 
 		file_control = new FileOperations.FileControl(
 				"Animation files (*.anm)|*.anm|All files (*.*)|*.*",
-				@"..\..\..\Superstition\bin\anims\",
+				"/res/anims",
 				new FileOperations.FileOperation(LoadFile),
 				new FileOperations.FileOperation(SaveFile));
 

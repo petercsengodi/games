@@ -10,8 +10,8 @@ public class MeshElement extends Element {
 	private Shadow shadow_mesh;
 
 	public MeshElement(Engine engine, string filename, bool shadow)
-	: base(engine)
 	{
+		super(engine);
 		ExtendedMaterial[] exmats;
 		GraphicsStream stream;
 

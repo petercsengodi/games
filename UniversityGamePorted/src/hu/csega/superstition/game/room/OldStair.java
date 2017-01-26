@@ -2,16 +2,15 @@ package hu.csega.superstition.game.room;
 
 class OldStair extends Stair
 {
-	public OldStair(Room room1, Room room2, StaticVectorLibrary.Direction direction)
-	: base(room1, room2, direction)
-	{
+	public OldStair(Room room1, Room room2, StaticVectorLibrary.Direction direction) {
+		super(room1, room2, direction);
 	}
 
 	public void Build(Engine engine)
 	{
 		float dense;
 		int steps;
-		String face = @"..\textures\stair_textures\images.bmp";
+		String face = "/res/textures/stair_textures/images.bmp";
 
 		steps = (int)Math.Ceiling((box_upper.Y - box_lower.Y) / HALFSTEP);
 		dense = (box_upper.Y - box_lower.Y) / steps;

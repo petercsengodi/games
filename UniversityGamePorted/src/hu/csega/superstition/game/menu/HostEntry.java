@@ -11,11 +11,10 @@ public class HostEntry extends MenuElement
 
 	public HostEntry(ModelParams param, IMenu menu,
 			HostData data, Network.NetHost host,
-			IPAddress address, Network.NetworkClient nclient)
-	: base(param, "Join Game:" +
-			data.player_count.ToString() + "/" +
-			data.limit.ToString())
-	{
+			IPAddress address, Network.NetworkClient nclient) {
+		super(param, "Join Game:" +
+				data.player_count.ToString() + "/" +
+				data.limit.ToString());
 		this.menu = menu;
 		this.param = param;
 		this.data = data;
@@ -27,9 +26,8 @@ public class HostEntry extends MenuElement
 
 	public HostEntry(ModelParams param, IMenu menu,
 			HostData data, Network.NetHost host, IPAddress address,
-			Network.NetworkClient nclient, bool publish)
-	: base(param, "Publish Game")
-	{
+			Network.NetworkClient nclient, bool publish) {
+		super(param, "Publish Game");
 		this.menu = menu;
 		this.param = param;
 		this.data = data;
@@ -39,9 +37,8 @@ public class HostEntry extends MenuElement
 		this.address = address;
 	}
 
-	public HostEntry(ModelParams param)
-	: base(param, "< empty >")
-	{
+	public HostEntry(ModelParams param) {
+		super(param, "< empty >");
 		this.menu = menu;
 		this.param = param;
 		this.data = null;
@@ -49,7 +46,8 @@ public class HostEntry extends MenuElement
 		this.publish = false;
 	}
 
-	public override IMenu DoItem()
+	@Override
+	public IMenu DoItem()
 	{
 		if(nclient == null) return null;
 
@@ -103,7 +101,8 @@ public class HostEntry extends MenuElement
 
 	}
 
-	public override string getText()
+	@Override
+	public string getText()
 	{
 		return "Join / Publish";
 	}

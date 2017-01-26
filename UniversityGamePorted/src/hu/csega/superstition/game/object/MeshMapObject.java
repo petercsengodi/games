@@ -6,9 +6,8 @@ class MeshMapObject extends MapObject
 	protected float Angle;
 	protected string mesh;
 
-	public MeshMapObject(string mesh, Vector3 position)
-	: base(position, position)
-	{
+	public MeshMapObject(string mesh, Vector3 position) {
+		super(position, position);
 		this.position = position;
 		this.Angle = 0f;
 		this.mesh = mesh;
@@ -32,9 +31,8 @@ class MeshMapObject extends MapObject
 
 	}
 
-	public MeshMapObject(GameObjectData data)
-	: base(new Vector3(), new Vector3())
-	{
+	public MeshMapObject(GameObjectData data) {
+		super(new Vector3(), new Vector3());
 		MeshMapObjectData d = data as MeshMapObjectData;
 		this.Angle = d.angle;
 		this.position = d.position;
@@ -42,7 +40,8 @@ class MeshMapObject extends MapObject
 		element = Library.Meshes().getMesh(mesh);
 	}
 
-	public override GameObjectData getData()
+	@Override
+	public GameObjectData getData()
 	{
 		MeshMapObjectData ret = new MeshMapObjectData();
 		ret.angle = this.Angle;
@@ -51,14 +50,14 @@ class MeshMapObject extends MapObject
 		return ret;
 	}
 
-	public override void Build(Engine engine)
+	public void Build(Engine engine)
 	{
 		element = Library.Meshes().getMesh(mesh);
 	}
 
 
 	@Override
-	public override void Render()
+	public void Render()
 	{
 		element.Render(position, 0f, Angle, 0f);
 	}

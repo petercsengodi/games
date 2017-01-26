@@ -35,16 +35,14 @@ class ThrowableTorch extends DynamicObject
 		set { stand = value; }
 	}
 
-	public ThrowableTorch(Vector3 position, Vector3 speed)
-	: base(position, new Vector3(-0.125f, -0.125f, -0.125f), new Vector3(0.125f, 0.125f, 0.125f))
-	{
+	public ThrowableTorch(Vector3 position, Vector3 speed) {
+		super(position, new Vector3(-0.125f, -0.125f, -0.125f), new Vector3(0.125f, 0.125f, 0.125f));
 		alive = true;
 		this.velocity = speed;
 	}
 
-	public ThrowableTorch(GameObjectData data):
-		base(new Vector3(), new Vector3(), new Vector3())
-		{
+	public ThrowableTorch(GameObjectData data) {
+		super(new Vector3(), new Vector3(), new Vector3());
 		TorchData d = data as TorchData;
 		this.alive = d.alive;
 		this.corner1 = d.corner1;
@@ -53,20 +51,21 @@ class ThrowableTorch extends DynamicObject
 		this.stand = d.stand;
 		this.velocity = d.velocity;
 		this.position = d.position;
-		}
+	}
 
 	/// <summary>
 	/// Builds visuality.
 	/// </summary>
 	/// <param name="engine">Game Engine.</param>
-	public override void Build(Engine engine)
+	public void Build(Engine engine)
 	{
 		this.engine = engine;
 		this.element = Library.Meshes().getMesh(@"..\meshes\torch.x", false, Color.White);
 		light = engine.GetPointLight(100f /* 15f */, Color.FromArgb(255, 255, 0), position);
 	}
 
-	public override GameObjectData getData()
+	@Override
+	public GameObjectData getData()
 	{
 		TorchData ret = new TorchData();
 		ret.alive = this.alive;
@@ -79,19 +78,19 @@ class ThrowableTorch extends DynamicObject
 		return ret;
 	}
 
-	public override void PreRender()
+	public void PreRender()
 	{
 		light.Position = position;
 		if(engine.IsLighted) light.Activate();
 	}
 
 	@Override
-	public override void Render()
+	public void Render()
 	{
 		element.Render(position);
 	}
 
-	public override void PostRender()
+	public void PostRender()
 	{
 		if(engine.IsLighted) light.DeActivate();
 	}
@@ -125,7 +124,7 @@ class ThrowableTorch extends DynamicObject
 	}
 
 	@Override
-	public override void Period()
+	public void Period()
 	{
 		float deltat = 0.04f;
 		if(!stand) velocity.Y -= 10f * deltat / 2f;

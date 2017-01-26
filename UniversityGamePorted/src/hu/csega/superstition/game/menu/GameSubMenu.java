@@ -7,8 +7,9 @@ public class GameSubMenu extends MenuElement implements IMenu
 	protected MenuHelpClass menuhelp;
 	protected int lastindex = 0;
 
-	public GameSubMenu(ModelParams param, IMenu parent) : base(param)
+	public GameSubMenu(ModelParams param, IMenu parent)
 	{
+		super(param);
 		this.parent = parent;
 
 
@@ -35,12 +36,14 @@ public class GameSubMenu extends MenuElement implements IMenu
 		menuhelp = new MenuHelpClass(param, elements);
 	}
 
-	public override string getText()
+	@Override
+	public string getText()
 	{
 		return "Game";
 	}
 
-	public override IMenu DoItem()
+	@Override
+	public IMenu DoItem()
 	{
 		return this;
 	}
@@ -82,7 +85,7 @@ public class GameSubMenu extends MenuElement implements IMenu
 	}
 
 	@Override
-	public override void Dispose()
+	public void Dispose()
 	{
 		base.Dispose();
 		menuhelp.Dispose();

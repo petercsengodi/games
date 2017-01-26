@@ -6,8 +6,10 @@ public class ETesselatedTriangle extends Primitive {
 	private float lAB, lAC, lBC;
 	private int n;
 
-	public ETesselatedTriangle(Engine engine, Vector3 a, Vector3 b, Vector3 c, Texture face) : base(engine)
+	public ETesselatedTriangle(Engine engine, Vector3 a, Vector3 b, Vector3 c, Texture face)
 	{
+
+		super(engine);
 		this.a = a;
 		this.b = b;
 		this.c = c;
@@ -15,8 +17,9 @@ public class ETesselatedTriangle extends Primitive {
 		Construct();
 	}
 
-	public ETesselatedTriangle(Engine engine, VertexBuffer buffer, Vector3 a, Vector3 b, Vector3 c, Texture face) : base(engine, buffer)
+	public ETesselatedTriangle(Engine engine, VertexBuffer buffer, Vector3 a, Vector3 b, Vector3 c, Texture face)
 	{
+		super(engine, buffer);
 		this.a = a;
 		this.b = b;
 		this.c = c;

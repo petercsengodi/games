@@ -18,23 +18,18 @@ public class FinishPlace extends Clipper implements IGameElement {
 
 	protected static float speed = 0.01f, limit = (float)(Math.PI * 2.0);
 
-	public FinishPlace(Vector3 position, float radius) :
-		base(position - new Vector3(radius, radius, radius),
-				position + new Vector3(radius, radius, radius))
-		{
+	public FinishPlace(Vector3 position, float radius) {
+		super(position - new Vector3(radius, radius, radius),
+				position + new Vector3(radius, radius, radius));
 		this.position = position;
 		this.radius = 0.1f;
 		this.mesh = "end.x";
 		this.Angle = 0f;
 		this.range = 10f;
-		}
+	}
 
-	/// <summary>
-	/// Serializable data class for symbol.
-	/// </summary>
-	[Serializable]
-			protected class FinishPlaceData : GameObjectData
-			{
+	protected class FinishPlaceData extends GameObjectData
+	{
 		public float angle;
 		public Vector3 position;
 
@@ -48,11 +43,10 @@ public class FinishPlace extends Clipper implements IGameElement {
 			return new FinishPlace(this);
 		}
 
-			}
+	}
 
-	public FinishPlace(GameObjectData data) :
-		base(new Vector3(0f,0f,0f), new Vector3(0f,0f,0f))
-		{
+	public FinishPlace(GameObjectData data) {
+		super(new Vector3(0f,0f,0f), new Vector3(0f,0f,0f));
 		FinishPlaceData d = data as FinishPlaceData;
 		this.Angle = d.angle;
 		this.position = d.position;
@@ -60,7 +54,7 @@ public class FinishPlace extends Clipper implements IGameElement {
 		this.mesh = "end.x";
 		this.Angle = 0f;
 		this.range = 10f;
-		}
+	}
 
 	@Override
 	public GameLib.GameObjectData getData()

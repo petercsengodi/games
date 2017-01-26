@@ -16,7 +16,7 @@ class Entrance extends TWLLink implements IClipping, IDisposable, IGameObject, I
 			DoorCeiling = 1f,
 			DoorExtrude = 0.1f;
 
-	public Entrance(int _degree, string _TextureStair, string _TextureDoor) : base()
+	public Entrance(int _degree, string _TextureStair, string _TextureDoor)
 	{
 		degree = _degree;
 		tex_stair = _TextureStair;

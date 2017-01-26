@@ -5,17 +5,16 @@ import hu.csega.superstition.util.StaticRandomLibrary;
 
 class StructedMaze extends GridMaze
 {
-	public StructedMaze(int xsize, int ysize) :
-		base(xsize, ysize)
-		{
-		}
+	public StructedMaze(int xsize, int ysize) {
+		super(xsize, ysize);
+	}
 
 	public Room SelectRandomRoom()
 	{
 		int index = StaticRandomLibrary.SelectValue(distribution);
 		distribution[index] = 0f;
 		int z = (index / XSize), x = (index % YSize);
-		return base.DefaultRoom(x, z);
+		return super.DefaultRoom(x, z);
 	}
 
 	public void Connect(Room from, Room to)

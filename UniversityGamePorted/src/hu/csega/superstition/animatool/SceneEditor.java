@@ -278,19 +278,19 @@ public class SceneEditor extends CView
 
 	}
 
-	public override void UpdateView(Updates update)
+	public void UpdateView(Updates update)
 	{
 		CModel model = GetData() as CModel;
 		this.change_box.Text = model.max_scenes.ToString();
 		this.numericUpDown1.Value = model.scene;
 	}
 
-	protected override void InitializeView()
+	protected void InitializeView()
 	{
 
 	}
 
-	protected override void CloseView()
+	protected void CloseView()
 	{
 
 	}

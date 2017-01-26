@@ -11,8 +11,9 @@ public class Dots extends MenuElement {
 		set { show = value; }
 	}
 
-	public Dots(ModelParams param, FileMenu menu) : base(param)
+	public Dots(ModelParams param, FileMenu menu)
 	{
+		super(param);
 		this.menu = menu;
 		show = true;
 		this.parent = parent;
@@ -23,18 +24,20 @@ public class Dots extends MenuElement {
 		this.parent = parent;
 	}
 
-	public override IMenu DoItem()
+	@Override
+	public IMenu DoItem()
 	{
 		return parent.DoChildrenItem(null);
 	}
 
-	public override string getText()
+	@Override
+	public string getText()
 	{
 		return "...";
 	}
 
 	@Override
-	public override void Render()
+	public void Render()
 	{
 		if(show) base.Render();
 	}

@@ -2,19 +2,15 @@ package hu.csega.superstition.storygenerator;
 
 class Entrance extends TWLLink
 {
-
-
 	public int degree;
 
-
-
-	public Entrance(int _degree) : base()
+	public Entrance(int _degree)
 	{
 		degree = _degree;
 	}
 
 	@Override
-	public override void OnLinked()
+	public void OnLinked()
 	{
 
 

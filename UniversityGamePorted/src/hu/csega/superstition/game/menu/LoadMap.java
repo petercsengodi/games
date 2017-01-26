@@ -4,8 +4,9 @@ public class LoadMap extends MenuElement implements IMenu, IFileParent
 {
 	protected IMenu parent;
 
-	public LoadMap(ModelParams param, IMenu parent) : base(param)
+	public LoadMap(ModelParams param, IMenu parent)
 	{
+		super(param);
 		this.parent = parent;
 	}
 

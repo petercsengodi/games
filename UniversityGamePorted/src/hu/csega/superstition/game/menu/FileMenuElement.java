@@ -13,8 +13,10 @@ public class FileMenuElement extends MenuElement
 		set { parent = value; }
 	}
 
-	public FileMenuElement(ModelParams param, IFileParent parent, string file) : base(param)
+	public FileMenuElement(ModelParams param, IFileParent parent, string file)
 	{
+		super(param);
+
 		this.file = file;
 		this.parent = parent;
 

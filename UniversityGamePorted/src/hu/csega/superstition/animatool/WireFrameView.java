@@ -22,7 +22,7 @@ public class WireFrameView extends CView
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected override void Dispose( bool disposing )
+	protected void Dispose( bool disposing )
 	{
 		if( disposing )
 		{
