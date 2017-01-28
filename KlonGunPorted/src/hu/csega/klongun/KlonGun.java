@@ -388,80 +388,59 @@ public class KlonGun {
 		stars.clear();
 	}
 
+	public void initLeser(int x1, int y1, int sp0, int yp0, int fj0, int side0) {
+		Less less = new Less();
+		lesses.add(less);
 
+		if (fj0 == 0) {
+			less.x = 320;
+			less.y = RND.nextInt(200);
+			less.kind = RND.nextInt(2) * 5 + 1; // 1 or 6
+			less.xSpeed = -(Speed_L[less.kind] + RND.nextInt(Speed_L[less.kind]));
+			less.ySpeed = (RND.nextInt(3) - 1) * (RND.nextInt(Speed_L[less.kind]) / 2);
+			less.damage = Dmg_L[less.kind];
+			less.side = 0;
+		} else {
+			// load data accoring parameters
+			less.x = x1;
+			less.y = y1 + 2;
+			less.xSpeed = sp0;
+			less.kind = fj0;
+			less.ySpeed = yp0;
+			less.damage = Dmg_L[less.kind];
+			less.side = side0;
+		}
+	} // end if initLeser
+
+	public void deleteLeser(Less less) {
+		lesses.remove(less);
+	}
+
+	public void nextLevel() {
+		currentArea++;
+		areaScroll = 0;
+
+		if (cheat) {
+			// if cheat exists, player gets all possible weapon of previous area
+			switch (currentArea) {
+			case 1:
+				pFire = 2;
+				leser[0] = 3;
+				break;
+			case 2:
+				leser[0] = 4;
+				leser[1] = 1;
+				leser[3] = 1;
+				break;
+			}
+		}
+	}
 
 }
 
 /*
-PROCEDURE InitLeser(var xLess : pLess; X1,Y1,Sp0,Yp0,Fj0,Side0 : Integer);
- VAR LessPos : pLess; {Uj lezer = Uj elem a lancolt listaban}
- BEGIN
-  If xLess = nil then {Uj elem felvetele}
-   Begin
-    New(xLess);
-    xLess^.Next := nil;
-    xLess^.Prev := nil;
-   End
-  Else
-   Begin
-    New(LessPos);
-    LessPos^.Next := xLess;
-    LessPos^.Prev := xLess^.Prev;
-    xLess^.Prev := LessPos;
-    xLess := LessPos;
-   End;
-  With xLess^ do {Az uj elemmel dolgozik}
-   Begin
-    If Fj0 = 0 then
-     Begin {Ha a fajtanak 0-t adunk meg, a gep ket loves kozul valaszt,}
-      X0 := 320;{kezdopoziciot ad nekik, sebesseget, mindezt veletlenszam-generatorral}
-      Y0 := Random(200); {Koordinatak}
-      Faj := Random(2)*5+1; {Tipus meghatarozasa: 1 v. 6 os fajta}
-      Speed := -(Speed_L[Faj]+Random(Speed_L[Faj])); {Sebessegek kiszamolasa}
-      YSpeed := (Random(3)-1)*(Random(Speed_L[Faj]) div 2);
-      Dmg := Dmg_L[Faj]; {A lovedek seritese}
-      Side := 0; {Mintha egy ellenseg lotte volna ki}
-     End
-    Else
-     Begin {Ugyanezen elemek feltoltese a megadott parameterek alapjan}
-      X0 := X1;
-      Y0 := Y1+2;
-      Speed := Sp0;
-      Faj := Fj0;
-      YSpeed := Yp0;
-      Dmg := Dmg_L[Faj];
-      Side := Side0;
-     End;
-   End;
- END;
 
-PROCEDURE DeleteLeser(var xLess : pLess); {Egy lovedek eltavolitasa = Memoriabol valo torles}
- VAR LessPos : pLess; {Menete : egymasba lancolja az elotte es az utana levot,}
- BEGIN {majd felszabaditja a tarhelyet.}
-  LessPos := xLess;
-  If xLess^.Prev = nil then
-   Begin
-    xLess := xLess^.Next;
-    If xLess <> nil then xLess^.Prev := nil;
-   End
-  Else
-   Begin
-    xLess := xLess^.Prev;
-    xLess^.Next := LessPos^.Next;
-    If LessPos^.Next <> nil then
-     LessPos^.Next^.Prev := xLess;
-   end;
-  Dispose(LessPos);
- END;
 
-PROCEDURE NextLevel; {Egy szint ugrasa}
- BEGIN
-  ActualPalya := ActualPalya + 1; Mozgas := 0; {K�vetkez� szint eleje}
-  If cheat then CASE ActualPalya OF  {Ha van csalas, a jatekos megkapja az addig}
-   1 : Begin pFire := 2; pLeser[1] := #3; End; {megszerezheeto fegyvereket}
-   2 : Begin pLeser[1] := #4; pLeser[2] := #1; pLeser[4] := #1; End;
-  END;
- END;
 
 PROCEDURE InitEnemy(var xEnemies : pEnemies; X0,Y0,Sp0,Yp0,Fj0,It : Integer);
  VAR EnemyPos : pEnemies; {Uj ellenseg letrehozasa = Lancolt listaba beillesztes}

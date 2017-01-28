@@ -6,6 +6,6 @@ public class Less {
 	public int xSpeed;
 	public int ySpeed;
 	public int kind;
-	public int slide;
+	public int side;
 	public int damage;
 }
