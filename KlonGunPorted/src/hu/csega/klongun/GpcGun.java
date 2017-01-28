@@ -1,4 +1,3 @@
-{Cseng‹di P‚ter (11.tk) JOT2FY}
 (*  A {*}-gal megjelolt sorok nem szabvanyos eljarast tartalmaznak.   *)
 UNIT gpcgun; {Kirajzolashoz es egerkezeleshez hasznalhato egyseg + idozito eljaras}
 
@@ -41,7 +40,7 @@ IMPLEMENTATION
 PROCEDURE SetMode; ASSEMBLER; {*} {Gepikodu parancs}
  ASM                          {*}
   Mov ax, Gm                  {*} {Beolvassa az akkumlatorba a megadott videomod kodjat}
-  Int $10                     {*} {éj video,odot hiv meg az akkumlator fuggvenyeben}
+  Int $10                     {*} {ï¿½j video,odot hiv meg az akkumlator fuggvenyeben}
  END;                         {*}
 
 PROCEDURE Init;
