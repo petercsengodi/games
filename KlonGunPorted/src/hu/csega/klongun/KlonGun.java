@@ -1,45 +1,62 @@
-{Cseng”di P‚ter (11.tk) JOT2FY}
-(*  A {*}-gal megjel”lt sorok nem szabv nyos elj r st tartalmaznak.   *)
-PROGRAM KlonGun;
-USES gpcgun,crt{*};
+package hu.csega.klongun;
 
-CONST MaxShips = 1;               {T”mb”k maxim lis m‚ret‚nek kiv laszt sa}
-      MaxFires = 3;
-      MaxStars = 20;{x2}
-      MaxEnemy1 = 10;
-      MaxEnemy2 = MaxEnemy1+4;
-      MaxLesers = 12;
-      MaxDeaths = 4;
-      MaxItem = 7;
-      {}
-      Speed1 = 1;                 {Egyes objektumok sebess‚gei}
-      Speed2 = 2;
-      Speed3 = 3;
-      Speed_M = 3;
-      Speed = 1;
-      Speed_F : ARRAY[1..MaxFires]OF Integer = (7,4,2); {urhaj¢ tubin j nak sebess‚gei}
-      Speed_E : ARRAY[1..MaxEnemy2]OF Integer = (3,1,5,0,7,3,3,0,15,0,7,3,2,0); {Ellenfelek sebess‚gei}
-      Life_E : ARRAY[1..MaxEnemy2]OF Integer = (40,64,15,1250,50,10,15,80,20,5000,20,15,250,15); {Ellenfelek ‚letereje}
-      Dmg_L : ARRAY[1..MaxLesers]OF Integer = (5,7,10,10,13,20,2,7,20,25,40,70); {L”v‚sek sebz‚se}
-      Late_L : ARRAY[1..MaxLesers]OF Integer = (2,2,2,5,5,5,3,3,3,8,8,8); {L”v‚se k‚sleltet‚se} (**)
-      Speed_L : ARRAY[1..MaxLesers]OF Integer = (8,8,8,15,15,15,6,6,6,20,20,20{15}); {L”v‚sek sbess‚ge}
-      ShipX : ARRAY[1..MaxShips]OF Integer = (23); {urhaj¢ pz¡ci¢ja a k‚pen bell}
-      ShipY : ARRAY[1..MaxShips]OF Integer = (10);
-      {}
-      Abra : ARRAY[1..MaxEnemy2]OF Integer = (1,2,3,4,5,6,7,8,9,10,6,5,5,6); {Melyik ellens‚ghez melyik k‚p tartozik}
-      {}
-      MaxMenu = 5;
-      MenuSzov : ARRAY[0..MaxMenu]OF String = ('Let us play an other game!',
-                                            'Difficulity',
-                                            'Credits are fun!','Greatest heroes ...',
-                                            'I do not need those scores!',
-                                            'I want to quit, man !!');
-      MaxCredit = 14;
-      CreditSzov : ARRAY[0..MaxCredit]OF String = (
-       'Created by','','','CSENGODI PETER','','Special thnx 2',
-       'MY BROTHER','4 teaching me Pascal','ID SOFTWARE','4 Quake3Arena textures',
-       'SWAG','4 the many examples','','','All Rights Reserved.'
-                                                  );
+public class KlonGun {
+	// Array sizes
+	public static final int MaxShips = 1;
+	public static final int MaxFires = 3;
+	public static final int MaxStars = 20;
+	public static final int MaxEnemy1 = 10;
+	public static final int MaxEnemy2 = MaxEnemy1+4;
+	public static final int MaxLesers = 12;
+	public static final int MaxDeaths = 4;
+	public static final int MaxItem = 7;
+
+	// Object speeds
+	public static final int Speed1 = 1;
+	public static final int Speed2 = 2;
+	public static final int Speed3 = 3;
+	public static final int Speed_M = 3;
+	public static final int Speed = 1;
+
+	public static final int[] Speed_F = new int[] {7,4,2}; // ship turbins
+	public static final int[] Speed_E = new int[] {3,1,5,0,7,3,3,0,15,0,7,3,2,0}; // enemies
+	public static final int[] Life_E = new int[] {40,64,15,1250,50,10,15,80,20,5000,20,15,250,15}; // enemy HPs
+	public static final int[] Dmg_L = new int[] {5,7,10,10,13,20,2,7,20,25,40,70}; // bullet power
+	public static final int[] Late_L = new int[] {2,2,2,5,5,5,3,3,3,8,8,8}; // delay between shootings
+	public static final int[] Speed_L = new int[] {8,8,8,15,15,15,6,6,6,20,20,20}; // bullet speeds
+
+
+	// ship position(s)
+	public static final int[] ShipX = new int[] {23};
+	public static final int[] ShipY = new int[] {10};
+
+	// map enemy -> PIC
+	public static final int[] Abra = new int[] {1,2,3,4,5,6,7,8,9,10,6,5,5,6};
+
+	// menu
+    public static final int MaxMenu = 5;
+    public static final String[] MenuSzov = new String[] {
+    		"Let us play an other game!",
+            "Difficulity",
+    		"Credits are fun!",
+    		"Greatest heroes ...",
+            "I do not need those scores!",
+            "I want to quit, man !!"
+    };
+
+    // credits
+    public static final int MaxCredit = 5;
+    public static final String[] CreditSzov = {
+		"Well, this is embarassing.",
+		"When I wrote this game,",
+		"I thought this will be",
+		"an awesome game.",
+		"No, it's a beautiful memory."
+     };
+
+}
+
+/*
 
 TYPE pStars = ^tStars;
      tStars = RECORD {Csillagok recordja}
@@ -49,7 +66,7 @@ TYPE pStars = ^tStars;
               END;
 
      pEnemies = ^tEnemies;
-     tEnemies = RECORD {Ellens‚gek recordja}
+     tEnemies = RECORD {Ellensï¿½gek recordja}
                  X, Y, Speed, YSpeed, Faj,
                  Life, Late, Item, Time : Integer;
                  Next : pEnemies;
@@ -68,27 +85,27 @@ TYPE pStars = ^tStars;
                 Nev : String;
                END;
 
-VAR i,j,k,l,m,n,Xv,Yv : Integer; {Ciklus- ‚s egy‚b v toz¢k} (**)
-    Ships : ARRAY[1..MaxShips,0..29,0..49]OF Char;   {Haj¢} {K‚pek t helyei}
-    Fires : ARRAY[1..3,1..3,0..13,0..16]OF Char;     {L ngcs¢va}
-    Enemy1 : ARRAY[1..MaxEnemy1,0..31,0..31]OF Char; {Ellens‚gek}
-    Leser : ARRAY[1..MaxLesers,0..4,0..15]OF Char;   {L‚zerek}
-    Death : ARRAY[1..MaxDeaths,0..15,0..15]OF Char;  {Hullad‚k a robban s ut n}
-    Status : ARRAY[0..9,0..119]OF Char;              {Energiam‚ter}
-    Stat2 : ARRAY[1..4,0..3,0..9,0..9]OF Char;       {Sz mok 4 sz¡nben}
-    Items : ARRAY[1..MaxItem,0..15,0..15]OF Char;    {Felvehet” dolgok (stuff)}
-    Stars : pStars;      {Csillagok}  {L ncolt list k az  llapotokhoz}
-    Enemies : pEnemies;  {Ellens‚gek}
-    Less : pLess;        {L”v‚sek}
-    Boss : pEnemies; {Ezen a c¡men tal lhat¢ az aktu lis f‹ellens‚g}
+VAR i,j,k,l,m,n,Xv,Yv : Integer; {Ciklus- ï¿½s egyï¿½b vï¿½tozï¿½k} (**)
+    Ships : ARRAY[1..MaxShips,0..29,0..49]OF Char;   {Hajï¿½} {Kï¿½pek tï¿½helyei}
+    Fires : ARRAY[1..3,1..3,0..13,0..16]OF Char;     {Lï¿½ngcsï¿½va}
+    Enemy1 : ARRAY[1..MaxEnemy1,0..31,0..31]OF Char; {Ellensï¿½gek}
+    Leser : ARRAY[1..MaxLesers,0..4,0..15]OF Char;   {Lï¿½zerek}
+    Death : ARRAY[1..MaxDeaths,0..15,0..15]OF Char;  {Hulladï¿½k a robbanï¿½s utï¿½n}
+    Status : ARRAY[0..9,0..119]OF Char;              {Energiamï¿½ter}
+    Stat2 : ARRAY[1..4,0..3,0..9,0..9]OF Char;       {Szï¿½mok 4 szï¿½nben}
+    Items : ARRAY[1..MaxItem,0..15,0..15]OF Char;    {Felvehetï¿½ dolgok (stuff)}
+    Stars : pStars;      {Csillagok}  {Lï¿½ncolt listï¿½k az ï¿½llapotokhoz}
+    Enemies : pEnemies;  {Ellensï¿½gek}
+    Less : pLess;        {Lï¿½vï¿½sek}
+    Boss : pEnemies; {Ezen a cï¿½men talï¿½lhatï¿½ az aktuï¿½lis fï¿½ellensï¿½g}
     s : String[2];
-    Mozgas{p lya poz¡ci¢ja}, Boss_Del{ha t£lmegy a p ly n, ennyit ugrik vissza} : Integer;
-    pX,pY,pShip,pLife,pFire,pL : Integer; {J t‚kos adatai}
-    pLogged : Boolean; {Ha False, s j t‚kost m‚g nem lehet sz‚tl‹ni}
-    pLeser : ARRAY[0..4]OF Char; {A fegyyverek  llapotai}
-    pTime, ActualPalya{aktu lis p lya}, SzumLife{”ssz ‚let} : Integer;
-    ch1, ch2 : Char; {Karakterek billentyûzet kezel‚s‚hez}
-    Quit{Kil‚p‚s enged‚se}, Cheat, Cheated{csal s} : Boolean;
+    Mozgas{pï¿½lya pozï¿½ciï¿½ja}, Boss_Del{ha tï¿½lmegy a pï¿½lyï¿½n, ennyit ugrik vissza} : Integer;
+    pX,pY,pShip,pLife,pFire,pL : Integer; {Jï¿½tï¿½kos adatai}
+    pLogged : Boolean; {Ha False, s jï¿½tï¿½kost mï¿½g nem lehet szï¿½tlï¿½ni}
+    pLeser : ARRAY[0..4]OF Char; {A fegyyverek ï¿½llapotai}
+    pTime, ActualPalya{aktuï¿½lis pï¿½lya}, SzumLife{ï¿½ssz ï¿½let} : Integer;
+    ch1, ch2 : Char; {Karakterek billentyï¿½zet kezelï¿½sï¿½hez}
+    Quit{Kilï¿½pï¿½s engedï¿½se}, Cheat, Cheated{csalï¿½s} : Boolean;
     Pontok : Integer;
     PontSzov, Ponts : String;
     AllPalette : tPal;
@@ -213,7 +230,7 @@ PROCEDURE Anim2;
 
 CONST PalS = 8{8};
       Speed = 2{5};
-      Pocs = 48{63, !48 = S”t‚tebb!};
+      Pocs = 48{63, !48 = Sï¿½tï¿½tebb!};
       MaxM = 63{63};
       MaxI = 60{63};
 
@@ -291,18 +308,18 @@ PROCEDURE Screen(No : Integer);
   SetPalette;
  END;
 
-PROCEDURE Load; {File-ok bet”lt‚se} {*}
- VAR i,j : Integer;     {BlockRead = file-b¢l blokkot beolvas}
-     s,t : String[10];  {Reset(f,##) : ## = 1 blokk m‚rete}
-     f : File;          {Str = sz mot sz”vegg‚ alak¡t}
-                        {Seek = Fileban poz¡ci¢ra ugrik}
+PROCEDURE Load; {File-ok betï¿½ltï¿½se} {*}
+ VAR i,j : Integer;     {BlockRead = file-bï¿½l blokkot beolvas}
+     s,t : String[10];  {Reset(f,##) : ## = 1 blokk mï¿½rete}
+     f : File;          {Str = szï¿½mot szï¿½veggï¿½ alakï¿½t}
+                        {Seek = Fileban pozï¿½ciï¿½ra ugrik}
  BEGIN
   Assign(f,'palette.dat'); ReSet(f,768);
   BlockRead(f,Palette,1); Close(f);
   SetPalette;
   For i := 1 to MaxShips do Begin
    Str(i,s); Assign(f,'DATA\ship'+s+'.pic');
-   ReSet(f,1); Seek(f,4); {Minden k‚p a 4.Byte ut n kezd‹dik}
+   ReSet(f,1); Seek(f,4); {Minden kï¿½p a 4.Byte utï¿½n kezdï¿½dik}
    BlockRead(f,Ships[i],SizeOf(Ships[i])); Close(f);
   End;
   For i := 1 to MaxItem do Begin
@@ -344,7 +361,7 @@ PROCEDURE Load; {File-ok bet”lt‚se} {*}
    End;
  END;
 
-PROCEDURE AddStars(var xStars : pStars); {L ncolt lista elk‚sz¡t‚se}
+PROCEDURE AddStars(var xStars : pStars); {Lï¿½ncolt lista elkï¿½szï¿½tï¿½se}
  VAR StarPos : pStars;
      i,j : Integer;
  BEGIN
@@ -356,7 +373,7 @@ PROCEDURE AddStars(var xStars : pStars); {L ncolt lista elk‚sz¡t‚se}
      StarPos^.Next := xStars;
      xStars := StarPos;
      With StarPos^ do
-      Begin {Felt”lt‚s}
+      Begin {Feltï¿½ltï¿½s}
        Fajta := Chr(i); {Igy csak 1 Byte-ot foglal}
        X := Random(340);{Kezdo koordinata beallitasa}
        Y := Random(200);{Xnek 0 es 339, Ynak 0 es 199 koyott kell lennie}
@@ -364,7 +381,7 @@ PROCEDURE AddStars(var xStars : pStars); {L ncolt lista elk‚sz¡t‚se}
     End;
  END;
 
-PROCEDURE DoStars(var xStars : pStars); {Csillagok mozg sa}
+PROCEDURE DoStars(var xStars : pStars); {Csillagok mozgï¿½sa}
  VAR StarPos : pStars;
  BEGIN
   StarPos := xStars;
@@ -374,11 +391,11 @@ PROCEDURE DoStars(var xStars : pStars); {Csillagok mozg sa}
      Begin
       X := X - (Ord(Fajta) +1)*Speed1;
       If X < -10 then
-       Begin {Uj csillag k‚sz¡t‚se}
+       Begin {Uj csillag kï¿½szï¿½tï¿½se}
         X := 320+Random(20);
         Y := Random(200);
        End;
-      If (X >= 0) and (X < 320) then Begin {Kirajzol s}
+      If (X >= 0) and (X < 320) then Begin {Kirajzolï¿½s}
        If Fajta = #0 then Vscr^[Y,X] := #148 Else Vscr^[Y,X] := #7; End;
      End;
     StarPos := StarPos^.Next;
@@ -454,7 +471,7 @@ PROCEDURE DeleteLeser(var xLess : pLess); {Egy lovedek eltavolitasa = Memoriabol
 
 PROCEDURE NextLevel; {Egy szint ugrasa}
  BEGIN
-  ActualPalya := ActualPalya + 1; Mozgas := 0; {K”vetkez” szint eleje}
+  ActualPalya := ActualPalya + 1; Mozgas := 0; {Kï¿½vetkezï¿½ szint eleje}
   If cheat then CASE ActualPalya OF  {Ha van csalas, a jatekos megkapja az addig}
    1 : Begin pFire := 2; pLeser[1] := #3; End; {megszerezheeto fegyvereket}
    2 : Begin pLeser[1] := #4; pLeser[2] := #1; pLeser[4] := #1; End;
@@ -732,7 +749,7 @@ PROCEDURE PutPic(X1,Y1,X2,Y2 : Integer; var Tar);
   Tar2 := @Tar; {*} {A "Tar2" a "Tar"-ra mutasson}
   For i := 0 to Y2-1 do
    For j := 0 to X2-1 do
-    If Tar2^[i*X2+j] < #255 then {A #255 az  tl tsz¢ sz¡n}
+    If Tar2^[i*X2+j] < #255 then {A #255 az ï¿½tlï¿½tszï¿½ szï¿½n}
      Begin
       Xv := X1+j;
       Yv := Y1+i;
@@ -1014,26 +1031,26 @@ PROCEDURE DoLeser(var xLess : pLess);
    End;
  END;
 
-PROCEDURE Temp; {Kezd” be ll¡t sok}
+PROCEDURE Temp; {Kezdï¿½ beï¿½llï¿½tï¿½sok}
  BEGIN
   Pontok := 0;
-  pFire := 3; {Hajt¢mu a leggyeng‚bb}
-  pShip := 1; {Ebben a verzi¢ban csak egy haj¢ van}
-  pLife := 100; {let be ll¡t sa}
-  pY := 75; pX := -40; {Haj¢ kezd‹poz¡ci¢ja}
-  SzumLife := 4; {4 ‚let}
-  pLogged := False; {m‚g s‚rthetlen}
+  pFire := 3; {Hajtï¿½mu a leggyengï¿½bb}
+  pShip := 1; {Ebben a verziï¿½ban csak egy hajï¿½ van}
+  pLife := 100; {ï¿½let beï¿½llï¿½tï¿½sa}
+  pY := 75; pX := -40; {Hajï¿½ kezdï¿½pozï¿½ciï¿½ja}
+  SzumLife := 4; {4 ï¿½let}
+  pLogged := False; {mï¿½g sï¿½rthetlen}
   pLogTime := 0;
-  pL := 0; {Fegyverek alap llapotba}
+  pL := 0; {Fegyverek alapï¿½llapotba}
   pLeser[0] := #1; pLeser[1] := #1;
   pLeser[2] := #0; pLeser[3] := #0;
   pLeser[4] := #0;
-  ActualPalya := 0; {0. P ly n l kezd}
-  Mozgas := 0; {P lya eleje}
-  Boss := nil; {M‚g nincs f”ellens‚g}
-  Enemies := nil; Less := nil; {L ncolt list k t”rl‚se}
-  Randomize; {V‚letlengener tor alap llapotba}
-  Cheat := False; {Csal s kikapcsol sa}
+  ActualPalya := 0; {0. Pï¿½lyï¿½nï¿½l kezd}
+  Mozgas := 0; {Pï¿½lya eleje}
+  Boss := nil; {Mï¿½g nincs fï¿½ellensï¿½g}
+  Enemies := nil; Less := nil; {Lï¿½ncolt listï¿½k tï¿½rlï¿½se}
+  Randomize; {Vï¿½letlengenerï¿½tor alapï¿½llapotba}
+  Cheat := False; {Csalï¿½s kikapcsolï¿½sa}
   PontSzov := '1p';
   Splash := 1;
   {}
@@ -1078,26 +1095,26 @@ PROCEDURE GAME;
      Splash := Splash + 2;
      Screen(Splash);
     End;
-   SetCounter; Palya; {Id”z¡t” be ll¡t sa, p lya alakul sa}
-   DoEnemy1(Enemies); DoLeser(Less); {l”ved‚kek ‚s ellens‚gek mozg sa}
-   If KeyPressed then {*} {Ha le van tve billentyû}
-    Begin ch1 := ReadKey; {*} {Billentyu kiolvas sa}
+   SetCounter; Palya; {Idï¿½zï¿½tï¿½ beï¿½llï¿½tï¿½sa, pï¿½lya alakulï¿½sa}
+   DoEnemy1(Enemies); DoLeser(Less); {lï¿½vedï¿½kek ï¿½s ellensï¿½gek mozgï¿½sa}
+   If KeyPressed then {*} {Ha le van ï¿½tve billentyï¿½}
+    Begin ch1 := ReadKey; {*} {Billentyu kiolvasï¿½sa}
      CASE ch1 OF
-      #0 : ch2 := ReadKey; {*} {Ha speci lis billentyû, kiolvassa a scan-k¢dot}
-      #27 : Quit := True; {ESC: Kil‚p‚s}
+      #0 : ch2 := ReadKey; {*} {Ha speciï¿½lis billentyï¿½, kiolvassa a scan-kï¿½dot}
+      #27 : Quit := True; {ESC: Kilï¿½pï¿½s}
       '1' : pLeser[0] := #1; {Fegyverek}
       '2' : If (pLeser[2] > #0) then pLeser[0] := #2;
       '3' : If (pLeser[3] > #0) then pLeser[0] := #3;
       '4' : If (pLeser[4] > #0) then pLeser[0] := #4;
       'c','C' : Begin Cheat := Cheat xor True; Cheated := True; End;
      END; End;
-   ReadMouse; {Eg‚rpoz¡ci¢ kiolvas sa}
-   If pLife > 0 then Begin {Ha a j t‚kos m‚g ‚l}
+   ReadMouse; {Egï¿½rpozï¿½ciï¿½ kiolvasï¿½sa}
+   If pLife > 0 then Begin {Ha a jï¿½tï¿½kos mï¿½g ï¿½l}
     If pL > 0 then pL := pL - 1 Else
     If ((M_Button and 1) = 1) and (pL = 0) then
-     Begin {Ha a bal eg‚rgomb le van nyomva ‚s m r nincs t”bb k‚s‚s}
-      CASE pLeser[0] OF {A megfelel” l”v‚sek programja}
-       #1 : CASE pLeser[1] OF {K‚k l‚zer}
+     Begin {Ha a bal egï¿½rgomb le van nyomva ï¿½s mï¿½r nincs tï¿½bb kï¿½sï¿½s}
+      CASE pLeser[0] OF {A megfelelï¿½ lï¿½vï¿½sek programja}
+       #1 : CASE pLeser[1] OF {Kï¿½k lï¿½zer}
             #1 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],0,1,1);
             #2 : Begin
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],1,1,1);
@@ -1124,12 +1141,12 @@ PROCEDURE GAME;
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],0,3,1);
                 End;
            END;
-       #2 : CASE pLeser[2] OF {Z”ld}
+       #2 : CASE pLeser[2] OF {Zï¿½ld}
             #1 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[4],0,4,1);
             #2 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[5],0,5,1);
             #3 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[6],0,6,1);
            END;
-       #3 : CASE pLeser[3] OF {K”rben l”v”}
+       #3 : CASE pLeser[3] OF {Kï¿½rben lï¿½vï¿½}
             #1 : BEGIN
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],6,0,7,1);
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],0,6,7,1);
@@ -1161,15 +1178,15 @@ PROCEDURE GAME;
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-4,-4,9,1);
                 END;
            END;
-       #4 : CASE pLeser[4] OF {S rga}
+       #4 : CASE pLeser[4] OF {Sï¿½rga}
             #1 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[10],0,10,1);
             #2 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[11],0,11,1);
             #3 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[12],0,12,1);
            END;
       END;
-      pL := Late_L[Ord(pLeser[0])*3+Ord(pLeser[Ord(pLeser[0])])]; {K‚s‚st be ll¡tja}
+      pL := Late_L[Ord(pLeser[0])*3+Ord(pLeser[Ord(pLeser[0])])]; {Kï¿½sï¿½st beï¿½llï¿½tja}
      End;
-    If M_CurY < 99 then pY := pY - Speed_F[pFire]; {Eg‚r elmozdul sa szerinti ir ny¡t s}
+    If M_CurY < 99 then pY := pY - Speed_F[pFire]; {Egï¿½r elmozdulï¿½sa szerinti irï¿½nyï¿½tï¿½s}
     If M_CurY > 101 then pY := pY + Speed_F[pFire];
     If pLogged or (pX >= 5) then
       Begin
@@ -1189,37 +1206,37 @@ PROCEDURE GAME;
    If pY > 180 then pY := 180;
    Mozgas := Mozgas+1;
    {}
-   ClrVscr(#0); DoStars(Stars); {Virtu lis k‚perny” t”rl‚se, csillagmozg s}
-   PutLesers(Less); PutEnemies(Enemies); {Ellens‚gek, l‚zerek kirajzol sa, s‚r¡t‚se}
-   If pLife > 0 then Begin {Ha a j t‚kos ‚l, kirajzol s}
-    PutPic(pX,pY,50,30,Ships[pShip]); {Haj¢ kirajzol sa}
-    PutPic(pX-17,pY+9,17,14,Fires[pFire,(Mozgas mod 3)+1]); {Hajt¢mu}
+   ClrVscr(#0); DoStars(Stars); {Virtuï¿½lis kï¿½pernyï¿½ tï¿½rlï¿½se, csillagmozgï¿½s}
+   PutLesers(Less); PutEnemies(Enemies); {Ellensï¿½gek, lï¿½zerek kirajzolï¿½sa, sï¿½rï¿½tï¿½se}
+   If pLife > 0 then Begin {Ha a jï¿½tï¿½kos ï¿½l, kirajzolï¿½s}
+    PutPic(pX,pY,50,30,Ships[pShip]); {Hajï¿½ kirajzolï¿½sa}
+    PutPic(pX-17,pY+9,17,14,Fires[pFire,(Mozgas mod 3)+1]); {Hajtï¿½mu}
    End Else If pShip > 0 then Begin
-    PutPic(pX+6-(200-pTime*4),pY+6-(50-pTime),16,16,Death[1]);  {Hullad‚kok }
-    PutPic(pX+16+(200-pTime*4),pY+6-(50-pTime),16,16,Death[2]); { kirajzol sa}
+    PutPic(pX+6-(200-pTime*4),pY+6-(50-pTime),16,16,Death[1]);  {Hulladï¿½kok }
+    PutPic(pX+16+(200-pTime*4),pY+6-(50-pTime),16,16,Death[2]); { kirajzolï¿½sa}
     PutPic(pX+6-(200-pTime*4),pY+16+(50-pTime),16,16,Death[3]);
     PutPic(pX+16+(200-pTime*4),pY+16+(50-pTime),16,16,Death[4]);
     If pTime > 0 then pTime := pTime - 1 Else {Ha pTime > 0, csak darabokat rajzol ki}
-     If SzumLife > 1 then Begin {Hal l eset‚n ‚let cs”kken‚se, alapbe ll¡t sok}
+     If SzumLife > 1 then Begin {Halï¿½l esetï¿½n ï¿½let csï¿½kkenï¿½se, alapbeï¿½llï¿½tï¿½sok}
       SzumLife := SzumLife - 1; pLife := 100;
       pX := -40; pY := 75; pLogged := False;
       pLogTime := 0;
-     End Else Begin pShip := 0; SzumLife := 0; End; {Teljes hal l}
+     End Else Begin pShip := 0; SzumLife := 0; End; {Teljes halï¿½l}
    End;
    {}
-   PutPic(0,190,120,10,Status); {leter‹vonal kirajzol sa}
+   PutPic(0,190,120,10,Status); {ï¿½leterï¿½vonal kirajzolï¿½sa}
    If SzumLife > 0 then PutPic(120,190,10,10,Stat2[SzumLife,3]);
    For i := 1 to Round((pLife/100)*115) do
     For j := 3 to 6 do Vscr^[190+j,2+i] := #2;
-   For m := 1 to 4 do {Fegyverkijelz‹}
+   For m := 1 to 4 do {Fegyverkijelzï¿½}
     If (pLeser[m] = #0) then PutPic(270+m*10,190,10,10,Stat2[m,0]) Else
      If (pLeser[m] > #0) and (pLeser[0] <> Chr(m)) then PutPic(270+m*10,190,10,10,Stat2[m,1]) Else
       If (pLeser[m] > #0) and (pLeser[0] = Chr(m)) then PutPic(270+m*10,190,10,10,Stat2[m,2]);
    If Boss <> nil then Begin
-    PutPic(0,0,120,10,Status); WriteXY(125,0,#4,'BOSS'); {F”ellens‚g ereje}
+    PutPic(0,0,120,10,Status); WriteXY(125,0,#4,'BOSS'); {Fï¿½ellensï¿½g ereje}
     For i := 1 to Round((Boss^.Life/Life_E[Boss^.Faj])*115) do
      For j := 3 to 6 do Vscr^[j,2+i] := #4; End;
-   {Sz”vegek ki¡r sa}
+   {Szï¿½vegek kiï¿½rï¿½sa}
    If SzumLife <= 0 then WriteXY(127,117,#5,'GAME OVER');
    If Cheat then WriteXY(0,0,#7,'cheat on');
    If ActualPalya = 3 then WriteXY(127,117,#5,'YOU WON !') Else
@@ -1245,10 +1262,10 @@ PROCEDURE GAME;
    Ponts := 'Pontszam ' + ' ' + Spaced(Ponts);
    WriteXY(165,0,#2,Ponts);
    {}
-   SetScr; {Virtu lis k‚perny”  tm sol sa = eddigiek kirajzol sa}
-   SetPos; {Eg‚rpoz¡ci¢ k”z‚pre  ll¡t sa}
-   WaitFor(Speed); {K‚sleltet‚s a SetCounter-hez k‚pest Speed id”vel}
-  UNTIL Quit; {Ameddig nincs kil‚p‚s}
+   SetScr; {Virtuï¿½lis kï¿½pernyï¿½ ï¿½tmï¿½solï¿½sa = eddigiek kirajzolï¿½sa}
+   SetPos; {Egï¿½rpozï¿½ciï¿½ kï¿½zï¿½pre ï¿½llï¿½tï¿½sa}
+   WaitFor(Speed); {Kï¿½sleltetï¿½s a SetCounter-hez kï¿½pest Speed idï¿½vel}
+  UNTIL Quit; {Ameddig nincs kilï¿½pï¿½s}
   {}
   Anim2; Splash := 63; Screen(Splash);
   DrawPoints(10);
@@ -1318,7 +1335,7 @@ PROCEDURE GAME;
    WaitFor(Speed);
   UNTIL Splash <= 1;
   {}
-  RemoveStars(Stars); {Mem¢riafelszabad¡t s}
+  RemoveStars(Stars); {Memï¿½riafelszabadï¿½tï¿½s}
   KillAllthings(Enemies,Less);
   SaveScore;
  END;
@@ -1415,7 +1432,7 @@ PROCEDURE CREDITS;
  END;
 
 BEGIN
- Init; {320x200x256os vide¢m¢d}
+ Init; {320x200x256os videï¿½mï¿½d}
  Load;
  Move(Palette,AllPalette,768);
  Diff := 0;
@@ -1512,10 +1529,12 @@ BEGIN
  UNTIL QuitAll;
  {}
  Anim3;
- Finish; {Vide¢m¢d lez r sa}
+ Finish; {Videï¿½mï¿½d lezï¿½rï¿½sa}
  {Credits}
  WriteLn;
  WriteLn('Created by : Csengodi Peter (11.tk) JOT2FY');
  WriteLn('All rights reserved.');
  WriteLn;
 END.
+
+*/

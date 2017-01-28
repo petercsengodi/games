@@ -1,83 +1,110 @@
-(*  A {*}-gal megjelolt sorok nem szabvanyos eljarast tartalmaznak.   *)
-UNIT gpcgun; {Kirajzolashoz es egerkezeleshez hasznalhato egyseg + idozito eljaras}
+package hu.csega.klongun;
 
-INTERFACE
+import java.io.File;
+import hu.csega.klongun.data.CustomCharset;
+import hu.csega.klongun.data.TPal;
+import hu.csega.klongun.data.TVscr;
+import hu.csega.klongun.imported.FileUtil;
 
-USES Dos;
+public class GpcGun {
 
-TYPE tVscr = ARRAY[0..199,0..319]OF Char;
-     tPal = ARRAY[0..255,0..2]OF Char;
+	public TVscr vscr = new TVscr();
+	public TVscr pix = vscr;
+	public TPal palette = new TPal();
+	public CustomCharset charset = new CustomCharset();
 
-VAR Vscr : ^tVscr; {Virtualis kepernyo}
-    Pix : tVscr ABSOLUTE $A000:0; {*} {Az egyik ilyen tombot a $A000:0 cimre, azaz a video-memoria fole helyezik}
-    {Ha ebbe a tombbe irunk, a kepernyo megvaltozik a 19. videomodban}
-    Key, Status : Char;
-    Palette : tPal;
-    M_Button,M_CurX,M_CurY : Word; {Egerhez hasznalhato valtozok}
-    Counter : LongInt; {Szamlalo az idozitohoz}
-    h,min,s,s100 : Word;
-    All : ARRAY[0..255,0..12,0..8]OF Char; {Karakterkeszlet}
+    public char key;
+    public char status;
 
-{Grafikai utasitasok}
-PROCEDURE SetMode(Gm : Word); {Videomo beallitasa}
-PROCEDURE Init; {Video elokeszitese teljes felhasznalasra}
-PROCEDURE Finish; {Video befejezese, visszaallitas az eredeti allapotba}
-PROCEDURE GetPalette; {Paletta lekerdezese}
-PROCEDURE SetPalette; {Paletta beallitasa}
-PROCEDURE ClrVscr(Col : Char); {Virtualis kepernyo torlese}
-PROCEDURE ClrGscr(Col : Char); {Valodi kepernyo torlese}
-PROCEDURE SetScr; {Virtualis kep valossa tetele}
-PROCEDURE WriteXY(X0,Y0 : Integer; Color0 : Char; Szov : String); {Szoveg kiiratasa}
-{Idozites}
-PROCEDURE SetCounter; {Idomeres kezdete}
-PROCEDURE WaitFor(gp4 : LongInt); {Addig var, mig el nem telik a megadott ido}
-{Egerkezeles}
-PROCEDURE ReadMouse; {Eger- es gombpoziciok beolvasasa}
-PROCEDURE SetPos; {Eger alapbeallitasa}
+    public int mButton, mCurX, mCurY;
+    public long counter;
+    public int h, min, s, s100;
 
-IMPLEMENTATION
+    public void init(){
+    	fillPalette();
+    	fillCharset();
+    }
 
-PROCEDURE SetMode; ASSEMBLER; {*} {Gepikodu parancs}
- ASM                          {*}
-  Mov ax, Gm                  {*} {Beolvassa az akkumlatorba a megadott videomod kodjat}
-  Int $10                     {*} {�j video,odot hiv meg az akkumlator fuggvenyeben}
- END;                         {*}
+	public void finish(){
+    	// thing to do really in java
+    }
 
-PROCEDURE Init;
- VAR f0 : File;                 {*}
- BEGIN
-  SetMode(19); {19. videomod: 320x200x256 szin}
-  New(Vscr);
-  GetPalette;
-  Assign(f0,'chars.set');       {*} {A karakterkeszletet tarolo file}
-  ReSet(f0,1);                  {*}
-  BlockRead(f0,All,SizeOf(All));{*} {Beolvassa}
-  Close(f0);                    {*}
- END;
+    public void getPalette(){
 
-PROCEDURE Finish;
- BEGIN
-  SetMode(3); {3. videomod: noral karakteres kepernyo}
-  Dispose(Vscr);
- END;
+    }
 
-PROCEDURE GetPalette;
- VAR gp1,gp2 : Integer;
- BEGIN
-  Port[$3C7] := 0; {*} {A paletta kiolvasasat a 0. szintol kezdje}
-  For gp1 := 0 to 255 do
-   For gp2 := 0 to 2 do
-    Palette[gp1,gp2] := Chr(Port[$3C9]); {*} {Paletta RGB komponenseinek beolvasaysa portrol}
- END;
+    public void setPalette(){
 
-PROCEDURE SetPalette;
- VAR gp1,gp2 : Integer;
- BEGIN
-  Port[$3C8] := 0; {*} {A palette atirasat a 0. szintol kezdje}
-  For gp1 := 0 to 255 do
-   For gp2 := 0 to 2 do
-    Port[$3C9] := Ord(Palette[gp1,gp2]); {*} {A paletta szineinek RGB komponenseinek atirasa}
- END;
+    }
+
+    public void clrVscr(char col){
+
+    }
+
+    public void clrGscr(char col){
+
+    }
+
+    public void setScr(){
+
+    }
+
+    public void writeXY(int x0, int y0, char color0, String szov){
+
+    }
+
+
+    public void setCounter(){
+
+    }
+
+
+    public void waitFor(long gp4){
+
+    }
+
+    public void readMouse(){
+
+    }
+
+    public void setPos(){
+
+    }
+
+    private void fillCharset() {
+		String root = FileUtil.workspaceRootOrTmp();
+		String charsetFileName = root + File.separator + "KlonGunPorted" + File.separator +
+				"res" + File.separator + "other" + File.separator + "charset.dat";
+		byte[] charsetBytes = FileUtil.readAllBytes(charsetFileName);
+
+		int cursor = 0;
+		for(int c = 0; c < CustomCharset.CHARACTERS; c++) {
+			for(int y = 0; y < CustomCharset.HEIGHT; y++) {
+				for(int x = 0; x < CustomCharset.WIDTH; x++) {
+					charset.content[c][y][x] = charsetBytes[cursor++];
+				}
+			}
+		}
+	} // end of fillCharset
+
+	private void fillPalette() {
+		String root = FileUtil.workspaceRootOrTmp();
+		String paletteFileName = root + File.separator + "KlonGunPorted" + File.separator +
+				"res" + File.separator + "other" + File.separator + "palette.dat";
+		byte[] paletteBytes = FileUtil.readAllBytes(paletteFileName);
+
+		int cursor = 0;
+		for(int c = 0; c < TPal.COLORS; c++) {
+			for(int rgb = 0; rgb < TPal.COMPONENTS; rgb++) {
+				palette.content[c][rgb] = paletteBytes[cursor++];
+			}
+		}
+	} // end of fillPalette
+
+}
+
+/*
+
 
 PROCEDURE ClrVscr;
  BEGIN
@@ -140,18 +167,5 @@ PROCEDURE WaitFor;
  END;
 
 END.
-{Unit lenyege:}
 
-{1. Keppont kirajzolasa : tomb elemenek valtoztatasa:}
-{    Vscr^[y-koordinata(0..199),x-koordinata(0..319)] := szin}
-
-{2. Kepernyore kirajzolas elott rengeteg mindent me glehet valositani, }
-{    mert az addigi valtozasok csak a virtualis kepernyon tortentek. }
-{     -> Folyamatos kep}
-
-{3. Gyors egerkezeles}
-
-{4. Idozites -> allando kep/masodperc -> nincs szaggatas vagy tul nagy }
-{     sebesseg}
-
-{5. Paletta kezelese gyors, hasznalataval szebb grafika valosithato meg}
+*/
