@@ -3,6 +3,7 @@ package hu.csega.klongun;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import hu.csega.klongun.imported.FileUtil;
 import hu.csega.klongun.model.Enemy;
@@ -130,8 +131,9 @@ public class KlonGun {
 
     public GpcGun gun = new GpcGun();
 
-    public static int sinus[] = new int[126];
+    public static final int sinus[] = new int[126];
 
+    public static final Random RND = new Random(System.currentTimeMillis());
 
 
     public static void main(String[] args) throws Exception {
@@ -352,62 +354,45 @@ public class KlonGun {
 
 	} // end of load
 
+	public void addStars() {
+		for(int i = 0; i < 2; i++) {
+			for(int j = 0; j < MaxStars; j++) {
+				Star s = new Star();
+				s.kind = (char)i;
+				s.x = RND.nextInt(340);
+				s.y = RND.nextInt(200);
+				stars.add(s);
+			}
+		}
+	}
+
+
+	public void doStars() {
+		for(Star s : stars) {
+			s.x -= (s.kind + 1) * Speed1;
+			if(s.x < -10) {
+		        s.x = 320+RND.nextInt(20);
+		        s.y = RND.nextInt(200);
+			}
+		    if(s.x >= 0 && s.x < 320) {
+		    	if(s.kind == 0) {
+		    		gun.vscr.set(s.x, s.y, 148);
+		    	} else {
+		    		gun.vscr.set(s.x, s.y, 7);
+		    	}
+		    }
+		}
+	} // end if doStars
+
+	public void removeStars() {
+		stars.clear();
+	}
+
+
 
 }
 
 /*
-
-
-
-
-
-PROCEDURE AddStars(var xStars : pStars); {L�ncolt lista elk�sz�t�se}
- VAR StarPos : pStars;
-     i,j : Integer;
- BEGIN
-  xStars := nil;
-  For i := 0 to 1 do
-   For j := 0 to MaxStars do
-    Begin
-     New(StarPos);
-     StarPos^.Next := xStars;
-     xStars := StarPos;
-     With StarPos^ do
-      Begin {Felt�lt�s}
-       Fajta := Chr(i); {Igy csak 1 Byte-ot foglal}
-       X := Random(340);{Kezdo koordinata beallitasa}
-       Y := Random(200);{Xnek 0 es 339, Ynak 0 es 199 koyott kell lennie}
-      End;
-    End;
- END;
-
-PROCEDURE DoStars(var xStars : pStars); {Csillagok mozg�sa}
- VAR StarPos : pStars;
- BEGIN
-  StarPos := xStars;
-  WHILE StarPos <> nil DO
-   BEGIN
-    With StarPos^ do
-     Begin
-      X := X - (Ord(Fajta) +1)*Speed1;
-      If X < -10 then
-       Begin {Uj csillag k�sz�t�se}
-        X := 320+Random(20);
-        Y := Random(200);
-       End;
-      If (X >= 0) and (X < 320) then Begin {Kirajzol�s}
-       If Fajta = #0 then Vscr^[Y,X] := #148 Else Vscr^[Y,X] := #7; End;
-     End;
-    StarPos := StarPos^.Next;
-   END;
- END;
-
-PROCEDURE RemoveStars(var StarPos : pStars);{Kitorli a csillagok lancolt listajat}
- BEGIN
-  If StarPos^.Next <> nil then RemoveStars(StarPos^.Next);
-  Dispose(StarPos);
- END;
-
 PROCEDURE InitLeser(var xLess : pLess; X1,Y1,Sp0,Yp0,Fj0,Side0 : Integer);
  VAR LessPos : pLess; {Uj lezer = Uj elem a lancolt listaban}
  BEGIN
