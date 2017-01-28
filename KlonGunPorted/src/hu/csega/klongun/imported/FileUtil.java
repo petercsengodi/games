@@ -13,7 +13,34 @@ import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
 import java.util.List;
 
+import hu.csega.klongun.screen.Picture;
+
 public class FileUtil {
+
+	public static Picture loadPic(String name, int width, int height) {
+		String fileName = picFileName(name);
+		byte[] bytes = readAllBytes(fileName);
+
+		int offset = 4;
+		int[] content = new int[width * height];
+
+		for(int i = 0; i < content.length; i++)
+			content[i] = (int)bytes[offset + i];
+
+		return new Picture(width, height, 0, content);
+	}
+
+	public static File pic(String name) {
+		String fileName = picFileName(name);
+		return new File(fileName);
+	}
+
+	private static String picFileName(String name) {
+		String root = FileUtil.workspaceRootOrTmp();
+		String fileName = root + File.separator + "KlonGunPorted" + File.separator +
+				"res" + File.separator + "pic" + File.separator + name + ".pic";
+		return fileName;
+	}
 
 	public static String workspaceRootOrTmp() {
 		String path = System.getProperty("user.dir");

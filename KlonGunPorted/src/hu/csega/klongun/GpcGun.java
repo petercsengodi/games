@@ -1,16 +1,18 @@
 package hu.csega.klongun;
 
 import java.io.File;
-import hu.csega.klongun.data.CustomCharset;
-import hu.csega.klongun.data.TPal;
-import hu.csega.klongun.data.TVscr;
+
 import hu.csega.klongun.imported.FileUtil;
+import hu.csega.klongun.screen.CustomCharset;
+import hu.csega.klongun.screen.TPal;
+import hu.csega.klongun.screen.TVscr;
 
 public class GpcGun {
 
 	public TVscr vscr = new TVscr();
 	public TVscr pix = vscr;
 	public TPal palette = new TPal();
+	public TPal originalPalette = new TPal();
 	public CustomCharset charset = new CustomCharset();
 
     public char key;
@@ -37,11 +39,11 @@ public class GpcGun {
 
     }
 
-    public void clrVscr(char col){
+    public void clrVscr(int col){
 
     }
 
-    public void clrGscr(char col){
+    public void clrGscr(int col){
 
     }
 
@@ -49,9 +51,24 @@ public class GpcGun {
 
     }
 
-    public void writeXY(int x0, int y0, char color0, String szov){
+    public void writeXY(int x0, int y0, int color0, String szov){
+    	for(int i = 0; i < szov.length(); i++) {
+    		int c = (int)szov.charAt(i);
+    		if(c >= 256)
+    			continue;
 
-    }
+			int[][] js = charset.content[c];
+
+    		for(int j = 0; j < CustomCharset.HEIGHT; j++) {
+        		for(int k = 0; k < CustomCharset.WIDTH; k++) {
+        			if(y0 + j >= 0 && y0 + j < 200 && x0 + (i-1)*9 + k >= 0 && x0 + (i-1)*9 + k < 320) {
+        				if(js[j][k] == 1)
+        					vscr.set(y0 + j, x0 + (i-1)*9 + k, color0);
+        			}
+        		}
+    		}
+    	}
+    } // end of writeXY
 
 
     public void setCounter(){
@@ -96,9 +113,11 @@ public class GpcGun {
 		int cursor = 0;
 		for(int c = 0; c < TPal.COLORS; c++) {
 			for(int rgb = 0; rgb < TPal.COMPONENTS; rgb++) {
-				palette.content[c][rgb] = paletteBytes[cursor++];
+				originalPalette.set(c, rgb, paletteBytes[cursor++]);
 			}
 		}
+
+		originalPalette.copyTo(palette);
 	} // end of fillPalette
 
 }
@@ -121,16 +140,6 @@ PROCEDURE SetScr;
   Move(Vscr^,Pix,64000); {*} {Atelyezi a virtualis kepernyorol az egesz memoria-adatot a kepernyo-memoria fole}
  END;
 
-PROCEDURE WriteXY; {A karakterek kis kepek, amiket a megfelelo szinnel kirajzol}
- VAR i0,j0,k0 : Integer;
- BEGIN
-  For i0 := 1 to Ord(Szov[0]) do
-   For j0 := 0 to 12 do
-    For k0 := 0 to 8 do
-     If (Y0+j0 >= 0) and (Y0+j0 < 200) and (X0+(i0-1)*9+k0 >= 0) and (X0+(i0-1)*9+k0 < 320) then
-      If All[Ord(Szov[i0]),j0,k0] = #1 then
-       Vscr^[Y0+j0,X0+(i0-1)*9+k0] := Color0;
- END;
 
 PROCEDURE ReadMouse; ASSEMBLER;
  ASM

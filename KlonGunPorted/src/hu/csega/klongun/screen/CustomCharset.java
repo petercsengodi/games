@@ -1,4 +1,4 @@
-package hu.csega.klongun.data;
+package hu.csega.klongun.screen;
 
 public class CustomCharset {
 

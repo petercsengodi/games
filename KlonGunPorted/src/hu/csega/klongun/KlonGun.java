@@ -1,6 +1,21 @@
 package hu.csega.klongun;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import hu.csega.klongun.imported.FileUtil;
+import hu.csega.klongun.model.Enemy;
+import hu.csega.klongun.model.Less;
+import hu.csega.klongun.model.Score;
+import hu.csega.klongun.model.Star;
+import hu.csega.klongun.screen.Picture;
+import hu.csega.klongun.screen.TPal;
+import hu.csega.klongun.screen.TVscr;
+
 public class KlonGun {
+
+	private static final String HISCORES = "Hiscores";
 	// Array sizes
 	public static final int MaxShips = 1;
 	public static final int MaxFires = 3;
@@ -54,312 +69,297 @@ public class KlonGun {
 		"No, it's a beautiful memory."
      };
 
+    public List<Star> stars = new ArrayList<>();
+    public List<Enemy> enemies = new ArrayList<>();
+    public List<Enemy> bosses = new ArrayList<>();
+    public List<Less> lesses = new ArrayList<>();
+
+    public int i,j,k,l,m,n,Xv,Yv;
+
+    public Picture[] ships = new Picture[MaxShips]; // 30 x 40
+    public Picture[][] fires = new Picture[3][3]; // 14 x 17
+    public Picture[] enemyShips = new Picture[MaxEnemy1]; // 32 x 32
+    public Picture[] lesers = new Picture[MaxLesers]; // 5 x 16
+    public Picture[] deaths = new Picture[MaxDeaths]; // 16 x 16
+    public Picture[] items = new Picture[MaxItem]; // 16 x 16
+    public Picture[][] stat2 = new Picture[4][4]; // 10 x 10
+    public Picture status;
+
+    public String[] s = new String[2];
+
+    public int areaScroll; // = Mozgas
+    public int bossDel;
+
+    // Player data
+    public int pX;
+    public int pY;
+    public int pShip;
+    public int pLife;
+    public int pFire;
+    public int pL;
+    public boolean pLogged; // if false, player can't be hurt
+    public int[] leser = new int[5]; // weapon statuses
+    public int pTime;
+    public int currentArea;
+    public int sumLife;
+
+    public char ch1;
+    public char ch2;
+
+    public boolean quit; // if false, quitting is not enabled
+    public boolean cheat;
+    public boolean cheated;
+    public int scores;
+    public int scoreText1; // PontSzov
+    public int scoreText2; // Ponts
+    public int splash;
+
+    public TPal palette = new TPal();
+
+    public File scoresFile;
+    public Score[] scoreRecords;
+
+    public char ch;
+    public char zh;
+
+    public boolean quitAll;
+    public int diff;
+    public int menuItem;
+    public boolean changed;
+    public int pLogTime;
+
+    public GpcGun gun = new GpcGun();
+
+    public static int sinus[] = new int[126];
+
+
+
+    public static void main(String[] args) throws Exception {
+    	KlonGun kg = new KlonGun();
+        for(int i = 0; i < 126; i++)
+      	  sinus[i] = (int)Math.round(Math.sin(i/20)*100);
+
+      	  //////////////////////
+    }
+
+    public String spaced(String xx) {
+    	for(int i = 1; i < 5-xx.length(); i++) {
+    		xx = ' ' + xx;
+    	}
+
+    	return xx + 'p';
+    }
+
+
+    public void drawPoints(int no) {
+    	gun.clrVscr(149);
+        gun.writeXY(121,0,0,HISCORES);
+        gun.writeXY(120,0,4,HISCORES);
+
+        for(int i = 0; i < 10; i++) {
+        	/*
+            With PontSzam[i] do
+             If Pontszam <> 0 then
+              If no <> i then
+               Begin
+                Str(Pontszam,Ponts);
+                WriteXY(21,20+i*15,#0,Nev);
+                WriteXY(221,20+i*15,#0,Spaced(Ponts));
+                WriteXY(20,20+i*15,#2,Nev);
+                WriteXY(220,20+i*15,#2,Spaced(Ponts));
+               End Else Begin
+                Str(Pontszam,Ponts);
+                WriteXY(21,20+i*15,#0,Nev);
+                WriteXY(221,20+i*15,#0,Spaced(Ponts));
+                WriteXY(20,20+i*15,#1,Nev);
+                WriteXY(220,20+i*15,#1,Spaced(Ponts));
+               End;
+      */
+
+
+        }
+    } // end drawPoints
+
+    public void Anim3() {
+    	TVscr back = new TVscr();
+    	int pos = 0;
+
+    	gun.vscr.copyTo(back);
+
+    	do {
+    		gun.clrVscr(0);
+    		pos++;
+
+    		for(int i = 0; i < TVscr.HEIGHT; i++) {
+    			for(int j = 0; j < TVscr.WIDTH; j++) {
+    				k = (i - 100) * pos + 100;
+    				l = (j - 160) * pos + 160;
+    		        if ((k >= 0) && (l >= 0) && (k < 200) && (l < 320))
+    		          gun.vscr.set(k, l, back.get(i, j));
+    			}
+    		}
+
+    		gun.setScr();
+    	} while(pos <= 80);
+    }
+
+    public void Anim(int type) {
+    	TVscr back = new TVscr();
+    	int pos = 320, i = 0;
+
+    	gun.vscr.copyTo(back);
+        if (type == 0)
+        	gun.clrVscr(0);
+        else
+        	gun.clrVscr(148);
+
+    	do {
+    		pos -= 4;
+    		for(i = 0; i < 200; i++) {
+    			if(i % 2 == 0) {
+    				System.arraycopy(back.content, i * TVscr.WIDTH + pos,
+    						gun.vscr.content, i * TVscr.WIDTH, 320-pos);
+    			} else {
+    				System.arraycopy(back.content, i * TVscr.WIDTH,
+    						gun.vscr.content, i * TVscr.WIDTH + pos, 320-pos);
+    			}
+    		}
+
+    		gun.setScr();
+    	} while(pos != 0);
+    }
+
+    public int f1(int x, double y) {
+    	return (int)Math.round(y * sinus[(int)(Math.round(x + 503) % 126)]);
+    }
+
+    public int f2(int x, double z) {
+    	return (int)Math.round(z * sinus[(int)(Math.round((x+m)*2 + 503) % 126)]);
+    }
+
+
+    public void anim2() {
+        final int PalS = 8;
+        final int Speed = 2;
+        final int Pocs = 48;
+        final int MaxM = 63;
+        final int MaxI = 60;
+
+        boolean quit = false;
+        int i = 0, j = 1, k = 0, l = 0, m = 0, n = 0, o = 0;
+        double y, z;
+
+        TVscr back = new TVscr();
+        File ff = null;
+
+        int[] FGGVX = new int[320];
+        int[] FGGVY = new int[200];
+
+        gun.vscr.copyTo(back);
+
+		do {
+			if (i % Speed == 0) {
+				y = i / 380.0;
+				z = i / 1500.0;
+
+				for (n = 0; n < 320; n++)
+					FGGVX[n] = n - f2(n - 160, z);
+				for (n = 0; n < 200; n++)
+					FGGVY[n] = n - f1(n - 100, y) - o;
+
+				gun.clrVscr(0);
+
+				for (k = 0; k < 200; k++) {
+					for (n = 0; n < 320; n++) {
+
+					}
+				}
+
+				if (FGGVY[k] >= 0 && FGGVY[k] < 200 && FGGVX[n] >= 0 && FGGVX[n] < 320)
+					gun.vscr.set(k, n, back.get(FGGVY[k], FGGVX[n]));
+
+				gun.setScr();
+			}
+
+			i += j;
+			m++;
+			o += 2;
+
+			if (m > MaxM)
+				m -= MaxM;
+
+			if (i < -MaxI)
+				j = 1;
+			else if (i > MaxI)
+				j = -1;
+
+		} while (o < 200);
+    }
+
+	public void screen(int no) {
+		for (int i = 0; i < 256; i++) {
+			for (int j = 0; j < 3; j++) {
+				int v = (int) Math.round(gun.originalPalette.get(i, j) * no / 63.0);
+				gun.palette.set(i, j, v);
+			}
+		}
+	} // end screen
+
+
+	public void load() {
+		int i = 0;
+		int j = 0;
+
+		// BlockRead = reads block from file
+		// Reset(f,##) : ## = size of one block
+		// Str = number to string
+		// Seek = goes to position in file
+
+		// Every pictures start after 4 bytes
+
+		/*
+
+    public Picture[][] fires = new Picture[3][3]; // 14 x 17
+
+
+		 */
+
+		for(i = 0; i < MaxShips; i++)
+			ships[i] = FileUtil.loadPic("ship" + i, 40, 30);
+		for(i = 0; i < MaxItem; i++)
+			items[i] = FileUtil.loadPic("i_" + i, 16, 16);
+		for(i = 0; i < MaxDeaths; i++)
+			deaths[i] = FileUtil.loadPic("ruin" + i, 16, 16);
+		for(i = 0; i < MaxLesers; i++)
+			lesers[i] = FileUtil.loadPic("l" + i, 16, 5);
+		for(i = 0; i < MaxEnemy1; i++)
+			enemyShips[i] = FileUtil.loadPic("a" + i, 32, 32);
+		status = FileUtil.loadPic("status1", 120, 10);
+
+		for(i = 0; i < 4; i++) {
+			for(j = 0; j < 4; j++) {
+				String picName = String.valueOf(i) + j;
+				stat2[i][j] = FileUtil.loadPic(picName, 10, 10);
+			}
+		}
+
+		for(i = 0; i < MaxFires; i++) {
+			for(j = 0; j < 3; j++) {
+				String picName = "s_fire" + String.valueOf(i) + j;
+				fires[i][j] = FileUtil.loadPic(picName, 10, 10);
+			}
+		}
+
+	} // end of load
+
+
 }
 
 /*
 
-TYPE pStars = ^tStars;
-     tStars = RECORD {Csillagok recordja}
-               Fajta : Char;
-               X,Y : Integer;
-               Next : pStars;
-              END;
 
-     pEnemies = ^tEnemies;
-     tEnemies = RECORD {Ellens�gek recordja}
-                 X, Y, Speed, YSpeed, Faj,
-                 Life, Late, Item, Time : Integer;
-                 Next : pEnemies;
-                 Prev : pEnemies;
-                END;
 
-     pLess = ^tLess;
-     tLess = RECORD
-              X0, Y0, Speed, YSpeed,
-              Faj,Side, Dmg : Integer;
-              Next,Prev : pLess;
-             END;
 
-     PontRec = RECORD
-                PontSzam : Integer;
-                Nev : String;
-               END;
-
-VAR i,j,k,l,m,n,Xv,Yv : Integer; {Ciklus- �s egy�b v�toz�k} (**)
-    Ships : ARRAY[1..MaxShips,0..29,0..49]OF Char;   {Haj�} {K�pek t�helyei}
-    Fires : ARRAY[1..3,1..3,0..13,0..16]OF Char;     {L�ngcs�va}
-    Enemy1 : ARRAY[1..MaxEnemy1,0..31,0..31]OF Char; {Ellens�gek}
-    Leser : ARRAY[1..MaxLesers,0..4,0..15]OF Char;   {L�zerek}
-    Death : ARRAY[1..MaxDeaths,0..15,0..15]OF Char;  {Hullad�k a robban�s ut�n}
-    Status : ARRAY[0..9,0..119]OF Char;              {Energiam�ter}
-    Stat2 : ARRAY[1..4,0..3,0..9,0..9]OF Char;       {Sz�mok 4 sz�nben}
-    Items : ARRAY[1..MaxItem,0..15,0..15]OF Char;    {Felvehet� dolgok (stuff)}
-    Stars : pStars;      {Csillagok}  {L�ncolt list�k az �llapotokhoz}
-    Enemies : pEnemies;  {Ellens�gek}
-    Less : pLess;        {L�v�sek}
-    Boss : pEnemies; {Ezen a c�men tal�lhat� az aktu�lis f�ellens�g}
-    s : String[2];
-    Mozgas{p�lya poz�ci�ja}, Boss_Del{ha t�lmegy a p�ly�n, ennyit ugrik vissza} : Integer;
-    pX,pY,pShip,pLife,pFire,pL : Integer; {J�t�kos adatai}
-    pLogged : Boolean; {Ha False, s j�t�kost m�g nem lehet sz�tl�ni}
-    pLeser : ARRAY[0..4]OF Char; {A fegyyverek �llapotai}
-    pTime, ActualPalya{aktu�lis p�lya}, SzumLife{�ssz �let} : Integer;
-    ch1, ch2 : Char; {Karakterek billenty�zet kezel�s�hez}
-    Quit{Kil�p�s enged�se}, Cheat, Cheated{csal�s} : Boolean;
-    Pontok : Integer;
-    PontSzov, Ponts : String;
-    AllPalette : tPal;
-    Splash : Integer;
-    {}
-    fP : File Of PontRec;
-    Pontszam : ARRAY[0..9]OF PontRec;
-    ch,zh : Char;
-    {}
-    QuitAll : Boolean;
-    Diff : Integer;
-    MenuPont : Integer;
-    Changed : Boolean;
-    pLogTime : Integer;
-
-FUNCTION Spaced (XX : String) : String;
- BEGIN
-  For l := 1 to 5-Length(XX) do
-   XX := ' ' + XX;
-  Spaced := XX+'p';
- END;
-
-PROCEDURE DrawPoints(No : Integer);
- BEGIN
-  ClrVscr(#148);
-  WriteXY(121,0,#0,'Hiscores');
-  WriteXY(120,0,#4,'Hiscores');
-  For i := 0 to 9 do
-   With PontSzam[i] do
-    If Pontszam <> 0 then
-     If no <> i then
-      Begin
-       Str(Pontszam,Ponts);
-       WriteXY(21,20+i*15,#0,Nev);
-       WriteXY(221,20+i*15,#0,Spaced(Ponts));
-       WriteXY(20,20+i*15,#2,Nev);
-       WriteXY(220,20+i*15,#2,Spaced(Ponts));
-      End Else Begin
-       Str(Pontszam,Ponts);
-       WriteXY(21,20+i*15,#0,Nev);
-       WriteXY(221,20+i*15,#0,Spaced(Ponts));
-       WriteXY(20,20+i*15,#1,Nev);
-       WriteXY(220,20+i*15,#1,Spaced(Ponts));
-      End;
- END;
-
-PROCEDURE Anim3;
- VAR Back : ^tVscr;
-     pos : Integer;
- BEGIN
-  New(Back);
-  Move(Vscr^,Back^,64000);
-  {}
-  pos := 0;
-  Repeat
-   ClrVscr(#0);
-   pos := pos + 1;
-   For i := 0 to 199 do
-    For j := 0 to 319 do
-     Begin
-      k := (i-100)*pos+100;
-      l := (j-160)*pos+160;
-      If (k >= 0) and (l >= 0) and (k < 200) and (l < 320) then
-       Vscr^[k,l] := Back^[i,j];
-     End;
-   SetScr;
-  Until pos > 80;
-  {}
-  Dispose(Back);
- END;
-
-{PROCEDURE Anim3;
- VAR Back : ^tVscr;
-     pos : Real;
- BEGIN
-  New(Back);
-  Move(Vscr^,Back^,64000);
-  pos := 1;
-  Repeat
-   ClrVscr(#0);
-   pos := pos + 0.5;
-   For i := 0 to 199 do
-    For j := 0 to 319 do
-     Begin
-      k := Round((i-99.5)*pos+99.5);
-      l := Round((j-159.5)*pos+159.5);
-      If (k >= 0) and (l >= 0) and (k < 200) and (l < 320) then
-       Vscr^[k,l] := Back^[i,j];
-     End;
-   SetScr;
-  Until pos > 160;
-  Dispose(Back);
- END;           }
-
-PROCEDURE Anim(typ : Integer);
- VAR Back : ^tVscr;
-     pos,i : Integer;
- BEGIN
-  New(Back);
-  Move(Vscr^,Back^,64000);
-  If Typ = 0 then ClrVscr(#0) Else ClrVscr(#148);
-  {}
-  pos := 320;
-  Repeat
-   pos := pos - 4;
-   For i := 0 to 199 do
-    Begin
-     If i mod 2 = 0 then
-      begin
-       Move(Back^[i,Pos],Vscr^[i],320-Pos);
-      end else begin
-       Move(Back^[i],Vscr^[i,Pos],320-Pos);
-      end;
-    End;
-   SetScr;
-  Until pos = 0;
-  {}
-  Dispose(Back);
- END;
-
-PROCEDURE Anim2;
-
-CONST PalS = 8{8};
-      Speed = 2{5};
-      Pocs = 48{63, !48 = S�t�tebb!};
-      MaxM = 63{63};
-      MaxI = 60{63};
-
-VAR Quit : Boolean;
-    i,j,k,l,m,n,o : Integer;
-    y,z : Real;
-    Back : ^tVscr;
-    ff : File;
-    Sinus : ARRAY[0..125]OF Integer;
-    FGGVX : ARRAY[0..319]OF Integer;
-    FGGVY : ARRAY[0..199]OF Integer;
-
-FUNCTION F(x : Integer) : Integer;
- BEGIN
-  F := Round(y*Sinus[Round(x+503) mod 126]);
- END;
-
-FUNCTION F2(x : Integer) : Integer;
- BEGIN
-  F2 := Round(z*Sinus[Round((x+m)*2+503) mod 126]);
- END;
-
-FUNCTION Max(r1,r2 : Integer) : Integer;
- BEGIN
-  If r1 > r2 then Max := Round(r1) Else Max := Round(r2);
- END;
-
-BEGIN
- New(Back);
- {}
- For i := 0 to 125 do
-  Sinus[i] := Round(sin(i/20)*100);
- {}
- i := 0;
- j := 1;
- m := 0;
- y := 0;
- z := 0;
- o := 0;
- {}
- Move(Vscr^,Back^,64000);
- {}
- REPEAT
-  If i mod Speed = 0 then
-   BEGIN
-    y := i/380;
-    z := i / 1500;
-    For n := 0 to 319 do
-     FGGVX[n] := n-F2(n-160){-o};
-    For n := 0 to 199 do
-     FGGVY[n] := n-F(n-100)-o;
-    ClrVscr(#0);
-    For k := 0 to 199 do
-     For n := 0 to 319 do
-      If (FGGVY[k] >= 0) and (FGGVY[k] < 200) and (FGGVX[n] >= 0) and (FGGVX[n] < 320) then
-       Vscr^[k,n] := Back^[FGGVY[k],FGGVX[n]];
-    SetScr;
-   END;
-  i := i + j;
-  m := m + 1;
-  o := o + 2;
-  If m > MaxM then m := m - MaxM;
-  If i < -Maxi then j := 1 Else If i > Maxi then j := -1;
- UNTIL o >= 200;
- {}
- Dispose(Back);
-END;
-
-PROCEDURE Screen(No : Integer);
- VAR i,j : Integer;
- BEGIN
-  For i := 0 to 255 do
-   For j := 0 to 2 do
-    Palette[i,j] := Chr(Round(Ord(AllPalette[i,j])*No/63));
-  SetPalette;
- END;
-
-PROCEDURE Load; {File-ok bet�lt�se} {*}
- VAR i,j : Integer;     {BlockRead = file-b�l blokkot beolvas}
-     s,t : String[10];  {Reset(f,##) : ## = 1 blokk m�rete}
-     f : File;          {Str = sz�mot sz�vegg� alak�t}
-                        {Seek = Fileban poz�ci�ra ugrik}
- BEGIN
-  Assign(f,'palette.dat'); ReSet(f,768);
-  BlockRead(f,Palette,1); Close(f);
-  SetPalette;
-  For i := 1 to MaxShips do Begin
-   Str(i,s); Assign(f,'DATA\ship'+s+'.pic');
-   ReSet(f,1); Seek(f,4); {Minden k�p a 4.Byte ut�n kezd�dik}
-   BlockRead(f,Ships[i],SizeOf(Ships[i])); Close(f);
-  End;
-  For i := 1 to MaxItem do Begin
-   Str(i,s); Assign(f,'DATA\i_'+s+'.pic');
-   ReSet(f,1); Seek(f,4);
-   BlockRead(f,Items[i],SizeOf(Items[i])); Close(f);
-  End;
-  For i := 1 to MaxDeaths do Begin
-   Str(i,s); Assign(f,'DATA\ruin'+s+'.pic');
-   ReSet(f,1); Seek(f,4);
-   BlockRead(f,Death[i],SizeOf(Death[i])); Close(f);
-  End;
-  For i := 1 to MaxLesers do Begin
-   Str(i,s); Assign(f,'DATA\l'+s+'.pic');
-   ReSet(f,1); Seek(f,4);
-   BlockRead(f,Leser[i],SizeOf(Leser[i])); Close(f);
-  End;
-  For i := 1 to MaxEnemy1 do Begin
-   Str(i,s); Assign(f,'DATA\a'+s+'.pic');
-   ReSet(f,1); Seek(f,4);
-   BlockRead(f,Enemy1[i],SizeOf(Enemy1[i])); Close(f);
-  End;
-  Assign(f,'DATA\status1.pic');
-  ReSet(f,1); Seek(f,4);
-  BlockRead(f,Status,SizeOf(Status)); Close(f);
-  For i := 1 to 4 do
-   For j := 0 to 3 do Begin
-    Str(i,s); Str(j,t);
-    Assign(f,'DATA\'+s+t+'.pic');
-    ReSet(f,1); Seek(f,4);
-    BlockRead(f,Stat2[i,j],SizeOf(Stat2[i,j])); Close(f);
-   End;
-  For i := 1 to MaxFires do
-   For j := 1 to 3 do Begin
-    Str(i,s); Str(j,t);
-    Assign(f,'DATA\s_fire'+s+t+'.pic');
-    ReSet(f,1); Seek(f,4);
-    BlockRead(f,Fires[i,j],SizeOf(Fires[i,j])); Close(f);
-   End;
- END;
 
 PROCEDURE AddStars(var xStars : pStars); {L�ncolt lista elk�sz�t�se}
  VAR StarPos : pStars;
