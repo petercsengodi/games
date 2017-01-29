@@ -665,7 +665,7 @@ public class KlonGun {
 				initLeser(enemy.x + 6, enemy.y + 22, -10, 0, 11, 0);
 			}
 			if (areaScroll % 87 == 0) {
-				initEnemy(enemy.x + 16, enemy.y + 20, 2, -4, MaxEnemy1 + 2, -1);
+				initEnemy(enemy.x + 16, enemy.y + 20, 2, -4, MaxEnemy1 + 3, -1);
 			}
 			if (areaScroll % 125 == 0) {
 				initEnemy(enemy.x + 16, enemy.y + 20, 15, 0, 8, -1);
