@@ -172,16 +172,16 @@ public class KlonGun {
               if no <> i then
                {
                 Str(Pontszam,Ponts);
-                gun.writeXY(21,20+i*15,#0,Nev);
-                gun.writeXY(221,20+i*15,#0,Spaced(Ponts));
-                gun.writeXY(20,20+i*15,#2,Nev);
-                gun.writeXY(220,20+i*15,#2,Spaced(Ponts));
+                gun.writeXY(21,20+i*15,0,Nev);
+                gun.writeXY(221,20+i*15,0,Spaced(Ponts));
+                gun.writeXY(20,20+i*15,2,Nev);
+                gun.writeXY(220,20+i*15,2,Spaced(Ponts));
                } Else {
                 Str(Pontszam,Ponts);
-                gun.writeXY(21,20+i*15,#0,Nev);
-                gun.writeXY(221,20+i*15,#0,Spaced(Ponts));
-                gun.writeXY(20,20+i*15,#1,Nev);
-                gun.writeXY(220,20+i*15,#1,Spaced(Ponts));
+                gun.writeXY(21,20+i*15,0,Nev);
+                gun.writeXY(221,20+i*15,0,Spaced(Ponts));
+                gun.writeXY(20,20+i*15,1,Nev);
+                gun.writeXY(220,20+i*15,1,Spaced(Ponts));
                }
       */
 
@@ -561,7 +561,7 @@ public class KlonGun {
 	                  InitLeser(Less,X+16,Y+16,-6,6,12,0);
 	                  InitLeser(Less,X+16,Y+16,6,6,12,0);
 	                 }
-	    			 case 340 : YSpeed = 2+Random(1); Speed = 2+Random(1); break;
+	    			 case 340 : YSpeed = 2+RND.nextInt(1); Speed = 2+RND.nextInt(1); break;
 	    			 case 350:
 	    			 case 360:
 	    			 case 370:
@@ -638,7 +638,7 @@ public class KlonGun {
 	          9 : {
 	               if X == 200 then
 	                {
-	                 YSpeed = Random(2)*2-1;
+	                 YSpeed = RND.nextInt(2)*2-1;
 	                }
 	               Else if (X == 110) || (X == 40) then
 	                { YSpeed = YSpeed*2; Speed = Speed - 4; }
@@ -651,15 +651,15 @@ public class KlonGun {
 	                 }
 	                if areaScroll % 87 == 0 then
 	                 {
-	                  InitEnemy(Enemies,X+16,Y+20,2,-4,MaxEnemy1+4,0);
+	                  initEnemy(enemies,X+16,Y+20,2,-4,MaxEnemy1+4,0);
 	                 }
 	                if areaScroll % 125 == 0 then
 	                 {
-	                  InitEnemy(Enemies,X+16,Y+20,15,0,9,0);
+	                  initEnemy(enemies,X+16,Y+20,15,0,9,0);
 	                 }
 	                if areaScroll % 210 == 0 then
 	                 {
-	                  InitEnemy(Enemies,X+16,Y+20,2,-4,8,1+Random(6));
+	                  initEnemy(enemies,X+16,Y+20,2,-4,8,1+RND.nextInt(6));
 	                 }
 	                if (Y > 180) && (YSpeed < 0) then YSpeed = -YSpeed;
 	                if (Y < 0) && (YSpeed > 0) then YSpeed = -YSpeed;
@@ -810,20 +810,20 @@ load();
          Screen(splash);
          WaitFor(Speed);
         } while(splash > 1);
-        ClrVscr(#0);
-        SetScr;
+        gun.clrVscr(0);
+        gun.setScr();
         splash = 63;
         Screen(splash);
-        ClrVscr(#148);
+        gun.clrVscr(148);
         DrawPoints(l);
         Anim(0);
-        SetScr;
+        gun.setScr();
         do { } while(!KeyPressed);
         While KeyPressed do ch = ReadKey;
         do {
          SetCounter;
-         splash = splash -2;
-         Screen(splash);
+         splash -= 2;
+         screen(splash);
          WaitFor(Speed);
         } while(splash > 1);
         Changed = True;
@@ -867,12 +867,12 @@ public void PutEnemies(var xEnemies : pEnemies) {
         if not cheat then
          For i = 0 to 31 do
           For j = 0 to 31 do
-           if Enemy1[Abra[Faj],i,j] < #255 then
+           if Enemy1[Abra[Faj],i,j] < 255 then
             {
              Xv = X+j-pX;
              Yv = Y+i-pY;
              if (Xv >= 0) && (Xv < 50) && (Yv >= 0) && (Yv < 30)
-              && (Ships[pShip,Yv,Xv] < #255) && (pLife > 0) then
+              && (Ships[pShip,Yv,Xv] < 255) && (pLife > 0) then
               { pLife = 0; pTime = 50; }
             }
        }
@@ -880,17 +880,17 @@ public void PutEnemies(var xEnemies : pEnemies) {
        {
         if Time > 0 then
          {
-          PutPic(X+6-(200-Time*4),Y+6-(50-Time),16,16,Death[1]);
-          PutPic(X+16+(200-Time*4),Y+6-(50-Time),16,16,Death[2]);
-          PutPic(X+6-(200-Time*4),Y+16+(50-Time),16,16,Death[3]);
-          PutPic(X+16+(200-Time*4),Y+16+(50-Time),16,16,Death[4]);
+          PutPic(X+6-(200-Time*4),Y+6-(50-Time),16,16,deaths[1]);
+          PutPic(X+16+(200-Time*4),Y+6-(50-Time),16,16,deaths[2]);
+          PutPic(X+6-(200-Time*4),Y+16+(50-Time),16,16,deaths[3]);
+          PutPic(X+16+(200-Time*4),Y+16+(50-Time),16,16,deaths[4]);
           if not Cheated then
            {
             Str((2+Diff)*Life_E[Faj] div 10,PontSzov);
             PontSzov = PontSzov+'p';
-           } Else Pontszov = '0p';
-          gun.writeXY(X+16-(Length(PontSzov)*13) div 2,Y+8-(300-Time*6),#5,PontSzov);
-          if (Time > 30) && (Item > 0) then PutPic(X+8,Y+8,16,16,Items[Item]);
+           } Else Pontszov = "0p";
+          gun.writeXY(X+16-(Length(PontSzov)*13) div 2,Y+8-(300-Time*6),5,PontSzov);
+          if (Time > 30) && (Item > 0) then PutPic(X+8,Y+8,16,16,items[Item]);
           Time = Time - 1;
          } Else Die = True;
        }
@@ -926,7 +926,7 @@ public void PutLesers() {
       PutPic(X0,Y0,16,5,Leser[Faj]);
       For i = 0 to 4 do
        For j = 0 to 15 do
-        if (Leser[Faj,i,j] < #255) && (not Talalat) then
+        if (Leser[Faj,i,j] < 255) && (not Talalat) then
          {
           Xv = X0+j;
           Yv = Y0+i;
@@ -934,7 +934,7 @@ public void PutLesers() {
            {
             if Side > 0 then
              {
-              EnemyPos = Enemies;
+              EnemyPos = enemies;
               WHILE EnemyPos <> nil DO
                {
                 if EnemyPos^.Life > 0 then
@@ -942,7 +942,7 @@ public void PutLesers() {
                   X1 = Xv-EnemyPos^.X;
                   Y1 = Yv-EnemyPos^.Y;
                   if (X1 >= 0) && (X1 < 32) && (Y1 >= 0) && (Y1 < 32)
-                   && (Enemy1[Abra[EnemyPos^.Faj],Y1,X1] < #255) then
+                   && (Enemy1[Abra[EnemyPos^.Faj],Y1,X1] < 255) then
                   {
                    Talalat = True;
                     EnemyPos^.Life = EnemyPos^.Life-(Dmg-Diff*Dmg div 2);
@@ -958,8 +958,8 @@ public void PutLesers() {
                             if pLife > 0 then pLife = pLife + 20;
                             if pLife > 100 then pLife = 100;
                            }
-                        2 : if pLeser[1] < #5 then pLeser[1] = Chr(Ord(pLeser[1]) + 1);
-                        3..5 : if pLeser[EnemyPos^.Item-1] < #3 then
+                        2 : if pLeser[1] < 5 then pLeser[1] = Chr(Ord(pLeser[1]) + 1);
+                        3..5 : if pLeser[EnemyPos^.Item-1] < 3 then
                                 pLeser[EnemyPos^.Item-1] = Chr(Ord(pLeser[EnemyPos^.Item-1]) + 1);
                         6 : if pFire > 2 then pFire = 2;
                         7 : if pFire > 1 then pFire = 1;
@@ -976,7 +976,7 @@ public void PutLesers() {
                Xv = Xv-pX;
                Yv = Yv-pY;
                if (Xv >= 0) && (Xv < 50) && (Yv >= 0) && (Yv < 30)
-                && (Ships[pShip,Yv,Xv] < #255) then
+                && (Ships[pShip,Yv,Xv] < 255) then
                  { pLife = pLife - (Dmg+Diff*Dmg div 2); Talalat = True;
                   if pLife <= 0 then pTime = 50;
                   if pLife < 0 then pLife = 0; }
@@ -1002,34 +1002,35 @@ public void PutLesers() {
 
 public void Palya() {
 
-  if areaScroll > 100 then
+  if (areaScroll > 100) {
   switch (currentArea) {
   case  0 : {
-        if (areaScroll < 500) && ((areaScroll % 25) == 0) then
-          InitEnemy(Enemies,320,70+((areaScroll div 25) % 2)*60,Speed_E[6],((areaScroll div 25) % 2)*2-1,6,0);
-        if areaScroll == 500 then InitEnemy(Enemies,320,Random(20)+90,4,0,7,1);
+        if (areaScroll < 500 && (areaScroll % 25) == 0)
+          initEnemy(enemies,320,70+((areaScroll / 25) % 2)*60, Speed_E[6],((areaScroll / 25) % 2)*2-1,6,0);
+        if areaScroll == 500 then initEnemy(enemies,320,RND.nextInt(20)+90,4,0,7,1);
         if (areaScroll > 500) && (areaScroll < 600) && (areaScroll % 20 == 0) then
-          InitEnemy(Enemies,250,-10,1,-2,MaxEnemy1+2,0);
+          initEnemy(enemies,250,-10,1,-2,MaxEnemy1+2,0);
         if (areaScroll > 600) && (areaScroll < 700) && (areaScroll % 20 == 0) then
-          InitEnemy(Enemies,250,210,1,2,MaxEnemy1+2,0);
-        if areaScroll == 700 then InitEnemy(Enemies,250,210,1,2,7,2);
-        if areaScroll == 800 then InitEnemy(Enemies,320,Random(20)+90,2,0,7,1);
-        if areaScroll == 990 then InitEnemy(Enemies,320,Random(20)+90,2,0,7,6);
+          initEnemy(enemies,250,210,1,2,MaxEnemy1+2,0);
+        if areaScroll == 700 then initEnemy(enemies,250,210,1,2,7,2);
+        if areaScroll == 800 then initEnemy(enemies,320,RND.nextInt(20)+90,2,0,7,1);
+        if areaScroll == 990 then initEnemy(enemies,320,RND.nextInt(20)+90,2,0,7,6);
         if (areaScroll > 750) && (areaScroll < 1040) && (areaScroll % 25 == 0) then
-          InitEnemy(Enemies,320,60+((areaScroll div 20) % 4)* 25,1,2,MaxEnemy1+1,0);
+          initEnemy(enemies,320,60+((areaScroll div 20) % 4)* 25,1,2,MaxEnemy1+1,0);
         if areaScroll == 1100 then
          {
-          InitEnemy(Enemies,320,100,3,3,MaxEnemy1+3,2);
+          initEnemy(enemies,320,100,3,3,MaxEnemy1+3,2);
           Boss_Del = 200;
-          InitEnemy(Enemies,320,Random(20)+90,2,0,7,1);
+          initEnemy(enemies,320,RND.nextInt(20)+90,2,0,7,1);
          }
         if areaScroll > 2200 then areaScroll = areaScroll- Boss_Del;
         if (areaScroll > 1100) && (Boss == nil) then NextLevel;
+        break;
        }
    case 1 : {
         if (areaScroll < 2000) && ((areaScroll % 19) == 0) then
          {
-          InitEnemy(Enemies,0,0,0,0,0,0);
+          initEnemy(enemies,0,0,0,0,0,0);
          }
         if (areaScroll < 2000) && ((areaScroll % 32) == 0) then
          {
@@ -1037,52 +1038,53 @@ public void Palya() {
          }
         if (areaScroll < 2000) && (areaScroll % 115 == 0) then
          switch( (areaScroll div 115)) {
-          2 : InitEnemy(Enemies,320,Random(160)+20,4,0,7,1);
-          4 : InitEnemy(Enemies,320,Random(160)+20,4,0,7,6);
-          6 : InitEnemy(Enemies,320,Random(160)+20,4,0,7,3);
+          2 : initEnemy(enemies,320,RND.nextInt(160)+20,4,0,7,1);
+          4 : initEnemy(enemies,320,RND.nextInt(160)+20,4,0,7,6);
+          6 : initEnemy(enemies,320,RND.nextInt(160)+20,4,0,7,3);
          }
-        if areaScroll == 1000 then InitEnemy(Enemies,320,Random(160)+20,4,0,7,1);
-        if areaScroll == 1850 then InitEnemy(Enemies,320,Random(160)+20,4,0,7,2);
-        if areaScroll == 1250 then InitEnemy(Enemies,320,Random(160)+20,4,0,7,5);
-        if areaScroll == 1700 then InitEnemy(Enemies,320,Random(160)+20,4,0,7,1);
+        if areaScroll == 1000 then initEnemy(enemies,320,RND.nextInt(160)+20,4,0,7,1);
+        if areaScroll == 1850 then initEnemy(enemies,320,RND.nextInt(160)+20,4,0,7,2);
+        if areaScroll == 1250 then initEnemy(enemies,320,RND.nextInt(160)+20,4,0,7,5);
+        if areaScroll == 1700 then initEnemy(enemies,320,RND.nextInt(160)+20,4,0,7,1);
         if areaScroll == 2000 then
          {
-          InitEnemy(Enemies,320,88,3,0,4,0);
+          initEnemy(enemies,320,88,3,0,4,0);
           Boss_Del = 3600;
          }
         if areaScroll > 10000 then areaScroll = areaScroll- Boss_Del;
+        break;
        }
    case 2 : {
         if (areaScroll < 500) && (areaScroll % 20 == 0) then
          {
-          InitEnemy(Enemies,320,88,Speed_E[5],(Speed_E[5] div 3)*(((areaScroll div 20) % 2)*2-1),5,0);
+          initEnemy(enemies,320,88,Speed_E[5],(Speed_E[5] div 3)*(((areaScroll div 20) % 2)*2-1),5,0);
          }
-        if areaScroll == 180 then InitEnemy(Enemies,320,Random(20)+90,4,0,7,1);
-        if areaScroll == 360 then InitEnemy(Enemies,320,Random(20)+90,4,0,7,1);
+        if areaScroll == 180 then initEnemy(enemies,320,RND.nextInt(20)+90,4,0,7,1);
+        if areaScroll == 360 then initEnemy(enemies,320,RND.nextInt(20)+90,4,0,7,1);
         if (areaScroll > 530) && (areaScroll < 1000) && (areaScroll % 3 == 0) then
-         InitEnemy(Enemies,320,Random(190),15,0,9,0);
-        if areaScroll == 620 then InitEnemy(Enemies,320,68+Random(40),3,0,7,1);
-        if areaScroll == 800 then InitEnemy(Enemies,320,68+Random(40),3,0,7,3);
-        if areaScroll == 950 then InitEnemy(Enemies,320,68+Random(40),3,0,7,7);
+         initEnemy(enemies,320,RND.nextInt(190),15,0,9,0);
+        if areaScroll == 620 then initEnemy(enemies,320,68+RND.nextInt(40),3,0,7,1);
+        if areaScroll == 800 then initEnemy(enemies,320,68+RND.nextInt(40),3,0,7,3);
+        if areaScroll == 950 then initEnemy(enemies,320,68+RND.nextInt(40),3,0,7,7);
         if (areaScroll > 1000) && (areaScroll < 1300) && (areaScroll % 25 == 0) then
          {
-          InitEnemy(Enemies,310,199,2,5,8,0);
-          InitEnemy(Enemies,270,-20,2,-5,8,0);
+          initEnemy(enemies,310,199,2,5,8,0);
+          initEnemy(enemies,270,-20,2,-5,8,0);
          }
         if areaScroll == 1300 then
          {
-          InitEnemy(Enemies,310,199,2,5,8,4);
-          InitEnemy(Enemies,270,-20,2,-5,8,3);
+          initEnemy(enemies,310,199,2,5,8,4);
+          initEnemy(enemies,270,-20,2,-5,8,3);
          }
         if (areaScroll > 1000) && (areaScroll < 1300) && (areaScroll % 85 == 40) then
-         InitEnemy(Enemies,320,Random(180),4,0,7,1);
+         initEnemy(enemies,320,RND.nextInt(180),4,0,7,1);
         if areaScroll == 1400 then
          {
-          InitEnemy(Enemies,320,0,1,0,7,1);
-          InitEnemy(Enemies,320,40,1,0,7,4);
-          InitEnemy(Enemies,320,120,1,0,7,3);
-          InitEnemy(Enemies,320,160,1,0,7,1);
-          InitEnemy(Enemies,320,88,1,2,10,1);
+          initEnemy(enemies,320,0,1,0,7,1);
+          initEnemy(enemies,320,40,1,0,7,4);
+          initEnemy(enemies,320,120,1,0,7,3);
+          initEnemy(enemies,320,160,1,0,7,1);
+          initEnemy(enemies,320,88,1,2,10,1);
           Boss_Del = 4200;
          }
         if areaScroll > 10000 then areaScroll = areaScroll- Boss_Del;
@@ -1110,10 +1112,11 @@ public void temp() {
   pLeser[4] = 0;
   ActualPalya = 0;
   areaScroll = 0;
+
   bosses.clear();
   enemies.clear();
   lesses.clear();
-  Randomize;
+
   cheat = False;
   PontSzov = '1p';
   splash = 1;
@@ -1159,17 +1162,18 @@ public void game() {
      Screen(splash);
     }
    SetCounter; Palya;
-   DoEnemy1(Enemies); DoLeser(Less);
+   DoEnemy1(enemies); DoLeser(Less);
    if KeyPressed then
     { ch1 = ReadKey;
      switch( ch1) {
-      #0 : ch2 = ReadKey;
-      #27 : Quit = True;
-      '1' : pLeser[0] = #1;
-      '2' : if (pLeser[2] > #0) then pLeser[0] = #2;
-      '3' : if (pLeser[3] > #0) then pLeser[0] = #3;
-      '4' : if (pLeser[4] > #0) then pLeser[0] = #4;
-      'c','C' : { Cheat = Cheat xor True; Cheated = True; }
+     case 0 : ch2 = ReadKey; break;
+     case  27 : Quit = True; break;
+     case '1' : pLeser[0] = 1; break;
+     case '2' : if (pLeser[2] > #0) then pLeser[0] = 2; break;
+     case '3' : if (pLeser[3] > #0) then pLeser[0] = 3; break;
+     case '4' : if (pLeser[4] > #0) then pLeser[0] = 4; break;
+     case 'c':
+     case 'C' : { Cheat = Cheat xor True; Cheated = True;  break;}
      } }
    ReadMouse;
    if pLife > 0 then {
@@ -1204,12 +1208,12 @@ public void game() {
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],0,3,1);break;
                 }
            }
-       #2 : switch( pLeser[2]) {
+      case 2 : switch( pLeser[2]) {
        		case 1 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[4],0,4,1); break;
        		case 2 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[5],0,5,1);break;
        		case 3 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[6],0,6,1);break;
            }
-       #3 : switch( pLeser[3]) {
+      case 3 : switch( pLeser[3]) {
        		case 1 : {
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],6,0,7,1);
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],0,6,7,1);
@@ -1302,11 +1306,11 @@ public void game() {
      if (pLeser[m] > #0) && (pLeser[0] <> Chr(m)) then PutPic(270+m*10,190,10,10,Stat2[m,1]) Else
       if (pLeser[m] > #0) && (pLeser[0] == Chr(m)) then PutPic(270+m*10,190,10,10,Stat2[m,2]);
    if Boss <> nil then {
-    PutPic(0,0,120,10,Status); gun.writeXY(125,0,#4,'BOSS');
+    PutPic(0,0,120,10,Status); gun.writeXY(125,0,4,"BOSS");
     For i = 1 to Round((Boss^.Life/Life_E[Boss^.Faj])*115) do
-     For j = 3 to 6 do Vscr^[j,2+i] = #4; }
+     For j = 3 to 6 do Vscr^[j,2+i] = 4; }
 
-   if SzumLife <= 0 then gun.writeXY(127,117,#5,""GAME OVER");
+   if SzumLife <= 0 then gun.writeXY(127,117,5,"GAME OVER");
    if Cheat then gun.writeXY(0,0,#7,"cheat on");
    if ActualPalya == 3 then gun.writeXY(127,117,#5,"YOU WON !") Else
    if (areaScroll > 25) && (areaScroll < 200) then
@@ -1327,10 +1331,10 @@ public void game() {
     }
 
    Str(Pontok,Ponts);
-   Ponts = 'Pontszam ' + ' ' + Spaced(Ponts);
+   Ponts = "Pontszam " + Spaced(Ponts);
    gun.writeXY(165,0,#2,Ponts);
 
-   SetScr;
+   gun.setScr();
    SetPos;
    WaitFor(Speed);
   } while(!Quit);
@@ -1342,17 +1346,18 @@ public void game() {
   if Pontok > Pontszam[9].Pontszam then
    {
     Str(Pontok,Ponts);
-    Ponts = '    You have reached '+Spaced(Ponts)+' !!';
-    gun.writeXY(1,170,#0,Ponts);
-    gun.writeXY(0,170,#3,Ponts);
-    gun.writeXY(1,182,#0,'Enter Name');
-    gun.writeXY(0,182,#4,'Enter Name');
+    Ponts = "    You have reached "+Spaced(Ponts)+" !!";
+    gun.writeXY(1,170,0,Ponts);
+    gun.writeXY(0,170,3,Ponts);
+    gun.writeXY(1,182,0,"Enter Name");
+    gun.writeXY(0,182,4,"Enter Name");
    }
   Anim(0);
-  SetScr;
+  gun.setScr();
 
-  IF Pontok > Pontszam[i].Pontszam THEN {
-   PontSzov = ''; k = 0;
+  if( Pontok > Pontszam[i].Pontszam) {
+   PontSzov = '';
+   k = 0;
    Quit = False;
    do {
     zh = ReadKey;
@@ -1375,13 +1380,14 @@ public void game() {
     Ponts = "    You have reached "+Spaced(Ponts)+" !!";
     gun.writeXY(1,170,#0,Ponts);
     gun.writeXY(0,170,#3,Ponts);
-    SetScr;
+    gun.setScr();
    } while(!Quit);
    Pontszam[9].Pontszam = Pontok;
    Pontszam[9].Nev = Pontszov;
-   k = 9; l = 10;
+   k = 9;
+   l = 10;
    do {
-    if Pontok > Pontszam[k-1].Pontszam then
+    if (Pontok > Pontszam[k-1].Pontszam)
      {
       Pontszam[k] = Pontszam[k-1];
       Pontszam[k-1].Pontszam = Pontok;
@@ -1390,10 +1396,10 @@ public void game() {
      }
     k--;
    } while(k != 0);
-   ClrVscr(#148);
+   gun.clrVscr(148);
    DrawPoints(l);
-   Anim(1);
-   SetScr;
+   anim(1);
+   gun.setScr();
   }
 
   do { } while(!KeyPressed);
@@ -1433,14 +1439,14 @@ public void game() {
   gun.writeXY(115,5,148,"KlonGun");
 
   for(MP2 = 0; MP2 <= MaxMenu; MP2++) {
-    gun.writeXY(70,71+20*MP2,#0,MenuSzov[MP2]);
-    gun.writeXY(71,71+20*MP2,#0,MenuSzov[MP2]);
-    gun.writeXY(70,70+20*MP2,#6,MenuSzov[MP2]);
+    gun.writeXY(70,71+20*MP2,0,MenuSzov[MP2]);
+    gun.writeXY(71,71+20*MP2,0,MenuSzov[MP2]);
+    gun.writeXY(70,70+20*MP2,6,MenuSzov[MP2]);
     if MP2 == 1 then
      {
-      gun.writeXY(200,71+20*MP2,#0,DStr);
-      gun.writeXY(201,71+20*MP2,#0,DStr);
-      gun.writeXY(200,70+20*MP2,#4,DStr);
+      gun.writeXY(200,71+20*MP2,0,DStr);
+      gun.writeXY(201,71+20*MP2,0,DStr);
+      gun.writeXY(200,70+20*MP2,4,DStr);
      }
    }
   putPic(5,60+20*MenuPont,50,30,Ships[1]);
@@ -1455,19 +1461,19 @@ public void game() {
     splash = 63;
     Screen(splash);
     MenuQuit = False;
-    DrawMenu;
+    DrawMenu();
     anim(0);
    }
   do {
-   DrawMenu;
-   SetScr;
+   DrawMenu();
+   gun.setScr();
    switch( ReadKey) {
-    #0 : switch( ReadKey) {
-          #72 : if MenuPont > 0 then MenuPont = MenuPont -1;
-          #80 : if MenuPont < MaxMenu then MenuPont = MenuPont +1;
-         }
-    #27 : { MenuQuit = True; MENU = MaxMenu; }
-    #13 : { MenuQuit = True; MENU = MenuPont; }
+	   case 0 : switch( ReadKey) {
+		   case 72 : if MenuPont > 0 then MenuPont = MenuPont -1;
+		  case 80 : if MenuPont < MaxMenu then MenuPont = MenuPont +1;
+	         }
+	   case 27 : { MenuQuit = True; MENU = MaxMenu; }
+	   case 13 : { MenuQuit = True; MENU = MenuPont; }
    }
   } while(!MenuQuit);
 
