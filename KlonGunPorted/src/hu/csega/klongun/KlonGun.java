@@ -925,53 +925,63 @@ public class KlonGun {
 
 	} // end of run()
 
-public void putEnemies() {
+	public void putEnemies() {
+		boolean die;
 
-	boolean Die;
+		Iterator<Enemy> it = enemies.iterator();
+		while (it.hasNext()) {
+			Enemy enemy = it.next();
+			die = false;
 
-	Iterator<Enemy> it = enemies.iterator();
-	while(it.hasNext()) {
-		Enemy enemy = it.next();
-      Die = false;
+			if (enemy.life > 0) {
+				Picture enemyShipPicture = enemyShips[Abra[enemy.kind]];
+				putPic(enemy.x, enemy.y, 32, 32, enemyShipPicture);
 
-      if (enemy.life > 0) {
-        putPic(X,Y,32,32,Enemy1[Abra[enemy.kind]]);
-        if (!cheat)
-         for(int i = 0; i < 32; i++)
-          for(int j = 0; j < 32; j++)
-           if (Enemy1[Abra[enemy.kind],i,j] < 255)
-            {
-             Xv = enemy.X+j-enemy.pX;
-             Yv = enemy.Y+i-enemy.pY;
-             if ((Xv >= 0) && (Xv < 50) && (Yv >= 0) && (Yv < 30)
-              && (Ships[enemy.pShip,Yv,Xv] < 255) && (enemy.pLife > 0) )
-              { enemy.pLife = 0; enemy.pTime = 50; }
-            }
-       }
-      else
-       {
-        if (enemy.time > 0)
-         {
-          putPic(X+6-(200-Time*4),Y+6-(50-Time),16,16,deaths[1]);
-          putPic(X+16+(200-Time*4),Y+6-(50-Time),16,16,deaths[2]);
-          putPic(X+6-(200-Time*4),Y+16+(50-Time),16,16,deaths[3]);
-          putPic(X+16+(200-Time*4),Y+16+(50-Time),16,16,deaths[4]);
-          if (! cheated )
-           {
-        	  PontSzov = String.valueOf((2+Diff)*Life_E[Faj] / 10,PontSzov);
-            PontSzov = PontSzov+'p';
-           } else Pontszov = "0p";
-          gun.writeXY(X+16-(Length(PontSzov)*13) / 2,Y+8-(300-Time*6),5,PontSzov);
-          if ((Time > 30) && (Item > 0) )  putPic(X+8,Y+8,16,16,items[Item]);
-          Time = Time - 1;
-         } else Die = true;
-       }
-     }
-    if (Die) {
-    	emenies.remove(EnemyPos);
-    }
-   }
- }
+				Picture playerShipPicture = ships[pShip];
+				if (!cheat) {
+					for (int i = 0; i < 32; i++) {
+						for (int j = 0; j < 32; j++) {
+							if (enemyShipPicture.get(i, j) < 255) {
+								Xv = enemy.x + j - pX;
+								Yv = enemy.y + j - pY;
+								if ((Xv >= 0) && (Xv < 50) && (Yv >= 0) && (Yv < 30) && (playerShipPicture.get(Xv, Yv) < 255) && (pLife > 0)) {
+									// I guess if enemy collides with player, player dies
+									pLife = 0;
+									pTime = 50;
+								}
+							}
+						} // end for j
+					} // end for i
+				} // end if !cheat
+			} else {
+				String PontSzov;
+				if (enemy.time > 0) {
+					putPic(enemy.x + 6 - (200 - enemy.time * 4), enemy.y + 6 - (50 - enemy.time), 16, 16, deaths[1]);
+					putPic(enemy.x + 16 + (200 - enemy.time * 4), enemy.y + 6 - (50 - enemy.time), 16, 16, deaths[2]);
+					putPic(enemy.x + 6 - (200 - enemy.time * 4), enemy.y + 16 + (50 - enemy.time), 16, 16, deaths[3]);
+					putPic(enemy.x + 16 + (200 - enemy.time * 4), enemy.y + 16 + (50 - enemy.time), 16, 16, deaths[4]);
+
+					if (!cheated) {
+						PontSzov = String.valueOf((2 + diff) * Life_E[enemy.kind] / 10);
+						PontSzov = PontSzov + 'p';
+					} else {
+						PontSzov = "0p";
+					}
+
+					gun.writeXY(enemy.x + 16 - (PontSzov.length() * 13) / 2, enemy.y + 8 - (300 - enemy.time * 6), 5, PontSzov);
+
+					if ((enemy.time > 30) && (enemy.item > 0))
+						putPic(enemy.x + 8, enemy.y + 8, 16, 16, items[enemy.item]);
+					enemy.time = enemy.time - 1;
+				} else {
+					die = true;
+				}
+			}
+		}
+		if (die) {
+			it.remove();
+		}
+	}
 
 public void putLesers() {
 	 VAR X1,Y1 : Integer;
