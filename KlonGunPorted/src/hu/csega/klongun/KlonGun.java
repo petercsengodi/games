@@ -112,6 +112,7 @@ public class KlonGun {
     public boolean pLogged; // if false, player can't be hurt
     public int[] leser = new int[5]; // weapon statuses
     public int pTime;
+    public int pProtection;
     public int currentArea;
     public int sumLife;
 
@@ -812,7 +813,7 @@ public class KlonGun {
 		gun.init();
 		load();
 
-		diff = 0;
+		diff = -1;
 		quitAll = false;
 		changed = true;
 
@@ -938,8 +939,8 @@ public class KlonGun {
 				Picture enemyShipPicture = enemyShips[Abra[enemy.kind]];
 				putPic(enemy.x, enemy.y, 32, 32, enemyShipPicture);
 
-				Picture playerShipPicture = ships[pShip];
-				if (!cheat) {
+				if (!cheat && pShip > -1 && pProtection <= 0) {
+					Picture playerShipPicture = ships[pShip];
 					for (int i = 0; i < 32; i++) {
 						for (int j = 0; j < 32; j++) {
 							if (enemyShipPicture.get(j, i) < 255) {
@@ -949,6 +950,7 @@ public class KlonGun {
 									// I guess if enemy collides with player, player dies
 									pLife = 0;
 									pTime = 50;
+									pProtection = 200;
 								}
 							}
 						} // end for j
@@ -987,18 +989,18 @@ public class KlonGun {
 	public void putLesers() {
 		int X1 = 0;
 		int Y1 = 0;
-		boolean Talalat;
+		boolean laserHitSomething;
 
 		Iterator<Less> itLess = lesses.iterator();
 		while (itLess.hasNext()) {
 			Less LessPos = itLess.next();
-			Talalat = false;
+			laserHitSomething = false;
 			putPic(LessPos.x, LessPos.y, 16, 5, lesers[LessPos.kind]);
 
 			for (int i = 0; i < 5; i++) {
 				for (int j = 0; j < 16; j++) {
 
-					if ((lesers[LessPos.kind].get(j, i) < 255) && (!Talalat)) {
+					if ((lesers[LessPos.kind].get(j, i) < 255) && (!laserHitSomething)) {
 						Xv = LessPos.x + j;
 						Yv = LessPos.y + i;
 
@@ -1015,7 +1017,7 @@ public class KlonGun {
 										X1 = Xv - EnemyPos.x;
 										Y1 = Yv - EnemyPos.y;
 										if ((X1 >= 0) && (X1 < 32) && (Y1 >= 0) && (Y1 < 32) && enemyShips[Abra[EnemyPos.kind]].get(X1, Y1) < 255) {
-											Talalat = true;
+											laserHitSomething = true;
 
 											EnemyPos.life = EnemyPos.life - (LessPos.damage - diff * LessPos.damage / 2);
 											if (EnemyPos.life <= 0) {
@@ -1062,7 +1064,7 @@ public class KlonGun {
 										}
 									}
 								} // end while EnemyPos
-							} else if ((pLife > 0) && (!cheat)) {
+							} else if ((pLife > 0) && (!cheat && pShip > -1 && pProtection <= 0)) {
 
 								// enemy bullet
 
@@ -1070,12 +1072,13 @@ public class KlonGun {
 								Yv = Yv - pY;
 								if ((Xv >= 0) && (Xv < 50) && (Yv >= 0) && (Yv < 30) && (ships[pShip].get(Xv, Yv) < 255)) {
 									pLife = pLife - (LessPos.damage + diff * LessPos.damage / 2);
-									Talalat = true;
+									laserHitSomething = true;
 
-									if (pLife <= 0)
+									if (pLife <= 0) {
 										pTime = 50;
-									if (pLife < 0)
 										pLife = 0;
+										pProtection = 200;
+									}
 								}
 
 							} // end if enemy or player bullet
@@ -1087,7 +1090,7 @@ public class KlonGun {
 				} // end for j
 			} // end for i
 
-			if (Talalat) {
+			if (laserHitSomething) {
 				itLess.remove();
 			}
 		}
@@ -1454,17 +1457,20 @@ public class KlonGun {
 			putLesers();
 			putEnemies();
 
+			if(pProtection > 0)
+				pProtection--;
+
 			if (pLife > 0) {
 				putPic(pX, pY, 50, 30, ships[pShip]);
 				putPic(pX - 17, pY + 9, 17, 14, fires[pFire][areaScroll % 3]);
-			} else if (pShip > 0) {
+			} else if (pShip > -1) {
 				putPic(pX + 6 - (200 - pTime * 4), pY + 6 - (50 - pTime), 16, 16, deaths[0]);
 				putPic(pX + 16 + (200 - pTime * 4), pY + 6 - (50 - pTime), 16, 16, deaths[1]);
 				putPic(pX + 6 - (200 - pTime * 4), pY + 16 + (50 - pTime), 16, 16, deaths[2]);
 				putPic(pX + 16 + (200 - pTime * 4), pY + 16 + (50 - pTime), 16, 16, deaths[3]);
 				if (pTime > 0)
 					pTime = pTime - 1;
-				else if (sumLife > 1) {
+				else if (sumLife > 0) {
 					sumLife = sumLife - 1;
 					pLife = 100;
 					pX = -40;
@@ -1472,13 +1478,13 @@ public class KlonGun {
 					pLogged = false;
 					pLogTime = 0;
 				} else {
-					pShip = 0;
-					sumLife = 0;
+					pShip = -1;
+					sumLife = -1;
 				}
 			}
 
 			putPic(0, 190, 120, 10, status);
-			if (sumLife > 0)
+			if (sumLife > -1)
 				putPic(120, 190, 10, 10, stat2[sumLife][2]);
 
 			for (i = 1; i <= (int) Math.round((pLife / 100.0) * 115); i++) {
@@ -1510,7 +1516,7 @@ public class KlonGun {
 				}
 			} // end if bosses not empry
 
-			if (sumLife <= 0)
+			if (sumLife < 0)
 				gun.writeXY(127, 117, 5, "GAME OVER");
 			if (cheat)
 				gun.writeXY(0, 0, 7, "cheat on");
