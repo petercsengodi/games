@@ -176,8 +176,8 @@ public class KlonGun {
         for(int i = 0; i < 10; i++) {
         	/*
             With PontSzam[i] do
-             if Pontszam <> 0 then
-              if no <> i then
+             if (Pontszam <> 0 )
+              if (no <> i )
                {
                 Str(Pontszam,Ponts);
                 gun.writeXY(21,20+i*15,0,Nev);
@@ -499,229 +499,289 @@ public class KlonGun {
 	}
 
 
+	private boolean between(int v, int lower, int upper) {
+		return (v >= lower && v <= upper);
+	}
+
+	private void switchAreaScroll2(Enemy enemy) {
+		int areaScroll2 = (areaScroll - 2000) % 600;
+
+		if (areaScroll2 < 1) {
+			enemy.ySpeed = 0;
+			enemy.xSpeed = 3;
+			return;
+		}
+
+		if (areaScroll2 % 10 == 0 && areaScroll2 >= 10 && areaScroll2 <= 100) {
+			initLeser(enemy.x + 3, enemy.y + 4, -8, 0, 1, 0);
+			initLeser(enemy.x, enemy.y + 11, -8, 0, 6, 0);
+			initLeser(enemy.x + 3, enemy.y + 18, -8, 0, 1, 0);
+			return;
+		}
+
+		if (areaScroll2 == 120) {
+			enemy.ySpeed = 5;
+			return;
+		}
+
+		if (between(areaScroll2, 121, 131) || between(areaScroll2, 151, 161) || between(areaScroll2, 181, 191)) {
+			if (areaScroll % 3 == 0) {
+				initLeser(enemy.x + 3, enemy.y + 4, -12, 0, 1, 0);
+				initLeser(enemy.x + 3, enemy.y + 18, -12, 0, 1, 0);
+			}
+			return;
+		}
+
+		if (areaScroll2 == 200) {
+			enemy.ySpeed = 2;
+			enemy.xSpeed = 5;
+			return;
+		}
+
+		if (between(areaScroll2, 201, 309)) {
+			if (areaScroll % 8 == 0) {
+				initLeser(enemy.x, enemy.y + 11, -8, 0, 6, 0);
+			}
+			return;
+		}
+
+		if (areaScroll2 == 310) {
+			enemy.ySpeed = 1;
+			enemy.xSpeed = 1;
+			return;
+		}
+
+		if (areaScroll2 == 320) {
+			initLeser(enemy.x + 16, enemy.y + 16, 6, 0, 12, 0);
+			initLeser(enemy.x + 16, enemy.y + 16, -6, 0, 12, 0);
+			initLeser(enemy.x + 16, enemy.y + 16, 0, 6, 12, 0);
+			initLeser(enemy.x + 16, enemy.y + 16, 0, -6, 12, 0);
+			return;
+		}
+		if (areaScroll2 == 330) {
+			initLeser(enemy.x + 16, enemy.y + 16, -6, -6, 12, 0);
+			initLeser(enemy.x + 16, enemy.y + 16, 6, -6, 12, 0);
+			initLeser(enemy.x + 16, enemy.y + 16, -6, 6, 12, 0);
+			initLeser(enemy.x + 16, enemy.y + 16, 6, 6, 12, 0);
+			return;
+		}
+
+		if (areaScroll2 == 340) {
+			enemy.ySpeed = 2 + RND.nextInt(1);
+			enemy.xSpeed = 2 + RND.nextInt(1);
+			return;
+		}
+
+		if (areaScroll2 % 10 == 0 && areaScroll2 >= 350 && areaScroll2 <= 480) {
+			initLeser(enemy.x + 16, enemy.y + 16, 6, 0, 7, 0);
+			initLeser(enemy.x + 16, enemy.y + 16, -6, 0, 7, 0);
+			initLeser(enemy.x + 16, enemy.y + 16, 0, 6, 7, 0);
+			initLeser(enemy.x + 16, enemy.y + 16, 0, -6, 7, 0);
+			initLeser(enemy.x + 16, enemy.y + 16, -4, -4, 7, 0);
+			initLeser(enemy.x + 16, enemy.y + 16, 4, -4, 7, 0);
+			initLeser(enemy.x + 16, enemy.y + 16, -4, 4, 7, 0);
+			initLeser(enemy.x + 16, enemy.y + 16, 4, 4, 7, 0);
+			return;
+		}
+
+		if (areaScroll2 % 10 == 0 && areaScroll2 >= 510 && areaScroll2 <= 590) {
+			initLeser(enemy.x + 3, enemy.y + 4, -8, 0, 1, 0);
+			initLeser(enemy.x, enemy.y + 11, -8, 0, 6, 0);
+			initLeser(enemy.x + 3, enemy.y + 18, -8, 0, 1, 0);
+			return;
+		}
+	} // end areaScroll2
+
+	private boolean switchEnemyKind(Enemy enemy) {
+		boolean die = false;
+		switch (enemy.kind) {
+
+		case 4:
+			if (((enemy.x < 0) && (enemy.xSpeed > 0)) ||
+					((enemy.x > 294) && (areaScroll > 2100) && (enemy.xSpeed < 0)))
+				enemy.xSpeed = -enemy.xSpeed;
+			if (((enemy.y < 0) && (enemy.ySpeed > 0)) ||
+					((enemy.y > 167) && (enemy.ySpeed < 0)))
+				enemy.ySpeed = -enemy.ySpeed;
+
+			switchAreaScroll2(enemy);
+
+			if ((enemy.life < 150) && (enemy.y >= 20) && (enemy.y < 180)) {
+				initLeser(enemy.x + 3, enemy.y + 4, -16, 0, 12, 0);
+				initLeser(enemy.x, enemy.y + 11, -16, 0, 12, 0);
+				initLeser(enemy.x + 3, enemy.y + 18, -16, 0, 12, 0);
+				initLeser(enemy.x + 3, enemy.y + 4, 16, 0, 12, 0);
+				initLeser(enemy.x, enemy.y + 11, 16, 0, 12, 0);
+				initLeser(enemy.x + 3, enemy.y + 18, 16, 0, 12, 0);
+				die = true;
+				bosses.remove(enemy);
+				nextLevel();
+			}
+			break;
+
+		case 5:
+			if (areaScroll % 15 == 0) {
+				initLeser(enemy.x + 16, enemy.y + 16, 6, 0, 8, 0);
+				initLeser(enemy.x + 16, enemy.y + 16, -6, 0, 8, 0);
+				initLeser(enemy.x + 16, enemy.y + 16, 0, 6, 8, 0);
+				initLeser(enemy.x + 16, enemy.y + 16, 0, -6, 8, 0);
+				initLeser(enemy.x + 16, enemy.y + 16, -4, -4, 8, 0);
+				initLeser(enemy.x + 16, enemy.y + 16, 4, -4, 8, 0);
+				initLeser(enemy.x + 16, enemy.y + 16, -4, 4, 8, 0);
+				initLeser(enemy.x + 16, enemy.y + 16, 4, 4, 8, 0);
+			}
+			break;
+
+		case 6:
+			if (areaScroll % 15 == 0) {
+				initLeser(enemy.x + 6, enemy.y + 16, -6, 0, 7, 0);
+			}
+			break;
+
+		case 8:
+			if ((areaScroll + enemy.x - 15) % 30 == 0)
+				initLeser(enemy.x + 6, enemy.y + 16, -10, 0, 11, 0);
+
+			if ((enemy.y > 180) && (enemy.ySpeed < 0))
+				enemy.ySpeed = -enemy.ySpeed;
+			if ((enemy.y < 0) && (enemy.ySpeed > 0))
+				enemy.ySpeed = -enemy.ySpeed;
+			if (enemy.x < 100)
+				enemy.xSpeed = 10;
+			break;
+
+		case 9:
+			if (enemy.x == 200) {
+				enemy.ySpeed = RND.nextInt(2) * 2 - 1;
+			} else if ((enemy.x == 110) || (enemy.x == 40)) {
+				enemy.ySpeed = enemy.ySpeed * 2;
+				enemy.xSpeed = enemy.xSpeed - 4;
+			}
+			break;
+
+		case 10:
+			if (areaScroll % 10 == 0) {
+				initLeser(enemy.x + 6, enemy.y + 10, -10, 0, 12, 0);
+				initLeser(enemy.x + 6, enemy.y + 22, -10, 0, 12, 0);
+			}
+			if (areaScroll % 87 == 0) {
+				initEnemy(enemy.x + 16, enemy.y + 20, 2, -4, MaxEnemy1 + 4, 0);
+			}
+			if (areaScroll % 125 == 0) {
+				initEnemy(enemy.x + 16, enemy.y + 20, 15, 0, 9, 0);
+			}
+			if (areaScroll % 210 == 0) {
+				initEnemy(enemy.x + 16, enemy.y + 20, 2, -4, 8, 1 + RND.nextInt(6));
+			}
+			if ((enemy.y > 180) && (enemy.ySpeed < 0))
+				enemy.ySpeed = -enemy.ySpeed;
+			if ((enemy.y < 0) && (enemy.ySpeed > 0))
+				enemy.ySpeed = -enemy.ySpeed;
+			if (areaScroll % 75 == 0)
+				enemy.ySpeed = enemy.ySpeed * 4;
+			if (areaScroll % 75 == 32)
+				enemy.ySpeed = enemy.ySpeed / 4;
+			if (enemy.x < 200)
+				enemy.xSpeed = -10;
+			if (enemy.x > 320)
+				enemy.xSpeed = 3;
+			break;
+
+		case MaxEnemy1 + 1:
+			if ((enemy.y < (((areaScroll + enemy.x) / 20) % 4) * 25))
+				enemy.ySpeed = -2;
+			if ((enemy.y > 125 + (((areaScroll + enemy.x) / 20) % 4) * 25))
+				enemy.ySpeed = 2;
+			if (areaScroll % 20 == 0)
+				initLeser(enemy.x + 6, enemy.y + 16, -6, 0, 8, 0);
+			break;
+
+		case MaxEnemy1 + 2:
+			if (areaScroll % 15 == 0)
+				initLeser(enemy.x + 16, enemy.y + 16, -Speed_L[4], 0, 4, 0);
+			break;
+
+		case MaxEnemy1 + 3:
+			if (areaScroll % 25 == 0) {
+				initLeser(enemy.x + 16, enemy.y + 16, 6, 0, 8, 0);
+				initLeser(enemy.x + 16, enemy.y + 16, -6, 0, 8, 0);
+				initLeser(enemy.x + 16, enemy.y + 16, 0, 6, 8, 0);
+				initLeser(enemy.x + 16, enemy.y + 16, 0, -6, 8, 0);
+				initLeser(enemy.x + 16, enemy.y + 16, -4, -4, 8, 0);
+				initLeser(enemy.x + 16, enemy.y + 16, 4, -4, 8, 0);
+				initLeser(enemy.x + 16, enemy.y + 16, -4, 4, 8, 0);
+				initLeser(enemy.x + 16, enemy.y + 16, 4, 4, 8, 0);
+			}
+			if ((enemy.y < 0) && (enemy.ySpeed > 0))
+				enemy.ySpeed = -enemy.ySpeed;
+			if ((enemy.y > 190) && (enemy.ySpeed < 0))
+				enemy.ySpeed = -enemy.ySpeed;
+			if ((enemy.x < 0) && (enemy.xSpeed > 0))
+				enemy.xSpeed = -enemy.xSpeed;
+			if ((enemy.x > 310) && (enemy.xSpeed < 0))
+				enemy.xSpeed = -enemy.xSpeed;
+
+			switch (areaScroll % 200) {
+			case 30:
+				enemy.ySpeed = enemy.ySpeed * 2;
+				break;
+			case 100:
+				enemy.ySpeed = enemy.ySpeed / 2;
+				break;
+			case 70:
+				enemy.xSpeed = enemy.xSpeed * 3;
+				break;
+			case 170:
+				enemy.xSpeed = enemy.xSpeed / 3;
+				break;
+			}
+			break;
+
+		case MaxEnemy1 + 4:
+			if ((areaScroll % 15) == 0)
+				initLeser(enemy.x + 6, enemy.y + 16, -10, 0, 5, 0);
+			if ((enemy.y > 190) && (enemy.ySpeed < 0))
+				enemy.ySpeed = -enemy.ySpeed;
+			if ((enemy.y < 0) && (enemy.ySpeed > 0))
+				enemy.ySpeed = -enemy.ySpeed;
+			if (enemy.x < 100)
+				enemy.xSpeed = 15;
+			break;
+
+		} // end switch kind
+
+	} // end switchEnemyKind
+
 	public void doEnemy1() {
-	     boolean die = false;
+		boolean die = false;
 
-	     Iterator<Enemy> it = enemies.iterator();
-	     while(it.hasNext()) {
-	    	 Enemy enemy = it.next();
-	    	 die = false;
-	    	 enemy.x -= enemy.xSpeed;
-	    	 enemy.y -= enemy.ySpeed;
+		Iterator<Enemy> it = enemies.iterator();
+		while (it.hasNext()) {
+			Enemy enemy = it.next();
+			die = false;
+			enemy.x -= enemy.xSpeed;
+			enemy.y -= enemy.ySpeed;
 
-	    	 if(enemy.y < -31 || enemy.y > 231)
-	    		 die = true;
+			if (enemy.y < -31 || enemy.y > 231)
+				die = true;
 
-	    	 if(enemy.x < -31)
-	    		 die = true;
+			if (enemy.x < -31)
+				die = true;
 
-	    	 if(enemy.late > 0) {
-	    		 enemy.late--;
-	    	 } else {
+			if (enemy.late > 0) {
+				enemy.late--;
+			} else {
 
-	    		 if(enemy.life > 0 && enemy.kind > 0) {
+				if (enemy.life > 0 && enemy.kind > 0) {
+					die = switchEnemyKind(enemy);
+				}
 
-	    			 switch(enemy.kind) {
+			}
 
-	    			 case 4 : {
-	               if ((X < 0) && (Speed > 0)) || ((X > 294)
-	                && (areaScroll > 2100) && (Speed < 0)) then Speed = -Speed;
-	               if ((Y < 0) && (YSpeed > 0)) || ((Y > 167) && (YSpeed < 0))
-	                then YSpeed = -YSpeed;
-	    			 }
-
-	    			 int areaScroll2 = (areaScroll - 2000) % 600;
-	    			 switch(areaScroll2) {
-	    			 case 0 : { YSpeed = 0; Speed = 3; }
-	    			 case 10:
-	    			 case 20:
-	    			 case 30:
-	    			 case 40:
-	    			 case 50:
-	    			 case 60:
-	    			 case 70:
-	    			 case 80:
-	    			 case 90:
-	    			 case 100 : {
-	                  initLeser(Less,X+3,Y+4,-8,0,1,0);
-	                  initLeser(Less,X,Y+11,-8,0,6,0);
-	                  initLeser(Less,X+3,Y+18,-8,0,1,0);
-	                 }
-	    			 case 120 : YSpeed = 5;
-	                121..131,151..161,181..191: if (areaScroll % 3 == 0) {
-	                  initLeser(Less,X+3,Y+4,-12,0,1,0);
-	                  initLeser(Less,X+3,Y+18,-12,0,1,0);
-	                 }
-	    			 case 200 : { YSpeed = 2; Speed = 5; }
-	                201..309:  if (areaScroll % 8) == 0 then {
-	                  initLeser(Less,X,Y+11,-8,0,6,0);
-	                 }
-	    			 case 310 : { YSpeed = 1; Speed = 1; }
-	    			 case 320 : {
-	                  initLeser(Less,X+16,Y+16,6,0,12,0);
-	                  initLeser(Less,X+16,Y+16,-6,0,12,0);
-	                  initLeser(Less,X+16,Y+16,0,6,12,0);
-	                  initLeser(Less,X+16,Y+16,0,-6,12,0);
-	                 }
-	    			 case 330 : {
-	                  initLeser(Less,X+16,Y+16,-6,-6,12,0);
-	                  initLeser(Less,X+16,Y+16,6,-6,12,0);
-	                  initLeser(Less,X+16,Y+16,-6,6,12,0);
-	                  initLeser(Less,X+16,Y+16,6,6,12,0);
-	                 }
-	    			 case 340 : YSpeed = 2+RND.nextInt(1); Speed = 2+RND.nextInt(1); break;
-	    			 case 350:
-	    			 case 360:
-	    			 case 370:
-	    			 case 410:
-	    			 case 420:
-	    			 case 430:
-	    			 case 460:
-	    			 case 470:
-	    			 case 480: {
-	                  initLeser(Less,X+16,Y+16,6,0,7,0);
-	                  initLeser(Less,X+16,Y+16,-6,0,7,0);
-	                  initLeser(Less,X+16,Y+16,0,6,7,0);
-	                  initLeser(Less,X+16,Y+16,0,-6,7,0);
-	                  initLeser(Less,X+16,Y+16,-4,-4,7,0);
-	                  initLeser(Less,X+16,Y+16,4,-4,7,0);
-	                  initLeser(Less,X+16,Y+16,-4,4,7,0);
-	                  initLeser(Less,X+16,Y+16,4,4,7,0);
-	                 }
-	    			 case 510:
-	    			 case 520:
-	    			 case 530:
-	    			 case 540:
-	    			 case 550:
-	    			 case 560:
-	    			 case 570:
-	    			 case 580:
-	    			 case 590: {
-	                 initLeser(Less,X+3,Y+4,-8,0,1,0);
-	                 initLeser(Less,X,Y+11,-8,0,6,0);
-	                 initLeser(Less,X+3,Y+18,-8,0,1,0);
-	                }
-	    			 } // end switch areaScroll2
-
-	               if ((Life < 150) && (Y >= 20) && (Y < 180))
-	                {
-	                 initLeser(Less,X+3,Y+4,-16,0,12,0);
-	                 initLeser(Less,X,Y+11,-16,0,12,0);
-	                 initLeser(Less,X+3,Y+18,-16,0,12,0);
-	                 initLeser(Less,X+3,Y+4,16,0,12,0);
-	                 initLeser(Less,X,Y+11,16,0,12,0);
-	                 initLeser(Less,X+3,Y+18,16,0,12,0);
-	                 Die = true; Boss = nil;
-	                 nextLevel();
-	                }
-	              }
-	          5 : {
-	               if (areaScroll % 15 == 0)
-	                {
-	                 initLeser(Less,X+16,Y+16,6,0,8,0);
-	                 initLeser(Less,X+16,Y+16,-6,0,8,0);
-	                 initLeser(Less,X+16,Y+16,0,6,8,0);
-	                 initLeser(Less,X+16,Y+16,0,-6,8,0);
-	                 initLeser(Less,X+16,Y+16,-4,-4,8,0);
-	                 initLeser(Less,X+16,Y+16,4,-4,8,0);
-	                 initLeser(Less,X+16,Y+16,-4,4,8,0);
-	                 initLeser(Less,X+16,Y+16,4,4,8,0);
-	                }
-	              }
-	          6 : {
-	               if (areaScroll % 15 == 0)
-	                {
-	                 initLeser(Less,X+6,Y+16,-6,0,7,0);
-	                }
-	              }
-	          8 : {
-	               if (areaScroll+X-15) % 30 == 0 then
-	                {
-	                 initLeser(Less,X+6,Y+16,-10,0,11,0);
-	                }
-	               if (Y > 180) && (YSpeed < 0) then YSpeed = -YSpeed;
-	               if (Y < 0) && (YSpeed > 0) then YSpeed = -YSpeed;
-	               if X < 100 then Speed = 10;
-	              }
-	          9 : {
-	               if X == 200 then
-	                {
-	                 YSpeed = RND.nextInt(2)*2-1;
-	                }
-	               else if (X == 110) || (X == 40) then
-	                { YSpeed = YSpeed*2; Speed = Speed - 4; }
-	              }
-	              case 10 : {
-	                if areaScroll % 10 == 0 then
-	                 {
-	                  initLeser(Less,X+6,Y+10,-10,0,12,0);
-	                  initLeser(Less,X+6,Y+22,-10,0,12,0);
-	                 }
-	                if areaScroll % 87 == 0 then
-	                 {
-	                  initEnemy(enemies,X+16,Y+20,2,-4,MaxEnemy1+4,0);
-	                 }
-	                if areaScroll % 125 == 0 then
-	                 {
-	                  initEnemy(enemies,X+16,Y+20,15,0,9,0);
-	                 }
-	                if areaScroll % 210 == 0 then
-	                 {
-	                  initEnemy(enemies,X+16,Y+20,2,-4,8,1+RND.nextInt(6));
-	                 }
-	                if (Y > 180) && (YSpeed < 0) then YSpeed = -YSpeed;
-	                if (Y < 0) && (YSpeed > 0) then YSpeed = -YSpeed;
-	                if areaScroll % 75 == 0 then YSpeed = YSpeed * 4;
-	                if areaScroll % 75 == 32 then YSpeed = YSpeed div 4;
-	                if X < 200 then Speed = -10;
-	                if X > 320 then Speed = 3;
-	               }
-	              case MaxEnemy1+1 : {
-	                         if (Y < (((areaScroll + X) div 20) % 4)* 25) then YSpeed = -2;
-	                         if (Y > 125+(((areaScroll + X) div 20) % 4)* 25) then YSpeed = 2;
-	                         if areaScroll % 20 == 0 then initLeser(Less,X+6,Y+16,-6,0,8,0);
-	                        }
-	          MaxEnemy1+2 : if areaScroll % 15 == 0 then initLeser(Less,X+16,Y+16,-Speed_L[4],0,4,0);
-
-	          MaxEnemy1+3 : {
-	                         if areaScroll % 25 == 0 then
-	                          {
-	                           initLeser(Less,X+16,Y+16,6,0,8,0);
-	                           initLeser(Less,X+16,Y+16,-6,0,8,0);
-	                           initLeser(Less,X+16,Y+16,0,6,8,0);
-	                           initLeser(Less,X+16,Y+16,0,-6,8,0);
-	                           initLeser(Less,X+16,Y+16,-4,-4,8,0);
-	                           initLeser(Less,X+16,Y+16,4,-4,8,0);
-	                           initLeser(Less,X+16,Y+16,-4,4,8,0);
-	                           initLeser(Less,X+16,Y+16,4,4,8,0);
-	                          }
-	                         if (Y < 0) && (YSpeed > 0) then YSpeed = -YSpeed;
-	                         if (Y > 190) && (YSpeed < 0) then YSpeed = -YSpeed;
-	                         if (X < 0) && (Speed > 0) then Speed = -Speed;
-	                         if (X > 310) && (Speed < 0) then Speed = -Speed;
-	                         switch( areaScroll % 200) {
-	                          30 : YSpeed = YSpeed*2;
-	                          100 : YSpeed = YSpeed div 2;
-	                          70 : Speed = Speed * 3;
-	                          170 : Speed = Speed div 3;
-	                         }
-	                        }
-	          MaxEnemy1+4 : {
-	                         if areaScroll % 15 == 0 then initLeser(Less,X+6,Y+16,-10,0,5,0);
-	                         if (Y > 190) && (YSpeed < 0) then YSpeed = -YSpeed;
-	                         if (Y < 0) && (YSpeed > 0) then YSpeed = -YSpeed;
-	                         if X < 100 then Speed = 15;
-	                        }
-
-	    			 } // end switch kind
-	    		 }
-
-	    	 }
-
-	      if(die) {
-	    	  it.remove();
-	      }
-	     }
+			if (die) {
+				it.remove();
+			}
+		}
 
 	} // end of doEnemy1
 
@@ -733,13 +793,13 @@ public class KlonGun {
 	public void putPic(int X1, int Y1, int X2, int Y2, Picture pic) {
 		int Xv, Yv, c;
 
-		for(int y = 0; y < Y2; y++) {
-			for(int x = 0; x < X2; x++) {
+		for (int y = 0; y < Y2; y++) {
+			for (int x = 0; x < X2; x++) {
 				c = pic.get(x, y);
-				if(c < 255) {
+				if (c < 255) {
 					Xv = X1 + x;
 					Yv = Y1 + y;
-					if(Xv >= 0 && Yv >= 0 && Xv < 320 && Yv < 200)
+					if (Xv >= 0 && Yv >= 0 && Xv < 320 && Yv < 200)
 						gun.vscr.set(Xv, Yv, c);
 				}
 			}
@@ -747,127 +807,131 @@ public class KlonGun {
 	} // end putPic
 
 
+	public void run() {
+		gun.init();
+		load();
 
+		diff = 0;
+		quitAll = false;
+		changed = true;
 
-public void run() {
- gun.init();
-load();
+		do {
+			switch (menuItem) {
+			case 0:
+				do {
+					gun.setCounter();
+					splash -= 2;
+					screen(splash);
+					WaitFor(Speed);
+				} while (splash > 1);
+				game();
+				changed = true;
+				break;
 
+			case 1:
+				if (diff == 0)
+					diff = 1;
+				else if (diff == 1)
+					diff = -1;
+				else
+					diff = 0;
+				changed = false;
+				break;
 
+			case 2:
+				do {
+					gun.setCounter();
+					splash = splash - 2;
+					screen(splash);
+					WaitFor(Speed);
+				} while (splash > 1);
 
- diff = 0;
+				credits();
 
- quitAll = false;
- changed = true;
+				do {
+					gun.setCounter();
+					splash = splash - 2;
+					screen(splash);
+					WaitFor(Speed);
 
- do {
- switch(menu) {
- case 0 :
-        do {
-         SetCounter;
-         splash -= 2;
-         screen(splash);
-         WaitFor(Speed);
-        while(splash > 1);
-        GAME;
-        Changed = true;
-       break;
- case 1 : {
-        if Diff == 0 then Diff = 1 Else
-         if Diff == 1 then Diff = -1 Else
-          Diff = 0;
-        Changed = false;
-       }
- case 2 : {
-        do {
-         SetCounter;
-         splash = splash -2;
-         Screen(splash);
-         WaitFor(Speed);
-        } while(splash > 1);
-        credits();
-        do {
-         SetCounter;
-         splash = splash -2;
-         Screen(splash);
-         WaitFor(Speed);
-        } while(splash > 1);
-        Changed = true;
-       }
- case 3 : {
-        Assign(fP,'hiscore.dat');
+				} while (splash > 1);
 
-        ReSet(fP);
-        if IOResult <> 0 then
-         {
-          For i = 0 to 9 do
-           Pontszam[i].Pontszam = 0;
-          ReWrite(fP);
-          For i = 0 to 9 do
-           Write(fP,Pontszam[i]);
-          Close(fP);
-          ReSet(fP);
-         }
+				changed = true;
+				break;
 
-        For i = 0 to 9 do
-         Read(fP,Pontszam[i]);
-        Close(fP);
-        do {
-         SetCounter;
-         splash = splash -2;
-         Screen(splash);
-         WaitFor(Speed);
-        } while(splash > 1);
-        gun.clrVscr(0);
-        gun.setScr();
-        splash = 63;
-        Screen(splash);
-        gun.clrVscr(148);
-        DrawPoints(l);
-        Anim(0);
-        gun.setScr();
-        do { } while(!KeyPressed);
+			case 3:
 
-        while(frame.getControl()hile KeyPressed do ch = buffer.readKey();
+				/*
+				 * Assign(fP,'hiscore.dat');
+				 *
+				 * ReSet(fP); if (IOResult <> 0 ) { For i = 0 to 9 do
+				 * Pontszam[i].Pontszam = 0; ReWrite(fP); For i = 0 to 9 do
+				 * Write(fP,Pontszam[i]); Close(fP); ReSet(fP); }
+				 *
+				 * For i = 0 to 9 do Read(fP,Pontszam[i]); Close(fP);
+				 */
 
-        do {
-         SetCounter;
-         splash -= 2;
-         screen(splash);
-         WaitFor(Speed);
-        } while(splash > 1);
-        Changed = true;
-       }
- case 4 : {
-        For i = 0 to 9 do
-         {
-          Pontszam[i].Pontszam = 0;
-          Pontszam[i].Nev = '';
-         }
-        Changed = true;
-        SaveScore;
-       }
- case MaxMenu:
-	 quitAll == true;
-	 break;
- } // end switch
- } while(!quitAll);
+				do {
+					gun.setCounter();
+					splash = splash - 2;
+					screen(splash);
+					WaitFor(Speed);
+				} while (splash > 1);
 
+				gun.clrVscr(0);
+				gun.setScr();
+				splash = 63;
+				screen(splash);
+				gun.clrVscr(148);
+				drawPoints(l);
+				Anim(0);
+				gun.setScr();
 
- Anim3();
- gun.finish();
+				ch = keyBuffer.readKey();
 
- System.out.println("Thanks for checking out!");
+				do {
+					gun.setCounter();
+					splash -= 2;
+					screen(splash);
+					WaitFor(Speed);
+				} while (splash > 1);
 
-}
+				changed = true;
+
+				break;
+
+			case 4:
+				for (int i = 0; i < 10; i++) {
+					scoreRecords[i].points = 0;
+					scoreRecords[i].name = "";
+				}
+
+				changed = true;
+				saveScore();
+				break;
+
+			case MaxMenu:
+				quitAll = true;
+				break;
+
+			} // end switch
+
+		} while (!quitAll);
+
+		Anim3();
+		gun.finish();
+
+		System.out.println("Thanks for checking out!");
+
+	} // end of run()
 
 public void putEnemies() {
 
-boolean Die;
+	boolean Die;
 
-Iterator<Enemy> it = enemies.iterator();
-while(it.hasNext()) {
-	Enemy enemy = it.next();
+	Iterator<Enemy> it = enemies.iterator();
+	while(it.hasNext()) {
+		Enemy enemy = it.next();
       Die = false;
 
       if (enemy.life > 0) {
@@ -879,8 +943,8 @@ while(it.hasNext()) {
             {
              Xv = enemy.X+j-enemy.pX;
              Yv = enemy.Y+i-enemy.pY;
-             if (Xv >= 0) && (Xv < 50) && (Yv >= 0) && (Yv < 30)
-              && (Ships[enemy.pShip,Yv,Xv] < 255) && (enemy.pLife > 0) then
+             if ((Xv >= 0) && (Xv < 50) && (Yv >= 0) && (Yv < 30)
+              && (Ships[enemy.pShip,Yv,Xv] < 255) && (enemy.pLife > 0) )
               { enemy.pLife = 0; enemy.pTime = 50; }
             }
        }
@@ -892,13 +956,13 @@ while(it.hasNext()) {
           putPic(X+16+(200-Time*4),Y+6-(50-Time),16,16,deaths[2]);
           putPic(X+6-(200-Time*4),Y+16+(50-Time),16,16,deaths[3]);
           putPic(X+16+(200-Time*4),Y+16+(50-Time),16,16,deaths[4]);
-          if not Cheated then
+          if (! cheated )
            {
         	  PontSzov = String.valueOf((2+Diff)*Life_E[Faj] / 10,PontSzov);
             PontSzov = PontSzov+'p';
            } else Pontszov = "0p";
-          gun.writeXY(X+16-(Length(PontSzov)*13) div 2,Y+8-(300-Time*6),5,PontSzov);
-          if (Time > 30) && (Item > 0) then putPic(X+8,Y+8,16,16,items[Item]);
+          gun.writeXY(X+16-(Length(PontSzov)*13) / 2,Y+8-(300-Time*6),5,PontSzov);
+          if ((Time > 30) && (Item > 0) )  putPic(X+8,Y+8,16,16,items[Item]);
           Time = Time - 1;
          } else Die = true;
        }
@@ -915,7 +979,7 @@ public void putLesers() {
      LessPos : pLess;
      Talalat : Boolean;
   LessPos = xLess;
-  WHILE LessPos <> nil DO
+  WHILE LessPos <> null DO
    {
     With LessPos^ do
      {
@@ -923,47 +987,47 @@ public void putLesers() {
       putPic(X0,Y0,16,5,Leser[Faj]);
       For i = 0 to 4 do
        For j = 0 to 15 do
-        if (Leser[Faj,i,j] < 255) && (not Talalat) then
+        if ((Leser[Faj,i,j] < 255) && (!Talalat) )
          {
           Xv = X0+j;
           Yv = Y0+i;
-          if (Xv >= 0) && (Xv < 320) && (Yv >= 0) && (Yv < 200) then
+          if ((Xv >= 0) && (Xv < 320) && (Yv >= 0) && (Yv < 200) )
            {
-            if Side > 0 then
+            if (Side > 0 )
              {
               EnemyPos = enemies;
-              WHILE EnemyPos <> nil DO
+              WHILE EnemyPos <> null DO
                {
-                if EnemyPos^.Life > 0 then
+                if (EnemyPos^.Life > 0 )
                  {
                   X1 = Xv-EnemyPos^.X;
                   Y1 = Yv-EnemyPos^.Y;
-                  if (X1 >= 0) && (X1 < 32) && (Y1 >= 0) && (Y1 < 32)
-                   && (Enemy1[Abra[EnemyPos^.Faj],Y1,X1] < 255) then
+                  if ((X1 >= 0) && (X1 < 32) && (Y1 >= 0) && (Y1 < 32)
+                   && (Enemy1[Abra[EnemyPos^.Faj],Y1,X1] < 255) )
                   {
                    Talalat = true;
-                    EnemyPos^.Life = EnemyPos^.Life-(Dmg-Diff*Dmg div 2);
-                    if EnemyPos^.Life <= 0 then
+                    EnemyPos^.Life = EnemyPos^.Life-(Dmg-Diff*Dmg / 2);
+                    if (EnemyPos^.Life <= 0 )
                      {
                       EnemyPos^.Time = 50;
-                      if not Cheated then
-                       Pontok = Pontok + (2+Diff)*Life_E[EnemyPos^.Faj] div 10;
-                      if EnemyPos == Boss then Boss = nil;
-                      if EnemyPos^.Item > 0 then
+                      if (!cheated )
+                       Pontok = Pontok + (2+Diff)*Life_E[EnemyPos^.Faj] / 10;
+                      if (EnemyPos == Boss )  Boss = null;
+                      if (EnemyPos^.Item > 0 )
                       switch( EnemyPos^.Item) {
                       case 1 : {
-                            if pLife > 0 then pLife = pLife + 20;
-                            if pLife > 100 then pLife = 100;
+                            if (pLife > 0 )  pLife = pLife + 20;
+                            if (pLife > 100 )  pLife = 100;
                             break;
                            }
-                      case 2 : if pLeser[1] < 5 then pLeser[1] = Chr(Ord(pLeser[1]) + 1); break;
+                      case 2 : if (pLeser[1] < 5 )  pLeser[1] = Chr(Ord(pLeser[1]) + 1); break;
                       case 3:
                       case 4:
-                      case 5: if pLeser[EnemyPos^.Item-1] < 3 then
+                      case 5: if (pLeser[EnemyPos^.Item-1] < 3 )
                                 pLeser[EnemyPos^.Item-1] = Chr(Ord(pLeser[EnemyPos^.Item-1]) + 1);
                       break;
-                      case 6 : if pFire > 2 then pFire = 2; break;
-                      case 7 : if pFire > 1 then pFire = 1; break;
+                      case 6 : if (pFire > 2 )  pFire = 2; break;
+                      case 7 : if (pFire > 1 )  pFire = 1; break;
                        }
                      }
                    }
@@ -971,16 +1035,16 @@ public void putLesers() {
                 EnemyPos = EnemyPos^.Next
                }
              }
-            Else
-             if (pLife > 0) && (not cheat) then
+            else
+             if ((pLife > 0) && (!cheat) )
               {
                Xv = Xv-pX;
                Yv = Yv-pY;
-               if (Xv >= 0) && (Xv < 50) && (Yv >= 0) && (Yv < 30)
-                && (Ships[pShip,Yv,Xv] < 255) then
-                 { pLife = pLife - (Dmg+Diff*Dmg div 2); Talalat = true;
-                  if pLife <= 0 then pTime = 50;
-                  if pLife < 0 then pLife = 0; }
+               if ((Xv >= 0) && (Xv < 50) && (Yv >= 0) && (Yv < 30)
+                && (Ships[pShip,Yv,Xv] < 255) )
+                 { pLife = pLife - (Dmg+Diff*Dmg / 2); Talalat = true;
+                  if (pLife <= 0 )  pTime = 50;
+                  if (pLife < 0 )  pLife = 0; }
               }
            }
          }
@@ -998,78 +1062,78 @@ public void Palya() {
   case  0 : {
         if (areaScroll < 500 && (areaScroll % 25) == 0)
           initEnemy(enemies,320,70+((areaScroll / 25) % 2)*60, Speed_E[6],((areaScroll / 25) % 2)*2-1,6,0);
-        if areaScroll == 500 then initEnemy(enemies,320,RND.nextInt(20)+90,4,0,7,1);
-        if (areaScroll > 500) && (areaScroll < 600) && (areaScroll % 20 == 0) then
+        if (areaScroll == 500 )  initEnemy(enemies,320,RND.nextInt(20)+90,4,0,7,1);
+        if ( (areaScroll > 500) && (areaScroll < 600) && (areaScroll % 20 == 0) )
           initEnemy(enemies,250,-10,1,-2,MaxEnemy1+2,0);
-        if (areaScroll > 600) && (areaScroll < 700) && (areaScroll % 20 == 0) then
+        if ( (areaScroll > 600) && (areaScroll < 700) && (areaScroll % 20 == 0) )
           initEnemy(enemies,250,210,1,2,MaxEnemy1+2,0);
-        if areaScroll == 700 then initEnemy(enemies,250,210,1,2,7,2);
-        if areaScroll == 800 then initEnemy(enemies,320,RND.nextInt(20)+90,2,0,7,1);
-        if areaScroll == 990 then initEnemy(enemies,320,RND.nextInt(20)+90,2,0,7,6);
-        if (areaScroll > 750) && (areaScroll < 1040) && (areaScroll % 25 == 0) then
-          initEnemy(enemies,320,60+((areaScroll div 20) % 4)* 25,1,2,MaxEnemy1+1,0);
-        if areaScroll == 1100 then
+        if (areaScroll == 700 )  initEnemy(enemies,250,210,1,2,7,2);
+        if (areaScroll == 800 )  initEnemy(enemies,320,RND.nextInt(20)+90,2,0,7,1);
+        if (areaScroll == 990 )  initEnemy(enemies,320,RND.nextInt(20)+90,2,0,7,6);
+        if ( (areaScroll > 750) && (areaScroll < 1040) && (areaScroll % 25 == 0) )
+          initEnemy(enemies,320,60+((areaScroll / 20) % 4)* 25,1,2,MaxEnemy1+1,0);
+        if (areaScroll == 1100 )
          {
           initEnemy(enemies,320,100,3,3,MaxEnemy1+3,2);
           Boss_Del = 200;
           initEnemy(enemies,320,RND.nextInt(20)+90,2,0,7,1);
          }
-        if areaScroll > 2200 then areaScroll = areaScroll- Boss_Del;
-        if (areaScroll > 1100) && (Boss == nil) then NextLevel;
+        if (areaScroll > 2200 )  areaScroll = areaScroll- Boss_Del;
+        if (areaScroll > 1100) && (Boss == null) )  NextLevel;
         break;
        }
    case 1 : {
-        if (areaScroll < 2000) && ((areaScroll % 19) == 0) then
+        if (areaScroll < 2000) && ((areaScroll % 19) == 0) )
          {
           initEnemy(enemies,0,0,0,0,0,0);
          }
-        if (areaScroll < 2000) && ((areaScroll % 32) == 0) then
+        if (areaScroll < 2000) && ((areaScroll % 32) == 0) )
          {
           initLeser(Less,0,0,0,0,0,0);
          }
-        if (areaScroll < 2000) && (areaScroll % 115 == 0) then
-         switch( (areaScroll div 115)) {
+        if (areaScroll < 2000) && (areaScroll % 115 == 0) )
+         switch( (areaScroll / 115)) {
           2 : initEnemy(enemies,320,RND.nextInt(160)+20,4,0,7,1);
           4 : initEnemy(enemies,320,RND.nextInt(160)+20,4,0,7,6);
           6 : initEnemy(enemies,320,RND.nextInt(160)+20,4,0,7,3);
          }
-        if areaScroll == 1000 then initEnemy(enemies,320,RND.nextInt(160)+20,4,0,7,1);
-        if areaScroll == 1850 then initEnemy(enemies,320,RND.nextInt(160)+20,4,0,7,2);
-        if areaScroll == 1250 then initEnemy(enemies,320,RND.nextInt(160)+20,4,0,7,5);
-        if areaScroll == 1700 then initEnemy(enemies,320,RND.nextInt(160)+20,4,0,7,1);
-        if areaScroll == 2000 then
+        if (areaScroll == 1000 )  initEnemy(enemies,320,RND.nextInt(160)+20,4,0,7,1);
+        if (areaScroll == 1850 )  initEnemy(enemies,320,RND.nextInt(160)+20,4,0,7,2);
+        if (areaScroll == 1250 )  initEnemy(enemies,320,RND.nextInt(160)+20,4,0,7,5);
+        if (areaScroll == 1700 )  initEnemy(enemies,320,RND.nextInt(160)+20,4,0,7,1);
+        if (areaScroll == 2000 )
          {
           initEnemy(enemies,320,88,3,0,4,0);
           Boss_Del = 3600;
          }
-        if areaScroll > 10000 then areaScroll = areaScroll- Boss_Del;
+        if (areaScroll > 10000 )  areaScroll = areaScroll- Boss_Del;
         break;
        }
    case 2 : {
-        if (areaScroll < 500) && (areaScroll % 20 == 0) then
+        if (areaScroll < 500) && (areaScroll % 20 == 0) )
          {
-          initEnemy(enemies,320,88,Speed_E[5],(Speed_E[5] div 3)*(((areaScroll div 20) % 2)*2-1),5,0);
+          initEnemy(enemies,320,88,Speed_E[5],(Speed_E[5] / 3)*(((areaScroll / 20) % 2)*2-1),5,0);
          }
-        if areaScroll == 180 then initEnemy(enemies,320,RND.nextInt(20)+90,4,0,7,1);
-        if areaScroll == 360 then initEnemy(enemies,320,RND.nextInt(20)+90,4,0,7,1);
-        if (areaScroll > 530) && (areaScroll < 1000) && (areaScroll % 3 == 0) then
+        if (areaScroll == 180 )  initEnemy(enemies,320,RND.nextInt(20)+90,4,0,7,1);
+        if (areaScroll == 360 )  initEnemy(enemies,320,RND.nextInt(20)+90,4,0,7,1);
+        if (areaScroll > 530) && (areaScroll < 1000) && (areaScroll % 3 == 0) )
          initEnemy(enemies,320,RND.nextInt(190),15,0,9,0);
-        if areaScroll == 620 then initEnemy(enemies,320,68+RND.nextInt(40),3,0,7,1);
-        if areaScroll == 800 then initEnemy(enemies,320,68+RND.nextInt(40),3,0,7,3);
-        if areaScroll == 950 then initEnemy(enemies,320,68+RND.nextInt(40),3,0,7,7);
-        if (areaScroll > 1000) && (areaScroll < 1300) && (areaScroll % 25 == 0) then
+        if (areaScroll == 620 )  initEnemy(enemies,320,68+RND.nextInt(40),3,0,7,1);
+        if (areaScroll == 800 )  initEnemy(enemies,320,68+RND.nextInt(40),3,0,7,3);
+        if (areaScroll == 950 )  initEnemy(enemies,320,68+RND.nextInt(40),3,0,7,7);
+        if (areaScroll > 1000) && (areaScroll < 1300) && (areaScroll % 25 == 0) )
          {
           initEnemy(enemies,310,199,2,5,8,0);
           initEnemy(enemies,270,-20,2,-5,8,0);
          }
-        if areaScroll == 1300 then
+        if (areaScroll == 1300 )
          {
           initEnemy(enemies,310,199,2,5,8,4);
           initEnemy(enemies,270,-20,2,-5,8,3);
          }
-        if (areaScroll > 1000) && (areaScroll < 1300) && (areaScroll % 85 == 40) then
+        if (areaScroll > 1000) && (areaScroll < 1300) && (areaScroll % 85 == 40) )
          initEnemy(enemies,320,RND.nextInt(180),4,0,7,1);
-        if areaScroll == 1400 then
+        if (areaScroll == 1400 )
          {
           initEnemy(enemies,320,0,1,0,7,1);
           initEnemy(enemies,320,40,1,0,7,4);
@@ -1078,8 +1142,8 @@ public void Palya() {
           initEnemy(enemies,320,88,1,2,10,1);
           Boss_Del = 4200;
          }
-        if areaScroll > 10000 then areaScroll = areaScroll- Boss_Del;
-        if (areaScroll > 1400) && (Boss == nil) then NextLevel;
+        if (areaScroll > 10000 )  areaScroll = areaScroll- Boss_Del;
+        if (areaScroll > 1400) && (Boss == null) )  NextLevel;
        }
        }
   }
@@ -1101,7 +1165,7 @@ public void temp() {
   pLeser[2] = 0;
   pLeser[3] = 0;
   pLeser[4] = 0;
-  ActualPalya = 0;
+  currentArea = 0;
   areaScroll = 0;
 
   bosses.clear();
@@ -1109,13 +1173,15 @@ public void temp() {
   lesses.clear();
 
   cheat = false;
-  PontSzov = '1p';
+
+  PontSzov = "1p";
   splash = 1;
 
+  /*
   Assign(fP,'hiscore.dat');
 
   ReSet(fP);
-  if IOResult <> 0 then
+  if (IOResult <> 0 )
    {
     for(i = 0; i < 10; i++)
      Pontszam[i].Pontszam = 0;
@@ -1129,47 +1195,48 @@ public void temp() {
   For i = 0 to 9 do
    Read(fP,Pontszam[i]);
   Close(fP);
-  Quit = false;
-  Cheated = false;
+  */
+
+  quit = false;
+  cheated = false;
  }
 
-public void saveScore()
- {
-  Assign(fP,'hiscore.dat');
+public void saveScore() {
+/*  Assign(fP,'hiscore.dat');
   ReWrite(fP);
   For i = 0 to 9 do
    Write(fP,Pontszam[i]);
-  Close(fP);
- }
+  Close(fP); */
+}
 
 public void game() {
   temp();
   addStars();
 
   do {
-   if splash < 63 then
+   if (splash < 63 )
     {
      splash = splash + 2;
-     Screen(splash);
+     screen(splash);
     }
-   SetCounter; Palya;
+   gun.setCounter(); Palya;
    DoEnemy1(enemies); DoLeser(Less);
-   if KeyPressed then
+   if (KeyPressed )
     { ch1 = buffer.readKey();
      switch( ch1) {
      case 0 : ch2 = buffer.readKey(); break;
      case  27 : Quit = true; break;
      case '1' : pLeser[0] = 1; break;
-     case '2' : if (pLeser[2] > #0) then pLeser[0] = 2; break;
-     case '3' : if (pLeser[3] > #0) then pLeser[0] = 3; break;
-     case '4' : if (pLeser[4] > #0) then pLeser[0] = 4; break;
+     case '2' : if ((pLeser[2] > 0) )  pLeser[0] = 2; break;
+     case '3' : if ((pLeser[3] > 0) )  pLeser[0] = 3; break;
+     case '4' : if ((pLeser[4] > 0) )  pLeser[0] = 4; break;
      case 'c':
-     case 'C' : { Cheat = Cheat xor true; Cheated = true;  break;}
+     case 'C' : { cheat = !cheat; cheated = true;  break;}
      } }
    ReadMouse;
-   if pLife > 0 then {
-    if pL > 0 then pL = pL - 1 Else
-    if ((M_Button && 1) == 1) && (pL == 0) then
+   if (pLife > 0 )  {
+    if (pL > 0 )  pL = pL - 1 else
+    if (((M_Button && 1) == 1) && (pL == 0) )
      {
       switch( pLeser[0]) {
       case 1 : switch( pLeser[1]) {
@@ -1247,24 +1314,24 @@ public void game() {
       }
       pL = Late_L[Ord(pLeser[0])*3+Ord(pLeser[Ord(pLeser[0])])];
      }
-    if M_CurY < 99 then pY = pY - Speed_F[pFire];
-    if M_CurY > 101 then pY = pY + Speed_F[pFire];
-    if pLogged || (pX >= 5) then
+    if (M_CurY < 99 )  pY = pY - Speed_F[pFire];
+    if (M_CurY > 101 )  pY = pY + Speed_F[pFire];
+    if (pLogged || (pX >= 5) )
       {
-       if M_CurX < 319 then pX = pX - Speed_F[pFire];
-       if M_CurX > 321 then pX = pX + Speed_F[pFire];
+       if (M_CurX < 319 )  pX = pX - Speed_F[pFire];
+       if (M_CurX > 321 )  pX = pX + Speed_F[pFire];
       }
-     if pX < 5 then { if pLogged then pX = 5
+     if (pX < 5 )  { if (pLogged )  pX = 5
        else pX = pX + Speed_M }
-     if not pLogged then
+     if (!pLogged )
       {
        pLogTime = pLogTime +1;
-       if pLogTime >= 50 then pLogged = true;
+       if (pLogTime >= 50 )  pLogged = true;
       }
    }
-   if pX > 274 then pX = 274;
-   if pY < -10 then pY = -10;
-   if pY > 180 then pY = 180;
+   if (pX > 274 )  pX = 274;
+   if (pY < -10 )  pY = -10;
+   if (pY > 180 )  pY = 180;
    areaScroll = areaScroll+1;
 
    gun.clrVscr(0);
@@ -1272,16 +1339,16 @@ public void game() {
    putLesers();
    putEnemies();
 
-   if pLife > 0 then {
+   if (pLife > 0 )  {
     putPic(pX,pY,50,30,Ships[pShip]);
     putPic(pX-17,pY+9,17,14,Fires[pFire,(areaScroll % 3)+1]);
-   } else if pShip > 0 then {
+   } else if (pShip > 0 )  {
     putPic(pX+6-(200-pTime*4),pY+6-(50-pTime),16,16,Death[1]);
     putPic(pX+16+(200-pTime*4),pY+6-(50-pTime),16,16,Death[2]);
     putPic(pX+6-(200-pTime*4),pY+16+(50-pTime),16,16,Death[3]);
     putPic(pX+16+(200-pTime*4),pY+16+(50-pTime),16,16,Death[4]);
-    if pTime > 0 then pTime = pTime - 1 Else
-     if SzumLife > 1 then {
+    if (pTime > 0 )  pTime = pTime - 1 else
+     if (SzumLife > 1 )  {
       SzumLife = SzumLife - 1; pLife = 100;
       pX = -40; pY = 75; pLogged = false;
       pLogTime = 0;
@@ -1289,28 +1356,28 @@ public void game() {
    }
 
    putPic(0,190,120,10,Status);
-   if SzumLife > 0 then putPic(120,190,10,10,Stat2[SzumLife,3]);
+   if (SzumLife > 0 )  putPic(120,190,10,10,Stat2[SzumLife,3]);
    For i = 1 to Round((pLife/100)*115) do
-    For j = 3 to 6 do Vscr^[190+j,2+i] = #2;
+    For j = 3 to 6 do Vscr^[190+j,2+i] = 2;
    For m = 1 to 4 do
-    if (pLeser[m] == #0) then putPic(270+m*10,190,10,10,Stat2[m,0]) Else
-     if (pLeser[m] > #0) && (pLeser[0] <> Chr(m)) then putPic(270+m*10,190,10,10,Stat2[m,1]) Else
-      if (pLeser[m] > #0) && (pLeser[0] == Chr(m)) then putPic(270+m*10,190,10,10,Stat2[m,2]);
-   if (!bosses.isEmpty()) {
+    if ((pLeser[m] == 0) )  putPic(270+m*10,190,10,10,Stat2[m,0]) else
+     if ((pLeser[m] > 0) && (pLeser[0] <> Chr(m)) )  putPic(270+m*10,190,10,10,Stat2[m,1]) else
+      if ((pLeser[m] > 0) && (pLeser[0] == Chr(m)) )  putPic(270+m*10,190,10,10,Stat2[m,2]);
+   if ((!bosses.isEmpty()) {
     putPic(0,0,120,10,Status); gun.writeXY(125,0,4,"BOSS");
     For i = 1 to Round((Boss^.Life/Life_E[Boss^.Faj])*115) do
      For j = 3 to 6 do Vscr^[j,2+i] = 4; }
 
-   if SzumLife <= 0 then gun.writeXY(127,117,5,"GAME OVER");
-   if Cheat then gun.writeXY(0,0,#7,"cheat on");
-   if ActualPalya == 3 then gun.writeXY(127,117,#5,"YOU WON !") Else
-   if (areaScroll > 25) && (areaScroll < 200) then
+   if (SzumLife <= 0 )  gun.writeXY(127,117,5,"GAME OVER");
+   if (cheat )  gun.writeXY(0,0,7,"cheat on");
+   if (currentArea == 3 )  gun.writeXY(127,117,5,"YOU WON !") else
+   if (areaScroll > 25) && (areaScroll < 200) )
     {
      if(areaScroll >= 25 && areaScroll <= 124) {
-                Str(ActualPalya+1,s);
-                gun.writeXY(137,Round(90-((125-areaScroll))*(1-sqr(sin((areaScroll-25)/10)))),#5,"LEVEL "+s);
+                s = String.valueOf(currentArea+1);
+                gun.writeXY(137,Round(90-((125-areaScroll))*(1-sqr(sin((areaScroll-25)/10)))),5,"LEVEL "+s);
      } else if(areaScroll >= 125 && areaScroll <= 149) {
-      gun.writeXY(137,90,#5,"LEVEL "+s);
+      gun.writeXY(137,90,5,"LEVEL "+s);
      } else if(areaScroll >= 150 && areaScroll <= 199) {
                   putPic(154-(areaScroll-150)*4,84-areaScroll+150,16,16,deaths[1]);
                   putPic(166+(areaScroll-150)*4,84-areaScroll+150,16,16,deaths[2]);
@@ -1334,7 +1401,7 @@ public void game() {
   splash = 63;
   screen(splash);
   DrawPoints(10);
-  if Pontok > Pontszam[9].Pontszam then
+  if (Pontok > Pontszam[9].Pontszam )
    {
     Str(Pontok,Ponts);
     Ponts = "    You have reached "+Spaced(Ponts)+" !!";
@@ -1354,12 +1421,12 @@ public void game() {
     zh = buffer.readKey();
     switch( zh) {
     case 0 : ch = buffer.readKey(); break;
-    case 8 : if (Pontszov != null && PontSzov.length() > 0) { PontSzov[0] = Chr(Ord(Pontszov[0])-1); }
+    case 8 : if ((Pontszov != null && PontSzov.length() > 0) { PontSzov[0] = Chr(Ord(Pontszov[0])-1); }
     break;
-     'a'..'z','A'..'Z',' ' : if Length(PontSzov) < 20 then
+     'a'..'z','A'..'Z',' ' : if (Length(PontSzov) < 20 )
       PontSzov = PontSzov + zh;
     case 27, case 13 : {
-                 if (PontSzov == null ee PontSzov.length == 0) Pontszov = " ";
+                 if ((PontSzov == null ee PontSzov.length == 0) Pontszov = " ";
                  quit = true;
                 }
     }
@@ -1398,7 +1465,7 @@ public void game() {
   ch = buffer.readKey();
 
   do {
-   SetCounter;
+   gun.setCounter();
    splash = splash -2;
    screen(splash);
    WaitFor(Speed);
@@ -1443,14 +1510,14 @@ public void game() {
     gun.writeXY(70,71+20*MP2,0,MenuSzov[MP2]);
     gun.writeXY(71,71+20*MP2,0,MenuSzov[MP2]);
     gun.writeXY(70,70+20*MP2,6,MenuSzov[MP2]);
-    if MP2 == 1 then
+    if (MP2 == 1 )
      {
       gun.writeXY(200,71+20*MP2,0,DStr);
       gun.writeXY(201,71+20*MP2,0,DStr);
       gun.writeXY(200,70+20*MP2,4,DStr);
      }
    }
-  putPic(5,60+20*MenuPont,50,30,Ships[1]);
+  putPic(5,60+20*menuItem,50,30,Ships[1]);
  }
 
 
@@ -1460,8 +1527,8 @@ public void game() {
     gun.clrVscr(0);
     gun.setScr();
     splash = 63;
-    Screen(splash);
-    MenuQuit = false;
+    screen(splash);
+    menuQuit = false;
     DrawMenu();
     anim(0);
    }
@@ -1470,13 +1537,13 @@ public void game() {
    gun.setScr();
    switch( ReadKey) {
 	   case 0 : switch( keyBuffer.readKey()) {
-		   case 72 : if MenuPont > 0 then MenuPont = MenuPont -1; break;
-		  case 80 : if MenuPont < MaxMenu then MenuPont = MenuPont +1; break;
+		   case 72 : if (menuItem > 0 )  menuItem = menuItem -1; break;
+		  case 80 : if (menuItem < MaxMenu )  menuItem = menuItem +1; break;
 	         }
-	   case 27 : { MenuQuit = true; MENU = MaxMenu; }break;
-	   case 13 : { MenuQuit = true; MENU = MenuPont; }break;
+	   case 27 : { menuQuit = true; MENU = MaxMenu; }break;
+	   case 13 : { menuQuit = true; MENU = menuItem; }break;
    }
-  } while(!MenuQuit);
+  } while(!menuQuit);
 
  }
 
@@ -1495,11 +1562,11 @@ public void game() {
 
 		pos=0;
 
-		do{SetCounter;splash+=2;screen(splash);WaitFor(Speed);}while(splash>=62);splash=63;
+		do{gun.setCounter();splash+=2;screen(splash);WaitFor(Speed);}while(splash>=62);splash=63;
 
 		screen(splash);
 
-		do{gun.clrVscr(148);pos=pos+1;for(p=0;p<=MaxCredit;p++){gun.writeXY(161-Length(CreditSzov[p])*9 div 2,200+p*20-pos,0,CreditSzov[p]);gun.writeXY(160-Length(CreditSzov[p])*9 div 2,201+p*20-pos,0,CreditSzov[p]);gun.writeXY(160-Length(CreditSzov[p])*9 div 2,200+p*20-pos,2,CreditSzov[p]);}
+		do{gun.clrVscr(148);pos=pos+1;for(p=0;p<=MaxCredit;p++){gun.writeXY(161-Length(CreditSzov[p])*9 / 2,200+p*20-pos,0,CreditSzov[p]);gun.writeXY(160-Length(CreditSzov[p])*9 / 2,201+p*20-pos,0,CreditSzov[p]);gun.writeXY(160-Length(CreditSzov[p])*9 / 2,200+p*20-pos,2,CreditSzov[p]);}
 
 		gun.setScr();}while(pos<400+(MaxCredit+1)*20&&!frame.getControl().isEscapeOn());
 

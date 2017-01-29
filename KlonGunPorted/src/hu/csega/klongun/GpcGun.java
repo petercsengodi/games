@@ -72,13 +72,9 @@ public class GpcGun {
 
 
     public void setCounter(){
-
+    	counter = System.currentTimeMillis() / 10;
     }
 
-
-    public void waitFor(long gp4){
-
-    }
 
     public void readMouse(){
 
