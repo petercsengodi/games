@@ -4,9 +4,6 @@ import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
 import javax.swing.JFrame;
 
 import hu.csega.klongun.KlonGun;
@@ -21,15 +18,6 @@ public class KlonGunFrame extends JFrame implements KeyListener {
 		Container cp = getContentPane();
 		cp.setLayout(new FlowLayout());
 		cp.add(canvas);
-
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				// TODO Auto-generated method stub
-				super.windowClosing(e);
-			}
-		});
-
 		addKeyListener(this);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -94,7 +82,7 @@ public class KlonGunFrame extends JFrame implements KeyListener {
 	}
 
 	private KlonGunCanvas canvas;
-	private KlonGunControl klonGunControl;
+	private KlonGunControl klonGunControl = new KlonGunControl();
 
 	/** Default serial version UID. */
 	private static final long serialVersionUID = 1L;

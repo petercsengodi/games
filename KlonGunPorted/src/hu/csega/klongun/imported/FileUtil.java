@@ -23,9 +23,12 @@ public class FileUtil {
 
 		int offset = 4;
 		int[] content = new int[width * height];
+		byte b;
 
-		for(int i = 0; i < content.length; i++)
-			content[i] = (int)bytes[offset + i];
+		for(int i = 0; i < content.length; i++) {
+			b = bytes[offset + i];
+			content[i] = (b & 0xFF);
+		}
 
 		return new Picture(width, height, 0, content);
 	}

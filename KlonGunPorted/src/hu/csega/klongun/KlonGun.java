@@ -12,7 +12,6 @@ import hu.csega.klongun.model.Less;
 import hu.csega.klongun.model.Score;
 import hu.csega.klongun.model.Star;
 import hu.csega.klongun.screen.Picture;
-import hu.csega.klongun.screen.TPal;
 import hu.csega.klongun.screen.TVscr;
 import hu.csega.klongun.swing.KlonGunCanvas;
 import hu.csega.klongun.swing.KlonGunControl;
@@ -27,7 +26,7 @@ public class KlonGun {
 	public static final int MaxFires = 3;
 	public static final int MaxStars = 20;
 	public static final int MaxEnemy1 = 10;
-	public static final int MaxEnemy2 = MaxEnemy1+4;
+	public static final int MaxEnemy2 = MaxEnemy1+3;
 	public static final int MaxLesers = 12;
 	public static final int MaxDeaths = 4;
 	public static final int MaxItem = 7;
@@ -54,7 +53,7 @@ public class KlonGun {
 	public static final int[] ShipY = new int[] {10};
 
 	// map enemy -> PIC
-	public static final int[] Abra = new int[] {1,2,3,4,5,6,7,8,9,10,6,5,5,6};
+	public static final int[] Abra = new int[] {0,1,2,3,4,5,6,7,8,9,5,4,4,5};
 
 	// menu
     public static final int MaxMenu = 5;
@@ -82,6 +81,11 @@ public class KlonGun {
     public List<Enemy> bosses = new ArrayList<>();
     public List<Less> lesses = new ArrayList<>();
 
+
+    // super boss does this
+    public List<Enemy> addEnemies = new ArrayList<>();
+
+
     public int i,j,k,l,m,n,Xv,Yv;
 
     public Picture[] ships = new Picture[MaxShips]; // 30 x 40
@@ -97,7 +101,6 @@ public class KlonGun {
 
     public int areaScroll; // = areaScroll
     public int bossDel;
-    public Enemy boss;
 
     // Player data
     public int pX;
@@ -123,8 +126,6 @@ public class KlonGun {
     public int scoreText1; // PontSzov
     public int scoreText2; // Ponts
     public int splash;
-
-    public TPal palette = new TPal();
 
     public File scoresFile;
     public Score[] scoreRecords;
@@ -215,11 +216,11 @@ public class KlonGun {
     				k = (i - 100) * pos + 100;
     				l = (j - 160) * pos + 160;
     		        if ((k >= 0) && (l >= 0) && (k < 200) && (l < 320))
-    		          gun.vscr.set(k, l, back.get(i, j));
+    		          gun.vscr.set(l, k, back.get(j, i));
     			}
     		}
 
-    		canvas.invalidate();
+    		canvas.repaint();
     	} while(pos <= 80);
     }
 
@@ -245,7 +246,7 @@ public class KlonGun {
     			}
     		}
 
-    		canvas.invalidate();
+    		canvas.repaint();
     	} while(pos != 0);
     }
 
@@ -291,16 +292,10 @@ public class KlonGun {
 
 				gun.clrVscr(0);
 
-				for (k = 0; k < 200; k++) {
-					for (n = 0; n < 320; n++) {
-
-					}
-				}
-
 				if (FGGVY[k] >= 0 && FGGVY[k] < 200 && FGGVX[n] >= 0 && FGGVX[n] < 320)
-					gun.vscr.set(k, n, back.get(FGGVY[k], FGGVX[n]));
+					gun.vscr.set(n, k, back.get(FGGVX[n], FGGVY[k]));
 
-				canvas.invalidate();
+				canvas.repaint();
 			}
 
 			i += j;
@@ -340,27 +335,27 @@ public class KlonGun {
 		// Every pictures start after 4 bytes
 
 		for(i = 0; i < MaxShips; i++)
-			ships[i] = FileUtil.loadPic("ship" + i, 40, 30);
+			ships[i] = FileUtil.loadPic("ship" + (i+1), 50, 30);
 		for(i = 0; i < MaxItem; i++)
-			items[i] = FileUtil.loadPic("i_" + i, 16, 16);
+			items[i] = FileUtil.loadPic("i_" + (i+1), 16, 16);
 		for(i = 0; i < MaxDeaths; i++)
-			deaths[i] = FileUtil.loadPic("ruin" + i, 16, 16);
+			deaths[i] = FileUtil.loadPic("ruin" + (i+1), 16, 16);
 		for(i = 0; i < MaxLesers; i++)
-			lesers[i] = FileUtil.loadPic("l" + i, 16, 5);
+			lesers[i] = FileUtil.loadPic("l" + (i+1), 16, 5);
 		for(i = 0; i < MaxEnemy1; i++)
-			enemyShips[i] = FileUtil.loadPic("a" + i, 32, 32);
+			enemyShips[i] = FileUtil.loadPic("a" + (i+1), 32, 32);
 		status = FileUtil.loadPic("status1", 120, 10);
 
 		for(i = 0; i < 4; i++) {
 			for(j = 0; j < 4; j++) {
-				String picName = String.valueOf(i) + j;
+				String picName = String.valueOf(i+1) + j;
 				stat2[i][j] = FileUtil.loadPic(picName, 10, 10);
 			}
 		}
 
 		for(i = 0; i < MaxFires; i++) {
 			for(j = 0; j < 3; j++) {
-				String picName = "s_fire" + String.valueOf(i) + j;
+				String picName = "s_fire" + String.valueOf(i+1) + (j+1);
 				fires[i][j] = FileUtil.loadPic(picName, 17, 14);
 			}
 		}
@@ -405,14 +400,14 @@ public class KlonGun {
 		Less less = new Less();
 		lesses.add(less);
 
-		if (fj0 == 0) {
+		if (fj0 == -1) {
 			less.x = 320;
 			less.y = RND.nextInt(200);
-			less.kind = RND.nextInt(2) * 5 + 1; // 1 || 6
-			less.xSpeed = -(Speed_L[less.kind] + RND.nextInt(Speed_L[less.kind]));
-			less.ySpeed = (RND.nextInt(3) - 1) * (RND.nextInt(Speed_L[less.kind]) / 2);
+			less.kind = RND.nextInt(2) * 5; // 0 || 5
+			less.xSpeed = -(Speed_L[less.kind] + RND.nextInt(Speed_L[less.kind] + 1));
+			less.ySpeed = (RND.nextInt(3) - 1) * (RND.nextInt(Speed_L[less.kind] + 1) / 2);
 			less.damage = Dmg_L[less.kind];
-			less.side = 0;
+			less.side = side0;
 		} else {
 			// load data accoring parameters
 			less.x = x1;
@@ -432,10 +427,13 @@ public class KlonGun {
 		while (it.hasNext()) {
 			Less less = it.next();
 			disappeared = false;
-			less.x -= less.xSpeed;
-			less.y -= less.ySpeed;
+
+			less.x += less.xSpeed;
+			less.y += less.ySpeed;
+
 			if (less.y < -31 || less.y > 231)
 				disappeared = true;
+
 			if (less.x < -31 || less.x > 320)
 				disappeared = true;
 
@@ -457,9 +455,10 @@ public class KlonGun {
 			// if cheat exists, player gets all possible weapon of previous area
 			switch (currentArea) {
 			case 1:
-				pFire = 2;
+				pFire = 1;
 				leser[1] = 3;
 				break;
+
 			case 2:
 				leser[1] = 4;
 				leser[3] = 1;
@@ -469,19 +468,17 @@ public class KlonGun {
 		}
 	} // end of nextLevel
 
-
-
 	public void initEnemy(int X0, int Y0, int Sp0, int Yp0, int Fj0, int It) {
 		Enemy enemy = new Enemy();
-		enemies.add(enemy);
+		addEnemies.add(enemy);
 
-		if(Fj0 == 0) {
+		if(Fj0 == -1) {
 			// random generated meteor
 			enemy.x = 320;
 			enemy.y = RND.nextInt(150);
-			enemy.kind = Fj0 = 1 + RND.nextInt(3);
-			enemy.xSpeed = Speed_E[Fj0] + RND.nextInt(Speed_E[Fj0]);
-			enemy.ySpeed = (RND.nextInt(3) - 1) * (RND.nextInt(Speed_E[Fj0]) / 2);
+			enemy.kind = Fj0 = RND.nextInt(3);
+			enemy.xSpeed = Speed_E[Fj0] + RND.nextInt(Speed_E[Fj0] + 1);
+			enemy.ySpeed = (RND.nextInt(3) - 1) * (RND.nextInt(Speed_E[Fj0] + 1) / 2);
 			enemy.life = Life_E[Fj0];
 			enemy.item = It;
 		} else {
@@ -496,16 +493,11 @@ public class KlonGun {
 			enemy.item = It;
 
 			// bosses
-			if(Fj0 == 4 || Fj0 == 10 || Fj0 == MaxEnemy1+3)
-				boss = enemy;
+			if(Fj0 == 3 || Fj0 == 9 || Fj0 == MaxEnemy1+2)
+				bosses.add(enemy);
 
 		}
 	} // end of initEnemy
-
-	public void deleteEnemy(Enemy enemy) {
-		enemies.remove(enemy);
-	}
-
 
 	private boolean between(int v, int lower, int upper) {
 		return (v >= lower && v <= upper);
@@ -560,17 +552,17 @@ public class KlonGun {
 		}
 
 		if (areaScroll2 == 320) {
-			initLeser(enemy.x + 16, enemy.y + 16, 6, 0, 12, 0);
-			initLeser(enemy.x + 16, enemy.y + 16, -6, 0, 12, 0);
-			initLeser(enemy.x + 16, enemy.y + 16, 0, 6, 12, 0);
-			initLeser(enemy.x + 16, enemy.y + 16, 0, -6, 12, 0);
+			initLeser(enemy.x + 16, enemy.y + 16, 6, 0, 11, 0);
+			initLeser(enemy.x + 16, enemy.y + 16, -6, 0, 11, 0);
+			initLeser(enemy.x + 16, enemy.y + 16, 0, 6, 11, 0);
+			initLeser(enemy.x + 16, enemy.y + 16, 0, -6, 11, 0);
 			return;
 		}
 		if (areaScroll2 == 330) {
-			initLeser(enemy.x + 16, enemy.y + 16, -6, -6, 12, 0);
-			initLeser(enemy.x + 16, enemy.y + 16, 6, -6, 12, 0);
-			initLeser(enemy.x + 16, enemy.y + 16, -6, 6, 12, 0);
-			initLeser(enemy.x + 16, enemy.y + 16, 6, 6, 12, 0);
+			initLeser(enemy.x + 16, enemy.y + 16, -6, -6, 11, 0);
+			initLeser(enemy.x + 16, enemy.y + 16, 6, -6, 11, 0);
+			initLeser(enemy.x + 16, enemy.y + 16, -6, 6, 11, 0);
+			initLeser(enemy.x + 16, enemy.y + 16, 6, 6, 11, 0);
 			return;
 		}
 
@@ -604,7 +596,7 @@ public class KlonGun {
 		boolean die = false;
 		switch (enemy.kind) {
 
-		case 4:
+		case 3:
 			if (((enemy.x < 0) && (enemy.xSpeed > 0)) ||
 					((enemy.x > 294) && (areaScroll > 2100) && (enemy.xSpeed < 0)))
 				enemy.xSpeed = -enemy.xSpeed;
@@ -615,19 +607,19 @@ public class KlonGun {
 			switchAreaScroll2(enemy);
 
 			if ((enemy.life < 150) && (enemy.y >= 20) && (enemy.y < 180)) {
-				initLeser(enemy.x + 3, enemy.y + 4, -16, 0, 12, 0);
-				initLeser(enemy.x, enemy.y + 11, -16, 0, 12, 0);
-				initLeser(enemy.x + 3, enemy.y + 18, -16, 0, 12, 0);
-				initLeser(enemy.x + 3, enemy.y + 4, 16, 0, 12, 0);
-				initLeser(enemy.x, enemy.y + 11, 16, 0, 12, 0);
-				initLeser(enemy.x + 3, enemy.y + 18, 16, 0, 12, 0);
+				initLeser(enemy.x + 3, enemy.y + 4, -16, 0, 11, 0);
+				initLeser(enemy.x, enemy.y + 11, -16, 0, 11, 0);
+				initLeser(enemy.x + 3, enemy.y + 18, -16, 0, 11, 0);
+				initLeser(enemy.x + 3, enemy.y + 4, 16, 0, 11, 0);
+				initLeser(enemy.x, enemy.y + 11, 16, 0, 11, 0);
+				initLeser(enemy.x + 3, enemy.y + 18, 16, 0, 11, 0);
 				die = true;
 				bosses.remove(enemy);
 				nextLevel();
 			}
 			break;
 
-		case 5:
+		case 4:
 			if (areaScroll % 15 == 0) {
 				initLeser(enemy.x + 16, enemy.y + 16, 6, 0, 8, 0);
 				initLeser(enemy.x + 16, enemy.y + 16, -6, 0, 8, 0);
@@ -640,13 +632,13 @@ public class KlonGun {
 			}
 			break;
 
-		case 6:
+		case 5:
 			if (areaScroll % 15 == 0) {
 				initLeser(enemy.x + 6, enemy.y + 16, -6, 0, 7, 0);
 			}
 			break;
 
-		case 8:
+		case 7:
 			if ((areaScroll + enemy.x - 15) % 30 == 0)
 				initLeser(enemy.x + 6, enemy.y + 16, -10, 0, 11, 0);
 
@@ -658,7 +650,7 @@ public class KlonGun {
 				enemy.xSpeed = 10;
 			break;
 
-		case 9:
+		case 8:
 			if (enemy.x == 200) {
 				enemy.ySpeed = RND.nextInt(2) * 2 - 1;
 			} else if ((enemy.x == 110) || (enemy.x == 40)) {
@@ -667,19 +659,19 @@ public class KlonGun {
 			}
 			break;
 
-		case 10:
+		case 9:
 			if (areaScroll % 10 == 0) {
-				initLeser(enemy.x + 6, enemy.y + 10, -10, 0, 12, 0);
-				initLeser(enemy.x + 6, enemy.y + 22, -10, 0, 12, 0);
+				initLeser(enemy.x + 6, enemy.y + 10, -10, 0, 11, 0);
+				initLeser(enemy.x + 6, enemy.y + 22, -10, 0, 11, 0);
 			}
 			if (areaScroll % 87 == 0) {
-				initEnemy(enemy.x + 16, enemy.y + 20, 2, -4, MaxEnemy1 + 4, 0);
+				initEnemy(enemy.x + 16, enemy.y + 20, 2, -4, MaxEnemy1 + 2, -1);
 			}
 			if (areaScroll % 125 == 0) {
-				initEnemy(enemy.x + 16, enemy.y + 20, 15, 0, 9, 0);
+				initEnemy(enemy.x + 16, enemy.y + 20, 15, 0, 8, -1);
 			}
 			if (areaScroll % 210 == 0) {
-				initEnemy(enemy.x + 16, enemy.y + 20, 2, -4, 8, 1 + RND.nextInt(6));
+				initEnemy(enemy.x + 16, enemy.y + 20, 2, -4, 7, RND.nextInt(6));
 			}
 			if ((enemy.y > 180) && (enemy.ySpeed < 0))
 				enemy.ySpeed = -enemy.ySpeed;
@@ -695,7 +687,7 @@ public class KlonGun {
 				enemy.xSpeed = 3;
 			break;
 
-		case MaxEnemy1 + 1:
+		case MaxEnemy1:
 			if ((enemy.y < (((areaScroll + enemy.x) / 20) % 4) * 25))
 				enemy.ySpeed = -2;
 			if ((enemy.y > 125 + (((areaScroll + enemy.x) / 20) % 4) * 25))
@@ -704,12 +696,12 @@ public class KlonGun {
 				initLeser(enemy.x + 6, enemy.y + 16, -6, 0, 8, 0);
 			break;
 
-		case MaxEnemy1 + 2:
+		case MaxEnemy1 + 1:
 			if (areaScroll % 15 == 0)
 				initLeser(enemy.x + 16, enemy.y + 16, -Speed_L[4], 0, 4, 0);
 			break;
 
-		case MaxEnemy1 + 3:
+		case MaxEnemy1 + 2:
 			if (areaScroll % 25 == 0) {
 				initLeser(enemy.x + 16, enemy.y + 16, 6, 0, 8, 0);
 				initLeser(enemy.x + 16, enemy.y + 16, -6, 0, 8, 0);
@@ -745,7 +737,7 @@ public class KlonGun {
 			}
 			break;
 
-		case MaxEnemy1 + 4:
+		case MaxEnemy1 + 3:
 			if ((areaScroll % 15) == 0)
 				initLeser(enemy.x + 6, enemy.y + 16, -10, 0, 5, 0);
 			if ((enemy.y > 190) && (enemy.ySpeed < 0))
@@ -781,7 +773,7 @@ public class KlonGun {
 				enemy.late--;
 			} else {
 
-				if (enemy.life > 0 && enemy.kind > 0) {
+				if (enemy.life > 0 && enemy.kind >= 0) {
 					die = switchEnemyKind(enemy);
 				}
 
@@ -888,13 +880,13 @@ public class KlonGun {
 				} while (splash > 1);
 
 				gun.clrVscr(0);
-				canvas.invalidate();
+				canvas.repaint();
 				splash = 63;
 				screen(splash);
 				gun.clrVscr(148);
 				drawPoints(l);
 				Anim(0);
-				canvas.invalidate();
+				canvas.repaint();
 
 				ch = keyBuffer.readKey();
 
@@ -950,9 +942,9 @@ public class KlonGun {
 				if (!cheat) {
 					for (int i = 0; i < 32; i++) {
 						for (int j = 0; j < 32; j++) {
-							if (enemyShipPicture.get(i, j) < 255) {
+							if (enemyShipPicture.get(j, i) < 255) {
 								Xv = enemy.x + j - pX;
-								Yv = enemy.y + j - pY;
+								Yv = enemy.y + i - pY;
 								if ((Xv >= 0) && (Xv < 50) && (Yv >= 0) && (Yv < 30) && (playerShipPicture.get(Xv, Yv) < 255) && (pLife > 0)) {
 									// I guess if enemy collides with player, player dies
 									pLife = 0;
@@ -979,7 +971,7 @@ public class KlonGun {
 
 					gun.writeXY(enemy.x + 16 - (PontSzov.length() * 13) / 2, enemy.y + 8 - (300 - enemy.time * 6), 5, PontSzov);
 
-					if ((enemy.time > 30) && (enemy.item > 0))
+					if ((enemy.time > 30) && (enemy.item > -1))
 						putPic(enemy.x + 8, enemy.y + 8, 16, 16, items[enemy.item]);
 					enemy.time = enemy.time - 1;
 				} else {
@@ -1035,35 +1027,35 @@ public class KlonGun {
 												if (bosses.contains(EnemyPos))
 													bosses.remove(EnemyPos);
 
-												if (EnemyPos.item > 0)
+												if (EnemyPos.item > -1)
 													switch (EnemyPos.item) {
-													case 1:
+													case 0:
 														if (pLife > 0)
 															pLife = pLife + 20;
 														if (pLife > 100)
 															pLife = 100;
 														break;
 
-													case 2:
+													case 1:
 														if (leser[1] < 5)
 															leser[1] = leser[1] + 1;
 														break;
 
+													case 2:
 													case 3:
 													case 4:
+														if (leser[EnemyPos.item] < 3)
+															leser[EnemyPos.item]++;
+														break;
+
 													case 5:
-														if (leser[EnemyPos.item - 1] < 3)
-															leser[EnemyPos.item - 1] = leser[EnemyPos.item - 1] + 1;
+														if (pFire > 1)
+															pFire = 1;
 														break;
 
 													case 6:
-														if (pFire > 2)
-															pFire = 2;
-														break;
-
-													case 7:
-														if (pFire > 1)
-															pFire = 1;
+														if (pFire > 0)
+															pFire = 0;
 														break;
 													} // end of switch item
 											}
@@ -1107,25 +1099,25 @@ public class KlonGun {
 			switch (currentArea) {
 			case 0:
 				if (areaScroll < 500 && (areaScroll % 25) == 0)
-					initEnemy(320, 70 + ((areaScroll / 25) % 2) * 60, Speed_E[6], ((areaScroll / 25) % 2) * 2 - 1, 6, 0);
+					initEnemy(320, 70 + ((areaScroll / 25) % 2) * 60, Speed_E[6], ((areaScroll / 25) % 2) * 2 - 1, 6, -1);
 				if (areaScroll == 500)
-					initEnemy(320, RND.nextInt(20) + 90, 4, 0, 7, 1);
+					initEnemy(320, RND.nextInt(20) + 90, 4, 0, 6, 0);
 				if ((areaScroll > 500) && (areaScroll < 600) && (areaScroll % 20 == 0))
-					initEnemy(250, -10, 1, -2, MaxEnemy1 + 2, 0);
+					initEnemy(250, -10, 1, -2, MaxEnemy1 , -1);
 				if ((areaScroll > 600) && (areaScroll < 700) && (areaScroll % 20 == 0))
-					initEnemy(250, 210, 1, 2, MaxEnemy1 + 2, 0);
+					initEnemy(250, 210, 1, 2, MaxEnemy1 , -1);
 				if (areaScroll == 700)
-					initEnemy(250, 210, 1, 2, 7, 2);
+					initEnemy(250, 210, 1, 2, 6, 1);
 				if (areaScroll == 800)
-					initEnemy(320, RND.nextInt(20) + 90, 2, 0, 7, 1);
+					initEnemy(320, RND.nextInt(20) + 90, 2, 0, 6, 0);
 				if (areaScroll == 990)
-					initEnemy(320, RND.nextInt(20) + 90, 2, 0, 7, 6);
+					initEnemy(320, RND.nextInt(20) + 90, 2, 0, 6, 5);
 				if ((areaScroll > 750) && (areaScroll < 1040) && (areaScroll % 25 == 0))
-					initEnemy(320, 60 + ((areaScroll / 20) % 4) * 25, 1, 2, MaxEnemy1 + 1, 0);
+					initEnemy(320, 60 + ((areaScroll / 20) % 4) * 25, 1, 2, MaxEnemy1, -1);
 				if (areaScroll == 1100) {
-					initEnemy(320, 100, 3, 3, MaxEnemy1 + 3, 2);
+					initEnemy(320, 100, 3, 3, MaxEnemy1 + 2, 1);
 					bossDel = 200;
-					initEnemy(320, RND.nextInt(20) + 90, 2, 0, 7, 1);
+					initEnemy(320, RND.nextInt(20) + 90, 2, 0, 6, 0);
 				}
 				if (areaScroll > 2200)
 					areaScroll = areaScroll - bossDel;
@@ -1135,35 +1127,35 @@ public class KlonGun {
 
 			case 1:
 				if ((areaScroll < 2000) && ((areaScroll % 19) == 0)) {
-					initEnemy(0, 0, 0, 0, 0, 0);
+					initEnemy(0, 0, 0, 0, -1, -1);
 				}
 				if ((areaScroll < 2000) && ((areaScroll % 32) == 0)) {
-					initLeser(0, 0, 0, 0, 0, 0);
+					initLeser(0, 0, 0, 0, -1, 0);
 				}
 				if ((areaScroll < 2000) && (areaScroll % 115 == 0))
 
 					switch ((areaScroll / 115)) {
 					case 2:
-						initEnemy(320, RND.nextInt(160) + 20, 4, 0, 7, 1);
+						initEnemy(320, RND.nextInt(160) + 20, 4, 0, 6, 0);
 						break;
 					case 4:
-						initEnemy(320, RND.nextInt(160) + 20, 4, 0, 7, 6);
+						initEnemy(320, RND.nextInt(160) + 20, 4, 0, 6, 5);
 						break;
 					case 6:
-						initEnemy(320, RND.nextInt(160) + 20, 4, 0, 7, 3);
+						initEnemy(320, RND.nextInt(160) + 20, 4, 0, 6, 2);
 						break;
 
 					}
 				if (areaScroll == 1000)
-					initEnemy(320, RND.nextInt(160) + 20, 4, 0, 7, 1);
+					initEnemy(320, RND.nextInt(160) + 20, 4, 0, 6, 0);
 				if (areaScroll == 1850)
-					initEnemy(320, RND.nextInt(160) + 20, 4, 0, 7, 2);
+					initEnemy(320, RND.nextInt(160) + 20, 4, 0, 6, 1);
 				if (areaScroll == 1250)
-					initEnemy(320, RND.nextInt(160) + 20, 4, 0, 7, 5);
+					initEnemy(320, RND.nextInt(160) + 20, 4, 0, 6, 4);
 				if (areaScroll == 1700)
-					initEnemy(320, RND.nextInt(160) + 20, 4, 0, 7, 1);
+					initEnemy(320, RND.nextInt(160) + 20, 4, 0, 6, 0);
 				if (areaScroll == 2000) {
-					initEnemy(320, 88, 3, 0, 4, 0);
+					initEnemy(320, 88, 3, 0, 3, -1);
 					bossDel = 3600;
 				}
 				if (areaScroll > 10000)
@@ -1172,36 +1164,36 @@ public class KlonGun {
 
 			case 2:
 				if ((areaScroll < 500) && (areaScroll % 20 == 0)) {
-					initEnemy(320, 88, Speed_E[5], (Speed_E[5] / 3) * (((areaScroll / 20) % 2) * 2 - 1), 5, 0);
+					initEnemy(320, 88, Speed_E[5], (Speed_E[5] / 3) * (((areaScroll / 20) % 2) * 2 - 1), 4, -1);
 				}
 				if (areaScroll == 180)
-					initEnemy(320, RND.nextInt(20) + 90, 4, 0, 7, 1);
+					initEnemy(320, RND.nextInt(20) + 90, 4, 0, 6, 0);
 				if (areaScroll == 360)
-					initEnemy(320, RND.nextInt(20) + 90, 4, 0, 7, 1);
+					initEnemy(320, RND.nextInt(20) + 90, 4, 0, 6, 0);
 				if ((areaScroll > 530) && (areaScroll < 1000) && (areaScroll % 3 == 0))
-					initEnemy(320, RND.nextInt(190), 15, 0, 9, 0);
+					initEnemy(320, RND.nextInt(190), 15, 0, 8, -1);
 				if (areaScroll == 620)
-					initEnemy(320, 68 + RND.nextInt(40), 3, 0, 7, 1);
+					initEnemy(320, 68 + RND.nextInt(40), 3, 0, 6, 0);
 				if (areaScroll == 800)
-					initEnemy(320, 68 + RND.nextInt(40), 3, 0, 7, 3);
+					initEnemy(320, 68 + RND.nextInt(40), 3, 0, 6, 2);
 				if (areaScroll == 950)
-					initEnemy(320, 68 + RND.nextInt(40), 3, 0, 7, 7);
+					initEnemy(320, 68 + RND.nextInt(40), 3, 0, 6, 6);
 				if ((areaScroll > 1000) && (areaScroll < 1300) && (areaScroll % 25 == 0)) {
-					initEnemy(310, 199, 2, 5, 8, 0);
-					initEnemy(270, -20, 2, -5, 8, 0);
+					initEnemy(310, 199, 2, 5, 7, -1);
+					initEnemy(270, -20, 2, -5, 7, -1);
 				}
 				if (areaScroll == 1300) {
-					initEnemy(310, 199, 2, 5, 8, 4);
-					initEnemy(270, -20, 2, -5, 8, 3);
+					initEnemy(310, 199, 2, 5, 7, 3);
+					initEnemy(270, -20, 2, -5, 7, 2);
 				}
 				if ((areaScroll > 1000) && (areaScroll < 1300) && (areaScroll % 85 == 40))
-					initEnemy(320, RND.nextInt(180), 4, 0, 7, 1);
+					initEnemy(320, RND.nextInt(180), 4, 0, 6, 0);
 				if (areaScroll == 1400) {
-					initEnemy(320, 0, 1, 0, 7, 1);
-					initEnemy(320, 40, 1, 0, 7, 4);
-					initEnemy(320, 120, 1, 0, 7, 3);
-					initEnemy(320, 160, 1, 0, 7, 1);
-					initEnemy(320, 88, 1, 2, 10, 1);
+					initEnemy(320, 0, 1, 0, 6, 0);
+					initEnemy(320, 40, 1, 0, 6, 3);
+					initEnemy(320, 120, 1, 0, 6, 2);
+					initEnemy(320, 160, 1, 0, 6, 0);
+					initEnemy(320, 88, 1, 2, 9, 0);
 					bossDel = 4200;
 				}
 				if (areaScroll > 10000)
@@ -1215,12 +1207,12 @@ public class KlonGun {
 
 	public void temp() {
 		scores = 0;
-		pFire = 3;
-		pShip = 1;
+		pFire = 2;
+		pShip = 0;
 		pLife = 100;
 		pY = 75;
 		pX = -40;
-		sumLife = 4;
+		sumLife = 3;
 		pLogged = false;
 		pLogTime = 0;
 		pL = 0;
@@ -1275,6 +1267,8 @@ public class KlonGun {
 			gun.setCounter();
 			Palya();
 			doEnemy1();
+			enemies.addAll(addEnemies);
+			addEnemies.clear();
 			doLeser();
 
 			if (keyBuffer.isKeyPressed()) {
@@ -1283,24 +1277,30 @@ public class KlonGun {
 				case 0:
 					ch2 = keyBuffer.readKey();
 					break;
+
 				case 27:
 					quit = true;
 					break;
+
 				case '1':
 					leser[0] = 1;
 					break;
+
 				case '2':
 					if ((leser[2] > 0))
 						leser[0] = 2;
 					break;
+
 				case '3':
 					if ((leser[3] > 0))
 						leser[0] = 3;
 					break;
+
 				case '4':
 					if ((leser[4] > 0))
 						leser[0] = 4;
 					break;
+
 				case 'c':
 				case 'C':
 					cheat = !cheat;
@@ -1317,52 +1317,66 @@ public class KlonGun {
 					case 1:
 						switch (leser[1]) {
 						case 1:
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], 0, 1, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 0, 1);
 							break;
-						case 2: {
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], 1, 1, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], -1, 1, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], 0, 1, 1);
+						case 2:
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 1, 0, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -1, 0, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 0, 1);
+							break;
+
+						case 3:
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 1, 1, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -1, 1, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 1, 1);
+							break;
+
+						case 4:
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 3, 0, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -3, 0, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 1, 1, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -1, 1, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 2, 1);
+							break;
+
+						case 5:
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 3, 1, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -3, 1, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 1, 2, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -1, 2, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 2, 1);
 							break;
 						}
-						case 3: {
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], 1, 2, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], -1, 2, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], 0, 2, 1);
-							break;
-						}
-						case 4: {
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], 3, 1, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], -3, 1, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], 1, 2, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], -1, 2, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], 0, 3, 1);
-							break;
-						}
-						case 5: {
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], 3, 2, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], -3, 2, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], 1, 3, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], -1, 3, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], 0, 3, 1);
-							break;
-						}
-						}
+						break;
+
 					case 2:
 						switch (leser[2]) {
 						case 1:
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[4], 0, 4, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[3], 0, 3, 1);
 							break;
 						case 2:
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[5], 0, 5, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[4], 0, 4, 1);
 							break;
 						case 3:
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[6], 0, 6, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[5], 0, 5, 1);
 							break;
 						}
+						break;
+
 					case 3:
 						switch (leser[3]) {
-						case 1: {
+						case 1:
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 6, 0, 6, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 0, 6, 6, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -6, 0, 6, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 0, -6, 6, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 4, 4, 6, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 4, -4, 6, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, 4, 6, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, -4, 6, 1);
+							break;
+
+						case 2:
 							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 6, 0, 7, 1);
 							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 0, 6, 7, 1);
 							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -6, 0, 7, 1);
@@ -1372,8 +1386,8 @@ public class KlonGun {
 							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, 4, 7, 1);
 							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, -4, 7, 1);
 							break;
-						}
-						case 2: {
+
+						case 3:
 							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 6, 0, 8, 1);
 							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 0, 6, 8, 1);
 							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -6, 0, 8, 1);
@@ -1384,32 +1398,24 @@ public class KlonGun {
 							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, -4, 8, 1);
 							break;
 						}
-						case 3: {
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 6, 0, 9, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 0, 6, 9, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -6, 0, 9, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 0, -6, 9, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 4, 4, 9, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 4, -4, 9, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, 4, 9, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, -4, 9, 1);
-							break;
-						}
-						}
+						break;
+
 					case 4:
 						switch (leser[4]) {
 						case 1:
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[10], 0, 10, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[9], 0, 9, 1);
 							break;
 						case 2:
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[11], 0, 11, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[10], 0, 10, 1);
 							break;
 						case 3:
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[12], 0, 12, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[11], 0, 11, 1);
 							break;
 						}
+						break;
+
 					}
-					pL = Late_L[leser[0] * 3 + leser[leser[0]]];
+					pL = Late_L[(leser[0]-1) * 3]; //  + leser[leser[0]]
 				}
 				if (control.isUpOn())
 					pY = pY - Speed_F[pFire];
@@ -1450,7 +1456,7 @@ public class KlonGun {
 
 			if (pLife > 0) {
 				putPic(pX, pY, 50, 30, ships[pShip]);
-				putPic(pX - 17, pY + 9, 17, 14, fires[pFire][(areaScroll % 3) + 1]);
+				putPic(pX - 17, pY + 9, 17, 14, fires[pFire][areaScroll % 3]);
 			} else if (pShip > 0) {
 				putPic(pX + 6 - (200 - pTime * 4), pY + 6 - (50 - pTime), 16, 16, deaths[0]);
 				putPic(pX + 16 + (200 - pTime * 4), pY + 6 - (50 - pTime), 16, 16, deaths[1]);
@@ -1473,7 +1479,7 @@ public class KlonGun {
 
 			putPic(0, 190, 120, 10, status);
 			if (sumLife > 0)
-				putPic(120, 190, 10, 10, stat2[sumLife][3]);
+				putPic(120, 190, 10, 10, stat2[sumLife][2]);
 
 			for (i = 1; i <= (int) Math.round((pLife / 100.0) * 115); i++) {
 				for (j = 3; j <= 6; j++) {
@@ -1482,12 +1488,12 @@ public class KlonGun {
 
 			}
 
-			for (m = 1; m <= 4; m++) {
-				if (leser[m] == 0)
+			for (m = 0; m < 4; m++) {
+				if (leser[m+1] == 0)
 					putPic(270 + m * 10, 190, 10, 10, stat2[m][0]);
-				else if ((leser[m] > 0) && (leser[0] != m))
+				else if ((leser[m+1] > 0) && (leser[0] != m + 1))
 					putPic(270 + m * 10, 190, 10, 10, stat2[m][1]);
-				else if ((leser[m] > 0) && (leser[0] == m))
+				else if ((leser[m+1] > 0) && (leser[0] == m + 1))
 					putPic(270 + m * 10, 190, 10, 10, stat2[m][2]);
 			} // end for m
 
@@ -1496,7 +1502,7 @@ public class KlonGun {
 
 					putPic(0, 0, 120, 10, status);
 					gun.writeXY(125, 0, 4, "BOSS");
-					for (i = 1; i <= (int) Math.round((boss.life / (Life_E[boss.kind]) * 115.0)); i++) {
+					for (i = 1; i <= (int) Math.round(((double)boss.life / Life_E[boss.kind]) * 115.0); i++) {
 						for (j = 3; j <= 6; j++) {
 							gun.vscr.set(2 + i, j, 4);
 						}
@@ -1518,10 +1524,10 @@ public class KlonGun {
 				} else if (areaScroll >= 125 && areaScroll <= 149) {
 					gun.writeXY(137, 90, 5, "LEVEL " + s);
 				} else if (areaScroll >= 150 && areaScroll <= 199) {
-					putPic(154 - (areaScroll - 150) * 4, 84 - areaScroll + 150, 16, 16, deaths[1]);
-					putPic(166 + (areaScroll - 150) * 4, 84 - areaScroll + 150, 16, 16, deaths[2]);
-					putPic(154 - (areaScroll - 150) * 4, 96 + areaScroll - 150, 16, 16, deaths[3]);
-					putPic(166 + (areaScroll - 150) * 4, 96 + areaScroll - 150, 16, 16, deaths[4]);
+					putPic(154 - (areaScroll - 150) * 4, 84 - areaScroll + 150, 16, 16, deaths[0]);
+					putPic(166 + (areaScroll - 150) * 4, 84 - areaScroll + 150, 16, 16, deaths[1]);
+					putPic(154 - (areaScroll - 150) * 4, 96 + areaScroll - 150, 16, 16, deaths[2]);
+					putPic(166 + (areaScroll - 150) * 4, 96 + areaScroll - 150, 16, 16, deaths[3]);
 				}
 
 			} // else if currentArea / areaScroll
@@ -1529,7 +1535,7 @@ public class KlonGun {
 			scoreText = "Pontszam " + spaced(scoreText);
 			gun.writeXY(165, 0, 2, scoreText);
 
-			canvas.invalidate();
+			canvas.repaint();
 			WaitFor(Speed);
 		} while (!quit);
 
@@ -1547,7 +1553,7 @@ public class KlonGun {
 		 */
 
 		Anim(0);
-		canvas.invalidate();
+		canvas.repaint();
 
 		/*
 		 * if( Pontok > Pontszam[i].Pontszam) { PontSzov = ""; k = 0; Quit =
@@ -1574,7 +1580,7 @@ public class KlonGun {
 		 * Pontszam[k-1].Pontszam = Pontok; Pontszam[k-1].Nev = Pontszov; l =
 		 * k-1; } k--; } while(k != 0);
 		 *
-		 * gun.clrVscr(148); drawPoints(l); Anim(1); canvas.invalidate(); }
+		 * gun.clrVscr(148); drawPoints(l); Anim(1); canvas.repaint(); }
 		 *
 		 */
 
@@ -1594,7 +1600,7 @@ public class KlonGun {
 
 	public void WaitFor(long time) {
 		try {
-			Thread.sleep(time);
+			Thread.sleep(/* time */ 30);
 		} catch (InterruptedException ex) {
 			//
 		}
@@ -1640,7 +1646,7 @@ public class KlonGun {
 
 		if (changed) {
 			gun.clrVscr(0);
-			canvas.invalidate();
+			canvas.repaint();
 			splash = 63;
 			screen(splash);
 			menuQuit = false;
@@ -1650,7 +1656,7 @@ public class KlonGun {
 
 		do {
 			DrawMenu();
-			canvas.invalidate();
+			canvas.repaint();
 			switch (keyBuffer.readKey()) {
 			case 0:
 				switch (keyBuffer.readKey()) {
@@ -1684,13 +1690,13 @@ public class KlonGun {
 		int p = 0;
 
 		gun.clrVscr(0);
-		canvas.invalidate();
+		canvas.repaint();
 
 		splash = 1;
 		screen(splash);
 		gun.clrVscr(148);
 
-		canvas.invalidate();
+		canvas.repaint();
 
 		pos = 0;
 
@@ -1713,7 +1719,7 @@ public class KlonGun {
 				gun.writeXY(160 - CreditSzov[p].length() * 9 / 2, 200 + p * 20 - pos, 2, CreditSzov[p]);
 			}
 
-			canvas.invalidate();
+			canvas.repaint();
 		} while (pos < 400 + (MaxCredit + 1) * 20 && !frame.getControl().isEscapeOn());
 
 	}

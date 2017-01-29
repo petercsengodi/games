@@ -11,9 +11,11 @@ public class KlonGunKeyBuffer {
 		}
 
 		try {
-			requestOn = true;
-			waitForKeyBuffer.wait();
-			requestOn = false;
+			if(!requestOn) {
+				requestOn = true;
+				waitForKeyBuffer.wait();
+				requestOn = false;
+			}
 		} catch (InterruptedException e) {
 		}
 

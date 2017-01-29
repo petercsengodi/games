@@ -32,22 +32,24 @@ public class KlonGunCanvas extends JPanel implements MouseListener, MouseMotionL
 
 	@Override
 	public void paint(Graphics g) {
-		TPal palette = klonGun.palette;
+		TPal palette = klonGun.gun.palette;
 		TVscr scr = klonGun.gun.vscr;
+		int pixel, cr, cg, cb, col;
 
 		for(int x = 0; x < TVscr.WIDTH; x++) {
 			for(int y = 0; y < TVscr.HEIGHT; y++) {
 
-				int pixel = scr.get(x, y);
-				int cr = palette.get(pixel, 0);
-				int cg = palette.get(pixel, 1);
-				int cb = palette.get(pixel, 2);
-				int col = (cr << 16) | (cg << 8) | cb;
+				pixel = scr.get(x, y);
+
+				cr = palette.get(pixel, 0) << 2;
+				cg = palette.get(pixel, 1) << 2;
+				cb = palette.get(pixel, 2) << 2;
+				col = (cr << 16) | (cg << 8) | cb;
 
 				for(int xx = 0; xx < 2; xx++) {
-					for(int yy = 0; yy < 2; y++) {
+					for(int yy = 0; yy < 2; yy++) {
 
-						buffer.setRGB(x + xx, y + yy, col);
+						buffer.setRGB(x * 2 + xx, y * 2 + yy, col);
 
 					}
 				}

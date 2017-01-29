@@ -47,7 +47,7 @@ public class GpcGun {
         		for(int k = 0; k < CustomCharset.WIDTH; k++) {
         			if(y0 + j >= 0 && y0 + j < 200 && x0 + (i-1)*9 + k >= 0 && x0 + (i-1)*9 + k < 320) {
         				if(js[j][k] == 1)
-        					vscr.set(y0 + j, x0 + (i-1)*9 + k, color0);
+        					vscr.set(x0 + (i-1)*9 + k, y0 + j, color0);
         			}
         		}
     		}

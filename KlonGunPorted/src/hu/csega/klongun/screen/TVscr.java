@@ -7,10 +7,16 @@ public class TVscr {
 	public int[] content = new int[HEIGHT * WIDTH];
 
 	public int get(int x, int y) {
+		if(x >= WIDTH || y >= HEIGHT) {
+			return -1;
+		}
 		return content[y * WIDTH + x];
 	}
 
 	public void set(int x, int y, int color) {
+		if(x >= WIDTH || y >= HEIGHT) {
+			return;
+		}
 		content[y * WIDTH + x] = color;
 	}
 

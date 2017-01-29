@@ -17,10 +17,18 @@ public class Picture {
 	}
 
 	public int get(int x, int y) {
+		if(x >= width || y >= height) {
+			return -1;
+		}
+
 		return content[y * width + x + offset];
 	}
 
 	public void set(int x, int y, int v) {
+		if(x >= width || y >= height) {
+			return;
+		}
+
 		content[y * width + x + offset] = v;
 	}
 
