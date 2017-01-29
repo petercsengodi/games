@@ -983,87 +983,114 @@ public class KlonGun {
 		}
 	}
 
-public void putLesers() {
-	 VAR X1,Y1 : Integer;
-     EnemyPos : pEnemies;
-     LessPos : pLess;
-     Talalat : Boolean;
-  LessPos = xLess;
-  WHILE LessPos <> null DO
-   {
-    With LessPos^ do
-     {
-      Talalat = false;
-      putPic(X0,Y0,16,5,Leser[Faj]);
-      For i = 0 to 4 do
-       For j = 0 to 15 do
-        if ((Leser[Faj,i,j] < 255) && (!Talalat) )
-         {
-          Xv = X0+j;
-          Yv = Y0+i;
-          if ((Xv >= 0) && (Xv < 320) && (Yv >= 0) && (Yv < 200) )
-           {
-            if (Side > 0 )
-             {
-              EnemyPos = enemies;
-              WHILE EnemyPos <> null DO
-               {
-                if (EnemyPos^.Life > 0 )
-                 {
-                  X1 = Xv-EnemyPos^.X;
-                  Y1 = Yv-EnemyPos^.Y;
-                  if ((X1 >= 0) && (X1 < 32) && (Y1 >= 0) && (Y1 < 32)
-                   && (Enemy1[Abra[EnemyPos^.Faj],Y1,X1] < 255) )
-                  {
-                   Talalat = true;
-                    EnemyPos^.Life = EnemyPos^.Life-(Dmg-Diff*Dmg / 2);
-                    if (EnemyPos^.Life <= 0 )
-                     {
-                      EnemyPos^.Time = 50;
-                      if (!cheated )
-                       Pontok = Pontok + (2+Diff)*Life_E[EnemyPos^.Faj] / 10;
-                      if (EnemyPos == Boss )  Boss = null;
-                      if (EnemyPos^.Item > 0 )
-                      switch( EnemyPos^.Item) {
-                      case 1 : {
-                            if (pLife > 0 )  pLife = pLife + 20;
-                            if (pLife > 100 )  pLife = 100;
-                            break;
-                           }
-                      case 2 : if (pLeser[1] < 5 )  pLeser[1] = Chr(Ord(pLeser[1]) + 1); break;
-                      case 3:
-                      case 4:
-                      case 5: if (pLeser[EnemyPos^.Item-1] < 3 )
-                                pLeser[EnemyPos^.Item-1] = Chr(Ord(pLeser[EnemyPos^.Item-1]) + 1);
-                      break;
-                      case 6 : if (pFire > 2 )  pFire = 2; break;
-                      case 7 : if (pFire > 1 )  pFire = 1; break;
-                       }
-                     }
-                   }
-                 }
-                EnemyPos = EnemyPos^.Next
-               }
-             }
-            else
-             if ((pLife > 0) && (!cheat) )
-              {
-               Xv = Xv-pX;
-               Yv = Yv-pY;
-               if ((Xv >= 0) && (Xv < 50) && (Yv >= 0) && (Yv < 30)
-                && (Ships[pShip,Yv,Xv] < 255) )
-                 { pLife = pLife - (Dmg+Diff*Dmg / 2); Talalat = true;
-                  if (pLife <= 0 )  pTime = 50;
-                  if (pLife < 0 )  pLife = 0; }
-              }
-           }
-         }
-     }
-    if(Talalat) {
-    	lesses.remove(LessPos);
-    }
-   }
- }
+	public void putLesers() {
+		int X1 = 0;
+		int Y1 = 0;
+		boolean Talalat;
+
+		Iterator<Less> itLess = lesses.iterator();
+		while (itLess.hasNext()) {
+			Less LessPos = itLess.next();
+			Talalat = false;
+			putPic(LessPos.x, LessPos.y, 16, 5, lesers[LessPos.kind]);
+
+			for (int i = 0; i < 5; i++) {
+				for (int j = 0; j < 16; j++) {
+
+					if ((lesers[LessPos.kind].get(j, i) < 255) && (!Talalat)) {
+						Xv = LessPos.x + j;
+						Yv = LessPos.y + i;
+
+						if ((Xv >= 0) && (Xv < 320) && (Yv >= 0) && (Yv < 200)) {
+							if (LessPos.side > 0) {
+
+								// player bullet
+
+								Iterator<Enemy> itEnemy = enemies.iterator();
+								while (itEnemy.hasNext()) {
+									Enemy EnemyPos = itEnemy.next();
+
+									if (EnemyPos.life > 0) {
+										X1 = Xv - EnemyPos.x;
+										Y1 = Yv - EnemyPos.y;
+										if ((X1 >= 0) && (X1 < 32) && (Y1 >= 0) && (Y1 < 32) && enemyShips[Abra[EnemyPos.kind]].get(X1, Y1) < 255) {
+											Talalat = true;
+
+											EnemyPos.life = EnemyPos.life - (LessPos.damage - diff * LessPos.damage / 2);
+											if (EnemyPos.life <= 0) {
+												EnemyPos.time = 50;
+
+												if (!cheated)
+													scores += (2 + diff) * Life_E[EnemyPos.kind] / 10;
+
+												if (bosses.contains(EnemyPos))
+													bosses.remove(EnemyPos);
+
+												if (EnemyPos.item > 0)
+													switch (EnemyPos.item) {
+													case 1:
+														if (pLife > 0)
+															pLife = pLife + 20;
+														if (pLife > 100)
+															pLife = 100;
+														break;
+
+													case 2:
+														if (leser[1] < 5)
+															leser[1] = leser[1] + 1;
+														break;
+
+													case 3:
+													case 4:
+													case 5:
+														if (leser[EnemyPos.item - 1] < 3)
+															leser[EnemyPos.item - 1] = leser[EnemyPos.item - 1] + 1;
+														break;
+
+													case 6:
+														if (pFire > 2)
+															pFire = 2;
+														break;
+
+													case 7:
+														if (pFire > 1)
+															pFire = 1;
+														break;
+													} // end of switch item
+											}
+										}
+									}
+								} // end while EnemyPos
+							} else if ((pLife > 0) && (!cheat)) {
+
+								// enemy bullet
+
+								Xv = Xv - pX;
+								Yv = Yv - pY;
+								if ((Xv >= 0) && (Xv < 50) && (Yv >= 0) && (Yv < 30) && (ships[pShip].get(Xv, Yv) < 255)) {
+									pLife = pLife - (LessPos.damage + diff * LessPos.damage / 2);
+									Talalat = true;
+
+									if (pLife <= 0)
+										pTime = 50;
+									if (pLife < 0)
+										pLife = 0;
+								}
+
+							} // end if enemy or player bullet
+
+						}
+
+					} // end huge what-if
+
+				} // end for j
+			} // end for i
+
+			if (Talalat) {
+				itLess.remove();
+			}
+		}
+	}
 
 public void Palya() {
 
