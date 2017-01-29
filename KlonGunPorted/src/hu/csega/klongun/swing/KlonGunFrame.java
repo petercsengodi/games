@@ -68,6 +68,8 @@ public class KlonGunFrame extends JFrame implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		klonGunControl.keyBuffer.add(e.getKeyChar());
+
 		int keyCode = e.getKeyCode();
 		if(keyCode == KeyEvent.VK_LEFT)
 			klonGunControl.leftIsOn = false;

@@ -14,7 +14,9 @@ import hu.csega.klongun.model.Star;
 import hu.csega.klongun.screen.Picture;
 import hu.csega.klongun.screen.TPal;
 import hu.csega.klongun.screen.TVscr;
+import hu.csega.klongun.swing.KlonGunControl;
 import hu.csega.klongun.swing.KlonGunFrame;
+import hu.csega.klongun.swing.KlonGunKeyBuffer;
 import sun.java2d.Disposer;
 
 public class KlonGun {
@@ -35,6 +37,8 @@ public class KlonGun {
 	public static final int Speed2 = 2;
 	public static final int Speed3 = 3;
 	public static final int Speed_M = 3;
+
+	// overall game speed?
 	public static final int Speed = 1;
 
 	public static final int[] Speed_F = new int[] {7,4,2}; // ship turbins
@@ -140,6 +144,8 @@ public class KlonGun {
     public static final Random RND = new Random(System.currentTimeMillis());
 
     public static KlonGunFrame frame;
+    public static KlonGunControl control;
+    public static KlonGunKeyBuffer keyBuffer;
 
 	public static void main(String[] args) throws Exception {
 		for (int i = 0; i < 126; i++)
@@ -148,6 +154,8 @@ public class KlonGun {
 		//////////////////////
 		KlonGun kg = new KlonGun();
 		frame = new KlonGunFrame(kg);
+		control = frame.getControl();
+		keyBuffer = control.keyBuffer;
 		kg.run();
 	}
 
@@ -176,7 +184,7 @@ public class KlonGun {
                 gun.writeXY(221,20+i*15,0,Spaced(Ponts));
                 gun.writeXY(20,20+i*15,2,Nev);
                 gun.writeXY(220,20+i*15,2,Spaced(Ponts));
-               } Else {
+               } else {
                 Str(Pontszam,Ponts);
                 gun.writeXY(21,20+i*15,0,Nev);
                 gun.writeXY(221,20+i*15,0,Spaced(Ponts));
@@ -535,31 +543,31 @@ public class KlonGun {
 	    			 case 80:
 	    			 case 90:
 	    			 case 100 : {
-	                  InitLeser(Less,X+3,Y+4,-8,0,1,0);
-	                  InitLeser(Less,X,Y+11,-8,0,6,0);
-	                  InitLeser(Less,X+3,Y+18,-8,0,1,0);
+	                  initLeser(Less,X+3,Y+4,-8,0,1,0);
+	                  initLeser(Less,X,Y+11,-8,0,6,0);
+	                  initLeser(Less,X+3,Y+18,-8,0,1,0);
 	                 }
 	    			 case 120 : YSpeed = 5;
 	                121..131,151..161,181..191: if (areaScroll % 3 == 0) {
-	                  InitLeser(Less,X+3,Y+4,-12,0,1,0);
-	                  InitLeser(Less,X+3,Y+18,-12,0,1,0);
+	                  initLeser(Less,X+3,Y+4,-12,0,1,0);
+	                  initLeser(Less,X+3,Y+18,-12,0,1,0);
 	                 }
 	    			 case 200 : { YSpeed = 2; Speed = 5; }
 	                201..309:  if (areaScroll % 8) == 0 then {
-	                  InitLeser(Less,X,Y+11,-8,0,6,0);
+	                  initLeser(Less,X,Y+11,-8,0,6,0);
 	                 }
 	    			 case 310 : { YSpeed = 1; Speed = 1; }
 	    			 case 320 : {
-	                  InitLeser(Less,X+16,Y+16,6,0,12,0);
-	                  InitLeser(Less,X+16,Y+16,-6,0,12,0);
-	                  InitLeser(Less,X+16,Y+16,0,6,12,0);
-	                  InitLeser(Less,X+16,Y+16,0,-6,12,0);
+	                  initLeser(Less,X+16,Y+16,6,0,12,0);
+	                  initLeser(Less,X+16,Y+16,-6,0,12,0);
+	                  initLeser(Less,X+16,Y+16,0,6,12,0);
+	                  initLeser(Less,X+16,Y+16,0,-6,12,0);
 	                 }
 	    			 case 330 : {
-	                  InitLeser(Less,X+16,Y+16,-6,-6,12,0);
-	                  InitLeser(Less,X+16,Y+16,6,-6,12,0);
-	                  InitLeser(Less,X+16,Y+16,-6,6,12,0);
-	                  InitLeser(Less,X+16,Y+16,6,6,12,0);
+	                  initLeser(Less,X+16,Y+16,-6,-6,12,0);
+	                  initLeser(Less,X+16,Y+16,6,-6,12,0);
+	                  initLeser(Less,X+16,Y+16,-6,6,12,0);
+	                  initLeser(Less,X+16,Y+16,6,6,12,0);
 	                 }
 	    			 case 340 : YSpeed = 2+RND.nextInt(1); Speed = 2+RND.nextInt(1); break;
 	    			 case 350:
@@ -571,14 +579,14 @@ public class KlonGun {
 	    			 case 460:
 	    			 case 470:
 	    			 case 480: {
-	                  InitLeser(Less,X+16,Y+16,6,0,7,0);
-	                  InitLeser(Less,X+16,Y+16,-6,0,7,0);
-	                  InitLeser(Less,X+16,Y+16,0,6,7,0);
-	                  InitLeser(Less,X+16,Y+16,0,-6,7,0);
-	                  InitLeser(Less,X+16,Y+16,-4,-4,7,0);
-	                  InitLeser(Less,X+16,Y+16,4,-4,7,0);
-	                  InitLeser(Less,X+16,Y+16,-4,4,7,0);
-	                  InitLeser(Less,X+16,Y+16,4,4,7,0);
+	                  initLeser(Less,X+16,Y+16,6,0,7,0);
+	                  initLeser(Less,X+16,Y+16,-6,0,7,0);
+	                  initLeser(Less,X+16,Y+16,0,6,7,0);
+	                  initLeser(Less,X+16,Y+16,0,-6,7,0);
+	                  initLeser(Less,X+16,Y+16,-4,-4,7,0);
+	                  initLeser(Less,X+16,Y+16,4,-4,7,0);
+	                  initLeser(Less,X+16,Y+16,-4,4,7,0);
+	                  initLeser(Less,X+16,Y+16,4,4,7,0);
 	                 }
 	    			 case 510:
 	    			 case 520:
@@ -589,47 +597,47 @@ public class KlonGun {
 	    			 case 570:
 	    			 case 580:
 	    			 case 590: {
-	                 InitLeser(Less,X+3,Y+4,-8,0,1,0);
-	                 InitLeser(Less,X,Y+11,-8,0,6,0);
-	                 InitLeser(Less,X+3,Y+18,-8,0,1,0);
+	                 initLeser(Less,X+3,Y+4,-8,0,1,0);
+	                 initLeser(Less,X,Y+11,-8,0,6,0);
+	                 initLeser(Less,X+3,Y+18,-8,0,1,0);
 	                }
 	    			 } // end switch areaScroll2
 
 	               if ((Life < 150) && (Y >= 20) && (Y < 180))
 	                {
-	                 InitLeser(Less,X+3,Y+4,-16,0,12,0);
-	                 InitLeser(Less,X,Y+11,-16,0,12,0);
-	                 InitLeser(Less,X+3,Y+18,-16,0,12,0);
-	                 InitLeser(Less,X+3,Y+4,16,0,12,0);
-	                 InitLeser(Less,X,Y+11,16,0,12,0);
-	                 InitLeser(Less,X+3,Y+18,16,0,12,0);
-	                 Die = True; Boss = nil;
+	                 initLeser(Less,X+3,Y+4,-16,0,12,0);
+	                 initLeser(Less,X,Y+11,-16,0,12,0);
+	                 initLeser(Less,X+3,Y+18,-16,0,12,0);
+	                 initLeser(Less,X+3,Y+4,16,0,12,0);
+	                 initLeser(Less,X,Y+11,16,0,12,0);
+	                 initLeser(Less,X+3,Y+18,16,0,12,0);
+	                 Die = true; Boss = nil;
 	                 nextLevel();
 	                }
 	              }
 	          5 : {
 	               if (areaScroll % 15 == 0)
 	                {
-	                 InitLeser(Less,X+16,Y+16,6,0,8,0);
-	                 InitLeser(Less,X+16,Y+16,-6,0,8,0);
-	                 InitLeser(Less,X+16,Y+16,0,6,8,0);
-	                 InitLeser(Less,X+16,Y+16,0,-6,8,0);
-	                 InitLeser(Less,X+16,Y+16,-4,-4,8,0);
-	                 InitLeser(Less,X+16,Y+16,4,-4,8,0);
-	                 InitLeser(Less,X+16,Y+16,-4,4,8,0);
-	                 InitLeser(Less,X+16,Y+16,4,4,8,0);
+	                 initLeser(Less,X+16,Y+16,6,0,8,0);
+	                 initLeser(Less,X+16,Y+16,-6,0,8,0);
+	                 initLeser(Less,X+16,Y+16,0,6,8,0);
+	                 initLeser(Less,X+16,Y+16,0,-6,8,0);
+	                 initLeser(Less,X+16,Y+16,-4,-4,8,0);
+	                 initLeser(Less,X+16,Y+16,4,-4,8,0);
+	                 initLeser(Less,X+16,Y+16,-4,4,8,0);
+	                 initLeser(Less,X+16,Y+16,4,4,8,0);
 	                }
 	              }
 	          6 : {
 	               if (areaScroll % 15 == 0)
 	                {
-	                 InitLeser(Less,X+6,Y+16,-6,0,7,0);
+	                 initLeser(Less,X+6,Y+16,-6,0,7,0);
 	                }
 	              }
 	          8 : {
 	               if (areaScroll+X-15) % 30 == 0 then
 	                {
-	                 InitLeser(Less,X+6,Y+16,-10,0,11,0);
+	                 initLeser(Less,X+6,Y+16,-10,0,11,0);
 	                }
 	               if (Y > 180) && (YSpeed < 0) then YSpeed = -YSpeed;
 	               if (Y < 0) && (YSpeed > 0) then YSpeed = -YSpeed;
@@ -640,14 +648,14 @@ public class KlonGun {
 	                {
 	                 YSpeed = RND.nextInt(2)*2-1;
 	                }
-	               Else if (X == 110) || (X == 40) then
+	               else if (X == 110) || (X == 40) then
 	                { YSpeed = YSpeed*2; Speed = Speed - 4; }
 	              }
-	          10 : {
+	              case 10 : {
 	                if areaScroll % 10 == 0 then
 	                 {
-	                  InitLeser(Less,X+6,Y+10,-10,0,12,0);
-	                  InitLeser(Less,X+6,Y+22,-10,0,12,0);
+	                  initLeser(Less,X+6,Y+10,-10,0,12,0);
+	                  initLeser(Less,X+6,Y+22,-10,0,12,0);
 	                 }
 	                if areaScroll % 87 == 0 then
 	                 {
@@ -668,24 +676,24 @@ public class KlonGun {
 	                if X < 200 then Speed = -10;
 	                if X > 320 then Speed = 3;
 	               }
-	          MaxEnemy1+1 : {
+	              case MaxEnemy1+1 : {
 	                         if (Y < (((areaScroll + X) div 20) % 4)* 25) then YSpeed = -2;
 	                         if (Y > 125+(((areaScroll + X) div 20) % 4)* 25) then YSpeed = 2;
-	                         if areaScroll % 20 == 0 then InitLeser(Less,X+6,Y+16,-6,0,8,0);
+	                         if areaScroll % 20 == 0 then initLeser(Less,X+6,Y+16,-6,0,8,0);
 	                        }
-	          MaxEnemy1+2 : if areaScroll % 15 == 0 then InitLeser(Less,X+16,Y+16,-Speed_L[4],0,4,0);
+	          MaxEnemy1+2 : if areaScroll % 15 == 0 then initLeser(Less,X+16,Y+16,-Speed_L[4],0,4,0);
 
 	          MaxEnemy1+3 : {
 	                         if areaScroll % 25 == 0 then
 	                          {
-	                           InitLeser(Less,X+16,Y+16,6,0,8,0);
-	                           InitLeser(Less,X+16,Y+16,-6,0,8,0);
-	                           InitLeser(Less,X+16,Y+16,0,6,8,0);
-	                           InitLeser(Less,X+16,Y+16,0,-6,8,0);
-	                           InitLeser(Less,X+16,Y+16,-4,-4,8,0);
-	                           InitLeser(Less,X+16,Y+16,4,-4,8,0);
-	                           InitLeser(Less,X+16,Y+16,-4,4,8,0);
-	                           InitLeser(Less,X+16,Y+16,4,4,8,0);
+	                           initLeser(Less,X+16,Y+16,6,0,8,0);
+	                           initLeser(Less,X+16,Y+16,-6,0,8,0);
+	                           initLeser(Less,X+16,Y+16,0,6,8,0);
+	                           initLeser(Less,X+16,Y+16,0,-6,8,0);
+	                           initLeser(Less,X+16,Y+16,-4,-4,8,0);
+	                           initLeser(Less,X+16,Y+16,4,-4,8,0);
+	                           initLeser(Less,X+16,Y+16,-4,4,8,0);
+	                           initLeser(Less,X+16,Y+16,4,4,8,0);
 	                          }
 	                         if (Y < 0) && (YSpeed > 0) then YSpeed = -YSpeed;
 	                         if (Y > 190) && (YSpeed < 0) then YSpeed = -YSpeed;
@@ -699,7 +707,7 @@ public class KlonGun {
 	                         }
 	                        }
 	          MaxEnemy1+4 : {
-	                         if areaScroll % 15 == 0 then InitLeser(Less,X+6,Y+16,-10,0,5,0);
+	                         if areaScroll % 15 == 0 then initLeser(Less,X+6,Y+16,-10,0,5,0);
 	                         if (Y > 190) && (YSpeed < 0) then YSpeed = -YSpeed;
 	                         if (Y < 0) && (YSpeed > 0) then YSpeed = -YSpeed;
 	                         if X < 100 then Speed = 15;
@@ -717,7 +725,7 @@ public class KlonGun {
 
 	} // end of doEnemy1
 
-	public void KillAllThings() {
+	public void killAllThings() {
 		enemies.clear();
 		lesses.clear();
 	}
@@ -762,13 +770,13 @@ load();
          WaitFor(Speed);
         while(splash > 1);
         GAME;
-        Changed = True;
+        Changed = true;
        break;
  case 1 : {
         if Diff == 0 then Diff = 1 Else
          if Diff == 1 then Diff = -1 Else
           Diff = 0;
-        Changed = False;
+        Changed = false;
        }
  case 2 : {
         do {
@@ -784,7 +792,7 @@ load();
          Screen(splash);
          WaitFor(Speed);
         } while(splash > 1);
-        Changed = True;
+        Changed = true;
        }
  case 3 : {
         Assign(fP,'hiscore.dat');
@@ -819,14 +827,16 @@ load();
         Anim(0);
         gun.setScr();
         do { } while(!KeyPressed);
-        While KeyPressed do ch = ReadKey;
+
+        while(frame.getControl()hile KeyPressed do ch = buffer.readKey();
+
         do {
          SetCounter;
          splash -= 2;
          screen(splash);
          WaitFor(Speed);
         } while(splash > 1);
-        Changed = True;
+        Changed = true;
        }
  case 4 : {
         For i = 0 to 9 do
@@ -834,7 +844,7 @@ load();
           Pontszam[i].Pontszam = 0;
           Pontszam[i].Nev = '';
          }
-        Changed = True;
+        Changed = true;
         SaveScore;
        }
  case MaxMenu:
@@ -851,68 +861,55 @@ load();
 
 }
 
-public void PutEnemies(var xEnemies : pEnemies) {
-	 VAR EnemyPos : pEnemies;
- i,j : Integer;
- Die : Boolean;
-  EnemyPos = xEnemies;
-  WHILE EnemyPos <> nil DO
-   {
-    With EnemyPos^ do
-     {
-      Die = False;
-      if Life > 0 then
-       {
-        PutPic(X,Y,32,32,Enemy1[Abra[Faj]]);
-        if not cheat then
-         For i = 0 to 31 do
-          For j = 0 to 31 do
-           if Enemy1[Abra[Faj],i,j] < 255 then
+public void putEnemies() {
+
+boolean Die;
+
+Iterator<Enemy> it = enemies.iterator();
+while(it.hasNext()) {
+	Enemy enemy = it.next();
+      Die = false;
+
+      if (enemy.life > 0) {
+        putPic(X,Y,32,32,Enemy1[Abra[enemy.kind]]);
+        if (!cheat)
+         for(int i = 0; i < 32; i++)
+          for(int j = 0; j < 32; j++)
+           if (Enemy1[Abra[enemy.kind],i,j] < 255)
             {
-             Xv = X+j-pX;
-             Yv = Y+i-pY;
+             Xv = enemy.X+j-enemy.pX;
+             Yv = enemy.Y+i-enemy.pY;
              if (Xv >= 0) && (Xv < 50) && (Yv >= 0) && (Yv < 30)
-              && (Ships[pShip,Yv,Xv] < 255) && (pLife > 0) then
-              { pLife = 0; pTime = 50; }
+              && (Ships[enemy.pShip,Yv,Xv] < 255) && (enemy.pLife > 0) then
+              { enemy.pLife = 0; enemy.pTime = 50; }
             }
        }
-      Else
+      else
        {
-        if Time > 0 then
+        if (enemy.time > 0)
          {
-          PutPic(X+6-(200-Time*4),Y+6-(50-Time),16,16,deaths[1]);
-          PutPic(X+16+(200-Time*4),Y+6-(50-Time),16,16,deaths[2]);
-          PutPic(X+6-(200-Time*4),Y+16+(50-Time),16,16,deaths[3]);
-          PutPic(X+16+(200-Time*4),Y+16+(50-Time),16,16,deaths[4]);
+          putPic(X+6-(200-Time*4),Y+6-(50-Time),16,16,deaths[1]);
+          putPic(X+16+(200-Time*4),Y+6-(50-Time),16,16,deaths[2]);
+          putPic(X+6-(200-Time*4),Y+16+(50-Time),16,16,deaths[3]);
+          putPic(X+16+(200-Time*4),Y+16+(50-Time),16,16,deaths[4]);
           if not Cheated then
            {
-            Str((2+Diff)*Life_E[Faj] div 10,PontSzov);
+        	  PontSzov = String.valueOf((2+Diff)*Life_E[Faj] / 10,PontSzov);
             PontSzov = PontSzov+'p';
-           } Else Pontszov = "0p";
+           } else Pontszov = "0p";
           gun.writeXY(X+16-(Length(PontSzov)*13) div 2,Y+8-(300-Time*6),5,PontSzov);
-          if (Time > 30) && (Item > 0) then PutPic(X+8,Y+8,16,16,items[Item]);
+          if (Time > 30) && (Item > 0) then putPic(X+8,Y+8,16,16,items[Item]);
           Time = Time - 1;
-         } Else Die = True;
+         } else Die = true;
        }
      }
-    if (Die)
-     {
-      if EnemyPos^.Prev == nil then
-       {
-        DeleteEnemy(EnemyPos);
-        xEnemies = EnemyPos;
-       }
-      Else
-       {
-        DeleteEnemy(EnemyPos);
-        EnemyPos = EnemyPos^.Next;
-       }
-     } Else
-      EnemyPos = EnemyPos^.Next;
+    if (Die) {
+    	emenies.remove(EnemyPos);
+    }
    }
  }
 
-public void PutLesers() {
+public void putLesers() {
 	 VAR X1,Y1 : Integer;
      EnemyPos : pEnemies;
      LessPos : pLess;
@@ -922,8 +919,8 @@ public void PutLesers() {
    {
     With LessPos^ do
      {
-      Talalat = False;
-      PutPic(X0,Y0,16,5,Leser[Faj]);
+      Talalat = false;
+      putPic(X0,Y0,16,5,Leser[Faj]);
       For i = 0 to 4 do
        For j = 0 to 15 do
         if (Leser[Faj,i,j] < 255) && (not Talalat) then
@@ -944,7 +941,7 @@ public void PutLesers() {
                   if (X1 >= 0) && (X1 < 32) && (Y1 >= 0) && (Y1 < 32)
                    && (Enemy1[Abra[EnemyPos^.Faj],Y1,X1] < 255) then
                   {
-                   Talalat = True;
+                   Talalat = true;
                     EnemyPos^.Life = EnemyPos^.Life-(Dmg-Diff*Dmg div 2);
                     if EnemyPos^.Life <= 0 then
                      {
@@ -954,15 +951,19 @@ public void PutLesers() {
                       if EnemyPos == Boss then Boss = nil;
                       if EnemyPos^.Item > 0 then
                       switch( EnemyPos^.Item) {
-                        1 : {
+                      case 1 : {
                             if pLife > 0 then pLife = pLife + 20;
                             if pLife > 100 then pLife = 100;
+                            break;
                            }
-                        2 : if pLeser[1] < 5 then pLeser[1] = Chr(Ord(pLeser[1]) + 1);
-                        3..5 : if pLeser[EnemyPos^.Item-1] < 3 then
+                      case 2 : if pLeser[1] < 5 then pLeser[1] = Chr(Ord(pLeser[1]) + 1); break;
+                      case 3:
+                      case 4:
+                      case 5: if pLeser[EnemyPos^.Item-1] < 3 then
                                 pLeser[EnemyPos^.Item-1] = Chr(Ord(pLeser[EnemyPos^.Item-1]) + 1);
-                        6 : if pFire > 2 then pFire = 2;
-                        7 : if pFire > 1 then pFire = 1;
+                      break;
+                      case 6 : if pFire > 2 then pFire = 2; break;
+                      case 7 : if pFire > 1 then pFire = 1; break;
                        }
                      }
                    }
@@ -977,26 +978,16 @@ public void PutLesers() {
                Yv = Yv-pY;
                if (Xv >= 0) && (Xv < 50) && (Yv >= 0) && (Yv < 30)
                 && (Ships[pShip,Yv,Xv] < 255) then
-                 { pLife = pLife - (Dmg+Diff*Dmg div 2); Talalat = True;
+                 { pLife = pLife - (Dmg+Diff*Dmg div 2); Talalat = true;
                   if pLife <= 0 then pTime = 50;
                   if pLife < 0 then pLife = 0; }
               }
            }
          }
      }
-    if Talalat then
-     {
-      if LessPos^.Prev <> nil then
-       {
-        DeleteLeser(LessPos);
-        LessPos = LessPos^.Next;
-       }
-      Else
-       {
-        DeleteLeser(LessPos);
-        xLess = LessPos;
-       }
-     } Else LessPos = LessPos^.Next;
+    if(Talalat) {
+    	lesses.remove(LessPos);
+    }
    }
  }
 
@@ -1034,7 +1025,7 @@ public void Palya() {
          }
         if (areaScroll < 2000) && ((areaScroll % 32) == 0) then
          {
-          InitLeser(Less,0,0,0,0,0,0);
+          initLeser(Less,0,0,0,0,0,0);
          }
         if (areaScroll < 2000) && (areaScroll % 115 == 0) then
          switch( (areaScroll div 115)) {
@@ -1102,7 +1093,7 @@ public void temp() {
   pY = 75;
   pX = -40;
   sumLife = 4;
-  pLogged = False;
+  pLogged = false;
   pLogTime = 0;
   pL = 0;
   pLeser[0] = 1;
@@ -1117,7 +1108,7 @@ public void temp() {
   enemies.clear();
   lesses.clear();
 
-  cheat = False;
+  cheat = false;
   PontSzov = '1p';
   splash = 1;
 
@@ -1138,8 +1129,8 @@ public void temp() {
   For i = 0 to 9 do
    Read(fP,Pontszam[i]);
   Close(fP);
-  Quit = False;
-  Cheated = False;
+  Quit = false;
+  Cheated = false;
  }
 
 public void saveScore()
@@ -1164,16 +1155,16 @@ public void game() {
    SetCounter; Palya;
    DoEnemy1(enemies); DoLeser(Less);
    if KeyPressed then
-    { ch1 = ReadKey;
+    { ch1 = buffer.readKey();
      switch( ch1) {
-     case 0 : ch2 = ReadKey; break;
-     case  27 : Quit = True; break;
+     case 0 : ch2 = buffer.readKey(); break;
+     case  27 : Quit = true; break;
      case '1' : pLeser[0] = 1; break;
      case '2' : if (pLeser[2] > #0) then pLeser[0] = 2; break;
      case '3' : if (pLeser[3] > #0) then pLeser[0] = 3; break;
      case '4' : if (pLeser[4] > #0) then pLeser[0] = 4; break;
      case 'c':
-     case 'C' : { Cheat = Cheat xor True; Cheated = True;  break;}
+     case 'C' : { Cheat = Cheat xor true; Cheated = true;  break;}
      } }
    ReadMouse;
    if pLife > 0 then {
@@ -1182,76 +1173,76 @@ public void game() {
      {
       switch( pLeser[0]) {
       case 1 : switch( pLeser[1]) {
-      		case 1 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],0,1,1);break;
+      		case 1 : initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],0,1,1);break;
             case 2 : {
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],1,1,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],-1,1,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],0,1,1);break;
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],1,1,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],-1,1,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],0,1,1);break;
                 }
             case 3 : {
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],1,2,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],-1,2,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],0,2,1);break;
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],1,2,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],-1,2,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],0,2,1);break;
                 }
                 case 4 : {
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],3,1,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],-3,1,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],1,2,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],-1,2,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],0,3,1);break;
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],3,1,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],-3,1,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],1,2,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],-1,2,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],0,3,1);break;
                 }
                 case 5 : {
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],3,2,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],-3,2,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],1,3,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],-1,3,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],0,3,1);break;
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],3,2,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],-3,2,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],1,3,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],-1,3,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],0,3,1);break;
                 }
            }
       case 2 : switch( pLeser[2]) {
-       		case 1 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[4],0,4,1); break;
-       		case 2 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[5],0,5,1);break;
-       		case 3 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[6],0,6,1);break;
+       		case 1 : initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[4],0,4,1); break;
+       		case 2 : initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[5],0,5,1);break;
+       		case 3 : initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[6],0,6,1);break;
            }
       case 3 : switch( pLeser[3]) {
        		case 1 : {
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],6,0,7,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],0,6,7,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-6,0,7,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],0,-6,7,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],4,4,7,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],4,-4,7,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-4,4,7,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-4,-4,7,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],6,0,7,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],0,6,7,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-6,0,7,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],0,-6,7,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],4,4,7,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],4,-4,7,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-4,4,7,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-4,-4,7,1);
                  break;
                 }
        		case 2 : {
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],6,0,8,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],0,6,8,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-6,0,8,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],0,-6,8,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],4,4,8,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],4,-4,8,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-4,4,8,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-4,-4,8,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],6,0,8,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],0,6,8,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-6,0,8,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],0,-6,8,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],4,4,8,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],4,-4,8,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-4,4,8,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-4,-4,8,1);
                  break;
                 }
        		case 3 : {
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],6,0,9,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],0,6,9,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-6,0,9,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],0,-6,9,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],4,4,9,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],4,-4,9,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-4,4,9,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-4,-4,9,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],6,0,9,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],0,6,9,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-6,0,9,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],0,-6,9,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],4,4,9,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],4,-4,9,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-4,4,9,1);
+                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-4,-4,9,1);
                  break;
                 }
            }
            case 4 : switch( pLeser[4]) {
-		       case 1 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[10],0,10,1); break;
-		       case 2 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[11],0,11,1); break;
-		       case 3 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[12],0,12,1); break;
+		       case 1 : initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[10],0,10,1); break;
+		       case 2 : initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[11],0,11,1); break;
+		       case 3 : initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[12],0,12,1); break;
            }
       }
       pL = Late_L[Ord(pLeser[0])*3+Ord(pLeser[Ord(pLeser[0])])];
@@ -1268,7 +1259,7 @@ public void game() {
      if not pLogged then
       {
        pLogTime = pLogTime +1;
-       if pLogTime >= 50 then pLogged = True;
+       if pLogTime >= 50 then pLogged = true;
       }
    }
    if pX > 274 then pX = 274;
@@ -1282,31 +1273,31 @@ public void game() {
    putEnemies();
 
    if pLife > 0 then {
-    PutPic(pX,pY,50,30,Ships[pShip]);
-    PutPic(pX-17,pY+9,17,14,Fires[pFire,(areaScroll % 3)+1]);
-   } Else if pShip > 0 then {
-    PutPic(pX+6-(200-pTime*4),pY+6-(50-pTime),16,16,Death[1]);
-    PutPic(pX+16+(200-pTime*4),pY+6-(50-pTime),16,16,Death[2]);
-    PutPic(pX+6-(200-pTime*4),pY+16+(50-pTime),16,16,Death[3]);
-    PutPic(pX+16+(200-pTime*4),pY+16+(50-pTime),16,16,Death[4]);
+    putPic(pX,pY,50,30,Ships[pShip]);
+    putPic(pX-17,pY+9,17,14,Fires[pFire,(areaScroll % 3)+1]);
+   } else if pShip > 0 then {
+    putPic(pX+6-(200-pTime*4),pY+6-(50-pTime),16,16,Death[1]);
+    putPic(pX+16+(200-pTime*4),pY+6-(50-pTime),16,16,Death[2]);
+    putPic(pX+6-(200-pTime*4),pY+16+(50-pTime),16,16,Death[3]);
+    putPic(pX+16+(200-pTime*4),pY+16+(50-pTime),16,16,Death[4]);
     if pTime > 0 then pTime = pTime - 1 Else
      if SzumLife > 1 then {
       SzumLife = SzumLife - 1; pLife = 100;
-      pX = -40; pY = 75; pLogged = False;
+      pX = -40; pY = 75; pLogged = false;
       pLogTime = 0;
-     } Else { pShip = 0; SzumLife = 0; }
+     } else { pShip = 0; SzumLife = 0; }
    }
 
-   PutPic(0,190,120,10,Status);
-   if SzumLife > 0 then PutPic(120,190,10,10,Stat2[SzumLife,3]);
+   putPic(0,190,120,10,Status);
+   if SzumLife > 0 then putPic(120,190,10,10,Stat2[SzumLife,3]);
    For i = 1 to Round((pLife/100)*115) do
     For j = 3 to 6 do Vscr^[190+j,2+i] = #2;
    For m = 1 to 4 do
-    if (pLeser[m] == #0) then PutPic(270+m*10,190,10,10,Stat2[m,0]) Else
-     if (pLeser[m] > #0) && (pLeser[0] <> Chr(m)) then PutPic(270+m*10,190,10,10,Stat2[m,1]) Else
-      if (pLeser[m] > #0) && (pLeser[0] == Chr(m)) then PutPic(270+m*10,190,10,10,Stat2[m,2]);
-   if Boss <> nil then {
-    PutPic(0,0,120,10,Status); gun.writeXY(125,0,4,"BOSS");
+    if (pLeser[m] == #0) then putPic(270+m*10,190,10,10,Stat2[m,0]) Else
+     if (pLeser[m] > #0) && (pLeser[0] <> Chr(m)) then putPic(270+m*10,190,10,10,Stat2[m,1]) Else
+      if (pLeser[m] > #0) && (pLeser[0] == Chr(m)) then putPic(270+m*10,190,10,10,Stat2[m,2]);
+   if (!bosses.isEmpty()) {
+    putPic(0,0,120,10,Status); gun.writeXY(125,0,4,"BOSS");
     For i = 1 to Round((Boss^.Life/Life_E[Boss^.Faj])*115) do
      For j = 3 to 6 do Vscr^[j,2+i] = 4; }
 
@@ -1358,28 +1349,30 @@ public void game() {
   if( Pontok > Pontszam[i].Pontszam) {
    PontSzov = '';
    k = 0;
-   Quit = False;
+   Quit = false;
    do {
-    zh = ReadKey;
+    zh = buffer.readKey();
     switch( zh) {
-     #0 : ch = ReadKey;
-     #8 : if Length(Pontszov) > 0 then PontSzov[0] = Chr(Ord(Pontszov[0])-1);
+    case 0 : ch = buffer.readKey(); break;
+    case 8 : if (Pontszov != null && PontSzov.length() > 0) { PontSzov[0] = Chr(Ord(Pontszov[0])-1); }
+    break;
      'a'..'z','A'..'Z',' ' : if Length(PontSzov) < 20 then
       PontSzov = PontSzov + zh;
-     #27, #13 : {
-                 if PontSzov == '' then Pontszov = ' ';
-                 Quit = True;
+    case 27, case 13 : {
+                 if (PontSzov == null ee PontSzov.length == 0) Pontszov = " ";
+                 quit = true;
                 }
     }
+
     DrawPoints(10);
     gun.writeXY(1,182,0,"Enter Name");
     gun.writeXY(0,182,4,"Enter Name");
     gun.writeXY(121,182,0,PontSzov);
     gun.writeXY(120,182,1,PontSzov);
-    Str(Pontok,Ponts);
-    Ponts = "    You have reached "+Spaced(Ponts)+" !!";
-    gun.writeXY(1,170,#0,Ponts);
-    gun.writeXY(0,170,#3,Ponts);
+
+    String endScoreText = "    You have reached "+spaced(String.valueOf(scores))+" !!";
+    gun.writeXY(1,170,0,endScoreText);
+    gun.writeXY(0,170,3,endScoreText);
     gun.setScr();
    } while(!Quit);
    Pontszam[9].Pontszam = Pontok;
@@ -1402,8 +1395,8 @@ public void game() {
    gun.setScr();
   }
 
-  do { } while(!KeyPressed);
-  While KeyPressed do ch = ReadKey;
+  ch = buffer.readKey();
+
   do {
    SetCounter;
    splash = splash -2;
@@ -1415,6 +1408,14 @@ public void game() {
   killAllthings();
   saveScore();
  }
+
+	public void WaitFor(long time) {
+		try {
+			Thread.sleep(time);
+		} catch(InterruptedException ex) {
+			//
+		}
+	}
 
  public void DrawMenu() {
 	  int MP2;
@@ -1460,7 +1461,7 @@ public void game() {
     gun.setScr();
     splash = 63;
     Screen(splash);
-    MenuQuit = False;
+    MenuQuit = false;
     DrawMenu();
     anim(0);
    }
@@ -1468,12 +1469,12 @@ public void game() {
    DrawMenu();
    gun.setScr();
    switch( ReadKey) {
-	   case 0 : switch( ReadKey) {
-		   case 72 : if MenuPont > 0 then MenuPont = MenuPont -1;
-		  case 80 : if MenuPont < MaxMenu then MenuPont = MenuPont +1;
+	   case 0 : switch( keyBuffer.readKey()) {
+		   case 72 : if MenuPont > 0 then MenuPont = MenuPont -1; break;
+		  case 80 : if MenuPont < MaxMenu then MenuPont = MenuPont +1; break;
 	         }
-	   case 27 : { MenuQuit = True; MENU = MaxMenu; }
-	   case 13 : { MenuQuit = True; MENU = MenuPont; }
+	   case 27 : { MenuQuit = true; MENU = MaxMenu; }break;
+	   case 13 : { MenuQuit = true; MENU = MenuPont; }break;
    }
   } while(!MenuQuit);
 

@@ -34,6 +34,8 @@ public class KlonGunControl {
 		return escapeIsOn;
 	}
 
+	public KlonGunKeyBuffer keyBuffer = new KlonGunKeyBuffer();
+
 	boolean upIsOn = false;
 	boolean downIsOn = false;
 	boolean leftIsOn = false;
