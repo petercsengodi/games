@@ -2,7 +2,6 @@ package hu.csega.klongun.swing;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -33,8 +32,6 @@ public class KlonGunCanvas extends JPanel implements MouseListener, MouseMotionL
 
 	@Override
 	public void paint(Graphics g) {
-		Graphics2D g2d = (Graphics2D)buffer.getGraphics();
-
 		TPal palette = klonGun.palette;
 		TVscr scr = klonGun.gun.vscr;
 
@@ -63,28 +60,30 @@ public class KlonGunCanvas extends JPanel implements MouseListener, MouseMotionL
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		Point p = new Point(e.getX(), e.getY());
+		mouseAt.x = e.getX();
+		mouseAt.y = e.getY();
 
 		if(mouseRightPressed) {
-			translate.x += mouseRightAt.x - p.x;
-			translate.y += mouseRightAt.y - p.y;
+			translate.x += mouseRightAt.x - mouseAt.x;
+			translate.y += mouseRightAt.y - mouseAt.y;
 
-			mouseRightAt.x = p.x;
-			mouseRightAt.y = p.y;
+			mouseRightAt.x = mouseAt.x;
+			mouseRightAt.y = mouseAt.y;
 			repaint();
 		}
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		Point p = new Point(e.getX(), e.getY());
+		mouseAt.x = e.getX();
+		mouseAt.y = e.getY();
 
 		if(mouseRightPressed) {
-			translate.x += mouseRightAt.x - p.x;
-			translate.y += mouseRightAt.y - p.y;
+			translate.x += mouseRightAt.x - mouseAt.x;
+			translate.y += mouseRightAt.y - mouseAt.y;
 
-			mouseRightAt.x = p.x;
-			mouseRightAt.y = p.y;
+			mouseRightAt.x = mouseAt.x;
+			mouseRightAt.y = mouseAt.y;
 			repaint();
 		}
 	}
@@ -126,6 +125,7 @@ public class KlonGunCanvas extends JPanel implements MouseListener, MouseMotionL
 	private KlonGun klonGun;
 
 	private BufferedImage buffer = new BufferedImage(PREFERRED_SIZE.width, PREFERRED_SIZE.height, BufferedImage.TYPE_INT_RGB);
+	private Point mouseAt = new Point(0, 0);
 	private boolean mouseLeftPressed = false;
 	private boolean mouseRightPressed = false;
 	private Point mouseLeftAt = new Point(0, 0);

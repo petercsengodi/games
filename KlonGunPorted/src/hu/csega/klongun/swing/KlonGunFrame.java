@@ -37,6 +37,10 @@ public class KlonGunFrame extends JFrame implements KeyListener {
 		setVisible(true);
 	}
 
+	public KlonGunCanvas getCanvas() {
+		return canvas;
+	}
+
 	public KlonGunControl getControl() {
 		return klonGunControl;
 	}

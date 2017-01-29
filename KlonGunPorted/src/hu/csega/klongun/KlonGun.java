@@ -14,10 +14,10 @@ import hu.csega.klongun.model.Star;
 import hu.csega.klongun.screen.Picture;
 import hu.csega.klongun.screen.TPal;
 import hu.csega.klongun.screen.TVscr;
+import hu.csega.klongun.swing.KlonGunCanvas;
 import hu.csega.klongun.swing.KlonGunControl;
 import hu.csega.klongun.swing.KlonGunFrame;
 import hu.csega.klongun.swing.KlonGunKeyBuffer;
-import sun.java2d.Disposer;
 
 public class KlonGun {
 
@@ -119,6 +119,7 @@ public class KlonGun {
     public boolean cheat;
     public boolean cheated;
     public int scores;
+    public String scoreText;
     public int scoreText1; // PontSzov
     public int scoreText2; // Ponts
     public int splash;
@@ -144,6 +145,7 @@ public class KlonGun {
     public static final Random RND = new Random(System.currentTimeMillis());
 
     public static KlonGunFrame frame;
+    public static KlonGunCanvas canvas;
     public static KlonGunControl control;
     public static KlonGunKeyBuffer keyBuffer;
 
@@ -156,6 +158,7 @@ public class KlonGun {
 		frame = new KlonGunFrame(kg);
 		control = frame.getControl();
 		keyBuffer = control.keyBuffer;
+		canvas = frame.getCanvas();
 		kg.run();
 	}
 
@@ -216,7 +219,7 @@ public class KlonGun {
     			}
     		}
 
-    		gun.setScr();
+    		canvas.invalidate();
     	} while(pos <= 80);
     }
 
@@ -242,7 +245,7 @@ public class KlonGun {
     			}
     		}
 
-    		gun.setScr();
+    		canvas.invalidate();
     	} while(pos != 0);
     }
 
@@ -253,6 +256,11 @@ public class KlonGun {
     public int f2(int x, double z) {
     	return (int)Math.round(z * sinus[(int)(Math.round((x+m)*2 + 503) % 126)]);
     }
+
+    public double sqr(double x) {
+    	return x*x;
+    }
+
 
 
     public void anim2() {
@@ -292,7 +300,7 @@ public class KlonGun {
 				if (FGGVY[k] >= 0 && FGGVY[k] < 200 && FGGVX[n] >= 0 && FGGVX[n] < 320)
 					gun.vscr.set(k, n, back.get(FGGVY[k], FGGVX[n]));
 
-				gun.setScr();
+				canvas.invalidate();
 			}
 
 			i += j;
@@ -750,6 +758,7 @@ public class KlonGun {
 
 		} // end switch kind
 
+		return die;
 	} // end switchEnemyKind
 
 	public void doEnemy1() {
@@ -879,13 +888,13 @@ public class KlonGun {
 				} while (splash > 1);
 
 				gun.clrVscr(0);
-				gun.setScr();
+				canvas.invalidate();
 				splash = 63;
 				screen(splash);
 				gun.clrVscr(148);
 				drawPoints(l);
 				Anim(0);
-				gun.setScr();
+				canvas.invalidate();
 
 				ch = keyBuffer.readKey();
 
@@ -956,10 +965,10 @@ public class KlonGun {
 			} else {
 				String PontSzov;
 				if (enemy.time > 0) {
-					putPic(enemy.x + 6 - (200 - enemy.time * 4), enemy.y + 6 - (50 - enemy.time), 16, 16, deaths[1]);
-					putPic(enemy.x + 16 + (200 - enemy.time * 4), enemy.y + 6 - (50 - enemy.time), 16, 16, deaths[2]);
-					putPic(enemy.x + 6 - (200 - enemy.time * 4), enemy.y + 16 + (50 - enemy.time), 16, 16, deaths[3]);
-					putPic(enemy.x + 16 + (200 - enemy.time * 4), enemy.y + 16 + (50 - enemy.time), 16, 16, deaths[4]);
+					putPic(enemy.x + 6 - (200 - enemy.time * 4), enemy.y + 6 - (50 - enemy.time), 16, 16, deaths[0]);
+					putPic(enemy.x + 16 + (200 - enemy.time * 4), enemy.y + 6 - (50 - enemy.time), 16, 16, deaths[1]);
+					putPic(enemy.x + 6 - (200 - enemy.time * 4), enemy.y + 16 + (50 - enemy.time), 16, 16, deaths[2]);
+					putPic(enemy.x + 16 + (200 - enemy.time * 4), enemy.y + 16 + (50 - enemy.time), 16, 16, deaths[3]);
 
 					if (!cheated) {
 						PontSzov = String.valueOf((2 + diff) * Life_E[enemy.kind] / 10);
@@ -977,11 +986,11 @@ public class KlonGun {
 					die = true;
 				}
 			}
-		}
-		if (die) {
-			it.remove();
-		}
-	}
+			if (die) {
+				it.remove();
+			}
+		} // end while it has next
+	} // end of putEnemies
 
 	public void putLesers() {
 		int X1 = 0;
@@ -1092,522 +1101,621 @@ public class KlonGun {
 		}
 	}
 
-public void Palya() {
+	public void Palya() {
 
-  if (areaScroll > 100) {
-  switch (currentArea) {
-  case  0 : {
-        if (areaScroll < 500 && (areaScroll % 25) == 0)
-          initEnemy(enemies,320,70+((areaScroll / 25) % 2)*60, Speed_E[6],((areaScroll / 25) % 2)*2-1,6,0);
-        if (areaScroll == 500 )  initEnemy(enemies,320,RND.nextInt(20)+90,4,0,7,1);
-        if ( (areaScroll > 500) && (areaScroll < 600) && (areaScroll % 20 == 0) )
-          initEnemy(enemies,250,-10,1,-2,MaxEnemy1+2,0);
-        if ( (areaScroll > 600) && (areaScroll < 700) && (areaScroll % 20 == 0) )
-          initEnemy(enemies,250,210,1,2,MaxEnemy1+2,0);
-        if (areaScroll == 700 )  initEnemy(enemies,250,210,1,2,7,2);
-        if (areaScroll == 800 )  initEnemy(enemies,320,RND.nextInt(20)+90,2,0,7,1);
-        if (areaScroll == 990 )  initEnemy(enemies,320,RND.nextInt(20)+90,2,0,7,6);
-        if ( (areaScroll > 750) && (areaScroll < 1040) && (areaScroll % 25 == 0) )
-          initEnemy(enemies,320,60+((areaScroll / 20) % 4)* 25,1,2,MaxEnemy1+1,0);
-        if (areaScroll == 1100 )
-         {
-          initEnemy(enemies,320,100,3,3,MaxEnemy1+3,2);
-          Boss_Del = 200;
-          initEnemy(enemies,320,RND.nextInt(20)+90,2,0,7,1);
-         }
-        if (areaScroll > 2200 )  areaScroll = areaScroll- Boss_Del;
-        if (areaScroll > 1100) && (Boss == null) )  NextLevel;
-        break;
-       }
-   case 1 : {
-        if (areaScroll < 2000) && ((areaScroll % 19) == 0) )
-         {
-          initEnemy(enemies,0,0,0,0,0,0);
-         }
-        if (areaScroll < 2000) && ((areaScroll % 32) == 0) )
-         {
-          initLeser(Less,0,0,0,0,0,0);
-         }
-        if (areaScroll < 2000) && (areaScroll % 115 == 0) )
-         switch( (areaScroll / 115)) {
-          2 : initEnemy(enemies,320,RND.nextInt(160)+20,4,0,7,1);
-          4 : initEnemy(enemies,320,RND.nextInt(160)+20,4,0,7,6);
-          6 : initEnemy(enemies,320,RND.nextInt(160)+20,4,0,7,3);
-         }
-        if (areaScroll == 1000 )  initEnemy(enemies,320,RND.nextInt(160)+20,4,0,7,1);
-        if (areaScroll == 1850 )  initEnemy(enemies,320,RND.nextInt(160)+20,4,0,7,2);
-        if (areaScroll == 1250 )  initEnemy(enemies,320,RND.nextInt(160)+20,4,0,7,5);
-        if (areaScroll == 1700 )  initEnemy(enemies,320,RND.nextInt(160)+20,4,0,7,1);
-        if (areaScroll == 2000 )
-         {
-          initEnemy(enemies,320,88,3,0,4,0);
-          Boss_Del = 3600;
-         }
-        if (areaScroll > 10000 )  areaScroll = areaScroll- Boss_Del;
-        break;
-       }
-   case 2 : {
-        if (areaScroll < 500) && (areaScroll % 20 == 0) )
-         {
-          initEnemy(enemies,320,88,Speed_E[5],(Speed_E[5] / 3)*(((areaScroll / 20) % 2)*2-1),5,0);
-         }
-        if (areaScroll == 180 )  initEnemy(enemies,320,RND.nextInt(20)+90,4,0,7,1);
-        if (areaScroll == 360 )  initEnemy(enemies,320,RND.nextInt(20)+90,4,0,7,1);
-        if (areaScroll > 530) && (areaScroll < 1000) && (areaScroll % 3 == 0) )
-         initEnemy(enemies,320,RND.nextInt(190),15,0,9,0);
-        if (areaScroll == 620 )  initEnemy(enemies,320,68+RND.nextInt(40),3,0,7,1);
-        if (areaScroll == 800 )  initEnemy(enemies,320,68+RND.nextInt(40),3,0,7,3);
-        if (areaScroll == 950 )  initEnemy(enemies,320,68+RND.nextInt(40),3,0,7,7);
-        if (areaScroll > 1000) && (areaScroll < 1300) && (areaScroll % 25 == 0) )
-         {
-          initEnemy(enemies,310,199,2,5,8,0);
-          initEnemy(enemies,270,-20,2,-5,8,0);
-         }
-        if (areaScroll == 1300 )
-         {
-          initEnemy(enemies,310,199,2,5,8,4);
-          initEnemy(enemies,270,-20,2,-5,8,3);
-         }
-        if (areaScroll > 1000) && (areaScroll < 1300) && (areaScroll % 85 == 40) )
-         initEnemy(enemies,320,RND.nextInt(180),4,0,7,1);
-        if (areaScroll == 1400 )
-         {
-          initEnemy(enemies,320,0,1,0,7,1);
-          initEnemy(enemies,320,40,1,0,7,4);
-          initEnemy(enemies,320,120,1,0,7,3);
-          initEnemy(enemies,320,160,1,0,7,1);
-          initEnemy(enemies,320,88,1,2,10,1);
-          Boss_Del = 4200;
-         }
-        if (areaScroll > 10000 )  areaScroll = areaScroll- Boss_Del;
-        if (areaScroll > 1400) && (Boss == null) )  NextLevel;
-       }
-       }
-  }
- }
+		if (areaScroll > 100) {
+			switch (currentArea) {
+			case 0:
+				if (areaScroll < 500 && (areaScroll % 25) == 0)
+					initEnemy(320, 70 + ((areaScroll / 25) % 2) * 60, Speed_E[6], ((areaScroll / 25) % 2) * 2 - 1, 6, 0);
+				if (areaScroll == 500)
+					initEnemy(320, RND.nextInt(20) + 90, 4, 0, 7, 1);
+				if ((areaScroll > 500) && (areaScroll < 600) && (areaScroll % 20 == 0))
+					initEnemy(250, -10, 1, -2, MaxEnemy1 + 2, 0);
+				if ((areaScroll > 600) && (areaScroll < 700) && (areaScroll % 20 == 0))
+					initEnemy(250, 210, 1, 2, MaxEnemy1 + 2, 0);
+				if (areaScroll == 700)
+					initEnemy(250, 210, 1, 2, 7, 2);
+				if (areaScroll == 800)
+					initEnemy(320, RND.nextInt(20) + 90, 2, 0, 7, 1);
+				if (areaScroll == 990)
+					initEnemy(320, RND.nextInt(20) + 90, 2, 0, 7, 6);
+				if ((areaScroll > 750) && (areaScroll < 1040) && (areaScroll % 25 == 0))
+					initEnemy(320, 60 + ((areaScroll / 20) % 4) * 25, 1, 2, MaxEnemy1 + 1, 0);
+				if (areaScroll == 1100) {
+					initEnemy(320, 100, 3, 3, MaxEnemy1 + 3, 2);
+					bossDel = 200;
+					initEnemy(320, RND.nextInt(20) + 90, 2, 0, 7, 1);
+				}
+				if (areaScroll > 2200)
+					areaScroll = areaScroll - bossDel;
+				if ((areaScroll > 1100) && (bosses.isEmpty()))
+					nextLevel();
+				break;
 
-public void temp() {
-  scores = 0;
-  pFire = 3;
-  pShip = 1;
-  pLife = 100;
-  pY = 75;
-  pX = -40;
-  sumLife = 4;
-  pLogged = false;
-  pLogTime = 0;
-  pL = 0;
-  pLeser[0] = 1;
-  pLeser[1] = 1;
-  pLeser[2] = 0;
-  pLeser[3] = 0;
-  pLeser[4] = 0;
-  currentArea = 0;
-  areaScroll = 0;
+			case 1:
+				if ((areaScroll < 2000) && ((areaScroll % 19) == 0)) {
+					initEnemy(0, 0, 0, 0, 0, 0);
+				}
+				if ((areaScroll < 2000) && ((areaScroll % 32) == 0)) {
+					initLeser(0, 0, 0, 0, 0, 0);
+				}
+				if ((areaScroll < 2000) && (areaScroll % 115 == 0))
 
-  bosses.clear();
-  enemies.clear();
-  lesses.clear();
+					switch ((areaScroll / 115)) {
+					case 2:
+						initEnemy(320, RND.nextInt(160) + 20, 4, 0, 7, 1);
+						break;
+					case 4:
+						initEnemy(320, RND.nextInt(160) + 20, 4, 0, 7, 6);
+						break;
+					case 6:
+						initEnemy(320, RND.nextInt(160) + 20, 4, 0, 7, 3);
+						break;
 
-  cheat = false;
+					}
+				if (areaScroll == 1000)
+					initEnemy(320, RND.nextInt(160) + 20, 4, 0, 7, 1);
+				if (areaScroll == 1850)
+					initEnemy(320, RND.nextInt(160) + 20, 4, 0, 7, 2);
+				if (areaScroll == 1250)
+					initEnemy(320, RND.nextInt(160) + 20, 4, 0, 7, 5);
+				if (areaScroll == 1700)
+					initEnemy(320, RND.nextInt(160) + 20, 4, 0, 7, 1);
+				if (areaScroll == 2000) {
+					initEnemy(320, 88, 3, 0, 4, 0);
+					bossDel = 3600;
+				}
+				if (areaScroll > 10000)
+					areaScroll = areaScroll - bossDel;
+				break;
 
-  PontSzov = "1p";
-  splash = 1;
+			case 2:
+				if ((areaScroll < 500) && (areaScroll % 20 == 0)) {
+					initEnemy(320, 88, Speed_E[5], (Speed_E[5] / 3) * (((areaScroll / 20) % 2) * 2 - 1), 5, 0);
+				}
+				if (areaScroll == 180)
+					initEnemy(320, RND.nextInt(20) + 90, 4, 0, 7, 1);
+				if (areaScroll == 360)
+					initEnemy(320, RND.nextInt(20) + 90, 4, 0, 7, 1);
+				if ((areaScroll > 530) && (areaScroll < 1000) && (areaScroll % 3 == 0))
+					initEnemy(320, RND.nextInt(190), 15, 0, 9, 0);
+				if (areaScroll == 620)
+					initEnemy(320, 68 + RND.nextInt(40), 3, 0, 7, 1);
+				if (areaScroll == 800)
+					initEnemy(320, 68 + RND.nextInt(40), 3, 0, 7, 3);
+				if (areaScroll == 950)
+					initEnemy(320, 68 + RND.nextInt(40), 3, 0, 7, 7);
+				if ((areaScroll > 1000) && (areaScroll < 1300) && (areaScroll % 25 == 0)) {
+					initEnemy(310, 199, 2, 5, 8, 0);
+					initEnemy(270, -20, 2, -5, 8, 0);
+				}
+				if (areaScroll == 1300) {
+					initEnemy(310, 199, 2, 5, 8, 4);
+					initEnemy(270, -20, 2, -5, 8, 3);
+				}
+				if ((areaScroll > 1000) && (areaScroll < 1300) && (areaScroll % 85 == 40))
+					initEnemy(320, RND.nextInt(180), 4, 0, 7, 1);
+				if (areaScroll == 1400) {
+					initEnemy(320, 0, 1, 0, 7, 1);
+					initEnemy(320, 40, 1, 0, 7, 4);
+					initEnemy(320, 120, 1, 0, 7, 3);
+					initEnemy(320, 160, 1, 0, 7, 1);
+					initEnemy(320, 88, 1, 2, 10, 1);
+					bossDel = 4200;
+				}
+				if (areaScroll > 10000)
+					areaScroll = areaScroll - bossDel;
+				if ((areaScroll > 1400) && (bosses.isEmpty()))
+					nextLevel();
+				break;
+			} // end switch
+		}
+	} // end method
 
-  /*
-  Assign(fP,'hiscore.dat');
+	public void temp() {
+		scores = 0;
+		pFire = 3;
+		pShip = 1;
+		pLife = 100;
+		pY = 75;
+		pX = -40;
+		sumLife = 4;
+		pLogged = false;
+		pLogTime = 0;
+		pL = 0;
+		leser[0] = 1;
+		leser[1] = 1;
+		leser[2] = 0;
+		leser[3] = 0;
+		leser[4] = 0;
+		currentArea = 0;
+		areaScroll = 0;
 
-  ReSet(fP);
-  if (IOResult <> 0 )
-   {
-    for(i = 0; i < 10; i++)
-     Pontszam[i].Pontszam = 0;
-    ReWrite(fP);
-    for(i = 0; i < 10; i++)
-     Write(fP,Pontszam[i]);
-    Close(fP);
-    ReSet(fP);
-   }
+		bosses.clear();
+		enemies.clear();
+		lesses.clear();
 
-  For i = 0 to 9 do
-   Read(fP,Pontszam[i]);
-  Close(fP);
-  */
+		cheat = false;
 
-  quit = false;
-  cheated = false;
- }
+		scoreText = "1p";
+		splash = 1;
 
-public void saveScore() {
-/*  Assign(fP,'hiscore.dat');
-  ReWrite(fP);
-  For i = 0 to 9 do
-   Write(fP,Pontszam[i]);
-  Close(fP); */
-}
+		/*
+		 * Assign(fP,'hiscore.dat');
+		 *
+		 * ReSet(fP); if (IOResult <> 0 ) { for(i = 0; i < 10; i++)
+		 * Pontszam[i].Pontszam = 0; ReWrite(fP); for(i = 0; i < 10; i++)
+		 * Write(fP,Pontszam[i]); Close(fP); ReSet(fP); }
+		 *
+		 * For i = 0 to 9 do Read(fP,Pontszam[i]); Close(fP);
+		 */
 
-public void game() {
-  temp();
-  addStars();
+		quit = false;
+		cheated = false;
+	}
 
-  do {
-   if (splash < 63 )
-    {
-     splash = splash + 2;
-     screen(splash);
-    }
-   gun.setCounter(); Palya;
-   DoEnemy1(enemies); DoLeser(Less);
-   if (KeyPressed )
-    { ch1 = buffer.readKey();
-     switch( ch1) {
-     case 0 : ch2 = buffer.readKey(); break;
-     case  27 : Quit = true; break;
-     case '1' : pLeser[0] = 1; break;
-     case '2' : if ((pLeser[2] > 0) )  pLeser[0] = 2; break;
-     case '3' : if ((pLeser[3] > 0) )  pLeser[0] = 3; break;
-     case '4' : if ((pLeser[4] > 0) )  pLeser[0] = 4; break;
-     case 'c':
-     case 'C' : { cheat = !cheat; cheated = true;  break;}
-     } }
-   ReadMouse;
-   if (pLife > 0 )  {
-    if (pL > 0 )  pL = pL - 1 else
-    if (((M_Button && 1) == 1) && (pL == 0) )
-     {
-      switch( pLeser[0]) {
-      case 1 : switch( pLeser[1]) {
-      		case 1 : initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],0,1,1);break;
-            case 2 : {
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],1,1,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],-1,1,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],0,1,1);break;
-                }
-            case 3 : {
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],1,2,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],-1,2,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],0,2,1);break;
-                }
-                case 4 : {
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],3,1,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],-3,1,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],1,2,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],-1,2,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],0,3,1);break;
-                }
-                case 5 : {
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],3,2,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],-3,2,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],1,3,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],-1,3,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],0,3,1);break;
-                }
-           }
-      case 2 : switch( pLeser[2]) {
-       		case 1 : initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[4],0,4,1); break;
-       		case 2 : initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[5],0,5,1);break;
-       		case 3 : initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[6],0,6,1);break;
-           }
-      case 3 : switch( pLeser[3]) {
-       		case 1 : {
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],6,0,7,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],0,6,7,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-6,0,7,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],0,-6,7,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],4,4,7,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],4,-4,7,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-4,4,7,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-4,-4,7,1);
-                 break;
-                }
-       		case 2 : {
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],6,0,8,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],0,6,8,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-6,0,8,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],0,-6,8,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],4,4,8,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],4,-4,8,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-4,4,8,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-4,-4,8,1);
-                 break;
-                }
-       		case 3 : {
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],6,0,9,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],0,6,9,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-6,0,9,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],0,-6,9,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],4,4,9,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],4,-4,9,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-4,4,9,1);
-                 initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-4,-4,9,1);
-                 break;
-                }
-           }
-           case 4 : switch( pLeser[4]) {
-		       case 1 : initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[10],0,10,1); break;
-		       case 2 : initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[11],0,11,1); break;
-		       case 3 : initLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[12],0,12,1); break;
-           }
-      }
-      pL = Late_L[Ord(pLeser[0])*3+Ord(pLeser[Ord(pLeser[0])])];
-     }
-    if (M_CurY < 99 )  pY = pY - Speed_F[pFire];
-    if (M_CurY > 101 )  pY = pY + Speed_F[pFire];
-    if (pLogged || (pX >= 5) )
-      {
-       if (M_CurX < 319 )  pX = pX - Speed_F[pFire];
-       if (M_CurX > 321 )  pX = pX + Speed_F[pFire];
-      }
-     if (pX < 5 )  { if (pLogged )  pX = 5
-       else pX = pX + Speed_M }
-     if (!pLogged )
-      {
-       pLogTime = pLogTime +1;
-       if (pLogTime >= 50 )  pLogged = true;
-      }
-   }
-   if (pX > 274 )  pX = 274;
-   if (pY < -10 )  pY = -10;
-   if (pY > 180 )  pY = 180;
-   areaScroll = areaScroll+1;
+	public void saveScore() {
+		/*
+		 * Assign(fP,'hiscore.dat'); ReWrite(fP); For i = 0 to 9 do
+		 * Write(fP,Pontszam[i]); Close(fP);
+		 */
+	}
 
-   gun.clrVscr(0);
-   doStars();
-   putLesers();
-   putEnemies();
+	public void game() {
+		temp();
+		addStars();
 
-   if (pLife > 0 )  {
-    putPic(pX,pY,50,30,Ships[pShip]);
-    putPic(pX-17,pY+9,17,14,Fires[pFire,(areaScroll % 3)+1]);
-   } else if (pShip > 0 )  {
-    putPic(pX+6-(200-pTime*4),pY+6-(50-pTime),16,16,Death[1]);
-    putPic(pX+16+(200-pTime*4),pY+6-(50-pTime),16,16,Death[2]);
-    putPic(pX+6-(200-pTime*4),pY+16+(50-pTime),16,16,Death[3]);
-    putPic(pX+16+(200-pTime*4),pY+16+(50-pTime),16,16,Death[4]);
-    if (pTime > 0 )  pTime = pTime - 1 else
-     if (SzumLife > 1 )  {
-      SzumLife = SzumLife - 1; pLife = 100;
-      pX = -40; pY = 75; pLogged = false;
-      pLogTime = 0;
-     } else { pShip = 0; SzumLife = 0; }
-   }
+		do {
+			if (splash < 63) {
+				splash = splash + 2;
+				screen(splash);
+			}
 
-   putPic(0,190,120,10,Status);
-   if (SzumLife > 0 )  putPic(120,190,10,10,Stat2[SzumLife,3]);
-   For i = 1 to Round((pLife/100)*115) do
-    For j = 3 to 6 do Vscr^[190+j,2+i] = 2;
-   For m = 1 to 4 do
-    if ((pLeser[m] == 0) )  putPic(270+m*10,190,10,10,Stat2[m,0]) else
-     if ((pLeser[m] > 0) && (pLeser[0] <> Chr(m)) )  putPic(270+m*10,190,10,10,Stat2[m,1]) else
-      if ((pLeser[m] > 0) && (pLeser[0] == Chr(m)) )  putPic(270+m*10,190,10,10,Stat2[m,2]);
-   if ((!bosses.isEmpty()) {
-    putPic(0,0,120,10,Status); gun.writeXY(125,0,4,"BOSS");
-    For i = 1 to Round((Boss^.Life/Life_E[Boss^.Faj])*115) do
-     For j = 3 to 6 do Vscr^[j,2+i] = 4; }
+			gun.setCounter();
+			Palya();
+			doEnemy1();
+			doLeser();
 
-   if (SzumLife <= 0 )  gun.writeXY(127,117,5,"GAME OVER");
-   if (cheat )  gun.writeXY(0,0,7,"cheat on");
-   if (currentArea == 3 )  gun.writeXY(127,117,5,"YOU WON !") else
-   if (areaScroll > 25) && (areaScroll < 200) )
-    {
-     if(areaScroll >= 25 && areaScroll <= 124) {
-                s = String.valueOf(currentArea+1);
-                gun.writeXY(137,Round(90-((125-areaScroll))*(1-sqr(sin((areaScroll-25)/10)))),5,"LEVEL "+s);
-     } else if(areaScroll >= 125 && areaScroll <= 149) {
-      gun.writeXY(137,90,5,"LEVEL "+s);
-     } else if(areaScroll >= 150 && areaScroll <= 199) {
-                  putPic(154-(areaScroll-150)*4,84-areaScroll+150,16,16,deaths[1]);
-                  putPic(166+(areaScroll-150)*4,84-areaScroll+150,16,16,deaths[2]);
-                  putPic(154-(areaScroll-150)*4,96+areaScroll-150,16,16,deaths[3]);
-                  putPic(166+(areaScroll-150)*4,96+areaScroll-150,16,16,deaths[4]);
-             }
+			if (keyBuffer.isKeyPressed()) {
+				ch1 = keyBuffer.readKey();
+				switch (ch1) {
+				case 0:
+					ch2 = keyBuffer.readKey();
+					break;
+				case 27:
+					quit = true;
+					break;
+				case '1':
+					leser[0] = 1;
+					break;
+				case '2':
+					if ((leser[2] > 0))
+						leser[0] = 2;
+					break;
+				case '3':
+					if ((leser[3] > 0))
+						leser[0] = 3;
+					break;
+				case '4':
+					if ((leser[4] > 0))
+						leser[0] = 4;
+					break;
+				case 'c':
+				case 'C':
+					cheat = !cheat;
+					cheated = true;
+					break;
+				}
+			}
 
-     }
-    }
+			if (pLife > 0) {
+				if (pL > 0)
+					pL = pL - 1;
+				else if (control.isControlOn() && (pL == 0)) {
+					switch (leser[0]) {
+					case 1:
+						switch (leser[1]) {
+						case 1:
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], 0, 1, 1);
+							break;
+						case 2: {
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], 1, 1, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], -1, 1, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], 0, 1, 1);
+							break;
+						}
+						case 3: {
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], 1, 2, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], -1, 2, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], 0, 2, 1);
+							break;
+						}
+						case 4: {
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], 3, 1, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], -3, 1, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], 1, 2, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], -1, 2, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], 0, 3, 1);
+							break;
+						}
+						case 5: {
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], 3, 2, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], -3, 2, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], 1, 3, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], -1, 3, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[1], 0, 3, 1);
+							break;
+						}
+						}
+					case 2:
+						switch (leser[2]) {
+						case 1:
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[4], 0, 4, 1);
+							break;
+						case 2:
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[5], 0, 5, 1);
+							break;
+						case 3:
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[6], 0, 6, 1);
+							break;
+						}
+					case 3:
+						switch (leser[3]) {
+						case 1: {
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 6, 0, 7, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 0, 6, 7, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -6, 0, 7, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 0, -6, 7, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 4, 4, 7, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 4, -4, 7, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, 4, 7, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, -4, 7, 1);
+							break;
+						}
+						case 2: {
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 6, 0, 8, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 0, 6, 8, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -6, 0, 8, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 0, -6, 8, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 4, 4, 8, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 4, -4, 8, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, 4, 8, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, -4, 8, 1);
+							break;
+						}
+						case 3: {
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 6, 0, 9, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 0, 6, 9, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -6, 0, 9, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 0, -6, 9, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 4, 4, 9, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 4, -4, 9, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, 4, 9, 1);
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, -4, 9, 1);
+							break;
+						}
+						}
+					case 4:
+						switch (leser[4]) {
+						case 1:
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[10], 0, 10, 1);
+							break;
+						case 2:
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[11], 0, 11, 1);
+							break;
+						case 3:
+							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[12], 0, 12, 1);
+							break;
+						}
+					}
+					pL = Late_L[leser[0] * 3 + leser[leser[0]]];
+				}
+				if (control.isUpOn())
+					pY = pY - Speed_F[pFire];
+				if (control.isDownOn())
+					pY = pY + Speed_F[pFire];
+				if (pLogged || (pX >= 5)) {
+					if (control.isLeftOn())
+						pX = pX - Speed_F[pFire];
+					if (control.isRightOn())
+						pX = pX + Speed_F[pFire];
+				}
+				if (pX < 5) {
+					if (pLogged)
+						pX = 5;
+					else
+						pX = pX + Speed_M;
+				}
+				if (!pLogged) {
+					pLogTime = pLogTime + 1;
+					if (pLogTime >= 50)
+						pLogged = true;
+				}
+			}
 
-   Str(Pontok,Ponts);
-   Ponts = "Pontszam " + Spaced(Ponts);
-   gun.writeXY(165,0,#2,Ponts);
+			if (pX > 274)
+				pX = 274;
+			if (pY < -10)
+				pY = -10;
+			if (pY > 180)
+				pY = 180;
 
-   gun.setScr();
-   SetPos;
-   WaitFor(Speed);
-  } while(!Quit);
+			areaScroll++;
 
-  anim2();
-  splash = 63;
-  screen(splash);
-  DrawPoints(10);
-  if (Pontok > Pontszam[9].Pontszam )
-   {
-    Str(Pontok,Ponts);
-    Ponts = "    You have reached "+Spaced(Ponts)+" !!";
-    gun.writeXY(1,170,0,Ponts);
-    gun.writeXY(0,170,3,Ponts);
-    gun.writeXY(1,182,0,"Enter Name");
-    gun.writeXY(0,182,4,"Enter Name");
-   }
-  Anim(0);
-  gun.setScr();
+			gun.clrVscr(0);
+			doStars();
+			putLesers();
+			putEnemies();
 
-  if( Pontok > Pontszam[i].Pontszam) {
-   PontSzov = '';
-   k = 0;
-   Quit = false;
-   do {
-    zh = buffer.readKey();
-    switch( zh) {
-    case 0 : ch = buffer.readKey(); break;
-    case 8 : if ((Pontszov != null && PontSzov.length() > 0) { PontSzov[0] = Chr(Ord(Pontszov[0])-1); }
-    break;
-     'a'..'z','A'..'Z',' ' : if (Length(PontSzov) < 20 )
-      PontSzov = PontSzov + zh;
-    case 27, case 13 : {
-                 if ((PontSzov == null ee PontSzov.length == 0) Pontszov = " ";
-                 quit = true;
-                }
-    }
+			if (pLife > 0) {
+				putPic(pX, pY, 50, 30, ships[pShip]);
+				putPic(pX - 17, pY + 9, 17, 14, fires[pFire][(areaScroll % 3) + 1]);
+			} else if (pShip > 0) {
+				putPic(pX + 6 - (200 - pTime * 4), pY + 6 - (50 - pTime), 16, 16, deaths[0]);
+				putPic(pX + 16 + (200 - pTime * 4), pY + 6 - (50 - pTime), 16, 16, deaths[1]);
+				putPic(pX + 6 - (200 - pTime * 4), pY + 16 + (50 - pTime), 16, 16, deaths[2]);
+				putPic(pX + 16 + (200 - pTime * 4), pY + 16 + (50 - pTime), 16, 16, deaths[3]);
+				if (pTime > 0)
+					pTime = pTime - 1;
+				else if (sumLife > 1) {
+					sumLife = sumLife - 1;
+					pLife = 100;
+					pX = -40;
+					pY = 75;
+					pLogged = false;
+					pLogTime = 0;
+				} else {
+					pShip = 0;
+					sumLife = 0;
+				}
+			}
 
-    DrawPoints(10);
-    gun.writeXY(1,182,0,"Enter Name");
-    gun.writeXY(0,182,4,"Enter Name");
-    gun.writeXY(121,182,0,PontSzov);
-    gun.writeXY(120,182,1,PontSzov);
+			putPic(0, 190, 120, 10, status);
+			if (sumLife > 0)
+				putPic(120, 190, 10, 10, stat2[sumLife][3]);
 
-    String endScoreText = "    You have reached "+spaced(String.valueOf(scores))+" !!";
-    gun.writeXY(1,170,0,endScoreText);
-    gun.writeXY(0,170,3,endScoreText);
-    gun.setScr();
-   } while(!Quit);
-   Pontszam[9].Pontszam = Pontok;
-   Pontszam[9].Nev = Pontszov;
-   k = 9;
-   l = 10;
-   do {
-    if (Pontok > Pontszam[k-1].Pontszam)
-     {
-      Pontszam[k] = Pontszam[k-1];
-      Pontszam[k-1].Pontszam = Pontok;
-      Pontszam[k-1].Nev = Pontszov;
-      l = k-1;
-     }
-    k--;
-   } while(k != 0);
-   gun.clrVscr(148);
-   DrawPoints(l);
-   anim(1);
-   gun.setScr();
-  }
+			for (i = 1; i <= (int) Math.round((pLife / 100.0) * 115); i++) {
+				for (j = 3; j <= 6; j++) {
+					gun.vscr.set(2 + i, 190 + j, 2);
+				}
 
-  ch = buffer.readKey();
+			}
 
-  do {
-   gun.setCounter();
-   splash = splash -2;
-   screen(splash);
-   WaitFor(Speed);
-  } while(splash > 1);
+			for (m = 1; m <= 4; m++) {
+				if (leser[m] == 0)
+					putPic(270 + m * 10, 190, 10, 10, stat2[m][0]);
+				else if ((leser[m] > 0) && (leser[0] != m))
+					putPic(270 + m * 10, 190, 10, 10, stat2[m][1]);
+				else if ((leser[m] > 0) && (leser[0] == m))
+					putPic(270 + m * 10, 190, 10, 10, stat2[m][2]);
+			} // end for m
 
-  removeStars();
-  killAllthings();
-  saveScore();
- }
+			if (!bosses.isEmpty()) {
+				for (Enemy boss : bosses) {
+
+					putPic(0, 0, 120, 10, status);
+					gun.writeXY(125, 0, 4, "BOSS");
+					for (i = 1; i <= (int) Math.round((boss.life / (Life_E[boss.kind]) * 115.0)); i++) {
+						for (j = 3; j <= 6; j++) {
+							gun.vscr.set(2 + i, j, 4);
+						}
+					}
+				}
+			} // end if bosses not empry
+
+			if (sumLife <= 0)
+				gun.writeXY(127, 117, 5, "GAME OVER");
+			if (cheat)
+				gun.writeXY(0, 0, 7, "cheat on");
+
+			if (currentArea == 3) {
+				gun.writeXY(127, 117, 5, "YOU WON !");
+			} else if (areaScroll > 25 && areaScroll < 200) {
+				if (areaScroll >= 25 && areaScroll <= 124) {
+					s[0] = String.valueOf(currentArea + 1);
+					gun.writeXY(137, (int) Math.round(90 - ((125 - areaScroll)) * (1 - sqr(Math.sin((areaScroll - 25) / 10)))), 5, "LEVEL " + s);
+				} else if (areaScroll >= 125 && areaScroll <= 149) {
+					gun.writeXY(137, 90, 5, "LEVEL " + s);
+				} else if (areaScroll >= 150 && areaScroll <= 199) {
+					putPic(154 - (areaScroll - 150) * 4, 84 - areaScroll + 150, 16, 16, deaths[1]);
+					putPic(166 + (areaScroll - 150) * 4, 84 - areaScroll + 150, 16, 16, deaths[2]);
+					putPic(154 - (areaScroll - 150) * 4, 96 + areaScroll - 150, 16, 16, deaths[3]);
+					putPic(166 + (areaScroll - 150) * 4, 96 + areaScroll - 150, 16, 16, deaths[4]);
+				}
+
+			} // else if currentArea / areaScroll
+
+			scoreText = "Pontszam " + spaced(scoreText);
+			gun.writeXY(165, 0, 2, scoreText);
+
+			canvas.invalidate();
+			WaitFor(Speed);
+		} while (!quit);
+
+		anim2();
+		splash = 63;
+		screen(splash);
+		drawPoints(10);
+
+		/*
+		 * if (Pontok > Pontszam[9].Pontszam ) { Str(Pontok,Ponts); Ponts =
+		 * "    You have reached "+Spaced(Ponts)+" !!";
+		 * gun.writeXY(1,170,0,Ponts); gun.writeXY(0,170,3,Ponts);
+		 * gun.writeXY(1,182,0,"Enter Name"); gun.writeXY(0,182,4,"Enter Name");
+		 * }
+		 */
+
+		Anim(0);
+		canvas.invalidate();
+
+		/*
+		 * if( Pontok > Pontszam[i].Pontszam) { PontSzov = ""; k = 0; Quit =
+		 * false; do { zh = keyBuffer.readKey();
+		 *
+		 * if(zh == 0) { ch = keyBuffer.readKey();
+		 *
+		 * } else if(zh == 8) { if (Pontszov != null && PontSzov.length() > 0) {
+		 * PontSzov[0] --; } } else if(zh >= 'a' && zh <= 'z' || zh >= 'A' && zh
+		 * <= 'Z' || zh == ' ') { PontSzov = PontSzov + zh; } else if(zh == 27
+		 * || zh == 13) { if ((PontSzov == null || PontSzov.length == 0)
+		 * Pontszov = " "; quit = true; }
+		 *
+		 * DrawPoints(10); gun.writeXY(1,182,0,"Enter Name");
+		 * gun.writeXY(0,182,4,"Enter Name"); gun.writeXY(121,182,0,PontSzov);
+		 * gun.writeXY(120,182,1,PontSzov);
+		 *
+		 * String endScoreText =
+		 * "    You have reached "+spaced(String.valueOf(scores))+" !!";
+		 * gun.writeXY(1,170,0,endScoreText); gun.writeXY(0,170,3,endScoreText);
+		 * gun.setScr(); } while(!Quit); Pontszam[9].Pontszam = Pontok;
+		 * Pontszam[9].Nev = Pontszov; k = 9; l = 10; do { if (Pontok >
+		 * Pontszam[k-1].Pontszam) { Pontszam[k] = Pontszam[k-1];
+		 * Pontszam[k-1].Pontszam = Pontok; Pontszam[k-1].Nev = Pontszov; l =
+		 * k-1; } k--; } while(k != 0);
+		 *
+		 * gun.clrVscr(148); drawPoints(l); Anim(1); canvas.invalidate(); }
+		 *
+		 */
+
+		ch = keyBuffer.readKey();
+
+		do {
+			gun.setCounter();
+			splash = splash - 2;
+			screen(splash);
+			WaitFor(Speed);
+		} while (splash > 1);
+
+		removeStars();
+		killAllThings();
+		saveScore();
+	} // end public void game
 
 	public void WaitFor(long time) {
 		try {
 			Thread.sleep(time);
-		} catch(InterruptedException ex) {
+		} catch (InterruptedException ex) {
 			//
 		}
 	}
 
- public void DrawMenu() {
-	  int MP2;
-	  String DStr;
-  switch(diff) {
-	   case -1 :
-		   DStr = "Easy";
-		   break;
-	   case 0 :
-		   DStr = "Medium";
-		   break;
-	   case 1 :
-		   DStr = "Hard";
-		   break;
-  }
+	public void DrawMenu() {
+		int MP2;
+		String DStr = "";
+		switch (diff) {
+		case -1:
+			DStr = "Easy";
+			break;
+		case 0:
+			DStr = "Medium";
+			break;
+		case 1:
+			DStr = "Hard";
+			break;
+		}
 
-  gun.clrVscr(1);
-  gun.writeXY(116,5,5,"KlonGun");
-  gun.writeXY(115,6,5,"KlonGun");
-  gun.writeXY(114,5,5,"KlonGun");
-  gun.writeXY(115,4,5,"KlonGun");
-  gun.writeXY(115,5,148,"KlonGun");
+		gun.clrVscr(1);
+		gun.writeXY(116, 5, 5, "KlonGun");
+		gun.writeXY(115, 6, 5, "KlonGun");
+		gun.writeXY(114, 5, 5, "KlonGun");
+		gun.writeXY(115, 4, 5, "KlonGun");
+		gun.writeXY(115, 5, 148, "KlonGun");
 
-  for(MP2 = 0; MP2 <= MaxMenu; MP2++) {
-    gun.writeXY(70,71+20*MP2,0,MenuSzov[MP2]);
-    gun.writeXY(71,71+20*MP2,0,MenuSzov[MP2]);
-    gun.writeXY(70,70+20*MP2,6,MenuSzov[MP2]);
-    if (MP2 == 1 )
-     {
-      gun.writeXY(200,71+20*MP2,0,DStr);
-      gun.writeXY(201,71+20*MP2,0,DStr);
-      gun.writeXY(200,70+20*MP2,4,DStr);
-     }
-   }
-  putPic(5,60+20*menuItem,50,30,Ships[1]);
- }
+		for (MP2 = 0; MP2 <= MaxMenu; MP2++) {
+			gun.writeXY(70, 71 + 20 * MP2, 0, MenuSzov[MP2]);
+			gun.writeXY(71, 71 + 20 * MP2, 0, MenuSzov[MP2]);
+			gun.writeXY(70, 70 + 20 * MP2, 6, MenuSzov[MP2]);
+			if (MP2 == 1) {
+				gun.writeXY(200, 71 + 20 * MP2, 0, DStr);
+				gun.writeXY(201, 71 + 20 * MP2, 0, DStr);
+				gun.writeXY(200, 70 + 20 * MP2, 4, DStr);
+			}
+		}
+		putPic(5, 60 + 20 * menuItem, 50, 30, ships[1]);
+	}
 
+	public void menu() {
+		boolean menuQuit = false;
 
- public int menu() {
- boolean menuQuit = false;
-  if (changed) {
-    gun.clrVscr(0);
-    gun.setScr();
-    splash = 63;
-    screen(splash);
-    menuQuit = false;
-    DrawMenu();
-    anim(0);
-   }
-  do {
-   DrawMenu();
-   gun.setScr();
-   switch( ReadKey) {
-	   case 0 : switch( keyBuffer.readKey()) {
-		   case 72 : if (menuItem > 0 )  menuItem = menuItem -1; break;
-		  case 80 : if (menuItem < MaxMenu )  menuItem = menuItem +1; break;
-	         }
-	   case 27 : { menuQuit = true; MENU = MaxMenu; }break;
-	   case 13 : { menuQuit = true; MENU = menuItem; }break;
-   }
-  } while(!menuQuit);
+		if (changed) {
+			gun.clrVscr(0);
+			canvas.invalidate();
+			splash = 63;
+			screen(splash);
+			menuQuit = false;
+			DrawMenu();
+			Anim(0);
+		}
 
- }
-
-	public void credits() {
-		int pos=0;
-		int p=0;
-
-		gun.clrVscr(0);
-		gun.setScr();
-
-		splash=1;
-		screen(splash);
-		gun.clrVscr(148);
-
-		gun.setScr();
-
-		pos=0;
-
-		do{gun.setCounter();splash+=2;screen(splash);WaitFor(Speed);}while(splash>=62);splash=63;
-
-		screen(splash);
-
-		do{gun.clrVscr(148);pos=pos+1;for(p=0;p<=MaxCredit;p++){gun.writeXY(161-Length(CreditSzov[p])*9 / 2,200+p*20-pos,0,CreditSzov[p]);gun.writeXY(160-Length(CreditSzov[p])*9 / 2,201+p*20-pos,0,CreditSzov[p]);gun.writeXY(160-Length(CreditSzov[p])*9 / 2,200+p*20-pos,2,CreditSzov[p]);}
-
-		gun.setScr();}while(pos<400+(MaxCredit+1)*20&&!frame.getControl().isEscapeOn());
+		do {
+			DrawMenu();
+			canvas.invalidate();
+			switch (keyBuffer.readKey()) {
+			case 0:
+				switch (keyBuffer.readKey()) {
+				case 72:
+					if (menuItem > 0)
+						menuItem = menuItem - 1;
+					break;
+				case 80:
+					if (menuItem < MaxMenu)
+						menuItem = menuItem + 1;
+					break;
+				}
+				break;
+			case 27: {
+				menuQuit = true;
+				menuItem = MaxMenu;
+			}
+				break;
+			case 13: {
+				menuQuit = true;
+				menuItem = menuItem;
+			}
+				break;
+			}
+		} while (!menuQuit);
 
 	}
 
+	public void credits() {
+		int pos = 0;
+		int p = 0;
+
+		gun.clrVscr(0);
+		canvas.invalidate();
+
+		splash = 1;
+		screen(splash);
+		gun.clrVscr(148);
+
+		canvas.invalidate();
+
+		pos = 0;
+
+		do {
+			gun.setCounter();
+			splash += 2;
+			screen(splash);
+			WaitFor(Speed);
+		} while (splash >= 62);
+		splash = 63;
+
+		screen(splash);
+
+		do {
+			gun.clrVscr(148);
+			pos = pos + 1;
+			for (p = 0; p <= MaxCredit; p++) {
+				gun.writeXY(161 - CreditSzov[p].length() * 9 / 2, 200 + p * 20 - pos, 0, CreditSzov[p]);
+				gun.writeXY(160 - CreditSzov[p].length() * 9 / 2, 201 + p * 20 - pos, 0, CreditSzov[p]);
+				gun.writeXY(160 - CreditSzov[p].length() * 9 / 2, 200 + p * 20 - pos, 2, CreditSzov[p]);
+			}
+
+			canvas.invalidate();
+		} while (pos < 400 + (MaxCredit + 1) * 20 && !frame.getControl().isEscapeOn());
+
+	}
 
 } // end of KLONGUN
