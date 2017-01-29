@@ -44,7 +44,7 @@ public class KlonGun {
 	public static final int[] Speed_E = new int[] {3,1,5,0,7,3,3,0,15,0,7,3,2,0}; // enemies
 	public static final int[] Life_E = new int[] {40,64,15,1250,50,10,15,80,20,5000,20,15,250,15}; // enemy HPs
 	public static final int[] Dmg_L = new int[] {5,7,10,10,13,20,2,7,20,25,40,70}; // bullet power
-	public static final int[] Late_L = new int[] {2,2,2,5,5,5,3,3,3,8,8,8}; // delay between shootings
+	public static final int[] Late_L = new int[] {2,2,2,3,4,5,3,3,3,5,7,8}; // delay between shootings
 	public static final int[] Speed_L = new int[] {8,8,8,15,15,15,6,6,6,20,20,20}; // bullet speeds
 
 
@@ -110,6 +110,7 @@ public class KlonGun {
     public int pFire;
     public int pL;
     public boolean pLogged; // if false, player can't be hurt
+    public boolean defenseFire;
     public int[] leser = new int[5]; // weapon statuses
     public int pTime;
     public int pProtection;
@@ -1304,6 +1305,11 @@ public class KlonGun {
 						leser[0] = 4;
 					break;
 
+				case 'd':
+				case 'D':
+					defenseFire = !defenseFire;
+					break;
+
 				case 'c':
 				case 'C':
 					cheat = !cheat;
@@ -1323,31 +1329,61 @@ public class KlonGun {
 							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 0, 1);
 							break;
 						case 2:
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 1, 0, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -1, 0, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 0, 1);
+							if(defenseFire) {
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 1, 0, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -1, 0, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 0, 1);
+							} else {
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 1, 1);
+							}
 							break;
 
 						case 3:
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 1, 1, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -1, 1, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 1, 1);
+							if(defenseFire) {
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 2, 0, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 1, 0, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -1, 0, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -2, 0, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 0, 1);
+							} else {
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 1, 1, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -1, 1, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 1, 1);
+							}
 							break;
 
 						case 4:
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 3, 0, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -3, 0, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 1, 1, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -1, 1, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 2, 1);
+							if(defenseFire) {
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 2, 1, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -2, 1, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 1, 1, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -1, 1, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 1, 1);
+							} else {
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 3, 0, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -3, 0, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 1, 1, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -1, 1, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 2, 1);
+							}
 							break;
 
 						case 5:
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 3, 1, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -3, 1, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 1, 2, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -1, 2, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 2, 1);
+							if(defenseFire) {
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 3, 0, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 2, 1, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 1, 1, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 1, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -1, 1, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -2, 1, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -3, 0, 1);
+							} else {
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 2, 1, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -2, 1, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 1, 2, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -1, 2, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 2, 1);
+							}
 							break;
 						}
 						break;
@@ -1358,10 +1394,14 @@ public class KlonGun {
 							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[3], 0, 3, 1);
 							break;
 						case 2:
+							initLeser(pX + ShipX[pShip] -3, pY + ShipY[pShip] -3, Speed_L[4], 0, 3, 1);
 							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[4], 0, 4, 1);
+							initLeser(pX + ShipX[pShip] -3, pY + ShipY[pShip] +3, Speed_L[4], 0, 3, 1);
 							break;
 						case 3:
+							initLeser(pX + ShipX[pShip] -3, pY + ShipY[pShip] -5, Speed_L[4], 0, 4, 1);
 							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[5], 0, 5, 1);
+							initLeser(pX + ShipX[pShip] -3, pY + ShipY[pShip] +5, Speed_L[4], 0, 4, 1);
 							break;
 						}
 						break;
@@ -1369,36 +1409,72 @@ public class KlonGun {
 					case 3:
 						switch (leser[3]) {
 						case 1:
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 6, 0, 6, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 0, 6, 6, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -6, 0, 6, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 0, -6, 6, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 4, 4, 6, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 4, -4, 6, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, 4, 6, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, -4, 6, 1);
+							if(defenseFire) {
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -3, 4, 6, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, 3, 6, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, 2, 6, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -5, 1, 6, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -5, 0, 6, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -5, -1, 6, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, -2, 6, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, -3, 6, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -3, -4, 6, 1);
+							} else {
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 6, 0, 6, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 0, 6, 6, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -6, 0, 6, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 0, -6, 6, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 4, 4, 6, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 4, -4, 6, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, 4, 6, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, -4, 6, 1);
+							}
 							break;
 
 						case 2:
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 6, 0, 7, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 0, 6, 7, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -6, 0, 7, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 0, -6, 7, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 4, 4, 7, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 4, -4, 7, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, 4, 7, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, -4, 7, 1);
+							if(defenseFire) {
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -3, 4, 7, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, 3, 7, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, 2, 7, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -5, 1, 7, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -5, 0, 7, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -5, -1, 7, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, -2, 7, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, -3, 7, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -3, -4, 7, 1);
+							} else {
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 6, 0, 7, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 0, 6, 7, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -6, 0, 7, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 0, -6, 7, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 4, 4, 7, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 4, -4, 7, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, 4, 7, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, -4, 7, 1);
+							}
 							break;
 
 						case 3:
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 6, 0, 8, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 0, 6, 8, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -6, 0, 8, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 0, -6, 8, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 4, 4, 8, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 4, -4, 8, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, 4, 8, 1);
-							initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, -4, 8, 1);
+							if(defenseFire) {
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -3, 4, 8, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, 3, 8, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, 2, 8, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -5, 1, 8, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -5, 0, 8, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -5, -1, 8, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, -2, 8, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, -3, 8, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -3, -4, 8, 1);
+							} else {
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 6, 0, 8, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 0, 6, 8, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -6, 0, 8, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 0, -6, 8, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 4, 4, 8, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], 4, -4, 8, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, 4, 8, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], -4, -4, 8, 1);
+							}
 							break;
 						}
 						break;
