@@ -1354,14 +1354,16 @@ public class KlonGun {
 
 						case 4:
 							if(defenseFire) {
-								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 2, 1, 1);
-								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -2, 1, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 3, 0, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -3, 0, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 2, 0, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -2, 0, 1);
 								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 1, 1, 1);
 								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -1, 1, 1);
 								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 1, 1);
 							} else {
-								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 3, 0, 1);
-								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -3, 0, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 2, 0, 1);
+								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -2, 0, 1);
 								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 1, 1, 1);
 								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -1, 1, 1);
 								initLeser(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 2, 1);
