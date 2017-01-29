@@ -14,6 +14,7 @@ import hu.csega.klongun.model.Star;
 import hu.csega.klongun.screen.Picture;
 import hu.csega.klongun.screen.TPal;
 import hu.csega.klongun.screen.TVscr;
+import hu.csega.klongun.swing.KlonGunFrame;
 import sun.java2d.Disposer;
 
 public class KlonGun {
@@ -90,7 +91,7 @@ public class KlonGun {
 
     public String[] s = new String[2];
 
-    public int areaScroll; // = Mozgas
+    public int areaScroll; // = areaScroll
     public int bossDel;
     public Enemy boss;
 
@@ -138,13 +139,15 @@ public class KlonGun {
 
     public static final Random RND = new Random(System.currentTimeMillis());
 
+    public static KlonGunFrame frame;
 
 	public static void main(String[] args) throws Exception {
-		KlonGun kg = new KlonGun();
 		for (int i = 0; i < 126; i++)
 			sinus[i] = (int) Math.round(Math.sin(i / 20) * 100);
 
 		//////////////////////
+		KlonGun kg = new KlonGun();
+		frame = new KlonGunFrame(kg);
 		kg.run();
 	}
 
@@ -169,16 +172,16 @@ public class KlonGun {
               if no <> i then
                {
                 Str(Pontszam,Ponts);
-                WriteXY(21,20+i*15,#0,Nev);
-                WriteXY(221,20+i*15,#0,Spaced(Ponts));
-                WriteXY(20,20+i*15,#2,Nev);
-                WriteXY(220,20+i*15,#2,Spaced(Ponts));
+                gun.writeXY(21,20+i*15,#0,Nev);
+                gun.writeXY(221,20+i*15,#0,Spaced(Ponts));
+                gun.writeXY(20,20+i*15,#2,Nev);
+                gun.writeXY(220,20+i*15,#2,Spaced(Ponts));
                } Else {
                 Str(Pontszam,Ponts);
-                WriteXY(21,20+i*15,#0,Nev);
-                WriteXY(221,20+i*15,#0,Spaced(Ponts));
-                WriteXY(20,20+i*15,#1,Nev);
-                WriteXY(220,20+i*15,#1,Spaced(Ponts));
+                gun.writeXY(21,20+i*15,#0,Nev);
+                gun.writeXY(221,20+i*15,#0,Spaced(Ponts));
+                gun.writeXY(20,20+i*15,#1,Nev);
+                gun.writeXY(220,20+i*15,#1,Spaced(Ponts));
                }
       */
 
@@ -439,12 +442,12 @@ public class KlonGun {
 			switch (currentArea) {
 			case 1:
 				pFire = 2;
-				leser[0] = 3;
+				leser[1] = 3;
 				break;
 			case 2:
-				leser[0] = 4;
-				leser[1] = 1;
+				leser[1] = 4;
 				leser[3] = 1;
+				leser[4] = 1;
 				break;
 			}
 		}
@@ -537,12 +540,12 @@ public class KlonGun {
 	                  InitLeser(Less,X+3,Y+18,-8,0,1,0);
 	                 }
 	    			 case 120 : YSpeed = 5;
-	                121..131,151..161,181..191: if (Mozgas % 3 == 0) {
+	                121..131,151..161,181..191: if (areaScroll % 3 == 0) {
 	                  InitLeser(Less,X+3,Y+4,-12,0,1,0);
 	                  InitLeser(Less,X+3,Y+18,-12,0,1,0);
 	                 }
 	    			 case 200 : { YSpeed = 2; Speed = 5; }
-	                201..309:  if (Mozgas % 8) == 0 then {
+	                201..309:  if (areaScroll % 8) == 0 then {
 	                  InitLeser(Less,X,Y+11,-8,0,6,0);
 	                 }
 	    			 case 310 : { YSpeed = 1; Speed = 1; }
@@ -605,7 +608,7 @@ public class KlonGun {
 	                }
 	              }
 	          5 : {
-	               if (Mozgas % 15 == 0)
+	               if (areaScroll % 15 == 0)
 	                {
 	                 InitLeser(Less,X+16,Y+16,6,0,8,0);
 	                 InitLeser(Less,X+16,Y+16,-6,0,8,0);
@@ -618,13 +621,13 @@ public class KlonGun {
 	                }
 	              }
 	          6 : {
-	               if (Mozgas % 15 == 0)
+	               if (areaScroll % 15 == 0)
 	                {
 	                 InitLeser(Less,X+6,Y+16,-6,0,7,0);
 	                }
 	              }
 	          8 : {
-	               if (Mozgas+X-15) % 30 == 0 then
+	               if (areaScroll+X-15) % 30 == 0 then
 	                {
 	                 InitLeser(Less,X+6,Y+16,-10,0,11,0);
 	                }
@@ -641,39 +644,39 @@ public class KlonGun {
 	                { YSpeed = YSpeed*2; Speed = Speed - 4; }
 	              }
 	          10 : {
-	                if Mozgas % 10 == 0 then
+	                if areaScroll % 10 == 0 then
 	                 {
 	                  InitLeser(Less,X+6,Y+10,-10,0,12,0);
 	                  InitLeser(Less,X+6,Y+22,-10,0,12,0);
 	                 }
-	                if Mozgas % 87 == 0 then
+	                if areaScroll % 87 == 0 then
 	                 {
 	                  InitEnemy(Enemies,X+16,Y+20,2,-4,MaxEnemy1+4,0);
 	                 }
-	                if Mozgas % 125 == 0 then
+	                if areaScroll % 125 == 0 then
 	                 {
 	                  InitEnemy(Enemies,X+16,Y+20,15,0,9,0);
 	                 }
-	                if Mozgas % 210 == 0 then
+	                if areaScroll % 210 == 0 then
 	                 {
 	                  InitEnemy(Enemies,X+16,Y+20,2,-4,8,1+Random(6));
 	                 }
 	                if (Y > 180) && (YSpeed < 0) then YSpeed = -YSpeed;
 	                if (Y < 0) && (YSpeed > 0) then YSpeed = -YSpeed;
-	                if Mozgas % 75 == 0 then YSpeed = YSpeed * 4;
-	                if Mozgas % 75 == 32 then YSpeed = YSpeed div 4;
+	                if areaScroll % 75 == 0 then YSpeed = YSpeed * 4;
+	                if areaScroll % 75 == 32 then YSpeed = YSpeed div 4;
 	                if X < 200 then Speed = -10;
 	                if X > 320 then Speed = 3;
 	               }
 	          MaxEnemy1+1 : {
-	                         if (Y < (((Mozgas + X) div 20) % 4)* 25) then YSpeed = -2;
-	                         if (Y > 125+(((Mozgas + X) div 20) % 4)* 25) then YSpeed = 2;
-	                         if Mozgas % 20 == 0 then InitLeser(Less,X+6,Y+16,-6,0,8,0);
+	                         if (Y < (((areaScroll + X) div 20) % 4)* 25) then YSpeed = -2;
+	                         if (Y > 125+(((areaScroll + X) div 20) % 4)* 25) then YSpeed = 2;
+	                         if areaScroll % 20 == 0 then InitLeser(Less,X+6,Y+16,-6,0,8,0);
 	                        }
-	          MaxEnemy1+2 : if Mozgas % 15 == 0 then InitLeser(Less,X+16,Y+16,-Speed_L[4],0,4,0);
+	          MaxEnemy1+2 : if areaScroll % 15 == 0 then InitLeser(Less,X+16,Y+16,-Speed_L[4],0,4,0);
 
 	          MaxEnemy1+3 : {
-	                         if Mozgas % 25 == 0 then
+	                         if areaScroll % 25 == 0 then
 	                          {
 	                           InitLeser(Less,X+16,Y+16,6,0,8,0);
 	                           InitLeser(Less,X+16,Y+16,-6,0,8,0);
@@ -688,7 +691,7 @@ public class KlonGun {
 	                         if (Y > 190) && (YSpeed < 0) then YSpeed = -YSpeed;
 	                         if (X < 0) && (Speed > 0) then Speed = -Speed;
 	                         if (X > 310) && (Speed < 0) then Speed = -Speed;
-	                         CASE Mozgas % 200 OF
+	                         switch( areaScroll % 200) {
 	                          30 : YSpeed = YSpeed*2;
 	                          100 : YSpeed = YSpeed div 2;
 	                          70 : Speed = Speed * 3;
@@ -696,7 +699,7 @@ public class KlonGun {
 	                         }
 	                        }
 	          MaxEnemy1+4 : {
-	                         if Mozgas % 15 == 0 then InitLeser(Less,X+6,Y+16,-10,0,5,0);
+	                         if areaScroll % 15 == 0 then InitLeser(Less,X+6,Y+16,-10,0,5,0);
 	                         if (Y > 190) && (YSpeed < 0) then YSpeed = -YSpeed;
 	                         if (Y < 0) && (YSpeed > 0) then YSpeed = -YSpeed;
 	                         if X < 100 then Speed = 15;
@@ -741,6 +744,9 @@ public class KlonGun {
 public void run() {
  gun.init();
 load();
+
+
+
  diff = 0;
 
  quitAll = false;
@@ -765,19 +771,19 @@ load();
         Changed = False;
        }
  case 2 : {
-        REPEAT
+        do {
          SetCounter;
-         Splash = Splash -2;
-         Screen(Splash);
+         splash = splash -2;
+         Screen(splash);
          WaitFor(Speed);
-        UNTIL Splash <= 1;
-        CREDITS;
-        REPEAT
+        } while(splash > 1);
+        credits();
+        do {
          SetCounter;
-         Splash = Splash -2;
-         Screen(Splash);
+         splash = splash -2;
+         Screen(splash);
          WaitFor(Speed);
-        UNTIL Splash <= 1;
+        } while(splash > 1);
         Changed = True;
        }
  case 3 : {
@@ -798,28 +804,28 @@ load();
         For i = 0 to 9 do
          Read(fP,Pontszam[i]);
         Close(fP);
-        REPEAT
+        do {
          SetCounter;
-         Splash = Splash -2;
-         Screen(Splash);
+         splash = splash -2;
+         Screen(splash);
          WaitFor(Speed);
-        UNTIL Splash <= 1;
+        } while(splash > 1);
         ClrVscr(#0);
         SetScr;
-        Splash = 63;
-        Screen(Splash);
+        splash = 63;
+        Screen(splash);
         ClrVscr(#148);
         DrawPoints(l);
         Anim(0);
         SetScr;
-        Repeat Until KeyPressed;
+        do { } while(!KeyPressed);
         While KeyPressed do ch = ReadKey;
-        REPEAT
+        do {
          SetCounter;
-         Splash = Splash -2;
-         Screen(Splash);
+         splash = splash -2;
+         Screen(splash);
          WaitFor(Speed);
-        UNTIL Splash <= 1;
+        } while(splash > 1);
         Changed = True;
        }
  case 4 : {
@@ -845,16 +851,10 @@ load();
 
 }
 
-
-} // end of KLONGUN
-
-/*
-
-public void PutEnemies(var xEnemies : pEnemies);
- VAR EnemyPos : pEnemies;
-     i,j : Integer;
-     Die : Boolean;
- {
+public void PutEnemies(var xEnemies : pEnemies) {
+	 VAR EnemyPos : pEnemies;
+ i,j : Integer;
+ Die : Boolean;
   EnemyPos = xEnemies;
   WHILE EnemyPos <> nil DO
    {
@@ -889,13 +889,13 @@ public void PutEnemies(var xEnemies : pEnemies);
             Str((2+Diff)*Life_E[Faj] div 10,PontSzov);
             PontSzov = PontSzov+'p';
            } Else Pontszov = '0p';
-          WriteXY(X+16-(Length(PontSzov)*13) div 2,Y+8-(300-Time*6),#5,PontSzov);
+          gun.writeXY(X+16-(Length(PontSzov)*13) div 2,Y+8-(300-Time*6),#5,PontSzov);
           if (Time > 30) && (Item > 0) then PutPic(X+8,Y+8,16,16,Items[Item]);
           Time = Time - 1;
          } Else Die = True;
        }
      }
-    if Die then
+    if (Die)
      {
       if EnemyPos^.Prev == nil then
        {
@@ -912,12 +912,11 @@ public void PutEnemies(var xEnemies : pEnemies);
    }
  }
 
-public void PutLesers(var xLess : pLess);
- VAR X1,Y1 : Integer;
+public void PutLesers() {
+	 VAR X1,Y1 : Integer;
      EnemyPos : pEnemies;
      LessPos : pLess;
      Talalat : Boolean;
- {
   LessPos = xLess;
   WHILE LessPos <> nil DO
    {
@@ -954,7 +953,7 @@ public void PutLesers(var xLess : pLess);
                        Pontok = Pontok + (2+Diff)*Life_E[EnemyPos^.Faj] div 10;
                       if EnemyPos == Boss then Boss = nil;
                       if EnemyPos^.Item > 0 then
-                      CASE EnemyPos^.Item OF
+                      switch( EnemyPos^.Item) {
                         1 : {
                             if pLife > 0 then pLife = pLife + 20;
                             if pLife > 100 then pLife = 100;
@@ -1001,83 +1000,83 @@ public void PutLesers(var xLess : pLess);
    }
  }
 
-public void Palya;
- {
-  if Mozgas > 100 then
+public void Palya() {
+
+  if areaScroll > 100 then
   switch (currentArea) {
   case  0 : {
-        if (Mozgas < 500) && ((Mozgas % 25) == 0) then
-          InitEnemy(Enemies,320,70+((Mozgas div 25) % 2)*60,Speed_E[6],((Mozgas div 25) % 2)*2-1,6,0);
-        if Mozgas == 500 then InitEnemy(Enemies,320,Random(20)+90,4,0,7,1);
-        if (Mozgas > 500) && (Mozgas < 600) && (Mozgas % 20 == 0) then
+        if (areaScroll < 500) && ((areaScroll % 25) == 0) then
+          InitEnemy(Enemies,320,70+((areaScroll div 25) % 2)*60,Speed_E[6],((areaScroll div 25) % 2)*2-1,6,0);
+        if areaScroll == 500 then InitEnemy(Enemies,320,Random(20)+90,4,0,7,1);
+        if (areaScroll > 500) && (areaScroll < 600) && (areaScroll % 20 == 0) then
           InitEnemy(Enemies,250,-10,1,-2,MaxEnemy1+2,0);
-        if (Mozgas > 600) && (Mozgas < 700) && (Mozgas % 20 == 0) then
+        if (areaScroll > 600) && (areaScroll < 700) && (areaScroll % 20 == 0) then
           InitEnemy(Enemies,250,210,1,2,MaxEnemy1+2,0);
-        if Mozgas == 700 then InitEnemy(Enemies,250,210,1,2,7,2);
-        if Mozgas == 800 then InitEnemy(Enemies,320,Random(20)+90,2,0,7,1);
-        if Mozgas == 990 then InitEnemy(Enemies,320,Random(20)+90,2,0,7,6);
-        if (Mozgas > 750) && (Mozgas < 1040) && (Mozgas % 25 == 0) then
-          InitEnemy(Enemies,320,60+((Mozgas div 20) % 4)* 25,1,2,MaxEnemy1+1,0);
-        if Mozgas == 1100 then
+        if areaScroll == 700 then InitEnemy(Enemies,250,210,1,2,7,2);
+        if areaScroll == 800 then InitEnemy(Enemies,320,Random(20)+90,2,0,7,1);
+        if areaScroll == 990 then InitEnemy(Enemies,320,Random(20)+90,2,0,7,6);
+        if (areaScroll > 750) && (areaScroll < 1040) && (areaScroll % 25 == 0) then
+          InitEnemy(Enemies,320,60+((areaScroll div 20) % 4)* 25,1,2,MaxEnemy1+1,0);
+        if areaScroll == 1100 then
          {
           InitEnemy(Enemies,320,100,3,3,MaxEnemy1+3,2);
           Boss_Del = 200;
           InitEnemy(Enemies,320,Random(20)+90,2,0,7,1);
          }
-        if Mozgas > 2200 then Mozgas = Mozgas- Boss_Del;
-        if (Mozgas > 1100) && (Boss == nil) then NextLevel;
+        if areaScroll > 2200 then areaScroll = areaScroll- Boss_Del;
+        if (areaScroll > 1100) && (Boss == nil) then NextLevel;
        }
    case 1 : {
-        if (Mozgas < 2000) && ((Mozgas % 19) == 0) then
+        if (areaScroll < 2000) && ((areaScroll % 19) == 0) then
          {
           InitEnemy(Enemies,0,0,0,0,0,0);
          }
-        if (Mozgas < 2000) && ((Mozgas % 32) == 0) then
+        if (areaScroll < 2000) && ((areaScroll % 32) == 0) then
          {
           InitLeser(Less,0,0,0,0,0,0);
          }
-        if (Mozgas < 2000) && (Mozgas % 115 == 0) then
-         CASE (Mozgas div 115) OF
+        if (areaScroll < 2000) && (areaScroll % 115 == 0) then
+         switch( (areaScroll div 115)) {
           2 : InitEnemy(Enemies,320,Random(160)+20,4,0,7,1);
           4 : InitEnemy(Enemies,320,Random(160)+20,4,0,7,6);
           6 : InitEnemy(Enemies,320,Random(160)+20,4,0,7,3);
          }
-        if Mozgas == 1000 then InitEnemy(Enemies,320,Random(160)+20,4,0,7,1);
-        if Mozgas == 1850 then InitEnemy(Enemies,320,Random(160)+20,4,0,7,2);
-        if Mozgas == 1250 then InitEnemy(Enemies,320,Random(160)+20,4,0,7,5);
-        if Mozgas == 1700 then InitEnemy(Enemies,320,Random(160)+20,4,0,7,1);
-        if Mozgas == 2000 then
+        if areaScroll == 1000 then InitEnemy(Enemies,320,Random(160)+20,4,0,7,1);
+        if areaScroll == 1850 then InitEnemy(Enemies,320,Random(160)+20,4,0,7,2);
+        if areaScroll == 1250 then InitEnemy(Enemies,320,Random(160)+20,4,0,7,5);
+        if areaScroll == 1700 then InitEnemy(Enemies,320,Random(160)+20,4,0,7,1);
+        if areaScroll == 2000 then
          {
           InitEnemy(Enemies,320,88,3,0,4,0);
           Boss_Del = 3600;
          }
-        if Mozgas > 10000 then Mozgas = Mozgas- Boss_Del;
+        if areaScroll > 10000 then areaScroll = areaScroll- Boss_Del;
        }
    case 2 : {
-        if (Mozgas < 500) && (Mozgas % 20 == 0) then
+        if (areaScroll < 500) && (areaScroll % 20 == 0) then
          {
-          InitEnemy(Enemies,320,88,Speed_E[5],(Speed_E[5] div 3)*(((Mozgas div 20) % 2)*2-1),5,0);
+          InitEnemy(Enemies,320,88,Speed_E[5],(Speed_E[5] div 3)*(((areaScroll div 20) % 2)*2-1),5,0);
          }
-        if Mozgas == 180 then InitEnemy(Enemies,320,Random(20)+90,4,0,7,1);
-        if Mozgas == 360 then InitEnemy(Enemies,320,Random(20)+90,4,0,7,1);
-        if (Mozgas > 530) && (Mozgas < 1000) && (Mozgas % 3 == 0) then
+        if areaScroll == 180 then InitEnemy(Enemies,320,Random(20)+90,4,0,7,1);
+        if areaScroll == 360 then InitEnemy(Enemies,320,Random(20)+90,4,0,7,1);
+        if (areaScroll > 530) && (areaScroll < 1000) && (areaScroll % 3 == 0) then
          InitEnemy(Enemies,320,Random(190),15,0,9,0);
-        if Mozgas == 620 then InitEnemy(Enemies,320,68+Random(40),3,0,7,1);
-        if Mozgas == 800 then InitEnemy(Enemies,320,68+Random(40),3,0,7,3);
-        if Mozgas == 950 then InitEnemy(Enemies,320,68+Random(40),3,0,7,7);
-        if (Mozgas > 1000) && (Mozgas < 1300) && (Mozgas % 25 == 0) then
+        if areaScroll == 620 then InitEnemy(Enemies,320,68+Random(40),3,0,7,1);
+        if areaScroll == 800 then InitEnemy(Enemies,320,68+Random(40),3,0,7,3);
+        if areaScroll == 950 then InitEnemy(Enemies,320,68+Random(40),3,0,7,7);
+        if (areaScroll > 1000) && (areaScroll < 1300) && (areaScroll % 25 == 0) then
          {
           InitEnemy(Enemies,310,199,2,5,8,0);
           InitEnemy(Enemies,270,-20,2,-5,8,0);
          }
-        if Mozgas == 1300 then
+        if areaScroll == 1300 then
          {
           InitEnemy(Enemies,310,199,2,5,8,4);
           InitEnemy(Enemies,270,-20,2,-5,8,3);
          }
-        if (Mozgas > 1000) && (Mozgas < 1300) && (Mozgas % 85 == 40) then
+        if (areaScroll > 1000) && (areaScroll < 1300) && (areaScroll % 85 == 40) then
          InitEnemy(Enemies,320,Random(180),4,0,7,1);
-        if Mozgas == 1400 then
+        if areaScroll == 1400 then
          {
           InitEnemy(Enemies,320,0,1,0,7,1);
           InitEnemy(Enemies,320,40,1,0,7,4);
@@ -1086,45 +1085,48 @@ public void Palya;
           InitEnemy(Enemies,320,88,1,2,10,1);
           Boss_Del = 4200;
          }
-        if Mozgas > 10000 then Mozgas = Mozgas- Boss_Del;
-        if (Mozgas > 1400) && (Boss == nil) then NextLevel;
+        if areaScroll > 10000 then areaScroll = areaScroll- Boss_Del;
+        if (areaScroll > 1400) && (Boss == nil) then NextLevel;
        }
        }
   }
  }
 
-public void Temp;
- {
-  Pontok = 0;
+public void temp() {
+  scores = 0;
   pFire = 3;
   pShip = 1;
   pLife = 100;
-  pY = 75; pX = -40;
-  SzumLife = 4;
+  pY = 75;
+  pX = -40;
+  sumLife = 4;
   pLogged = False;
   pLogTime = 0;
   pL = 0;
-  pLeser[0] = #1; pLeser[1] = #1;
-  pLeser[2] = #0; pLeser[3] = #0;
-  pLeser[4] = #0;
+  pLeser[0] = 1;
+  pLeser[1] = 1;
+  pLeser[2] = 0;
+  pLeser[3] = 0;
+  pLeser[4] = 0;
   ActualPalya = 0;
-  Mozgas = 0;
-  Boss = nil;
-  Enemies = nil; Less = nil;
+  areaScroll = 0;
+  bosses.clear();
+  enemies.clear();
+  lesses.clear();
   Randomize;
-  Cheat = False;
+  cheat = False;
   PontSzov = '1p';
-  Splash = 1;
+  splash = 1;
 
   Assign(fP,'hiscore.dat');
 
   ReSet(fP);
   if IOResult <> 0 then
    {
-    For i = 0 to 9 do
+    for(i = 0; i < 10; i++)
      Pontszam[i].Pontszam = 0;
     ReWrite(fP);
-    For i = 0 to 9 do
+    for(i = 0; i < 10; i++)
      Write(fP,Pontszam[i]);
     Close(fP);
     ReSet(fP);
@@ -1146,22 +1148,21 @@ public void saveScore()
   Close(fP);
  }
 
-public void game()
- {
-  Temp();
+public void game() {
+  temp();
   addStars();
 
-  REPEAT
-   if Splash < 63 then
+  do {
+   if splash < 63 then
     {
-     Splash = Splash + 2;
-     Screen(Splash);
+     splash = splash + 2;
+     Screen(splash);
     }
    SetCounter; Palya;
    DoEnemy1(Enemies); DoLeser(Less);
    if KeyPressed then
     { ch1 = ReadKey;
-     CASE ch1 OF
+     switch( ch1) {
       #0 : ch2 = ReadKey;
       #27 : Quit = True;
       '1' : pLeser[0] = #1;
@@ -1175,41 +1176,41 @@ public void game()
     if pL > 0 then pL = pL - 1 Else
     if ((M_Button && 1) == 1) && (pL == 0) then
      {
-      CASE pLeser[0] OF
-       #1 : CASE pLeser[1] OF
-            #1 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],0,1,1);
-            #2 : {
+      switch( pLeser[0]) {
+      case 1 : switch( pLeser[1]) {
+      		case 1 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],0,1,1);break;
+            case 2 : {
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],1,1,1);
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],-1,1,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],0,1,1);
+                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],0,1,1);break;
                 }
-            #3 : {
+            case 3 : {
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],1,2,1);
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],-1,2,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],0,2,1);
+                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],0,2,1);break;
                 }
-            #4 : {
+                case 4 : {
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],3,1,1);
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],-3,1,1);
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],1,2,1);
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],-1,2,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],0,3,1);
+                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],0,3,1);break;
                 }
-            #5 : {
+                case 5 : {
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],3,2,1);
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],-3,2,1);
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],1,3,1);
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],-1,3,1);
-                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],0,3,1);
+                 InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[1],0,3,1);break;
                 }
            }
-       #2 : CASE pLeser[2] OF
-            #1 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[4],0,4,1);
-            #2 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[5],0,5,1);
-            #3 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[6],0,6,1);
+       #2 : switch( pLeser[2]) {
+       		case 1 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[4],0,4,1); break;
+       		case 2 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[5],0,5,1);break;
+       		case 3 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[6],0,6,1);break;
            }
-       #3 : CASE pLeser[3] OF
-            #1 : {
+       #3 : switch( pLeser[3]) {
+       		case 1 : {
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],6,0,7,1);
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],0,6,7,1);
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-6,0,7,1);
@@ -1218,8 +1219,9 @@ public void game()
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],4,-4,7,1);
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-4,4,7,1);
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-4,-4,7,1);
+                 break;
                 }
-            #2 : {
+       		case 2 : {
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],6,0,8,1);
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],0,6,8,1);
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-6,0,8,1);
@@ -1228,8 +1230,9 @@ public void game()
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],4,-4,8,1);
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-4,4,8,1);
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-4,-4,8,1);
+                 break;
                 }
-            #3 : {
+       		case 3 : {
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],6,0,9,1);
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],0,6,9,1);
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-6,0,9,1);
@@ -1238,12 +1241,13 @@ public void game()
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],4,-4,9,1);
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-4,4,9,1);
                  InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],-4,-4,9,1);
+                 break;
                 }
            }
-       #4 : CASE pLeser[4] OF
-            #1 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[10],0,10,1);
-            #2 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[11],0,11,1);
-            #3 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[12],0,12,1);
+           case 4 : switch( pLeser[4]) {
+		       case 1 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[10],0,10,1); break;
+		       case 2 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[11],0,11,1); break;
+		       case 3 : InitLeser(Less,pX+ShipX[pShip],pY+ShipY[pShip],Speed_L[12],0,12,1); break;
            }
       }
       pL = Late_L[Ord(pLeser[0])*3+Ord(pLeser[Ord(pLeser[0])])];
@@ -1266,13 +1270,16 @@ public void game()
    if pX > 274 then pX = 274;
    if pY < -10 then pY = -10;
    if pY > 180 then pY = 180;
-   Mozgas = Mozgas+1;
+   areaScroll = areaScroll+1;
 
-   ClrVscr(#0); DoStars(Stars);
-   PutLesers(Less); PutEnemies(Enemies);
+   gun.clrVscr(0);
+   doStars();
+   putLesers();
+   putEnemies();
+
    if pLife > 0 then {
     PutPic(pX,pY,50,30,Ships[pShip]);
-    PutPic(pX-17,pY+9,17,14,Fires[pFire,(Mozgas % 3)+1]);
+    PutPic(pX-17,pY+9,17,14,Fires[pFire,(areaScroll % 3)+1]);
    } Else if pShip > 0 then {
     PutPic(pX+6-(200-pTime*4),pY+6-(50-pTime),16,16,Death[1]);
     PutPic(pX+16+(200-pTime*4),pY+6-(50-pTime),16,16,Death[2]);
@@ -1295,50 +1302,51 @@ public void game()
      if (pLeser[m] > #0) && (pLeser[0] <> Chr(m)) then PutPic(270+m*10,190,10,10,Stat2[m,1]) Else
       if (pLeser[m] > #0) && (pLeser[0] == Chr(m)) then PutPic(270+m*10,190,10,10,Stat2[m,2]);
    if Boss <> nil then {
-    PutPic(0,0,120,10,Status); WriteXY(125,0,#4,'BOSS');
+    PutPic(0,0,120,10,Status); gun.writeXY(125,0,#4,'BOSS');
     For i = 1 to Round((Boss^.Life/Life_E[Boss^.Faj])*115) do
      For j = 3 to 6 do Vscr^[j,2+i] = #4; }
 
-   if SzumLife <= 0 then WriteXY(127,117,#5,'GAME OVER');
-   if Cheat then WriteXY(0,0,#7,'cheat on');
-   if ActualPalya == 3 then WriteXY(127,117,#5,'YOU WON !') Else
-   if (Mozgas > 25) && (Mozgas < 200) then
+   if SzumLife <= 0 then gun.writeXY(127,117,#5,""GAME OVER");
+   if Cheat then gun.writeXY(0,0,#7,"cheat on");
+   if ActualPalya == 3 then gun.writeXY(127,117,#5,"YOU WON !") Else
+   if (areaScroll > 25) && (areaScroll < 200) then
     {
-     CASE Mozgas OF
-      25..124 : {
+     if(areaScroll >= 25 && areaScroll <= 124) {
                 Str(ActualPalya+1,s);
-                WriteXY(137,Round(90-((125-Mozgas))*(1-sqr(sin((Mozgas-25)/10)))),#5,'LEVEL '+s);
-               }
-      125..149 : WriteXY(137,90,#5,'LEVEL '+s);
-      150..199 : {
-                  PutPic(154-(Mozgas-150)*4,84-Mozgas+150,16,16,Death[1]);
-                  PutPic(166+(Mozgas-150)*4,84-Mozgas+150,16,16,Death[2]);
-                  PutPic(154-(Mozgas-150)*4,96+Mozgas-150,16,16,Death[3]);
-                  PutPic(166+(Mozgas-150)*4,96+Mozgas-150,16,16,Death[4]);
-                 }
+                gun.writeXY(137,Round(90-((125-areaScroll))*(1-sqr(sin((areaScroll-25)/10)))),#5,"LEVEL "+s);
+     } else if(areaScroll >= 125 && areaScroll <= 149) {
+      gun.writeXY(137,90,#5,"LEVEL "+s);
+     } else if(areaScroll >= 150 && areaScroll <= 199) {
+                  putPic(154-(areaScroll-150)*4,84-areaScroll+150,16,16,deaths[1]);
+                  putPic(166+(areaScroll-150)*4,84-areaScroll+150,16,16,deaths[2]);
+                  putPic(154-(areaScroll-150)*4,96+areaScroll-150,16,16,deaths[3]);
+                  putPic(166+(areaScroll-150)*4,96+areaScroll-150,16,16,deaths[4]);
+             }
 
      }
     }
 
    Str(Pontok,Ponts);
    Ponts = 'Pontszam ' + ' ' + Spaced(Ponts);
-   WriteXY(165,0,#2,Ponts);
+   gun.writeXY(165,0,#2,Ponts);
 
    SetScr;
    SetPos;
    WaitFor(Speed);
-  UNTIL Quit;
+  } while(!Quit);
 
-  Anim2; Splash = 63; Screen(Splash);
+  anim2();
+  splash = 63;
+  screen(splash);
   DrawPoints(10);
   if Pontok > Pontszam[9].Pontszam then
    {
     Str(Pontok,Ponts);
     Ponts = '    You have reached '+Spaced(Ponts)+' !!';
-    WriteXY(1,170,#0,Ponts);
-    WriteXY(0,170,#3,Ponts);
-    WriteXY(1,182,#0,'Enter Name');
-    WriteXY(0,182,#4,'Enter Name');
+    gun.writeXY(1,170,#0,Ponts);
+    gun.writeXY(0,170,#3,Ponts);
+    gun.writeXY(1,182,#0,'Enter Name');
+    gun.writeXY(0,182,#4,'Enter Name');
    }
   Anim(0);
   SetScr;
@@ -1346,9 +1354,9 @@ public void game()
   IF Pontok > Pontszam[i].Pontszam THEN {
    PontSzov = ''; k = 0;
    Quit = False;
-   Repeat
+   do {
     zh = ReadKey;
-    CASE zh OF
+    switch( zh) {
      #0 : ch = ReadKey;
      #8 : if Length(Pontszov) > 0 then PontSzov[0] = Chr(Ord(Pontszov[0])-1);
      'a'..'z','A'..'Z',' ' : if Length(PontSzov) < 20 then
@@ -1359,20 +1367,20 @@ public void game()
                 }
     }
     DrawPoints(10);
-    WriteXY(1,182,#0,'Enter Name');
-    WriteXY(0,182,#4,'Enter Name');
-    WriteXY(121,182,#0,PontSzov);
-    WriteXY(120,182,#1,PontSzov);
+    gun.writeXY(1,182,0,"Enter Name");
+    gun.writeXY(0,182,4,"Enter Name");
+    gun.writeXY(121,182,0,PontSzov);
+    gun.writeXY(120,182,1,PontSzov);
     Str(Pontok,Ponts);
-    Ponts = '    You have reached '+Spaced(Ponts)+' !!';
-    WriteXY(1,170,#0,Ponts);
-    WriteXY(0,170,#3,Ponts);
+    Ponts = "    You have reached "+Spaced(Ponts)+" !!";
+    gun.writeXY(1,170,#0,Ponts);
+    gun.writeXY(0,170,#3,Ponts);
     SetScr;
-   Until Quit;
+   } while(!Quit);
    Pontszam[9].Pontszam = Pontok;
    Pontszam[9].Nev = Pontszov;
    k = 9; l = 10;
-   Repeat
+   do {
     if Pontok > Pontszam[k-1].Pontszam then
      {
       Pontszam[k] = Pontszam[k-1];
@@ -1380,117 +1388,115 @@ public void game()
       Pontszam[k-1].Nev = Pontszov;
       l = k-1;
      }
-    k = k - 1;
-   Until (k == 0);
+    k--;
+   } while(k != 0);
    ClrVscr(#148);
    DrawPoints(l);
    Anim(1);
    SetScr;
   }
 
-  Repeat Until KeyPressed;
+  do { } while(!KeyPressed);
   While KeyPressed do ch = ReadKey;
-  REPEAT
+  do {
    SetCounter;
-   Splash = Splash -2;
-   Screen(Splash);
+   splash = splash -2;
+   screen(splash);
    WaitFor(Speed);
-  UNTIL Splash <= 1;
+  } while(splash > 1);
 
-  RemoveStars(Stars);
-  KillAllthings(Enemies,Less);
-  SaveScore;
+  removeStars();
+  killAllthings();
+  saveScore();
  }
 
-FUNCTION MENU : Integer;
- VAR MenuQuit : Boolean;
-
- public void DrawMenu;
-  VAR MP2 : Integer;
-      DStr : String;
-  {
-   CASE Diff OF
-    -1 : DStr = 'Easy';
-    0 : DStr = 'Medium';
-    1 : DStr = 'Hard';
-   }
-   ClrVscr(#1);
-   WriteXY(116,5,#5,'KlonGun');
-   WriteXY(115,6,#5,'KlonGun');
-   WriteXY(114,5,#5,'KlonGun');
-   WriteXY(115,4,#5,'KlonGun');
-   WriteXY(115,5,#148,'KlonGun');
-   For MP2 = 0 to MaxMenu do
-    {
-     WriteXY(70,71+20*MP2,#0,MenuSzov[MP2]);
-     WriteXY(71,71+20*MP2,#0,MenuSzov[MP2]);
-     WriteXY(70,70+20*MP2,#6,MenuSzov[MP2]);
-     if MP2 == 1 then
-      {
-       WriteXY(200,71+20*MP2,#0,DStr);
-       WriteXY(201,71+20*MP2,#0,DStr);
-       WriteXY(200,70+20*MP2,#4,DStr);
-      }
-    }
-   PutPic(5,60+20*MenuPont,50,30,Ships[1]);
+ public void DrawMenu() {
+	  int MP2;
+	  String DStr;
+  switch(diff) {
+	   case -1 :
+		   DStr = "Easy";
+		   break;
+	   case 0 :
+		   DStr = "Medium";
+		   break;
+	   case 1 :
+		   DStr = "Hard";
+		   break;
   }
 
- {
-  if Changed then
-   {
-    ClrVscr(#0);
-    SetScr;
-    Splash = 63;
-    Screen(Splash);
+  gun.clrVscr(1);
+  gun.writeXY(116,5,5,"KlonGun");
+  gun.writeXY(115,6,5,"KlonGun");
+  gun.writeXY(114,5,5,"KlonGun");
+  gun.writeXY(115,4,5,"KlonGun");
+  gun.writeXY(115,5,148,"KlonGun");
+
+  for(MP2 = 0; MP2 <= MaxMenu; MP2++) {
+    gun.writeXY(70,71+20*MP2,#0,MenuSzov[MP2]);
+    gun.writeXY(71,71+20*MP2,#0,MenuSzov[MP2]);
+    gun.writeXY(70,70+20*MP2,#6,MenuSzov[MP2]);
+    if MP2 == 1 then
+     {
+      gun.writeXY(200,71+20*MP2,#0,DStr);
+      gun.writeXY(201,71+20*MP2,#0,DStr);
+      gun.writeXY(200,70+20*MP2,#4,DStr);
+     }
+   }
+  putPic(5,60+20*MenuPont,50,30,Ships[1]);
+ }
+
+
+ public int menu() {
+ boolean menuQuit = false;
+  if (changed) {
+    gun.clrVscr(0);
+    gun.setScr();
+    splash = 63;
+    Screen(splash);
     MenuQuit = False;
     DrawMenu;
-    Anim(0);
+    anim(0);
    }
-  REPEAT
+  do {
    DrawMenu;
    SetScr;
-   CASE ReadKey OF
-    #0 : CASE ReadKey OF
+   switch( ReadKey) {
+    #0 : switch( ReadKey) {
           #72 : if MenuPont > 0 then MenuPont = MenuPont -1;
           #80 : if MenuPont < MaxMenu then MenuPont = MenuPont +1;
          }
     #27 : { MenuQuit = True; MENU = MaxMenu; }
     #13 : { MenuQuit = True; MENU = MenuPont; }
    }
-  UNTIL MenuQuit;
-  WHILE KeyPressed DO ch = ReadKey;
+  } while(!MenuQuit);
+
  }
 
-public void CREDITS;
- VAR pos,p : Integer;
- {
-  ClrVscr(#0);
-  SetScr;
-  Splash = 1;
-  Screen(Splash);
-  ClrVscr(#148);
-  SetScr;
-  pos = 0;
-  REPEAT
-   SetCounter;
-   Splash = Splash + 2;
-   Screen(Splash);
-   WaitFor(Speed);
-  UNTIL Splash >= 62;
-  Splash = 63;
-  Screen(Splash);
-  REPEAT
-   ClrVscr(#148);
-   pos = pos + 1;
-   For p = 0 to MaxCredit do
-    {
-     WriteXY(161-Length(CreditSzov[p])*9 div 2,200+p*20-pos,#0,CreditSzov[p]);
-     WriteXY(160-Length(CreditSzov[p])*9 div 2,201+p*20-pos,#0,CreditSzov[p]);
-     WriteXY(160-Length(CreditSzov[p])*9 div 2,200+p*20-pos,#2,CreditSzov[p]);
-    }
-   SetScr;
-  UNTIL (pos >= 400+(MaxCredit+1)*20) || KeyPressed;
-  WHILE KeyPressed DO ch = ReadKey;
- }
+	public void credits() {
+		int pos=0;
+		int p=0;
 
-*/
+		gun.clrVscr(0);
+		gun.setScr();
+
+		splash=1;
+		screen(splash);
+		gun.clrVscr(148);
+
+		gun.setScr();
+
+		pos=0;
+
+		do{SetCounter;splash+=2;screen(splash);WaitFor(Speed);}while(splash>=62);splash=63;
+
+		screen(splash);
+
+		do{gun.clrVscr(148);pos=pos+1;for(p=0;p<=MaxCredit;p++){gun.writeXY(161-Length(CreditSzov[p])*9 div 2,200+p*20-pos,0,CreditSzov[p]);gun.writeXY(160-Length(CreditSzov[p])*9 div 2,201+p*20-pos,0,CreditSzov[p]);gun.writeXY(160-Length(CreditSzov[p])*9 div 2,200+p*20-pos,2,CreditSzov[p]);}
+
+		gun.setScr();}while(pos<400+(MaxCredit+1)*20&&!frame.getControl().isEscapeOn());
+
+	}
+
+
+} // end of KLONGUN
