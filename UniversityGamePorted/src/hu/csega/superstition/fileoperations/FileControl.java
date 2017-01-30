@@ -16,21 +16,21 @@ public class FileControl {
 
 	private FileOperation load_op, save_op;
 
-	public FileControl(String filter, String init_dir, FileOperation load_op, FileOperation save_op) {
+	public FileControl(FileOperation load_op, FileOperation save_op, String init_dir, String... extensions) {
 		file_name = null;
 
 		open_dialog = new JFileChooser(init_dir);
 		open_dialog.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		open_dialog.setDialogTitle("Select file to open.");
 		open_dialog.setMultiSelectionEnabled(false);
-		open_dialog.setFileFilter(new FileNameExtensionFilter(null /* TODO */ , filter));
+		open_dialog.setFileFilter(new FileNameExtensionFilter(null /* TODO */ , extensions));
 		open_dialog.setApproveButtonText("Open");
 
 		save_dialog = new JFileChooser();
 		save_dialog.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		save_dialog.setDialogTitle("Select file to save.");
 		save_dialog.setMultiSelectionEnabled(false);
-		save_dialog.setFileFilter(new FileNameExtensionFilter(null /* TODO */ , filter));
+		save_dialog.setFileFilter(new FileNameExtensionFilter(null /* TODO */ , extensions));
 		save_dialog.setApproveButtonText("Save");
 
 		are_you_sure = new AreYouSure();

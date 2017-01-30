@@ -1,13 +1,9 @@
 package hu.csega.superstition.animatool;
 
-public class DirectXView extends CView
+public class OpenGLView extends CView
 {
-	/// <summary>
-	/// Required designer variable.
-	/// </summary>
-	private System.ComponentModel.Container components = null;
 
-	public DirectXView()
+	public OpenGLView()
 	{
 		// This call is required by the Windows.Forms Form Designer.
 		InitializeComponent();
@@ -17,21 +13,6 @@ public class DirectXView extends CView
 			bcontrol[i] = new ButtonControl();
 			bcontrol[i].down = false;
 		}
-	}
-
-	/// <summary>
-	/// Clean up any resources being used.
-	/// </summary>
-	protected void Dispose( bool disposing )
-	{
-		if( disposing )
-		{
-			if(components != null)
-			{
-				components.Dispose();
-			}
-		}
-		base.Dispose( disposing );
 	}
 
 	/// <summary>
@@ -459,7 +440,7 @@ public class DirectXView extends CView
 		if(invalidated) Invalidate();
 	}
 
-	private void button1_Click(object sender, System.EventArgs e)
+	private void button1_Click(Object sender, System.EventArgs e)
 	{
 		show_grid = !show_grid;
 		if(show_grid) button1.Text = "Hide Grid";
@@ -467,13 +448,19 @@ public class DirectXView extends CView
 		Invalidate();
 	}
 
-	private void button2_Click(object sender, System.EventArgs e)
+	private void button2_Click(Object sender, System.EventArgs e)
 	{
 		translation = new Vector3(0f, 0f, 0f);
 		cam_pos = new Vector3(1f, 1f, -1f);
 		alfa = 0f;
 		beta = 0f;
 		Invalidate();
+	}
+
+	@Override
+	public void updateView(Updates update) {
+		// TODO Auto-generated method stub
+
 	}
 
 } // End of class
