@@ -11,8 +11,8 @@ import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
 import hu.csega.klongun.KlonGun;
-import hu.csega.klongun.screen.TPal;
-import hu.csega.klongun.screen.TVscr;
+import hu.csega.klongun.screen.Palette;
+import hu.csega.klongun.screen.VirtualScreen;
 
 public class KlonGunCanvas extends JPanel implements MouseListener, MouseMotionListener {
 
@@ -32,14 +32,14 @@ public class KlonGunCanvas extends JPanel implements MouseListener, MouseMotionL
 
 	@Override
 	public void paint(Graphics g) {
-		TPal palette = klonGun.gun.palette;
-		TVscr scr = klonGun.gun.vscr;
+		Palette palette = klonGun.getPalette();
+		VirtualScreen backBuffer = klonGun.getBackBuffer();
 		int pixel, cr, cg, cb, col;
 
-		for(int x = 0; x < TVscr.WIDTH; x++) {
-			for(int y = 0; y < TVscr.HEIGHT; y++) {
+		for(int x = 0; x < VirtualScreen.WIDTH; x++) {
+			for(int y = 0; y < VirtualScreen.HEIGHT; y++) {
 
-				pixel = scr.get(x, y);
+				pixel = backBuffer.get(x, y);
 
 				cr = palette.get(pixel, 0) << 2;
 				cg = palette.get(pixel, 1) << 2;

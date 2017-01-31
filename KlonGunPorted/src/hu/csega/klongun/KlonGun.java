@@ -12,15 +12,16 @@ import hu.csega.klongun.model.Less;
 import hu.csega.klongun.model.Score;
 import hu.csega.klongun.model.Star;
 import hu.csega.klongun.screen.Picture;
-import hu.csega.klongun.screen.TVscr;
+import hu.csega.klongun.screen.VirtualScreen;
 import hu.csega.klongun.swing.KlonGunCanvas;
 import hu.csega.klongun.swing.KlonGunControl;
 import hu.csega.klongun.swing.KlonGunFrame;
 import hu.csega.klongun.swing.KlonGunKeyBuffer;
 
-public class KlonGun {
+public class KlonGun extends SpriteEngine {
 
-	private static final String HISCORES = "Hiscores";
+	private static final String HISCORES = "High Scores";
+
 	// Array sizes
 	public static final int MaxShips = 1;
 	public static final int MaxFires = 3;
@@ -97,8 +98,6 @@ public class KlonGun {
     public Picture[][] stat2 = new Picture[4][4]; // 10 x 10
     public Picture status;
 
-    public String[] s = new String[2];
-
     public int areaScroll; // = areaScroll
     public int bossDel;
 
@@ -141,8 +140,6 @@ public class KlonGun {
     public boolean changed;
     public int pLogTime;
 
-    public GpcGun gun = new GpcGun();
-
     public static final int sinus[] = new int[126];
 
     public static final Random RND = new Random(System.currentTimeMillis());
@@ -170,14 +167,14 @@ public class KlonGun {
     		xx = ' ' + xx;
     	}
 
-    	return xx + 'p';
+    	return xx;
     }
 
 
     public void drawPoints(int no) {
-    	gun.clrVscr(149);
-        gun.writeXY(121,0,0,HISCORES);
-        gun.writeXY(120,0,4,HISCORES);
+    	backBuffer.clear(149);
+        writeXY(121,0,0,HISCORES);
+        writeXY(120,0,4,HISCORES);
 
         for(int i = 0; i < 10; i++) {
         	/*
@@ -186,16 +183,16 @@ public class KlonGun {
               if (no <> i )
                {
                 Str(Pontszam,Ponts);
-                gun.writeXY(21,20+i*15,0,Nev);
-                gun.writeXY(221,20+i*15,0,Spaced(Ponts));
-                gun.writeXY(20,20+i*15,2,Nev);
-                gun.writeXY(220,20+i*15,2,Spaced(Ponts));
+                writeXY(21,20+i*15,0,Nev);
+                writeXY(221,20+i*15,0,Spaced(Ponts));
+                writeXY(20,20+i*15,2,Nev);
+                writeXY(220,20+i*15,2,Spaced(Ponts));
                } else {
                 Str(Pontszam,Ponts);
-                gun.writeXY(21,20+i*15,0,Nev);
-                gun.writeXY(221,20+i*15,0,Spaced(Ponts));
-                gun.writeXY(20,20+i*15,1,Nev);
-                gun.writeXY(220,20+i*15,1,Spaced(Ponts));
+                writeXY(21,20+i*15,0,Nev);
+                writeXY(221,20+i*15,0,Spaced(Ponts));
+                writeXY(20,20+i*15,1,Nev);
+                writeXY(220,20+i*15,1,Spaced(Ponts));
                }
       */
 
@@ -204,21 +201,21 @@ public class KlonGun {
     } // end drawPoints
 
     public void Anim3() {
-    	TVscr back = new TVscr();
+    	VirtualScreen back = new VirtualScreen();
     	int pos = 0;
 
-    	gun.vscr.copyTo(back);
+    	backBuffer.copyTo(back);
 
     	do {
-    		gun.clrVscr(0);
+    		backBuffer.clear(0);
     		pos++;
 
-    		for(int i = 0; i < TVscr.HEIGHT; i++) {
-    			for(int j = 0; j < TVscr.WIDTH; j++) {
+    		for(int i = 0; i < VirtualScreen.HEIGHT; i++) {
+    			for(int j = 0; j < VirtualScreen.WIDTH; j++) {
     				k = (i - 100) * pos + 100;
     				l = (j - 160) * pos + 160;
     		        if ((k >= 0) && (l >= 0) && (k < 200) && (l < 320))
-    		          gun.vscr.set(l, k, back.get(j, i));
+    		        	backBuffer.set(l, k, back.get(j, i));
     			}
     		}
 
@@ -227,24 +224,24 @@ public class KlonGun {
     }
 
     public void Anim(int type) {
-    	TVscr back = new TVscr();
+    	VirtualScreen back = new VirtualScreen();
     	int pos = 320, i = 0;
 
-    	gun.vscr.copyTo(back);
+    	backBuffer.copyTo(back);
         if (type == 0)
-        	gun.clrVscr(0);
+        	backBuffer.clear(0);
         else
-        	gun.clrVscr(148);
+        	backBuffer.clear(148);
 
     	do {
     		pos -= 4;
     		for(i = 0; i < 200; i++) {
     			if(i % 2 == 0) {
-    				System.arraycopy(back.content, i * TVscr.WIDTH + pos,
-    						gun.vscr.content, i * TVscr.WIDTH, 320-pos);
+    				System.arraycopy(back.getContent(), i * VirtualScreen.WIDTH + pos,
+    						backBuffer.getContent(), i * VirtualScreen.WIDTH, 320-pos);
     			} else {
-    				System.arraycopy(back.content, i * TVscr.WIDTH,
-    						gun.vscr.content, i * TVscr.WIDTH + pos, 320-pos);
+    				System.arraycopy(back.getContent(), i * VirtualScreen.WIDTH,
+    						backBuffer.getContent(), i * VirtualScreen.WIDTH + pos, 320-pos);
     			}
     		}
 
@@ -274,13 +271,13 @@ public class KlonGun {
         int i = 0, j = 1, k = 0, m = 0, n = 0, o = 0;
         double y, z;
 
-        TVscr back = new TVscr();
+        VirtualScreen back = new VirtualScreen();
 
 
         int[] FGGVX = new int[320];
         int[] FGGVY = new int[200];
 
-        gun.vscr.copyTo(back);
+        backBuffer.copyTo(back);
 
 		do {
 			if (i % Speed == 0) {
@@ -292,10 +289,10 @@ public class KlonGun {
 				for (n = 0; n < 200; n++)
 					FGGVY[n] = n - f1(n - 100, y) - o;
 
-				gun.clrVscr(0);
+				backBuffer.clear(0);
 
 				if (FGGVY[k] >= 0 && FGGVY[k] < 200 && FGGVX[n] >= 0 && FGGVX[n] < 320)
-					gun.vscr.set(n, k, back.get(FGGVX[n], FGGVY[k]));
+					backBuffer.set(n, k, back.get(FGGVX[n], FGGVY[k]));
 
 				canvas.repaint();
 			}
@@ -318,8 +315,8 @@ public class KlonGun {
 	public void screen(int no) {
 		for (int i = 0; i < 256; i++) {
 			for (int j = 0; j < 3; j++) {
-				int v = (int) Math.round(gun.originalPalette.get(i, j) * no / 63.0);
-				gun.palette.set(i, j, v);
+				int v = (int) Math.round(originalPalette.get(i, j) * no / 63.0);
+				palette.set(i, j, v);
 			}
 		}
 	} // end screen
@@ -386,9 +383,9 @@ public class KlonGun {
 			}
 		    if(s.x >= 0 && s.x < 320) {
 		    	if(s.kind == 0) {
-		    		gun.vscr.set(s.x, s.y, 148);
+		    		backBuffer.set(s.x, s.y, 148);
 		    	} else {
-		    		gun.vscr.set(s.x, s.y, 7);
+		    		backBuffer.set(s.x, s.y, 7);
 		    	}
 		    }
 		}
@@ -803,7 +800,7 @@ public class KlonGun {
 					Xv = X1 + x;
 					Yv = Y1 + y;
 					if (Xv >= 0 && Yv >= 0 && Xv < 320 && Yv < 200)
-						gun.vscr.set(Xv, Yv, c);
+						backBuffer.set(Xv, Yv, c);
 				}
 			}
 		}
@@ -811,7 +808,7 @@ public class KlonGun {
 
 
 	public void run() {
-		gun.init();
+		init();
 		load();
 
 		diff = -1;
@@ -822,7 +819,6 @@ public class KlonGun {
 			switch (menuItem) {
 			case 0:
 				do {
-					gun.setCounter();
 					splash -= 2;
 					screen(splash);
 					WaitFor(Speed);
@@ -843,7 +839,6 @@ public class KlonGun {
 
 			case 2:
 				do {
-					gun.setCounter();
 					splash = splash - 2;
 					screen(splash);
 					WaitFor(Speed);
@@ -852,7 +847,6 @@ public class KlonGun {
 				credits();
 
 				do {
-					gun.setCounter();
 					splash = splash - 2;
 					screen(splash);
 					WaitFor(Speed);
@@ -875,17 +869,16 @@ public class KlonGun {
 				 */
 
 				do {
-					gun.setCounter();
 					splash = splash - 2;
 					screen(splash);
 					WaitFor(Speed);
 				} while (splash > 1);
 
-				gun.clrVscr(0);
+				backBuffer.clear(0);
 				canvas.repaint();
 				splash = 63;
 				screen(splash);
-				gun.clrVscr(148);
+				backBuffer.clear(148);
 				drawPoints(l);
 				Anim(0);
 				canvas.repaint();
@@ -893,7 +886,6 @@ public class KlonGun {
 				ch = keyBuffer.readKey();
 
 				do {
-					gun.setCounter();
 					splash -= 2;
 					screen(splash);
 					WaitFor(Speed);
@@ -922,7 +914,6 @@ public class KlonGun {
 		} while (!quitAll);
 
 		Anim3();
-		gun.finish();
 
 		System.out.println("Thanks for checking out!");
 
@@ -972,7 +963,7 @@ public class KlonGun {
 						PontSzov = "0p";
 					}
 
-					gun.writeXY(enemy.x + 16 - (PontSzov.length() * 13) / 2, enemy.y + 8 - (300 - enemy.time * 6), 5, PontSzov);
+					writeXY(enemy.x + 16 - (PontSzov.length() * 13) / 2, enemy.y + 8 - (300 - enemy.time * 6), 5, PontSzov);
 
 					if ((enemy.time > 30) && (enemy.item > -1))
 						putPic(enemy.x + 8, enemy.y + 8, 16, 16, items[enemy.item]);
@@ -1268,7 +1259,6 @@ public class KlonGun {
 				screen(splash);
 			}
 
-			gun.setCounter();
 			Palya();
 			doEnemy1();
 			enemies.addAll(addEnemies);
@@ -1530,7 +1520,7 @@ public class KlonGun {
 
 			areaScroll++;
 
-			gun.clrVscr(0);
+			backBuffer.clear(0);
 			doStars();
 			putLesers();
 			putEnemies();
@@ -1567,7 +1557,7 @@ public class KlonGun {
 
 			for (i = 1; i <= (int) Math.round((pLife / 100.0) * 115); i++) {
 				for (j = 3; j <= 6; j++) {
-					gun.vscr.set(2 + i, 190 + j, 2);
+					backBuffer.set(2 + i, 190 + j, 2);
 				}
 
 			}
@@ -1585,28 +1575,29 @@ public class KlonGun {
 				for (Enemy boss : bosses) {
 
 					putPic(0, 0, 120, 10, status);
-					gun.writeXY(125, 0, 4, "BOSS");
+					writeXY(125, 0, 4, "BOSS");
 					for (i = 1; i <= (int) Math.round(((double)boss.life / Life_E[boss.kind]) * 115.0); i++) {
 						for (j = 3; j <= 6; j++) {
-							gun.vscr.set(2 + i, j, 4);
+							backBuffer.set(2 + i, j, 4);
 						}
 					}
 				}
-			} // end if bosses not empry
+			} // end if bosses not empty
 
 			if (sumLife < 0)
-				gun.writeXY(127, 117, 5, "GAME OVER");
+				writeXY(127, 117, 5, "GAME OVER");
 			if (cheat)
-				gun.writeXY(0, 0, 7, "cheat on");
+				writeXY(0, 0, 7, "cheat on");
 
 			if (currentArea == 3) {
-				gun.writeXY(127, 117, 5, "YOU WON !");
+				writeXY(127, 117, 5, "YOU WON !");
 			} else if (areaScroll > 25 && areaScroll < 200) {
 				if (areaScroll >= 25 && areaScroll <= 124) {
-					s[0] = String.valueOf(currentArea + 1);
-					gun.writeXY(137, (int) Math.round(90 - ((125 - areaScroll)) * (1 - sqr(Math.sin((areaScroll - 25) / 10)))), 5, "LEVEL " + s);
+					String levelText = "LEVEL " + (currentArea + 1);
+					writeXY(137, (int) Math.round(90 - ((125 - areaScroll)) * (1 - sqr(Math.sin((areaScroll - 25) / 10.0)))), 5, levelText);
 				} else if (areaScroll >= 125 && areaScroll <= 149) {
-					gun.writeXY(137, 90, 5, "LEVEL " + s);
+					String levelText = "LEVEL " + (currentArea + 1);
+					writeXY(137, 90, 5, levelText);
 				} else if (areaScroll >= 150 && areaScroll <= 199) {
 					putPic(154 - (areaScroll - 150) * 4, 84 - areaScroll + 150, 16, 16, deaths[0]);
 					putPic(166 + (areaScroll - 150) * 4, 84 - areaScroll + 150, 16, 16, deaths[1]);
@@ -1616,8 +1607,8 @@ public class KlonGun {
 
 			} // else if currentArea / areaScroll
 
-			scoreText = "Pontszam " + spaced(scoreText);
-			gun.writeXY(165, 0, 2, scoreText);
+			scoreText = "Score: " + spaced(String.valueOf(scores));
+			writeXY(165, 0, 2, scoreText);
 
 			canvas.repaint();
 			WaitFor(Speed);
@@ -1631,8 +1622,8 @@ public class KlonGun {
 		/*
 		 * if (Pontok > Pontszam[9].Pontszam ) { Str(Pontok,Ponts); Ponts =
 		 * "    You have reached "+Spaced(Ponts)+" !!";
-		 * gun.writeXY(1,170,0,Ponts); gun.writeXY(0,170,3,Ponts);
-		 * gun.writeXY(1,182,0,"Enter Name"); gun.writeXY(0,182,4,"Enter Name");
+		 * writeXY(1,170,0,Ponts); writeXY(0,170,3,Ponts);
+		 * writeXY(1,182,0,"Enter Name"); writeXY(0,182,4,"Enter Name");
 		 * }
 		 */
 
@@ -1651,27 +1642,26 @@ public class KlonGun {
 		 * || zh == 13) { if ((PontSzov == null || PontSzov.length == 0)
 		 * Pontszov = " "; quit = true; }
 		 *
-		 * DrawPoints(10); gun.writeXY(1,182,0,"Enter Name");
-		 * gun.writeXY(0,182,4,"Enter Name"); gun.writeXY(121,182,0,PontSzov);
-		 * gun.writeXY(120,182,1,PontSzov);
+		 * DrawPoints(10); writeXY(1,182,0,"Enter Name");
+		 * writeXY(0,182,4,"Enter Name"); writeXY(121,182,0,PontSzov);
+		 * writeXY(120,182,1,PontSzov);
 		 *
 		 * String endScoreText =
 		 * "    You have reached "+spaced(String.valueOf(scores))+" !!";
-		 * gun.writeXY(1,170,0,endScoreText); gun.writeXY(0,170,3,endScoreText);
+		 * writeXY(1,170,0,endScoreText); writeXY(0,170,3,endScoreText);
 		 * gun.setScr(); } while(!Quit); Pontszam[9].Pontszam = Pontok;
 		 * Pontszam[9].Nev = Pontszov; k = 9; l = 10; do { if (Pontok >
 		 * Pontszam[k-1].Pontszam) { Pontszam[k] = Pontszam[k-1];
 		 * Pontszam[k-1].Pontszam = Pontok; Pontszam[k-1].Nev = Pontszov; l =
 		 * k-1; } k--; } while(k != 0);
 		 *
-		 * gun.clrVscr(148); drawPoints(l); Anim(1); canvas.repaint(); }
+		 * backBuffer.clear(148); drawPoints(l); Anim(1); canvas.repaint(); }
 		 *
 		 */
 
 		ch = keyBuffer.readKey();
 
 		do {
-			gun.setCounter();
 			splash = splash - 2;
 			screen(splash);
 			WaitFor(Speed);
@@ -1684,7 +1674,7 @@ public class KlonGun {
 
 	public void WaitFor(long time) {
 		try {
-			Thread.sleep(/* time */ 30);
+			Thread.sleep(/* time */ 35);
 		} catch (InterruptedException ex) {
 			//
 		}
@@ -1705,21 +1695,21 @@ public class KlonGun {
 			break;
 		}
 
-		gun.clrVscr(1);
-		gun.writeXY(116, 5, 5, "KlonGun");
-		gun.writeXY(115, 6, 5, "KlonGun");
-		gun.writeXY(114, 5, 5, "KlonGun");
-		gun.writeXY(115, 4, 5, "KlonGun");
-		gun.writeXY(115, 5, 148, "KlonGun");
+		backBuffer.clear(1);
+		writeXY(116, 5, 5, "KlonGun");
+		writeXY(115, 6, 5, "KlonGun");
+		writeXY(114, 5, 5, "KlonGun");
+		writeXY(115, 4, 5, "KlonGun");
+		writeXY(115, 5, 148, "KlonGun");
 
 		for (MP2 = 0; MP2 <= MaxMenu; MP2++) {
-			gun.writeXY(70, 71 + 20 * MP2, 0, MenuSzov[MP2]);
-			gun.writeXY(71, 71 + 20 * MP2, 0, MenuSzov[MP2]);
-			gun.writeXY(70, 70 + 20 * MP2, 6, MenuSzov[MP2]);
+			writeXY(70, 71 + 20 * MP2, 0, MenuSzov[MP2]);
+			writeXY(71, 71 + 20 * MP2, 0, MenuSzov[MP2]);
+			writeXY(70, 70 + 20 * MP2, 6, MenuSzov[MP2]);
 			if (MP2 == 1) {
-				gun.writeXY(200, 71 + 20 * MP2, 0, DStr);
-				gun.writeXY(201, 71 + 20 * MP2, 0, DStr);
-				gun.writeXY(200, 70 + 20 * MP2, 4, DStr);
+				writeXY(200, 71 + 20 * MP2, 0, DStr);
+				writeXY(201, 71 + 20 * MP2, 0, DStr);
+				writeXY(200, 70 + 20 * MP2, 4, DStr);
 			}
 		}
 		putPic(5, 60 + 20 * menuItem, 50, 30, ships[1]);
@@ -1729,7 +1719,7 @@ public class KlonGun {
 		boolean menuQuit = false;
 
 		if (changed) {
-			gun.clrVscr(0);
+			backBuffer.clear(0);
 			canvas.repaint();
 			splash = 63;
 			screen(splash);
@@ -1773,19 +1763,18 @@ public class KlonGun {
 		int pos = 0;
 		int p = 0;
 
-		gun.clrVscr(0);
+		backBuffer.clear(0);
 		canvas.repaint();
 
 		splash = 1;
 		screen(splash);
-		gun.clrVscr(148);
+		backBuffer.clear(148);
 
 		canvas.repaint();
 
 		pos = 0;
 
 		do {
-			gun.setCounter();
 			splash += 2;
 			screen(splash);
 			WaitFor(Speed);
@@ -1795,12 +1784,12 @@ public class KlonGun {
 		screen(splash);
 
 		do {
-			gun.clrVscr(148);
+			backBuffer.clear(148);
 			pos = pos + 1;
 			for (p = 0; p <= MaxCredit; p++) {
-				gun.writeXY(161 - CreditSzov[p].length() * 9 / 2, 200 + p * 20 - pos, 0, CreditSzov[p]);
-				gun.writeXY(160 - CreditSzov[p].length() * 9 / 2, 201 + p * 20 - pos, 0, CreditSzov[p]);
-				gun.writeXY(160 - CreditSzov[p].length() * 9 / 2, 200 + p * 20 - pos, 2, CreditSzov[p]);
+				writeXY(161 - CreditSzov[p].length() * 9 / 2, 200 + p * 20 - pos, 0, CreditSzov[p]);
+				writeXY(160 - CreditSzov[p].length() * 9 / 2, 201 + p * 20 - pos, 0, CreditSzov[p]);
+				writeXY(160 - CreditSzov[p].length() * 9 / 2, 200 + p * 20 - pos, 2, CreditSzov[p]);
 			}
 
 			canvas.repaint();
