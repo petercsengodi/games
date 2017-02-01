@@ -40,8 +40,8 @@ public class KlonGun extends SpriteEngine {
 	public static final int Speed3 = 3;
 	public static final int Speed_M = 3;
 
-//	// overall game speed?
-//	public static final int Speed = 1;
+	//	// overall game speed?
+	//	public static final int Speed = 1;
 
 	public static final int[] Speed_F = new int[] {7,4,2}; // ship turbins
 	public static final int[] Speed_E = new int[] {3,1,5,0,7,3,3,0,15,0,7,3,2,0}; // enemies
@@ -59,99 +59,99 @@ public class KlonGun extends SpriteEngine {
 	public static final int[] Abra = new int[] {0,1,2,3,4,5,6,7,8,9,5,4,4,5};
 
 	// menu
-    public static final int MaxMenu = 5;
-    public static final String[] MenuSzov = new String[] {
-    		"Let us play an other game!",
-            "Difficulity",
-    		"Credits are fun!",
-    		"Greatest heroes ...",
-            "I do not need those scores!",
-            "I want to quit, man !!"
-    };
+	public static final int MaxMenu = 5;
+	public static final String[] MenuSzov = new String[] {
+			"Let us play an other game!",
+			"Difficulity",
+			"Credits are fun!",
+			"Greatest heroes ...",
+			"I do not need those scores!",
+			"I want to quit, man !!"
+	};
 
-    // credits
-    public static final int MaxCredit = 5;
-    public static final String[] CreditSzov = {
-		"Well, this is embarassing.",
-		"When I wrote this game,",
-		"I thought this will be",
-		"an awesome game.",
-		"No, it's a beautiful memory."
-     };
+	// credits
+	public static final int MaxCredit = 5;
+	public static final String[] CreditSzov = {
+			"Well, this is embarassing.",
+			"When I wrote this game,",
+			"I thought this will be",
+			"an awesome game.",
+			"No, it's a beautiful memory."
+	};
 
-    public List<Star> stars = new ArrayList<>();
-    public List<Enemy> enemies = new ArrayList<>();
-    public List<Enemy> bosses = new ArrayList<>();
-    public List<Bullet> bullets = new ArrayList<>();
-
-
-    // super boss does this
-    public List<Enemy> addEnemies = new ArrayList<>();
+	public List<Star> stars = new ArrayList<>();
+	public List<Enemy> enemies = new ArrayList<>();
+	public List<Enemy> bosses = new ArrayList<>();
+	public List<Bullet> bullets = new ArrayList<>();
 
 
-    public int i,j,k,l,m,n,Xv,Yv;
+	// super boss does this
+	public List<Enemy> addEnemies = new ArrayList<>();
 
-    public Picture[] shipPictures = new Picture[MaxShips]; // 30 x 40
-    public Picture[][] firePictures = new Picture[3][3]; // 14 x 17
-    public Picture[] enemyPictures = new Picture[MaxEnemy1]; // 32 x 32
-    public Picture[] bulletPictures = new Picture[MaxLesers]; // 5 x 16
-    public Picture[] deathPictures = new Picture[MaxDeaths]; // 16 x 16
-    public Picture[] itemPictures = new Picture[MaxItem]; // 16 x 16
-    public Picture[][] statusIcons = new Picture[4][4]; // 10 x 10
-    public Picture status;
 
-    public int areaScroll; // = areaScroll
-    public int bossDel;
+	public int i,j,k,l,m,n,Xv,Yv;
 
-    // Player data
-    public int pX;
-    public int pY;
-    public int pShip;
-    public int pLife;
-    public int pFire;
-    public int pL;
-    public boolean pLogged; // if false, player can't be hurt
-    public boolean defenseFire;
-    public int[] leser = new int[5]; // weapon statuses
-    public int pTime;
-    public int pProtection;
-    public int currentArea;
-    public int sumLife;
+	public Picture[] shipPictures = new Picture[MaxShips]; // 30 x 40
+	public Picture[][] firePictures = new Picture[3][3]; // 14 x 17
+	public Picture[] enemyPictures = new Picture[MaxEnemy1]; // 32 x 32
+	public Picture[] bulletPictures = new Picture[MaxLesers]; // 5 x 16
+	public Picture[] deathPictures = new Picture[MaxDeaths]; // 16 x 16
+	public Picture[] itemPictures = new Picture[MaxItem]; // 16 x 16
+	public Picture[][] statusIcons = new Picture[4][4]; // 10 x 10
+	public Picture status;
 
-    public char ch1;
-    public char ch2;
+	public int areaScroll; // = areaScroll
+	public int bossDel;
 
-    public boolean quit; // if false, quitting is not enabled
-    public boolean cheat;
-    public boolean cheated;
-    public int scores;
-    public String scoreText;
-    public int scoreText1; // PontSzov
-    public int scoreText2; // Ponts
-    public int splash;
+	// Player data
+	public int pX;
+	public int pY;
+	public int pShip;
+	public int pLife;
+	public int pFire;
+	public int pL;
+	public boolean pLogged; // if false, player can't be hurt
+	public boolean defenseFire;
+	public int[] leser = new int[5]; // weapon statuses
+	public int pTime;
+	public int pProtection;
+	public int currentArea;
+	public int sumLife;
 
-    public File scoresFile;
-    public Score[] scoreRecords;
+	public char ch1;
+	public char ch2;
 
-    public char ch;
-    public char zh;
+	public boolean quit; // if false, quitting is not enabled
+	public boolean cheat;
+	public boolean cheated;
+	public int scores;
+	public String scoreText;
+	public int scoreText1; // PontSzov
+	public int scoreText2; // Ponts
+	public int splash;
 
-    public boolean quitAll;
-    public int diff;
-    public int menuItem;
-    public boolean changed;
-    public int pLogTime;
+	public File scoresFile;
+	public Score[] scoreRecords;
 
-    public static final int sinus[] = new int[126];
+	public char ch;
+	public char zh;
 
-    public static final Random RND = new Random(System.currentTimeMillis());
+	public boolean quitAll;
+	public int diff;
+	public int menuItem;
+	public boolean changed;
+	public int pLogTime;
 
-    public static KlonGunFrame frame;
-    public static KlonGunCanvas canvas;
-    public static KlonGunControl control;
-    public static KlonGunKeyBuffer keyBuffer;
+	public static final int sinus[] = new int[126];
 
-    public long timeSpentRunning;
+	public static final Random RND = new Random(System.currentTimeMillis());
+
+	public static KlonGunFrame frame;
+	public static KlonGunCanvas canvas;
+	public static KlonGunControl control;
+	public static KlonGunKeyBuffer keyBuffer;
+
+	public long timeSpentRunning;
 
 	public static void main(String[] args) {
 		for (int i = 0; i < 126; i++)
@@ -171,21 +171,21 @@ public class KlonGun extends SpriteEngine {
 		}
 	}
 
-    public String spaced(String xx) {
-    	while(xx.length() < 5)
-    		xx = ' ' + xx;
+	public String spaced(String xx) {
+		while(xx.length() < 5)
+			xx = ' ' + xx;
 
-    	return xx;
-    }
+		return xx;
+	}
 
 
-    public void drawPoints(int no) {
-    	backBuffer.clear(149);
-        writeXY(121,0,0,HISCORES);
-        writeXY(120,0,4,HISCORES);
+	public void drawPoints(int no) {
+		backBuffer.clear(149);
+		writeXY(121,0,0,HISCORES);
+		writeXY(120,0,4,HISCORES);
 
-        for(int i = 0; i < 10; i++) {
-        	/*
+		for(int i = 0; i < 10; i++) {
+			/*
             With PontSzam[i] do
              if (Pontszam <> 0 )
               if (no <> i )
@@ -202,90 +202,90 @@ public class KlonGun extends SpriteEngine {
                 writeXY(20,20+i*15,1,Nev);
                 writeXY(220,20+i*15,1,Spaced(Ponts));
                }
-      */
+			 */
 
 
-        }
-    } // end drawPoints
+		}
+	} // end drawPoints
 
-    public void Anim3() {
-    	VirtualScreen back = new VirtualScreen();
-    	int pos = 0;
+	public void Anim3() {
+		VirtualScreen back = new VirtualScreen();
+		int pos = 0;
 
-    	backBuffer.copyTo(back);
+		backBuffer.copyTo(back);
 
-    	do {
-    		backBuffer.clear(0);
-    		pos++;
+		do {
+			backBuffer.clear(0);
+			pos++;
 
-    		for(int i = 0; i < VirtualScreen.HEIGHT; i++) {
-    			for(int j = 0; j < VirtualScreen.WIDTH; j++) {
-    				k = (i - 100) * pos + 100;
-    				l = (j - 160) * pos + 160;
-    		        if ((k >= 0) && (l >= 0) && (k < 200) && (l < 320))
-    		        	backBuffer.set(l, k, back.get(j, i));
-    			}
-    		}
+			for(int i = 0; i < VirtualScreen.HEIGHT; i++) {
+				for(int j = 0; j < VirtualScreen.WIDTH; j++) {
+					k = (i - 100) * pos + 100;
+					l = (j - 160) * pos + 160;
+					if ((k >= 0) && (l >= 0) && (k < 200) && (l < 320))
+						backBuffer.set(l, k, back.get(j, i));
+				}
+			}
 
-    		canvas.repaint();
-    	} while(pos <= 80);
-    }
+			canvas.repaint();
+		} while(pos <= 80);
+	}
 
-    public void Anim(int type) {
-    	VirtualScreen back = new VirtualScreen();
-    	int pos = 320, i = 0;
+	public void Anim(int type) {
+		VirtualScreen back = new VirtualScreen();
+		int pos = 320, i = 0;
 
-    	backBuffer.copyTo(back);
-        if (type == 0)
-        	backBuffer.clear(0);
-        else
-        	backBuffer.clear(148);
+		backBuffer.copyTo(back);
+		if (type == 0)
+			backBuffer.clear(0);
+		else
+			backBuffer.clear(148);
 
-    	do {
-    		pos -= 4;
-    		for(i = 0; i < 200; i++) {
-    			if(i % 2 == 0) {
-    				System.arraycopy(back.getContent(), i * VirtualScreen.WIDTH + pos,
-    						backBuffer.getContent(), i * VirtualScreen.WIDTH, 320-pos);
-    			} else {
-    				System.arraycopy(back.getContent(), i * VirtualScreen.WIDTH,
-    						backBuffer.getContent(), i * VirtualScreen.WIDTH + pos, 320-pos);
-    			}
-    		}
+		do {
+			pos -= 4;
+			for(i = 0; i < 200; i++) {
+				if(i % 2 == 0) {
+					System.arraycopy(back.getContent(), i * VirtualScreen.WIDTH + pos,
+							backBuffer.getContent(), i * VirtualScreen.WIDTH, 320-pos);
+				} else {
+					System.arraycopy(back.getContent(), i * VirtualScreen.WIDTH,
+							backBuffer.getContent(), i * VirtualScreen.WIDTH + pos, 320-pos);
+				}
+			}
 
-    		canvas.repaint();
-    	} while(pos != 0);
-    }
+			canvas.repaint();
+		} while(pos != 0);
+	}
 
-    public int f1(int x, double y) {
-    	return (int)Math.round(y * sinus[(int)(Math.round(x + 503) % 126)]);
-    }
+	public int f1(int x, double y) {
+		return (int)Math.round(y * sinus[Math.round(x + 503) % 126]);
+	}
 
-    public int f2(int x, double z) {
-    	return (int)Math.round(z * sinus[(int)(Math.round((x+m)*2 + 503) % 126)]);
-    }
+	public int f2(int x, double z) {
+		return (int)Math.round(z * sinus[Math.round((x+m)*2 + 503) % 126]);
+	}
 
-    public double sqr(double x) {
-    	return x*x;
-    }
-
-
-
-    public void anim2() {
-        final int Speed = 2;
-        final int MaxM = 63;
-        final int MaxI = 60;
-
-        int i = 0, j = 1, k = 0, m = 0, n = 0, o = 0;
-        double y, z;
-
-        VirtualScreen back = new VirtualScreen();
+	public double sqr(double x) {
+		return x*x;
+	}
 
 
-        int[] FGGVX = new int[320];
-        int[] FGGVY = new int[200];
 
-        backBuffer.copyTo(back);
+	public void anim2() {
+		final int Speed = 2;
+		final int MaxM = 63;
+		final int MaxI = 60;
+
+		int i = 0, j = 1, k = 0, m = 0, n = 0, o = 0;
+		double y, z;
+
+		VirtualScreen back = new VirtualScreen();
+
+
+		int[] FGGVX = new int[320];
+		int[] FGGVY = new int[200];
+
+		backBuffer.copyTo(back);
 
 		do {
 			if (i % Speed == 0) {
@@ -318,7 +318,7 @@ public class KlonGun extends SpriteEngine {
 				j = -1;
 
 		} while (o < 200);
-    }
+	}
 
 	public void screen(int no) {
 		for (int i = 0; i < 256; i++) {
@@ -386,16 +386,16 @@ public class KlonGun extends SpriteEngine {
 		for(Star s : stars) {
 			s.x -= (s.kind + 1) * Speed1;
 			if(s.x < -10) {
-		        s.x = 320+RND.nextInt(20);
-		        s.y = RND.nextInt(200);
+				s.x = 320+RND.nextInt(20);
+				s.y = RND.nextInt(200);
 			}
-		    if(s.x >= 0 && s.x < 320) {
-		    	if(s.kind == 0) {
-		    		backBuffer.set(s.x, s.y, 148);
-		    	} else {
-		    		backBuffer.set(s.x, s.y, 7);
-		    	}
-		    }
+			if(s.x >= 0 && s.x < 320) {
+				if(s.kind == 0) {
+					backBuffer.set(s.x, s.y, 148);
+				} else {
+					backBuffer.set(s.x, s.y, 7);
+				}
+			}
 		}
 	} // end if doStars
 
@@ -497,7 +497,7 @@ public class KlonGun extends SpriteEngine {
 		} else {
 			// from parameters
 			enemy.kind = Fj0;
-		    enemy.x = X0;
+			enemy.x = X0;
 			enemy.y = Y0;
 			enemy.xSpeed = Sp0;
 			enemy.ySpeed = Yp0;
@@ -712,7 +712,7 @@ public class KlonGun extends SpriteEngine {
 		case MaxEnemy1 + 1:
 			if (areaScroll % 15 == 0)
 				initBullet(enemy.x + 16, enemy.y + 16, -Speed_L[4], 0, 4, 0);
-			break;
+		break;
 
 		case MaxEnemy1 + 2:
 			if (areaScroll % 25 == 0) {
@@ -725,41 +725,41 @@ public class KlonGun extends SpriteEngine {
 				initBullet(enemy.x + 16, enemy.y + 16, -4, 4, 8, 0);
 				initBullet(enemy.x + 16, enemy.y + 16, 4, 4, 8, 0);
 			}
-			if ((enemy.y < 0) && (enemy.ySpeed > 0))
-				enemy.ySpeed = -enemy.ySpeed;
-			if ((enemy.y > 190) && (enemy.ySpeed < 0))
-				enemy.ySpeed = -enemy.ySpeed;
-			if ((enemy.x < 0) && (enemy.xSpeed > 0))
-				enemy.xSpeed = -enemy.xSpeed;
-			if ((enemy.x > 310) && (enemy.xSpeed < 0))
-				enemy.xSpeed = -enemy.xSpeed;
+		if ((enemy.y < 0) && (enemy.ySpeed > 0))
+			enemy.ySpeed = -enemy.ySpeed;
+		if ((enemy.y > 190) && (enemy.ySpeed < 0))
+			enemy.ySpeed = -enemy.ySpeed;
+		if ((enemy.x < 0) && (enemy.xSpeed > 0))
+			enemy.xSpeed = -enemy.xSpeed;
+		if ((enemy.x > 310) && (enemy.xSpeed < 0))
+			enemy.xSpeed = -enemy.xSpeed;
 
-			switch (areaScroll % 200) {
-			case 30:
-				enemy.ySpeed = enemy.ySpeed * 2;
-				break;
-			case 100:
-				enemy.ySpeed = enemy.ySpeed / 2;
-				break;
-			case 70:
-				enemy.xSpeed = enemy.xSpeed * 3;
-				break;
-			case 170:
-				enemy.xSpeed = enemy.xSpeed / 3;
-				break;
-			}
+		switch (areaScroll % 200) {
+		case 30:
+			enemy.ySpeed = enemy.ySpeed * 2;
 			break;
+		case 100:
+			enemy.ySpeed = enemy.ySpeed / 2;
+			break;
+		case 70:
+			enemy.xSpeed = enemy.xSpeed * 3;
+			break;
+		case 170:
+			enemy.xSpeed = enemy.xSpeed / 3;
+			break;
+		}
+		break;
 
 		case MaxEnemy1 + 3:
 			if ((areaScroll % 15) == 0)
 				initBullet(enemy.x + 6, enemy.y + 16, -10, 0, 5, 0);
-			if ((enemy.y > 190) && (enemy.ySpeed < 0))
-				enemy.ySpeed = -enemy.ySpeed;
-			if ((enemy.y < 0) && (enemy.ySpeed > 0))
-				enemy.ySpeed = -enemy.ySpeed;
-			if (enemy.x < 100)
-				enemy.xSpeed = 15;
-			break;
+		if ((enemy.y > 190) && (enemy.ySpeed < 0))
+			enemy.ySpeed = -enemy.ySpeed;
+		if ((enemy.y < 0) && (enemy.ySpeed > 0))
+			enemy.ySpeed = -enemy.ySpeed;
+		if (enemy.x < 100)
+			enemy.xSpeed = 15;
+		break;
 
 		} // end switch kind
 
@@ -1004,7 +1004,8 @@ public class KlonGun extends SpriteEngine {
 		int X1 = 0;
 		int Y1 = 0;
 		Picture bulletPicture;
-		int tmp1, tmp2;
+		float tmp1;
+		int tmp2;
 
 		Iterator<Bullet> itLess = bullets.iterator();
 		bulletIteration: while (itLess.hasNext()) {
@@ -1013,12 +1014,12 @@ public class KlonGun extends SpriteEngine {
 			bulletPicture = bulletPictures[bullet.kind];
 			if(bullet.hit) {
 				if(bullet.dyingTime > 0) {
-					tmp1 = (Bullet.MAX_DYING_TIME - bullet.dyingTime) * 3;
+					tmp1 = (Bullet.MAX_DYING_TIME - bullet.dyingTime) * 5f;
 					tmp2 = bulletPicture.getMiddleColor();
-					backBuffer.set(bullet.x - tmp1, bullet.y - tmp1, tmp2);
-					backBuffer.set(bullet.x + tmp1, bullet.y - tmp1, tmp2);
-					backBuffer.set(bullet.x - tmp1, bullet.y + tmp1, tmp2);
-					backBuffer.set(bullet.x + tmp1, bullet.y + tmp1, tmp2);
+					backBuffer.set(bullet.x - (int)(tmp1 * bullet.a1), bullet.y - (int)(tmp1 * bullet.a5), tmp2);
+					backBuffer.set(bullet.x + (int)(tmp1 * bullet.a2), bullet.y - (int)(tmp1 * bullet.a6), tmp2);
+					backBuffer.set(bullet.x - (int)(tmp1 * bullet.a3), bullet.y + (int)(tmp1 * bullet.a7), tmp2);
+					backBuffer.set(bullet.x + (int)(tmp1 * bullet.a4), bullet.y + (int)(tmp1 * bullet.a8), tmp2);
 				}
 
 				continue;
@@ -1564,7 +1565,6 @@ public class KlonGun extends SpriteEngine {
 
 			backBuffer.clear(0);
 			doStars();
-			drawBulletsAndCalulateCollision();
 			putEnemies();
 
 			if(pProtection > 0)
@@ -1578,8 +1578,26 @@ public class KlonGun extends SpriteEngine {
 				putPic(pX + 16 + (200 - pTime * 4), pY + 6 - (50 - pTime), 16, 16, deathPictures[1]);
 				putPic(pX + 6 - (200 - pTime * 4), pY + 16 + (50 - pTime), 16, 16, deathPictures[2]);
 				putPic(pX + 16 + (200 - pTime * 4), pY + 16 + (50 - pTime), 16, 16, deathPictures[3]);
+
+
+				int tmp1 = (50 - pTime) * 3;
+				int tmp2 = 3; // this is a bright pixel, I guess
+				backBuffer.set(pX + 20 - tmp1, pY + 10 - tmp1, tmp2);
+				backBuffer.set(pX + 20 + tmp1, pY + 10 + tmp1, tmp2);
+
+				tmp2 = 148; // this is a bright pixel, I guess
+				backBuffer.set(pX + 20 - tmp1, pY + 10 - tmp1, tmp2);
+				backBuffer.set(pX + 20 + tmp1, pY + 10 + tmp1, tmp2);
+
+				int tmp3 = (100 - pTime * 2) * 3;
+				tmp2 = 7; // this is a bright pixel, I guess
+				backBuffer.set(pX + 20 - tmp3, pY + 10 - tmp1, tmp2);
+				backBuffer.set(pX + 20 - tmp3, pY + 10 + tmp1, tmp2);
+				backBuffer.set(pX + 20 + tmp3, pY + 10 - tmp1, tmp2);
+				backBuffer.set(pX + 20 + tmp3, pY + 10 + tmp1, tmp2);
+
 				if (pTime > 0)
-					pTime = pTime - 1;
+					pTime--;
 				else if (sumLife > 0) {
 					sumLife = sumLife - 1;
 					pLife = 100;
@@ -1592,6 +1610,8 @@ public class KlonGun extends SpriteEngine {
 					sumLife = -1;
 				}
 			}
+
+			drawBulletsAndCalulateCollision();
 
 			putPic(0, 190, 120, 10, status);
 			if (sumLife > -1)
@@ -1788,12 +1808,12 @@ public class KlonGun extends SpriteEngine {
 				menuQuit = true;
 				menuItem = MaxMenu;
 			}
-				break;
+			break;
 			case 13: {
 				menuQuit = true;
 				menuItem = menuItem;
 			}
-				break;
+			break;
 			}
 		} while (!menuQuit);
 

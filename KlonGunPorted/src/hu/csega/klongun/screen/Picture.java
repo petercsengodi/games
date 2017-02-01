@@ -41,9 +41,10 @@ public class Picture {
 	}
 
 	private void calculateMiddleColor() {
-		int xx = width / 2;
-		int yy = height / 2;
-		middleColor = get(xx, yy);
+		//		int xx = width / 2;
+		//		int yy = height / 2;
+		//		middleColor = get(xx, yy);
+		middleColor = 7;
 	}
 
 	private int width;
