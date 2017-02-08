@@ -107,16 +107,16 @@ public class KlonGun extends SpriteEngine {
 	public int pX;
 	public int pY;
 	public int pShip;
-	public int pLife;
+	public int pHealthPoints;
 	public int pFire;
-	public int pL;
+	public int pShootingDelay;
 	public boolean pLogged; // if false, player can't be hurt
-	public boolean defenseFire;
-	public int[] leser = new int[5]; // weapon statuses
+	public boolean pDefenseFire;
+	public int[] pWeapons = new int[5]; // weapon statuses
 	public int pTime;
 	public int pProtection;
-	public int currentArea;
-	public int sumLife;
+	public int pCurrentLevel;
+	public int pNumberOfLives;
 
 	public char ch1;
 	public char ch2;
@@ -461,21 +461,21 @@ public class KlonGun extends SpriteEngine {
 	} // end if moveBullets
 
 	public void nextLevel() {
-		currentArea++;
+		pCurrentLevel++;
 		areaScroll = 0;
 
 		if (cheat) {
 			// if cheat exists, player gets all possible weapon of previous area
-			switch (currentArea) {
+			switch (pCurrentLevel) {
 			case 1:
 				pFire = 1;
-				leser[1] = 3;
+				pWeapons[1] = 3;
 				break;
 
 			case 2:
-				leser[1] = 4;
-				leser[3] = 1;
-				leser[4] = 1;
+				pWeapons[1] = 4;
+				pWeapons[3] = 1;
+				pWeapons[4] = 1;
 				break;
 			}
 		}
@@ -960,9 +960,9 @@ public class KlonGun extends SpriteEngine {
 							if (enemyShipPicture.get(j, i) < 255) {
 								Xv = enemy.x + j - pX;
 								Yv = enemy.y + i - pY;
-								if ((Xv >= 0) && (Xv < 50) && (Yv >= 0) && (Yv < 30) && (playerShipPicture.get(Xv, Yv) < 255) && (pLife > 0)) {
+								if ((Xv >= 0) && (Xv < 50) && (Yv >= 0) && (Yv < 30) && (playerShipPicture.get(Xv, Yv) < 255) && (pHealthPoints > 0)) {
 									// I guess if enemy collides with player, player dies
-									pLife = 0;
+									pHealthPoints = 0;
 									pTime = 50;
 									pProtection = 200;
 								}
@@ -1060,22 +1060,22 @@ public class KlonGun extends SpriteEngine {
 												if (EnemyPos.item > -1)
 													switch (EnemyPos.item) {
 													case 0:
-														if (pLife > 0)
-															pLife = pLife + 20;
-														if (pLife > 100)
-															pLife = 100;
+														if (pHealthPoints > 0)
+															pHealthPoints = pHealthPoints + 20;
+														if (pHealthPoints > 100)
+															pHealthPoints = 100;
 														break;
 
 													case 1:
-														if (leser[1] < 5)
-															leser[1] = leser[1] + 1;
+														if (pWeapons[1] < 5)
+															pWeapons[1] = pWeapons[1] + 1;
 														break;
 
 													case 2:
 													case 3:
 													case 4:
-														if (leser[EnemyPos.item] < 3)
-															leser[EnemyPos.item]++;
+														if (pWeapons[EnemyPos.item] < 3)
+															pWeapons[EnemyPos.item]++;
 														break;
 
 													case 5:
@@ -1095,18 +1095,18 @@ public class KlonGun extends SpriteEngine {
 										}
 									}
 								} // end iteration of enemies
-							} else if ((pLife > 0) && (!cheat && pShip > -1 && pProtection <= 0)) {
+							} else if ((pHealthPoints > 0) && (!cheat && pShip > -1 && pProtection <= 0)) {
 
 								// enemy bullet
 
 								X1 = Xv - pX;
 								Y1 = Yv - pY;
 								if ((X1 >= 0) && (X1 < 50) && (Y1 >= 0) && (Y1 < 30) && (shipPictures[pShip].get(X1, Y1) < 255)) {
-									pLife = pLife - (bullet.damage + diff * bullet.damage / 2);
+									pHealthPoints = pHealthPoints - (bullet.damage + diff * bullet.damage / 2);
 
-									if (pLife <= 0) {
+									if (pHealthPoints <= 0) {
 										pTime = 50;
-										pLife = 0;
+										pHealthPoints = 0;
 										pProtection = 200;
 									}
 
@@ -1130,7 +1130,7 @@ public class KlonGun extends SpriteEngine {
 	public void Palya() {
 
 		if (areaScroll > 100) {
-			switch (currentArea) {
+			switch (pCurrentLevel) {
 			case 0:
 				if (areaScroll < 500 && (areaScroll % 25) == 0)
 					initEnemy(320, 70 + ((areaScroll / 25) % 2) * 60, Speed_E[6], ((areaScroll / 25) % 2) * 2 - 1, 6, -1);
@@ -1243,19 +1243,19 @@ public class KlonGun extends SpriteEngine {
 		scores = 0;
 		pFire = 2;
 		pShip = 0;
-		pLife = 100;
+		pHealthPoints = 100;
 		pY = 75;
 		pX = -40;
-		sumLife = 3;
+		pNumberOfLives = 3;
 		pLogged = false;
 		pLogTime = 0;
-		pL = 0;
-		leser[0] = 1;
-		leser[1] = 1;
-		leser[2] = 0;
-		leser[3] = 0;
-		leser[4] = 0;
-		currentArea = 0;
+		pShootingDelay = 0;
+		pWeapons[0] = 1;
+		pWeapons[1] = 1;
+		pWeapons[2] = 0;
+		pWeapons[3] = 0;
+		pWeapons[4] = 0;
+		pCurrentLevel = 0;
 		areaScroll = 0;
 
 		bosses.clear();
@@ -1320,27 +1320,27 @@ public class KlonGun extends SpriteEngine {
 					break;
 
 				case '1':
-					leser[0] = 1;
+					pWeapons[0] = 1;
 					break;
 
 				case '2':
-					if ((leser[2] > 0))
-						leser[0] = 2;
+					if ((pWeapons[2] > 0))
+						pWeapons[0] = 2;
 					break;
 
 				case '3':
-					if ((leser[3] > 0))
-						leser[0] = 3;
+					if ((pWeapons[3] > 0))
+						pWeapons[0] = 3;
 					break;
 
 				case '4':
-					if ((leser[4] > 0))
-						leser[0] = 4;
+					if ((pWeapons[4] > 0))
+						pWeapons[0] = 4;
 					break;
 
 				case 'd':
 				case 'D':
-					defenseFire = !defenseFire;
+					pDefenseFire = !pDefenseFire;
 					break;
 
 				case 'c':
@@ -1351,18 +1351,18 @@ public class KlonGun extends SpriteEngine {
 				}
 			}
 
-			if (pLife > 0) {
-				if (pL > 0)
-					pL = pL - 1;
-				else if (control.isControlOn() && (pL == 0)) {
-					switch (leser[0]) {
+			if (pHealthPoints > 0) {
+				if (pShootingDelay > 0)
+					pShootingDelay = pShootingDelay - 1;
+				else if (control.isControlOn() && (pShootingDelay == 0)) {
+					switch (pWeapons[0]) {
 					case 1:
-						switch (leser[1]) {
+						switch (pWeapons[1]) {
 						case 1:
 							initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 0, 1);
 							break;
 						case 2:
-							if(defenseFire) {
+							if(pDefenseFire) {
 								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 1, 0, 1);
 								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -1, 0, 1);
 								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 0, 1);
@@ -1372,7 +1372,7 @@ public class KlonGun extends SpriteEngine {
 							break;
 
 						case 3:
-							if(defenseFire) {
+							if(pDefenseFire) {
 								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 2, 0, 1);
 								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 1, 0, 1);
 								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -1, 0, 1);
@@ -1386,7 +1386,7 @@ public class KlonGun extends SpriteEngine {
 							break;
 
 						case 4:
-							if(defenseFire) {
+							if(pDefenseFire) {
 								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 3, 0, 1);
 								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -3, 0, 1);
 								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 2, 0, 1);
@@ -1404,7 +1404,7 @@ public class KlonGun extends SpriteEngine {
 							break;
 
 						case 5:
-							if(defenseFire) {
+							if(pDefenseFire) {
 								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 3, 0, 1);
 								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 2, 1, 1);
 								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 1, 1, 1);
@@ -1424,7 +1424,7 @@ public class KlonGun extends SpriteEngine {
 						break;
 
 					case 2:
-						switch (leser[2]) {
+						switch (pWeapons[2]) {
 						case 1:
 							initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[3], 0, 3, 1);
 							break;
@@ -1442,9 +1442,9 @@ public class KlonGun extends SpriteEngine {
 						break;
 
 					case 3:
-						switch (leser[3]) {
+						switch (pWeapons[3]) {
 						case 1:
-							if(defenseFire) {
+							if(pDefenseFire) {
 								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -3, 4, 6, 1);
 								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -4, 3, 6, 1);
 								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -4, 2, 6, 1);
@@ -1467,7 +1467,7 @@ public class KlonGun extends SpriteEngine {
 							break;
 
 						case 2:
-							if(defenseFire) {
+							if(pDefenseFire) {
 								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -3, 4, 7, 1);
 								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -4, 3, 7, 1);
 								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -4, 2, 7, 1);
@@ -1490,7 +1490,7 @@ public class KlonGun extends SpriteEngine {
 							break;
 
 						case 3:
-							if(defenseFire) {
+							if(pDefenseFire) {
 								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -3, 4, 8, 1);
 								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -4, 3, 8, 1);
 								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -4, 2, 8, 1);
@@ -1515,7 +1515,7 @@ public class KlonGun extends SpriteEngine {
 						break;
 
 					case 4:
-						switch (leser[4]) {
+						switch (pWeapons[4]) {
 						case 1:
 							initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[9], 0, 9, 1);
 							break;
@@ -1529,7 +1529,7 @@ public class KlonGun extends SpriteEngine {
 						break;
 
 					}
-					pL = Late_L[(leser[0]-1) * 3]; //  + leser[leser[0]]
+					pShootingDelay = Late_L[(pWeapons[0]-1) * 3]; //  + leser[leser[0]]
 				}
 				if (control.isUpOn())
 					pY = pY - Speed_F[pFire];
@@ -1570,7 +1570,7 @@ public class KlonGun extends SpriteEngine {
 			if(pProtection > 0)
 				pProtection--;
 
-			if (pLife > 0) {
+			if (pHealthPoints > 0) {
 				putPic(pX, pY, 50, 30, shipPictures[pShip]);
 				putPic(pX - 17, pY + 9, 17, 14, firePictures[pFire][areaScroll % 3]);
 			} else if (pShip > -1) {
@@ -1598,26 +1598,26 @@ public class KlonGun extends SpriteEngine {
 
 				if (pTime > 0)
 					pTime--;
-				else if (sumLife > 0) {
-					sumLife = sumLife - 1;
-					pLife = 100;
+				else if (pNumberOfLives > 0) {
+					pNumberOfLives = pNumberOfLives - 1;
+					pHealthPoints = 100;
 					pX = -40;
 					pY = 75;
 					pLogged = false;
 					pLogTime = 0;
 				} else {
 					pShip = -1;
-					sumLife = -1;
+					pNumberOfLives = -1;
 				}
 			}
 
 			drawBulletsAndCalulateCollision();
 
 			putPic(0, 190, 120, 10, status);
-			if (sumLife > -1)
-				putPic(120, 190, 10, 10, statusIcons[sumLife][2]);
+			if (pNumberOfLives > -1)
+				putPic(120, 190, 10, 10, statusIcons[pNumberOfLives][2]);
 
-			for (i = 1; i <= (int) Math.round((pLife / 100.0) * 115); i++) {
+			for (i = 1; i <= (int) Math.round((pHealthPoints / 100.0) * 115); i++) {
 				for (j = 3; j <= 6; j++) {
 					backBuffer.set(2 + i, 190 + j, 2);
 				}
@@ -1625,11 +1625,11 @@ public class KlonGun extends SpriteEngine {
 			}
 
 			for (m = 0; m < 4; m++) {
-				if (leser[m+1] == 0)
+				if (pWeapons[m+1] == 0)
 					putPic(270 + m * 10, 190, 10, 10, statusIcons[m][0]);
-				else if ((leser[m+1] > 0) && (leser[0] != m + 1))
+				else if ((pWeapons[m+1] > 0) && (pWeapons[0] != m + 1))
 					putPic(270 + m * 10, 190, 10, 10, statusIcons[m][1]);
-				else if ((leser[m+1] > 0) && (leser[0] == m + 1))
+				else if ((pWeapons[m+1] > 0) && (pWeapons[0] == m + 1))
 					putPic(270 + m * 10, 190, 10, 10, statusIcons[m][2]);
 			} // end for m
 
@@ -1646,19 +1646,19 @@ public class KlonGun extends SpriteEngine {
 				}
 			} // end if bosses not empty
 
-			if (sumLife < 0)
+			if (pNumberOfLives < 0)
 				writeXY(127, 117, 5, "GAME OVER");
 			if (cheat)
 				writeXY(0, 0, 7, "cheat on");
 
-			if (currentArea == 3) {
+			if (pCurrentLevel == 3) {
 				writeXY(127, 117, 5, "YOU WON !");
 			} else if (areaScroll > 25 && areaScroll < 200) {
 				if (areaScroll >= 25 && areaScroll <= 124) {
-					String levelText = "LEVEL " + (currentArea + 1);
+					String levelText = "LEVEL " + (pCurrentLevel + 1);
 					writeXY(137, (int) Math.round(90 - ((125 - areaScroll)) * (1 - sqr(Math.sin((areaScroll - 25) / 10.0)))), 5, levelText);
 				} else if (areaScroll >= 125 && areaScroll <= 149) {
-					String levelText = "LEVEL " + (currentArea + 1);
+					String levelText = "LEVEL " + (pCurrentLevel + 1);
 					writeXY(137, 90, 5, levelText);
 				} else if (areaScroll >= 150 && areaScroll <= 199) {
 					putPic(154 - (areaScroll - 150) * 4, 84 - areaScroll + 150, 16, 16, deathPictures[0]);
