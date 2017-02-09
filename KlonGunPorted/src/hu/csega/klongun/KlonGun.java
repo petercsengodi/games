@@ -6,13 +6,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-import hu.csega.klongun.imported.FileUtil;
 import hu.csega.klongun.model.Enemy;
+import hu.csega.klongun.model.Player;
 import hu.csega.klongun.model.Bullet;
 import hu.csega.klongun.model.Score;
 import hu.csega.klongun.model.Star;
 import hu.csega.klongun.screen.Picture;
 import hu.csega.klongun.screen.VirtualScreen;
+import hu.csega.klongun.sprites.SpriteLibrary;
 import hu.csega.klongun.swing.KlonGunCanvas;
 import hu.csega.klongun.swing.KlonGunControl;
 import hu.csega.klongun.swing.KlonGunFrame;
@@ -25,14 +26,8 @@ public class KlonGun extends SpriteEngine {
 	private static final String HISCORES = "High Scores";
 
 	// Array sizes
-	public static final int MaxShips = 1;
-	public static final int MaxFires = 3;
 	public static final int MaxStars = 20;
-	public static final int MaxEnemy1 = 10;
-	public static final int MaxEnemy2 = MaxEnemy1+3;
-	public static final int MaxLesers = 12;
-	public static final int MaxDeaths = 4;
-	public static final int MaxItem = 7;
+	public static final int MaxEnemy2 = SpriteLibrary.MaxEnemy1+3;
 
 	// Object speeds
 	public static final int Speed1 = 1;
@@ -91,32 +86,13 @@ public class KlonGun extends SpriteEngine {
 
 	public int i,j,k,l,m,n,Xv,Yv;
 
-	public Picture[] shipPictures = new Picture[MaxShips]; // 30 x 40
-	public Picture[][] firePictures = new Picture[3][3]; // 14 x 17
-	public Picture[] enemyPictures = new Picture[MaxEnemy1]; // 32 x 32
-	public Picture[] bulletPictures = new Picture[MaxLesers]; // 5 x 16
-	public Picture[] deathPictures = new Picture[MaxDeaths]; // 16 x 16
-	public Picture[] itemPictures = new Picture[MaxItem]; // 16 x 16
-	public Picture[][] statusIcons = new Picture[4][4]; // 10 x 10
-	public Picture status;
+	public SpriteLibrary spriteLibrary;
 
-	public int areaScroll; // = areaScroll
+	public int currentLevel;
+	public int areaScroll;
 	public int bossDel;
 
-	// Player data
-	public int pX;
-	public int pY;
-	public int pShip;
-	public int pHealthPoints;
-	public int pFire;
-	public int pShootingDelay;
-	public boolean pLogged; // if false, player can't be hurt
-	public boolean pDefenseFire;
-	public int[] pWeapons = new int[5]; // weapon statuses
-	public int pTime;
-	public int pProtection;
-	public int pCurrentLevel;
-	public int pNumberOfLives;
+	public Player player = new Player();
 
 	public char ch1;
 	public char ch2;
@@ -140,7 +116,6 @@ public class KlonGun extends SpriteEngine {
 	public int diff;
 	public int menuItem;
 	public boolean changed;
-	public int pLogTime;
 
 	public static final int sinus[] = new int[126];
 
@@ -320,7 +295,7 @@ public class KlonGun extends SpriteEngine {
 		} while (o < 200);
 	}
 
-	public void screen(int no) {
+	public void paletteBrightness(int no) {
 		for (int i = 0; i < 256; i++) {
 			for (int j = 0; j < 3; j++) {
 				int v = (int) Math.round(originalPalette.get(i, j) * no / 63.0);
@@ -329,45 +304,6 @@ public class KlonGun extends SpriteEngine {
 		}
 	} // end screen
 
-
-	public void load() {
-		int i = 0;
-		int j = 0;
-
-		// BlockRead = reads block from file
-		// Reset(f,##) : ## = size of one block
-		// Str = number to string
-		// Seek = goes to position in file
-
-		// Every pictures start after 4 bytes
-
-		for(i = 0; i < MaxShips; i++)
-			shipPictures[i] = FileUtil.loadPic("ship" + (i+1), 50, 30);
-		for(i = 0; i < MaxItem; i++)
-			itemPictures[i] = FileUtil.loadPic("i_" + (i+1), 16, 16);
-		for(i = 0; i < MaxDeaths; i++)
-			deathPictures[i] = FileUtil.loadPic("ruin" + (i+1), 16, 16);
-		for(i = 0; i < MaxLesers; i++)
-			bulletPictures[i] = FileUtil.loadPic("l" + (i+1), 16, 5);
-		for(i = 0; i < MaxEnemy1; i++)
-			enemyPictures[i] = FileUtil.loadPic("a" + (i+1), 32, 32);
-		status = FileUtil.loadPic("status1", 120, 10);
-
-		for(i = 0; i < 4; i++) {
-			for(j = 0; j < 4; j++) {
-				String picName = String.valueOf(i+1) + j;
-				statusIcons[i][j] = FileUtil.loadPic(picName, 10, 10);
-			}
-		}
-
-		for(i = 0; i < MaxFires; i++) {
-			for(j = 0; j < 3; j++) {
-				String picName = "s_fire" + String.valueOf(i+1) + (j+1);
-				firePictures[i][j] = FileUtil.loadPic(picName, 17, 14);
-			}
-		}
-
-	} // end of load
 
 	public void addStars() {
 		for(int i = 0; i < 2; i++) {
@@ -461,21 +397,21 @@ public class KlonGun extends SpriteEngine {
 	} // end if moveBullets
 
 	public void nextLevel() {
-		pCurrentLevel++;
+		currentLevel++;
 		areaScroll = 0;
 
 		if (cheat) {
 			// if cheat exists, player gets all possible weapon of previous area
-			switch (pCurrentLevel) {
+			switch (currentLevel) {
 			case 1:
-				pFire = 1;
-				pWeapons[1] = 3;
+				player.fire = 1;
+				player.weapons[1] = 3;
 				break;
 
 			case 2:
-				pWeapons[1] = 4;
-				pWeapons[3] = 1;
-				pWeapons[4] = 1;
+				player.weapons[1] = 4;
+				player.weapons[3] = 1;
+				player.weapons[4] = 1;
 				break;
 			}
 		}
@@ -506,7 +442,7 @@ public class KlonGun extends SpriteEngine {
 			enemy.item = It;
 
 			// bosses
-			if(Fj0 == 3 || Fj0 == 9 || Fj0 == MaxEnemy1+2)
+			if(Fj0 == 3 || Fj0 == 9 || Fj0 == SpriteLibrary.MaxEnemy1+2)
 				bosses.add(enemy);
 
 		}
@@ -678,7 +614,7 @@ public class KlonGun extends SpriteEngine {
 				initBullet(enemy.x + 6, enemy.y + 22, -10, 0, 11, 0);
 			}
 			if (areaScroll % 87 == 0) {
-				initEnemy(enemy.x + 16, enemy.y + 20, 2, -4, MaxEnemy1 + 3, -1);
+				initEnemy(enemy.x + 16, enemy.y + 20, 2, -4, SpriteLibrary.MaxEnemy1 + 3, -1);
 			}
 			if (areaScroll % 125 == 0) {
 				initEnemy(enemy.x + 16, enemy.y + 20, 15, 0, 8, -1);
@@ -700,7 +636,7 @@ public class KlonGun extends SpriteEngine {
 				enemy.xSpeed = 3;
 			break;
 
-		case MaxEnemy1:
+		case SpriteLibrary.MaxEnemy1:
 			if ((enemy.y < (((areaScroll + enemy.x) / 20) % 4) * 25))
 				enemy.ySpeed = -2;
 			if ((enemy.y > 125 + (((areaScroll + enemy.x) / 20) % 4) * 25))
@@ -709,12 +645,12 @@ public class KlonGun extends SpriteEngine {
 				initBullet(enemy.x + 6, enemy.y + 16, -6, 0, 8, 0);
 			break;
 
-		case MaxEnemy1 + 1:
+		case SpriteLibrary.MaxEnemy1 + 1:
 			if (areaScroll % 15 == 0)
 				initBullet(enemy.x + 16, enemy.y + 16, -Speed_L[4], 0, 4, 0);
 		break;
 
-		case MaxEnemy1 + 2:
+		case SpriteLibrary.MaxEnemy1 + 2:
 			if (areaScroll % 25 == 0) {
 				initBullet(enemy.x + 16, enemy.y + 16, 6, 0, 8, 0);
 				initBullet(enemy.x + 16, enemy.y + 16, -6, 0, 8, 0);
@@ -750,7 +686,7 @@ public class KlonGun extends SpriteEngine {
 		}
 		break;
 
-		case MaxEnemy1 + 3:
+		case SpriteLibrary.MaxEnemy1 + 3:
 			if ((areaScroll % 15) == 0)
 				initBullet(enemy.x + 6, enemy.y + 16, -10, 0, 5, 0);
 		if ((enemy.y > 190) && (enemy.ySpeed < 0))
@@ -823,7 +759,8 @@ public class KlonGun extends SpriteEngine {
 
 	public void run() throws InterruptedException {
 		init();
-		load();
+
+		spriteLibrary = SpriteLibrary.createAndLoadLibrary();
 
 		diff = -1;
 		quitAll = false;
@@ -838,7 +775,7 @@ public class KlonGun extends SpriteEngine {
 				do {
 					startRound = System.currentTimeMillis();
 					splash -= 2;
-					screen(splash);
+					paletteBrightness(splash);
 					waitInGraphicThread(startRound);
 				} while (splash > 1);
 				game();
@@ -859,7 +796,7 @@ public class KlonGun extends SpriteEngine {
 				do {
 					startRound = System.currentTimeMillis();
 					splash = splash - 2;
-					screen(splash);
+					paletteBrightness(splash);
 					waitInGraphicThread(startRound);
 				} while (splash > 1);
 
@@ -868,7 +805,7 @@ public class KlonGun extends SpriteEngine {
 				do {
 					startRound = System.currentTimeMillis();
 					splash = splash - 2;
-					screen(splash);
+					paletteBrightness(splash);
 					waitInGraphicThread(startRound);
 
 				} while (splash > 1);
@@ -891,14 +828,14 @@ public class KlonGun extends SpriteEngine {
 				do {
 					startRound = System.currentTimeMillis();
 					splash = splash - 2;
-					screen(splash);
+					paletteBrightness(splash);
 					waitInGraphicThread(startRound);
 				} while (splash > 1);
 
 				backBuffer.clear(0);
 				canvas.repaint();
 				splash = 63;
-				screen(splash);
+				paletteBrightness(splash);
 				backBuffer.clear(148);
 				drawPoints(l);
 				Anim(0);
@@ -909,7 +846,7 @@ public class KlonGun extends SpriteEngine {
 				do {
 					startRound = System.currentTimeMillis();
 					splash -= 2;
-					screen(splash);
+					paletteBrightness(splash);
 					waitInGraphicThread(startRound);
 				} while (splash > 1);
 
@@ -950,21 +887,21 @@ public class KlonGun extends SpriteEngine {
 			die = false;
 
 			if (enemy.life > 0) {
-				Picture enemyShipPicture = enemyPictures[Abra[enemy.kind]];
+				Picture enemyShipPicture = spriteLibrary.enemies[Abra[enemy.kind]];
 				putPic(enemy.x, enemy.y, 32, 32, enemyShipPicture);
 
-				if (!cheat && pShip > -1 && pProtection <= 0) {
-					Picture playerShipPicture = shipPictures[pShip];
+				if (!cheat && player.shipSpriteIndex > -1 && player.protection <= 0) {
+					Picture playerShipPicture = spriteLibrary.ships[player.shipSpriteIndex];
 					for (int i = 0; i < 32; i++) {
 						for (int j = 0; j < 32; j++) {
 							if (enemyShipPicture.get(j, i) < 255) {
-								Xv = enemy.x + j - pX;
-								Yv = enemy.y + i - pY;
-								if ((Xv >= 0) && (Xv < 50) && (Yv >= 0) && (Yv < 30) && (playerShipPicture.get(Xv, Yv) < 255) && (pHealthPoints > 0)) {
+								Xv = enemy.x + j - player.x;
+								Yv = enemy.y + i - player.y;
+								if ((Xv >= 0) && (Xv < 50) && (Yv >= 0) && (Yv < 30) && (playerShipPicture.get(Xv, Yv) < 255) && (player.healthPoints > 0)) {
 									// I guess if enemy collides with player, player dies
-									pHealthPoints = 0;
-									pTime = 50;
-									pProtection = 200;
+									player.healthPoints = 0;
+									player.dyingAnimation = 50;
+									player.protection = 200;
 								}
 							}
 						} // end for j
@@ -973,10 +910,10 @@ public class KlonGun extends SpriteEngine {
 			} else {
 				String PontSzov;
 				if (enemy.time > 0) {
-					putPic(enemy.x + 6 - (200 - enemy.time * 4), enemy.y + 6 - (50 - enemy.time), 16, 16, deathPictures[0]);
-					putPic(enemy.x + 16 + (200 - enemy.time * 4), enemy.y + 6 - (50 - enemy.time), 16, 16, deathPictures[1]);
-					putPic(enemy.x + 6 - (200 - enemy.time * 4), enemy.y + 16 + (50 - enemy.time), 16, 16, deathPictures[2]);
-					putPic(enemy.x + 16 + (200 - enemy.time * 4), enemy.y + 16 + (50 - enemy.time), 16, 16, deathPictures[3]);
+					putPic(enemy.x + 6 - (200 - enemy.time * 4), enemy.y + 6 - (50 - enemy.time), 16, 16, spriteLibrary.wrecks[0]);
+					putPic(enemy.x + 16 + (200 - enemy.time * 4), enemy.y + 6 - (50 - enemy.time), 16, 16, spriteLibrary.wrecks[1]);
+					putPic(enemy.x + 6 - (200 - enemy.time * 4), enemy.y + 16 + (50 - enemy.time), 16, 16, spriteLibrary.wrecks[2]);
+					putPic(enemy.x + 16 + (200 - enemy.time * 4), enemy.y + 16 + (50 - enemy.time), 16, 16, spriteLibrary.wrecks[3]);
 
 					if (!cheated) {
 						PontSzov = String.valueOf((2 + diff) * Life_E[enemy.kind] / 10);
@@ -988,7 +925,7 @@ public class KlonGun extends SpriteEngine {
 					writeXY(enemy.x + 16 - (PontSzov.length() * 13) / 2, enemy.y + 8 - (300 - enemy.time * 6), 5, PontSzov);
 
 					if ((enemy.time > 30) && (enemy.item > -1))
-						putPic(enemy.x + 8, enemy.y + 8, 16, 16, itemPictures[enemy.item]);
+						putPic(enemy.x + 8, enemy.y + 8, 16, 16, spriteLibrary.items[enemy.item]);
 					enemy.time = enemy.time - 1;
 				} else {
 					die = true;
@@ -1011,7 +948,7 @@ public class KlonGun extends SpriteEngine {
 		bulletIteration: while (itLess.hasNext()) {
 			Bullet bullet = itLess.next();
 
-			bulletPicture = bulletPictures[bullet.kind];
+			bulletPicture = spriteLibrary.bullets[bullet.kind];
 			if(bullet.hit) {
 				if(bullet.dyingTime > 0) {
 					tmp1 = (Bullet.MAX_DYING_TIME - bullet.dyingTime) * 5f;
@@ -1029,7 +966,7 @@ public class KlonGun extends SpriteEngine {
 			for (int i = 0; i < 5; i++) {
 				for (int j = 0; j < 16; j++) {
 
-					if ((bulletPictures[bullet.kind].get(j, i) < 255) && !bullet.hit) {
+					if ((spriteLibrary.bullets[bullet.kind].get(j, i) < 255) && !bullet.hit) {
 						Xv = bullet.x + j;
 						Yv = bullet.y + i;
 
@@ -1046,7 +983,7 @@ public class KlonGun extends SpriteEngine {
 										X1 = Xv - EnemyPos.x;
 										Y1 = Yv - EnemyPos.y;
 
-										if ((X1 >= 0) && (X1 < 32) && (Y1 >= 0) && (Y1 < 32) && enemyPictures[Abra[EnemyPos.kind]].get(X1, Y1) < 255) {
+										if ((X1 >= 0) && (X1 < 32) && (Y1 >= 0) && (Y1 < 32) && spriteLibrary.enemies[Abra[EnemyPos.kind]].get(X1, Y1) < 255) {
 											EnemyPos.life = EnemyPos.life - (bullet.damage - diff * bullet.damage / 2);
 											if (EnemyPos.life <= 0) {
 												EnemyPos.time = 50;
@@ -1060,32 +997,32 @@ public class KlonGun extends SpriteEngine {
 												if (EnemyPos.item > -1)
 													switch (EnemyPos.item) {
 													case 0:
-														if (pHealthPoints > 0)
-															pHealthPoints = pHealthPoints + 20;
-														if (pHealthPoints > 100)
-															pHealthPoints = 100;
+														if (player.healthPoints > 0)
+															player.healthPoints = player.healthPoints + 20;
+														if (player.healthPoints > 100)
+															player.healthPoints = 100;
 														break;
 
 													case 1:
-														if (pWeapons[1] < 5)
-															pWeapons[1] = pWeapons[1] + 1;
+														if (player.weapons[1] < 5)
+															player.weapons[1] = player.weapons[1] + 1;
 														break;
 
 													case 2:
 													case 3:
 													case 4:
-														if (pWeapons[EnemyPos.item] < 3)
-															pWeapons[EnemyPos.item]++;
+														if (player.weapons[EnemyPos.item] < 3)
+															player.weapons[EnemyPos.item]++;
 														break;
 
 													case 5:
-														if (pFire > 1)
-															pFire = 1;
+														if (player.fire > 1)
+															player.fire = 1;
 														break;
 
 													case 6:
-														if (pFire > 0)
-															pFire = 0;
+														if (player.fire > 0)
+															player.fire = 0;
 														break;
 													} // end of switch item
 											}
@@ -1095,19 +1032,19 @@ public class KlonGun extends SpriteEngine {
 										}
 									}
 								} // end iteration of enemies
-							} else if ((pHealthPoints > 0) && (!cheat && pShip > -1 && pProtection <= 0)) {
+							} else if ((player.healthPoints > 0) && (!cheat && player.shipSpriteIndex > -1 && player.protection <= 0)) {
 
 								// enemy bullet
 
-								X1 = Xv - pX;
-								Y1 = Yv - pY;
-								if ((X1 >= 0) && (X1 < 50) && (Y1 >= 0) && (Y1 < 30) && (shipPictures[pShip].get(X1, Y1) < 255)) {
-									pHealthPoints = pHealthPoints - (bullet.damage + diff * bullet.damage / 2);
+								X1 = Xv - player.x;
+								Y1 = Yv - player.y;
+								if ((X1 >= 0) && (X1 < 50) && (Y1 >= 0) && (Y1 < 30) && (spriteLibrary.ships[player.shipSpriteIndex].get(X1, Y1) < 255)) {
+									player.healthPoints = player.healthPoints - (bullet.damage + diff * bullet.damage / 2);
 
-									if (pHealthPoints <= 0) {
-										pTime = 50;
-										pHealthPoints = 0;
-										pProtection = 200;
+									if (player.healthPoints <= 0) {
+										player.dyingAnimation = 50;
+										player.healthPoints = 0;
+										player.protection = 200;
 									}
 
 									bullet.setHit(Xv, Yv, Bullet.MAX_DYING_TIME);
@@ -1130,16 +1067,16 @@ public class KlonGun extends SpriteEngine {
 	public void Palya() {
 
 		if (areaScroll > 100) {
-			switch (pCurrentLevel) {
+			switch (currentLevel) {
 			case 0:
 				if (areaScroll < 500 && (areaScroll % 25) == 0)
 					initEnemy(320, 70 + ((areaScroll / 25) % 2) * 60, Speed_E[6], ((areaScroll / 25) % 2) * 2 - 1, 6, -1);
 				if (areaScroll == 500)
 					initEnemy(320, RND.nextInt(20) + 90, 4, 0, 6, 0);
 				if ((areaScroll > 500) && (areaScroll < 600) && (areaScroll % 20 == 0))
-					initEnemy(250, -10, 1, -2, MaxEnemy1 , -1);
+					initEnemy(250, -10, 1, -2, SpriteLibrary.MaxEnemy1 , -1);
 				if ((areaScroll > 600) && (areaScroll < 700) && (areaScroll % 20 == 0))
-					initEnemy(250, 210, 1, 2, MaxEnemy1 , -1);
+					initEnemy(250, 210, 1, 2, SpriteLibrary.MaxEnemy1 , -1);
 				if (areaScroll == 700)
 					initEnemy(250, 210, 1, 2, 6, 1);
 				if (areaScroll == 800)
@@ -1147,9 +1084,9 @@ public class KlonGun extends SpriteEngine {
 				if (areaScroll == 990)
 					initEnemy(320, RND.nextInt(20) + 90, 2, 0, 6, 5);
 				if ((areaScroll > 750) && (areaScroll < 1040) && (areaScroll % 25 == 0))
-					initEnemy(320, 60 + ((areaScroll / 20) % 4) * 25, 1, 2, MaxEnemy1, -1);
+					initEnemy(320, 60 + ((areaScroll / 20) % 4) * 25, 1, 2, SpriteLibrary.MaxEnemy1, -1);
 				if (areaScroll == 1100) {
-					initEnemy(320, 100, 3, 3, MaxEnemy1 + 2, 1);
+					initEnemy(320, 100, 3, 3, SpriteLibrary.MaxEnemy1 + 2, 1);
 					bossDel = 200;
 					initEnemy(320, RND.nextInt(20) + 90, 2, 0, 6, 0);
 				}
@@ -1239,23 +1176,23 @@ public class KlonGun extends SpriteEngine {
 		}
 	} // end method
 
-	public void temp() {
+	public void resetStatus() {
 		scores = 0;
-		pFire = 2;
-		pShip = 0;
-		pHealthPoints = 100;
-		pY = 75;
-		pX = -40;
-		pNumberOfLives = 3;
-		pLogged = false;
-		pLogTime = 0;
-		pShootingDelay = 0;
-		pWeapons[0] = 1;
-		pWeapons[1] = 1;
-		pWeapons[2] = 0;
-		pWeapons[3] = 0;
-		pWeapons[4] = 0;
-		pCurrentLevel = 0;
+		player.fire = 2;
+		player.shipSpriteIndex = 0;
+		player.healthPoints = 100;
+		player.y = 75;
+		player.x = -40;
+		player.numberOfLives = 3;
+		player.cantBeHurt = false;
+		player.cantBeHurtTime = 0;
+		player.shootingDelay = 0;
+		player.weapons[0] = 1;
+		player.weapons[1] = 1;
+		player.weapons[2] = 0;
+		player.weapons[3] = 0;
+		player.weapons[4] = 0;
+		currentLevel = 0;
 		areaScroll = 0;
 
 		bosses.clear();
@@ -1289,7 +1226,7 @@ public class KlonGun extends SpriteEngine {
 	}
 
 	public void game() throws InterruptedException {
-		temp();
+		resetStatus();
 		addStars();
 
 		long startRound;
@@ -1299,7 +1236,7 @@ public class KlonGun extends SpriteEngine {
 
 			if (splash < 63) {
 				splash = splash + 2;
-				screen(splash);
+				paletteBrightness(splash);
 			}
 
 			Palya();
@@ -1320,27 +1257,27 @@ public class KlonGun extends SpriteEngine {
 					break;
 
 				case '1':
-					pWeapons[0] = 1;
+					player.weapons[0] = 1;
 					break;
 
 				case '2':
-					if ((pWeapons[2] > 0))
-						pWeapons[0] = 2;
+					if ((player.weapons[2] > 0))
+						player.weapons[0] = 2;
 					break;
 
 				case '3':
-					if ((pWeapons[3] > 0))
-						pWeapons[0] = 3;
+					if ((player.weapons[3] > 0))
+						player.weapons[0] = 3;
 					break;
 
 				case '4':
-					if ((pWeapons[4] > 0))
-						pWeapons[0] = 4;
+					if ((player.weapons[4] > 0))
+						player.weapons[0] = 4;
 					break;
 
 				case 'd':
 				case 'D':
-					pDefenseFire = !pDefenseFire;
+					player.defenseFire = !player.defenseFire;
 					break;
 
 				case 'c':
@@ -1351,215 +1288,215 @@ public class KlonGun extends SpriteEngine {
 				}
 			}
 
-			if (pHealthPoints > 0) {
-				if (pShootingDelay > 0)
-					pShootingDelay = pShootingDelay - 1;
-				else if (control.isControlOn() && (pShootingDelay == 0)) {
-					switch (pWeapons[0]) {
+			if (player.healthPoints > 0) {
+				if (player.shootingDelay > 0)
+					player.shootingDelay = player.shootingDelay - 1;
+				else if (control.isControlOn() && (player.shootingDelay == 0)) {
+					switch (player.weapons[0]) {
 					case 1:
-						switch (pWeapons[1]) {
+						switch (player.weapons[1]) {
 						case 1:
-							initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 0, 1);
+							initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], 0, 0, 1);
 							break;
 						case 2:
-							if(pDefenseFire) {
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 1, 0, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -1, 0, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 0, 1);
+							if(player.defenseFire) {
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], 1, 0, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], -1, 0, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], 0, 0, 1);
 							} else {
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 1, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], 0, 1, 1);
 							}
 							break;
 
 						case 3:
-							if(pDefenseFire) {
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 2, 0, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 1, 0, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -1, 0, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -2, 0, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 0, 1);
+							if(player.defenseFire) {
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], 2, 0, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], 1, 0, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], -1, 0, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], -2, 0, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], 0, 0, 1);
 							} else {
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 1, 1, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -1, 1, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 1, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], 1, 1, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], -1, 1, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], 0, 1, 1);
 							}
 							break;
 
 						case 4:
-							if(pDefenseFire) {
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 3, 0, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -3, 0, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 2, 0, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -2, 0, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 1, 1, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -1, 1, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 1, 1);
+							if(player.defenseFire) {
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], 3, 0, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], -3, 0, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], 2, 0, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], -2, 0, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], 1, 1, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], -1, 1, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], 0, 1, 1);
 							} else {
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 2, 0, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -2, 0, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 1, 1, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -1, 1, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 2, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], 2, 0, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], -2, 0, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], 1, 1, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], -1, 1, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], 0, 2, 1);
 							}
 							break;
 
 						case 5:
-							if(pDefenseFire) {
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 3, 0, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 2, 1, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 1, 1, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 1, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -1, 1, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -2, 1, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -3, 0, 1);
+							if(player.defenseFire) {
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], 3, 0, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], 2, 1, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], 1, 1, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], 0, 1, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], -1, 1, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], -2, 1, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], -3, 0, 1);
 							} else {
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 2, 1, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -2, 1, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 1, 2, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], -1, 2, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[0], 0, 2, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], 2, 1, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], -2, 1, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], 1, 2, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], -1, 2, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[0], 0, 2, 1);
 							}
 							break;
 						}
 						break;
 
 					case 2:
-						switch (pWeapons[2]) {
+						switch (player.weapons[2]) {
 						case 1:
-							initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[3], 0, 3, 1);
+							initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[3], 0, 3, 1);
 							break;
 						case 2:
-							initBullet(pX + ShipX[pShip] -3, pY + ShipY[pShip] -3, Speed_L[4], 0, 3, 1);
-							initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[4], 0, 4, 1);
-							initBullet(pX + ShipX[pShip] -3, pY + ShipY[pShip] +3, Speed_L[4], 0, 3, 1);
+							initBullet(player.x + ShipX[player.shipSpriteIndex] -3, player.y + ShipY[player.shipSpriteIndex] -3, Speed_L[4], 0, 3, 1);
+							initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[4], 0, 4, 1);
+							initBullet(player.x + ShipX[player.shipSpriteIndex] -3, player.y + ShipY[player.shipSpriteIndex] +3, Speed_L[4], 0, 3, 1);
 							break;
 						case 3:
-							initBullet(pX + ShipX[pShip] -3, pY + ShipY[pShip] -5, Speed_L[4], 0, 4, 1);
-							initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[5], 0, 5, 1);
-							initBullet(pX + ShipX[pShip] -3, pY + ShipY[pShip] +5, Speed_L[4], 0, 4, 1);
+							initBullet(player.x + ShipX[player.shipSpriteIndex] -3, player.y + ShipY[player.shipSpriteIndex] -5, Speed_L[4], 0, 4, 1);
+							initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[5], 0, 5, 1);
+							initBullet(player.x + ShipX[player.shipSpriteIndex] -3, player.y + ShipY[player.shipSpriteIndex] +5, Speed_L[4], 0, 4, 1);
 							break;
 						}
 						break;
 
 					case 3:
-						switch (pWeapons[3]) {
+						switch (player.weapons[3]) {
 						case 1:
-							if(pDefenseFire) {
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -3, 4, 6, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -4, 3, 6, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -4, 2, 6, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -5, 1, 6, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -5, 0, 6, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -5, -1, 6, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -4, -2, 6, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -4, -3, 6, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -3, -4, 6, 1);
+							if(player.defenseFire) {
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -3, 4, 6, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -4, 3, 6, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -4, 2, 6, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -5, 1, 6, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -5, 0, 6, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -5, -1, 6, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -4, -2, 6, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -4, -3, 6, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -3, -4, 6, 1);
 							} else {
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], 6, 0, 6, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], 0, 6, 6, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -6, 0, 6, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], 0, -6, 6, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], 4, 4, 6, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], 4, -4, 6, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -4, 4, 6, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -4, -4, 6, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], 6, 0, 6, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], 0, 6, 6, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -6, 0, 6, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], 0, -6, 6, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], 4, 4, 6, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], 4, -4, 6, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -4, 4, 6, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -4, -4, 6, 1);
 							}
 							break;
 
 						case 2:
-							if(pDefenseFire) {
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -3, 4, 7, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -4, 3, 7, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -4, 2, 7, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -5, 1, 7, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -5, 0, 7, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -5, -1, 7, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -4, -2, 7, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -4, -3, 7, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -3, -4, 7, 1);
+							if(player.defenseFire) {
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -3, 4, 7, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -4, 3, 7, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -4, 2, 7, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -5, 1, 7, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -5, 0, 7, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -5, -1, 7, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -4, -2, 7, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -4, -3, 7, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -3, -4, 7, 1);
 							} else {
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], 6, 0, 7, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], 0, 6, 7, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -6, 0, 7, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], 0, -6, 7, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], 4, 4, 7, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], 4, -4, 7, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -4, 4, 7, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -4, -4, 7, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], 6, 0, 7, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], 0, 6, 7, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -6, 0, 7, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], 0, -6, 7, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], 4, 4, 7, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], 4, -4, 7, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -4, 4, 7, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -4, -4, 7, 1);
 							}
 							break;
 
 						case 3:
-							if(pDefenseFire) {
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -3, 4, 8, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -4, 3, 8, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -4, 2, 8, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -5, 1, 8, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -5, 0, 8, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -5, -1, 8, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -4, -2, 8, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -4, -3, 8, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -3, -4, 8, 1);
+							if(player.defenseFire) {
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -3, 4, 8, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -4, 3, 8, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -4, 2, 8, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -5, 1, 8, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -5, 0, 8, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -5, -1, 8, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -4, -2, 8, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -4, -3, 8, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -3, -4, 8, 1);
 							} else {
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], 6, 0, 8, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], 0, 6, 8, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -6, 0, 8, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], 0, -6, 8, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], 4, 4, 8, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], 4, -4, 8, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -4, 4, 8, 1);
-								initBullet(pX + ShipX[pShip], pY + ShipY[pShip], -4, -4, 8, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], 6, 0, 8, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], 0, 6, 8, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -6, 0, 8, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], 0, -6, 8, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], 4, 4, 8, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], 4, -4, 8, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -4, 4, 8, 1);
+								initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], -4, -4, 8, 1);
 							}
 							break;
 						}
 						break;
 
 					case 4:
-						switch (pWeapons[4]) {
+						switch (player.weapons[4]) {
 						case 1:
-							initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[9], 0, 9, 1);
+							initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[9], 0, 9, 1);
 							break;
 						case 2:
-							initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[10], 0, 10, 1);
+							initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[10], 0, 10, 1);
 							break;
 						case 3:
-							initBullet(pX + ShipX[pShip], pY + ShipY[pShip], Speed_L[11], 0, 11, 1);
+							initBullet(player.x + ShipX[player.shipSpriteIndex], player.y + ShipY[player.shipSpriteIndex], Speed_L[11], 0, 11, 1);
 							break;
 						}
 						break;
 
 					}
-					pShootingDelay = Late_L[(pWeapons[0]-1) * 3]; //  + leser[leser[0]]
+					player.shootingDelay = Late_L[(player.weapons[0]-1) * 3]; //  + leser[leser[0]]
 				}
 				if (control.isUpOn())
-					pY = pY - Speed_F[pFire];
+					player.y = player.y - Speed_F[player.fire];
 				if (control.isDownOn())
-					pY = pY + Speed_F[pFire];
-				if (pLogged || (pX >= 5)) {
+					player.y = player.y + Speed_F[player.fire];
+				if (player.cantBeHurt || (player.x >= 5)) {
 					if (control.isLeftOn())
-						pX = pX - Speed_F[pFire];
+						player.x = player.x - Speed_F[player.fire];
 					if (control.isRightOn())
-						pX = pX + Speed_F[pFire];
+						player.x = player.x + Speed_F[player.fire];
 				}
-				if (pX < 5) {
-					if (pLogged)
-						pX = 5;
+				if (player.x < 5) {
+					if (player.cantBeHurt)
+						player.x = 5;
 					else
-						pX = pX + Speed_M;
+						player.x = player.x + Speed_M;
 				}
-				if (!pLogged) {
-					pLogTime = pLogTime + 1;
-					if (pLogTime >= 50)
-						pLogged = true;
+				if (!player.cantBeHurt) {
+					player.cantBeHurtTime = player.cantBeHurtTime + 1;
+					if (player.cantBeHurtTime >= 50)
+						player.cantBeHurt = true;
 				}
 			}
 
-			if (pX > 274)
-				pX = 274;
-			if (pY < -10)
-				pY = -10;
-			if (pY > 180)
-				pY = 180;
+			if (player.x > 274)
+				player.x = 274;
+			if (player.y < -10)
+				player.y = -10;
+			if (player.y > 180)
+				player.y = 180;
 
 			areaScroll++;
 
@@ -1567,57 +1504,57 @@ public class KlonGun extends SpriteEngine {
 			doStars();
 			putEnemies();
 
-			if(pProtection > 0)
-				pProtection--;
+			if(player.protection > 0)
+				player.protection--;
 
-			if (pHealthPoints > 0) {
-				putPic(pX, pY, 50, 30, shipPictures[pShip]);
-				putPic(pX - 17, pY + 9, 17, 14, firePictures[pFire][areaScroll % 3]);
-			} else if (pShip > -1) {
-				putPic(pX + 6 - (200 - pTime * 4), pY + 6 - (50 - pTime), 16, 16, deathPictures[0]);
-				putPic(pX + 16 + (200 - pTime * 4), pY + 6 - (50 - pTime), 16, 16, deathPictures[1]);
-				putPic(pX + 6 - (200 - pTime * 4), pY + 16 + (50 - pTime), 16, 16, deathPictures[2]);
-				putPic(pX + 16 + (200 - pTime * 4), pY + 16 + (50 - pTime), 16, 16, deathPictures[3]);
+			if (player.healthPoints > 0) {
+				putPic(player.x, player.y, 50, 30, spriteLibrary.ships[player.shipSpriteIndex]);
+				putPic(player.x - 17, player.y + 9, 17, 14, spriteLibrary.fire[player.fire][areaScroll % 3]);
+			} else if (player.shipSpriteIndex > -1) {
+				putPic(player.x + 6 - (200 - player.dyingAnimation * 4), player.y + 6 - (50 - player.dyingAnimation), 16, 16, spriteLibrary.wrecks[0]);
+				putPic(player.x + 16 + (200 - player.dyingAnimation * 4), player.y + 6 - (50 - player.dyingAnimation), 16, 16, spriteLibrary.wrecks[1]);
+				putPic(player.x + 6 - (200 - player.dyingAnimation * 4), player.y + 16 + (50 - player.dyingAnimation), 16, 16, spriteLibrary.wrecks[2]);
+				putPic(player.x + 16 + (200 - player.dyingAnimation * 4), player.y + 16 + (50 - player.dyingAnimation), 16, 16, spriteLibrary.wrecks[3]);
 
 
-				int tmp1 = (50 - pTime) * 3;
+				int tmp1 = (50 - player.dyingAnimation) * 3;
 				int tmp2 = 3; // this is a bright pixel, I guess
-				backBuffer.set(pX + 20 - tmp1, pY + 10 - tmp1, tmp2);
-				backBuffer.set(pX + 20 + tmp1, pY + 10 + tmp1, tmp2);
+				backBuffer.set(player.x + 20 - tmp1, player.y + 10 - tmp1, tmp2);
+				backBuffer.set(player.x + 20 + tmp1, player.y + 10 + tmp1, tmp2);
 
 				tmp2 = 148; // this is a bright pixel, I guess
-				backBuffer.set(pX + 20 - tmp1, pY + 10 - tmp1, tmp2);
-				backBuffer.set(pX + 20 + tmp1, pY + 10 + tmp1, tmp2);
+				backBuffer.set(player.x + 20 - tmp1, player.y + 10 - tmp1, tmp2);
+				backBuffer.set(player.x + 20 + tmp1, player.y + 10 + tmp1, tmp2);
 
-				int tmp3 = (100 - pTime * 2) * 3;
+				int tmp3 = (100 - player.dyingAnimation * 2) * 3;
 				tmp2 = 7; // this is a bright pixel, I guess
-				backBuffer.set(pX + 20 - tmp3, pY + 10 - tmp1, tmp2);
-				backBuffer.set(pX + 20 - tmp3, pY + 10 + tmp1, tmp2);
-				backBuffer.set(pX + 20 + tmp3, pY + 10 - tmp1, tmp2);
-				backBuffer.set(pX + 20 + tmp3, pY + 10 + tmp1, tmp2);
+				backBuffer.set(player.x + 20 - tmp3, player.y + 10 - tmp1, tmp2);
+				backBuffer.set(player.x + 20 - tmp3, player.y + 10 + tmp1, tmp2);
+				backBuffer.set(player.x + 20 + tmp3, player.y + 10 - tmp1, tmp2);
+				backBuffer.set(player.x + 20 + tmp3, player.y + 10 + tmp1, tmp2);
 
-				if (pTime > 0)
-					pTime--;
-				else if (pNumberOfLives > 0) {
-					pNumberOfLives = pNumberOfLives - 1;
-					pHealthPoints = 100;
-					pX = -40;
-					pY = 75;
-					pLogged = false;
-					pLogTime = 0;
+				if (player.dyingAnimation > 0)
+					player.dyingAnimation--;
+				else if (player.numberOfLives > 0) {
+					player.numberOfLives = player.numberOfLives - 1;
+					player.healthPoints = 100;
+					player.x = -40;
+					player.y = 75;
+					player.cantBeHurt = false;
+					player.cantBeHurtTime = 0;
 				} else {
-					pShip = -1;
-					pNumberOfLives = -1;
+					player.shipSpriteIndex = -1;
+					player.numberOfLives = -1;
 				}
 			}
 
 			drawBulletsAndCalulateCollision();
 
-			putPic(0, 190, 120, 10, status);
-			if (pNumberOfLives > -1)
-				putPic(120, 190, 10, 10, statusIcons[pNumberOfLives][2]);
+			putPic(0, 190, 120, 10, spriteLibrary.statusBar);
+			if (player.numberOfLives > -1)
+				putPic(120, 190, 10, 10, spriteLibrary.statusIcons[player.numberOfLives][2]);
 
-			for (i = 1; i <= (int) Math.round((pHealthPoints / 100.0) * 115); i++) {
+			for (i = 1; i <= (int) Math.round((player.healthPoints / 100.0) * 115); i++) {
 				for (j = 3; j <= 6; j++) {
 					backBuffer.set(2 + i, 190 + j, 2);
 				}
@@ -1625,18 +1562,18 @@ public class KlonGun extends SpriteEngine {
 			}
 
 			for (m = 0; m < 4; m++) {
-				if (pWeapons[m+1] == 0)
-					putPic(270 + m * 10, 190, 10, 10, statusIcons[m][0]);
-				else if ((pWeapons[m+1] > 0) && (pWeapons[0] != m + 1))
-					putPic(270 + m * 10, 190, 10, 10, statusIcons[m][1]);
-				else if ((pWeapons[m+1] > 0) && (pWeapons[0] == m + 1))
-					putPic(270 + m * 10, 190, 10, 10, statusIcons[m][2]);
+				if (player.weapons[m+1] == 0)
+					putPic(270 + m * 10, 190, 10, 10, spriteLibrary.statusIcons[m][0]);
+				else if ((player.weapons[m+1] > 0) && (player.weapons[0] != m + 1))
+					putPic(270 + m * 10, 190, 10, 10, spriteLibrary.statusIcons[m][1]);
+				else if ((player.weapons[m+1] > 0) && (player.weapons[0] == m + 1))
+					putPic(270 + m * 10, 190, 10, 10, spriteLibrary.statusIcons[m][2]);
 			} // end for m
 
 			if (!bosses.isEmpty()) {
 				for (Enemy boss : bosses) {
 
-					putPic(0, 0, 120, 10, status);
+					putPic(0, 0, 120, 10, spriteLibrary.statusBar);
 					writeXY(125, 0, 4, "BOSS");
 					for (i = 1; i <= (int) Math.round(((double)boss.life / Life_E[boss.kind]) * 115.0); i++) {
 						for (j = 3; j <= 6; j++) {
@@ -1646,25 +1583,25 @@ public class KlonGun extends SpriteEngine {
 				}
 			} // end if bosses not empty
 
-			if (pNumberOfLives < 0)
+			if (player.numberOfLives < 0)
 				writeXY(127, 117, 5, "GAME OVER");
 			if (cheat)
 				writeXY(0, 0, 7, "cheat on");
 
-			if (pCurrentLevel == 3) {
+			if (currentLevel == 3) {
 				writeXY(127, 117, 5, "YOU WON !");
 			} else if (areaScroll > 25 && areaScroll < 200) {
 				if (areaScroll >= 25 && areaScroll <= 124) {
-					String levelText = "LEVEL " + (pCurrentLevel + 1);
+					String levelText = "LEVEL " + (currentLevel + 1);
 					writeXY(137, (int) Math.round(90 - ((125 - areaScroll)) * (1 - sqr(Math.sin((areaScroll - 25) / 10.0)))), 5, levelText);
 				} else if (areaScroll >= 125 && areaScroll <= 149) {
-					String levelText = "LEVEL " + (pCurrentLevel + 1);
+					String levelText = "LEVEL " + (currentLevel + 1);
 					writeXY(137, 90, 5, levelText);
 				} else if (areaScroll >= 150 && areaScroll <= 199) {
-					putPic(154 - (areaScroll - 150) * 4, 84 - areaScroll + 150, 16, 16, deathPictures[0]);
-					putPic(166 + (areaScroll - 150) * 4, 84 - areaScroll + 150, 16, 16, deathPictures[1]);
-					putPic(154 - (areaScroll - 150) * 4, 96 + areaScroll - 150, 16, 16, deathPictures[2]);
-					putPic(166 + (areaScroll - 150) * 4, 96 + areaScroll - 150, 16, 16, deathPictures[3]);
+					putPic(154 - (areaScroll - 150) * 4, 84 - areaScroll + 150, 16, 16, spriteLibrary.wrecks[0]);
+					putPic(166 + (areaScroll - 150) * 4, 84 - areaScroll + 150, 16, 16, spriteLibrary.wrecks[1]);
+					putPic(154 - (areaScroll - 150) * 4, 96 + areaScroll - 150, 16, 16, spriteLibrary.wrecks[2]);
+					putPic(166 + (areaScroll - 150) * 4, 96 + areaScroll - 150, 16, 16, spriteLibrary.wrecks[3]);
 				}
 
 			} // else if currentArea / areaScroll
@@ -1678,7 +1615,7 @@ public class KlonGun extends SpriteEngine {
 
 		anim2();
 		splash = 63;
-		screen(splash);
+		paletteBrightness(splash);
 		drawPoints(10);
 
 		/*
@@ -1726,7 +1663,7 @@ public class KlonGun extends SpriteEngine {
 		do {
 			startRound = System.currentTimeMillis();
 			splash = splash - 2;
-			screen(splash);
+			paletteBrightness(splash);
 			waitInGraphicThread(startRound);
 		} while (splash > 1);
 
@@ -1772,7 +1709,7 @@ public class KlonGun extends SpriteEngine {
 				writeXY(200, 70 + 20 * MP2, 4, DStr);
 			}
 		}
-		putPic(5, 60 + 20 * menuItem, 50, 30, shipPictures[1]);
+		putPic(5, 60 + 20 * menuItem, 50, 30, spriteLibrary.ships[1]);
 	}
 
 	public void menu() {
@@ -1782,7 +1719,7 @@ public class KlonGun extends SpriteEngine {
 			backBuffer.clear(0);
 			canvas.repaint();
 			splash = 63;
-			screen(splash);
+			paletteBrightness(splash);
 			menuQuit = false;
 			DrawMenu();
 			Anim(0);
@@ -1827,7 +1764,7 @@ public class KlonGun extends SpriteEngine {
 		canvas.repaint();
 
 		splash = 1;
-		screen(splash);
+		paletteBrightness(splash);
 		backBuffer.clear(148);
 
 		canvas.repaint();
@@ -1839,12 +1776,12 @@ public class KlonGun extends SpriteEngine {
 		do {
 			startRound = System.currentTimeMillis();
 			splash += 2;
-			screen(splash);
+			paletteBrightness(splash);
 			waitInGraphicThread(startRound);
 		} while (splash >= 62);
 		splash = 63;
 
-		screen(splash);
+		paletteBrightness(splash);
 
 		do {
 			backBuffer.clear(148);
