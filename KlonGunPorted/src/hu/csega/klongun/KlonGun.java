@@ -13,6 +13,8 @@ import hu.csega.klongun.model.Score;
 import hu.csega.klongun.model.Star;
 import hu.csega.klongun.screen.Picture;
 import hu.csega.klongun.screen.VirtualScreen;
+import hu.csega.klongun.sprites.Rotation;
+import hu.csega.klongun.sprites.RotationMapLibrary;
 import hu.csega.klongun.sprites.SpriteLibrary;
 import hu.csega.klongun.swing.KlonGunCanvas;
 import hu.csega.klongun.swing.KlonGunControl;
@@ -83,10 +85,10 @@ public class KlonGun extends SpriteEngine {
 	// super boss does this
 	public List<Enemy> addEnemies = new ArrayList<>();
 
-
 	public int i,j,k,l,m,n,Xv,Yv;
 
 	public SpriteLibrary spriteLibrary;
+	public Rotation rotation = new Rotation();
 
 	public int currentLevel;
 	public int areaScroll;
@@ -756,6 +758,24 @@ public class KlonGun extends SpriteEngine {
 		}
 	} // end putPic
 
+	public void putPic2(int X, int Y, Picture pic, double alfa) {
+		rotation.setPicture(pic);
+		rotation.setRotation(alfa);
+
+		int Xv, Yv, c;
+
+		for (int y = -RotationMapLibrary.ROTATION_MAP_SIZE; y <= RotationMapLibrary.ROTATION_MAP_SIZE; y++) {
+			for (int x = -RotationMapLibrary.ROTATION_MAP_SIZE; x <= RotationMapLibrary.ROTATION_MAP_SIZE; x++) {
+				c = rotation.get(x, y);
+				if (c < 255) {
+					Xv = X + x;
+					Yv = Y + y;
+					if (Xv >= 0 && Yv >= 0 && Xv < 320 && Yv < 200)
+						backBuffer.set(Xv, Yv, c);
+				}
+			}
+		}
+	} // end putPic2
 
 	public void run() throws InterruptedException {
 		init();
