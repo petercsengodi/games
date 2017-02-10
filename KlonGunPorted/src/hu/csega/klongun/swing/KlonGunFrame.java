@@ -4,6 +4,9 @@ import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JFrame;
 
 import hu.csega.klongun.KlonGun;
@@ -13,6 +16,7 @@ public class KlonGunFrame extends JFrame implements KeyListener {
 	public KlonGunFrame(KlonGun kg) {
 		super("KlonGun game");
 
+		this.kg = kg;
 		canvas = new KlonGunCanvas(kg);
 
 		Container cp = getContentPane();
@@ -20,7 +24,16 @@ public class KlonGunFrame extends JFrame implements KeyListener {
 		cp.add(canvas);
 		addKeyListener(this);
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				KlonGunFrame.this.kg.close();
+				System.exit(0);
+			}
+		});
+
 		pack();
 		setVisible(true);
 	}
@@ -81,6 +94,7 @@ public class KlonGunFrame extends JFrame implements KeyListener {
 			klonGunControl.escapeIsOn = false;
 	}
 
+	private KlonGun kg;
 	private KlonGunCanvas canvas;
 	private KlonGunControl klonGunControl = new KlonGunControl();
 

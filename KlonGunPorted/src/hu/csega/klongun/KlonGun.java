@@ -8,6 +8,7 @@ import java.util.Random;
 
 import hu.csega.klongun.model.Enemy;
 import hu.csega.klongun.model.Player;
+import hu.csega.klongun.model.Pool;
 import hu.csega.klongun.model.Bullet;
 import hu.csega.klongun.model.Score;
 import hu.csega.klongun.model.Star;
@@ -76,14 +77,11 @@ public class KlonGun extends SpriteEngine {
 			"No, it's a beautiful memory."
 	};
 
+	public Pool<Enemy> enemies = new Pool<>(Enemy.class, 100);
+	public Pool<Bullet> bullets = new Pool<>(Bullet.class, 300);
+
 	public List<Star> stars = new ArrayList<>();
-	public List<Enemy> enemies = new ArrayList<>();
 	public List<Enemy> bosses = new ArrayList<>();
-	public List<Bullet> bullets = new ArrayList<>();
-
-
-	// super boss does this
-	public List<Enemy> addEnemies = new ArrayList<>();
 
 	public int i,j,k,l,m,n,Xv,Yv;
 
@@ -342,8 +340,7 @@ public class KlonGun extends SpriteEngine {
 	}
 
 	public void initBullet(int x1, int y1, int sp0, int yp0, int fj0, int side0) {
-		Bullet bullet = new Bullet();
-		bullets.add(bullet);
+		Bullet bullet = bullets.allocate();
 
 		if (fj0 == -1) {
 			bullet.x = 320;
@@ -354,7 +351,7 @@ public class KlonGun extends SpriteEngine {
 			bullet.damage = Dmg_L[bullet.kind];
 			bullet.side = side0;
 		} else {
-			// load data accoring parameters
+			// load data according parameters
 			bullet.x = x1;
 			bullet.y = y1 + 2;
 			bullet.xSpeed = sp0;
@@ -420,8 +417,7 @@ public class KlonGun extends SpriteEngine {
 	} // end of nextLevel
 
 	public void initEnemy(int X0, int Y0, int Sp0, int Yp0, int Fj0, int It) {
-		Enemy enemy = new Enemy();
-		addEnemies.add(enemy);
+		Enemy enemy = enemies.allocate();
 
 		if(Fj0 == -1) {
 			// random generated meteor
@@ -725,7 +721,7 @@ public class KlonGun extends SpriteEngine {
 			} else {
 
 				if (enemy.life > 0 && enemy.kind >= 0) {
-					die = switchEnemyKind(enemy);
+					die = die || switchEnemyKind(enemy);
 				}
 
 			}
@@ -1261,8 +1257,6 @@ public class KlonGun extends SpriteEngine {
 
 			Palya();
 			doEnemy1();
-			enemies.addAll(addEnemies);
-			addEnemies.clear();
 			moveBulletsAccordingSpeed();
 
 			if (keyBuffer.isKeyPressed()) {
@@ -1815,6 +1809,13 @@ public class KlonGun extends SpriteEngine {
 			canvas.repaint();
 		} while (pos < 400 + (MaxCredit + 1) * 20 && !frame.getControl().isEscapeOn());
 
+	}
+
+	public void close() {
+		System.out.println("STAT:");
+		System.out.println("-----");
+		System.out.println("Max enemy count: " + enemies.getMaxLength());
+		System.out.println("Max bullet count: " + bullets.getMaxLength());
 	}
 
 } // end of KLONGUN

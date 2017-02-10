@@ -2,7 +2,28 @@ package hu.csega.klongun.model;
 
 import hu.csega.klongun.KlonGun;
 
-public class Bullet {
+public class Bullet implements PoolItem {
+
+	@Override
+	public int getIndex() {
+		return index;
+	}
+
+	@Override
+	public void setIndex(int index) {
+		this.index = index;
+	}
+
+	@Override
+	public void clear() {
+		x = y = xSpeed = ySpeed = 0;
+		kind = side = damage = dyingTime = 0;
+		hit = false;
+		a1 = a2 = a3 = a4 = a5 = a6 = a7 = a8 = 0f;
+	}
+
+	private int index;
+
 	public int x;
 	public int y;
 	public int xSpeed;

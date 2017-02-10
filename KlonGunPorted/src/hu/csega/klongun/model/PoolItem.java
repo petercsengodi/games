@@ -4,5 +4,6 @@ public interface PoolItem {
 
 	int getIndex();
 	void setIndex(int index);
+	void clear();
 
 }

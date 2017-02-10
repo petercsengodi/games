@@ -23,18 +23,66 @@ public class Pool<T extends PoolItem> implements Iterable<T>, Iterator<T> {
 	public T allocate() {
 		if(length >= capacity)
 			throw new IllegalStateException("Full!");
-		if(cursor != 0 && cursor < length)
-			throw new IllegalStateException("Should not be tampered while iterating!");
 
-		return (T)array[length++];
+		T ret = (T)array[length++];
+		ret.clear();
+
+		if(length > maxLength)
+			maxLength = length;
+
+		return ret;
 	}
 
-	@SuppressWarnings("unchecked")
 	public void free(T obj) {
-		if(cursor != 0 && cursor < length)
+		if(cursor > 0)
 			throw new IllegalStateException("Should not be tampered while iterating!");
 
 		thisIndex = obj.getIndex();
+		delete(obj);
+	}
+
+	@Override
+	public Iterator<T> iterator() {
+		cursor = length;
+		onRealElement = false;
+		return this;
+	}
+
+	@Override
+	public boolean hasNext() {
+		return cursor > 0;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public T next() {
+		if(!hasNext())
+			throw new IllegalStateException("Already over!");
+
+		onRealElement = true;
+		return (T)array[--cursor];
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void remove() {
+		if(!onRealElement)
+			throw new IllegalStateException("Not on real element, yet!");
+		thisIndex = cursor;
+		delete((T)array[thisIndex]);
+	}
+
+	public int getMaxLength() {
+		return maxLength;
+	}
+
+	public void clear() {
+		cursor = length = 0;
+		onRealElement = false;
+	}
+
+	@SuppressWarnings("unchecked")
+	private void delete(/* thisIndex, */ T obj) {
 		otherIndex = --length;
 
 		swapObject = (T)array[otherIndex];
@@ -45,26 +93,6 @@ public class Pool<T extends PoolItem> implements Iterable<T>, Iterator<T> {
 		obj.setIndex(otherIndex);
 	}
 
-	@Override
-	public Iterator<T> iterator() {
-		cursor = 0;
-		return this;
-	}
-
-	@Override
-	public boolean hasNext() {
-		return cursor < length;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public T next() {
-		if(!hasNext())
-			throw new IllegalStateException("Already over!");
-
-		return (T)array[cursor++];
-	}
-
 	private int thisIndex;
 	private int otherIndex;
 	private T swapObject;
@@ -72,4 +100,6 @@ public class Pool<T extends PoolItem> implements Iterable<T>, Iterator<T> {
 	private int length = 0;
 	private final int capacity;
 	private final Object[] array;
+	private boolean onRealElement = false;
+	private int maxLength;
 }

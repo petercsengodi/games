@@ -12,6 +12,12 @@ public class Enemy implements PoolItem {
 		this.index = index;
 	}
 
+	@Override
+	public void clear() {
+		x = y = xSpeed = ySpeed = late = 0;
+		kind = life = item = time = 0;
+	}
+
 	public int x;
 	public int y;
 	public int xSpeed;
