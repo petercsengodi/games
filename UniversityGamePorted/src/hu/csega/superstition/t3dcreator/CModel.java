@@ -9,7 +9,8 @@ import org.joml.Vector3f;
 
 import hu.csega.superstition.fileoperations.FileControl;
 import hu.csega.superstition.gamelib.legacy.modeldata.CVertex;
-import hu.csega.superstition.gamelib.legacy.modeldata.IModelPart;
+import hu.csega.superstition.tools.Updates;
+import hu.csega.superstition.tools.presentation.ToolView;
 import hu.csega.superstition.util.Vectors;
 import hu.csega.superstition.xml.XmlClass;
 import hu.csega.superstition.xml.XmlField;
@@ -18,7 +19,7 @@ import hu.csega.superstition.xml.XmlField;
 public class CModel implements IModelPart
 {
 	public List<CFigure> figures;
-	protected List<CView> views;
+	protected List<ToolView> views;
 	protected Object selected;
 	protected boolean snap_to_grid;
 
@@ -27,7 +28,7 @@ public class CModel implements IModelPart
 	private Vector2f selected_texture;
 
 	public double grid_from = -3, grid_to = 3,
-		grid_step = 1.0, grid_error = 0.001;
+			grid_step = 1.0, grid_error = 0.001;
 
 	@XmlField("figures")
 	public List<CFigure> getFigures() {
@@ -141,13 +142,13 @@ public class CModel implements IModelPart
 		this.memento = new Memento(control);
 	}
 
-	public void RegisterView(CView view) {
+	public void RegisterView(ToolView view) {
 		views.add(view);
 		view.setData(this);
 		view.invalidate();
 	}
 
-	public void RemoveView(CView view) {
+	public void RemoveView(ToolView view) {
 		views.remove(view);
 	}
 
@@ -156,7 +157,7 @@ public class CModel implements IModelPart
 	}
 
 	public void UpdateViews(Updates update) {
-		for(CView view : views) {
+		for(ToolView view : views) {
 			view.updateView(update);
 		}
 	}
@@ -166,20 +167,20 @@ public class CModel implements IModelPart
 		// TODO allocationless
 		Vector3f average = new Vector3f(0f, 0f, 0f);
 		Vector3f tmp = new Vector3f();
-//		int num = 0;
-//		foreach(CFigure f in figures)
-//		{
-//			num += f.vertices.Count;
-//		}
-//
-//		float a = 1f / num;
-//		foreach(CFigure f in figures)
-//		{
-//			foreach(CVertex v in f.vertices)
-//			{
-//				average += v.position * a;
-//			}
-//		}
+		//		int num = 0;
+		//		foreach(CFigure f in figures)
+		//		{
+		//			num += f.vertices.Count;
+		//		}
+		//
+		//		float a = 1f / num;
+		//		foreach(CFigure f in figures)
+		//		{
+		//			foreach(CVertex v in f.vertices)
+		//			{
+		//				average += v.position * a;
+		//			}
+		//		}
 
 		for(CFigure f : figures) {
 			for(CVertex v : f.vertices) {
@@ -223,16 +224,19 @@ public class CModel implements IModelPart
 		return ret;
 	}
 
+	@Override
 	public void move(Vector3f direction) {
 		for(CFigure figure : figures)
 			figure.move(direction);
 	}
 
+	@Override
 	public void moveTexture(Vector2f direction) {
 		for(CFigure figure : figures)
 			figure.moveTexture(direction);
 	}
 
+	@Override
 	public boolean hasPart(IModelPart part) {
 		if(part.equals(this))
 			return true;
@@ -244,12 +248,13 @@ public class CModel implements IModelPart
 		return ret;
 	}
 
+	@Override
 	public Vector3f centerPoint() {
 		// TODO allocationless
 		Vector3f ret = new Vector3f(0f, 0f, 0f);
 		Vector3f tmp = new Vector3f();
 
-		float n = 1f / (float)figures.size();
+		float n = 1f / figures.size();
 		for(CFigure figure : figures) {
 			figure.centerPoint().mul(n, tmp);
 			ret.add(tmp, ret);
@@ -258,6 +263,7 @@ public class CModel implements IModelPart
 		return ret;
 	}
 
+	@Override
 	public void scale(Matrix3f matrix) {
 		for(CFigure figure : figures) {
 			figure.scale(matrix);
@@ -275,72 +281,72 @@ public class CModel implements IModelPart
 
 		switch(figure)
 		{
-			case InitialFigure.Cylinder:
-				Sphere c_dialog = new Sphere("Cylinder");
-				res = c_dialog.ShowDialog();
-				if(res == DialogResult.OK)
-				{
-					mesh = Mesh.Cylinder(device, 1f, 1f, 2f,
+		case InitialFigure.Cylinder:
+			Sphere c_dialog = new Sphere("Cylinder");
+			res = c_dialog.ShowDialog();
+			if(res == DialogResult.OK)
+			{
+				mesh = Mesh.Cylinder(device, 1f, 1f, 2f,
 						c_dialog.Slice, c_dialog.Stack, out stream);
-					f = util.SubsetToFigures(mesh, device, stream);
-					operation = new AddMeshOperation(this, f);
-				}
-				c_dialog.Dispose();
-				break;
-
-			case InitialFigure.Box:
-				mesh = Mesh.Box(device, 1f, 1f, 1f, out stream);
 				f = util.SubsetToFigures(mesh, device, stream);
 				operation = new AddMeshOperation(this, f);
-				break;
+			}
+			c_dialog.Dispose();
+			break;
 
-			case InitialFigure.Torus:
-				Torus torus = new Torus();
-				res = torus.ShowDialog();
-				if(res == DialogResult.OK)
-				{
-					mesh = Mesh.Torus(device,
+		case InitialFigure.Box:
+			mesh = Mesh.Box(device, 1f, 1f, 1f, out stream);
+			f = util.SubsetToFigures(mesh, device, stream);
+			operation = new AddMeshOperation(this, f);
+			break;
+
+		case InitialFigure.Torus:
+			Torus torus = new Torus();
+			res = torus.ShowDialog();
+			if(res == DialogResult.OK)
+			{
+				mesh = Mesh.Torus(device,
 						torus.InnerRadius, torus.OuterRadius,
 						torus.Sides, torus.Rings, out stream);
-					f = util.SubsetToFigures(mesh, device, stream);
-					operation = new AddMeshOperation(this, f);
-				}
-				torus.Dispose();
-				break;
-
-			case InitialFigure.TextMesh:
-				MeshText t_dialog = new MeshText();
-				res = t_dialog.ShowDialog();
-				if(res == DialogResult.OK)
-				{
-					mesh = Mesh.TextFromFont(device,
-						t_dialog.SelectedFont, t_dialog.Value,
-						t_dialog.Deviation, 1f, out stream);
-					f = util.SubsetToFigures(mesh, device, stream);
-					operation = new AddMeshOperation(this, f);
-				}
-				t_dialog.Dispose();
-				break;
-
-
-			case InitialFigure.Teapot:
-				mesh = Mesh.Teapot(device, out stream);
 				f = util.SubsetToFigures(mesh, device, stream);
 				operation = new AddMeshOperation(this, f);
-				break;
+			}
+			torus.Dispose();
+			break;
 
-			default:
-				Sphere s_dialog = new Sphere();
-				res = s_dialog.ShowDialog();
-				if(res == DialogResult.OK)
-				{
-					mesh = Mesh.Sphere(device, 1f, s_dialog.Slice,
+		case InitialFigure.TextMesh:
+			MeshText t_dialog = new MeshText();
+			res = t_dialog.ShowDialog();
+			if(res == DialogResult.OK)
+			{
+				mesh = Mesh.TextFromFont(device,
+						t_dialog.SelectedFont, t_dialog.Value,
+						t_dialog.Deviation, 1f, out stream);
+				f = util.SubsetToFigures(mesh, device, stream);
+				operation = new AddMeshOperation(this, f);
+			}
+			t_dialog.Dispose();
+			break;
+
+
+		case InitialFigure.Teapot:
+			mesh = Mesh.Teapot(device, out stream);
+			f = util.SubsetToFigures(mesh, device, stream);
+			operation = new AddMeshOperation(this, f);
+			break;
+
+		default:
+			Sphere s_dialog = new Sphere();
+			res = s_dialog.ShowDialog();
+			if(res == DialogResult.OK)
+			{
+				mesh = Mesh.Sphere(device, 1f, s_dialog.Slice,
 						s_dialog.Stack, out stream);
-					f = util.SubsetToFigures(mesh, device, stream);
-					operation = new AddMeshOperation(this, f);
-				}
-				s_dialog.Dispose();
-				break;
+				f = util.SubsetToFigures(mesh, device, stream);
+				operation = new AddMeshOperation(this, f);
+			}
+			s_dialog.Dispose();
+			break;
 		}
 
 		util.Dispose();

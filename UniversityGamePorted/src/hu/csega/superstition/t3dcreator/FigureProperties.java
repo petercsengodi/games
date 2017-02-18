@@ -2,6 +2,8 @@ package hu.csega.superstition.t3dcreator;
 
 import javax.swing.JPanel;
 
+import hu.csega.superstition.tools.Updates;
+
 public class FigureProperties extends JPanel {
 
 	private T3DCreatorWindows.ColorDisplay colorDisplay1;

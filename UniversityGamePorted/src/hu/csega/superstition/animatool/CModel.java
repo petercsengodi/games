@@ -8,10 +8,12 @@ import hu.csega.superstition.gamelib.animationdata.CConnection;
 import hu.csega.superstition.gamelib.animationdata.CModelData;
 import hu.csega.superstition.gamelib.animationdata.CNamedConnection;
 import hu.csega.superstition.gamelib.animationdata.CPartData;
+import hu.csega.superstition.tools.Updates;
+import hu.csega.superstition.tools.presentation.ToolView;
 
 public class CModel {
 
-	protected ArrayList<CView> views;
+	protected ArrayList<ToolView> views;
 	protected Object selected;
 	protected boolean snap_to_grid;
 
@@ -53,13 +55,12 @@ public class CModel {
 		max_scenes = 1;
 	}
 
-	public void RegisterView(CView view) {
+	public void RegisterView(ToolView view) {
 		views.add(view);
-		view.SetData(this);
-		view.invalidate();
+		view.setData(this);
 	}
 
-	public void RemoveView(CView view)
+	public void RemoveView(ToolView view)
 	{
 		views.remove(view);
 	}
@@ -71,7 +72,7 @@ public class CModel {
 
 	public void UpdateViews(Updates update)
 	{
-		for(CView view : views)
+		for(ToolView view : views)
 		{
 			view.updateView(update);
 		}

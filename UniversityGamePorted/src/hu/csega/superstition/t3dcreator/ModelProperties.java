@@ -2,6 +2,8 @@ package hu.csega.superstition.t3dcreator;
 
 import javax.swing.JPanel;
 
+import hu.csega.superstition.tools.Updates;
+
 public class ModelProperties extends JPanel {
 
 	/// <summary>

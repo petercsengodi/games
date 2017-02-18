@@ -1,29 +1,42 @@
 package hu.csega.superstition.t3dcreator;
 
+import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.Point;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
 
+import hu.csega.superstition.common.Disposable;
 import hu.csega.superstition.fileoperations.FileControl;
+import hu.csega.superstition.tools.presentation.WireFrameView;
 
-public class T3DCreator extends JFrame {
+public class T3DCreator extends JFrame implements Disposable {
 
-	private JMenu main_menu;
-	private JMenuItem menuItem1;
+	private JMenuBar menuBar;
+
+	private JMenu menuFile;
+	private JMenu menuEdit;
+	private JMenu menuModel;
+	private JMenu menuFigure;
+	private JMenu menuMesh;
+	private JMenu menuHelp;
+
 	private JMenuItem menuItem2;
 	private JMenuItem menuItem3;
 	private JMenuItem menuItem4;
 	private JMenuItem menuItem5;
 	private JMenuItem menuItem6;
-	private JMenuItem menuItem7;
 	private JMenuItem menuItem8;
 	private JMenuItem menuItem9;
 	private JMenuItem menuItem10;
@@ -35,26 +48,18 @@ public class T3DCreator extends JFrame {
 	private JRadioButton radioButton1;
 	private JRadioButton radioButton2;
 	private JRadioButton radioButton3;
-	private JMenuItem menuItem12;
 	private JMenuItem menuItem13;
-	private JMenuItem menuItem14;
 	private JMenuItem menuItem15;
 	private JMenuItem menuItem16;
-	private JMenuItem menuItem17;
 	private JMenuItem menuItem18;
 	private JMenuItem menuItem19;
 	private JMenuItem menuItem20;
-	private JMenuItem menuItem24;
 	private JMenuItem menuItem25;
 	private JMenuItem menuItem23;
 	private JMenuItem menuItem26;
 	private JRadioButton radioButton4;
 	private JRadioButton radioButton5;
 	private JMenuItem menuItem27;
-	private JMenuItem menuItem28;
-	private JMenuItem menuItem22;
-	private JMenuItem menuItem29;
-	private JMenuItem menuItem30;
 	private JMenuItem menuItem21;
 	private JLabel label1;
 	private JComboBox<Object> operation_box;
@@ -66,20 +71,24 @@ public class T3DCreator extends JFrame {
 	private JMenuItem menuItem36;
 	private JMenuItem menuItem37;
 
+	private JPanel leftSide;
+	private JPanel rightSide;
+
+	private WireFrameView wireFrameView1;
+	private WireFrameView wireFrameView2;
+	private WireFrameView wireFrameView3;
+
 	// TODO uncomment, fix
-	//	private T3DCreatorWindows.TreeObjectView treeObjectView1;
-	//	private T3DCreatorWindows.DirectXView directXView1;
-	//	private T3DCreatorWindows.WireFrameView wireFrameView1;
-	//	private T3DCreatorWindows.WireFrameView wireFrameView2;
-	//	private T3DCreatorWindows.WireFrameView wireFrameView3;
-	//	private T3DCreatorWindows.TextureView textureView1;
+	//	private TreeObjectView treeObjectView1;
+	//	private DirectXView directXView1;
+	//	private TextureView textureView1;
 
 	public T3DCreator()
 	{
 		//
 		// Required for Windows Form Designer support
 		//
-		InitializeComponent();
+		initializeComponent();
 
 		// TODO uncomment, fix
 		//		control = new FileControl(
@@ -94,23 +103,27 @@ public class T3DCreator extends JFrame {
 		//		model.RegisterView(textureView1);
 		//
 		//		model.RegisterView(wireFrameView1);
-		//		wireFrameView1.SetView(T3DCreatorWindows.Perspectives.Front);
+		wireFrameView1.setView(Perspectives.Front);
 		//		model.RegisterView(wireFrameView2);
-		//		wireFrameView2.SetView(T3DCreatorWindows.Perspectives.Top);
+		wireFrameView2.setView(Perspectives.Top);
 		//		model.RegisterView(wireFrameView3);
-		//		wireFrameView3.SetView(T3DCreatorWindows.Perspectives.Left);
+		wireFrameView3.setView(Perspectives.Left);
 		//
 		//		util = new MeshUtils(directXView1.Device);
 		//
 		//		fprop = new FigureProperties();
 		//		mprop = new ModelProperties();
+
+		this.pack();
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected void Dispose( boolean disposing )
-	{
+	@Override
+	public void dispose() {
+		super.dispose();
 		// TODO uncomment, fix
 		//		if( disposing )
 		//		{
@@ -124,32 +137,29 @@ public class T3DCreator extends JFrame {
 		//		base.Dispose( disposing );
 	}
 
-	/// <summary>
-	/// Required method for Designer support - do not modify
-	/// the contents of this method with the code editor.
-	/// </summary>
-	private void InitializeComponent()
+	private void initializeComponent()
 	{
-		this.main_menu = new JMenu();
-		this.menuItem1 = new JMenuItem();
+		this.menuBar = new JMenuBar();
+
+		this.menuFile = new JMenu();
+		this.menuEdit = new JMenu();
+		this.menuModel = new JMenu();
+		this.menuFigure = new JMenu();
+		this.menuMesh = new JMenu();
+		this.menuHelp = new JMenu();
+
 		this.menuItem2 = new JMenuItem();
 		this.menuItem3 = new JMenuItem();
 		this.menuItem4 = new JMenuItem();
 		this.menuItem5 = new JMenuItem();
 		this.menuItem6 = new JMenuItem();
-		this.menuItem14 = new JMenuItem();
 		this.menuItem15 = new JMenuItem();
 		this.menuItem16 = new JMenuItem();
-		this.menuItem24 = new JMenuItem();
 		this.menuItem26 = new JMenuItem();
 		this.menuItem25 = new JMenuItem();
-		this.menuItem17 = new JMenuItem();
 		this.menuItem21 = new JMenuItem();
-		this.menuItem28 = new JMenuItem();
 		this.menuItem27 = new JMenuItem();
-		this.menuItem30 = new JMenuItem();
 		this.menuItem18 = new JMenuItem();
-		this.menuItem22 = new JMenuItem();
 		this.menuItem9 = new JMenuItem();
 		this.menuItem10 = new JMenuItem();
 		this.menuItem11 = new JMenuItem();
@@ -162,11 +172,8 @@ public class T3DCreator extends JFrame {
 		this.menuItem37 = new JMenuItem();
 		this.menuItem23 = new JMenuItem();
 		this.menuItem20 = new JMenuItem();
-		this.menuItem29 = new JMenuItem();
 		this.menuItem19 = new JMenuItem();
-		this.menuItem12 = new JMenuItem();
 		this.menuItem13 = new JMenuItem();
-		this.menuItem7 = new JMenuItem();
 		this.menuItem8 = new JMenuItem();
 		this.button2 = new JButton();
 		this.tabControl1 = new JTabbedPane();
@@ -180,13 +187,14 @@ public class T3DCreator extends JFrame {
 		this.label1 = new JLabel();
 		this.operation_box = new JComboBox<Object>();
 
+		this.wireFrameView1 = new WireFrameView();
+		this.wireFrameView2 = new WireFrameView();
+		this.wireFrameView3 = new WireFrameView();
+
 		// TODO uncomment, fix
-		//		this.treeObjectView1 = new T3DCreatorWindows.TreeObjectView();
-		//		this.directXView1 = new T3DCreatorWindows.DirectXView();
-		//		this.wireFrameView1 = new T3DCreatorWindows.WireFrameView();
-		//		this.wireFrameView2 = new T3DCreatorWindows.WireFrameView();
-		//		this.wireFrameView3 = new T3DCreatorWindows.WireFrameView();
-		//		this.textureView1 = new T3DCreatorWindows.TextureView();
+		//		this.treeObjectView1 = new TreeObjectView();
+		//		this.directXView1 = new DirectXView();
+		//		this.textureView1 = new TextureView();
 		//		this.SuspendLayout();
 		//		this.tabControl1.SuspendLayout();
 		//		this.tabPage1.SuspendLayout();
@@ -194,21 +202,21 @@ public class T3DCreator extends JFrame {
 		//
 		// main_menu
 		//
-		this.main_menu.add(this.menuItem1);
-		this.main_menu.add(this.menuItem14);
-		this.main_menu.add(this.menuItem28);
-		this.main_menu.add(this.menuItem22);
-		this.main_menu.add(this.menuItem12);
-		this.main_menu.add(this.menuItem7);
+		this.menuBar.add(this.menuFile);
+		this.menuBar.add(this.menuEdit);
+		this.menuBar.add(this.menuModel);
+		this.menuBar.add(this.menuFigure);
+		this.menuBar.add(this.menuMesh);
+		this.menuBar.add(this.menuHelp);
 		//
 		// menuItem1
 		//
-		this.menuItem1.add(this.menuItem2);
-		this.menuItem1.add(this.menuItem3);
-		this.menuItem1.add(this.menuItem4);
-		this.menuItem1.add(this.menuItem5);
-		this.menuItem1.add(this.menuItem6);
-		this.menuItem1.setText("File");
+		this.menuFile.add(this.menuItem2);
+		this.menuFile.add(this.menuItem3);
+		this.menuFile.add(this.menuItem4);
+		this.menuFile.add(this.menuItem5);
+		this.menuFile.add(this.menuItem6);
+		this.menuFile.setText("File");
 		//
 		// menuItem2
 		//
@@ -237,14 +245,14 @@ public class T3DCreator extends JFrame {
 		//
 		// menuItem14
 		//
-		this.menuItem14.add(this.menuItem15);
-		this.menuItem14.add(this.menuItem16);
-		this.menuItem14.add(this.menuItem24);
-		this.menuItem14.add(this.menuItem26);
-		this.menuItem14.add(this.menuItem25);
-		this.menuItem14.add(this.menuItem17);
-		this.menuItem14.add(this.menuItem21);
-		this.menuItem14.setText("Edit");
+		this.menuEdit.add(this.menuItem15);
+		this.menuEdit.add(this.menuItem16);
+		this.menuEdit.addSeparator();
+		this.menuEdit.add(this.menuItem26);
+		this.menuEdit.add(this.menuItem25);
+		this.menuEdit.addSeparator();
+		this.menuEdit.add(this.menuItem21);
+		this.menuEdit.setText("Edit");
 		//
 		// menuItem15
 		//
@@ -255,10 +263,7 @@ public class T3DCreator extends JFrame {
 		//
 		this.menuItem16.setText("Redo");
 		//this.menuItem16.Click += new System.EventHandler(this.menuItem16_Click);
-		//
-		// menuItem24
-		//
-		this.menuItem24.setText("-");
+
 		//
 		// menuItem26
 		//
@@ -269,10 +274,7 @@ public class T3DCreator extends JFrame {
 		//
 		this.menuItem25.setText("Split Triangle");
 		//this.menuItem25.Click += new System.EventHandler(this.menuItem25_Click);
-		//
-		// menuItem17
-		//
-		this.menuItem17.setText("-");
+
 		//
 		// menuItem21
 		//
@@ -280,19 +282,15 @@ public class T3DCreator extends JFrame {
 		//
 		// menuItem28
 		//
-		this.menuItem28.add(this.menuItem27);
-		this.menuItem28.add(this.menuItem30);
-		this.menuItem28.add(this.menuItem18);
-		this.menuItem28.setText("Model");
+		this.menuModel.add(this.menuItem27);
+		this.menuModel.addSeparator();
+		this.menuModel.add(this.menuItem18);
+		this.menuModel.setText("Model");
 		//
 		// menuItem27
 		//
 		this.menuItem27.setText("Select Model");
 		//this.menuItem27.Click += new System.EventHandler(this.menuItem27_Click);
-		//
-		// menuItem30
-		//
-		this.menuItem30.setText("-");
 		//
 		// menuItem18
 		//
@@ -301,12 +299,12 @@ public class T3DCreator extends JFrame {
 		//
 		// menuItem22
 		//
-		this.menuItem22.add(this.menuItem9);
-		this.menuItem22.add(this.menuItem23);
-		this.menuItem22.add(this.menuItem20);
-		this.menuItem22.add(this.menuItem29);
-		this.menuItem22.add(this.menuItem19);
-		this.menuItem22.setText("Figure");
+		this.menuFigure.add(this.menuItem9);
+		this.menuFigure.add(this.menuItem23);
+		this.menuFigure.add(this.menuItem20);
+		this.menuFigure.addSeparator();
+		this.menuFigure.add(this.menuItem19);
+		this.menuFigure.setText("Figure");
 		//
 		// menuItem9
 		//
@@ -330,13 +328,7 @@ public class T3DCreator extends JFrame {
 		//
 		this.menuItem11.setText("Cube");
 		//this.menuItem11.Click += new System.EventHandler(this.menuItem11_Click);
-		//
-		// menuItem32
-		//
-		this.menuItem32.setText("-");
-		//
-		// menuItem31
-		//
+
 		this.menuItem31.setText("Sphere");
 		//this.menuItem31.Click += new System.EventHandler(this.menuItem31_Click);
 		//
@@ -375,10 +367,6 @@ public class T3DCreator extends JFrame {
 		this.menuItem20.setText("Load Figure Texture");
 		//this.menuItem20.Click += new System.EventHandler(this.menuItem20_Click);
 		//
-		// menuItem29
-		//
-		this.menuItem29.setText("-");
-		//
 		// menuItem19
 		//
 		this.menuItem19.setText("Figure Properties");
@@ -386,8 +374,8 @@ public class T3DCreator extends JFrame {
 		//
 		// menuItem12
 		//
-		this.menuItem12.add(this.menuItem13);
-		this.menuItem12.setText("Mesh");
+		this.menuMesh.add(this.menuItem13);
+		this.menuMesh.setText("Mesh");
 		//
 		// menuItem13
 		//
@@ -396,8 +384,8 @@ public class T3DCreator extends JFrame {
 		//
 		// menuItem7
 		//
-		this.menuItem7.add(this.menuItem8);
-		this.menuItem7.setText("Help");
+		this.menuHelp.add(this.menuItem8);
+		this.menuHelp.setText("Help");
 		//
 		// menuItem8
 		//
@@ -420,86 +408,50 @@ public class T3DCreator extends JFrame {
 		//		this.directXView1.setName("directXView1";
 		//		this.directXView1.setSize(new Dimension(256, 248);
 		//		this.directXView1.TabIndex = 1;
-		//		//
-		//		// wireFrameView1
-		//		//
-		//		this.wireFrameView1.setLocation(new Point(192, 8);
-		//		this.wireFrameView1.setName("wireFrameView1";
-		//		this.wireFrameView1.setSize(new Dimension(272, 248);
-		//		this.wireFrameView1.TabIndex = 2;
-		//		//
-		//		// wireFrameView2
-		//		//
-		//		this.wireFrameView2.setLocation(new Point(192, 280);
-		//		this.wireFrameView2.setName("wireFrameView2";
-		//		this.wireFrameView2.setSize(new Dimension(272, 248);
-		//		this.wireFrameView2.TabIndex = 3;
-		//		//
-		//		// wireFrameView3
-		//		//
-		//		this.wireFrameView3.setLocation(new Point(0, 0);
-		//		this.wireFrameView3.setName("wireFrameView3";
-		//		this.wireFrameView3.setSize(new Dimension(280, 248);
-		//		this.wireFrameView3.TabIndex = 4;
-		//
-		// button2
-		//
+
+		this.wireFrameView1.setLocation(new Point(192, 8));
+		this.wireFrameView1.setSize(new Dimension(272, 248));
+
+		this.wireFrameView2.setLocation(new Point(192, 280));
+		this.wireFrameView2.setSize(new Dimension(272, 248));
+
+		this.wireFrameView3.setLocation(new Point(0, 0));
+		this.wireFrameView3.setSize(new Dimension(280, 248));
+
 		this.button2.setLocation(new Point(8, 448));
 		this.button2.setName("button2");
 		this.button2.setSize(new Dimension(176, 24));
 		this.button2.setText("Grid: On");
 		//		this.button2.Click += new System.EventHandler(this.button2_Click);
-		//
-		// tabControl1
-		//
-		this.tabControl1.add(this.tabPage1);
-		this.tabControl1.add(this.tabPage2);
-		this.tabControl1.setLocation(new Point(480, 264));
-		this.tabControl1.setName("tabControl1");
-		this.tabControl1.setSize(new Dimension(296, 280));
-		//
-		// tabPage1
-		//
-		//		this.tabPage1.add(this.wireFrameView3);
-		this.tabPage1.setLocation(new Point(4, 22));
-		this.tabPage1.setName("tabPage1");
-		this.tabPage1.setSize(new Dimension(288, 254));
-		this.tabPage1.setName("Left View");
 
-		//
-		// tabPage2
-		//
-		//		this.tabPage2.add(this.textureView1);
-		this.tabPage2.setLocation(new Point(4, 22));
-		this.tabPage2.setName("tabPage2");
+		this.tabPage1.add(this.wireFrameView3);
+		this.tabPage1.setSize(new Dimension(288, 254));
+
+		// this.tabPage2.add(this.textureView1);
 		this.tabPage2.setSize(new Dimension(288, 254));
-		this.tabPage2.setName("Texture View");
-		//
-		// textureView1
-		//
+
+		this.tabControl1.addTab("Left View", this.tabPage1);
+		this.tabControl1.addTab("Texture View", this.tabPage2);
+		this.tabControl1.setLocation(new Point(480, 264));
+		this.tabControl1.setSize(new Dimension(296, 280));
+
 		//		this.textureView1.setLocation(new Point(24, 8);
 		//		this.textureView1.setName("textureView1";
 		//		this.textureView1.setSize(new Dimension(240, 240);
 		//		this.textureView1.TabIndex = 0;
-		//
-		// radioButton1
-		//
+
 		this.radioButton1.setLocation(new Point(8, 480));
 		this.radioButton1.setName("radioButton1");
 		this.radioButton1.setSize(new Dimension(40, 24));
 		this.radioButton1.setText("1.0");
 		//this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
-		//
-		// radioButton2
-		//
+
 		this.radioButton2.setLocation(new Point(64, 480));
 		this.radioButton2.setName("radioButton2");
 		this.radioButton2.setSize(new Dimension(40, 24));
 		this.radioButton2.setText("0.5");
 		//this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
-		//
-		// radioButton3
-		//
+
 		this.radioButton3.setLocation(new Point(128, 480));
 		this.radioButton3.setName("radioButton3");
 		this.radioButton3.setSize(new Dimension(56, 24));
@@ -547,31 +499,41 @@ public class T3DCreator extends JFrame {
 		//
 		//		this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 		//		this.ClientSize = new System.Drawing.Size(792, 545);
-		this.getContentPane().add(this.operation_box);
-		this.getContentPane().add(this.label1);
-		this.getContentPane().add(this.radioButton5);
-		this.getContentPane().add(this.radioButton4);
-		this.getContentPane().add(this.radioButton3);
-		this.getContentPane().add(this.radioButton2);
-		this.getContentPane().add(this.radioButton1);
-		this.getContentPane().add(this.tabControl1);
-		this.getContentPane().add(this.button2);
-		//		this.getContentPane().add(this.wireFrameView2);
-		//		this.getContentPane().add(this.wireFrameView1);
-		//		this.getContentPane().add(this.directXView1);
-		//		this.getContentPane().add(this.treeObjectView1);
+
+		this.leftSide = new JPanel();
+		this.leftSide.setLayout(new BorderLayout());
+		this.leftSide.add(this.operation_box);
+		this.leftSide.add(this.label1);
+		this.leftSide.add(this.radioButton5);
+		this.leftSide.add(this.radioButton4);
+		this.leftSide.add(this.radioButton3);
+		this.leftSide.add(this.radioButton2);
+		this.leftSide.add(this.radioButton1);
+		this.leftSide.add(this.button2);
+
+		this.rightSide = new JPanel();
+		this.rightSide.setLayout(new GridLayout(2, 2));
+		this.rightSide.add(this.wireFrameView1);
+		this.rightSide.add(new JPanel());
+		this.rightSide.add(this.wireFrameView2);
+		this.rightSide.add(this.tabControl1);
+
+		Container contentPane = this.getContentPane();
+		contentPane.setLayout(new FlowLayout());
+		contentPane.add(leftSide);
+		contentPane.add(rightSide);
+		//		contentPane.add(this.directXView1);
+		//		contentPane.add(this.treeObjectView1);
 		//		this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-		this.getContentPane().setPreferredSize(new Dimension(798, 598));
-		this.add(this.main_menu);
-		this.setName("T3DCreator");
+
+		this.setJMenuBar(this.menuBar);
 		this.setTitle("Triangle 3D Creator Program");
+
 		// this.Closing += new System.ComponentModel.CancelEventHandler(this.T3DCreator_Closing);
 		//		this.tabControl1.ResumeLayout(false);
 		//		this.tabPage1.ResumeLayout(false);
 		//		this.tabPage2.ResumeLayout(false);
 		//		this.ResumeLayout(false);
-
-		this.pack();
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -713,16 +675,16 @@ public class T3DCreator extends JFrame {
 	//		model.grid_step = 0.25;
 	//		UpdateGrid();
 	//	}
-	//
-	//	public void UpdateGrid()
-	//	{
-	//		directXView1.UpdateGrid();
-	//		directXView1.Invalidate();
-	//		wireFrameView1.Invalidate();
-	//		wireFrameView2.Invalidate();
-	//		wireFrameView3.Invalidate();
-	//	}
-	//
+
+	public void UpdateGrid()
+	{
+		//		directXView1.UpdateGrid();
+		//		directXView1.Invalidate();
+		wireFrameView1.invalidate();
+		wireFrameView2.invalidate();
+		wireFrameView3.invalidate();
+	}
+
 	//	private void T3DCreator_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 	//	{
 	//		TextureLibrary.DisposeLibrary();
@@ -886,5 +848,7 @@ public class T3DCreator extends JFrame {
 	//
 	//	}
 
+	/** Default serial version UID. */
+	private static final long serialVersionUID = 1L;
 
 }

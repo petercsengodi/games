@@ -1,4 +1,4 @@
-package hu.csega.superstition.t3dcreator;
+package hu.csega.superstition.tools;
 
 public enum Updates {
 	Full,
