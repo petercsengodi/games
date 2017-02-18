@@ -1,21 +1,22 @@
 package hu.csega.superstition.t3dcreator;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class MeshText extends JPanel {
 
-	private System.Windows.Forms.Label label1;
-	private System.Windows.Forms.Label label2;
-	private System.Windows.Forms.Button font_button;
-	private System.Windows.Forms.Label label3;
-	private System.Windows.Forms.NumericUpDown num_deviation;
-	private System.Windows.Forms.Button button1;
-	/// <summary>
-	/// Required designer variable.
-	/// </summary>
-	private System.ComponentModel.Container components = null;
-	private System.Windows.Forms.TextBox text_box;
-	private FontDialog dialog;
+	private JLabel label1;
+	private JLabel label2;
+	private JButton font_button;
+	private JLabel label3;
+	private JTextField num_deviation;
+	private JButton button1;
+	private JTextArea text_box;
+	// TODO uncomment, fix
+	//	private FontDialog dialog;
 
 	public MeshText()
 	{
@@ -23,25 +24,27 @@ public class MeshText extends JPanel {
 		// Required for Windows Form Designer support
 		//
 		InitializeComponent();
-		dialog = new FontDialog();
-		font = new Font("Arial", 12f);
-		font_button.Text = font.Name + " " + font.Size;
+		// TODO uncomment, fix
+		//		dialog = new FontDialog();
+		//		font = new Font("Arial", 12f);
+		//		font_button.Text = font.Name + " " + font.Size;
 	}
 
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected override void Dispose( bool disposing )
+	protected void Dispose( boolean disposing )
 	{
-		if( disposing )
-		{
-			if(components != null)
-			{
-				components.Dispose();
-			}
-			if(dialog == null) dialog.Dispose();
-		}
-		base.Dispose( disposing );
+		// TODO uncomment, fix
+		//		if( disposing )
+		//		{
+		//			if(components != null)
+		//			{
+		//				components.Dispose();
+		//			}
+		//			if(dialog == null) dialog.Dispose();
+		//		}
+		//		base.Dispose( disposing );
 	}
 
 
@@ -51,13 +54,13 @@ public class MeshText extends JPanel {
 	/// </summary>
 	private void InitializeComponent()
 	{
-		this.label1 = new System.Windows.Forms.Label();
-		this.text_box = new System.Windows.Forms.TextBox();
-		this.label2 = new System.Windows.Forms.Label();
-		this.font_button = new System.Windows.Forms.Button();
-		this.label3 = new System.Windows.Forms.Label();
-		this.num_deviation = new System.Windows.Forms.NumericUpDown();
-		this.button1 = new System.Windows.Forms.Button();
+		this.label1 = new JLabel();
+		this.text_box = new JTextArea();
+		this.label2 = new JLabel();
+		this.font_button = new JButton();
+		this.label3 = new JLabel();
+		this.num_deviation = new JTextField();
+		this.button1 = new JButton();
 		((System.ComponentModel.ISupportInitialize)(this.num_deviation)).BeginInit();
 		this.SuspendLayout();
 		//
