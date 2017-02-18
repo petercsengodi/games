@@ -32,44 +32,44 @@ public class T3DCreator extends JFrame implements Disposable {
 	private JMenu menuMesh;
 	private JMenu menuHelp;
 
-	private JMenuItem menuItem2;
-	private JMenuItem menuItem3;
-	private JMenuItem menuItem4;
-	private JMenuItem menuItem5;
-	private JMenuItem menuItem6;
-	private JMenuItem menuItem8;
-	private JMenuItem menuItem9;
-	private JMenuItem menuItem10;
+	private JMenu menuSubAddFigure;
+
+	private JMenuItem menuItemNew;
+	private JMenuItem menuItemOpen;
+	private JMenuItem menuItemSave;
+	private JMenuItem menuItemSaveAs;
+	private JMenuItem menuItemExit;
+	private JMenuItem menuItemAbout;
+	private JMenuItem menuItemTetra;
 	private JButton button2;
-	private JMenuItem menuItem11;
+	private JMenuItem menuItemCube;
 	private JTabbedPane tabControl1;
 	private JPanel tabPage1;
 	private JPanel tabPage2;
 	private JRadioButton radioButton1;
 	private JRadioButton radioButton2;
 	private JRadioButton radioButton3;
-	private JMenuItem menuItem13;
-	private JMenuItem menuItem15;
-	private JMenuItem menuItem16;
-	private JMenuItem menuItem18;
-	private JMenuItem menuItem19;
-	private JMenuItem menuItem20;
-	private JMenuItem menuItem25;
-	private JMenuItem menuItem23;
-	private JMenuItem menuItem26;
+	private JMenuItem menuItemExport;
+	private JMenuItem menuItemUndo;
+	private JMenuItem menuItemRedo;
+	private JMenuItem menuItemModelProperties;
+	private JMenuItem menuItemFigureProperties;
+	private JMenuItem menuItemLoadFigureTexture;
+	private JMenuItem menuItemSplitTriangle;
+	private JMenuItem menuItemDeleteFigure;
+	private JMenuItem menuItemSplitEdge;
 	private JRadioButton radioButton4;
 	private JRadioButton radioButton5;
-	private JMenuItem menuItem27;
-	private JMenuItem menuItem21;
+	private JMenuItem menuItemSelectModel;
+	private JMenuItem menuItemResize;
 	private JLabel label1;
 	private JComboBox<Object> operation_box;
-	private JMenuItem menuItem31;
-	private JMenuItem menuItem32;
-	private JMenuItem menuItem33;
-	private JMenuItem menuItem34;
-	private JMenuItem menuItem35;
-	private JMenuItem menuItem36;
-	private JMenuItem menuItem37;
+	private JMenuItem menuItemSphere;
+	private JMenuItem menuItemCylinder;
+	private JMenuItem menuItemBox;
+	private JMenuItem menuItemTorus;
+	private JMenuItem menuItemText;
+	private JMenuItem menuItemTeapot;
 
 	private JPanel leftSide;
 	private JPanel rightSide;
@@ -148,33 +148,33 @@ public class T3DCreator extends JFrame implements Disposable {
 		this.menuMesh = new JMenu();
 		this.menuHelp = new JMenu();
 
-		this.menuItem2 = new JMenuItem();
-		this.menuItem3 = new JMenuItem();
-		this.menuItem4 = new JMenuItem();
-		this.menuItem5 = new JMenuItem();
-		this.menuItem6 = new JMenuItem();
-		this.menuItem15 = new JMenuItem();
-		this.menuItem16 = new JMenuItem();
-		this.menuItem26 = new JMenuItem();
-		this.menuItem25 = new JMenuItem();
-		this.menuItem21 = new JMenuItem();
-		this.menuItem27 = new JMenuItem();
-		this.menuItem18 = new JMenuItem();
-		this.menuItem9 = new JMenuItem();
-		this.menuItem10 = new JMenuItem();
-		this.menuItem11 = new JMenuItem();
-		this.menuItem32 = new JMenuItem();
-		this.menuItem31 = new JMenuItem();
-		this.menuItem33 = new JMenuItem();
-		this.menuItem34 = new JMenuItem();
-		this.menuItem35 = new JMenuItem();
-		this.menuItem36 = new JMenuItem();
-		this.menuItem37 = new JMenuItem();
-		this.menuItem23 = new JMenuItem();
-		this.menuItem20 = new JMenuItem();
-		this.menuItem19 = new JMenuItem();
-		this.menuItem13 = new JMenuItem();
-		this.menuItem8 = new JMenuItem();
+		this.menuSubAddFigure = new JMenu();
+
+		this.menuItemNew = new JMenuItem();
+		this.menuItemOpen = new JMenuItem();
+		this.menuItemSave = new JMenuItem();
+		this.menuItemSaveAs = new JMenuItem();
+		this.menuItemExit = new JMenuItem();
+		this.menuItemUndo = new JMenuItem();
+		this.menuItemRedo = new JMenuItem();
+		this.menuItemSplitEdge = new JMenuItem();
+		this.menuItemSplitTriangle = new JMenuItem();
+		this.menuItemResize = new JMenuItem();
+		this.menuItemSelectModel = new JMenuItem();
+		this.menuItemModelProperties = new JMenuItem();
+		this.menuItemTetra = new JMenuItem();
+		this.menuItemCube = new JMenuItem();
+		this.menuItemSphere = new JMenuItem();
+		this.menuItemCylinder = new JMenuItem();
+		this.menuItemBox = new JMenuItem();
+		this.menuItemTorus = new JMenuItem();
+		this.menuItemText = new JMenuItem();
+		this.menuItemTeapot = new JMenuItem();
+		this.menuItemDeleteFigure = new JMenuItem();
+		this.menuItemLoadFigureTexture = new JMenuItem();
+		this.menuItemFigureProperties = new JMenuItem();
+		this.menuItemExport = new JMenuItem();
+		this.menuItemAbout = new JMenuItem();
 		this.button2 = new JButton();
 		this.tabControl1 = new JTabbedPane();
 		this.tabPage1 = new JPanel();
@@ -199,197 +199,132 @@ public class T3DCreator extends JFrame implements Disposable {
 		//		this.tabControl1.SuspendLayout();
 		//		this.tabPage1.SuspendLayout();
 		//		this.tabPage2.SuspendLayout();
-		//
-		// main_menu
-		//
+
 		this.menuBar.add(this.menuFile);
 		this.menuBar.add(this.menuEdit);
 		this.menuBar.add(this.menuModel);
 		this.menuBar.add(this.menuFigure);
 		this.menuBar.add(this.menuMesh);
 		this.menuBar.add(this.menuHelp);
-		//
-		// menuItem1
-		//
-		this.menuFile.add(this.menuItem2);
-		this.menuFile.add(this.menuItem3);
-		this.menuFile.add(this.menuItem4);
-		this.menuFile.add(this.menuItem5);
-		this.menuFile.add(this.menuItem6);
+
+		this.menuFile.add(this.menuItemNew);
+		this.menuFile.add(this.menuItemOpen);
+		this.menuFile.add(this.menuItemSave);
+		this.menuFile.add(this.menuItemSaveAs);
+		this.menuFile.add(this.menuItemExit);
 		this.menuFile.setText("File");
-		//
-		// menuItem2
-		//
-		this.menuItem2.setText("New");
+
+		this.menuItemNew.setText("New");
 		// this.menuItem2.Click += new System.EventHandler(this.menuItem2_Click);
-		//
-		// menuItem3
-		//
-		this.menuItem3.setText("Open");
+
+		this.menuItemOpen.setText("Open");
 		// this.menuItem3.Click += new System.EventHandler(this.menuItem3_Click);
-		//
-		// menuItem4
-		//
-		this.menuItem4.setText("Save");
+
+		this.menuItemSave.setText("Save");
 		// this.menuItem4.Click += new System.EventHandler(this.menuItem4_Click);
-		//
-		// menuItem5
-		//
-		this.menuItem5.setText("Save As...");
+
+		this.menuItemSaveAs.setText("Save As...");
 		//		this.menuItem5.Click += new System.EventHandler(this.menuItem5_Click);
-		//
-		// menuItem6
-		//
-		this.menuItem6.setText("Quit");
+
+		this.menuItemExit.setText("Exit");
 		//		this.menuItem6.Click += new System.EventHandler(this.menuItem6_Click);
-		//
-		// menuItem14
-		//
-		this.menuEdit.add(this.menuItem15);
-		this.menuEdit.add(this.menuItem16);
+
+		this.menuEdit.add(this.menuItemUndo);
+		this.menuEdit.add(this.menuItemRedo);
 		this.menuEdit.addSeparator();
-		this.menuEdit.add(this.menuItem26);
-		this.menuEdit.add(this.menuItem25);
+		this.menuEdit.add(this.menuItemSplitEdge);
+		this.menuEdit.add(this.menuItemSplitTriangle);
 		this.menuEdit.addSeparator();
-		this.menuEdit.add(this.menuItem21);
+		this.menuEdit.add(this.menuItemResize);
 		this.menuEdit.setText("Edit");
-		//
-		// menuItem15
-		//
-		this.menuItem15.setText("Undo");
+
+		this.menuItemUndo.setText("Undo");
 		//this.menuItem15.Click += new System.EventHandler(this.menuItem15_Click);
-		//
-		// menuItem16
-		//
-		this.menuItem16.setText("Redo");
+
+		this.menuItemRedo.setText("Redo");
 		//this.menuItem16.Click += new System.EventHandler(this.menuItem16_Click);
 
-		//
-		// menuItem26
-		//
-		this.menuItem26.setText("Split Edge");
+		this.menuItemSplitEdge.setText("Split Edge");
 		//this.menuItem26.Click += new System.EventHandler(this.menuItem26_Click);
-		//
-		// menuItem25
-		//
-		this.menuItem25.setText("Split Triangle");
+
+		this.menuItemSplitTriangle.setText("Split Triangle");
 		//this.menuItem25.Click += new System.EventHandler(this.menuItem25_Click);
 
-		//
-		// menuItem21
-		//
-		this.menuItem21.setText("Resize");
-		//
-		// menuItem28
-		//
-		this.menuModel.add(this.menuItem27);
+
+		this.menuItemResize.setText("Resize");
+
+		this.menuModel.add(this.menuItemSelectModel);
 		this.menuModel.addSeparator();
-		this.menuModel.add(this.menuItem18);
+		this.menuModel.add(this.menuItemModelProperties);
 		this.menuModel.setText("Model");
-		//
-		// menuItem27
-		//
-		this.menuItem27.setText("Select Model");
+
+		this.menuItemSelectModel.setText("Select Model");
 		//this.menuItem27.Click += new System.EventHandler(this.menuItem27_Click);
-		//
-		// menuItem18
-		//
-		this.menuItem18.setText("Model Properties");
+
+		this.menuItemModelProperties.setText("Model Properties");
 		//this.menuItem18.Click += new System.EventHandler(this.menuItem18_Click);
-		//
-		// menuItem22
-		//
-		this.menuFigure.add(this.menuItem9);
-		this.menuFigure.add(this.menuItem23);
-		this.menuFigure.add(this.menuItem20);
+
+		this.menuFigure.add(this.menuSubAddFigure);
+		this.menuFigure.add(this.menuItemDeleteFigure);
+		this.menuFigure.add(this.menuItemLoadFigureTexture);
 		this.menuFigure.addSeparator();
-		this.menuFigure.add(this.menuItem19);
+		this.menuFigure.add(this.menuItemFigureProperties);
 		this.menuFigure.setText("Figure");
-		//
-		// menuItem9
-		//
-		this.menuItem9.add(this.menuItem10);
-		this.menuItem9.add(this.menuItem11);
-		this.menuItem9.add(this.menuItem32);
-		this.menuItem9.add(this.menuItem31);
-		this.menuItem9.add(this.menuItem33);
-		this.menuItem9.add(this.menuItem34);
-		this.menuItem9.add(this.menuItem35);
-		this.menuItem9.add(this.menuItem36);
-		this.menuItem9.add(this.menuItem37);
-		this.menuItem9.setText("Add Figure");
-		//
-		// menuItem10
-		//
-		this.menuItem10.setText("Tetra");
+
+		this.menuSubAddFigure.add(this.menuItemTetra);
+		this.menuSubAddFigure.add(this.menuItemCube);
+		this.menuSubAddFigure.addSeparator();
+		this.menuSubAddFigure.add(this.menuItemSphere);
+		this.menuSubAddFigure.add(this.menuItemCylinder);
+		this.menuSubAddFigure.add(this.menuItemBox);
+		this.menuSubAddFigure.add(this.menuItemTorus);
+		this.menuSubAddFigure.add(this.menuItemText);
+		this.menuSubAddFigure.add(this.menuItemTeapot);
+		this.menuSubAddFigure.setText("Add Figure");
+
+		this.menuItemTetra.setText("Tetra");
 		//this.menuItem10.Click += new System.EventHandler(this.menuItem10_Click);
-		//
-		// menuItem11
-		//
-		this.menuItem11.setText("Cube");
+
+		this.menuItemCube.setText("Cube");
 		//this.menuItem11.Click += new System.EventHandler(this.menuItem11_Click);
 
-		this.menuItem31.setText("Sphere");
+		this.menuItemSphere.setText("Sphere");
 		//this.menuItem31.Click += new System.EventHandler(this.menuItem31_Click);
-		//
-		// menuItem33
-		//
-		this.menuItem33.setText("Cylinder");
+
+		this.menuItemCylinder.setText("Cylinder");
 		//this.menuItem33.Click += new System.EventHandler(this.menuItem33_Click);
-		//
-		// menuItem34
-		//
-		this.menuItem34.setText("Box");
+
+		this.menuItemBox.setText("Box");
 		//this.menuItem34.Click += new System.EventHandler(this.menuItem34_Click);
-		//
-		// menuItem35
-		//
-		this.menuItem35.setText("Torus");
+
+		this.menuItemTorus.setText("Torus");
 		//this.menuItem35.Click += new System.EventHandler(this.menuItem35_Click);
-		//
-		// menuItem36
-		//
-		this.menuItem36.setText("Text");
+
+		this.menuItemText.setText("Text");
 		//this.menuItem36.Click += new System.EventHandler(this.menuItem36_Click);
-		//
-		// menuItem37
-		//
-		this.menuItem37.setText("Teapot");
+
+		this.menuItemTeapot.setText("Teapot");
 		//this.menuItem37.Click += new System.EventHandler(this.menuItem37_Click);
-		//
-		// menuItem23
-		//
-		this.menuItem23.setText("Delete Figure");
+
+		this.menuItemDeleteFigure.setText("Delete Figure");
 		//this.menuItem23.Click += new System.EventHandler(this.menuItem23_Click);
-		//
-		// menuItem20
-		//
-		this.menuItem20.setText("Load Figure Texture");
+
+		this.menuItemLoadFigureTexture.setText("Load Figure Texture");
 		//this.menuItem20.Click += new System.EventHandler(this.menuItem20_Click);
-		//
-		// menuItem19
-		//
-		this.menuItem19.setText("Figure Properties");
+
+		this.menuItemFigureProperties.setText("Figure Properties");
 		//this.menuItem19.Click += new System.EventHandler(this.menuItem19_Click);
-		//
-		// menuItem12
-		//
-		this.menuMesh.add(this.menuItem13);
+
+		this.menuMesh.add(this.menuItemExport);
 		this.menuMesh.setText("Mesh");
-		//
-		// menuItem13
-		//
-		this.menuItem13.setText("Export");
+
+		this.menuItemExport.setText("Export");
 		//this.menuItem13.Click += new System.EventHandler(this.menuItem13_Click);
-		//
-		// menuItem7
-		//
-		this.menuHelp.add(this.menuItem8);
+
+		this.menuHelp.add(this.menuItemAbout);
 		this.menuHelp.setText("Help");
-		//
-		// menuItem8
-		//
-		this.menuItem8.setText("About");
+
+		this.menuItemAbout.setText("About");
 		//this.menuItem8.Click += new System.EventHandler(this.menuItem8_Click);
 
 		// TODO uncomment, fix
@@ -457,34 +392,26 @@ public class T3DCreator extends JFrame implements Disposable {
 		this.radioButton3.setSize(new Dimension(56, 24));
 		this.radioButton3.setText("0.25");
 		//this.radioButton3.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
-		//
-		// radioButton4
-		//
+
 		this.radioButton4.setLocation(new Point(8, 504));
 		this.radioButton4.setName("radioButton4");
 		this.radioButton4.setSize(new Dimension(40, 24));
 		this.radioButton4.setText("0.1");
 		// this.radioButton4.CheckedChanged += new System.EventHandler(this.radioButton4_CheckedChanged);
-		//
-		// radioButton5
-		//
+
 		this.radioButton5.setLocation(new Point(64, 504));
 		this.radioButton5.setName("radioButton5");
 		this.radioButton5.setSize(new Dimension(48, 24));
 		this.radioButton5.setText("0.05");
 		//this.radioButton5.CheckedChanged += new System.EventHandler(this.radioButton5_CheckedChanged);
-		//
-		// label1
-		//
+
 		this.label1.setLocation(new Point(8, 416));
 		this.label1.setName("label1");
 		this.label1.setSize(new Dimension(64, 24));
 		this.label1.setText("Operation:");
 		this.label1.setVerticalAlignment(JLabel.CENTER);
 		//this.label1.Click += new System.EventHandler(this.label1_Click);
-		//
-		// operation_box
-		//
+
 		this.operation_box.addItem("move");
 		this.operation_box.addItem("zoom");
 		this.operation_box.addItem("rotate");
