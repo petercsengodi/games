@@ -1,14 +1,13 @@
 package hu.csega.superstition.animatool;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
+
 public class WireFrameView extends CView
 {
-	/// <summary>
-	/// Required designer variable.
-	/// </summary>
-	private System.ComponentModel.Container components = null;
-	private System.Windows.Forms.Button button1;
-	private System.Windows.Forms.Button button2;
-	private System.Windows.Forms.Label label1;
+	private JButton button1;
+	private JButton button2;
+	private JLabel label1;
 
 	public WireFrameView()
 	{

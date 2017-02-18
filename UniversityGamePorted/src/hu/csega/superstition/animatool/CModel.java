@@ -2,7 +2,6 @@ package hu.csega.superstition.animatool;
 
 import java.util.ArrayList;
 
-import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
 import hu.csega.superstition.gamelib.animationdata.CConnection;
@@ -108,8 +107,9 @@ public class CModel {
 		}
 
 		int start = 0;
-		while((ret.get(start).bounding_box1 == null)
-				|| (start >= max_scenes)) start++;
+		// TODO csega: uncomment, fix
+		//		while((ret.get(start).bounding_box1 == null)
+		//				|| (start >= max_scenes)) start++;
 		if(start >= max_scenes) return ret;
 
 		ret.bounding_box1 = new Vector3f[max_scenes];
@@ -130,8 +130,9 @@ public class CModel {
 				if(data == pdata) continue;
 				if(data.bounding_box1 == null) continue;
 
-				CPart.minimize(ret.bounding_box1[i], data.bounding_box1[i], ret.bounding_box1[i]);
-				CPart.maximize(ret.bounding_box2[i], data.bounding_box2[i], ret.bounding_box2[i]);
+				// TODO csega: uncomment, fix
+				//				CPart.minimize(ret.bounding_box1[i], data.bounding_box1[i], ret.bounding_box1[i]);
+				//				CPart.maximize(ret.bounding_box2[i], data.bounding_box2[i], ret.bounding_box2[i]);
 
 				Vector3f o1 = ret.bounding_sphere_center[i];
 				float r1 = ret.bounding_sphere_radius[i];
@@ -268,23 +269,24 @@ public class CModel {
 					/* Child found: p   Connection: con */
 
 					// Calculate root's connection position
-					con1 = root.connections[con.connection_index].point;
-					con1 = Vector3.TransformCoordinate(con1,
-							root.model_transform[scene] *
-							Matrix4f..Translation(root.center_point[scene]));
-
-					// Calculate child's connection position
-					con2 = con.point;
-					con2 = Vector3.TransformCoordinate(con2,
-							p.model_transform[scene] *
-							Matrix.Translation(p.center_point[scene]));
-
-					// Calculating difference, moving
-					diff = con1.sub(con2);
-					p.move(diff, scene);
-
-					// Calling Recursive algorythm
-					RecursivePreserve(p);
+					// TODO csega: uncomment, fix
+					//					con1 = root.connections[con.connection_index].point;
+					//					con1 = Vector3.TransformCoordinate(con1,
+					//							root.model_transform[scene] *
+					//							Matrix4f..Translation(root.center_point[scene]));
+					//
+					//					// Calculate child's connection position
+					//					con2 = con.point;
+					//					con2 = Vector3.TransformCoordinate(con2,
+					//							p.model_transform[scene] *
+					//							Matrix.Translation(p.center_point[scene]));
+					//
+					//					// Calculating difference, moving
+					//					diff = con1.sub(con2);
+					//					p.move(diff, scene);
+					//
+					//					// Calling Recursive algorythm
+					//					RecursivePreserve(p);
 				}
 			}
 		}

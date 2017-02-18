@@ -1,23 +1,28 @@
 package hu.csega.superstition.animatool;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
 public class SceneEditor extends CView
 {
-	private System.Windows.Forms.Button change_button;
-	private System.Windows.Forms.Label label1;
-	private System.Windows.Forms.Label label2;
-	private System.Windows.Forms.NumericUpDown numericUpDown1;
-	private System.Windows.Forms.TextBox change_box;
-	private System.Windows.Forms.Button copy_button;
-	private System.Windows.Forms.NumericUpDown numericUpDown2;
-	private System.Windows.Forms.NumericUpDown lerp_start;
-	private System.Windows.Forms.NumericUpDown lerp_end;
-	private System.Windows.Forms.NumericUpDown lerp_from;
-	private System.Windows.Forms.NumericUpDown lerp_until;
-	private System.Windows.Forms.Button lerp_button;
-	private System.Windows.Forms.Label label3;
-	private System.Windows.Forms.Label label4;
-	private System.Windows.Forms.Label label5;
-	private System.Windows.Forms.Label label6;
+	private JButton change_button;
+	private JLabel label1;
+	private JLabel label2;
+	private JTextField numericUpDown1;
+	private JTextArea change_box;
+	private JButton copy_button;
+	private JTextField numericUpDown2;
+	private JTextField lerp_start;
+	private JTextField lerp_end;
+	private JTextField lerp_from;
+	private JTextField lerp_until;
+	private JButton lerp_button;
+	private JLabel label3;
+	private JLabel label4;
+	private JLabel label5;
+	private JLabel label6;
 	/// <summary>
 	/// Required designer variable.
 	/// </summary>
@@ -54,21 +59,21 @@ public class SceneEditor extends CView
 	private void InitializeComponent()
 	{
 		this.change_box = new System.Windows.Forms.TextBox();
-		this.change_button = new System.Windows.Forms.Button();
-		this.label1 = new System.Windows.Forms.Label();
-		this.label2 = new System.Windows.Forms.Label();
-		this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-		this.copy_button = new System.Windows.Forms.Button();
-		this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-		this.lerp_start = new System.Windows.Forms.NumericUpDown();
-		this.lerp_end = new System.Windows.Forms.NumericUpDown();
-		this.lerp_from = new System.Windows.Forms.NumericUpDown();
-		this.lerp_until = new System.Windows.Forms.NumericUpDown();
-		this.lerp_button = new System.Windows.Forms.Button();
-		this.label3 = new System.Windows.Forms.Label();
-		this.label4 = new System.Windows.Forms.Label();
-		this.label5 = new System.Windows.Forms.Label();
-		this.label6 = new System.Windows.Forms.Label();
+		this.change_button = new JButton();
+		this.label1 = new JLabel();
+		this.label2 = new JLabel();
+		this.numericUpDown1 = new JTextField();
+		this.copy_button = new JButton();
+		this.numericUpDown2 = new JTextField();
+		this.lerp_start = new JTextField();
+		this.lerp_end = new JTextField();
+		this.lerp_from = new JTextField();
+		this.lerp_until = new JTextField();
+		this.lerp_button = new JButton();
+		this.label3 = new JLabel();
+		this.label4 = new JLabel();
+		this.label5 = new JLabel();
+		this.label6 = new JLabel();
 		((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
 		((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
 		((System.ComponentModel.ISupportInitialize)(this.lerp_start)).BeginInit();

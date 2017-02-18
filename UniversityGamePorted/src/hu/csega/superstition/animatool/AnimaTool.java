@@ -33,15 +33,9 @@ public class AnimaTool extends JFrame {
 	private JMenuItem menuItem9;
 	private JTabbedPane tab_control;
 	private JPanel tab_part_editor;
-	private TreeObjectView trview;
-	private PartEditor partEditor1;
 	private JMenuItem menuItem10;
 	private JMenuItem menuItem11;
-	private WireFrameView wireFrameView1;
-	private WireFrameView wireFrameView2;
-	private WireFrameView wireFrameView3;
 	private JPanel tab_scene_editor;
-	private SceneEditor sceneEditor1;
 	private JButton grid_button;
 	private JRadioButton rad1_0;
 	private JRadioButton rad0_5;
@@ -53,7 +47,15 @@ public class AnimaTool extends JFrame {
 	private JRadioButton rad0_05;
 	private JComboBox<Object> operation_box;
 	private JLabel label1;
-	private OpenGLView dxview;
+
+	// TODO uncomment, fix
+	//	private TreeObjectView trview;
+	//	private WireFrameView wireFrameView1;
+	//	private WireFrameView wireFrameView2;
+	//	private WireFrameView wireFrameView3;
+	//	private SceneEditor sceneEditor1;
+	//	private PartEditor partEditor1;
+	//	private OpenGLView dxview;
 
 	public AnimaTool() {
 
@@ -75,16 +77,16 @@ public class AnimaTool extends JFrame {
 				"/res/anims", "anm");
 
 		model = new CModel();
-		model.RegisterView(dxview);
-		model.RegisterView(trview);
-		model.RegisterView(partEditor1);
-		model.RegisterView(wireFrameView1);
-		model.RegisterView(wireFrameView2);
-		model.RegisterView(wireFrameView3);
-		model.RegisterView(sceneEditor1);
-		wireFrameView1.SetView(Perspectives.Front);
-		wireFrameView2.SetView(Perspectives.Top);
-		wireFrameView3.SetView(Perspectives.Left);
+		//		model.RegisterView(partEditor1);
+		//		model.RegisterView(dxview);
+		//		model.RegisterView(trview);
+		//		model.RegisterView(wireFrameView1);
+		//		model.RegisterView(wireFrameView2);
+		//		model.RegisterView(wireFrameView3);
+		//		model.RegisterView(sceneEditor1);
+		//		wireFrameView1.SetView(Perspectives.Front);
+		//		wireFrameView2.SetView(Perspectives.Top);
+		//		wireFrameView3.SetView(Perspectives.Left);
 	}
 
 	protected void Dispose( boolean disposing )
@@ -103,7 +105,6 @@ public class AnimaTool extends JFrame {
 
 	private void InitializeComponent()
 	{
-		this.trview = new TreeObjectView();
 		this.mainMenu1 = new JMenu();
 		this.menuItem1 = new JMenuItem();
 		this.menuItem2 = new JMenuItem();
@@ -118,13 +119,7 @@ public class AnimaTool extends JFrame {
 		this.menuItem9 = new JMenuItem();
 		this.tab_control = new JTabbedPane();
 		this.tab_part_editor = new JPanel();
-		this.partEditor1 = new PartEditor();
 		this.tab_scene_editor = new JPanel();
-		this.sceneEditor1 = new SceneEditor();
-		this.dxview = new OpenGLView();
-		this.wireFrameView1 = new WireFrameView();
-		this.wireFrameView2 = new WireFrameView();
-		this.wireFrameView3 = new WireFrameView();
 		this.grid_button = new JButton();
 		this.rad1_0 = new JRadioButton();
 		this.rad0_5 = new JRadioButton();
@@ -137,8 +132,17 @@ public class AnimaTool extends JFrame {
 		this.operation_box = new JComboBox<Object>();
 		this.label1 = new JLabel();
 
-		this.trview.setLocation(new Point(0, 0));
-		this.trview.setSize(new Dimension(120, 296));
+		// TODO uncomment, fix
+		//		this.sceneEditor1 = new SceneEditor();
+		//		this.partEditor1 = new PartEditor();
+		//		this.dxview = new OpenGLView();
+		//		this.wireFrameView1 = new WireFrameView();
+		//		this.wireFrameView2 = new WireFrameView();
+		//		this.wireFrameView3 = new WireFrameView();
+		//
+		//		this.trview = new TreeObjectView();
+		//		this.trview.setLocation(new Point(0, 0));
+		//		this.trview.setSize(new Dimension(120, 296));
 
 		this.mainMenu1.add(this.menuItem1);
 		this.mainMenu1.add(this.menuItem7);
@@ -232,32 +236,36 @@ public class AnimaTool extends JFrame {
 		this.tab_control.setLocation(new Point(400, 0));
 		this.tab_control.setSize(new Dimension(336, 256));
 
-		this.tab_part_editor.add(this.partEditor1);
+		// TODO uncomment, fix
+		//		this.tab_part_editor.add(this.partEditor1);
 		this.tab_part_editor.setLocation(new Point(4, 22));
 		this.tab_part_editor.setSize(new Dimension(328, 230));
 
-		this.partEditor1.setLocation(new Point(0, 0));
-		this.partEditor1.setPart(null);
-		this.partEditor1.setSize(new Dimension(336, 232));
+		// TODO uncomment, fix
+		//		this.partEditor1.setLocation(new Point(0, 0));
+		//		this.partEditor1.setPart(null);
+		//		this.partEditor1.setSize(new Dimension(336, 232));
 
-		this.tab_scene_editor.add(this.sceneEditor1);
+		// TODO uncomment, fix
+		//		this.tab_scene_editor.add(this.sceneEditor1);
 		this.tab_scene_editor.setLocation(new Point(4, 22));
 		this.tab_scene_editor.setSize(new Dimension(328, 230));
 
-		this.sceneEditor1.setLocation(new Point(0, 0));
-		this.sceneEditor1.setSize(new Dimension(328, 232));
-
-		this.dxview.setLocation(new Point(0, 0));
-		this.dxview.setSize(new Dimension(336, 272));
-
-		this.wireFrameView1.setLocation(new Point(120, 0));
-		this.wireFrameView1.setSize(new Dimension(280, 256));
-
-		this.wireFrameView2.setLocation(new Point(120, 256));
-		this.wireFrameView2.setSize(new Dimension(280, 288));
-
-		this.wireFrameView3.setLocation(new Point(0, 0));
-		this.wireFrameView3.setSize(new Dimension(336, 272));
+		// TODO uncomment, fix
+		//		this.sceneEditor1.setLocation(new Point(0, 0));
+		//		this.sceneEditor1.setSize(new Dimension(328, 232));
+		//
+		//		this.dxview.setLocation(new Point(0, 0));
+		//		this.dxview.setSize(new Dimension(336, 272));
+		//
+		//		this.wireFrameView1.setLocation(new Point(120, 0));
+		//		this.wireFrameView1.setSize(new Dimension(280, 256));
+		//
+		//		this.wireFrameView2.setLocation(new Point(120, 256));
+		//		this.wireFrameView2.setSize(new Dimension(280, 288));
+		//
+		//		this.wireFrameView3.setLocation(new Point(0, 0));
+		//		this.wireFrameView3.setSize(new Dimension(336, 272));
 
 		this.grid_button.setLocation(new Point(8, 304));
 		this.grid_button.setSize(new Dimension(96, 24));
@@ -305,11 +313,12 @@ public class AnimaTool extends JFrame {
 					model.grid_step = 0.05f;
 				}
 
-				dxview.UpdateGrid();
-				dxview.repaint();
-				wireFrameView1.repaint();
-				wireFrameView2.repaint();
-				wireFrameView3.repaint();
+				// TODO uncomment, fix
+				//				dxview.UpdateGrid();
+				//				dxview.repaint();
+				//				wireFrameView1.repaint();
+				//				wireFrameView2.repaint();
+				//				wireFrameView3.repaint();
 			}
 		};
 
@@ -330,11 +339,13 @@ public class AnimaTool extends JFrame {
 		this.tabControl1.setLocation(new Point(400, 256));
 		this.tabControl1.setSize(new Dimension(336, 296));
 
-		this.tabPage1.add(this.wireFrameView3);
+		// TODO uncomment, fix
+		//		this.tabPage1.add(this.wireFrameView3);
 		this.tabPage1.setLocation(new Point(4, 22));
 		this.tabPage1.setSize(new Dimension(328, 270));
 
-		this.tabPage2.add(this.dxview);
+		// TODO uncomment, fix
+		//		this.tabPage2.add(this.dxview);
 		this.tabPage2.setLocation(new Point(4, 22));
 		this.tabPage2.setSize(new Dimension(328, 270));
 
@@ -374,10 +385,11 @@ public class AnimaTool extends JFrame {
 		contentPane.add(this.rad0_5);
 		contentPane.add(this.rad1_0);
 		contentPane.add(this.grid_button);
-		contentPane.add(this.wireFrameView2);
-		contentPane.add(this.wireFrameView1);
 		contentPane.add(this.tab_control);
-		contentPane.add(this.trview);
+		// TODO uncomment, fix
+		//		contentPane.add(this.wireFrameView2);
+		//		contentPane.add(this.wireFrameView1);
+		//		contentPane.add(this.trview);
 
 		contentPane.setSize(new Dimension(736, 545));
 

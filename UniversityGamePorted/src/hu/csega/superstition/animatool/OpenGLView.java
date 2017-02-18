@@ -1,5 +1,7 @@
 package hu.csega.superstition.animatool;
 
+import javax.swing.JButton;
+
 public class OpenGLView extends CView
 {
 
@@ -21,9 +23,9 @@ public class OpenGLView extends CView
 	/// </summary>
 	private void InitializeComponent()
 	{
-		this.button1 = new System.Windows.Forms.Button();
-		this.button2 = new System.Windows.Forms.Button();
-		this.SuspendLayout();
+		this.button1 = new JButton();
+		this.button2 = new JButton();
+		//		this.SuspendLayout();
 		//
 		// button1
 		//
