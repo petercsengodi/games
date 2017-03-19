@@ -13,8 +13,7 @@ public class OpenGLView extends ToolView {
 		// This call is required by the Windows.Forms Form Designer.
 		InitializeComponent();
 		bcontrol = new ButtonControl[3];
-		for(int i = 0; i < 3; i++)
-		{
+		for(int i = 0; i < 3; i++) {
 			bcontrol[i] = new ButtonControl();
 			bcontrol[i].down = false;
 		}
@@ -234,23 +233,17 @@ public class OpenGLView extends ToolView {
 			for(double d2 = model.grid_from; d2 < model.grid_to + model.grid_error; d2 += model.grid_step)
 			{
 				stream.Write(new CustomVertex.PositionColored(
-						new Vector3f((float)(d1), (float)(d2),
-								(float)(model.grid_from)), color));
+						new Vector3f((float)(d1), (float)(d2), (float)(model.grid_from)), color));
 				stream.Write(new CustomVertex.PositionColored(
-						new Vector3f((float)(d1), (float)(d2),
-								(float)(model.grid_to)), color));
+						new Vector3f((float)(d1), (float)(d2), (float)(model.grid_to)), color));
 				stream.Write(new CustomVertex.PositionColored(
-						new Vector3f((float)(d1), (float)(model.grid_from),
-								(float)(d2)), color));
+						new Vector3f((float)(d1), (float)(model.grid_from), (float)(d2)), color));
 				stream.Write(new CustomVertex.PositionColored(
-						new Vector3f((float)(d1), (float)(model.grid_to),
-								(float)(d2)), color));
+						new Vector3f((float)(d1), (float)(model.grid_to), (float)(d2)), color));
 				stream.Write(new CustomVertex.PositionColored(
-						new Vector3f((float)(model.grid_from), (float)(d1),
-								(float)(d2)), color));
+						new Vector3f((float)(model.grid_from), (float)(d1), (float)(d2)), color));
 				stream.Write(new CustomVertex.PositionColored(
-						new Vector3f((float)(model.grid_to), (float)(d1),
-								(float)(d2)), color));
+						new Vector3f((float)(model.grid_to), (float)(d1), (float)(d2)), color));
 			}
 
 		stream.Close();
