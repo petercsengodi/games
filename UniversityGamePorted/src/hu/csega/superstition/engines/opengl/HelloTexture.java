@@ -46,7 +46,7 @@ import com.jogamp.opengl.util.glsl.ShaderProgram;
 import com.jogamp.opengl.util.texture.TextureData;
 import com.jogamp.opengl.util.texture.TextureIO;
 
-import hu.csega.superstition.env.Disposable;
+import hu.csega.superstition.common.Disposable;
 import hu.csega.superstition.env.Environment;
 
 /**

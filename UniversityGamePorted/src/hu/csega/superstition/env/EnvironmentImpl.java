@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
+import hu.csega.superstition.common.Disposable;
+
 public class EnvironmentImpl implements Environment {
 
 	@Override
-	public void registerForDisposing(Disposable closeable) {
-		disposables.add(closeable);
+	public void registerForDisposing(Disposable disposable) {
+		disposables.add(disposable);
 	}
 
 	@Override
@@ -41,8 +43,9 @@ public class EnvironmentImpl implements Environment {
 	 * @throws IOException
 	 */
 	public void finish() {
-		for(Disposable disposable : disposables)
+		for(Disposable disposable : disposables) {
 			disposable.dispose();
+		}
 	}
 
 	private Set<Disposable> disposables = new HashSet<>();
