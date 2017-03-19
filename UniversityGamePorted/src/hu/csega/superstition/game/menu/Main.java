@@ -61,7 +61,7 @@ public class Main implements IMenu
 
 	public void dispose()
 	{
-		menuhelp.Dispose();
+		menuhelp.dispose();
 	}
 
 }

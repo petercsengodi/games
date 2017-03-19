@@ -18,10 +18,10 @@ public class TextureView extends ToolView {
 		{
 			if(components != null)
 			{
-				components.Dispose();
+				components.dispose();
 			}
 		}
-		super.Dispose( disposing );
+		super.dispose( disposing );
 	}
 
 	/// <summary>
@@ -152,10 +152,10 @@ public class TextureView extends ToolView {
 
 		}
 
-		pen_selected.Dispose();
-		brush_selected.Dispose();
-		pen_normal.Dispose();
-		brush_normal.Dispose();
+		pen_selected.dispose();
+		brush_selected.dispose();
+		pen_normal.dispose();
+		brush_normal.dispose();
 	}
 
 	private Point Transform(Vector2 vector)

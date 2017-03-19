@@ -68,15 +68,15 @@ public class StoryForm extends JPanel
 		{
 			if (components != null)
 			{
-				components.Dispose();
+				components.dispose();
 			}
 
 			if(backBuffer != null)
 			{
-				backBuffer.Dispose();
+				backBuffer.dispose();
 			}
 		}
-		super.Dispose( disposing );
+		super.dispose( disposing );
 	}
 
 	// Not Panel, PanelDrawer !!!
@@ -304,9 +304,9 @@ public class StoryForm extends JPanel
 			if(node.Map != null) paint.DrawImage(node.Map, node.X - 8 + scrX, node.Y - 8 + scrY, 16, 16);
 		}
 
-		pen.Dispose(); pen = null;
-		brushBlack.Dispose(); brushBlack = null;
-		brushRed.Dispose(); brushRed = null;
+		pen.dispose(); pen = null;
+		brushBlack.dispose(); brushBlack = null;
+		brushRed.dispose(); brushRed = null;
 		paint = null;
 
 		e.Graphics.DrawImage(backBuffer, 0, 0);
@@ -321,7 +321,7 @@ public class StoryForm extends JPanel
 	{
 		Ask ask = new Ask();
 		DialogResult result = ask.ShowDialog();
-		ask.Dispose();
+		ask.dispose();
 		if(result == DialogResult.Yes) Save(false);
 		if(result == DialogResult.Cancel) e.Cancel = true;
 	}
@@ -337,12 +337,12 @@ public class StoryForm extends JPanel
 			saveFile.InitialDirectory = @"..\..\..\Superstition\bin\maps";
 			if(saveFile.ShowDialog() == DialogResult.Cancel)
 			{
-				saveFile.Dispose();
+				saveFile.dispose();
 				return;
 			}
 
 			workingFile = saveFile.FileName;
-			saveFile.Dispose();
+			saveFile.dispose();
 		}
 
 		XmlDocument StoryDocument = new XmlDocument();
@@ -415,13 +415,13 @@ public class StoryForm extends JPanel
 			{
 				NormalPreview preview = new NormalPreview(nodes);
 				preview.ShowDialog();
-				preview.Dispose();
+				preview.dispose();
 			}
 			else if(e.Button == tDirectXP)
 			{
 				DirectXPreview preview = new DirectXPreview(nodes);
 				preview.ShowDialog();
-				preview.Dispose();
+				preview.dispose();
 			}
 		}
 	}
@@ -576,7 +576,7 @@ public class StoryForm extends JPanel
 		{
 			Ask ask = new Ask("Do you really want to open an other file?");
 			DialogResult result = ask.ShowDialog();
-			ask.Dispose();
+			ask.dispose();
 			if(result == DialogResult.Yes) Save(false);
 			if(result == DialogResult.Cancel) return;
 		}
@@ -588,7 +588,7 @@ public class StoryForm extends JPanel
 
 		if(openFile.ShowDialog() == DialogResult.Cancel)
 		{
-			openFile.Dispose();
+			openFile.dispose();
 			return;
 		}
 
@@ -607,7 +607,7 @@ public class StoryForm extends JPanel
 		StoryDocument.Load(validator);
 
 
-		openFile.Dispose();
+		openFile.dispose();
 		GrView.Invalidate();
 
 		XmlNode story = StoryDocument.DocumentElement, nodeXml;
@@ -647,7 +647,7 @@ public class StoryForm extends JPanel
 
 	private void GrView_Resized(Object sender, System.EventArgs e)
 	{
-		backBuffer.Dispose();
+		backBuffer.dispose();
 		backBuffer = new Bitmap(GrView.Width, GrView.Height);
 	}
 }

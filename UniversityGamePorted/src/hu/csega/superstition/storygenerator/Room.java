@@ -99,7 +99,7 @@ public class Room extends TWLNode {
 		{
 			SolidBrush brush = new SolidBrush(Color.Black);
 			g.FillRectangle(brush, corner1.X, corner1.Y, corner2.X - corner1.X, corner2.Y - corner1.Y);
-			brush.Dispose();
+			brush.dispose();
 		} g.DrawImage(bitmap, corner1.X, corner1.Z, corner2.X - corner1.X, corner2.Z - corner1.Z);
 	}
 

@@ -78,7 +78,7 @@ public class Shadow {
 
 		temp.UnlockVertexBuffer();
 		temp.UnlockIndexBuffer();
-		temp.Dispose();
+		temp.dispose();
 
 		originals = n;
 		sides = n * 3;
@@ -99,7 +99,7 @@ public class Shadow {
 						positions[i, j], normals[i]));
 			}
 
-		vstream.Dispose();
+		vstream.dispose();
 		vbuffer.Unlock();
 
 		GraphicsStream istream = ibuffer.Lock(0, 0, 0);
@@ -123,7 +123,7 @@ public class Shadow {
 			}
 		}
 
-		istream.Dispose();
+		istream.dispose();
 		ibuffer.Unlock();
 
 	}
@@ -211,7 +211,7 @@ public class Shadow {
 
 	public void dispose()
 	{
-		vbuffer.Dispose();
-		ibuffer.Dispose();
+		vbuffer.dispose();
+		ibuffer.dispose();
 	}
 }

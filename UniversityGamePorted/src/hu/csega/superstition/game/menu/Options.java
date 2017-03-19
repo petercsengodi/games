@@ -73,7 +73,7 @@ public class Options extends MenuElement implements IMenu
 	public void dispose()
 	{
 		super.Dispose ();
-		menuhelp.Dispose();
+		menuhelp.dispose();
 	}
 
 }

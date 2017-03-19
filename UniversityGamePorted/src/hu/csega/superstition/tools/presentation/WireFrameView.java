@@ -273,8 +273,8 @@ public class WireFrameView extends ToolView {
 		//						}
 		//
 		//					}
-		//					brush_blue.Dispose();
-		//					pen_blue.Dispose();
+		//					brush_blue.dispose();
+		//					pen_blue.dispose();
 		//
 		//					 */
 		//
@@ -282,14 +282,14 @@ public class WireFrameView extends ToolView {
 		//			} // end of for:Triangle
 		//		} // end of for:Figure
 		//
-		//		pen_grid.Dispose();
-		//		brush_grid.Dispose();
-		//		pen_selected.Dispose();
-		//		brush_selected.Dispose();
-		//		pen_normal.Dispose();
-		//		brush_normal.Dispose();
-		//		pen_origo.Dispose();
-		//		brush_origo.Dispose();
+		//		pen_grid.dispose();
+		//		brush_grid.dispose();
+		//		pen_selected.dispose();
+		//		brush_selected.dispose();
+		//		pen_normal.dispose();
+		//		brush_normal.dispose();
+		//		pen_origo.dispose();
+		//		brush_origo.dispose();
 	}
 
 	//	private Point Transform(Vector3f vector)

@@ -27,7 +27,7 @@ public class RenderPrimitive implements IRenderObject, IDisposable
 
 	public void dispose()
 	{
-		if(needToDispose) primitive.Dispose();
+		if(needToDispose) primitive.dispose();
 	}
 
 }

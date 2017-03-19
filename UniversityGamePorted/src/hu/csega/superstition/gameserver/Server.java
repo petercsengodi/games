@@ -91,14 +91,14 @@ public class Server extends System.Windows.Forms.Form
 		{
 			if(hosts[i] != null)
 			{
-				hosts[i].Dispose();
+				hosts[i].dispose();
 				hosts[i] = null;
 			}
 		}
 
 		for(ServerControl ctrl : controls)
 		{
-			ctrl.Dispose();
+			ctrl.dispose();
 		}
 		controls.Clear();
 
@@ -112,14 +112,14 @@ public class Server extends System.Windows.Forms.Form
 
 	public void RemoveHost(Host hst)
 	{
-		hst.Dispose();
+		hst.dispose();
 		hosts[hst.HostData.ID] = null;
 		OnHostsChanged();
 	}
 
 	public void RemoveServerControl(ServerControl ctrl)
 	{
-		ctrl.Dispose();
+		ctrl.dispose();
 		controls.Remove(ctrl);
 		OnControlsChanged();
 	}
@@ -171,7 +171,7 @@ public class Server extends System.Windows.Forms.Form
 			for(int i = 0; i < hosts.Length; i++)
 			{
 				if((hosts[i] == null) || hosts[i].Alive) continue;
-				hosts[i].Dispose();
+				hosts[i].dispose();
 				hosts[i] = null;
 				OnHostsChanged();
 			}
@@ -329,10 +329,10 @@ public class Server extends System.Windows.Forms.Form
 		{
 			if (components != null)
 			{
-				components.Dispose();
+				components.dispose();
 			}
 		}
-		super.Dispose( disposing );
+		super.dispose( disposing );
 	}
 
 

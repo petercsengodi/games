@@ -73,7 +73,7 @@ public abstract class Primitive extends Element {
 	@Override
 	public void dispose() {
 		engine.RemoveFromDisposeList(buffer);
-		if(buffer != null) buffer.Dispose();
+		if(buffer != null) buffer.dispose();
 		buffer = null;
 	}
 

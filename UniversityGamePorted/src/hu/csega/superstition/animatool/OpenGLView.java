@@ -109,12 +109,12 @@ public class OpenGLView extends ToolView {
 	//
 	//			if(vertices != null)
 	//			{
-	//				vertices.Dispose();
+	//				vertices.dispose();
 	//				vertices = null;
 	//			}
 	//			if(indices != null)
 	//			{
-	//				indices.Dispose();
+	//				indices.dispose();
 	//				indices = null;
 	//			}
 	//
@@ -205,7 +205,7 @@ public class OpenGLView extends ToolView {
 	{
 		if(grid != null)
 		{
-			grid.Dispose();
+			grid.dispose();
 			grid = null;
 		}
 
@@ -261,7 +261,7 @@ public class OpenGLView extends ToolView {
 	{
 		if(device != null)
 		{
-			device.Dispose();
+			device.dispose();
 			device = null;
 		}
 	}

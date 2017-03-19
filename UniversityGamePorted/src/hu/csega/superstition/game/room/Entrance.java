@@ -137,8 +137,8 @@ class Entrance extends TWLLink implements IClipping, IDisposable, IGameObject, I
 
 	public void dispose()
 	{
-		hole.Dispose();
-		stair.Dispose();
+		hole.dispose();
+		stair.dispose();
 	}
 
 	public void PreRender()

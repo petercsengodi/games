@@ -116,11 +116,11 @@ public class DirectXPreview extends JPanel
 		{
 			if(components != null)
 			{
-				components.Dispose();
+				components.dispose();
 			}
 			TextureLibrary.TextureDispose();
 		}
-		super.Dispose( disposing );
+		super.dispose( disposing );
 	}
 
 

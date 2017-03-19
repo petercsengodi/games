@@ -36,10 +36,10 @@ public class FigureProperties extends JPanel {
 		{
 			if(components != null)
 			{
-				components.Dispose();
+				components.dispose();
 			}
 		}
-		super.Dispose( disposing );
+		super.dispose( disposing );
 	}
 
 

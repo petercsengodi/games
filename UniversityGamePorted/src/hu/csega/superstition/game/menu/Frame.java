@@ -124,7 +124,7 @@ public class Frame {
 	{
 		for(int i = 0; i < triangles.Length; i++)
 		{
-			triangles[i].Dispose();
+			triangles[i].dispose();
 		}
 	}
 

@@ -129,12 +129,12 @@ public class T3DCreator extends JFrame implements Disposable {
 		//		{
 		//			if (components != null)
 		//			{
-		//				components.Dispose();
+		//				components.dispose();
 		//			}
-		//			util.Dispose();
-		//			fprop.Dispose();
+		//			util.dispose();
+		//			fprop.dispose();
 		//		}
-		//		super.Dispose( disposing );
+		//		super.dispose( disposing );
 	}
 
 	private void initializeComponent()
@@ -615,7 +615,7 @@ public class T3DCreator extends JFrame implements Disposable {
 	//	private void T3DCreator_Closing(Object sender, System.ComponentModel.CancelEventArgs e)
 	//	{
 	//		TextureLibrary.DisposeLibrary();
-	//		control.Dispose();
+	//		control.dispose();
 	//	}
 	//
 	//	private void menuItem13_Click(Object sender, ActionEvent e)

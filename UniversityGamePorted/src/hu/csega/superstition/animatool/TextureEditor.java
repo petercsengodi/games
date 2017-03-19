@@ -27,7 +27,7 @@ public class TextureLibrary {
 
 	public static void DisposeLibrary()
 	{
-		if(instance != null) instance.Dispose();
+		if(instance != null) instance.dispose();
 	}
 
 	public static TextureLibrary Instance()
@@ -73,8 +73,8 @@ public class TextureLibrary {
 	{
 		for(TexID id : list)
 		{
-			id.Texture.Dispose();
+			id.Texture.dispose();
 		}
-		dialog.Dispose();
+		dialog.dispose();
 	}
 }

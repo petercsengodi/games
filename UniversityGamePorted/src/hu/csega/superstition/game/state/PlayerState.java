@@ -33,7 +33,7 @@ class PlayState extends State
 			//			Monitor.Enter(engine);
 			(new Thread(new ThreadStart(quitgame))).Start();
 			return load;
-			//			model.Dispose();
+			//			model.dispose();
 			//			Monitor.Exit(model);
 			//			return mstate;
 		}
@@ -61,7 +61,7 @@ class PlayState extends State
 	{
 		IModel imodel = model;
 		model = null;
-		imodel.Dispose();
+		imodel.dispose();
 		//		Monitor.Exit(engine);
 		cstate.trigger(mstate);
 		Thread.CurrentThread.Abort();

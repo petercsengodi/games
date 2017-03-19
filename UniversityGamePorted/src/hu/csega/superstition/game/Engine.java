@@ -323,7 +323,7 @@ public class Engine implements IPeriod
 		for(Object o : DisposeList)
 		{
 			IDisposable disposable = o as IDisposable;
-			disposable.Dispose();
+			disposable.dispose();
 			//				GC.SuppressFinalize(null);
 		}
 
@@ -339,7 +339,7 @@ public class Engine implements IPeriod
 
 		if(device != null)
 		{ // Closing Direct3D
-			device.Dispose();
+			device.dispose();
 			device = null;
 		}
 
@@ -347,7 +347,7 @@ public class Engine implements IPeriod
 		{ // Closing Keyboard Handling and used Thread
 			if(KeyFire != null) KeyFire.Set(); // Thread notifies that Engine stopped
 			KeyDevice.Unacquire(); // Release Keyboard
-			KeyDevice.Dispose();
+			KeyDevice.dispose();
 			KeyDevice = null;
 		}
 
@@ -355,7 +355,7 @@ public class Engine implements IPeriod
 		{ // Closing Mouse Handling and used Thread
 			if(MouseFire != null) MouseFire.Set(); // Thread notifies that Engine stopped
 			MouseDevice.Unacquire(); // Release Mouse
-			MouseDevice.Dispose();
+			MouseDevice.dispose();
 			MouseDevice = null;
 		}
 
@@ -364,20 +364,20 @@ public class Engine implements IPeriod
 
 		if(fpsFont != null)
 		{
-			fpsFont.Dispose();
+			fpsFont.dispose();
 			fpsFont = null;
 		}
 
 		// Dispose Shadow Volume buffer
 		if(volume != null)
 		{
-			volume.Dispose();
+			volume.dispose();
 			volume = null;
 		}
 
 		if(shadowEffect != null)
 		{
-			shadowEffect.Dispose();
+			shadowEffect.dispose();
 			shadowEffect = null;
 		}
 
@@ -385,7 +385,7 @@ public class Engine implements IPeriod
 		{
 			for(Object o : DisposeList)
 			{
-				(o as IDisposable).Dispose();
+				(o as IDisposable).dispose();
 				//					GC.SuppressFinalize(null);
 			}
 			DisposeList.Clear();

@@ -54,7 +54,7 @@ public class MainFrame extends System.Windows.Forms.Form {
 
 		Parameters parameters = init.Parameters;
 		parameters.main = this;
-		init.Dispose();
+		init.dispose();
 
 		if(!parameters.FullScreen)
 		{
@@ -135,7 +135,7 @@ public class MainFrame extends System.Windows.Forms.Form {
 
 		if(timer != null)
 		{
-			timer.Dispose();
+			timer.dispose();
 			timer = null;
 			WriteConsole("Periodic Timer Finished.");
 		}
@@ -161,11 +161,11 @@ public class MainFrame extends System.Windows.Forms.Form {
 		{
 			if (components != null)
 			{
-				components.Dispose();
+				components.dispose();
 			}
 		}
 
-		super.Dispose( disposing );
+		super.dispose( disposing );
 	}
 
 	/// <summary>

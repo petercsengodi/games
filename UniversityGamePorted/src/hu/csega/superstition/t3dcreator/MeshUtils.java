@@ -184,7 +184,7 @@ public class MeshUtils {
 
 	public void dispose()
 	{
-		dialog.Dispose();
+		dialog.dispose();
 	}
 
 
@@ -262,7 +262,7 @@ public class MeshUtils {
 		}
 
 
-		temp.Dispose();
+		temp.dispose();
 		return ret;
 	}
 
@@ -330,7 +330,7 @@ public class MeshUtils {
 		}
 
 
-		temp.Dispose();
+		temp.dispose();
 		return figure;
 	}
 

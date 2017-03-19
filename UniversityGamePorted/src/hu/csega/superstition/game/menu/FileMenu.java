@@ -76,11 +76,11 @@ public class FileMenu implements IMenu {
 	{
 		for(Object o : files)
 		{
-			(o as FileMenuElement).Dispose();
+			(o as FileMenuElement).dispose();
 		}
 
-		up.Dispose();
-		down.Dispose();
+		up.dispose();
+		down.dispose();
 	}
 
 
@@ -132,7 +132,7 @@ public class FileMenu implements IMenu {
 
 		for(Object o : files)
 		{
-			(o as FileMenuElement).Dispose();
+			(o as FileMenuElement).dispose();
 		}
 
 		files = temp;

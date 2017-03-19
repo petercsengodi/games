@@ -100,12 +100,12 @@ public class MeshElement extends Element {
 	public void dispose()
 	{
 		engine.RemoveFromDisposeList(mesh);
-		mesh.Dispose();
+		mesh.dispose();
 
 		if(shadow_mesh != null)
 		{
 			engine.RemoveFromDisposeList(shadow_mesh);
-			shadow_mesh.Dispose();
+			shadow_mesh.dispose();
 		}
 	}
 

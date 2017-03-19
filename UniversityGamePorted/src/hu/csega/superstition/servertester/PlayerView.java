@@ -66,10 +66,10 @@ public class PlayerView extends JPanel {
 		g.DrawLine(playerPN, p11, p22);
 		g.DrawLine(playerPN, p12, p21);
 
-		playerPN.Dispose();
-		otherPN.Dispose();
-		playerBR.Dispose();
-		otherBR.Dispose();
+		playerPN.dispose();
+		otherPN.dispose();
+		playerBR.dispose();
+		otherBR.dispose();
 	}
 
 	protected void OnMouseDown(MouseEventArgs e)
@@ -91,10 +91,10 @@ public class PlayerView extends JPanel {
 		{
 			if(components != null)
 			{
-				components.Dispose();
+				components.dispose();
 			}
 		}
-		super.Dispose( disposing );
+		super.dispose( disposing );
 	}
 
 

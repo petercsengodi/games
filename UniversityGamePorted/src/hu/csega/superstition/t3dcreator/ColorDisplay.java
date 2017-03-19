@@ -34,10 +34,10 @@ public class ColorDisplay extends System.Windows.Forms.UserControl
 		{
 			if(components != null)
 			{
-				components.Dispose();
+				components.dispose();
 			}
 		}
-		super.Dispose( disposing );
+		super.dispose( disposing );
 	}
 
 

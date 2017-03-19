@@ -62,7 +62,7 @@ abstract class MenuElement
 
 	public void dispose()
 	{
-		if(text != null) text.Dispose();
+		if(text != null) text.dispose();
 	}
 
 } // end of class MenuElement

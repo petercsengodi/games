@@ -95,12 +95,12 @@ public class AnimaTool extends JFrame {
 		//		{
 		//			if(components != null)
 		//			{
-		//				components.Dispose();
+		//				components.dispose();
 		//			}
-		//			MeshLibrary.Instance().Dispose();
-		//			file_control.Dispose();
+		//			MeshLibrary.Instance().dispose();
+		//			file_control.dispose();
 		//		}
-		//		super.Dispose( disposing );
+		//		super.dispose( disposing );
 	}
 
 	private void InitializeComponent()

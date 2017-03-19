@@ -230,8 +230,8 @@ public class MainMenu implements IModel
 
 	public void dispose()
 	{
-		frame.Dispose();
-		main.Dispose();
+		frame.dispose();
+		main.dispose();
 	}
 
 	public void Period()

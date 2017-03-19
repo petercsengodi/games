@@ -28,10 +28,10 @@ public class InitWindow extends System.Windows.Forms.Form
 		{
 			if(components != null)
 			{
-				components.Dispose();
+				components.dispose();
 			}
 		}
-		super.Dispose( disposing );
+		super.dispose( disposing );
 	}
 
 

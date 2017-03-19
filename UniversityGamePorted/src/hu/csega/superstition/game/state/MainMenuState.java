@@ -81,7 +81,7 @@ class MainMenuState extends State
 		super.exit();
 		IModel imodel = model;
 		model = null;
-		imodel.Dispose();
+		imodel.dispose();
 	}
 
 	private void loading()

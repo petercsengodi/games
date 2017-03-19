@@ -131,7 +131,7 @@ public class Host {
 
 		for(int i = 0; i < players.Length; i++)
 		{
-			if(players[i] != null) players[i].Dispose();
+			if(players[i] != null) players[i].dispose();
 		}
 
 		game_socket.Close();
@@ -188,7 +188,7 @@ public class Host {
 		if(userID == -1) return;
 		if((data == null) || (data.Description.Equals("Quit Game")))
 		{
-			players[userID].Dispose();
+			players[userID].dispose();
 			players[userID] = null;
 			host_data.player_count--;
 			//				if(host_data.player_count == 0) Stop();

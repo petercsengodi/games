@@ -40,7 +40,7 @@ class LoadState extends State
 	//		super.exit();
 	//		IModel imodel = model;
 	//		model = null;
-	//		imodel.Dispose();
+	//		imodel.dispose();
 	//	}
 
 } // End of Load State

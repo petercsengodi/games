@@ -485,7 +485,7 @@ public class Model implements IModel, IPeriod {
 			Map.DoForAllLinks(new TWLFunc(Dispose));
 		}
 
-		if(player!= null) player.Dispose();
+		if(player!= null) player.dispose();
 		player = null;
 		Map = null;
 
@@ -498,7 +498,7 @@ public class Model implements IModel, IPeriod {
 
 	public void dispose(Object theme)
 	{
-		(theme as IDisposable).Dispose();
+		(theme as IDisposable).dispose();
 	}
 
 

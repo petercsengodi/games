@@ -23,10 +23,10 @@ public class TreeObjectView extends ToolView {
 		{
 			if(components != null)
 			{
-				components.Dispose();
+				components.dispose();
 			}
 		}
-		super.Dispose( disposing );
+		super.dispose( disposing );
 	}
 
 	/// <summary>

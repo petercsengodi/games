@@ -291,7 +291,7 @@ public class CModel implements IModelPart
 				f = util.SubsetToFigures(mesh, device, stream);
 				operation = new AddMeshOperation(this, f);
 			}
-			c_dialog.Dispose();
+			c_dialog.dispose();
 			break;
 
 		case InitialFigure.Box:
@@ -311,7 +311,7 @@ public class CModel implements IModelPart
 				f = util.SubsetToFigures(mesh, device, stream);
 				operation = new AddMeshOperation(this, f);
 			}
-			torus.Dispose();
+			torus.dispose();
 			break;
 
 		case InitialFigure.TextMesh:
@@ -325,7 +325,7 @@ public class CModel implements IModelPart
 				f = util.SubsetToFigures(mesh, device, stream);
 				operation = new AddMeshOperation(this, f);
 			}
-			t_dialog.Dispose();
+			t_dialog.dispose();
 			break;
 
 
@@ -345,12 +345,12 @@ public class CModel implements IModelPart
 				f = util.SubsetToFigures(mesh, device, stream);
 				operation = new AddMeshOperation(this, f);
 			}
-			s_dialog.Dispose();
+			s_dialog.dispose();
 			break;
 		}
 
-		util.Dispose();
-		if(mesh != null) mesh.Dispose();
+		util.dispose();
+		if(mesh != null) mesh.dispose();
 		if(operation != null)
 		{
 			memento.Push(operation);

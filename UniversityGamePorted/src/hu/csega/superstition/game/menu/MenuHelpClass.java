@@ -41,7 +41,7 @@ public class MenuHelpClass {
 	{
 		for(int i = 0; i < elements.length; i++)
 		{
-			elements[i].Dispose();
+			elements[i].dispose();
 		}
 	}
 

@@ -67,10 +67,10 @@ public class NormalPreview extends JPanel
 		{
 			if(components != null)
 			{
-				components.Dispose();
+				components.dispose();
 			}
 		}
-		super.Dispose( disposing );
+		super.dispose( disposing );
 	}
 
 
@@ -165,7 +165,7 @@ public class NormalPreview extends JPanel
 
 	private void NormalPreview_Resize(Object sender, System.EventArgs e)
 	{
-		backBuffer.Dispose();
+		backBuffer.dispose();
 		backBuffer = new Bitmap(Width, Height);
 	}
 

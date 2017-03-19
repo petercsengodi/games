@@ -6,8 +6,8 @@ import hu.csega.superstition.game.Engine;
 import hu.csega.superstition.gamelib.network.GameObjectData;
 import hu.csega.superstition.storygenerator.Room;
 
-public abstract class DynamicObject extends Clipable implements IGameObject
-{
+public abstract class DynamicObject extends Clipable implements IGameObject {
+
 	protected boolean alive;
 
 	public boolean isAlive() {
@@ -46,10 +46,11 @@ public abstract class DynamicObject extends Clipable implements IGameObject
 
 	@Override
 	public abstract GameObjectData getData();
+
+	@Override
 	public abstract void Build(Engine engine);
 
-	public void period()
-	{
+	public void period() {
 		float deltat = 0.04f;
 		position.add(diff, position);
 		velocity.mul(deltat, diff);

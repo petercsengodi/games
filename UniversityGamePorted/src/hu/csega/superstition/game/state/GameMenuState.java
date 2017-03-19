@@ -81,7 +81,7 @@ class GameMenuState extends State {
 			return play;
 
 		case MainMenuSelection.QUIT:
-			gameModel.Dispose();
+			gameModel.dispose();
 			return quit;
 		}
 
@@ -104,12 +104,12 @@ class GameMenuState extends State {
 		super.exit();
 		IModel imodel = model;
 		model = null;
-		imodel.Dispose();
+		imodel.dispose();
 	}
 
 	private void loading()
 	{
-		gameModel.Dispose();
+		gameModel.dispose();
 		gameModel.LoadXmlMap(filename);
 		gameModel.Initialize(engine);
 		host = null;
@@ -121,7 +121,7 @@ class GameMenuState extends State {
 
 	private void joinhost()
 	{
-		gameModel.Dispose();
+		gameModel.dispose();
 		gameModel.SetDataModel(
 				ModelIO.ExtractModelData(map.map_buffer));
 		gameModel.Initialize(engine);
@@ -156,7 +156,7 @@ class GameMenuState extends State {
 
 	private void loadgame()
 	{
-		gameModel.Dispose();
+		gameModel.dispose();
 		ModelIO.LoadModelFromFile(gameModel, filename);
 		gameModel.Initialize(engine);
 		Thread.CurrentThread.Abort();
@@ -164,7 +164,7 @@ class GameMenuState extends State {
 
 	private void densemap()
 	{
-		gameModel.Dispose();
+		gameModel.dispose();
 		gameModel.DenseMap();
 		gameModel.Initialize(engine);
 		Thread.CurrentThread.Abort();
@@ -172,7 +172,7 @@ class GameMenuState extends State {
 
 	private void quitgame()
 	{
-		gameModel.Dispose();
+		gameModel.dispose();
 		cstate.trigger(mstate);
 		Thread.CurrentThread.Abort();
 	}

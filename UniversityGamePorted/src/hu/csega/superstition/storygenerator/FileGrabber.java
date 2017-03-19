@@ -29,7 +29,7 @@ public class FileGrabber extends JPanel
 		}
 		else ret = value;
 
-		openFile.Dispose();
+		openFile.dispose();
 		return ret;
 	}
 

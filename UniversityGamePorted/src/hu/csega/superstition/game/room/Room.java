@@ -361,7 +361,7 @@ class Room extends TWLNode implements IClipping, IDisposable, IGameObject, IRend
 	{
 		for(Object o : Renders)
 		{
-			(o as IDisposable).Dispose();
+			(o as IDisposable).dispose();
 		}
 	}
 

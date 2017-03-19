@@ -94,7 +94,7 @@ public class HostMenu implements IMenu
 
 	public void dispose()
 	{
-		menuhelp.Dispose();
+		menuhelp.dispose();
 		// TODO:  Add HostEntry.Dispose implementation
 	}
 
