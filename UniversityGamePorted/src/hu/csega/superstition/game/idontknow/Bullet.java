@@ -1,14 +1,16 @@
 package hu.csega.superstition.game.idontknow;
 
+import org.joml.Vector3f;
+
 public class Bullet extends DynamicObject implements IGameElement {
 
 	protected Model model;
 	protected float radius;
 	protected MeshElement bullet;
 	protected static float speed = 0.1f, limit = (float)(Math.PI * 2.0);
-	protected static Vector3 vup = new Vector3(0f, 1f, 0f);
+	protected static Vector3f vup = new Vector3f(0f, 1f, 0f);
 
-	public Bullet(Vector3 position, Vector3 velocity, Model model) {
+	public Bullet(Vector3f position, Vector3f velocity, Model model) {
 		super(position, position, position);
 		this.radius = 0f;
 		this.model = model;
@@ -19,8 +21,8 @@ public class Bullet extends DynamicObject implements IGameElement {
 
 	public class BulletData extends GameObjectData
 	{
-		public Vector3 position;
-		public Vector3 velocity;
+		public Vector3f position;
+		public Vector3f velocity;
 
 		public BulletData()
 		{
@@ -34,8 +36,8 @@ public class Bullet extends DynamicObject implements IGameElement {
 	}
 
 	public Bullet(BulletData data) {
-		super(new Vector3(0f, 0f, 0f),
-				new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 0f));
+		super(new Vector3f(0f, 0f, 0f),
+				new Vector3f(0f, 0f, 0f), new Vector3f(0f, 0f, 0f));
 		this.position = data.position;
 		this.velocity = velocity;
 		this.radius = 0f;
@@ -69,8 +71,8 @@ public class Bullet extends DynamicObject implements IGameElement {
 				EngineMeshFlags.Colored | EngineMeshFlags.NoShadow,
 				Color.Yellow);
 		radius = bullet.Radius();
-		corner1 = new Vector3(-radius, -radius, -radius);
-		corner2 = new Vector3(radius, radius, radius);
+		corner1 = new Vector3f(-radius, -radius, -radius);
+		corner2 = new Vector3f(radius, radius, radius);
 	}
 
 	@Override
@@ -79,7 +81,7 @@ public class Bullet extends DynamicObject implements IGameElement {
 		bullet.Render(position, velocity);
 	} // End of function Render
 
-	public void Squash(StaticVectorLibrary.Direction dir, Vector3 box1, Vector3 box2, Vector3 sqpoint)
+	public void Squash(StaticVectorLibrary.Direction dir, Vector3f box1, Vector3f box2, Vector3f sqpoint)
 	{
 		model.GEToRemove.Add(this);
 	}

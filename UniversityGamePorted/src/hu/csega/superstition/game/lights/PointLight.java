@@ -11,7 +11,7 @@ public class PointLight extends Light {
 	/// <summary>
 	/// Position of the light.
 	/// </summary>
-	public Vector3 Position
+	public Vector3f Position
 	{
 		get { return position; }
 
@@ -33,7 +33,7 @@ public class PointLight extends Light {
 	/// <param name="_range">Range of the light.</param>
 	/// <param name="_color">Color of the light.</param>
 	/// <param name="_position">Position of the lightsource.</param>
-	public PointLight(Engine _engine, float _range, Color _color, Vector3 _position)
+	public PointLight(Engine _engine, float _range, Color _color, Vector3f _position)
 	{
 		engine = _engine;
 		range = _range;

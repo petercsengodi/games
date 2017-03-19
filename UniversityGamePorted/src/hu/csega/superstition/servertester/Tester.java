@@ -1,5 +1,7 @@
 package hu.csega.superstition.servertester;
 
+import org.joml.Vector3f;
+
 public class Tester extends JPanel {
 
 	private System.Windows.Forms.TextBox hostname;
@@ -40,9 +42,9 @@ public class Tester extends JPanel {
 	private NetworkClient client;
 	private PlayClient net_player;
 	private HostList host_list;
-	private Vector3 player_position;
-	private Vector3 null_vector;
-	private Vector3[] all_data;
+	private Vector3f player_position;
+	private Vector3f null_vector;
+	private Vector3f[] all_data;
 
 	public boolean ReadOnly
 	{
@@ -71,8 +73,8 @@ public class Tester extends JPanel {
 		host_string = hostname.Text;
 
 		all_data = null;
-		player_position = new Vector3(0f, 0f, 0f);
-		null_vector = new Vector3(0f, 0f, 0f);
+		player_position = new Vector3f(0f, 0f, 0f);
+		null_vector = new Vector3f(0f, 0f, 0f);
 
 		OnHostNameChanged();
 	}
@@ -219,7 +221,7 @@ public class Tester extends JPanel {
 		if(data.Description.Equals("AllNetPlayer"))
 		{
 			AllPlayerData all_player = (AllPlayerData) data;
-			all_data = new Vector3[all_player.all_data.Length];
+			all_data = new Vector3f[all_player.all_data.Length];
 			for(int i = 0; i < all_player.all_data.Length; i++)
 			{
 				if(all_player.all_data[i] == null) continue;
@@ -527,7 +529,7 @@ public class Tester extends JPanel {
 	{
 		NetworkPlayerData data = new NetworkPlayerData();
 		data.position = player_position;
-		data.difference = new Vector3(x, y, 0f);
+		data.difference = new Vector3f(x, y, 0f);
 
 		player_position.X += x;
 		player_position.Y += y;
@@ -621,7 +623,7 @@ public class Tester extends JPanel {
 	{
 		NetworkPlayerData data = new NetworkPlayerData();
 		data.position = player_position;
-		data.difference = new Vector3(0f, 0f, 0f);
+		data.difference = new Vector3f(0f, 0f, 0f);
 		if(net_player != null) net_player.Send(data);
 		playerView1.SetPositions(player_position, all_data);
 		playerView1.Invalidate();

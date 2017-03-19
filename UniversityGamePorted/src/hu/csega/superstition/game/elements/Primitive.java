@@ -40,7 +40,7 @@ public abstract class Primitive extends Element {
 	/// <summary>
 	/// Recreating Primitive.
 	/// </summary>
-	public virtual void ReCreate()
+	public void ReCreate()
 	{
 		if(face == null) return;
 
@@ -65,7 +65,7 @@ public abstract class Primitive extends Element {
 	/// <summary>
 	/// ReInitialization of Primitive.
 	/// </summary>
-	public virtual void ReInit(){ Initialize(buffer, null); }
+	public void ReInit(){ Initialize(buffer, null); }
 
 	/// <summary>
 	/// Dispose function.

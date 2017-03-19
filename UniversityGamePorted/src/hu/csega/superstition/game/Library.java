@@ -54,7 +54,7 @@ public abstract class Library {
 		Clear();
 	}
 
-	public virtual void Clear()
+	public void Clear()
 	{
 		for(IDisposable disp : library)
 		{

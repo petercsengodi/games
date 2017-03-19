@@ -1,5 +1,7 @@
 package hu.csega.superstition.game.object;
 
+import org.joml.Vector3f;
+
 public class StaticBox extends MapObject implements IDisposable
 {
 	protected Primitive[] walls;
@@ -9,13 +11,13 @@ public class StaticBox extends MapObject implements IDisposable
 	public static int FLAG_LEFT = 1, FLAG_RIGHT = 2, FLAG_BACK = 4,
 			FLAG_FRONT = 8, FLAG_BOTTOM = 16, FLAG_TOP = 32;
 
-	public StaticBox(Vector3 _corner1, Vector3 _corner2, String face) {
+	public StaticBox(Vector3f _corner1, Vector3f _corner2, String face) {
 		super(_corner1, _corner2);
 		FLAGS = FLAG_LEFT | FLAG_RIGHT | FLAG_FRONT | FLAG_BACK | FLAG_TOP | FLAG_BOTTOM;
 		this.face = face;
 	}
 
-	public StaticBox(Vector3 _corner1, Vector3 _corner2, String face, int FLAGS) {
+	public StaticBox(Vector3f _corner1, Vector3f _corner2, String face, int FLAGS) {
 		super(_corner1, _corner2);
 		this.FLAGS = FLAGS;
 		this.face = face;
@@ -23,7 +25,7 @@ public class StaticBox extends MapObject implements IDisposable
 
 
 	protected class BoxData extends GameObjectData {
-		public Vector3 corner1, corner2, position;
+		public Vector3f corner1, corner2, position;
 		public int flags;
 		public String face;
 
@@ -39,7 +41,7 @@ public class StaticBox extends MapObject implements IDisposable
 	}
 
 	public StaticBox(GameObjectData data) {
-		super(new Vector3(), new Vector3());
+		super(new Vector3f(), new Vector3f());
 		BoxData d = data as BoxData;
 		this.face = d.face;
 		this.corner1 = d.corner1;
@@ -82,14 +84,14 @@ public class StaticBox extends MapObject implements IDisposable
 		{
 			walls[i++] = engine.Pr_Plane(
 					corner1,
-					new Vector3(corner1.X, corner2.Y, corner2.Z),
+					new Vector3f(corner1.X, corner2.Y, corner2.Z),
 					StaticVectorLibrary.Left, face);
 		}
 
 		if( (FLAGS & FLAG_RIGHT) > 0 )
 		{
 			walls[i++] = engine.Pr_Plane(
-					new Vector3(corner2.X, corner1.Y, corner1.Z),
+					new Vector3f(corner2.X, corner1.Y, corner1.Z),
 					corner2,
 					StaticVectorLibrary.Right, face);
 		}
@@ -98,14 +100,14 @@ public class StaticBox extends MapObject implements IDisposable
 		{
 			walls[i++] = engine.Pr_Plane(
 					corner1,
-					new Vector3(corner2.X, corner2.Y, corner1.Z),
+					new Vector3f(corner2.X, corner2.Y, corner1.Z),
 					StaticVectorLibrary.Back, face);
 		}
 
 		if( (FLAGS & FLAG_FRONT) > 0 )
 		{
 			walls[i++] = engine.Pr_Plane(
-					new Vector3(corner1.X, corner1.Y, corner2.Z),
+					new Vector3f(corner1.X, corner1.Y, corner2.Z),
 					corner2,
 					StaticVectorLibrary.Front, face);
 		}
@@ -114,14 +116,14 @@ public class StaticBox extends MapObject implements IDisposable
 		{
 			walls[i++] = engine.Pr_Plane(
 					corner1,
-					new Vector3(corner2.X, corner1.Y, corner2.Z),
+					new Vector3f(corner2.X, corner1.Y, corner2.Z),
 					StaticVectorLibrary.Bottom, face);
 		}
 
 		if( (FLAGS & FLAG_TOP) > 0 )
 		{
 			walls[i++] = engine.Pr_Plane(
-					new Vector3(corner1.X, corner2.Y, corner1.Z),
+					new Vector3f(corner1.X, corner2.Y, corner1.Z),
 					corner2,
 					StaticVectorLibrary.Top, face);
 		}

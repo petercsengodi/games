@@ -1,15 +1,17 @@
 package hu.csega.superstition.game.map;
 
+import org.joml.Vector3f;
+
 public class DecoratedLight extends MapObject {
 	protected String meshFrame, meshGlow;
 	protected Element frame, glow;
 	protected Color color;
-	protected Vector3 light;
+	protected Vector3f light;
 	protected Light l;
 	protected float angle, range;
 	protected Engine engine;
 
-	public DecoratedLight(Vector3 position, Vector3 corner1, Vector3 corner2,
+	public DecoratedLight(Vector3f position, Vector3f corner1, Vector3f corner2,
 			float angle) {
 		super(position + corner1, position + corner2);
 		this.angle = angle;
@@ -18,7 +20,7 @@ public class DecoratedLight extends MapObject {
 		Select();
 	}
 
-	public DecoratedLight(Vector3 position, Vector3 corner1, Vector3 corner2)
+	public DecoratedLight(Vector3f position, Vector3f corner1, Vector3f corner2)
 
 	{
 		super(position + corner1, position + corner2);
@@ -72,10 +74,10 @@ public class DecoratedLight extends MapObject {
 	protected class DecoratedLightData extends GameObjectData
 	{
 		public float angle, range;
-		public Vector3 corner1, corner2, position;
+		public Vector3f corner1, corner2, position;
 		public String meshFrame, meshGlow;
 		public Color color;
-		public Vector3 light;
+		public Vector3f light;
 
 		public DecoratedLightData()
 		{
@@ -92,7 +94,7 @@ public class DecoratedLight extends MapObject {
 	public DecoratedLight(GameObjectData data)
 
 	{
-		super(new Vector3(), new Vector3());
+		super(new Vector3f(), new Vector3f());
 		DecoratedLightData d = data as DecoratedLightData;
 		this.angle = d.angle;
 		this.corner1 = d.corner1;

@@ -1,5 +1,7 @@
 package hu.csega.superstition.t3dcreator.operations;
 
+import org.joml.Vector3f;
+
 public class EdgeSplit extends Operation
 {
 	private CFigure figure;
@@ -55,7 +57,7 @@ public class EdgeSplit extends Operation
 		figure.triangles.Remove(old_triangles[1]);
 
 		// Creating new vertex
-		Vector3 position = (old_vertices[0].position +
+		Vector3f position = (old_vertices[0].position +
 				old_vertices[1].position) * 0.5f;
 		Vector2 texture = (old_vertices[0].texture_coordinates +
 				old_vertices[1].texture_coordinates) * 0.5f;

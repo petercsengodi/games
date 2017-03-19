@@ -180,8 +180,8 @@ class StructedGridMaze implements IGeneratedMaze
 		int z = (index / xsize), x = (index % xsize);
 
 		graph[x][z].room = new Room(
-				new Vector3(x*12f, -4f, z*12f),
-				new Vector3(x*12f+6f, 1f, z*12f + 6f));
+				new Vector3f(x*12f, -4f, z*12f),
+				new Vector3f(x*12f+6f, 1f, z*12f + 6f));
 		if(it != null) graph[x][z].room.BITMAP = it.RoomImage;
 		else graph[x][z].room.DirectXTexture = @"floor_textures\brick.bmp";
 		graph[x][z].room.Mark = "Room";
@@ -267,8 +267,8 @@ class StructedGridMaze implements IGeneratedMaze
 			if(graph[actX][actZ].room == null)
 			{
 				graph[actX][actZ].room = new Room(
-						new Vector3(actX*12f, -4f, actZ*12f),
-						new Vector3(actX*12f+6f, 1f, actZ*12f + 6f));
+						new Vector3f(actX*12f, -4f, actZ*12f),
+						new Vector3f(actX*12f+6f, 1f, actZ*12f + 6f));
 				if(it != null) graph[actX][actZ].room.BITMAP = it.RoomImage;
 				else graph[actX][actZ].room.DirectXTexture = "/res/floor_textures/brick.bmp";
 				graph[actX][actZ].room.Mark = "Room";
@@ -322,8 +322,8 @@ class StructedGridMaze implements IGeneratedMaze
 			if(graph[i][j].right == NodeState.Linked)
 			{
 				corridor = new Room(
-						new Vector3(12f * i + 6f, -3.5f, 12f * j + 2.15f),
-						new Vector3(12f * i + 12f, -0.5f, 12f * j + 3.85f));
+						new Vector3f(12f * i + 6f, -3.5f, 12f * j + 2.15f),
+						new Vector3f(12f * i + 12f, -0.5f, 12f * j + 3.85f));
 				if(it != null) corridor.BITMAP = it.CorridorImage;
 				else corridor.DirectXTexture = "/res/wall_textures/brick3.bmp";
 
@@ -345,8 +345,8 @@ class StructedGridMaze implements IGeneratedMaze
 			if(graph[i][j].down == NodeState.Linked)
 			{
 				corridor = new Room(
-						new Vector3(12f * i + 2.15f, -3.5f, 12f * j + 6f),
-						new Vector3(12f * i + 3.85f, -0.5f, 12f * j + 12f));
+						new Vector3f(12f * i + 2.15f, -3.5f, 12f * j + 6f),
+						new Vector3f(12f * i + 3.85f, -0.5f, 12f * j + 12f));
 				if(it != null) corridor.BITMAP = it.CorridorImage;
 				else corridor.DirectXTexture = @"wall_textures\brick3.bmp";
 				corridor.Mark = "Corridor";

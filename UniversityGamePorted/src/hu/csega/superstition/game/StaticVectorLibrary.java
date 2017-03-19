@@ -18,17 +18,17 @@ public class StaticVectorLibrary {
 	static {
 		if(inited) return; else inited = true;
 
-		Left = new Direction(); Left.NormalVector = new Vector3(-1f, 0f, 0f);
+		Left = new Direction(); Left.NormalVector = new Vector3f(-1f, 0f, 0f);
 		Left.SquarePoint = new SquarePointFunction(LeftSquarePoint);
-		Right = new Direction(); Right.NormalVector = new Vector3(1f, 0f, 0f);
+		Right = new Direction(); Right.NormalVector = new Vector3f(1f, 0f, 0f);
 		Right.SquarePoint = new SquarePointFunction(RightSquarePoint);
-		Front = new Direction(); Front.NormalVector = new Vector3(0f, 0f, 1f);
+		Front = new Direction(); Front.NormalVector = new Vector3f(0f, 0f, 1f);
 		Front.SquarePoint = new SquarePointFunction(FrontSquarePoint);
-		Back = new Direction(); Back.NormalVector = new Vector3(0f, 0f, -1f);
+		Back = new Direction(); Back.NormalVector = new Vector3f(0f, 0f, -1f);
 		Back.SquarePoint = new SquarePointFunction(BackSquarePoint);
-		Top = new Direction(); Top.NormalVector = new Vector3(0f, 1f, 0f);
+		Top = new Direction(); Top.NormalVector = new Vector3f(0f, 1f, 0f);
 		Top.SquarePoint = new SquarePointFunction(TopSquarePoint);
-		Bottom = new Direction(); Bottom.NormalVector = new Vector3(0f, -1f, 0f);
+		Bottom = new Direction(); Bottom.NormalVector = new Vector3f(0f, -1f, 0f);
 		Bottom.SquarePoint = new SquarePointFunction(BottomSquarePoint);
 	}
 
@@ -39,7 +39,7 @@ public class StaticVectorLibrary {
 	/// <param name="Max">Maximum Vector.</param>
 	/// <param name="num">Square Point number.</param>
 	/// <returns>Direct 3D vertex for Square Point.</returns>
-	static public CustomVertex.PositionNormalTextured LeftSquarePoint(Vector3 Min, Vector3 Max, int num)
+	static public CustomVertex.PositionNormalTextured LeftSquarePoint(Vector3f Min, Vector3f Max, int num)
 	{
 		switch(num)
 		{
@@ -69,7 +69,7 @@ public class StaticVectorLibrary {
 	/// <param name="Max">Maximum Vector.</param>
 	/// <param name="num">Square Point number.</param>
 	/// <returns>Direct 3D vertex for Square Point.</returns>
-	static public CustomVertex.PositionNormalTextured RightSquarePoint(Vector3 Min, Vector3 Max, int num)
+	static public CustomVertex.PositionNormalTextured RightSquarePoint(Vector3f Min, Vector3f Max, int num)
 	{
 		switch(num)
 		{
@@ -99,7 +99,7 @@ public class StaticVectorLibrary {
 	/// <param name="Max">Maximum Vector.</param>
 	/// <param name="num">Square Point number.</param>
 	/// <returns>Direct 3D vertex for Square Point.</returns>
-	static public CustomVertex.PositionNormalTextured FrontSquarePoint(Vector3 Min, Vector3 Max, int num)
+	static public CustomVertex.PositionNormalTextured FrontSquarePoint(Vector3f Min, Vector3f Max, int num)
 	{
 		switch(num)
 		{
@@ -129,7 +129,7 @@ public class StaticVectorLibrary {
 	/// <param name="Max">Maximum Vector.</param>
 	/// <param name="num">Square Point number.</param>
 	/// <returns>Direct 3D vertex for Square Point.</returns>
-	static public CustomVertex.PositionNormalTextured BackSquarePoint(Vector3 Min, Vector3 Max, int num)
+	static public CustomVertex.PositionNormalTextured BackSquarePoint(Vector3f Min, Vector3f Max, int num)
 	{
 		switch(num)
 		{
@@ -158,7 +158,7 @@ public class StaticVectorLibrary {
 	/// <param name="Max">Maximum Vector.</param>
 	/// <param name="num">Square Point number.</param>
 	/// <returns>Direct 3D vertex for Square Point.</returns>
-	static public CustomVertex.PositionNormalTextured TopSquarePoint(Vector3 Min, Vector3 Max, int num)
+	static public CustomVertex.PositionNormalTextured TopSquarePoint(Vector3f Min, Vector3f Max, int num)
 	{
 		switch(num)
 		{
@@ -188,7 +188,7 @@ public class StaticVectorLibrary {
 	/// <param name="Max">Maximum Vector.</param>
 	/// <param name="num">Square Point number.</param>
 	/// <returns>Direct 3D vertex for Square Point.</returns>
-	static public CustomVertex.PositionNormalTextured BottomSquarePoint(Vector3 Min, Vector3 Max, int num)
+	static public CustomVertex.PositionNormalTextured BottomSquarePoint(Vector3f Min, Vector3f Max, int num)
 	{
 		switch(num)
 		{

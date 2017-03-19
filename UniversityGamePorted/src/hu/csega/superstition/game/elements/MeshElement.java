@@ -1,5 +1,7 @@
 package hu.csega.superstition.game.elements;
 
+import org.joml.Vector3f;
+
 public class MeshElement extends Element {
 
 	private Material[] mats;
@@ -110,7 +112,7 @@ public class MeshElement extends Element {
 	public float Radius()
 	{
 		float ret = 0f;
-		Vector3 average = new Vector3(0f, 0f, 0f);
+		Vector3f average = new Vector3f(0f, 0f, 0f);
 
 		CustomVertex.PositionNormalTextured[] array =
 				(CustomVertex.PositionNormalTextured[])
@@ -137,10 +139,10 @@ public class MeshElement extends Element {
 		return ret;
 	}
 
-	public Vector3[] Borders()
+	public Vector3f[] Borders()
 	{
 
-		Vector3[] corners = null;
+		Vector3f[] corners = null;
 
 		CustomVertex.PositionNormalTextured[] array =
 				(CustomVertex.PositionNormalTextured[])
@@ -151,7 +153,7 @@ public class MeshElement extends Element {
 
 		if(array.Length > 0)
 		{
-			corners = new Vector3[2];
+			corners = new Vector3f[2];
 			corners[0] = array[0].Position;
 			corners[1] = array[0].Position;
 
@@ -169,7 +171,7 @@ public class MeshElement extends Element {
 		return corners;
 	}
 
-	public boolean Shot(Vector3 start, Vector3 end, boolean infinity)
+	public boolean Shot(Vector3f start, Vector3f end, boolean infinity)
 	{
 		if(infinity)
 		{

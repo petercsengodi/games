@@ -198,7 +198,7 @@ public class XmlWriter implements Closeable {
 		finishOpeningNodeWithSelfClosure();
 	}
 
-	private void printVector3(XmlFieldBinding fb, Object value) throws IOException {
+	private void printVector3f(XmlFieldBinding fb, Object value) throws IOException {
 		Vector3f v = (Vector3f) value;
 		startOpeningNode("Math.Vector3");
 		printAttribute("X", String.valueOf(v.x));
@@ -229,7 +229,7 @@ public class XmlWriter implements Closeable {
 			return;
 
 		} else if (value instanceof Vector3f) {
-			printVector3(fb, value);
+			printVector3f(fb, value);
 			return;
 
 		} else if (value instanceof Vector4f) {

@@ -49,6 +49,7 @@ public class Spider extends Enemy {
 		direction = new Vector3f(0f, 0f, -1f);
 	}
 
+	@Override
 	public void Build(Engine engine)
 	{
 		animations = new Animation[2];
@@ -81,6 +82,7 @@ public class Spider extends Enemy {
 		private static final long serialVersionUID = -1l;
 	}
 
+	@Override
 	public GameObjectData getData()
 	{
 		SpiderData ret = new SpiderData();
@@ -149,18 +151,18 @@ public class Spider extends Enemy {
 				current = animations[Spider.STAND];
 
 				// TODO: Normal falling clipping
-				up = new Vector3(0f, 1f, 0f);
+				up = new Vector3f(0f, 1f, 0f);
 				if(Math.Abs(direction.X) < 0.001f &&
 						Math.Abs(direction.Z) < 0.001f)
 				{
-					direction = new Vector3(0f, 0f, -1f);
+					direction = new Vector3f(0f, 0f, -1f);
 				}
 				else
 				{
 					direction.Y = 0f;
 					direction.Normalize();
 				}
-				velocity = new Vector3(0f, -P_FALL, 0f);
+				velocity = new Vector3f(0f, -P_FALL, 0f);
 			}
 			else
 			{
@@ -190,7 +192,7 @@ public class Spider extends Enemy {
 				position += direction * P_WALK;
 				up = Vector3.Cross(direction, right);
 				up.Normalize();
-				velocity = new Vector3(0f, 0f, 0f);
+				velocity = new Vector3f(0f, 0f, 0f);
 			}
 
 		}

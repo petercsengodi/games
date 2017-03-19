@@ -12,7 +12,7 @@ public class DirectedLight extends Light {
 	/// <summary>
 	/// Direction of the light
 	/// </summary>
-	public Vector3 Direction
+	public Vector3f Direction
 	{
 		get { return direction; }
 
@@ -28,21 +28,21 @@ public class DirectedLight extends Light {
 	}
 
 	/// <summary>
-	/// A virtual position for the light. Used for
+	/// A position for the light. Used for
 	/// generating shadow volumes.
 	/// </summary>
-	public Vector3 Position
+	public Vector3f Position
 	{
 		get
 		{
-			Vector3 ret = direction;
+			Vector3f ret = direction;
 			ret.Normalize();
 			return -20f * ret;
 		}
 
 		set
 		{
-			Vector3 ret = value;
+			Vector3f ret = value;
 			ret.Normalize();
 			direction = 1f * ret;
 			if(index > -1)

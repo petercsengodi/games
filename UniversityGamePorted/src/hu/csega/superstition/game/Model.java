@@ -1,5 +1,7 @@
 package hu.csega.superstition.game;
 
+import org.joml.Vector3f;
+
 public class Model implements IModel, IPeriod {
 
 	protected Engine engine;
@@ -140,9 +142,9 @@ public class Model implements IModel, IPeriod {
 	public void DenseMap()
 	{
 		DenseMaze maze = new DenseMaze(10, 10);
-		player = new PlayerObject(new Vector3(0f, 0f, 0f),
-				new Vector3(-0.25f, -0.75f, -0.25f),
-				new Vector3(0.25f, 0.25f, 0.25f));
+		player = new PlayerObject(new Vector3f(0f, 0f, 0f),
+				new Vector3f(-0.25f, -0.75f, -0.25f),
+				new Vector3f(0.25f, 0.25f, 0.25f));
 		player.Model = this;
 		Map = maze.Generate();
 
@@ -160,8 +162,8 @@ public class Model implements IModel, IPeriod {
 		//		to_remove = new ArrayList();
 
 		StructedMaze generator; // !!!
-		player = new PlayerObject(new Vector3(4f, 0f, 4f),
-				new Vector3(-0.25f, -0.5f, -0.25f), new Vector3(0.25f, 0.75f, 0.25f));
+		player = new PlayerObject(new Vector3f(4f, 0f, 4f),
+				new Vector3f(-0.25f, -0.5f, -0.25f), new Vector3f(0.25f, 0.75f, 0.25f));
 		player.Model = this;
 
 
@@ -295,9 +297,9 @@ public class Model implements IModel, IPeriod {
 	}
 
 	@Override
-	public Vector3 GetViewPosition()
+	public Vector3f GetViewPosition()
 	{
-		Vector3 ret = player.position;
+		Vector3f ret = player.position;
 
 		switch(ModelOptions.view)
 		{
@@ -325,9 +327,9 @@ public class Model implements IModel, IPeriod {
 	}
 
 	@Override
-	public Vector3 GetViewDirection()
+	public Vector3f GetViewDirection()
 	{
-		Vector3 ret = player.getDirection();
+		Vector3f ret = player.getDirection();
 
 		switch(ModelOptions.view)
 		{
@@ -359,9 +361,9 @@ public class Model implements IModel, IPeriod {
 	}
 
 	@Override
-	public Vector3 GetVUp()
+	public Vector3f GetVUp()
 	{
-		Vector3 ret = new Vector3(0f, 1f, 0f);
+		Vector3f ret = new Vector3f(0f, 1f, 0f);
 
 		switch(ModelOptions.view)
 		{

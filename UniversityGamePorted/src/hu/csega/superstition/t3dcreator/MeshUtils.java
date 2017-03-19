@@ -65,7 +65,7 @@ public class MeshUtils {
 				{
 					vb.Write(new CustomVertex.PositionNormalTextured(
 							v.position,
-							new Vector3(0f, 0f, 0f),
+							new Vector3f(0f, 0f, 0f),
 							v.texture_coordinates.X,
 							v.texture_coordinates.Y));
 				}

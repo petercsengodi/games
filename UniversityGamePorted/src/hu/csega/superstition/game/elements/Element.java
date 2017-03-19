@@ -5,7 +5,7 @@ import org.joml.Vector3f;
 public abstract class Element {
 
 	protected Engine engine;
-	private static Vector3 vup = new Vector3f(0f, 1f, 0f);
+	private static Vector3f vup = new Vector3f(0f, 1f, 0f);
 	protected boolean shadow = true;
 	protected Matrix inverz = Matrix.Identity;
 
@@ -32,7 +32,7 @@ public abstract class Element {
 	/// </summary>
 	/// <param name="position">Position of the Object in the World.</param>
 	/// <param name="orientation">Orientation of the Oject in the World.</param>
-	public void Render(Vector3 translation, Vector3 orientation)
+	public void Render(Vector3f translation, Vector3f orientation)
 	{
 		Matrix world;
 		inverz = Matrix.LookAtLH(translation,
@@ -63,7 +63,7 @@ public abstract class Element {
 	/// Rendering the element.
 	/// </summary>
 	/// <param name="translation">Translation Vector.</param>
-	public void Render(Vector3 translation)
+	public void Render(Vector3f translation)
 	{
 		engine.Device.Transform.World = Matrix.Translation(translation);
 		inverz = Matrix.Translation(-translation);
@@ -80,7 +80,7 @@ public abstract class Element {
 	/// <param name="xRotation">Rotation of the Object at Axis X in the World.</param>
 	/// <param name="yRotation">Rotation of the Object at Axis Y in the World.</param>
 	/// <param name="zRotation">Rotation of the Object at Axis Z in the World.</param>
-	public void Render(Vector3 translation, float xRotation, float yRotation, float zRotation)
+	public void Render(Vector3f translation, float xRotation, float yRotation, float zRotation)
 	{
 		engine.Device.Transform.World =
 				Matrix.Multiply(Matrix.RotationX(xRotation),
@@ -106,7 +106,7 @@ public abstract class Element {
 	/// <summary>
 	/// Rendering the shadow volume of an element.
 	/// </summary>
-	public virtual void RenderShadow(){}
+	public void RenderShadow(){}
 
 	/// <summary>
 	/// Disposes this element. (Gets itself out of Engine's

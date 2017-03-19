@@ -3,6 +3,8 @@ package hu.csega.superstition.animatool;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+import org.joml.Vector3f;
+
 import hu.csega.superstition.tools.presentation.ToolView;
 
 public class WireFrameView extends ToolView {
@@ -17,7 +19,7 @@ public class WireFrameView extends ToolView {
 		InitializeComponent();
 
 		view = Matrix.Identity;
-		translation = new Vector3(0f, 0f, 0f);
+		translation = new Vector3f(0f, 0f, 0f);
 	}
 
 	/// <summary>
@@ -92,11 +94,11 @@ public class WireFrameView extends ToolView {
 	private static final double move_step = 1.0;
 
 	private Matrix view, invert;
-	private Vector3 translation;
+	private Vector3f translation;
 	private double zoom;
 	private ButtonControl[] bcontrol;
 	private boolean show_grid;
-	private Vector3 angle = new Vector3(0f, 0f, 0f);
+	private Vector3f angle = new Vector3f(0f, 0f, 0f);
 	private static final float rotation =
 			(float)Math.PI / 18;
 
@@ -197,7 +199,7 @@ public class WireFrameView extends ToolView {
 		Pen pen_violet = new Pen(brush_violet, 2f);
 
 		// Drawing origo
-		Vector3 vorigo = new Vector3(0f, 0f, 0f);
+		Vector3f vorigo = new Vector3f(0f, 0f, 0f);
 		Point porigo = Transform(vorigo);
 		g.DrawLine(pen_yellow, porigo.X - 10, porigo.Y,
 				porigo.X + 10, porigo.Y);
@@ -220,7 +222,7 @@ public class WireFrameView extends ToolView {
 			if(part == model.Selected) pen = pen_selected;
 			else pen = pen_normal;
 
-			Vector3 pos1, pos2, pos3;
+			Vector3f pos1, pos2, pos3;
 			Point line1, line2, line3;
 
 			for(CConnection con : part.connections)
@@ -286,7 +288,7 @@ public class WireFrameView extends ToolView {
 		brush_normal.Dispose();
 	}
 
-	private Point Transform(Vector3 vector)
+	private Point Transform(Vector3f vector)
 	{
 		vector.TransformCoordinate(view);
 		vector.Multiply((float)zoom);
@@ -295,16 +297,16 @@ public class WireFrameView extends ToolView {
 		return ret;
 	}
 
-	private Vector3 InverseTransform(float x, float y)
+	private Vector3f InverseTransform(float x, float y)
 	{
-		Vector3 ret = new Vector3(x, y, 0f);
+		Vector3f ret = new Vector3f(x, y, 0f);
 		ret.Subtract(translation);
 		ret.Multiply(1f / (float)zoom);
 		ret.TransformCoordinate(invert);
 		return ret;
 	}
 
-	private Vector3 SnapToGrid(Vector3 vector)
+	private Vector3f SnapToGrid(Vector3f vector)
 	{
 		CModel model = (CModel) GetData();
 		vector.X = (float)(Math.Round(vector.X / model.grid_step) * model.grid_step);
@@ -345,7 +347,7 @@ public class WireFrameView extends ToolView {
 		if(e.Button != MouseButtons.Left) return;
 
 		CModel model = GetData() as CModel;
-		Vector3 pos; Point line; double d;
+		Vector3f pos; Point line; double d;
 		for(CPart p : model.parts)
 		{
 			for(CConnection c : p.connections)
@@ -388,12 +390,12 @@ public class WireFrameView extends ToolView {
 
 			if((part == null) && (con == null)) return;
 
-			Vector3 to_point = InverseTransform(e.X, e.Y);
+			Vector3f to_point = InverseTransform(e.X, e.Y);
 			Point origin = new Point(bcontrol[idx].start_x, bcontrol[idx].start_y);
 			Point difference = new Point(e.X - origin.X, e.Y - origin.Y);
-			Vector3 from_point = InverseTransform(origin.X, origin.Y);
-			Vector3 direction = to_point - from_point;
-			//Vector3 direction = InverseTransform(difference.X, difference.Y);
+			Vector3f from_point = InverseTransform(origin.X, origin.Y);
+			Vector3f direction = to_point - from_point;
+			//Vector3f direction = InverseTransform(difference.X, difference.Y);
 
 			if(model.SnapToGrid &&
 					AnimaTool.GetOperatoion() == 0)
@@ -408,8 +410,8 @@ public class WireFrameView extends ToolView {
 
 				if(part != null)
 				{
-					Vector3 tr = part.centerPoint(model.scene);
-					Vector3 scale = new Vector3(0f, 0f, 0f);
+					Vector3f tr = part.centerPoint(model.scene);
+					Vector3f scale = new Vector3f(0f, 0f, 0f);
 					if(Math.Abs(tr.X - from_point.X) > double.Epsilon)
 						scale.X = (to_point.X - tr.X) / (from_point.X - tr.X);
 					if(Math.Abs(tr.Y - from_point.Y) > double.Epsilon)
@@ -467,7 +469,7 @@ public class WireFrameView extends ToolView {
 		idx = (int)MButton.Right;
 		if(bcontrol[idx].down)
 		{
-			Vector3 tr = new Vector3(
+			Vector3f tr = new Vector3f(
 					(float)((e.X - bcontrol[idx].start_x) * move_step),
 					(float)((e.Y - bcontrol[idx].start_y) * move_step),
 					0f);
@@ -490,7 +492,7 @@ public class WireFrameView extends ToolView {
 
 	private void button2_Click(Object sender, System.EventArgs e)
 	{
-		translation = new Vector3(0f, 0f, 0f);
+		translation = new Vector3f(0f, 0f, 0f);
 		zoom = 20.0;
 		Invalidate();
 	}

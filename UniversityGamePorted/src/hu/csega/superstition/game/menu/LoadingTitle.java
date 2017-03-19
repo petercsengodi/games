@@ -1,5 +1,7 @@
 package hu.csega.superstition.game.menu;
 
+import org.joml.Vector3f;
+
 public class LoadingTitle implements IModel
 {
 	protected double angle = 0.0;
@@ -17,14 +19,14 @@ public class LoadingTitle implements IModel
 		text = engine.GetTextMesh(font, "Loading...",
 				MenuHelpClass.TextBend, MenuHelpClass.TextExtr);
 		text.Shadow = false;
-		light = engine.GetDirectedLight(Color.LightBlue, new Vector3(4f, 4f, 8f));
+		light = engine.GetDirectedLight(Color.LightBlue, new Vector3f(4f, 4f, 8f));
 	}
 
 	public void Render()
 	{
 		light.Activate();
 		Matrix m =
-				Matrix.Translation(new Vector3(1f, 0f, 0f) - (text as MeshText).Center)*
+				Matrix.Translation(new Vector3f(1f, 0f, 0f) - (text as MeshText).Center)*
 				Matrix.RotationX(0.3f) *
 				Matrix.RotationZ(0.3f) *
 				Matrix.RotationY(-(float)angle);
@@ -34,19 +36,19 @@ public class LoadingTitle implements IModel
 		light.DeActivate();
 	}
 
-	public Vector3 GetViewPosition()
+	public Vector3f GetViewPosition()
 	{
-		return new Vector3(0f, 0f, -8f);
+		return new Vector3f(0f, 0f, -8f);
 	}
 
-	public Vector3 GetViewDirection()
+	public Vector3f GetViewDirection()
 	{
-		return new Vector3(0f, 0f, 1f);
+		return new Vector3f(0f, 0f, 1f);
 	}
 
-	public Vector3 GetVUp()
+	public Vector3f GetVUp()
 	{
-		return new Vector3(0f, 1f, 0f);
+		return new Vector3f(0f, 1f, 0f);
 	}
 
 	public void OnKeyDown(int key)

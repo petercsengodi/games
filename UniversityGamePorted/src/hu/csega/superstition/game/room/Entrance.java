@@ -1,10 +1,12 @@
 package hu.csega.superstition.game.room;
 
+import org.joml.Vector3f;
+
 class Entrance extends TWLLink implements IClipping, IDisposable, IGameObject, IRenderObject
 {
 
 	public int degree;
-	protected Vector3 Room1Upper, Room1Lower, Room2Upper, Room2Lower;
+	protected Vector3f Room1Upper, Room1Lower, Room2Upper, Room2Lower;
 	protected String tex_stair, tex_door;
 	protected Stair stair;
 	protected Hole hole;
@@ -33,7 +35,7 @@ class Entrance extends TWLLink implements IClipping, IDisposable, IGameObject, I
 
 		public String stair_texture, hole_texture;
 		public int degree;
-		public Vector3 room_from, room_to;
+		public Vector3f room_from, room_to;
 		public GameObjectData stair, hole;
 	}
 

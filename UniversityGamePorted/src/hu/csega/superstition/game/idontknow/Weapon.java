@@ -19,7 +19,7 @@ public class Weapon extends Clipable implements IGameElement {
 
 	protected MeshElement weapon;
 	protected static float speed = 0.1f, limit = (float)(Math.PI * 2.0);
-	protected static Vector3 vup = new Vector3(0f, 1f, 0f);
+	protected static Vector3f vup = new Vector3f(0f, 1f, 0f);
 
 	public WeaponStatus Status
 	{
@@ -27,7 +27,7 @@ public class Weapon extends Clipable implements IGameElement {
 		set{ status = value; }
 	}
 
-	public Weapon(Vector3 position, WeaponType type) {
+	public Weapon(Vector3f position, WeaponType type) {
 		super(position, position, position);
 		this.status = WeaponStatus.Ground;
 		this.type = type;
@@ -39,7 +39,7 @@ public class Weapon extends Clipable implements IGameElement {
 
 	public class WeaponData extends GameObjectData
 	{
-		public Vector3 position;
+		public Vector3f position;
 		public WeaponStatus status;
 		public WeaponType type;
 		public float Angle;
@@ -57,7 +57,7 @@ public class Weapon extends Clipable implements IGameElement {
 	}
 
 	public Weapon(WeaponData data) {
-		super(new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 0f));
+		super(new Vector3f(0f, 0f, 0f), new Vector3f(0f, 0f, 0f), new Vector3f(0f, 0f, 0f));
 		this.position = data.position;
 		this.status = data.status;
 		this.type = data.type;
@@ -121,8 +121,8 @@ public class Weapon extends Clipable implements IGameElement {
 		}
 
 		radius = weapon.Radius();
-		corner1 = new Vector3(-radius, -radius, -radius);
-		corner2 = new Vector3(radius, radius, radius);
+		corner1 = new Vector3f(-radius, -radius, -radius);
+		corner2 = new Vector3f(radius, radius, radius);
 	}
 
 	@Override
@@ -140,16 +140,16 @@ public class Weapon extends Clipable implements IGameElement {
 	{
 	}
 
-	public void Render(Vector3 position, Vector3 orientation)
+	public void Render(Vector3f position, Vector3f orientation)
 	{
 		if(status == WeaponStatus.Grabbed)
 		{
-			Vector3[] res = GetGrabVectors();
-			Vector3 po = Vector3.Lerp(
+			Vector3f[] res = GetGrabVectors();
+			Vector3f po = Vector3.Lerp(
 					res[1], res[0], Math.Abs(anim));
-			Vector3 or = Vector3.Lerp(
+			Vector3f or = Vector3.Lerp(
 					res[3], res[2], Math.Abs(anim));
-			Vector3 vp = Vector3.Lerp(
+			Vector3f vp = Vector3.Lerp(
 					res[5], res[4], Math.Abs(anim));
 			Matrix w1 = Matrix.LookAtLH(position,
 					orientation + position, vup);
@@ -170,7 +170,7 @@ public class Weapon extends Clipable implements IGameElement {
 	} // End of function Render
 
 
-	public void squash(StaticVectorLibrary.Direction dir, Vector3 box1, Vector3 box2, Vector3 sqpoint)
+	public void squash(StaticVectorLibrary.Direction dir, Vector3f box1, Vector3f box2, Vector3f sqpoint)
 	{
 
 		if((dir == StaticVectorLibrary.Left) || (dir == StaticVectorLibrary.Right))
@@ -212,35 +212,35 @@ public class Weapon extends Clipable implements IGameElement {
 
 	protected Vector3f[] GetGrabVectors()
 	{
-		Vector3[] ret = new Vector3[6];
+		Vector3f[] ret = new Vector3f[6];
 
 		switch(type)
 		{
 		case WeaponType.Gun:
-			ret[0] = new Vector3(0.15f, -0.15f, 0.2f);
-			ret[1] = new Vector3(0.15f, -0.15f, 0.1f);
-			ret[2] = new Vector3(0f, 0f, -1f);
-			ret[3] = new Vector3(0f, 0f, -1f);
-			ret[4] = new Vector3(0f, 1f, 0f);
-			ret[5] = new Vector3(0f, 1f, 0f);
+			ret[0] = new Vector3f(0.15f, -0.15f, 0.2f);
+			ret[1] = new Vector3f(0.15f, -0.15f, 0.1f);
+			ret[2] = new Vector3f(0f, 0f, -1f);
+			ret[3] = new Vector3f(0f, 0f, -1f);
+			ret[4] = new Vector3f(0f, 1f, 0f);
+			ret[5] = new Vector3f(0f, 1f, 0f);
 			break;
 
 		case WeaponType.Torch:
-			ret[0] = new Vector3(0.15f, -0.15f, 0.2f);
-			ret[1] = new Vector3(0.15f, -0.15f, 0.1f);
-			ret[2] = new Vector3(0f, 0f, -1f);
-			ret[3] = new Vector3(0f, 0f, -1f);
-			ret[4] = new Vector3(0f, 1f, 0f);
-			ret[5] = new Vector3(0f, 1f, 0f);
+			ret[0] = new Vector3f(0.15f, -0.15f, 0.2f);
+			ret[1] = new Vector3f(0.15f, -0.15f, 0.1f);
+			ret[2] = new Vector3f(0f, 0f, -1f);
+			ret[3] = new Vector3f(0f, 0f, -1f);
+			ret[4] = new Vector3f(0f, 1f, 0f);
+			ret[5] = new Vector3f(0f, 1f, 0f);
 			break;
 
 		default:
-			ret[0] = new Vector3(0.2f, -0.5f, 0f);
-			ret[1] = new Vector3(0.2f, -0.25f, 0.5f);
-			ret[2] = new Vector3(0f, 1.5f, 1f);
-			ret[3] = new Vector3(-2f, 0f, 2f);
-			ret[4] = new Vector3(0f, 1f, 0f);
-			ret[5] = new Vector3(1f, 1f, 0f);
+			ret[0] = new Vector3f(0.2f, -0.5f, 0f);
+			ret[1] = new Vector3f(0.2f, -0.25f, 0.5f);
+			ret[2] = new Vector3f(0f, 1.5f, 1f);
+			ret[3] = new Vector3f(-2f, 0f, 2f);
+			ret[4] = new Vector3f(0f, 1f, 0f);
+			ret[5] = new Vector3f(1f, 1f, 0f);
 			break;
 		}
 
@@ -248,7 +248,7 @@ public class Weapon extends Clipable implements IGameElement {
 		return ret;
 	}
 
-	public void Shot(Vector3 position, Vector3 direction)
+	public void Shot(Vector3f position, Vector3f direction)
 	{
 		if((status == WeaponStatus.Grabbed) && (anim == 1f))
 		{

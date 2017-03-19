@@ -1,5 +1,7 @@
 package hu.csega.superstition.gameserver;
 
+import org.joml.Vector3f;
+
 public class Player {
 	private static float PUSHAWAY = 0.1f;
 	private static float MINDISTANCE = 0.5f;
@@ -19,13 +21,13 @@ public class Player {
 	private byte[] buffer;
 	private BinaryFormatter formatter;
 
-	private Vector3 position;
-	private Vector3 difference;
-	private Vector3 push_away;
+	private Vector3f position;
+	private Vector3f difference;
+	private Vector3f push_away;
 
-	public Vector3 Position { get { return position + difference; } }
+	public Vector3f Position { get { return position + difference; } }
 
-	public Vector3 PushAway
+	public Vector3f PushAway
 	{
 		get{ return push_away; }
 		set{ push_away = value; }
@@ -113,14 +115,14 @@ public class Player {
 	public static void CalculatePushAway(Player[] players)
 	{
 		float length;
-		Vector3 sub;
-		Vector3 zero = new Vector3(0f, 0f, 0f);
-		Vector3[] push_away = new Vector3[players.Length];
+		Vector3f sub;
+		Vector3f zero = new Vector3f(0f, 0f, 0f);
+		Vector3f[] push_away = new Vector3f[players.Length];
 
 		for(int i = 0; i < players.Length; i++)
 		{
 			if(players[i] == null) continue;
-			push_away[i] = new Vector3(0f,0f,0f);
+			push_away[i] = new Vector3f(0f,0f,0f);
 		}
 
 		for(int i = 0; i < players.Length; i++)
@@ -134,7 +136,7 @@ public class Player {
 
 				if(length < MINDISTANCE)
 				{
-					if(length == 0f) sub = new Vector3(0f, 1f, 0f);
+					if(length == 0f) sub = new Vector3f(0f, 1f, 0f);
 					else
 					{
 						sub.Normalize();

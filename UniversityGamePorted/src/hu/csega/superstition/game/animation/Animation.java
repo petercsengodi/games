@@ -92,8 +92,7 @@ public class Animation {
 
 	public void Render(Vector3f position, Vector3f direction, Vector3f up, int scene)
 	{
-		Matrix3f m = Matrix.LookAtLH(position,
-				position + direction, up);
+		Matrix3f m = Matrix.LookAtLH(position, position + direction, up);
 		m.Invert();
 		Draw(m, scene);
 	}
@@ -125,10 +124,8 @@ public class Animation {
 					Matrix3f.Translation(parts[i].center[scene]) *
 					common_world;
 			world.Invert();
-			start = Vector3f.TransformCoordinate(
-					start_point, world);
-			end = Vector3f.TransformCoordinate(
-					end_point, world);
+			start = Vector3f.TransformCoordinate( start_point, world);
+			end = Vector3f.TransformCoordinate( end_point, world);
 			ret |= parts[i].element.Shot(start, end, infinity);
 		}
 		return ret;
@@ -148,8 +145,7 @@ public class Animation {
 				Matrix3f actual = part.worlds[scene] *
 						Matrix3f.Translation(part.center[scene]) *
 						common_world;
-				ret.position = Vector3f.TransformCoordinate(
-						nc.point, actual);
+				ret.position = Vector3f.TransformCoordinate(nc.point, actual);
 				return ret;
 			}
 		}

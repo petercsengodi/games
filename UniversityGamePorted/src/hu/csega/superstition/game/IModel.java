@@ -1,5 +1,7 @@
 package hu.csega.superstition.game;
 
+import org.joml.Vector3f;
+
 public interface IModel extends IPeriod, IDisposable
 {
 	/// <summary>
@@ -16,19 +18,19 @@ public interface IModel extends IPeriod, IDisposable
 	/// Get View Position for Rendering.
 	/// </summary>
 	/// <returns>View Position.</returns>
-	Vector3 GetViewPosition();
+	Vector3f GetViewPosition();
 
 	/// <summary>
 	/// Get View Direction for Rendering.
 	/// </summary>
 	/// <returns>View Direction.</returns>
-	Vector3 GetViewDirection();
+	Vector3f GetViewDirection();
 
 	/// <summary>
 	/// Gets Up Vector for Rendering.
 	/// </summary>
 	/// <returns>Up Vector.</returns>
-	Vector3 GetVUp();
+	Vector3f GetVUp();
 
 	/// <summary>
 	/// Handling event, when a Key is pressed.

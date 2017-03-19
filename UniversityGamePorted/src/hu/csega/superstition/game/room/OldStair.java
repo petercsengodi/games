@@ -34,14 +34,14 @@ class OldStair extends Stair
 
 				// Front part of stair
 				planes.Add(engine.Pr_Plane(
-						new Vector3(lower.X, upper.Y, last_lower.Z),
-						new Vector3(last_lower.X, upper.Y, last_upper.Z),
+						new Vector3f(lower.X, upper.Y, last_lower.Z),
+						new Vector3f(last_lower.X, upper.Y, last_upper.Z),
 						StaticVectorLibrary.Top,
 						face
 						));
 				planes.Add(engine.Pr_Plane(
-						new Vector3(lower.X, upper.Y, last_lower.Z),
-						new Vector3(lower.X, upper.Y - dense, last_upper.Z),
+						new Vector3f(lower.X, upper.Y, last_lower.Z),
+						new Vector3f(lower.X, upper.Y - dense, last_upper.Z),
 						StaticVectorLibrary.Right,
 						face
 						));
@@ -50,22 +50,22 @@ class OldStair extends Stair
 				if(last_upper.Z < lower_room.Upper.Z)
 				{
 					planes.Add(engine.Pr_Plane(
-							new Vector3(lower.X, upper.Y, last_upper.Z),
-							new Vector3(upper.X, upper.Y, upper.Z),
+							new Vector3f(lower.X, upper.Y, last_upper.Z),
+							new Vector3f(upper.X, upper.Y, upper.Z),
 							StaticVectorLibrary.Top,
 							face
 							));
 					planes.Add(engine.Pr_Plane(
-							new Vector3(lower.X, upper.Y, last_upper.Z),
-							new Vector3(lower.X, upper.Y - dense, upper.Z),
+							new Vector3f(lower.X, upper.Y, last_upper.Z),
+							new Vector3f(lower.X, upper.Y - dense, upper.Z),
 							StaticVectorLibrary.Right,
 							face
 							));
 				}
 				if(upper.Z < lower_room.Upper.Z)
 					planes.Add(engine.Pr_Plane(
-							new Vector3(lower.X, upper.Y, upper.Z),
-							new Vector3(upper.X, upper.Y - dense, upper.Z),
+							new Vector3f(lower.X, upper.Y, upper.Z),
+							new Vector3f(upper.X, upper.Y - dense, upper.Z),
 							StaticVectorLibrary.Front,
 							face
 							));
@@ -74,22 +74,22 @@ class OldStair extends Stair
 				if(last_lower.Z > lower_room.Lower.Z)
 				{
 					planes.Add(engine.Pr_Plane(
-							new Vector3(lower.X, upper.Y, lower.Z),
-							new Vector3(upper.X, upper.Y, last_lower.Z),
+							new Vector3f(lower.X, upper.Y, lower.Z),
+							new Vector3f(upper.X, upper.Y, last_lower.Z),
 							StaticVectorLibrary.Top,
 							face
 							));
 					planes.Add(engine.Pr_Plane(
-							new Vector3(lower.X, upper.Y, lower.Z),
-							new Vector3(lower.X, upper.Y - dense, last_lower.Z),
+							new Vector3f(lower.X, upper.Y, lower.Z),
+							new Vector3f(lower.X, upper.Y - dense, last_lower.Z),
 							StaticVectorLibrary.Right,
 							face
 							));
 				}
 				if(lower.Z > lower_room.Lower.Z)
 					planes.Add(engine.Pr_Plane(
-							new Vector3(lower.X, upper.Y, lower.Z),
-							new Vector3(upper.X, upper.Y - dense, lower.Z),
+							new Vector3f(lower.X, upper.Y, lower.Z),
+							new Vector3f(upper.X, upper.Y - dense, lower.Z),
 							StaticVectorLibrary.Back,
 							face
 							));
@@ -116,14 +116,14 @@ class OldStair extends Stair
 
 				// Front part of stair
 				planes.Add(engine.Pr_Plane(
-						new Vector3(last_upper.X, upper.Y, last_lower.Z),
-						new Vector3(upper.X, upper.Y, last_upper.Z),
+						new Vector3f(last_upper.X, upper.Y, last_lower.Z),
+						new Vector3f(upper.X, upper.Y, last_upper.Z),
 						StaticVectorLibrary.Top,
 						face
 						));
 				planes.Add(engine.Pr_Plane(
-						new Vector3(upper.X, upper.Y, last_lower.Z),
-						new Vector3(upper.X, upper.Y - dense, last_upper.Z),
+						new Vector3f(upper.X, upper.Y, last_lower.Z),
+						new Vector3f(upper.X, upper.Y - dense, last_upper.Z),
 						StaticVectorLibrary.Left,
 						face
 						));
@@ -132,22 +132,22 @@ class OldStair extends Stair
 				if(last_upper.Z < lower_room.Upper.Z)
 				{
 					planes.Add(engine.Pr_Plane(
-							new Vector3(lower.X, upper.Y, last_upper.Z),
-							new Vector3(upper.X, upper.Y, upper.Z),
+							new Vector3f(lower.X, upper.Y, last_upper.Z),
+							new Vector3f(upper.X, upper.Y, upper.Z),
 							StaticVectorLibrary.Top,
 							face
 							));
 					planes.Add(engine.Pr_Plane(
-							new Vector3(upper.X, upper.Y, last_upper.Z),
-							new Vector3(upper.X, upper.Y - dense, upper.Z),
+							new Vector3f(upper.X, upper.Y, last_upper.Z),
+							new Vector3f(upper.X, upper.Y - dense, upper.Z),
 							StaticVectorLibrary.Left,
 							face
 							));
 				}
 				if(upper.Z < lower_room.Upper.Z)
 					planes.Add(engine.Pr_Plane(
-							new Vector3(lower.X, upper.Y, upper.Z),
-							new Vector3(upper.X, upper.Y - dense, upper.Z),
+							new Vector3f(lower.X, upper.Y, upper.Z),
+							new Vector3f(upper.X, upper.Y - dense, upper.Z),
 							StaticVectorLibrary.Front,
 							face
 							));
@@ -156,22 +156,22 @@ class OldStair extends Stair
 				if(last_lower.Z > lower_room.Lower.Z)
 				{
 					planes.Add(engine.Pr_Plane(
-							new Vector3(lower.X, upper.Y, lower.Z),
-							new Vector3(upper.X, upper.Y, last_lower.Z),
+							new Vector3f(lower.X, upper.Y, lower.Z),
+							new Vector3f(upper.X, upper.Y, last_lower.Z),
 							StaticVectorLibrary.Top,
 							face
 							));
 					planes.Add(engine.Pr_Plane(
-							new Vector3(upper.X, upper.Y, lower.Z),
-							new Vector3(upper.X, upper.Y - dense, last_lower.Z),
+							new Vector3f(upper.X, upper.Y, lower.Z),
+							new Vector3f(upper.X, upper.Y - dense, last_lower.Z),
 							StaticVectorLibrary.Left,
 							face
 							));
 				}
 				if(lower.Z > lower_room.Lower.Z)
 					planes.Add(engine.Pr_Plane(
-							new Vector3(lower.X, upper.Y, lower.Z),
-							new Vector3(upper.X, upper.Y - dense, lower.Z),
+							new Vector3f(lower.X, upper.Y, lower.Z),
+							new Vector3f(upper.X, upper.Y - dense, lower.Z),
 							StaticVectorLibrary.Back,
 							face
 							));
@@ -199,14 +199,14 @@ class OldStair extends Stair
 
 				// Front part of stair
 				planes.Add(engine.Pr_Plane(
-						new Vector3(last_lower.X, upper.Y, lower.Z),
-						new Vector3(last_upper.X, upper.Y, last_lower.Z),
+						new Vector3f(last_lower.X, upper.Y, lower.Z),
+						new Vector3f(last_upper.X, upper.Y, last_lower.Z),
 						StaticVectorLibrary.Top,
 						face
 						));
 				planes.Add(engine.Pr_Plane(
-						new Vector3(last_lower.X, upper.Y, lower.Z),
-						new Vector3(last_upper.X, upper.Y - dense, lower.Z),
+						new Vector3f(last_lower.X, upper.Y, lower.Z),
+						new Vector3f(last_upper.X, upper.Y - dense, lower.Z),
 						StaticVectorLibrary.Back,
 						face
 						));
@@ -215,22 +215,22 @@ class OldStair extends Stair
 				if(last_upper.X < lower_room.Upper.X)
 				{
 					planes.Add(engine.Pr_Plane(
-							new Vector3(last_upper.X, upper.Y, lower.Z),
-							new Vector3(upper.X, upper.Y, upper.Z),
+							new Vector3f(last_upper.X, upper.Y, lower.Z),
+							new Vector3f(upper.X, upper.Y, upper.Z),
 							StaticVectorLibrary.Top,
 							face
 							));
 					planes.Add(engine.Pr_Plane(
-							new Vector3(last_upper.X, upper.Y, lower.Z),
-							new Vector3(upper.X, upper.Y - dense, lower.Z),
+							new Vector3f(last_upper.X, upper.Y, lower.Z),
+							new Vector3f(upper.X, upper.Y - dense, lower.Z),
 							StaticVectorLibrary.Back,
 							face
 							));
 				}
 				if(upper.X < lower_room.Upper.X)
 					planes.Add(engine.Pr_Plane(
-							new Vector3(upper.X, upper.Y, lower.Z),
-							new Vector3(upper.X, upper.Y - dense, upper.Z),
+							new Vector3f(upper.X, upper.Y, lower.Z),
+							new Vector3f(upper.X, upper.Y - dense, upper.Z),
 							StaticVectorLibrary.Right,
 							face
 							));
@@ -239,22 +239,22 @@ class OldStair extends Stair
 				if(last_lower.X > lower_room.Lower.X)
 				{
 					planes.Add(engine.Pr_Plane(
-							new Vector3(lower.X, upper.Y, lower.Z),
-							new Vector3(last_lower.X, upper.Y, upper.Z),
+							new Vector3f(lower.X, upper.Y, lower.Z),
+							new Vector3f(last_lower.X, upper.Y, upper.Z),
 							StaticVectorLibrary.Top,
 							face
 							));
 					planes.Add(engine.Pr_Plane(
-							new Vector3(lower.X, upper.Y, lower.Z),
-							new Vector3(last_lower.X, upper.Y - dense, lower.Z),
+							new Vector3f(lower.X, upper.Y, lower.Z),
+							new Vector3f(last_lower.X, upper.Y - dense, lower.Z),
 							StaticVectorLibrary.Back,
 							face
 							));
 				}
 				if(lower.X > lower_room.Lower.X)
 					planes.Add(engine.Pr_Plane(
-							new Vector3(lower.X, upper.Y, lower.Z),
-							new Vector3(lower.X, upper.Y - dense, upper.Z),
+							new Vector3f(lower.X, upper.Y, lower.Z),
+							new Vector3f(lower.X, upper.Y - dense, upper.Z),
 							StaticVectorLibrary.Left,
 							face
 							));
@@ -281,14 +281,14 @@ class OldStair extends Stair
 
 				// Front part of stair
 				planes.Add(engine.Pr_Plane(
-						new Vector3(last_lower.X, upper.Y, last_upper.Z),
-						new Vector3(last_upper.X, upper.Y, upper.Z),
+						new Vector3f(last_lower.X, upper.Y, last_upper.Z),
+						new Vector3f(last_upper.X, upper.Y, upper.Z),
 						StaticVectorLibrary.Top,
 						face
 						));
 				planes.Add(engine.Pr_Plane(
-						new Vector3(last_lower.X, upper.Y, upper.Z),
-						new Vector3(last_upper.X, upper.Y - dense, upper.Z),
+						new Vector3f(last_lower.X, upper.Y, upper.Z),
+						new Vector3f(last_upper.X, upper.Y - dense, upper.Z),
 						StaticVectorLibrary.Front,
 						face
 						));
@@ -297,22 +297,22 @@ class OldStair extends Stair
 				if(last_upper.X < lower_room.Upper.X)
 				{
 					planes.Add(engine.Pr_Plane(
-							new Vector3(last_upper.X, upper.Y, lower.Z),
-							new Vector3(upper.X, upper.Y, upper.Z),
+							new Vector3f(last_upper.X, upper.Y, lower.Z),
+							new Vector3f(upper.X, upper.Y, upper.Z),
 							StaticVectorLibrary.Top,
 							face
 							));
 					planes.Add(engine.Pr_Plane(
-							new Vector3(last_upper.X, upper.Y, upper.Z),
-							new Vector3(upper.X, upper.Y - dense, upper.Z),
+							new Vector3f(last_upper.X, upper.Y, upper.Z),
+							new Vector3f(upper.X, upper.Y - dense, upper.Z),
 							StaticVectorLibrary.Front,
 							face
 							));
 				}
 				if(upper.X < lower_room.Upper.X)
 					planes.Add(engine.Pr_Plane(
-							new Vector3(upper.X, upper.Y, lower.Z),
-							new Vector3(upper.X, upper.Y - dense, upper.Z),
+							new Vector3f(upper.X, upper.Y, lower.Z),
+							new Vector3f(upper.X, upper.Y - dense, upper.Z),
 							StaticVectorLibrary.Right,
 							face
 							));
@@ -321,22 +321,22 @@ class OldStair extends Stair
 				if(last_lower.X > lower_room.Lower.X)
 				{
 					planes.Add(engine.Pr_Plane(
-							new Vector3(lower.X, upper.Y, lower.Z),
-							new Vector3(last_lower.X, upper.Y, upper.Z),
+							new Vector3f(lower.X, upper.Y, lower.Z),
+							new Vector3f(last_lower.X, upper.Y, upper.Z),
 							StaticVectorLibrary.Top,
 							face
 							));
 					planes.Add(engine.Pr_Plane(
-							new Vector3(lower.X, upper.Y, upper.Z),
-							new Vector3(last_lower.X, upper.Y - dense, upper.Z),
+							new Vector3f(lower.X, upper.Y, upper.Z),
+							new Vector3f(last_lower.X, upper.Y - dense, upper.Z),
 							StaticVectorLibrary.Front,
 							face
 							));
 				}
 				if(lower.X > lower_room.Lower.X)
 					planes.Add(engine.Pr_Plane(
-							new Vector3(lower.X, upper.Y, lower.Z),
-							new Vector3(lower.X, upper.Y - dense, upper.Z),
+							new Vector3f(lower.X, upper.Y, lower.Z),
+							new Vector3f(lower.X, upper.Y - dense, upper.Z),
 							StaticVectorLibrary.Left,
 							face
 							));

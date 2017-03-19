@@ -2,6 +2,8 @@ package hu.csega.superstition.t3dcreator;
 
 import javax.swing.JPanel;
 
+import org.joml.Vector3f;
+
 import hu.csega.superstition.tools.Updates;
 
 public class ModelProperties extends JPanel {
@@ -147,7 +149,7 @@ public class ModelProperties extends JPanel {
 
 	public void CountBoundingBox()
 	{
-		Vector3 box = model.CountBoundingBox();
+		Vector3f box = model.CountBoundingBox();
 		bounding_box.Text = "[" + box.X + "; " +
 				box.Y + "; " + box.Z + "]";
 	}

@@ -110,7 +110,7 @@ public class ColorDisplay extends System.Windows.Forms.UserControl
 
 	private ColorDialog dialog;
 
-	protected virtual void OnColorChanged(Color color){}
+	protected void OnColorChanged(Color color){}
 
 	private void button1_Click(Object sender, System.EventArgs e)
 	{

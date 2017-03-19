@@ -16,7 +16,7 @@ abstract class State
 		innerAction = null;
 	}
 
-	public virtual State trigger(Object Object)
+	public State trigger(Object Object)
 	{
 		if(Object == null) Object = "<null>";
 		MainFrame.WriteConsole("> Trigger of " +
@@ -24,19 +24,19 @@ abstract class State
 		return this;
 	}
 
-	public virtual void enter()
+	public void enter()
 	{
 		MainFrame.WriteConsole("> Entering " + this.ToString());
 		if(entryAction != null) entryAction();
 	}
 
-	public virtual void exit()
+	public void exit()
 	{
 		MainFrame.WriteConsole("> Exiting " + this.ToString());
 		if(exitAction != null) exitAction();
 	}
 
-	public virtual void stay()
+	public void stay()
 	{
 		MainFrame.WriteConsole("> Staying " + this.ToString());
 		if(innerAction != null) innerAction();

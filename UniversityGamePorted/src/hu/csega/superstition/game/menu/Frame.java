@@ -1,9 +1,11 @@
 package hu.csega.superstition.game.menu;
 
+import org.joml.Vector3f;
+
 public class Frame {
-	Vector3[] side = new Vector3[2]{
-			new Vector3(-4f, -0.75f, 0f),
-			new Vector3(4f, 1.25f, 0f)
+	Vector3f[] side = new Vector3f[2]{
+			new Vector3f(-4f, -0.75f, 0f),
+			new Vector3f(4f, 1.25f, 0f)
 	};
 	float ext = 0.5f;
 
@@ -12,7 +14,7 @@ public class Frame {
 	public Frame(ModelParams param)
 	{
 		triangles = new Primitive[32];
-		Vector3[] v = new Vector3[16];
+		Vector3f[] v = new Vector3f[16];
 
 		int outer, front, left, up;
 		int UP = 1, LEFT = 2, FRONT = 4, OUTER = 8;
@@ -23,7 +25,7 @@ public class Frame {
 					for(up = 0; up <= 1; up++)
 					{
 						v[outer*OUTER + front*FRONT + left*LEFT + up*UP] =
-								new Vector3(
+								new Vector3f(
 										(float)(side[left].X + outer * ext * ((left==1)?1:-1)),
 										(float)(side[up].Y + (1 - outer) * ext * ((up==1)?-1:1)),
 										(float)(side[0].Z - front * ext)
@@ -110,7 +112,7 @@ public class Frame {
 		}
 	}
 
-	public void Render(Vector3 translation)
+	public void Render(Vector3f translation)
 	{
 		for(int i = 0; i < triangles.Length; i++)
 		{

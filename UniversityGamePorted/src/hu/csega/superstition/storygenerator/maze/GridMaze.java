@@ -381,9 +381,9 @@ class GridMaze implements IGeneratedMaze
 
 
 		Room room = new Room(
-				new Vector3(grid * x - max_room_size,
+				new Vector3f(grid * x - max_room_size,
 						- room_height, grid * y - max_room_size),
-				new Vector3(grid * x + max_room_size,
+				new Vector3f(grid * x + max_room_size,
 						+ room_height, grid * y + max_room_size));
 
 
@@ -423,11 +423,11 @@ class GridMaze implements IGeneratedMaze
 			Room lower_room = graph[x2][y2].room;
 
 			Room Corridor = new Room(
-					new Vector3(
+					new Vector3f(
 							grid * x1 - corridor,
 							-corridor,
 							upper_room.Upper.Z),
-					new Vector3(
+					new Vector3f(
 							grid * x1 + corridor,
 							+corridor,
 							lower_room.Lower.Z));
@@ -455,11 +455,11 @@ class GridMaze implements IGeneratedMaze
 			Room lower_room = graph[x1][y1].room;
 
 			Room Corridor = new Room(
-					new Vector3(
+					new Vector3f(
 							grid * x1 - corridor,
 							-corridor,
 							upper_room.Upper.Z),
-					new Vector3(
+					new Vector3f(
 							grid * x1 + corridor,
 							+corridor,
 							lower_room.Lower.Z));
@@ -487,10 +487,10 @@ class GridMaze implements IGeneratedMaze
 			Room right_room = graph[x2][y2].room;
 
 			Room Corridor = new Room(
-					new Vector3(left_room.Upper.X,
+					new Vector3f(left_room.Upper.X,
 							-corridor,
 							grid * y1 -corridor),
-					new Vector3(right_room.Lower.X,
+					new Vector3f(right_room.Lower.X,
 							+corridor,
 							grid * y1 + corridor));
 
@@ -517,10 +517,10 @@ class GridMaze implements IGeneratedMaze
 			Room right_room = graph[x1][y1].room;
 
 			Room Corridor = new Room(
-					new Vector3(left_room.Upper.X,
+					new Vector3f(left_room.Upper.X,
 							-corridor,
 							grid * y1 -corridor),
-					new Vector3(right_room.Lower.X,
+					new Vector3f(right_room.Lower.X,
 							+corridor,
 							grid * y1 + corridor));
 

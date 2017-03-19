@@ -1,5 +1,7 @@
 package hu.csega.superstition.game.room;
 
+import org.joml.Vector3f;
+
 class Room extends TWLNode implements IClipping, IDisposable, IGameObject, IRenderObject
 {
 
@@ -18,27 +20,27 @@ class Room extends TWLNode implements IClipping, IDisposable, IGameObject, IRend
 			DG_BACK = 270;
 
 	protected int walls;
-	protected Vector3 corner1, corner2;
+	protected Vector3f corner1, corner2;
 	protected String wall_face, floor_face;
 	protected ArrayList Renders, // This needed to be disposed
 	Clips, Objects; // They don't need any care
 	public ArrayList RoomsInSight, turn_add, turn_remove;
 	protected RoomPostType post;
-	protected Vector3[] roomids;
+	protected Vector3f[] roomids;
 
-	public Vector3 Lower{ get{ return corner1;} set {corner1 = value;}}
-	public Vector3 Upper{ get{ return corner2;} set {corner2 = value;} }
+	public Vector3f Lower{ get{ return corner1;} set {corner1 = value;}}
+	public Vector3f Upper{ get{ return corner2;} set {corner2 = value;} }
 	public String Wall_face{ get{ return wall_face; } set{ wall_face = value; } }
 	public String Floor_face{ get{ return floor_face; } set{ floor_face = value; } }
 	public RoomPostType Post{ get{ return post; } set{ post = value; } }
 
 	protected class RoomData extends GameObjectData
 	{
-		public Vector3 corner1, corner2;
+		public Vector3f corner1, corner2;
 		public String wall_face, floor_face;
 		public RoomPostType post;
 		public GameObjectData[] objects;
-		public Vector3[] rooms_in_sight;
+		public Vector3f[] rooms_in_sight;
 
 		public RoomData()
 		{
@@ -46,7 +48,7 @@ class Room extends TWLNode implements IClipping, IDisposable, IGameObject, IRend
 		}
 	}
 
-	public Room(Vector3 _corner1, Vector3 _corner2, String wall_face, String floor_face)
+	public Room(Vector3f _corner1, Vector3f _corner2, String wall_face, String floor_face)
 	{
 
 		walls = WALL_SUM;
@@ -101,7 +103,7 @@ class Room extends TWLNode implements IClipping, IDisposable, IGameObject, IRend
 	public void CheckId(Object theme)
 	{
 		Room room = theme as Room;
-		Vector3 id = room.Lower;
+		Vector3f id = room.Lower;
 		for(int i = 0; i < roomids.Length; i++)
 		{
 			if(id == roomids[i])
@@ -112,11 +114,11 @@ class Room extends TWLNode implements IClipping, IDisposable, IGameObject, IRend
 		}
 	}
 
-	public Vector3 CenterOnFloor
+	public Vector3f CenterOnFloor
 	{
 		get
 		{
-			Vector3 average = StaticMathLibrary.Center(corner1, corner2);
+			Vector3f average = StaticMathLibrary.Center(corner1, corner2);
 			average.Y = corner1.Y + 1.0f;
 			return average;
 		}
@@ -183,32 +185,32 @@ class Room extends TWLNode implements IClipping, IDisposable, IGameObject, IRend
 
 		if((walls & WALL_LEFT) > 0)
 		{
-			Vector3 c = new Vector3(corner1.X, corner2.Y, corner2.Z);
-			Vector3 center = StaticMathLibrary.Center(corner1, c);
+			Vector3f c = new Vector3f(corner1.X, corner2.Y, corner2.Z);
+			Vector3f center = StaticMathLibrary.Center(corner1, c);
 			lamp = new DecoratedLight(center, Vector3.Empty, Vector3.Empty, 0f);
 			Objects.Add(lamp);
 		}
 
 		if((walls & WALL_RIGHT) > 0)
 		{
-			Vector3 c = new Vector3(corner2.X, corner1.Y, corner1.Z);
-			Vector3 center = StaticMathLibrary.Center(c, corner2);
+			Vector3f c = new Vector3f(corner2.X, corner1.Y, corner1.Z);
+			Vector3f center = StaticMathLibrary.Center(c, corner2);
 			lamp = new DecoratedLight(center, Vector3.Empty, Vector3.Empty, (float)Math.PI);
 			Objects.Add(lamp);
 		}
 
 		if((walls & WALL_BACK) > 0)
 		{
-			Vector3 c = new Vector3(corner2.X, corner2.Y, corner1.Z);
-			Vector3 center = StaticMathLibrary.Center(corner1, c);
+			Vector3f c = new Vector3f(corner2.X, corner2.Y, corner1.Z);
+			Vector3f center = StaticMathLibrary.Center(corner1, c);
 			lamp = new DecoratedLight(center, Vector3.Empty, Vector3.Empty, (float)(Math.PI / 2));
 			Objects.Add(lamp);
 		}
 
 		if((walls & WALL_FRONT) > 0)
 		{
-			Vector3 c = new Vector3(corner1.X, corner1.Y, corner2.Z);
-			Vector3 center = StaticMathLibrary.Center(c, corner2);
+			Vector3f c = new Vector3f(corner1.X, corner1.Y, corner2.Z);
+			Vector3f center = StaticMathLibrary.Center(c, corner2);
 			lamp = new DecoratedLight(center, Vector3.Empty, Vector3.Empty, (float)(3 * Math.PI / 2));
 			Objects.Add(lamp);
 		}
@@ -222,51 +224,51 @@ class Room extends TWLNode implements IClipping, IDisposable, IGameObject, IRend
 
 		if((walls & WALL_LEFT) > 0)
 		{
-			Vector3 c = new Vector3(corner1.X, corner2.Y, corner2.Z);
+			Vector3f c = new Vector3f(corner1.X, corner2.Y, corner2.Z);
 			Renders.Add(new RenderPrimitive(p = engine.Pr_Plane(corner1, c, StaticVectorLibrary.Right, wall_face)));
 			Clips.Add(new Clipper(corner1, c));
 		}
 
 		if((walls & WALL_RIGHT) > 0)
 		{
-			Vector3 c = new Vector3(corner2.X, corner1.Y, corner1.Z);
+			Vector3f c = new Vector3f(corner2.X, corner1.Y, corner1.Z);
 			Renders.Add(new RenderPrimitive(p = engine.Pr_Plane(c, corner2, StaticVectorLibrary.Left, wall_face)));
 			Clips.Add(new Clipper(c, corner2));
 		}
 
 		if((walls & WALL_BACK) > 0)
 		{
-			Vector3 c = new Vector3(corner2.X, corner2.Y, corner1.Z);
+			Vector3f c = new Vector3f(corner2.X, corner2.Y, corner1.Z);
 			Renders.Add(new RenderPrimitive(p = engine.Pr_Plane(corner1, c, StaticVectorLibrary.Front, wall_face)));
 			Clips.Add(new Clipper(corner1, c));
 		}
 
 		if((walls & WALL_FRONT) > 0)
 		{
-			Vector3 c = new Vector3(corner1.X, corner1.Y, corner2.Z);
+			Vector3f c = new Vector3f(corner1.X, corner1.Y, corner2.Z);
 			Renders.Add(new RenderPrimitive(p = engine.Pr_Plane(c, corner2, StaticVectorLibrary.Back, wall_face)));
 			Clips.Add(new Clipper(c, corner2));
 		}
 
 		if((walls & WALL_CEILING) > 0)
 		{
-			Vector3 c = new Vector3(corner1.X, corner2.Y, corner1.Z);
+			Vector3f c = new Vector3f(corner1.X, corner2.Y, corner1.Z);
 			Renders.Add(new RenderPrimitive(p = engine.Pr_Plane(c, corner2, StaticVectorLibrary.Bottom, floor_face)));
 			Clips.Add(new Clipper(c, corner2));
 		}
 
 		if((walls & WALL_FLOOR) > 0)
 		{
-			Vector3 c = new Vector3(corner2.X, corner1.Y, corner2.Z);
+			Vector3f c = new Vector3f(corner2.X, corner1.Y, corner2.Z);
 			Renders.Add(new RenderPrimitive(p = engine.Pr_Plane(corner1, c, StaticVectorLibrary.Top, floor_face)));
 			Clips.Add(new Clipper(corner1, c));
 		}
 
 		if((post & RoomPostType.CenterPost) > 0)
 		{
-			Vector3 c = CenterOnFloor,
-					c1 = new Vector3(c.X - 0.3f, corner1.Y, c.Z - 0.3f),
-					c2 = new Vector3(c.X + 0.3f, corner2.Y, c.Z + 0.3f);
+			Vector3f c = CenterOnFloor,
+					c1 = new Vector3f(c.X - 0.3f, corner1.Y, c.Z - 0.3f),
+					c2 = new Vector3f(c.X + 0.3f, corner2.Y, c.Z + 0.3f);
 			StaticBox b = new StaticBox(c1, c2, wall_face);
 			b.Build(engine);
 			Renders.Add(b);
@@ -277,30 +279,30 @@ class Room extends TWLNode implements IClipping, IDisposable, IGameObject, IRend
 		{
 
 			StaticBox b;
-			Vector3 c1, c2;
-			c1 = new Vector3(corner1.X + 0.4f, corner1.Y, corner1.Z + 0.4f);
-			c2 = new Vector3(corner1.X + 0.8f, corner2.Y, corner1.Z + 0.8f);
+			Vector3f c1, c2;
+			c1 = new Vector3f(corner1.X + 0.4f, corner1.Y, corner1.Z + 0.4f);
+			c2 = new Vector3f(corner1.X + 0.8f, corner2.Y, corner1.Z + 0.8f);
 			b = new StaticBox(c1, c2, floor_face);
 			b.Build(engine);
 			Renders.Add(b);
 			Clips.Add(b);
 
-			c1 = new Vector3(corner1.X + 0.4f, corner1.Y, corner2.Z - 0.8f);
-			c2 = new Vector3(corner1.X + 0.8f, corner2.Y, corner2.Z - 0.4f);
+			c1 = new Vector3f(corner1.X + 0.4f, corner1.Y, corner2.Z - 0.8f);
+			c2 = new Vector3f(corner1.X + 0.8f, corner2.Y, corner2.Z - 0.4f);
 			b = new StaticBox(c1, c2, floor_face);
 			b.Build(engine);
 			Renders.Add(b);
 			Clips.Add(b);
 
-			c1 = new Vector3(corner2.X - 0.8f, corner1.Y, corner1.Z + 0.4f);
-			c2 = new Vector3(corner2.X - 0.4f, corner2.Y, corner1.Z + 0.8f);
+			c1 = new Vector3f(corner2.X - 0.8f, corner1.Y, corner1.Z + 0.4f);
+			c2 = new Vector3f(corner2.X - 0.4f, corner2.Y, corner1.Z + 0.8f);
 			b = new StaticBox(c1, c2, floor_face);
 			b.Build(engine);
 			Renders.Add(b);
 			Clips.Add(b);
 
-			c1 = new Vector3(corner2.X - 0.8f, corner1.Y, corner2.Z - 0.8f);
-			c2 = new Vector3(corner2.X - 0.4f, corner2.Y, corner2.Z - 0.4f);
+			c1 = new Vector3f(corner2.X - 0.8f, corner1.Y, corner2.Z - 0.8f);
+			c2 = new Vector3f(corner2.X - 0.4f, corner2.Y, corner2.Z - 0.4f);
 			b = new StaticBox(c1, c2, floor_face);
 			b.Build(engine);
 			Renders.Add(b);
@@ -380,7 +382,7 @@ class Room extends TWLNode implements IClipping, IDisposable, IGameObject, IRend
 			ret.objects[i] = (this.Objects[i] as IGameObject).getData();
 		}
 
-		ret.rooms_in_sight = new Vector3[this.RoomsInSight.Count];
+		ret.rooms_in_sight = new Vector3f[this.RoomsInSight.Count];
 		for(int i = 0; i < this.RoomsInSight.Count; i++)
 		{
 			ret.rooms_in_sight[i] = (this.RoomsInSight[i] as Room).Lower;

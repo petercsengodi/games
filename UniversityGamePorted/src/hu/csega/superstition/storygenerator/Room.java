@@ -32,8 +32,8 @@ public class Room extends TWLNode
 	protected Device device = null;
 	protected VertexBuffer buffer = null;
 
-	public Vector3 Lower{ get{ return corner1;} }
-	public Vector3 Upper{ get{ return corner2;} }
+	public Vector3f Lower{ get{ return corner1;} }
+	public Vector3f Upper{ get{ return corner2;} }
 
 	public String Face{ get{ return (string)face.Clone(); }
 	set
@@ -71,18 +71,18 @@ public class Room extends TWLNode
 	private Node node;
 	public Node NODE { get { return node; } set { node = value; } }
 
-	public Room(Vector3 _corner1, Vector3 _corner2)
+	public Room(Vector3f _corner1, Vector3f _corner2)
 	{
 		walls = WALL_SUM;
 		corner1 = Vector3.Minimize(_corner1, _corner2);
 		corner2 = Vector3.Maximize(_corner1, _corner2);
 	}
 
-	public Vector3 CenterOnFloor
+	public Vector3f CenterOnFloor
 	{
 		get
 		{
-			Vector3 average = StaticMathLibrary.Center(corner1, corner2);
+			Vector3f average = StaticMathLibrary.Center(corner1, corner2);
 			average.Y = corner1.Y + 1.0f;
 			return average;
 		}

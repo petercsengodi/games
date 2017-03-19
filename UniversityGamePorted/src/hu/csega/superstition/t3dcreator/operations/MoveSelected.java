@@ -1,15 +1,17 @@
 package hu.csega.superstition.t3dcreator.operations;
 
+import org.joml.Vector3f;
+
 public class MoveSelected extends Operation
 {
-	private Vector3 translation;
+	private Vector3f translation;
 	private IPart part;
 
 	public MoveSelected(IPart part, Matrix matrix)
 	{
 		this.part = part;
 		this.translation = Vector3.TransformCoordinate(
-				new Vector3(0f, 0f, 0f), matrix);
+				new Vector3f(0f, 0f, 0f), matrix);
 	}
 
 	@Override

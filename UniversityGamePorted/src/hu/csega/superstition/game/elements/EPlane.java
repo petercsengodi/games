@@ -1,8 +1,10 @@
 package hu.csega.superstition.game.elements;
 
+import org.joml.Vector3f;
+
 public class EPlane extends Primitive {
 
-	protected Vector3 Min, Max;
+	protected Vector3f Min, Max;
 	protected StaticVectorLibrary.Direction direction;
 	protected int x, y, z;
 
@@ -11,7 +13,7 @@ public class EPlane extends Primitive {
 		get{ return direction; }
 	}
 
-	public EPlane(Engine engine, Vector3 MinVec, Vector3 MaxVec,
+	public EPlane(Engine engine, Vector3f MinVec, Vector3f MaxVec,
 			StaticVectorLibrary.Direction _direction, Texture _face)
 	{
 		super(engine);
@@ -46,7 +48,7 @@ public class EPlane extends Primitive {
 		ReCreate();
 	}
 
-	public EPlane(Engine engine, Vector3 MinVec, Vector3 MaxVec,
+	public EPlane(Engine engine, Vector3f MinVec, Vector3f MaxVec,
 			StaticVectorLibrary.Direction _direction, Texture _face, VertexBuffer buffer)
 	{
 		super(engine, buffer);
@@ -97,14 +99,14 @@ public class EPlane extends Primitive {
 				for(i = 0; i <= z; i++)
 				{
 					stream.Write(new CustomVertex.PositionNormalTextured(
-							new Vector3(Max.X, Min.Y + (j + 1) * stepy, Min.Z + i * stepz),
-							new Vector3(-1f, 0f, 0f),
+							new Vector3f(Max.X, Min.Y + (j + 1) * stepy, Min.Z + i * stepz),
+							new Vector3f(-1f, 0f, 0f),
 							Min.Z + i * stepz, Min.Y + (j + 1) * stepy
 							));
 
 					stream.Write(new CustomVertex.PositionNormalTextured(
-							new Vector3(Min.X, Min.Y + j * stepy, Min.Z + i * stepz),
-							new Vector3(-1f, 0f, 0f),
+							new Vector3f(Min.X, Min.Y + j * stepy, Min.Z + i * stepz),
+							new Vector3f(-1f, 0f, 0f),
 							Min.Z + i * stepz, Min.Y + j * stepy
 							));
 				}
@@ -118,14 +120,14 @@ public class EPlane extends Primitive {
 				for(i = 0; i <= z; i++)
 				{
 					stream.Write(new CustomVertex.PositionNormalTextured(
-							new Vector3(Min.X, Min.Y + j * stepy, Min.Z + i * stepz),
-							new Vector3(1f, 0f, 0f),
+							new Vector3f(Min.X, Min.Y + j * stepy, Min.Z + i * stepz),
+							new Vector3f(1f, 0f, 0f),
 							Min.Z + i * stepz, Min.Y + j * stepy
 							));
 
 					stream.Write(new CustomVertex.PositionNormalTextured(
-							new Vector3(Max.X, Min.Y + (j + 1) * stepy, Min.Z + i * stepz),
-							new Vector3(1f, 0f, 0f),
+							new Vector3f(Max.X, Min.Y + (j + 1) * stepy, Min.Z + i * stepz),
+							new Vector3f(1f, 0f, 0f),
 							Min.Z + i * stepz, Min.Y + (j + 1) * stepy
 							));
 				}
@@ -139,14 +141,14 @@ public class EPlane extends Primitive {
 				for(i = 0; i <= x; i++)
 				{
 					stream.Write(new CustomVertex.PositionNormalTextured(
-							new Vector3(Min.X + i * stepx, Min.Y + (j + 1) * stepy, Max.Z),
-							new Vector3(0f, 0f, 1f),
+							new Vector3f(Min.X + i * stepx, Min.Y + (j + 1) * stepy, Max.Z),
+							new Vector3f(0f, 0f, 1f),
 							Min.X + i * stepx, Min.Y + (j + 1) * stepy
 							));
 
 					stream.Write(new CustomVertex.PositionNormalTextured(
-							new Vector3(Min.X + i * stepx, Min.Y + j * stepy, Min.Z),
-							new Vector3(0f, 0f, 1f),
+							new Vector3f(Min.X + i * stepx, Min.Y + j * stepy, Min.Z),
+							new Vector3f(0f, 0f, 1f),
 							Min.X + i * stepx, Min.Y + j * stepy
 							));
 				}
@@ -160,14 +162,14 @@ public class EPlane extends Primitive {
 				for(i = 0; i <= x; i++)
 				{
 					stream.Write(new CustomVertex.PositionNormalTextured(
-							new Vector3(Min.X + i * stepx, Min.Y + j * stepy, Min.Z),
-							new Vector3(0f, 0f, -1f),
+							new Vector3f(Min.X + i * stepx, Min.Y + j * stepy, Min.Z),
+							new Vector3f(0f, 0f, -1f),
 							Min.X + i * stepx, Min.Y + j * stepy
 							));
 
 					stream.Write(new CustomVertex.PositionNormalTextured(
-							new Vector3(Min.X + i * stepx, Min.Y + (j + 1) * stepy, Max.Z),
-							new Vector3(0f, 0f, -1f),
+							new Vector3f(Min.X + i * stepx, Min.Y + (j + 1) * stepy, Max.Z),
+							new Vector3f(0f, 0f, -1f),
 							Min.X + i * stepx, Min.Y + (j + 1) * stepy
 							));
 				}
@@ -181,14 +183,14 @@ public class EPlane extends Primitive {
 				for(i = 0; i <= x; i++)
 				{
 					stream.Write(new CustomVertex.PositionNormalTextured(
-							new Vector3(Min.X + i * stepx, Max.Y, Min.Z  + j * stepz),
-							new Vector3(0f, 1f, 0f),
+							new Vector3f(Min.X + i * stepx, Max.Y, Min.Z  + j * stepz),
+							new Vector3f(0f, 1f, 0f),
 							Min.X + i * stepx, Min.Z + j * stepz
 							));
 
 					stream.Write(new CustomVertex.PositionNormalTextured(
-							new Vector3(Min.X + i * stepx, Min.Y, Min.Z + (j + 1) * stepz),
-							new Vector3(0f, 1f, 0f),
+							new Vector3f(Min.X + i * stepx, Min.Y, Min.Z + (j + 1) * stepz),
+							new Vector3f(0f, 1f, 0f),
 							Min.X + i * stepx, Min.Z + (j + 1) * stepz
 							));
 				}
@@ -202,14 +204,14 @@ public class EPlane extends Primitive {
 				for(i = 0; i <= x; i++)
 				{
 					stream.Write(new CustomVertex.PositionNormalTextured(
-							new Vector3(Min.X + i * stepx, Min.Y, Min.Z + (j + 1) * stepz),
-							new Vector3(0f, -1f, 0f),
+							new Vector3f(Min.X + i * stepx, Min.Y, Min.Z + (j + 1) * stepz),
+							new Vector3f(0f, -1f, 0f),
 							Min.X + i * stepx, Min.Z + (j + 1) * stepz
 							));
 
 					stream.Write(new CustomVertex.PositionNormalTextured(
-							new Vector3(Min.X + i * stepx, Max.Y, Min.Z  + j * stepz),
-							new Vector3(0f, -1f, 0f),
+							new Vector3f(Min.X + i * stepx, Max.Y, Min.Z  + j * stepz),
+							new Vector3f(0f, -1f, 0f),
 							Min.X + i * stepx, Min.Z + j * stepz
 							));
 				}
@@ -281,38 +283,38 @@ public class EPlane extends Primitive {
 	{
 		if(direction == StaticVectorLibrary.Left)
 		{
-			engine.RenderVolume(Min, new Vector3(Min.X, Min.Y, Max.Z), Max);
-			engine.RenderVolume(Max, new Vector3(Min.X, Max.Y, Min.Z), Min);
+			engine.RenderVolume(Min, new Vector3f(Min.X, Min.Y, Max.Z), Max);
+			engine.RenderVolume(Max, new Vector3f(Min.X, Max.Y, Min.Z), Min);
 		}
 
 		if(direction == StaticVectorLibrary.Right)
 		{
-			engine.RenderVolume(Min, new Vector3(Min.X, Max.Y, Min.Z), Max);
-			engine.RenderVolume(Max, new Vector3(Min.X, Min.Y, Max.Z), Min);
+			engine.RenderVolume(Min, new Vector3f(Min.X, Max.Y, Min.Z), Max);
+			engine.RenderVolume(Max, new Vector3f(Min.X, Min.Y, Max.Z), Min);
 		}
 
 		if(direction == StaticVectorLibrary.Front)
 		{
-			engine.RenderVolume(Min, new Vector3(Max.X, Min.Y, Min.Z), Max);
-			engine.RenderVolume(Max, new Vector3(Min.X, Max.Y, Min.Z), Min);
+			engine.RenderVolume(Min, new Vector3f(Max.X, Min.Y, Min.Z), Max);
+			engine.RenderVolume(Max, new Vector3f(Min.X, Max.Y, Min.Z), Min);
 		}
 
 		if(direction == StaticVectorLibrary.Back)
 		{
-			engine.RenderVolume(Min, new Vector3(Min.X, Max.Y, Min.Z), Max);
-			engine.RenderVolume(Max, new Vector3(Max.X, Min.Y, Min.Z), Min);
+			engine.RenderVolume(Min, new Vector3f(Min.X, Max.Y, Min.Z), Max);
+			engine.RenderVolume(Max, new Vector3f(Max.X, Min.Y, Min.Z), Min);
 		}
 
 		if(direction == StaticVectorLibrary.Top)
 		{
-			engine.RenderVolume(Min, new Vector3(Min.X, Min.Y, Max.Z), Max);
-			engine.RenderVolume(Max, new Vector3(Max.X, Min.Y, Min.Z), Min);
+			engine.RenderVolume(Min, new Vector3f(Min.X, Min.Y, Max.Z), Max);
+			engine.RenderVolume(Max, new Vector3f(Max.X, Min.Y, Min.Z), Min);
 		}
 
 		if(direction == StaticVectorLibrary.Bottom)
 		{
-			engine.RenderVolume(Min, new Vector3(Max.X, Min.Y, Min.Z), Max);
-			engine.RenderVolume(Max, new Vector3(Min.X, Min.Y, Max.Z), Min);
+			engine.RenderVolume(Min, new Vector3f(Max.X, Min.Y, Min.Z), Max);
+			engine.RenderVolume(Max, new Vector3f(Min.X, Min.Y, Max.Z), Min);
 		}
 	}
 

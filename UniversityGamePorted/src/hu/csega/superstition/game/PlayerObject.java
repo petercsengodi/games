@@ -42,7 +42,7 @@ class PlayerObject extends DynamicObject implements IDisposable {
 	public NamedConnectionResult camera_pos,
 	camera_dir, camera_up;
 	protected Matrix common;
-	protected Vector3 direction;
+	protected Vector3f direction;
 
 
 	protected DynamicObject TorchControl;
@@ -77,7 +77,7 @@ class PlayerObject extends DynamicObject implements IDisposable {
 
 	protected class PlayerData extends GameObjectData {
 
-		public Vector3 position, corner1, corner2, velocity, diff;
+		public Vector3f position, corner1, corner2, velocity, diff;
 		public boolean torch_owned, alive;
 		public GameObjectData torch;
 		public GameObjectData[] weapons;
@@ -94,9 +94,9 @@ class PlayerObject extends DynamicObject implements IDisposable {
 		}
 			}
 
-	public PlayerObject(Vector3 _position, Vector3 _corner1, Vector3 _corner2) {
+	public PlayerObject(Vector3f _position, Vector3f _corner1, Vector3f _corner2) {
 		super(_position, _corner1, _corner2);
-		TorchControl = new ThrowableTorch(position, new Vector3(0f, 0f, 0f));
+		TorchControl = new ThrowableTorch(position, new Vector3f(0f, 0f, 0f));
 		NETRATE = NetworkOptions.UdpRate();
 		rate = 0;
 		network_play = false;
@@ -135,20 +135,20 @@ class PlayerObject extends DynamicObject implements IDisposable {
 	protected void initialize_weapons()
 	{
 		weapons = new Weapon[3];
-		weapons[0] = new Weapon(new Vector3(0f, 0f, 0f), WeaponType.Gun);
+		weapons[0] = new Weapon(new Vector3f(0f, 0f, 0f), WeaponType.Gun);
 		weapons[0].Status = WeaponStatus.Grabbed;
-		weapons[1] = new Weapon(new Vector3(0f, 0f, 0f), WeaponType.Sword);
+		weapons[1] = new Weapon(new Vector3f(0f, 0f, 0f), WeaponType.Sword);
 		weapons[1].Status = WeaponStatus.Grabbed;
-		//		weapons[2] = new Weapon(new Vector3(0f, 0f, 0f), WeaponType.Gun);
+		//		weapons[2] = new Weapon(new Vector3f(0f, 0f, 0f), WeaponType.Gun);
 		//		weapons[2].Status = WeaponStatus.Grabbed;
 		actual_weapon = 1;
 
-		direction = new Vector3(
+		direction = new Vector3f(
 				-(float)Math.Sin(Angle), 0f,
 				-(float)Math.Cos(Angle));
 		common = Matrix.LookAtLH(
 				position, position + direction,
-				new Vector3(0f, 1f, 0f));
+				new Vector3f(0f, 1f, 0f));
 		common.Invert();
 		scene = rotation / slow;
 
@@ -214,7 +214,7 @@ class PlayerObject extends DynamicObject implements IDisposable {
 
 	public  void Squash(
 			StaticVectorLibrary.Direction dir,
-			Vector3 box1, Vector3 box2, Vector3 sqpoint)
+			Vector3f box1, Vector3f box2, Vector3f sqpoint)
 	{
 
 		if(dir == StaticVectorLibrary.Left)
@@ -255,7 +255,7 @@ class PlayerObject extends DynamicObject implements IDisposable {
 
 	public void Squash(Clipper clipper,
 			StaticVectorLibrary.Direction dir,
-			Vector3 box1, Vector3 box2, Vector3 sqpoint)
+			Vector3f box1, Vector3f box2, Vector3f sqpoint)
 	{
 		Squash(dir, box1, box2, sqpoint);
 		clipper.PlayerEffect(this);
@@ -276,12 +276,12 @@ class PlayerObject extends DynamicObject implements IDisposable {
 		if(CurrentRoom != null) CurrentRoom.RenderRoomsInSight();
 
 		// Rendering the player.
-		//		direction = new Vector3(
+		//		direction = new Vector3f(
 		//			-(float)Math.Sin(Angle), 0f,
 		//			-(float)Math.Cos(Angle));
 		//		common = Matrix.LookAtLH(
 		//			position, position + direction,
-		//			new Vector3(0f, 1f, 0f));
+		//			new Vector3f(0f, 1f, 0f));
 		//		common.Invert();
 		//
 		//		actual.Draw(common, rotation / slow);
@@ -306,7 +306,7 @@ class PlayerObject extends DynamicObject implements IDisposable {
 				if(all_data.all_data[i] == null) continue;
 				//				Matrix m = Matrix.LookAtLH(all_data.all_data[i].position,
 				//					all_data.all_data[i].position + all_data.all_data[i].difference,
-				//					new Vector3(0f, 1f, 0f));
+				//					new Vector3f(0f, 1f, 0f));
 				//				m.Invert();
 				Matrix m = Matrix.Translation(all_data.all_data[i].position);
 				player_stand.Draw(m, 0);
@@ -357,18 +357,18 @@ class PlayerObject extends DynamicObject implements IDisposable {
 	/// Gets players orientation.
 	/// </summary>
 	/// <returns>Orientation.</returns>
-	public Vector3 getDirection()
+	public Vector3f getDirection()
 	{
 		if(camera_dir == null)
 		{
-			return new Vector3((float) (Math.Sin(Angle) * Math.Cos(ViewAngle)),
+			return new Vector3f((float) (Math.Sin(Angle) * Math.Cos(ViewAngle)),
 					(float) Math.Sin(ViewAngle), (float) (Math.Cos(Angle) * Math.Cos(ViewAngle)));
 		}
 		else
 		{
-			Vector3 ret = new Vector3(0f, 0f, 0f);
-			Vector3 cdir = camera_dir.position - camera_pos.position;
-			Vector3 cup = camera_up.position - camera_pos.position;
+			Vector3f ret = new Vector3f(0f, 0f, 0f);
+			Vector3f cdir = camera_dir.position - camera_pos.position;
+			Vector3f cup = camera_up.position - camera_pos.position;
 			ret.X = (float)(cdir.X * Math.Cos(ViewAngle) + cup.X * Math.Sin(ViewAngle));
 			ret.Y = (float)(cdir.Y * Math.Cos(ViewAngle) + cup.Y * Math.Sin(ViewAngle));
 			ret.Z = (float)(cdir.Z * Math.Cos(ViewAngle) + cup.Z * Math.Sin(ViewAngle));
@@ -399,7 +399,7 @@ class PlayerObject extends DynamicObject implements IDisposable {
 		// torch
 		if(isOwned)
 		{
-			Vector3 shotsp = 70f * getDirection();
+			Vector3f shotsp = 70f * getDirection();
 			shotsp.Y += 3f;
 			TorchControl.velocity = shotsp;
 			((ThrowableTorch)TorchControl).Stand = false;
@@ -429,7 +429,7 @@ class PlayerObject extends DynamicObject implements IDisposable {
 		if(isOwned)
 		{
 			((ThrowableTorch)TorchControl).Stand = true;
-			TorchControl.velocity = new Vector3(0f, 0f, 0f);
+			TorchControl.velocity = new Vector3f(0f, 0f, 0f);
 			isOwned = false;
 		}
 		else if(ShootLeft == false)
@@ -479,7 +479,7 @@ class PlayerObject extends DynamicObject implements IDisposable {
 		TorchControl.Period();
 		if(isOwned)
 		{
-			TorchControl.position = Vector3.Add(position, new Vector3(
+			TorchControl.position = Vector3.Add(position, new Vector3f(
 					(float)(Math.Sin(Angle - Math.PI / 4.0) * 0.3), 0f,
 					(float)(Math.Cos(Angle - Math.PI / 4.0) * 0.3)));
 		}
@@ -488,16 +488,16 @@ class PlayerObject extends DynamicObject implements IDisposable {
 
 
 
-		if(GoForward) diff = Vector3.Add(diff, new Vector3(
+		if(GoForward) diff = Vector3.Add(diff, new Vector3f(
 				(float) (Math.Sin(Angle) * step),
 				0f, (float) (Math.Cos(Angle) * step)));
-		if(GoBack) diff = Vector3.Add(diff, new Vector3(
+		if(GoBack) diff = Vector3.Add(diff, new Vector3f(
 				(float) (-Math.Sin(Angle) * step),
 				0f, (float) (-Math.Cos(Angle) * step)));
-		if(GoLeft) diff = Vector3.Add(diff, new Vector3(
+		if(GoLeft) diff = Vector3.Add(diff, new Vector3f(
 				(float) (-Math.Cos(Angle) * step),
 				0f, (float) (Math.Sin(Angle) * step)));
-		if(GoRight) diff = Vector3.Add(diff, new Vector3(
+		if(GoRight) diff = Vector3.Add(diff, new Vector3f(
 				(float) (Math.Cos(Angle) * step),
 				0f, (float) (-Math.Sin(Angle) * step)));
 
@@ -534,12 +534,12 @@ class PlayerObject extends DynamicObject implements IDisposable {
 		rotation = rotation % (actual.MaxScenes * slow);
 
 		// Render matrices, again
-		direction = new Vector3(
+		direction = new Vector3f(
 				-(float)Math.Sin(Angle), 0f,
 				-(float)Math.Cos(Angle));
 		common = Matrix.LookAtLH(
 				position, position + direction,
-				new Vector3(0f, 1f, 0f));
+				new Vector3f(0f, 1f, 0f));
 		common.Invert();
 		scene = rotation / slow;
 

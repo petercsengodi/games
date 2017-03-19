@@ -1,12 +1,14 @@
 package hu.csega.superstition.game.elements;
 
+import org.joml.Vector3f;
+
 public class ETesselatedTriangle extends Primitive {
 
-	private Vector3 a, b, c, normal;
+	private Vector3f a, b, c, normal;
 	private float lAB, lAC, lBC;
 	private int n;
 
-	public ETesselatedTriangle(Engine engine, Vector3 a, Vector3 b, Vector3 c, Texture face)
+	public ETesselatedTriangle(Engine engine, Vector3f a, Vector3f b, Vector3f c, Texture face)
 	{
 
 		super(engine);
@@ -17,7 +19,7 @@ public class ETesselatedTriangle extends Primitive {
 		Construct();
 	}
 
-	public ETesselatedTriangle(Engine engine, VertexBuffer buffer, Vector3 a, Vector3 b, Vector3 c, Texture face)
+	public ETesselatedTriangle(Engine engine, VertexBuffer buffer, Vector3f a, Vector3f b, Vector3f c, Texture face)
 	{
 		super(engine, buffer);
 		this.a = a;
@@ -29,7 +31,7 @@ public class ETesselatedTriangle extends Primitive {
 
 	private void Construct()
 	{
-		Vector3 AB = b - a, AC = c - a, BC = c - b;
+		Vector3f AB = b - a, AC = c - a, BC = c - b;
 		float l = engine.Options.detail;
 		n = Math.Max( (int)Math.Ceiling(AB.Length() / l) , (int)Math.Ceiling(AC.Length() / l));
 		n = Math.Max( (int)Math.Ceiling(BC.Length() / l) , n);
@@ -56,9 +58,9 @@ public class ETesselatedTriangle extends Primitive {
 	public void Initialize(Object buf, EventArgs ea)
 	{
 		GraphicsStream stream = ((VertexBuffer)buf).Lock(lock_index, 0, 0);
-		Vector3 AB = b - a, AC = c - a, BC = c - b, tB, tC, tX;
-		Vector3[] pre_array, next_array;
-		pre_array = new Vector3[1];
+		Vector3f AB = b - a, AC = c - a, BC = c - b, tB, tC, tX;
+		Vector3f[] pre_array, next_array;
+		pre_array = new Vector3f[1];
 		pre_array[0] = a;
 
 		//	Counting matrix for Textures
@@ -71,7 +73,7 @@ public class ETesselatedTriangle extends Primitive {
 		t2.M31 =  normal.Z;
 		t2.M33 =  normal.X;
 
-		Vector3 temp = Vector3.TransformCoordinate(normal, t2);
+		Vector3f temp = Vector3.TransformCoordinate(normal, t2);
 
 		t1.M11 =  temp.X;
 		t1.M12 = -temp.Y;
@@ -85,7 +87,7 @@ public class ETesselatedTriangle extends Primitive {
 			tB = ((float)i / (float)n) * (b - a) + a;
 			tC = ((float)i / (float)n) * (c - a) + a;
 
-			next_array = new Vector3[i+1];
+			next_array = new Vector3f[i+1];
 			for(int j = 0; j <= i; j++)
 			{
 				next_array[j] = tB * ((float)(i-j) / (float)i) + tC * ((float)j / (float)i);

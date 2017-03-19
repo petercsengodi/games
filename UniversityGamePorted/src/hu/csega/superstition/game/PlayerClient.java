@@ -1,5 +1,9 @@
 package hu.csega.superstition.game;
 
+import org.joml.Vector3f;
+
+import hu.csega.superstition.gamelib.network.GameObjectData;
+
 public class PlayClient {
 
 	private Socket socket;
@@ -114,7 +118,7 @@ public class PlayClient {
 		return ret;
 	}
 
-	public void SendNetworkPlayer(Vector3 position, Vector3 difference)
+	public void SendNetworkPlayer(Vector3f position, Vector3f difference)
 	{
 		NetworkPlayerData data = new NetworkPlayerData();
 		data.position = position;

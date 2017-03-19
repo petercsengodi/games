@@ -1,12 +1,16 @@
 package hu.csega.superstition.game.object;
 
+import org.joml.Vector3f;
+
+import hu.csega.superstition.gamelib.network.GameObjectData;
+
 class MeshMapObject extends MapObject
 {
 	protected Element element;
 	protected float Angle;
 	protected String mesh;
 
-	public MeshMapObject(String mesh, Vector3 position) {
+	public MeshMapObject(String mesh, Vector3f position) {
 		super(position, position);
 		this.position = position;
 		this.Angle = 0f;
@@ -16,7 +20,7 @@ class MeshMapObject extends MapObject
 	protected class MeshMapObjectData extends GameObjectData
 	{
 		public float angle;
-		public Vector3 position;
+		public Vector3f position;
 		public String mesh;
 
 		public MeshMapObjectData()
@@ -32,7 +36,7 @@ class MeshMapObject extends MapObject
 	}
 
 	public MeshMapObject(GameObjectData data) {
-		super(new Vector3(), new Vector3());
+		super(new Vector3f(), new Vector3f());
 		MeshMapObjectData d = data as MeshMapObjectData;
 		this.Angle = d.angle;
 		this.position = d.position;

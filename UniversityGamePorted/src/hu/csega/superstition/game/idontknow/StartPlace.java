@@ -6,13 +6,13 @@ class StartPlace implements IGameObject {
 
 	protected Vector3f position, direction;
 
-	public StartPlace(Vector3 position)
+	public StartPlace(Vector3f position)
 	{
 		this.position = position;
-		this.direction = new Vector3(0f, 0f, 1f);
+		this.direction = new Vector3f(0f, 0f, 1f);
 	}
 
-	public StartPlace(Vector3 position, Vector3 direction)
+	public StartPlace(Vector3f position, Vector3f direction)
 	{
 		this.position = position;
 		this.direction = direction;
@@ -20,7 +20,7 @@ class StartPlace implements IGameObject {
 
 	public class StartData : GameObjectData
 	{
-		public Vector3 position, direction;
+		public Vector3f position, direction;
 
 		public StartData()
 		{
@@ -43,12 +43,12 @@ class StartPlace implements IGameObject {
 		return ret;
 	}
 
-	public Vector3 Position
+	public Vector3f Position
 	{
 		get { return position; }
 	}
 
-	public Vector3 Direction
+	public Vector3f Direction
 	{
 		get { return direction; }
 	}

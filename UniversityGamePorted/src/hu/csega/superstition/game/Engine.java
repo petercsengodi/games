@@ -1,5 +1,7 @@
 package hu.csega.superstition.game;
 
+import org.joml.Vector3f;
+
 public class Engine implements IPeriod
 {
 	// General attributes
@@ -9,7 +11,7 @@ public class Engine implements IPeriod
 
 	// Attributes for shadow volume algorithms
 	private VertexBuffer volume; // Shadow volume buffer
-	private Vector3 light; // Light source for Shadow volume
+	private Vector3f light; // Light source for Shadow volume
 	private boolean isShadowRendering = false;
 	private boolean isLighted = false;
 	private byte actualReferenceValue;
@@ -37,7 +39,7 @@ public class Engine implements IPeriod
 	/// <summary>
 	/// Get or set Light Position for Shadow Volume
 	/// </summary>
-	public Vector3 LightPosition
+	public Vector3f LightPosition
 	{
 		get{ return light; }
 		set{ light = value; }
@@ -71,7 +73,7 @@ public class Engine implements IPeriod
 	// For rendering
 	private Matrix camera;
 	private Material initMaterial;
-	private Vector3 Vup;
+	private Vector3f Vup;
 
 	/// <summary>
 	/// Engine Pre-Intitialization.
@@ -248,19 +250,19 @@ public class Engine implements IPeriod
 
 		CustomVertex.PositionOnly[] array = (CustomVertex.PositionOnly[]) volume.Lock(0, 0);
 
-		array[0].Position = new Vector3(0f, 0f, 0f);
-		array[1].Position = new Vector3(1f, 0f, 0f);
-		array[2].Position = new Vector3(1f, 0f, 1f);
-		array[3].Position = new Vector3(0f, 1f, 0f);
-		array[4].Position = new Vector3(0f, 1f, 1f);
-		array[5].Position = new Vector3(0f, 0f, 0f);
-		array[6].Position = new Vector3(0f, 0f, 1f);
-		array[7].Position = new Vector3(1f, 0f, 1f);
-		array[8].Position = new Vector3(0f, 1f, 1f);
+		array[0].Position = new Vector3f(0f, 0f, 0f);
+		array[1].Position = new Vector3f(1f, 0f, 0f);
+		array[2].Position = new Vector3f(1f, 0f, 1f);
+		array[3].Position = new Vector3f(0f, 1f, 0f);
+		array[4].Position = new Vector3f(0f, 1f, 1f);
+		array[5].Position = new Vector3f(0f, 0f, 0f);
+		array[6].Position = new Vector3f(0f, 0f, 1f);
+		array[7].Position = new Vector3f(1f, 0f, 1f);
+		array[8].Position = new Vector3f(0f, 1f, 1f);
 
-		array[9].Position = new Vector3(0f, 0f, 0f);
-		array[10].Position = new Vector3(0f, 1f, 0f);
-		array[11].Position = new Vector3(1f, 0f, 0f);
+		array[9].Position = new Vector3f(0f, 0f, 0f);
+		array[10].Position = new Vector3f(0f, 1f, 0f);
+		array[11].Position = new Vector3f(1f, 0f, 0f);
 
 		volume.Unlock();
 
@@ -276,7 +278,7 @@ public class Engine implements IPeriod
 
 		camera = Matrix.PerspectiveFovLH( (float)(Math.PI / 4.0),
 				1.5f, 0.125f /* 1.0f */, 1000.0f);
-		Vup = new Vector3(0f, 1f, 0f);
+		Vup = new Vector3f(0f, 1f, 0f);
 		initMaterial = new Material();
 		initMaterial.Diffuse = Color.White;
 		initMaterial.Ambient = Color.White;
@@ -523,7 +525,7 @@ public class Engine implements IPeriod
 	/// <param name="direction">Direction of its face.</param>
 	/// <param name="face">Texture.</param>
 	/// <returns>Plane Primitve.</returns>
-	public Primitive Pr_Plane(Vector3 Left, Vector3 Right,
+	public Primitive Pr_Plane(Vector3f Left, Vector3f Right,
 			StaticVectorLibrary.Direction direction, String face)
 	{
 		return new EPlane(this, Vector3.Minimize(Left, Right),
@@ -539,7 +541,7 @@ public class Engine implements IPeriod
 	/// <param name="c">C vector</param>
 	/// <param name="face">Texture name</param>
 	/// <returns>Triangle Primitive</returns>
-	public Primitive Pr_TesselatedTriangle(Vector3 a, Vector3 b, Vector3 c, String face)
+	public Primitive Pr_TesselatedTriangle(Vector3f a, Vector3f b, Vector3f c, String face)
 	{
 		return new ETesselatedTriangle(this, a, b, c,
 				Library.Textures().getTexture(face));
@@ -593,7 +595,7 @@ public class Engine implements IPeriod
 	/// <param name="color">Color of light.</param>
 	/// <param name="position">Position of light.</param>
 	/// <returns>Light reference. null if failed.</returns>
-	public PointLight GetPointLight(float range, Color color, Vector3 position)
+	public PointLight GetPointLight(float range, Color color, Vector3f position)
 	{
 		return new PointLight(this, range, color, position);
 	}
@@ -604,7 +606,7 @@ public class Engine implements IPeriod
 	/// <param name="color">Color of light.</param>
 	/// <param name="direction">Direction of light.</param>
 	/// <returns>Light reference. null if failed.</returns>
-	public DirectedLight GetDirectedLight(Color color, Vector3 direction)
+	public DirectedLight GetDirectedLight(Color color, Vector3f direction)
 	{
 		return new DirectedLight(this, color, direction);
 	}
@@ -759,20 +761,20 @@ public class Engine implements IPeriod
 	/// <param name="a"></param>
 	/// <param name="b"></param>
 	/// <param name="c"></param>
-	public void RenderVolume(Vector3 va, Vector3 vb, Vector3 vc)
+	public void RenderVolume(Vector3f va, Vector3f vb, Vector3f vc)
 	{
 
 		// For element shadows
-		Vector3 a, b, c;
+		Vector3f a, b, c;
 		Matrix world = device.Transform.World;
 		a = Vector3.TransformCoordinate(va, world);
 		b = Vector3.TransformCoordinate(vc, world); // Switched !!!
 		c = Vector3.TransformCoordinate(vb, world); // (Because some development error :-) )
 
 		// This normal stands on the invisible side of the triangle
-		Vector3 normal = Vector3.Cross(Vector3.Subtract(b, a), Vector3.Subtract(c, a));
+		Vector3f normal = Vector3.Cross(Vector3.Subtract(b, a), Vector3.Subtract(c, a));
 		// This vector points toward the visible side of the triangle
-		Vector3 dir = Vector3.Subtract(a, light);
+		Vector3f dir = Vector3.Subtract(a, light);
 		// If the light-point is on the visible side of the triangle,
 		// both normals are nearly same-directed, so Dot-Multiplying
 		// results a positive float number
@@ -784,7 +786,7 @@ public class Engine implements IPeriod
 
 			Matrix other = new Matrix();
 			float d = (light - a).Length();
-			Vector3 i = (a - light) * (1f + 20f / d) + light;
+			Vector3f i = (a - light) * (1f + 20f / d) + light;
 			d = d / (20f + d);
 			float
 			m1 = i.X * d - a.X,
@@ -819,15 +821,15 @@ public class Engine implements IPeriod
 				device.RenderState.CullMode = Cull.CounterClockwise;
 
 
-				Vector3 p = state.Model.GetViewPosition();
-				Vector3 dir2 = Vector3.Subtract(p, a);
+				Vector3f p = state.Model.GetViewPosition();
+				Vector3f dir2 = Vector3.Subtract(p, a);
 				float signum2 = Vector3.Dot(dir2, normal);
 
 				if(signum2 <= 0f)
 				{
-					Vector3 dx = Vector3.TransformCoordinate(new Vector3(0f, 0f, 1f), device.Transform.World);
-					Vector3 ex = Vector3.TransformCoordinate(new Vector3(1f, 0f, 1f), device.Transform.World);
-					Vector3 fx = Vector3.TransformCoordinate(new Vector3(0f, 1f, 1f), device.Transform.World);
+					Vector3f dx = Vector3.TransformCoordinate(new Vector3f(0f, 0f, 1f), device.Transform.World);
+					Vector3f ex = Vector3.TransformCoordinate(new Vector3f(1f, 0f, 1f), device.Transform.World);
+					Vector3f fx = Vector3.TransformCoordinate(new Vector3f(0f, 1f, 1f), device.Transform.World);
 
 					if((Vector3.Dot(Vector3.Subtract(p, a), Vector3.Cross(Vector3.Subtract(b, a), Vector3.Subtract(dx, a))) > 0f) &&
 							(Vector3.Dot(Vector3.Subtract(p, b), Vector3.Cross(Vector3.Subtract(c, b), Vector3.Subtract(ex, b))) > 0f) &&
@@ -891,8 +893,8 @@ public class Engine implements IPeriod
 		//		shadowEffect.SetValue("ViewProj", vp);
 		//		shadowEffect.SetValue("LightPos",
 		//			new Vector4(light.X, light.Y, light.Z, 20f));
-		//		Vector3 matrix_center = Vector3.TransformCoordinate(
-		//			new Vector3(0f, 0f, 0f), w);
+		//		Vector3f matrix_center = Vector3.TransformCoordinate(
+		//			new Vector3f(0f, 0f, 0f), w);
 		//		shadowEffect.SetValue("mpos", new Vector4(
 		//			matrix_center.X, matrix_center.Y, matrix_center.Z, 1f));
 
@@ -915,10 +917,10 @@ public class Engine implements IPeriod
 			//			inverz = device.Transform.World;
 			//			inverz.Invert();
 
-			Vector3 p = Vector3.TransformCoordinate(state.Model.GetViewPosition(), inverz);
-			Vector3 l = Vector3.TransformCoordinate(this.light, inverz);
-			Vector3 difference = l-p;
-			Vector3 dir = Vector3.Normalize(difference);
+			Vector3f p = Vector3.TransformCoordinate(state.Model.GetViewPosition(), inverz);
+			Vector3f l = Vector3.TransformCoordinate(this.light, inverz);
+			Vector3f difference = l-p;
+			Vector3f dir = Vector3.Normalize(difference);
 			IntersectInformation inf;
 			if(mesh.Intersect(p, dir, out inf) && (inf.Dist < difference.Length()))
 			{

@@ -5,6 +5,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import org.joml.Vector3f;
+
 import hu.csega.superstition.tools.presentation.ToolView;
 
 public class SceneEditor extends ToolView {
@@ -313,7 +315,7 @@ public class SceneEditor extends ToolView {
 		for(CPart part : model.parts)
 		{
 			Matrix[] matrices = new Matrix[max];
-			Vector3[] center_points = new Vector3[max];
+			Vector3f[] center_points = new Vector3f[max];
 			for(int i = 0; i < max; i++)
 			{
 				if(i < model.max_scenes)
@@ -430,16 +432,16 @@ public class SceneEditor extends ToolView {
 		for(CPart p : model.parts)
 		{
 			// Reading from vectors
-			Vector3 center_start = p.center_point[start];
-			Vector3[] m_start = MatrixToVectors(p.model_transform[start]);
+			Vector3f center_start = p.center_point[start];
+			Vector3f[] m_start = MatrixToVectors(p.model_transform[start]);
 
 			// Reading end vectors
-			Vector3 center_end = p.center_point[end];
-			Vector3[] m_end = MatrixToVectors(p.model_transform[end]);
+			Vector3f center_end = p.center_point[end];
+			Vector3f[] m_end = MatrixToVectors(p.model_transform[end]);
 
 			// Actual vectors
-			Vector3 center;
-			Vector3[] m = new Vector3[m_start.Length];
+			Vector3f center;
+			Vector3f[] m = new Vector3f[m_start.Length];
 
 			for(int i = from; i <= until; i++)
 			{
@@ -472,37 +474,37 @@ public class SceneEditor extends ToolView {
 
 	}
 
-	private Vector3[] MatrixToVectors(Matrix m)
+	private Vector3f[] MatrixToVectors(Matrix m)
 	{
 		Matrix i = m;
 		i.Invert();
-		Vector3[] ret = new Vector3[3];
+		Vector3f[] ret = new Vector3f[3];
 
 		// Position Vector: Zero
 
 		// Target: Direction (maybe X = 1)
 		ret[0] = Vector3.TransformCoordinate(
-				new Vector3(0f, 0f, 1f), i);
+				new Vector3f(0f, 0f, 1f), i);
 
 		// Up: Y = 1
 		ret[1] = Vector3.TransformCoordinate(
-				new Vector3(0f, 1f, 0f), i);
+				new Vector3f(0f, 1f, 0f), i);
 
 		// Scaling Vector
 		Matrix inv = Matrix.LookAtLH(
-				new Vector3(0f, 0f, 0f), ret[0], ret[1]);
+				new Vector3f(0f, 0f, 0f), ret[0], ret[1]);
 		inv.Invert();
 		Matrix only_scale = m * inv;
 		ret[2] = Vector3.TransformCoordinate(
-				new Vector3(1f, 1f, 1f), only_scale);
+				new Vector3f(1f, 1f, 1f), only_scale);
 
 		return ret;
 	}
 
-	private Matrix VectorsToMatrix(Vector3[] v)
+	private Matrix VectorsToMatrix(Vector3f[] v)
 	{
 		Matrix ret = Matrix.LookAtLH(
-				new Vector3(0f, 0f, 0f), v[0], v[1]);
+				new Vector3f(0f, 0f, 0f), v[0], v[1]);
 		//		ret.Invert();
 		ret = Matrix.Scaling(v[2].X, v[2].Y, v[2].Z) * ret;
 

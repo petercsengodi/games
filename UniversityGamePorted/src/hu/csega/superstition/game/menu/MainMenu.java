@@ -1,5 +1,7 @@
 package hu.csega.superstition.game.menu;
 
+import org.joml.Vector3f;
+
 public class MainMenu implements IModel
 {
 
@@ -9,16 +11,16 @@ public class MainMenu implements IModel
 	protected int actual;
 	protected static double Angle_max = Math.PI / 5.0;
 	protected static double Angle_min = Math.PI / (-5.0);
-	protected Vector3 origo = new Vector3(0f, 0f, 0f);
+	protected Vector3f origo = new Vector3f(0f, 0f, 0f);
 	protected double _alfa = 0.0, _beta = Math.PI / 16.0, _gamma = -Math.PI / 16.0;
 	protected double d_alfa = 0.003, d_beta = 0.002, d_gamma = 0.004;
-	protected Vector3 standard_position = new Vector3(0f, 0f, -12f);
-	protected Vector3 position, light_pos;
+	protected Vector3f standard_position = new Vector3f(0f, 0f, -12f);
+	protected Vector3f position, light_pos;
 
 	protected Light light;
 	protected Primitive triangle1, triangle2;
 	private Frame frame;
-	protected Vector3 correction;
+	protected Vector3f correction;
 	protected IMovingLight[] lights;
 
 	protected int item = 0;
@@ -58,23 +60,23 @@ public class MainMenu implements IModel
 		param.filemenu = new FileMenu(param);
 
 		main = menu = new Main(param);
-		light_pos = new Vector3(0f, 7.5f, -20f);
+		light_pos = new Vector3f(0f, 7.5f, -20f);
 		//			light = engine.GetDirectedLight(Color.FromArgb(128, 128, 255), -light_pos);
 		light = engine.GetDirectedLight(Color.FromArgb(192,192,192), -light_pos);
-		correction = new Vector3(MenuHelpClass.LeftExtr, 0f, 0f);
+		correction = new Vector3f(MenuHelpClass.LeftExtr, 0f, 0f);
 
 		triangle1 = engine.Pr_TesselatedTriangle(
-				new Vector3(-6f, -6f, 3f),
-				new Vector3(-6f,  6f, 3f),
-				new Vector3( 6f,  6f, 3f),
+				new Vector3f(-6f, -6f, 3f),
+				new Vector3f(-6f,  6f, 3f),
+				new Vector3f( 6f,  6f, 3f),
 				@"..\textures\menu_textures\web2.bmp");
 		triangle1.Shadow = false;
 		triangle1.NotEffectedByLight = true;
 
 		triangle2 = engine.Pr_TesselatedTriangle(
-				new Vector3(  6f,   6f, 3f),
-				new Vector3(  6f,  -6f, 3f),
-				new Vector3( -6f,  -6f, 3f),
+				new Vector3f(  6f,   6f, 3f),
+				new Vector3f(  6f,  -6f, 3f),
+				new Vector3f( -6f,  -6f, 3f),
 				@"..\textures\menu_textures\web2.bmp");
 		triangle2.Shadow = false;
 		triangle2.NotEffectedByLight = true;
@@ -88,7 +90,7 @@ public class MainMenu implements IModel
 			//					(int)(StaticRandomLibrary.DoubleValue() * 255),
 			//					(int)(StaticRandomLibrary.DoubleValue() * 255),
 			//					(int)(StaticRandomLibrary.DoubleValue() * 255)),
-			//					new Vector3(0f, 0f, 0f),
+			//					new Vector3f(0f, 0f, 0f),
 			//					StaticRandomLibrary.DoubleValue() * 2.0 + 2.0,
 			//					StaticRandomLibrary.DoubleValue() * 2.0 + 2.0,
 			//					StaticRandomLibrary.DoubleValue() * 2.0 * Math.PI,
@@ -98,7 +100,7 @@ public class MainMenu implements IModel
 					(int)(StaticRandomLibrary.DoubleValue() * 255),
 					(int)(StaticRandomLibrary.DoubleValue() * 255),
 					(int)(StaticRandomLibrary.DoubleValue() * 255)),
-					new Vector3(0f, 0f, -1f),
+					new Vector3f(0f, 0f, -1f),
 					StaticRandomLibrary.DoubleValue() * 2.0 + 2.0,
 					StaticRandomLibrary.DoubleValue() * 1.0 + 0.5,
 					StaticRandomLibrary.DoubleValue() * 2.0 * Math.PI,
@@ -111,9 +113,9 @@ public class MainMenu implements IModel
 		for(int i = 0; i < agents.Length; i++)
 		{
 			agents[i] = new SpiderAgent(spider,
-					new Vector3(0f, 0f, -1f),
-					new Vector3(-5.5f, -5.5f, 3f),
-					new Vector3(5.5f, 5.5f, 3f));
+					new Vector3f(0f, 0f, -1f),
+					new Vector3f(-5.5f, -5.5f, 3f),
+					new Vector3f(5.5f, 5.5f, 3f));
 		}
 
 		Period();
@@ -151,20 +153,20 @@ public class MainMenu implements IModel
 		if(engine.IsLighted) light.DeActivate();
 	}
 
-	public Microsoft.DirectX.Vector3 GetViewPosition()
+	public Vector3f GetViewPosition()
 	{
 		return position;
 	}
 
-	public Microsoft.DirectX.Vector3 GetViewDirection()
+	public Vector3f GetViewDirection()
 	{
 		return - position;
 	}
 
 
-	public Microsoft.DirectX.Vector3 GetVUp()
+	public Vector3f GetVUp()
 	{
-		return new Vector3(0f, 1f, 0f);
+		return new Vector3f(0f, 1f, 0f);
 	}
 
 	public void OnKeyDown(int key)

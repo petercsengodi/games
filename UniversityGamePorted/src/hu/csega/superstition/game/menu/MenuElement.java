@@ -1,13 +1,15 @@
 package hu.csega.superstition.game.menu;
 
+import org.joml.Vector3f;
+
 abstract class MenuElement
 {
 	protected Element text;
 	protected ModelParams param;
 
-	protected Vector3 translation;
+	protected Vector3f translation;
 
-	public Vector3 Translation
+	public Vector3f Translation
 	{
 		get
 		{
@@ -29,7 +31,7 @@ abstract class MenuElement
 			text = param.engine.GetTextMesh(font, getText(), MenuHelpClass.TextBend, MenuHelpClass.TextExtr);
 		}
 		else text = null;
-		translation = new Vector3(0f, 0f, 0f);
+		translation = new Vector3f(0f, 0f, 0f);
 	}
 
 	public MenuElement(ModelParams param, String text)
@@ -42,7 +44,7 @@ abstract class MenuElement
 			this.text = param.engine.GetTextMesh(font, text, MenuHelpClass.TextBend, MenuHelpClass.TextExtr);
 		}
 		else this.text = null;
-		translation = new Vector3(0f, 0f, 0f);
+		translation = new Vector3f(0f, 0f, 0f);
 	}
 
 	public abstract String getText();

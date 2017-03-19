@@ -1,8 +1,10 @@
 package hu.csega.superstition.game.object;
 
+import org.joml.Vector3f;
+
 class Symbol implements IPeriod, IGameObject
 {
-	protected Vector3 position;
+	protected Vector3f position;
 	protected Element element;
 	protected float Angle;
 	protected String mesh;
@@ -12,7 +14,7 @@ class Symbol implements IPeriod, IGameObject
 
 	protected static float speed = 0.01f, limit = (float)(Math.PI * 2.0);
 
-	public Symbol(Vector3 position, String mesh, Color sparkling, float range)
+	public Symbol(Vector3f position, String mesh, Color sparkling, float range)
 	{
 		this.position = position;
 		this.mesh = mesh;
@@ -24,7 +26,7 @@ class Symbol implements IPeriod, IGameObject
 	{
 		public float angle;
 		public String mesh;
-		public Vector3 position;
+		public Vector3f position;
 		public Color sparkling;
 		public float range;
 
@@ -50,7 +52,7 @@ class Symbol implements IPeriod, IGameObject
 		this.range = d.range;
 	}
 
-	public virtual GameObjectData getData()
+	public GameObjectData getData()
 	{
 		SymbolData ret = new SymbolData();
 		ret.angle = this.Angle;
@@ -68,7 +70,7 @@ class Symbol implements IPeriod, IGameObject
 		if(Angle > limit) Angle -= limit;
 	}
 
-	public virtual void Build(Engine engine)
+	public void Build(Engine engine)
 	{
 		element = Library.Meshes().getMesh(mesh, sparkling);
 		light = engine.GetPointLight(range, sparkling, position);

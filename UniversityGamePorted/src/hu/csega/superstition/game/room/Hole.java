@@ -1,5 +1,12 @@
 package hu.csega.superstition.game.room;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.joml.Vector3f;
+
+import hu.csega.superstition.gamelib.network.GameObjectData;
+
 abstract class Hole implements IClipping, IDisposable, IGameObject, IRenderObject
 {
 	public static float STEP = 0.2f,
@@ -9,15 +16,15 @@ abstract class Hole implements IClipping, IDisposable, IGameObject, IRenderObjec
 			DoorCeiling = 1f,
 			DoorExtrude = 0.1f;
 
-	protected ArrayList planes = new ArrayList(), clippers = new ArrayList();
+	protected List<Object> planes = new ArrayList<>(), clippers = new ArrayList<>();
 	protected Room lower_room, upper_room;
-	protected Vector3 box_upper, box_lower;
+	protected Vector3f box_upper, box_lower;
 	protected StaticVectorLibrary.Direction direction;
 
 	public Hole(Room room1, Room room2, StaticVectorLibrary.Direction direction)
 	{
-		box_upper = new Vector3();
-		box_lower = new Vector3();
+		box_upper = new Vector3f();
+		box_lower = new Vector3f();
 
 
 		if(direction == StaticVectorLibrary.Left)
@@ -113,7 +120,7 @@ abstract class Hole implements IClipping, IDisposable, IGameObject, IRenderObjec
 	{
 	}
 
-	public virtual void Period()
+	public void Period()
 	{
 	}
 

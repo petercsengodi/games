@@ -44,13 +44,13 @@ class SpiderAgent implements IPeriod {
 	{
 		this.velocity = direction * (1f / direction.Length()) * 0.02f;
 		int condition = 0;
-		if(!Vector3.Minimize(position + velocity, min).Equals(min))
+		if(!Vector3f.Minimize(position + velocity, min).Equals(min))
 		{
 			velocity = -velocity;
 			direction = -direction;
 			condition++;
 		}
-		if(!Vector3.Maximize(position + velocity, max).Equals(max))
+		if(!Vector3f.Maximize(position + velocity, max).Equals(max))
 		{
 			velocity = -velocity;
 			direction = -direction;
@@ -64,7 +64,7 @@ class SpiderAgent implements IPeriod {
 		if(state >= animation.MaxScenes * slow)
 			state = 0;
 
-		Vector3 change = new Vector3(
+		Vector3f change = new Vector3f(
 				StaticRandomLibrary.FloatValue(-ch, ch),
 				StaticRandomLibrary.FloatValue(-ch, ch),
 				0f);

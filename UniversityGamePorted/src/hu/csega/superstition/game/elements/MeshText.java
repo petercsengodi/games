@@ -1,13 +1,15 @@
 package hu.csega.superstition.game.elements;
 
+import org.joml.Vector3f;
+
 public class MeshText extends Element {
 
 	private Material material;
 	private Mesh mesh;
 	private GlyphMetricsFloat[] metrics;
 	private float extrusion;
-	private Vector3 center = new Vector3(0f, 0f, 0f);
-	public Vector3 Center { get { return center; } }
+	private Vector3f center = new Vector3f(0f, 0f, 0f);
+	public Vector3f Center { get { return center; } }
 	public String test;
 
 	public MeshText(Engine engine, System.Drawing.Font font, String text, float deviation, float extrusion)
@@ -63,12 +65,12 @@ public class MeshText extends Element {
 		Matrix temp = engine.Device.Transform.World;
 		Matrix temp2 = Matrix.Identity;
 
-		Vector3 light = engine.LightPosition;
-		Vector3 b = Vector3.TransformCoordinate(
-				new Vector3(center.X, center.Y, 0f),
+		Vector3f light = engine.LightPosition;
+		Vector3f b = Vector3.TransformCoordinate(
+				new Vector3f(center.X, center.Y, 0f),
 				engine.Device.Transform.World);
-		Vector3 a = Vector3.TransformCoordinate(
-				new Vector3(center.X, center.Y, -extrusion),
+		Vector3f a = Vector3.TransformCoordinate(
+				new Vector3f(center.X, center.Y, -extrusion),
 				engine.Device.Transform.World);
 		float l = (light - a).Length();
 		float d = l / (20f + l);

@@ -1,5 +1,7 @@
 package hu.csega.superstition.t3dcreator.operations;
 
+import org.joml.Vector3f;
+
 public class TriangleSplit extends Operation
 {
 	private CFigure figure;
@@ -21,7 +23,7 @@ public class TriangleSplit extends Operation
 		figure.triangles.Remove(triangle);
 
 		// Creates new vertex
-		Vector3 position = new Vector3(0f, 0f, 0f);
+		Vector3f position = new Vector3f(0f, 0f, 0f);
 		Vector2 tex_pos = new Vector2(0f, 0f);
 		for(CEdge e : triangle.edges)
 		{

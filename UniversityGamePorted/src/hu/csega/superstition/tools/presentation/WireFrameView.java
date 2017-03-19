@@ -170,7 +170,7 @@ public class WireFrameView extends ToolView {
 		//		Pen pen;
 		//		Point pos;
 		//
-		//		Vector3 p1, p2;
+		//		Vector3f p1, p2;
 		//
 		//		CModel model = (CModel)GetData();
 		//		IPart sel = model.Selected as IPart;
@@ -180,7 +180,7 @@ public class WireFrameView extends ToolView {
 		//			{
 		//				/*
 		//				// test // TODO: Delete
-		//				Vector3 normal = Vector3.Cross(
+		//				Vector3f normal = Vector3.Cross(
 		//					t.edges[1].from.position - t.edges[0].from.position,
 		//					t.edges[2].from.position - t.edges[0].from.position);
 		//				normal.Normalize();
@@ -194,9 +194,9 @@ public class WireFrameView extends ToolView {
 		//
 		//					/*						// test // TODO: Delete
 		//					float res;
-		//					res = Vector3.Dot(new Vector3(1f, 0f, 0f), normal);
+		//					res = Vector3.Dot(new Vector3f(1f, 0f, 0f), normal);
 		//					if(res > 0) p1 = p1*(1f + 1f/p1.Length());
-		//					res = Vector3.Dot(new Vector3(1f, 0f, 0f), normal);
+		//					res = Vector3.Dot(new Vector3f(1f, 0f, 0f), normal);
 		//					if(res > 0) p2 = p2*(1f + 1f/p2.Length());
 		//					 */
 		//					if(sel != null)
@@ -246,26 +246,26 @@ public class WireFrameView extends ToolView {
 		//						for(int i = 0; i < 3; i++)
 		//						{
 		//							CTriangle tn = t.neighbours[i];
-		//							Vector3 ps = new Vector3(0f, 0f, 0f);
+		//							Vector3f ps = new Vector3f(0f, 0f, 0f);
 		//							int s = (i + 1) % 3;
 		//							if(tn.edges[0].from.Equals(t.edges[s].from)) ps = tn.edges[0].from.position;
 		//							if(tn.edges[1].from.Equals(t.edges[s].from)) ps = tn.edges[1].from.position;
 		//							if(tn.edges[2].from.Equals(t.edges[s].from)) ps = tn.edges[2].from.position;
 		//
-		//							Vector3 normal2 = Vector3.Cross(
+		//							Vector3f normal2 = Vector3.Cross(
 		//								tn.edges[1].from.position - tn.edges[0].from.position,
 		//								tn.edges[2].from.position - tn.edges[0].from.position);
 		//							normal.Normalize();
-		//							res = Vector3.Dot(new Vector3(1f, 0f, 0f), normal2);
+		//							res = Vector3.Dot(new Vector3f(1f, 0f, 0f), normal2);
 		//							if(res > 0) ps = ps*(1f + 1f/ps.Length());
 		//
 		//							p1 = t.edges[i].from.position;
 		//							p2 = t.edges[s].from.position;
 		//
 		//							// test // TODO: Delete
-		//							res = Vector3.Dot(new Vector3(1f, 0f, 0f), normal);
+		//							res = Vector3.Dot(new Vector3f(1f, 0f, 0f), normal);
 		//							if(res > 0) p1 = p1*(1f + 1f/p1.Length());
-		//							res = Vector3.Dot(new Vector3(1f, 0f, 0f), normal);
+		//							res = Vector3.Dot(new Vector3f(1f, 0f, 0f), normal);
 		//							if(res > 0) p2 = p2*(1f + 1f/p2.Length());
 		//
 		//							g.DrawLine(pen_blue, Transform(p1), Transform(ps));
@@ -409,14 +409,14 @@ public class WireFrameView extends ToolView {
 	//			IPart part = model.Selected as IPart;
 	//			if(part != null)
 	//			{
-	//				Vector3 to_point = InverseTransform(e.X, e.Y);
+	//				Vector3f to_point = InverseTransform(e.X, e.Y);
 	//				Point origin = new Point(bcontrol[idx].start_x, bcontrol[idx].start_y);
 	//				Point difference = new Point(e.X - origin.X, e.Y - origin.Y);
-	//				Vector3 from_point = InverseTransform(origin.X, origin.Y);
-	//				Vector3 direction = to_point - from_point;
-	//				//	Vector3 direction = InverseTransform(difference.X, difference.Y);
-	//				Vector3 tr = part.centerPoint();
-	//				Vector3 scale = new Vector3(0f, 0f, 0f);
+	//				Vector3f from_point = InverseTransform(origin.X, origin.Y);
+	//				Vector3f direction = to_point - from_point;
+	//				//	Vector3f direction = InverseTransform(difference.X, difference.Y);
+	//				Vector3f tr = part.centerPoint();
+	//				Vector3f scale = new Vector3f(0f, 0f, 0f);
 	//				if(Math.Abs(tr.X - from_point.X) > double.Epsilon)
 	//					scale.X = (to_point.X - tr.X) / (from_point.X - tr.X);
 	//				if(Math.Abs(tr.Y - from_point.Y) > double.Epsilon)
@@ -478,7 +478,7 @@ public class WireFrameView extends ToolView {
 	//		idx = (int)MButton.Right;
 	//		if(bcontrol[idx].down)
 	//		{
-	//			Vector3 tr = new Vector3(
+	//			Vector3f tr = new Vector3f(
 	//					(float)((e.X - bcontrol[idx].start_x) * move_step),
 	//					(float)((e.Y - bcontrol[idx].start_y) * move_step),
 	//					0f);
@@ -501,7 +501,7 @@ public class WireFrameView extends ToolView {
 	//
 	//	private void button2_Click(Object sender, System.EventArgs e)
 	//	{
-	//		translation = new Vector3(0f, 0f, 0f);
+	//		translation = new Vector3f(0f, 0f, 0f);
 	//		zoom = 20.0;
 	//		Invalidate();
 	//	}

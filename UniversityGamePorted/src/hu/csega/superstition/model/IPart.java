@@ -12,10 +12,10 @@ public interface IPart {
 
 	void move(Vector3f direction, int scene);
 
-	void move(Vector3 direction);
+	void move(Vector3f direction);
 	void moveTexture(Vector2 direction);
 	boolean hasPart(IPart part);
-	Vector3 centerPoint();
+	Vector3f centerPoint();
 	void scale(Matrix matrix);
 
 }

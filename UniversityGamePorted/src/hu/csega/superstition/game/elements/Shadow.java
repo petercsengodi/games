@@ -1,5 +1,7 @@
 package hu.csega.superstition.game.elements;
 
+import org.joml.Vector3f;
+
 public class Shadow {
 
 	private VertexBuffer vbuffer; // Rendering only the vbuffer
@@ -34,8 +36,8 @@ public class Shadow {
 
 		int n = temp.NumberFaces;
 
-		Vector3[] positions = new Vector3[n][3];
-		Vector3[] normals = new Vector3[n];
+		Vector3f[] positions = new Vector3f[n][3];
+		Vector3f[] normals = new Vector3f[n];
 
 		for(int i = 0; i < n; i++)
 		{
@@ -44,9 +46,9 @@ public class Shadow {
 			positions[i][2] = vertices[indices[i * 3 + 2]].Position;
 		}
 
-		Vector3[] t = new Vector3[3];
-		Vector3[] vn = new Vector3[3];
-		Vector3 ntmp;
+		Vector3f[] t = new Vector3f[3];
+		Vector3f[] vn = new Vector3f[3];
+		Vector3f ntmp;
 		for(int i = 0; i < n; i++)
 		{
 			// extracting vertex position informations
@@ -127,7 +129,7 @@ public class Shadow {
 	}
 
 
-	public short[] GetCommonVertices(Vector3[][] positions, int idx, int jdx)
+	public short[] GetCommonVertices(Vector3f[][] positions, int idx, int jdx)
 	{
 		short[] ret = null;
 		for(int i = 0; i < 3; i++)

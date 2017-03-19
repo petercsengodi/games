@@ -1,10 +1,12 @@
 package hu.csega.superstition.game.menu;
 
+import org.joml.Vector3f;
+
 public class OnOff
 {
 	protected Engine engine;
 	protected Element meshOn, meshOff;
-	public static Vector3 DEFAULT = new Vector3(6.5f, 0f, 0f);
+	public static Vector3f DEFAULT = new Vector3f(6.5f, 0f, 0f);
 
 	public OnOff(Engine engine)
 	{
@@ -14,7 +16,7 @@ public class OnOff
 		meshOff = engine.GetTextMesh(font, "Off", MenuHelpClass.TextBend, MenuHelpClass.TextExtr);
 	}
 
-	public void Render(Vector3 translation, boolean val)
+	public void Render(Vector3f translation, boolean val)
 	{
 		Element drawable = val?meshOn:meshOff;
 		drawable.Render(translation);

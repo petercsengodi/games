@@ -2,6 +2,8 @@ package hu.csega.superstition.animatool;
 
 import javax.swing.JButton;
 
+import org.joml.Vector3f;
+
 import hu.csega.superstition.tools.presentation.ToolView;
 
 public class OpenGLView extends ToolView {
@@ -72,8 +74,8 @@ public class OpenGLView extends ToolView {
 	private int line_count;
 
 	private double alfa = 0f, beta = 0f;
-	private Vector3 translation = new Vector3(0f, 0f, 0f);
-	private Vector3 cam_pos = new Vector3(1f, 1f, -1f);
+	private Vector3f translation = new Vector3f(0f, 0f, 0f);
+	private Vector3f cam_pos = new Vector3f(1f, 1f, -1f);
 	private ButtonControl[] bcontrol;
 	private System.Windows.Forms.Button button1;
 	private System.Windows.Forms.Button button2;
@@ -232,22 +234,22 @@ public class OpenGLView extends ToolView {
 			for(double d2 = model.grid_from; d2 < model.grid_to + model.grid_error; d2 += model.grid_step)
 			{
 				stream.Write(new CustomVertex.PositionColored(
-						new Vector3((float)(d1), (float)(d2),
+						new Vector3f((float)(d1), (float)(d2),
 								(float)(model.grid_from)), color));
 				stream.Write(new CustomVertex.PositionColored(
-						new Vector3((float)(d1), (float)(d2),
+						new Vector3f((float)(d1), (float)(d2),
 								(float)(model.grid_to)), color));
 				stream.Write(new CustomVertex.PositionColored(
-						new Vector3((float)(d1), (float)(model.grid_from),
+						new Vector3f((float)(d1), (float)(model.grid_from),
 								(float)(d2)), color));
 				stream.Write(new CustomVertex.PositionColored(
-						new Vector3((float)(d1), (float)(model.grid_to),
+						new Vector3f((float)(d1), (float)(model.grid_to),
 								(float)(d2)), color));
 				stream.Write(new CustomVertex.PositionColored(
-						new Vector3((float)(model.grid_from), (float)(d1),
+						new Vector3f((float)(model.grid_from), (float)(d1),
 								(float)(d2)), color));
 				stream.Write(new CustomVertex.PositionColored(
-						new Vector3((float)(model.grid_to), (float)(d1),
+						new Vector3f((float)(model.grid_to), (float)(d1),
 								(float)(d2)), color));
 			}
 
@@ -288,8 +290,8 @@ public class OpenGLView extends ToolView {
 
 		device.Transform.View = Matrix.LookAtLH(
 				cam_pos,
-				new Vector3(0f, 0f, 0f),
-				new Vector3(0f, 1f, 0f));
+				new Vector3f(0f, 0f, 0f),
+				new Vector3f(0f, 1f, 0f));
 
 		device.Transform.View = Matrix.RotationY((float)alfa) *
 				Matrix.RotationX((float)beta) *
@@ -394,12 +396,12 @@ public class OpenGLView extends ToolView {
 			float ftr =
 					(float)((e.X - bcontrol[idx].start_x) * zoom_step) +
 					(float)((e.Y - bcontrol[idx].start_y) * zoom_step);
-			Vector3 tr = new Vector3(ftr, ftr, -ftr);
+			Vector3f tr = new Vector3f(ftr, ftr, -ftr);
 			//				Matrix m = Matrix.RotationY((float)alfa) *
 			//					Matrix.RotationX((float)beta);
 			//				m.Invert();
 			//				tr.TransformCoordinate(m);
-			Vector3 temp = cam_pos + tr;
+			Vector3f temp = cam_pos + tr;
 
 			if((temp.Length() >= zoom_step) && (temp.Z < 0f))
 			{
@@ -414,7 +416,7 @@ public class OpenGLView extends ToolView {
 		idx = (int)MButton.Right;
 		if(bcontrol[idx].down)
 		{
-			Vector3 tr = new Vector3(
+			Vector3f tr = new Vector3f(
 					(float)((e.X - bcontrol[idx].start_x) * move_step),
 					(float)((bcontrol[idx].start_y - e.Y) * move_step),
 					0f);
@@ -422,8 +424,8 @@ public class OpenGLView extends ToolView {
 			Matrix m = Matrix.Identity;
 
 			//				m = Matrix.LookAtLH(cam_pos,
-			//					new Vector3(0f, 0f, 0f),
-			//					new Vector3(0f, 1f, 0f));
+			//					new Vector3f(0f, 0f, 0f),
+			//					new Vector3f(0f, 1f, 0f));
 
 			m = Matrix.RotationY((float)alfa) *
 					Matrix.RotationX((float)beta) * m;
@@ -453,8 +455,8 @@ public class OpenGLView extends ToolView {
 
 	private void button2_Click(Object sender, System.EventArgs e)
 	{
-		translation = new Vector3(0f, 0f, 0f);
-		cam_pos = new Vector3(1f, 1f, -1f);
+		translation = new Vector3f(0f, 0f, 0f);
+		cam_pos = new Vector3f(1f, 1f, -1f);
 		alfa = 0f;
 		beta = 0f;
 		Invalidate();

@@ -1,5 +1,7 @@
 package hu.csega.superstition.game.object;
 
+import org.joml.Vector3f;
+
 import hu.csega.superstition.gamelib.network.GameObjectData;
 
 class ThrowableTorch extends DynamicObject
@@ -9,7 +11,7 @@ class ThrowableTorch extends DynamicObject
 	protected boolean stand;
 
 	protected class TorchData extends GameObjectData {
-		public Vector3 position, corner1, corner2, velocity, diff;
+		public Vector3f position, corner1, corner2, velocity, diff;
 		public boolean stand, alive;
 
 		public TorchData()
@@ -32,14 +34,14 @@ class ThrowableTorch extends DynamicObject
 		set { stand = value; }
 	}
 
-	public ThrowableTorch(Vector3 position, Vector3 speed) {
-		super(position, new Vector3(-0.125f, -0.125f, -0.125f), new Vector3(0.125f, 0.125f, 0.125f));
+	public ThrowableTorch(Vector3f position, Vector3f speed) {
+		super(position, new Vector3f(-0.125f, -0.125f, -0.125f), new Vector3f(0.125f, 0.125f, 0.125f));
 		alive = true;
 		this.velocity = speed;
 	}
 
 	public ThrowableTorch(GameObjectData data) {
-		super(new Vector3(), new Vector3(), new Vector3());
+		super(new Vector3f(), new Vector3f(), new Vector3f());
 		TorchData d = data as TorchData;
 		this.alive = d.alive;
 		this.corner1 = d.corner1;
@@ -92,7 +94,7 @@ class ThrowableTorch extends DynamicObject
 		if(engine.IsLighted) light.DeActivate();
 	}
 
-	public void Squash(StaticVectorLibrary.Direction dir, Vector3 box1, Vector3 box2, Vector3 sqpoint)
+	public void Squash(StaticVectorLibrary.Direction dir, Vector3f box1, Vector3f box2, Vector3f sqpoint)
 	{
 
 		if((dir == StaticVectorLibrary.Left) || (dir == StaticVectorLibrary.Right))

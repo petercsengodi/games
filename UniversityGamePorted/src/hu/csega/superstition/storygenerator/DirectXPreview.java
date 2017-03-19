@@ -2,6 +2,8 @@ package hu.csega.superstition.storygenerator;
 
 import javax.swing.JPanel;
 
+import org.joml.Vector3f;
+
 import hu.csega.superstition.storygenerator.maze.StructedGridMaze;
 import hu.csega.superstition.util.StaticRandomLibrary;
 
@@ -11,12 +13,12 @@ public class DirectXPreview extends JPanel
 	private TwoWayLinkedGraph Map = null;
 	private ArrayList nodes;
 	private boolean RightMouseDown = false;
-	private Vector3 pos = Vector3.Empty;
+	private Vector3f pos = Vector3.Empty;
 	private float angle1 = 0f, angle2 = 0f, dX, dY;
 	private Device device = null;
 	private Matrix camera;
 	private System.Windows.Forms.ImageList imageList1;
-	private Vector3 Vup = Vector3.Empty;
+	private Vector3f Vup = Vector3.Empty;
 
 	public DirectXPreview(ArrayList nodes)
 	{
@@ -99,7 +101,7 @@ public class DirectXPreview extends JPanel
 	{
 		camera = Matrix.PerspectiveFovLH( (float)(Math.PI / 4.0),
 				1.0f, 0.125f /* 1.0f */, 10000.0f);
-		Vup = new Vector3(0f, 1f, 0f);
+		Vup = new Vector3f(0f, 1f, 0f);
 		device.RenderState.Lighting = false;
 		device.RenderState.Clipping = true;
 		device.RenderState.CullMode = Cull.None;
@@ -211,7 +213,7 @@ public class DirectXPreview extends JPanel
 		device.Transform.Projection = camera;
 
 		device.Transform.View =  Matrix.LookAtLH(pos,
-				new Vector3((float)(Math.Sin(angle1) * Math.Cos(angle2)) + pos.X,
+				new Vector3f((float)(Math.Sin(angle1) * Math.Cos(angle2)) + pos.X,
 						pos.Y + (float)(Math.Sin(angle2)),
 						(float)(Math.Cos(angle1) * Math.Cos(angle2)) + pos.Z),
 				Vup);

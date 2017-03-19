@@ -1,14 +1,16 @@
 package hu.csega.superstition.game.menu;
 
+import org.joml.Vector3f;
+
 public class CircleLight implements IMovingLight
 {
 	protected Light light;
 	protected double radiusX, radiusY, phaseX, phaseY;
-	protected Vector3 center, position;
+	protected Vector3f center, position;
 	public static double PI2 = 2.0 * Math.PI;
 	public static boolean circle;
 
-	public CircleLight(Engine engine, Color color, Vector3 center,
+	public CircleLight(Engine engine, Color color, Vector3f center,
 			double radiusX, double radiusY, double phaseX, double phaseY)
 	{
 		this.center = center;

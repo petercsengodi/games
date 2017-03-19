@@ -1,8 +1,10 @@
 package hu.csega.superstition.game.object;
 
+import org.joml.Vector3f;
+
 public abstract class MapObject implements Clipper, IGameObject
 {
-	public MapObject(Vector3 _corner1, Vector3 _corner2) {
+	public MapObject(Vector3f _corner1, Vector3f corner2) {
 		super(_corner1, _corner2);
 	}
 

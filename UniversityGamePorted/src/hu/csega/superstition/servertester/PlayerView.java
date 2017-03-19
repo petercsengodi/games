@@ -2,6 +2,8 @@ package hu.csega.superstition.servertester;
 
 import javax.swing.JPanel;
 
+import org.joml.Vector3f;
+
 public class PlayerView extends JPanel {
 
 	/// <summary>
@@ -10,8 +12,8 @@ public class PlayerView extends JPanel {
 	private System.ComponentModel.Container components = null;
 
 	private PlayerViewFunc func;
-	private Vector3 player;
-	private Vector3[] crosses;
+	private Vector3f player;
+	private Vector3f[] crosses;
 
 	public PlayerView()
 	{
@@ -20,11 +22,11 @@ public class PlayerView extends JPanel {
 
 	public void Initialize(PlayerViewFunc func)
 	{
-		this.player = new Vector3(0f, 0f, 0f);
+		this.player = new Vector3f(0f, 0f, 0f);
 		this.func = func;
 	}
 
-	public void SetPositions(Vector3 player, Vector3[] crosses)
+	public void SetPositions(Vector3f player, Vector3f[] crosses)
 	{
 		this.player = player;
 		this.crosses = crosses;
