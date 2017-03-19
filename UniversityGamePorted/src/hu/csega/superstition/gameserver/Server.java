@@ -18,7 +18,7 @@ public class Server extends System.Windows.Forms.Form
 	private System.Windows.Forms.Label controls_label;
 	private System.Windows.Forms.ListBox control_box;
 
-	private const string
+	private static final string
 	ServerIsRunning = "Server is Running";
 
 	private int timeval;

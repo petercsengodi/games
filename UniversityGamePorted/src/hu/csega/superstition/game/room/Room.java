@@ -4,7 +4,7 @@ class Room extends TWLNode implements IClipping, IDisposable, IGameObject, IRend
 {
 
 
-	public const int WALL_LEFT = 1,
+	public static final int WALL_LEFT = 1,
 			WALL_RIGHT = 2,
 			WALL_FRONT = 4,
 			WALL_BACK = 8,
@@ -12,7 +12,7 @@ class Room extends TWLNode implements IClipping, IDisposable, IGameObject, IRend
 			WALL_CEILING = 32,
 			WALL_SUM = 63;
 
-	public const int DG_LEFT = 0,
+	public static final int DG_LEFT = 0,
 			DG_RIGHT = 180,
 			DG_FRONT = 90,
 			DG_BACK = 270;

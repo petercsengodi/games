@@ -36,7 +36,7 @@ class PlayerObject extends DynamicObject implements IDisposable {
 	protected Animation[] player_fight;
 	protected int rotation, scene;
 	protected int actual_fight;
-	protected const int slow = 3;
+	protected static final int slow = 3;
 	public NamedConnectionResult camera_pos,
 	camera_dir, camera_up;
 	protected Matrix common;

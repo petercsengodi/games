@@ -88,8 +88,8 @@ public class WireFrameView extends ToolView {
 
 	}
 
-	private const double zoom_step = 0.3;
-	private const double move_step = 1.0;
+	private static final double zoom_step = 0.3;
+	private static final double move_step = 1.0;
 
 	private Matrix view, invert;
 	private Vector3 translation;
@@ -97,7 +97,7 @@ public class WireFrameView extends ToolView {
 	private ButtonControl[] bcontrol;
 	private boolean show_grid;
 	private Vector3 angle = new Vector3(0f, 0f, 0f);
-	private const float rotation =
+	private static final float rotation =
 			(float)Math.PI / 18;
 
 	public void SetView(Perspectives perspective)

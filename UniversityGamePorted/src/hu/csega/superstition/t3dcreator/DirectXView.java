@@ -79,9 +79,9 @@ public class DirectXView extends ToolView {
 	}
 
 
-	private const double alfa_step = 0.01, beta_step = 0.01;
-	private const double zoom_step = 0.1;
-	private const double move_step = 0.01;
+	private static final double alfa_step = 0.01, beta_step = 0.01;
+	private static final double zoom_step = 0.1;
+	private static final double move_step = 0.01;
 
 	private Device device;
 	private VertexBuffer vertices;

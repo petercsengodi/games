@@ -41,7 +41,7 @@ public class TextureView extends ToolView {
 
 	}
 
-	private const double move_step = 1.0;
+	private static final double move_step = 1.0;
 	private ButtonControl[] bcontrol;
 
 	public void UpdateView(Updates update)
