@@ -91,7 +91,7 @@ public class Node
 	{
 		set
 		{
-			foreach(object o in links)
+			foreach(Object o in links)
 				value(this, (Node)o);
 		}
 	}
@@ -169,7 +169,7 @@ public class Node
 		n.Attributes.Append(a = StoryDocument.CreateAttribute("Y"));
 		a.Value = y.ToString();
 
-		foreach(object o in links)
+		foreach(Object o in links)
 		{
 			link = o as Node;
 			n.AppendChild(l = StoryDocument.CreateElement("Link"));

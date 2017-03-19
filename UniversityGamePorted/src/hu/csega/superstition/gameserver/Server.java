@@ -498,7 +498,7 @@ public class Server extends System.Windows.Forms.Form
 		Application.Run(instance);
 	}
 
-	private void numericUpDown1_ValueChanged(object sender, System.EventArgs e)
+	private void numericUpDown1_ValueChanged(Object sender, System.EventArgs e)
 	{
 		if(numericUpDown1.ReadOnly)
 		{
@@ -506,12 +506,12 @@ public class Server extends System.Windows.Forms.Form
 		} else main_port = (int)numericUpDown1.Value;
 	}
 
-	private void start_button_Click(object sender, System.EventArgs e)
+	private void start_button_Click(Object sender, System.EventArgs e)
 	{
 		state.trigger("start");
 	}
 
-	private void stop_button_Click(object sender, System.EventArgs e)
+	private void stop_button_Click(Object sender, System.EventArgs e)
 	{
 		state.trigger("stop");
 	}

@@ -20,7 +20,7 @@ class LoadState extends State
 		this.play = play;
 	}
 
-	public State trigger(object Object)
+	public State trigger(Object Object)
 	{
 		if(Object == null) return play;
 		else return (State)Object;

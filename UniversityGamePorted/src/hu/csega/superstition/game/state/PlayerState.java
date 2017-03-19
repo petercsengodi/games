@@ -24,7 +24,7 @@ class PlayState extends State
 		this.cstate = cstate;
 	}
 
-	public State trigger(object Object)
+	public State trigger(Object Object)
 	{
 		base.trigger(Object);
 		if(Object == null) return menu;

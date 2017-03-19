@@ -27,7 +27,7 @@ class StartPlace implements IGameObject {
 			description = "Start Place";
 		}
 
-		public object create()
+		public Object create()
 		{
 			return new StartPlace(position, direction);
 		}

@@ -236,7 +236,7 @@ public class Engine implements IPeriod
 	/// </summary>
 	/// <param name="sender">Reference for Device.</param>
 	/// <param name="ea">Arguments, not used.</param>
-	private void OnDeviceReset(object sender, EventArgs ea)
+	private void OnDeviceReset(Object sender, EventArgs ea)
 	{
 
 		Device device = sender as Device;
@@ -318,7 +318,7 @@ public class Engine implements IPeriod
 	/// </summary>
 	public void ClearDisposeList()
 	{
-		foreach(object o in DisposeList)
+		foreach(Object o in DisposeList)
 		{
 			IDisposable disposable = o as IDisposable;
 			disposable.Dispose();
@@ -381,7 +381,7 @@ public class Engine implements IPeriod
 
 		if(DisposeList.Count > 0)
 		{
-			foreach(object o in DisposeList)
+			foreach(Object o in DisposeList)
 			{
 				(o as IDisposable).Dispose();
 				//					GC.SuppressFinalize(null);

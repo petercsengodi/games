@@ -118,7 +118,7 @@ public class Ask extends JPanel
 	}
 
 
-	private void bOK_Click(object sender, System.EventArgs e)
+	private void bOK_Click(Object sender, System.EventArgs e)
 	{
 
 		if(this.bCheck.Checked) this.DialogResult = DialogResult.Yes;
@@ -126,7 +126,7 @@ public class Ask extends JPanel
 		this.Close();
 	}
 
-	private void bCancel_Click(object sender, System.EventArgs e)
+	private void bCancel_Click(Object sender, System.EventArgs e)
 	{
 		this.DialogResult = DialogResult.Cancel;
 		this.Close();

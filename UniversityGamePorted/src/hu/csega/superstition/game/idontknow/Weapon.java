@@ -50,7 +50,7 @@ public class Weapon extends Clipable implements IGameElement {
 			description = "Weapon Data";
 		}
 
-		public object create()
+		public Object create()
 		{
 			return new Weapon(this);
 		}
@@ -198,7 +198,7 @@ public class Weapon extends Clipable implements IGameElement {
 
 	}
 
-	public void playerEffect(object player)
+	public void playerEffect(Object player)
 	{
 		PlayerObject p = player as PlayerObject;
 		if(status == WeaponStatus.Ground)

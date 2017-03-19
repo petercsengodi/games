@@ -537,7 +537,7 @@ public class Tester extends JPanel {
 		playerView1.Invalidate();
 	}
 
-	private void hostname_TextChanged(object sender, System.EventArgs e)
+	private void hostname_TextChanged(Object sender, System.EventArgs e)
 	{
 		if(ReadOnly) hostname.Text = host_string;
 		else
@@ -546,28 +546,28 @@ public class Tester extends JPanel {
 		}
 	}
 
-	private void port_num_ValueChanged(object sender, System.EventArgs e)
+	private void port_num_ValueChanged(Object sender, System.EventArgs e)
 	{
 		if(ReadOnly) port_num.Value = main_port;
 		else main_port = (int) port_num.Value;
 	}
 
-	private void connection_button_Click(object sender, System.EventArgs e)
+	private void connection_button_Click(Object sender, System.EventArgs e)
 	{
 		state.trigger("connect");
 	}
 
-	private void disconnection_button_Click(object sender, System.EventArgs e)
+	private void disconnection_button_Click(Object sender, System.EventArgs e)
 	{
 		state.trigger("disconnect");
 	}
 
-	private void hostname_Leave(object sender, System.EventArgs e)
+	private void hostname_Leave(Object sender, System.EventArgs e)
 	{
 		OnHostNameChanged();
 	}
 
-	private void hostname_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
+	private void hostname_KeyPress(Object sender, System.Windows.Forms.KeyPressEventArgs e)
 	{
 		if(e.KeyChar == (char)Keys.Enter)
 		{
@@ -576,18 +576,18 @@ public class Tester extends JPanel {
 		}
 	}
 
-	private void host_query_button_Click(object sender, System.EventArgs e)
+	private void host_query_button_Click(Object sender, System.EventArgs e)
 	{
 		if(client != null) client.SendHostQuery();
 	}
 
-	private void publish_host_button_Click(object sender, System.EventArgs e)
+	private void publish_host_button_Click(Object sender, System.EventArgs e)
 	{
 		if(client == null) return;
 		client.SendPublishHost(new TestMapObject());
 	}
 
-	private void join_host_button_Click(object sender, System.EventArgs e)
+	private void join_host_button_Click(Object sender, System.EventArgs e)
 	{
 		if(client == null) return;
 		if(host_list == null) return;
@@ -597,27 +597,27 @@ public class Tester extends JPanel {
 		client.SendJoinHost(hostID);
 	}
 
-	private void udpport_ValueChanged(object sender, System.EventArgs e)
+	private void udpport_ValueChanged(Object sender, System.EventArgs e)
 	{
 		udpport.Value = game_port;
 	}
 
-	private void start_game_button_Click(object sender, System.EventArgs e)
+	private void start_game_button_Click(Object sender, System.EventArgs e)
 	{
 		if(game_port > 0) state.trigger("game");
 	}
 
-	private void Tester_Load(object sender, System.EventArgs e)
+	private void Tester_Load(Object sender, System.EventArgs e)
 	{
 
 	}
 
-	private void clientport_ValueChanged(object sender, System.EventArgs e)
+	private void clientport_ValueChanged(Object sender, System.EventArgs e)
 	{
 		clientport.Value = client_port;
 	}
 
-	private void send_info_button_Click(object sender, System.EventArgs e)
+	private void send_info_button_Click(Object sender, System.EventArgs e)
 	{
 		NetworkPlayerData data = new NetworkPlayerData();
 		data.position = player_position;

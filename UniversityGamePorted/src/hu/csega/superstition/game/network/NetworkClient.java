@@ -60,7 +60,7 @@ public class NetworkClient
 		socket = null;
 	}
 
-	public void Send(object data)
+	public void Send(Object data)
 	{
 		MemoryStream stream = new MemoryStream(buffer);
 		formatter.Serialize(stream, data);

@@ -41,7 +41,7 @@ public class MainFrame extends System.Windows.Forms.Form {
 	/// </summary>
 	/// <param name="sender">Not used.</param>
 	/// <param name="e">Not used.</param>
-	public void ApplicationStart(object sender, System.EventArgs e)
+	public void ApplicationStart(Object sender, System.EventArgs e)
 	{
 		InitWindow init = new InitWindow();
 		DialogResult res = init.ShowDialog();
@@ -220,7 +220,7 @@ public class MainFrame extends System.Windows.Forms.Form {
 	/// Callback Function for Periodic Functionalities. Locks given Object.
 	/// </summary>
 	/// <param name="_period">Periodic Functionality.</param>
-	static void DoPeriod(object _period)
+	static void DoPeriod(Object _period)
 	{
 		IPeriod period = _period as IPeriod;
 		Monitor.Enter(period);

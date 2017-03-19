@@ -20,7 +20,7 @@ class ThrowableTorch extends DynamicObject
 			description = "Thorch";
 		}
 
-		public object create()
+		public Object create()
 		{
 			return new ThrowableTorch(this);
 		}

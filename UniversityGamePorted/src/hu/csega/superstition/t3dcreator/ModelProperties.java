@@ -127,7 +127,7 @@ public class ModelProperties extends JPanel {
 
 	protected CModel model;
 
-	private void button1_Click(object sender, System.EventArgs e)
+	private void button1_Click(Object sender, System.EventArgs e)
 	{
 		model.Resize((float)numericUpDown1.Value / 100f);
 		model.Memento.Clear();

@@ -174,7 +174,7 @@ public class TextureView extends ToolView {
 		return ret;
 	}
 
-	private void WireFrameView_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+	private void WireFrameView_MouseDown(Object sender, System.Windows.Forms.MouseEventArgs e)
 	{
 		if(!Initialized) return;
 		int idx = -1;
@@ -211,7 +211,7 @@ public class TextureView extends ToolView {
 		}
 	} // End of Function
 
-	private void WireFrameView_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
+	private void WireFrameView_MouseUp(Object sender, System.Windows.Forms.MouseEventArgs e)
 	{
 		if(!Initialized) return;
 		int idx = -1;
@@ -233,7 +233,7 @@ public class TextureView extends ToolView {
 		}
 	}
 
-	private void WireFrameView_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+	private void WireFrameView_MouseMove(Object sender, System.Windows.Forms.MouseEventArgs e)
 	{
 		if(!Initialized) return;
 		boolean invalidated = false;

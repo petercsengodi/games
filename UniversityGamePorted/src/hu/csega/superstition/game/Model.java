@@ -10,8 +10,8 @@ public class Model implements IModel, IPeriod {
 	private ArrayList start_places;
 	protected EndOfGame end_of_game;
 
-	private object trigger;
-	public object Trigger
+	private Object trigger;
+	public Object Trigger
 	{
 		get { return trigger; }
 		set { trigger = value; }
@@ -36,17 +36,17 @@ public class Model implements IModel, IPeriod {
 		trigger = null;
 	}
 
-	public void Build(object theme)
+	public void Build(Object theme)
 	{
 		((Room) theme).Build(engine);
 	}
 
-	public void Render_Object(object theme)
+	public void Render_Object(Object theme)
 	{
 		((IRenderObject) theme).Render();
 	}
 
-	public void BuildLink(object theme)
+	public void BuildLink(Object theme)
 	{
 		((Entrance) theme).Build(engine);
 	}
@@ -131,7 +131,7 @@ public class Model implements IModel, IPeriod {
 		return ret;
 	}
 
-	public void LoadIntoList(object theme)
+	public void LoadIntoList(Object theme)
 	{
 		IGameObject obj = theme as IGameObject;
 		list.Add(obj.getData());
@@ -494,7 +494,7 @@ public class Model implements IModel, IPeriod {
 		Library.Meshes().Clear(); // TODO: allowed?
 	}
 
-	public void Dispose(object theme)
+	public void Dispose(Object theme)
 	{
 		(theme as IDisposable).Dispose();
 	}
@@ -516,7 +516,7 @@ public class Model implements IModel, IPeriod {
 			c.Clip(player);
 		}
 
-		foreach(object o in to_remove)
+		foreach(Object o in to_remove)
 		{
 			game_elements.Remove(o);
 		}
@@ -546,12 +546,12 @@ public class Model implements IModel, IPeriod {
 
 
 
-	public void RoomPeriod(object theme)
+	public void RoomPeriod(Object theme)
 	{
 		(theme as IPeriod).Period();
 	}
 
-	public void IdentifyCurrentRoom(object theme)
+	public void IdentifyCurrentRoom(Object theme)
 	{
 		((Room) theme).IdentifyCurrent(player);
 	}

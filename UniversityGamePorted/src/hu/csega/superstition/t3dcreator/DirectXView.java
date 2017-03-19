@@ -347,7 +347,7 @@ public class DirectXView extends ToolView {
 		device.Present();
 	}
 
-	private void DirectXView_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+	private void DirectXView_MouseDown(Object sender, System.Windows.Forms.MouseEventArgs e)
 	{
 		if(!Initialized) return;
 		int idx = -1;
@@ -360,7 +360,7 @@ public class DirectXView extends ToolView {
 		bcontrol[idx].start_y = e.Y;
 	}
 
-	private void DirectXView_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
+	private void DirectXView_MouseUp(Object sender, System.Windows.Forms.MouseEventArgs e)
 	{
 		if(!Initialized) return;
 		int idx = -1;
@@ -370,7 +370,7 @@ public class DirectXView extends ToolView {
 		if(idx != -1) bcontrol[idx].down = false;
 	}
 
-	private void DirectXView_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+	private void DirectXView_MouseMove(Object sender, System.Windows.Forms.MouseEventArgs e)
 	{
 		if(!Initialized) return;
 		boolean invalidated = false;
@@ -451,7 +451,7 @@ public class DirectXView extends ToolView {
 		if(invalidated) Invalidate();
 	}
 
-	private void button1_Click(object sender, System.EventArgs e)
+	private void button1_Click(Object sender, System.EventArgs e)
 	{
 		show_grid = !show_grid;
 		if(show_grid) button1.Text = "Hide Grid";
@@ -459,7 +459,7 @@ public class DirectXView extends ToolView {
 		Invalidate();
 	}
 
-	private void button2_Click(object sender, System.EventArgs e)
+	private void button2_Click(Object sender, System.EventArgs e)
 	{
 		translation = new Vector3(0f, 0f, 0f);
 		cam_pos = new Vector3(1f, 1f, -1f);

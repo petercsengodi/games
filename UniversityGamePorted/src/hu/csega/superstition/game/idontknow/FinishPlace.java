@@ -38,7 +38,7 @@ public class FinishPlace extends Clipper implements IGameElement {
 			description = "Finish Place";
 		}
 
-		public object create()
+		public Object create()
 		{
 			return new FinishPlace(this);
 		}
@@ -99,7 +99,8 @@ public class FinishPlace extends Clipper implements IGameElement {
 		if(Angle > limit) Angle -= limit;
 	}
 
-	public void PlayerEffect(object player)
+	@Override
+	public void PlayerEffect(Object player)
 	{
 		model.FinishGame(new EndOfGame(true));
 	}

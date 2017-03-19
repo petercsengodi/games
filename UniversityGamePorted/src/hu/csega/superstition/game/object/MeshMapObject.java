@@ -24,7 +24,7 @@ class MeshMapObject extends MapObject
 			description = "Mesh Map Object";
 		}
 
-		public object create()
+		public Object create()
 		{
 			return new MeshMapObject(this);
 		}

@@ -186,18 +186,18 @@ public class FigureProperties extends JPanel {
 		this.Hide();
 	}
 
-	private void numericUpDown1_ValueChanged(object sender, System.EventArgs e)
+	private void numericUpDown1_ValueChanged(Object sender, System.EventArgs e)
 	{
 	}
 
-	private void button1_Click(object sender, System.EventArgs e)
+	private void button1_Click(Object sender, System.EventArgs e)
 	{
 		figure.SphereTexture();
 		model.Memento.Clear();
 		model.UpdateViews(Updates.Selection);
 	}
 
-	private void button3_Click(object sender, System.EventArgs e)
+	private void button3_Click(Object sender, System.EventArgs e)
 	{
 		figure.RandomTexture();
 		model.Memento.Clear();

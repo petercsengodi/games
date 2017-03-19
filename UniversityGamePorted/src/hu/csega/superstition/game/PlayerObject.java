@@ -90,7 +90,7 @@ class PlayerObject extends DynamicObject implements IDisposable {
 			description = "Player";
 		}
 
-		public object create()
+		public Object create()
 		{
 			return new PlayerObject(this);
 		}
@@ -577,7 +577,7 @@ class PlayerObject extends DynamicObject implements IDisposable {
 	/// Iterating function for Rooms to clip this player.
 	/// </summary>
 	/// <param name="theme"></param>
-	public void ClipRooms(object theme)
+	public void ClipRooms(Object theme)
 	{
 		IClipping t = ((IClipping) theme);
 		t.Clip(this);

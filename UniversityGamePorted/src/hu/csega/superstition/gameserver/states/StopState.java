@@ -3,7 +3,8 @@ package hu.csega.superstition.gameserver.states;
 public class StopState extends State
 {
 
-	public State trigger(object Object)
+	@Override
+	public State trigger(Object Object)
 	{
 		base.trigger(Object);
 		string trigger_string = Object as string;

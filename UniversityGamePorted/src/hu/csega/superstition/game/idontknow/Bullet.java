@@ -27,7 +27,7 @@ public class Bullet extends DynamicObject implements IGameElement {
 			description = "Bullet Data";
 		}
 
-		public object create()
+		public Object create()
 		{
 			return new Bullet(this);
 		}
@@ -84,7 +84,7 @@ public class Bullet extends DynamicObject implements IGameElement {
 		model.GEToRemove.Add(this);
 	}
 
-	public void PlayerEffect(object player)
+	public void PlayerEffect(Object player)
 	{
 	}
 

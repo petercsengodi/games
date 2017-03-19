@@ -163,7 +163,7 @@ public class MeshText extends JPanel {
 		get{ return text_box.Text; }
 	}
 
-	private void font_button_Click(object sender, System.EventArgs e)
+	private void font_button_Click(Object sender, System.EventArgs e)
 	{
 		DialogResult res = dialog.ShowDialog();
 		if((res == DialogResult.OK) || (res == DialogResult.Yes))

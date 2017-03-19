@@ -12,7 +12,7 @@ public class StateControl {
 		if(state != null) state.enter();
 	}
 
-	public void trigger(object Object)
+	public void trigger(Object Object)
 	{
 		if(state == null) return;
 		State new_state = state.trigger(Object);

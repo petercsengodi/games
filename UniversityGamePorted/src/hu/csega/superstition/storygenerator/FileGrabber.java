@@ -12,9 +12,9 @@ public class FileGrabber extends JPanel
 		this.inital = inital;
 	}
 
-	public object EditValue(System.ComponentModel.ITypeDescriptorContext context, IServiceProvider provider, object value)
+	public Object EditValue(System.ComponentModel.ITypeDescriptorContext context, IServiceProvider provider, object value)
 	{
-		object ret;
+		Object ret;
 
 		OpenFileDialog openFile = new OpenFileDialog();
 		openFile.CheckFileExists = true;

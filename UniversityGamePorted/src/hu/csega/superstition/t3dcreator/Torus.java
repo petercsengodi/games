@@ -227,12 +227,12 @@ public class Torus extends JPanel {
 		get { return (int)side.Value; }
 	}
 
-	private void inner_rad_ValueChanged(object sender, System.EventArgs e)
+	private void inner_rad_ValueChanged(Object sender, System.EventArgs e)
 	{
 		if(inner_rad.Value > outer_rad.Value) inner_rad.Value = outer_rad.Value;
 	}
 
-	private void outer_rad_ValueChanged(object sender, System.EventArgs e)
+	private void outer_rad_ValueChanged(Object sender, System.EventArgs e)
 	{
 		if(inner_rad.Value > outer_rad.Value) outer_rad.Value = inner_rad.Value;
 	}

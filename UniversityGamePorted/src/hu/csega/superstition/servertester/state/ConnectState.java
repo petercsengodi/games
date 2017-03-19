@@ -17,7 +17,7 @@ class ConnectState extends State
 		Tester.Instance.ReadOnly = false;
 	}
 
-	public State trigger(object Object)
+	public State trigger(Object Object)
 	{
 		base.trigger(Object);
 		string trigger_string = Object as string;

@@ -2,7 +2,7 @@ package hu.csega.superstition.servertester.state;
 
 class NoneState : State
 {
-	public State trigger(object Object)
+	public State trigger(Object Object)
 	{
 		base.trigger(Object);
 		string trigger_string = Object as string;

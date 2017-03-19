@@ -273,7 +273,7 @@ public class StoryForm extends JPanel
 		Application.Run(new StoryForm());
 	}
 
-	private void GrView_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+	private void GrView_Paint(Object sender, System.Windows.Forms.PaintEventArgs e)
 	{
 		paint = Graphics.FromImage(backBuffer);
 		Node node;
@@ -284,19 +284,19 @@ public class StoryForm extends JPanel
 		pen = new Pen(brushBlack, 1);
 		Font font = new Font(FontFamily.GenericSansSerif, 10, FontStyle.Regular);
 
-		foreach(object o in nodes)
+		foreach(Object o in nodes)
 		{
 			node = o as Node;
 			node.Function = new Node.NodeFunction(DrawLink);
 		}
 
-		foreach(object o in nodes)
+		foreach(Object o in nodes)
 		{
 			node = o as Node;
 			paint.DrawString(node.Text, font, brushBlack, node.X + scrX + 10, node.Y + scrY - 10);
 		}
 
-		foreach(object o in nodes)
+		foreach(Object o in nodes)
 		{
 			node = o as Node;
 			if(node == SelectedNode) paint.FillRectangle(brushRed, node.X - 10 + scrX, node.Y - 10 + scrY, 20, 20);
@@ -312,12 +312,12 @@ public class StoryForm extends JPanel
 		e.Graphics.DrawImage(backBuffer, 0, 0);
 	}
 
-	private void mExit_Click(object sender, System.EventArgs e)
+	private void mExit_Click(Object sender, System.EventArgs e)
 	{
 		Close();
 	}
 
-	private void StoryForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+	private void StoryForm_Closing(Object sender, System.ComponentModel.CancelEventArgs e)
 	{
 		Ask ask = new Ask();
 		DialogResult result = ask.ShowDialog();
@@ -352,7 +352,7 @@ public class StoryForm extends JPanel
 		ns.Value = "http://tempuri.org/StorySchema.xsd";
 
 		Node node;
-		foreach(object o in nodes)
+		foreach(Object o in nodes)
 		{
 			node = o as Node;
 			node.WriteToXMLNode(story, StoryDocument, workingFile);
@@ -368,7 +368,7 @@ public class StoryForm extends JPanel
 		tLink.Pushed = false;
 	}
 
-	private void tBar_ButtonClick(object sender, System.Windows.Forms.ToolBarButtonClickEventArgs e)
+	private void tBar_ButtonClick(Object sender, System.Windows.Forms.ToolBarButtonClickEventArgs e)
 	{
 		if((e.Button == tNode) || (e.Button == tLink))
 		{
@@ -388,7 +388,7 @@ public class StoryForm extends JPanel
 			if((e.Button == tDelNode) && (SelectedNode != null))
 			{
 				Node node;
-				foreach(object o in nodes)
+				foreach(Object o in nodes)
 				{
 					node = o as Node;
 					node.RemoveLink = SelectedNode;
@@ -401,7 +401,7 @@ public class StoryForm extends JPanel
 			else if((e.Button == tUnlink) && (SelectedNode != null))
 			{
 				Node node;
-				foreach(object o in nodes)
+				foreach(Object o in nodes)
 				{
 					node = o as Node;
 					node.RemoveLink = SelectedNode;
@@ -439,7 +439,7 @@ public class StoryForm extends JPanel
 	{
 		Node node, preNode = SelectedNode;
 		SelectedNode = null;
-		foreach(object o in nodes)
+		foreach(Object o in nodes)
 		{
 			node = o as Node;
 			if((x <= node.X + 10) && (x >= node.X - 10) && (y <= node.Y + 10) && (y >= node.Y - 10))
@@ -465,7 +465,7 @@ public class StoryForm extends JPanel
 		}
 
 		Node node, node2 = null;
-		foreach(object o in nodes)
+		foreach(Object o in nodes)
 		{
 			node = o as Node;
 			if((x <= node.X + 10) && (x >= node.X - 10) && (y <= node.Y + 10) && (y >= node.Y - 10))
@@ -480,7 +480,7 @@ public class StoryForm extends JPanel
 		DeSelect();
 	}
 
-	private void GrView_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+	private void GrView_MouseDown(Object sender, System.Windows.Forms.MouseEventArgs e)
 	{
 		if(e.Button == MouseButtons.Right)
 		{
@@ -511,7 +511,7 @@ public class StoryForm extends JPanel
 		}
 	}
 
-	private void GrView_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+	private void GrView_MouseMove(Object sender, System.Windows.Forms.MouseEventArgs e)
 	{
 		if(RightMouseDown)
 		{
@@ -531,7 +531,7 @@ public class StoryForm extends JPanel
 		}
 	}
 
-	private void GrView_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
+	private void GrView_MouseUp(Object sender, System.Windows.Forms.MouseEventArgs e)
 	{
 		if(e.Button == MouseButtons.Left) LeftMouseDown = false;
 		if(e.Button == MouseButtons.Right) RightMouseDown = false;
@@ -544,7 +544,7 @@ public class StoryForm extends JPanel
 		properties.SelectedObject = null;
 	}
 
-	private void properties_PropertyValueChanged(object s, System.Windows.Forms.PropertyValueChangedEventArgs e)
+	private void properties_PropertyValueChanged(Object s, System.Windows.Forms.PropertyValueChangedEventArgs e)
 	{
 		GrView.Invalidate();
 	}
@@ -555,12 +555,12 @@ public class StoryForm extends JPanel
 				linkNode.X + scrX, linkNode.Y + scrY);
 	}
 
-	private void mSave_Click(object sender, System.EventArgs e)
+	private void mSave_Click(Object sender, System.EventArgs e)
 	{
 		Save(false);
 	}
 
-	private void mNew_Click(object sender, System.EventArgs e)
+	private void mNew_Click(Object sender, System.EventArgs e)
 	{
 		changed = false;
 		nodes.Clear();
@@ -570,7 +570,7 @@ public class StoryForm extends JPanel
 		scrX = scrY = 0;
 	}
 
-	private void mOpen_Click(object sender, System.EventArgs e)
+	private void mOpen_Click(Object sender, System.EventArgs e)
 	{
 		if(changed)
 		{
@@ -634,18 +634,18 @@ public class StoryForm extends JPanel
 		scrX = scrY = 0;
 	}
 
-	private void mSaveAs_Click(object sender, System.EventArgs e)
+	private void mSaveAs_Click(Object sender, System.EventArgs e)
 	{
 		Save(true);
 	}
 
-	private void validator_ValidationEventHandler(object sender, System.Xml.Schema.ValidationEventArgs e)
+	private void validator_ValidationEventHandler(Object sender, System.Xml.Schema.ValidationEventArgs e)
 	{
 		if(e.Message != null) MessageBox.Show(this, "Error Validation Load File : \n" + e.Message);
 		else MessageBox.Show(this, "Error Validation Load File");
 	}
 
-	private void GrView_Resized(object sender, System.EventArgs e)
+	private void GrView_Resized(Object sender, System.EventArgs e)
 	{
 		backBuffer.Dispose();
 		backBuffer = new Bitmap(GrView.Width, GrView.Height);

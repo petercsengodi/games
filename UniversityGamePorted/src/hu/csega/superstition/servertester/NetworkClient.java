@@ -63,7 +63,7 @@ public class NetworkClient
 		Tester.Instance.WriteStatus("TCP Disconnect");
 	}
 
-	public void Send(object data)
+	public void Send(Object data)
 	{
 		MemoryStream stream = new MemoryStream(buffer);
 		formatter.Serialize(stream, data);

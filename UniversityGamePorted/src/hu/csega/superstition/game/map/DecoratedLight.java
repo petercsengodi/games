@@ -82,7 +82,7 @@ public class DecoratedLight extends MapObject {
 			description = "Decorated Light";
 		}
 
-		public object create()
+		public Object create()
 		{
 			return new DecoratedLight(this);
 		}

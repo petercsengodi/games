@@ -1,5 +1,5 @@
 package hu.csega.superstition.storygenerator;
 
 interface TWLFunc {
-	void call(object theme);
+	void call(Object theme);
 }

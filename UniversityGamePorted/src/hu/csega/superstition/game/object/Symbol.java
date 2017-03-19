@@ -33,7 +33,7 @@ class Symbol implements IPeriod, IGameObject
 			description = "Symbol";
 		}
 
-		public object create()
+		public Object create()
 		{
 			return new Symbol(this);
 		}

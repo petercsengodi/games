@@ -29,7 +29,7 @@ class GameMenuState extends State
 		this.gameModel = gameModel;
 	}
 
-	public State trigger(object Object)
+	public State trigger(Object Object)
 	{
 		base.trigger(Object);
 

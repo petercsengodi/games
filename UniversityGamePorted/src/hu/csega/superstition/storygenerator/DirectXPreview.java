@@ -55,7 +55,7 @@ public class DirectXPreview extends JPanel
 
 		// Maze Initialization
 		ArrayList rooms = new ArrayList(0);
-		foreach(object o1 in nodes)
+		foreach(Object o1 in nodes)
 		{
 			Node node = o1 as Node;
 			Room room = maze.SelectRandomRoom();
@@ -63,7 +63,7 @@ public class DirectXPreview extends JPanel
 			if((node.Texture != null) && (node.Texture.CompareTo("") != 0))
 				room.DirectXTexture = node.Texture;
 
-			foreach(object o2 in rooms)
+			foreach(Object o2 in rooms)
 			{
 				Room room2 = o2 as Room;
 				if(node.isConnectedTo(room2.NODE))
@@ -86,7 +86,7 @@ public class DirectXPreview extends JPanel
 	/// </summary>
 	/// <param name="sender">Reference for Device.</param>
 	/// <param name="ea">Arguments, not used.</param>
-	public void OnDeviceReset(object sender, EventArgs ea)
+	public void OnDeviceReset(Object sender, EventArgs ea)
 	{
 		Device device = sender as Device;
 		// On Device Reset Stuff
@@ -155,7 +155,7 @@ public class DirectXPreview extends JPanel
 	}
 
 
-	private void DirectXPreview_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+	private void DirectXPreview_MouseDown(Object sender, System.Windows.Forms.MouseEventArgs e)
 	{
 		if(e.Button == MouseButtons.Right)
 		{
@@ -165,7 +165,7 @@ public class DirectXPreview extends JPanel
 		}
 	}
 
-	private void DirectXPreview_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
+	private void DirectXPreview_MouseUp(Object sender, System.Windows.Forms.MouseEventArgs e)
 	{
 		if(e.Button == MouseButtons.Right)
 		{
@@ -173,7 +173,7 @@ public class DirectXPreview extends JPanel
 		}
 	}
 
-	private void DirectXPreview_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+	private void DirectXPreview_MouseMove(Object sender, System.Windows.Forms.MouseEventArgs e)
 	{
 		if(RightMouseDown)
 		{
@@ -191,17 +191,17 @@ public class DirectXPreview extends JPanel
 		}
 	}
 
-	public void InitializeRoom(object theme)
+	public void InitializeRoom(Object theme)
 	{
 		((Room) theme).Initialize(device);
 	}
 
-	public void DrawRoom(object theme)
+	public void DrawRoom(Object theme)
 	{
 		((Room) theme).DrawDirectX();
 	}
 
-	private void DirectXPreview_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+	private void DirectXPreview_Paint(Object sender, System.Windows.Forms.PaintEventArgs e)
 	{
 		if(device == null) return;
 		// Render Initialization
@@ -223,7 +223,7 @@ public class DirectXPreview extends JPanel
 		device.Present();
 	}
 
-	private void DirectXPreview_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+	private void DirectXPreview_KeyDown(Object sender, System.Windows.Forms.KeyEventArgs e)
 	{
 		float move = 0.5f;
 

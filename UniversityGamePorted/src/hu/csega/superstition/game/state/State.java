@@ -16,7 +16,7 @@ abstract class State
 		innerAction = null;
 	}
 
-	public virtual State trigger(object Object)
+	public virtual State trigger(Object Object)
 	{
 		if(Object == null) Object = "<null>";
 		MainFrame.WriteConsole("> Trigger of " +

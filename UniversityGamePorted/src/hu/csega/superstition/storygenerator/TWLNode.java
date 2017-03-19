@@ -15,7 +15,7 @@ class TWLNode
 	public void DoForAllLinks(TWLFunc func)
 	{
 		//			foreach(object o in links) ((TWLLink)o).Func(func);
-		foreach(object o in links) func(o);
+		foreach(Object o in links) func(o);
 	}
 
 	public void AddLink(TWLLink _link)
@@ -32,7 +32,7 @@ class TWLNode
 	{
 		boolean isLinked = false;
 
-		foreach(object o in links)
+		foreach(Object o in links)
 			if(n == ((TWLLink)o).GetTo())
 			{
 				isLinked = true;

@@ -7,7 +7,7 @@ public abstract class State
 		// Default initialization
 	}
 
-	public virtual State trigger(object Object)
+	public virtual State trigger(Object Object)
 	{
 		if(Object == null) Object = "<null>";
 		System.Console.WriteLine("> Trigger of {0} : {1}", this.ToString(), Object.ToString());

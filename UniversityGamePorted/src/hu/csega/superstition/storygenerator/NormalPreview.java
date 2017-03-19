@@ -35,7 +35,7 @@ public class NormalPreview extends JPanel
 
 		ArrayList rooms = new ArrayList(0);
 
-		foreach(object o1 in nodes)
+		foreach(Object o1 in nodes)
 		{
 			Node node = o1 as Node;
 			Room room = maze.SelectRandomRoom();
@@ -43,7 +43,7 @@ public class NormalPreview extends JPanel
 			if((node.Texture != null) && (node.Texture.CompareTo("") != 0))
 				room.Face = node.Texture;
 
-			foreach(object o2 in rooms)
+			foreach(Object o2 in rooms)
 			{
 				Room room2 = o2 as Room;
 				if(node.isConnectedTo(room2.NODE))
@@ -106,7 +106,7 @@ public class NormalPreview extends JPanel
 	}
 
 
-	private void NormalPreview_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+	private void NormalPreview_MouseDown(Object sender, System.Windows.Forms.MouseEventArgs e)
 	{
 		if(e.Button == MouseButtons.Right)
 		{
@@ -116,12 +116,12 @@ public class NormalPreview extends JPanel
 		}
 	}
 
-	private void NormalPreview_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
+	private void NormalPreview_MouseUp(Object sender, System.Windows.Forms.MouseEventArgs e)
 	{
 		if(e.Button == MouseButtons.Right) RightMouseDown = false;
 	}
 
-	private void NormalPreview_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+	private void NormalPreview_MouseMove(Object sender, System.Windows.Forms.MouseEventArgs e)
 	{
 		if(RightMouseDown)
 		{
@@ -136,7 +136,7 @@ public class NormalPreview extends JPanel
 		}
 	}
 
-	private void NormalPreview_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+	private void NormalPreview_Paint(Object sender, System.Windows.Forms.PaintEventArgs e)
 	{
 		paint = Graphics.FromImage(backBuffer);
 		paint.Clear(Color.White);
@@ -152,7 +152,7 @@ public class NormalPreview extends JPanel
 		e.Graphics.DrawImage(backBuffer, 0, 0);
 	}
 
-	public void DrawRoom(object theme)
+	public void DrawRoom(Object theme)
 	{
 		((Room) theme).Draw(paint);
 	}
@@ -163,7 +163,7 @@ public class NormalPreview extends JPanel
 	}
 
 
-	private void NormalPreview_Resize(object sender, System.EventArgs e)
+	private void NormalPreview_Resize(Object sender, System.EventArgs e)
 	{
 		backBuffer.Dispose();
 		backBuffer = new Bitmap(Width, Height);

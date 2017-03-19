@@ -112,7 +112,7 @@ public class Room extends TWLNode
 		OnReCreate(buffer, null);
 	}
 
-	public void OnReCreate(object buf, EventArgs ea)
+	public void OnReCreate(Object buf, EventArgs ea)
 	{
 		GraphicsStream stream = buffer.Lock(0, 0, 0);
 

@@ -87,7 +87,7 @@ abstract class Hole implements IClipping, IDisposable, IGameObject, IRenderObjec
 
 	public void Dispose()
 	{
-		foreach(object o in planes)
+		foreach(Object o in planes)
 		{
 			(o as IDisposable).Dispose();
 		}

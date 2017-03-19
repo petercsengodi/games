@@ -50,7 +50,7 @@ class Entrance extends TWLLink implements IClipping, IDisposable, IGameObject, I
 		Map.Link(From, To, this);
 	}
 
-	public void IdentifyRoomReferences(object theme)
+	public void IdentifyRoomReferences(Object theme)
 	{
 		Room room = theme as Room;
 		if(room.Lower == Room1Lower) To = room;

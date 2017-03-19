@@ -185,7 +185,7 @@ public class T3DCreator extends JFrame implements Disposable {
 		this.radioButton4 = new JRadioButton();
 		this.radioButton5 = new JRadioButton();
 		this.label1 = new JLabel();
-		this.operation_box = new JComboBox<Object>();
+		this.operation_box = new JComboBox<>();
 
 		this.wireFrameView1 = new WireFrameView();
 		this.wireFrameView2 = new WireFrameView();
@@ -582,21 +582,21 @@ public class T3DCreator extends JFrame implements Disposable {
 	//		model.UpdateViews();
 	//	}
 	//
-	//	private void radioButton1_CheckedChanged(object sender, ActionEvent e)
+	//	private void radioButton1_CheckedChanged(Object sender, ActionEvent e)
 	//	{
 	//		if(model.grid_step == 1.0) return;
 	//		model.grid_step = 1.0;
 	//		UpdateGrid();
 	//	}
 	//
-	//	private void radioButton2_CheckedChanged(object sender, ActionEvent e)
+	//	private void radioButton2_CheckedChanged(Object sender, ActionEvent e)
 	//	{
 	//		if(model.grid_step == 0.5) return;
 	//		model.grid_step = 0.5;
 	//		UpdateGrid();
 	//	}
 	//
-	//	private void radioButton3_CheckedChanged(object sender, ActionEvent e)
+	//	private void radioButton3_CheckedChanged(Object sender, ActionEvent e)
 	//	{
 	//		if(model.grid_step == 0.25) return;
 	//		model.grid_step = 0.25;
@@ -612,7 +612,7 @@ public class T3DCreator extends JFrame implements Disposable {
 		wireFrameView3.invalidate();
 	}
 
-	//	private void T3DCreator_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+	//	private void T3DCreator_Closing(Object sender, System.ComponentModel.CancelEventArgs e)
 	//	{
 	//		TextureLibrary.DisposeLibrary();
 	//		control.Dispose();
@@ -715,14 +715,14 @@ public class T3DCreator extends JFrame implements Disposable {
 	//		model.UpdateViews(Updates.Full);
 	//	}
 	//
-	//	private void radioButton4_CheckedChanged(object sender, ActionEvent e)
+	//	private void radioButton4_CheckedChanged(Object sender, ActionEvent e)
 	//	{
 	//		if(model.grid_step == 0.1) return;
 	//		model.grid_step = 0.1;
 	//		UpdateGrid();
 	//	}
 	//
-	//	private void radioButton5_CheckedChanged(object sender, ActionEvent e)
+	//	private void radioButton5_CheckedChanged(Object sender, ActionEvent e)
 	//	{
 	//		if(model.grid_step == 0.05) return;
 	//		model.grid_step = 0.05;
@@ -735,7 +735,7 @@ public class T3DCreator extends JFrame implements Disposable {
 	//		model.UpdateViews(Updates.Selection);
 	//	}
 	//
-	//	private void operation_box_SelectedIndexChanged(object sender, ActionEvent e)
+	//	private void operation_box_SelectedIndexChanged(Object sender, ActionEvent e)
 	//	{
 	//		operation = (MoveOperation)operation_box.SelectedIndex;
 	//	}

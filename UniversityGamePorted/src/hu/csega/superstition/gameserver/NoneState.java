@@ -4,7 +4,7 @@ import hu.csega.superstition.gameserver.states.QuitState;
 import hu.csega.superstition.gameserver.states.StartState;
 
 public class NoneState extends State {
-	public State trigger(object Object)
+	public State trigger(Object Object)
 	{
 		base.trigger(Object);
 		string trigger_string = Object as string;

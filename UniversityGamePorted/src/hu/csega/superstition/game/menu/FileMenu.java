@@ -74,7 +74,7 @@ public class FileMenu implements IMenu {
 
 	public void Dispose()
 	{
-		foreach(object o in files)
+		foreach(Object o in files)
 		{
 			(o as FileMenuElement).Dispose();
 		}
@@ -109,7 +109,7 @@ public class FileMenu implements IMenu {
 			{
 				name = infos[i].Name;
 				obj = null;
-				foreach(object o in files)
+				foreach(Object o in files)
 				{
 					if((o as FileMenuElement).File == name)
 					{
@@ -130,7 +130,7 @@ public class FileMenu implements IMenu {
 			}
 		}
 
-		foreach(object o in files)
+		foreach(Object o in files)
 		{
 			(o as FileMenuElement).Dispose();
 		}
