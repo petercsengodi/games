@@ -339,7 +339,7 @@ public class OpenGLView extends ToolView {
 		device.Present();
 	}
 
-	private void DirectXView_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+	private void DirectXView_MouseDown(Object sender, System.Windows.Forms.MouseEventArgs e)
 	{
 		if(!Initialized) return;
 		int idx = -1;
@@ -352,7 +352,7 @@ public class OpenGLView extends ToolView {
 		bcontrol[idx].start_y = e.Y;
 	}
 
-	private void DirectXView_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
+	private void DirectXView_MouseUp(Object sender, System.Windows.Forms.MouseEventArgs e)
 	{
 		if(!Initialized) return;
 		int idx = -1;
@@ -362,7 +362,7 @@ public class OpenGLView extends ToolView {
 		if(idx != -1) bcontrol[idx].down = false;
 	}
 
-	private void DirectXView_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+	private void DirectXView_MouseMove(Object sender, System.Windows.Forms.MouseEventArgs e)
 	{
 		if(!Initialized) return;
 		boolean invalidated = false;

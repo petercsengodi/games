@@ -65,7 +65,7 @@ public class PartEditor extends ToolView {
 		this.Part = (GetData() as CModel).Selected as CPart;
 	}
 
-	private void remove_button_Click(object sender, System.EventArgs e)
+	private void remove_button_Click(Object sender, System.EventArgs e)
 	{
 		if(part == null) return;
 		CModel model = GetData() as CModel;
@@ -96,7 +96,7 @@ public class PartEditor extends ToolView {
 		(GetData() as CModel).UpdateViews();
 	}
 
-	private void add_button_Click(object sender, System.EventArgs e)
+	private void add_button_Click(Object sender, System.EventArgs e)
 	{
 		if(part == null) return;
 		CConnection[] old = part.connections;
@@ -135,7 +135,7 @@ public class PartEditor extends ToolView {
 		(GetData() as CModel).UpdateViews();
 	}
 
-	private void file_box_TextChanged(object sender, System.EventArgs e)
+	private void file_box_TextChanged(Object sender, System.EventArgs e)
 	{
 		if(part == null)
 		{
@@ -146,7 +146,7 @@ public class PartEditor extends ToolView {
 		file_box.Text = part.mesh_file;
 	}
 
-	private void change_button_Click(object sender, System.EventArgs e)
+	private void change_button_Click(Object sender, System.EventArgs e)
 	{
 		if(part == null) return;
 
@@ -175,47 +175,47 @@ public class PartEditor extends ToolView {
 		model.UpdateViews();
 	}
 
-	private void up_button_Click(object sender, System.EventArgs e)
+	private void up_button_Click(Object sender, System.EventArgs e)
 	{
 		ChangeMatrix(Matrix.RotationZ(angle), Side.Left);
 	}
 
-	private void down_button_Click(object sender, System.EventArgs e)
+	private void down_button_Click(Object sender, System.EventArgs e)
 	{
 		ChangeMatrix(Matrix.RotationZ(-angle), Side.Left);
 	}
 
-	private void left_button_Click(object sender, System.EventArgs e)
+	private void left_button_Click(Object sender, System.EventArgs e)
 	{
 		ChangeMatrix(Matrix.RotationY(angle), Side.Left);
 	}
 
-	private void right_button_Click(object sender, System.EventArgs e)
+	private void right_button_Click(Object sender, System.EventArgs e)
 	{
 		ChangeMatrix(Matrix.RotationY(-angle), Side.Left);
 	}
 
-	private void back_button_Click(object sender, System.EventArgs e)
+	private void back_button_Click(Object sender, System.EventArgs e)
 	{
 		ChangeMatrix(Matrix.RotationX(-angle), Side.Left);
 	}
 
-	private void front_button_Click(object sender, System.EventArgs e)
+	private void front_button_Click(Object sender, System.EventArgs e)
 	{
 		ChangeMatrix(Matrix.RotationX(angle), Side.Left);
 	}
 
-	private void scale_up_button_Click(object sender, System.EventArgs e)
+	private void scale_up_button_Click(Object sender, System.EventArgs e)
 	{
 		ChangeMatrix(Matrix.Scaling(1.1f, 1.1f, 1.1f), Side.Left);
 	}
 
-	private void scale_down_button_Click(object sender, System.EventArgs e)
+	private void scale_down_button_Click(Object sender, System.EventArgs e)
 	{
 		ChangeMatrix(Matrix.Scaling(1f/1.1f, 1f/1.1f, 1f/1.1f), Side.Left);
 	}
 
-	private void clear_matrix_button_Click(object sender, System.EventArgs e)
+	private void clear_matrix_button_Click(Object sender, System.EventArgs e)
 	{
 		if(part == null) return;
 		CModel model = GetData() as CModel;
@@ -224,7 +224,7 @@ public class PartEditor extends ToolView {
 		model.UpdateViews();
 	}
 
-	private void conn_list_SelectedIndexChanged(object sender, System.EventArgs e)
+	private void conn_list_SelectedIndexChanged(Object sender, System.EventArgs e)
 	{
 		if(conn_list.SelectedIndices == null) return;
 		if(conn_list.SelectedIndices.Count == 0) return;
@@ -241,7 +241,7 @@ public class PartEditor extends ToolView {
 		var_box.Text = conn.name;
 	}
 
-	private void connect_box_SelectedIndexChanged(object sender, System.EventArgs e)
+	private void connect_box_SelectedIndexChanged(Object sender, System.EventArgs e)
 	{
 		if(part == null) return;
 		int idx = connect_box.SelectedIndex - 1;
@@ -259,7 +259,7 @@ public class PartEditor extends ToolView {
 		}
 	}
 
-	private void edt_button_Click(object sender, System.EventArgs e)
+	private void edt_button_Click(Object sender, System.EventArgs e)
 	{
 		if(part == null) return;
 		CModel model = GetData() as CModel;

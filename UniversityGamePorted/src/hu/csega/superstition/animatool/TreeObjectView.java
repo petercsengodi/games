@@ -87,7 +87,7 @@ public class TreeObjectView extends ToolView {
 
 	}
 
-	private void treeView1_AfterSelect(object sender, System.Windows.Forms.TreeViewEventArgs e)
+	private void treeView1_AfterSelect(Object sender, System.Windows.Forms.TreeViewEventArgs e)
 	{
 		if(e.Action != TreeViewAction.ByMouse) return;
 		CModel model = (GetData() as CModel);
@@ -100,9 +100,9 @@ public class TreeObjectView extends ToolView {
 	/// </summary>
 	/// <param name="item">Selected Node in Tree View.</param>
 	/// <returns>Refenrece of the selected object.</returns>
-	private object GetSelectedItem(TreeNode item)
+	private Object GetSelectedItem(TreeNode item)
 	{
-		object ret = null;
+		Object ret = null;
 		CModel model = GetData() as CModel;
 		int idx = treeView1.Nodes.IndexOf(item);
 		if(idx != -1) ret = (GetData() as CModel).parts[idx];

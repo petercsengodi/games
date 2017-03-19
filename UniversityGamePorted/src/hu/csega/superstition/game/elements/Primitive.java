@@ -60,7 +60,7 @@ public abstract class Primitive extends Element {
 	/// </summary>
 	/// <param name="buf">VertexBuffer.</param>
 	/// <param name="ea">Not Used.</param>
-	abstract public void Initialize(object buf, EventArgs ea);
+	abstract public void Initialize(Object buf, EventArgs ea);
 
 	/// <summary>
 	/// ReInitialization of Primitive.

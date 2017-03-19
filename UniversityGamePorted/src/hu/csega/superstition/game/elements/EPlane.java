@@ -83,7 +83,7 @@ public class EPlane extends Primitive {
 	}
 
 
-	public void Initialize(object buf, EventArgs ea)
+	public void Initialize(Object buf, EventArgs ea)
 	{
 		GraphicsStream stream = buffer.Lock(lock_index, 0, 0);
 

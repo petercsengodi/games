@@ -53,7 +53,7 @@ public class ETesselatedTriangle extends Primitive {
 		ReCreate();
 	}
 
-	public void Initialize(object buf, EventArgs ea)
+	public void Initialize(Object buf, EventArgs ea)
 	{
 		GraphicsStream stream = ((VertexBuffer)buf).Lock(lock_index, 0, 0);
 		Vector3 AB = b - a, AC = c - a, BC = c - b, tB, tC, tX;

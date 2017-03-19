@@ -302,7 +302,7 @@ public class SceneEditor extends ToolView {
 
 	}
 
-	private void change_button_Click(object sender, System.EventArgs e)
+	private void change_button_Click(Object sender, System.EventArgs e)
 	{
 		int max = int.Parse(change_box.Text);
 		if(max < 1) max = 1;
@@ -341,7 +341,7 @@ public class SceneEditor extends ToolView {
 		}
 	}
 
-	private void numericUpDown1_ValueChanged(object sender, System.EventArgs e)
+	private void numericUpDown1_ValueChanged(Object sender, System.EventArgs e)
 	{
 		int scene = (int)numericUpDown1.Value;
 		CModel model = GetData() as CModel;
@@ -352,7 +352,7 @@ public class SceneEditor extends ToolView {
 		model.UpdateViews();
 	}
 
-	private void copy_button_Click(object sender, System.EventArgs e)
+	private void copy_button_Click(Object sender, System.EventArgs e)
 	{
 		CModel model = GetData() as CModel;
 		int dest = (int)numericUpDown1.Value;
@@ -383,7 +383,7 @@ public class SceneEditor extends ToolView {
 		model.UpdateViews();
 	}
 
-	private void lerp_start_ValueChanged(object sender, System.EventArgs e)
+	private void lerp_start_ValueChanged(Object sender, System.EventArgs e)
 	{
 		CModel model = GetData() as CModel;
 		if((int)lerp_start.Value < 0) lerp_start.Value = 0;
@@ -391,7 +391,7 @@ public class SceneEditor extends ToolView {
 			lerp_start.Value = model.max_scenes - 1;
 	}
 
-	private void lerp_end_ValueChanged(object sender, System.EventArgs e)
+	private void lerp_end_ValueChanged(Object sender, System.EventArgs e)
 	{
 		CModel model = GetData() as CModel;
 		if((int)lerp_end.Value < 0) lerp_end.Value = 0;
@@ -399,7 +399,7 @@ public class SceneEditor extends ToolView {
 			lerp_end.Value = model.max_scenes - 1;
 	}
 
-	private void lerp_from_ValueChanged(object sender, System.EventArgs e)
+	private void lerp_from_ValueChanged(Object sender, System.EventArgs e)
 	{
 		CModel model = GetData() as CModel;
 		if((int)lerp_from.Value < 0) lerp_from.Value = 0;
@@ -407,7 +407,7 @@ public class SceneEditor extends ToolView {
 			lerp_from.Value = lerp_until.Value;
 	}
 
-	private void lerp_until_ValueChanged(object sender, System.EventArgs e)
+	private void lerp_until_ValueChanged(Object sender, System.EventArgs e)
 	{
 		CModel model = GetData() as CModel;
 		if((int)lerp_until.Value < lerp_from.Value)
@@ -416,7 +416,7 @@ public class SceneEditor extends ToolView {
 			lerp_until.Value = model.max_scenes - 1;
 	}
 
-	private void lerp_button_Click(object sender, System.EventArgs e)
+	private void lerp_button_Click(Object sender, System.EventArgs e)
 	{
 		// Read data
 		int start, from, until, end;
@@ -509,7 +509,7 @@ public class SceneEditor extends ToolView {
 		return ret;
 	}
 
-	private void change_box_TextChanged(object sender, System.EventArgs e)
+	private void change_box_TextChanged(Object sender, System.EventArgs e)
 	{
 
 	}
