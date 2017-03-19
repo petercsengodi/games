@@ -399,7 +399,7 @@ public class WireFrameView extends ToolView {
 	//	private void WireFrameView_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
 	//	{
 	//		if(!Initialized) return;
-	//		bool invalidated = false;
+	//		boolean invalidated = false;
 	//		int idx;
 	//
 	//		idx = (int)MButton.Left;

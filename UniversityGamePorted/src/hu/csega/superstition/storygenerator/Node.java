@@ -108,7 +108,7 @@ public class Node
 		text = (num++).ToString();
 	}
 
-	public bool isConnectedTo(Node node)
+	public boolean isConnectedTo(Node node)
 	{
 		return (links.IndexOf(node) >= 0);
 	}

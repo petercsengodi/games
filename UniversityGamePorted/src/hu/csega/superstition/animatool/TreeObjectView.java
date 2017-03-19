@@ -1,25 +1,20 @@
 package hu.csega.superstition.animatool;
 
-public class TreeObjectView extends CView {
-	private System.Windows.Forms.TreeView treeView1;
-	/// <summary>
-	/// Required designer variable.
-	/// </summary>
-	private System.ComponentModel.Container components = null;
+import hu.csega.superstition.tools.presentation.ToolView;
 
-	public TreeObjectView()
-	{
+public class TreeObjectView extends ToolView {
+
+	private System.Windows.Forms.TreeView treeView1;
+
+	public TreeObjectView() {
 		// This call is required by the Windows.Forms Form Designer.
 		InitializeComponent();
-
-		// TODO: Add any initialization after the InitializeComponent call
-
 	}
 
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected void Dispose( bool disposing )
+	protected void Dispose(boolean disposing )
 	{
 		if( disposing )
 		{

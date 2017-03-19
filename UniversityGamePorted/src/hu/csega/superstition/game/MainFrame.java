@@ -10,7 +10,7 @@ public class MainFrame extends System.Windows.Forms.Form {
 	private Engine engine = null;
 	private System.Threading.Timer timer = null;
 	private Thread RenderThread = null; // Rendering Thread Identifier
-	private bool ApplicationAlive = true;
+	private boolean ApplicationAlive = true;
 
 	static int counter1 = 0, counter2 = 0;
 	public static int lastfps = 0;
@@ -155,7 +155,7 @@ public class MainFrame extends System.Windows.Forms.Form {
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected void Dispose( bool disposing )
+	protected void Dispose( boolean disposing )
 	{
 		if( disposing )
 		{

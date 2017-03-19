@@ -4,14 +4,14 @@ public class Engine implements IPeriod
 {
 	// General attributes
 	protected Device device = null; // Direct3D device
-	private bool alive = false; // Engine intited and functional - used by Threads
+	private boolean alive = false; // Engine intited and functional - used by Threads
 	protected Parameters parameters;
 
 	// Attributes for shadow volume algorithms
 	private VertexBuffer volume; // Shadow volume buffer
 	private Vector3 light; // Light source for Shadow volume
-	private bool isShadowRendering = false;
-	private bool isLighted = false;
+	private boolean isShadowRendering = false;
+	private boolean isLighted = false;
 	private byte actualReferenceValue;
 	private Effect shadowEffect;
 	private Matrix view_matrix;
@@ -32,7 +32,7 @@ public class Engine implements IPeriod
 	/// <summary>
 	/// Is Engine Alive?
 	/// </summary>
-	public bool Alive { get { return alive; } }
+	public boolean Alive { get { return alive; } }
 
 	/// <summary>
 	/// Get or set Light Position for Shadow Volume
@@ -46,12 +46,12 @@ public class Engine implements IPeriod
 	/// <summary>
 	/// True, if shadow is to be rendered
 	/// </summary>
-	public bool IsShadowRendering { get{ return isShadowRendering; } }
+	public boolean IsShadowRendering { get{ return isShadowRendering; } }
 
 	/// <summary>
 	/// True, if map should be lighted
 	/// </summary>
-	public bool IsLighted { get{ return isLighted; } }
+	public boolean IsLighted { get{ return isLighted; } }
 
 	// Lights
 	private int NumberOfLights = 0;
@@ -94,7 +94,7 @@ public class Engine implements IPeriod
 	/// <param name="_model">Model that uses the Engine</param>
 	/// <param name="windowed">Is Windowed?</param>
 	/// <returns>Success</returns>
-	public bool Start()
+	public boolean Start()
 	{
 		MainFrame.WriteConsole("Starting Engine Initialization");
 
@@ -477,7 +477,7 @@ public class Engine implements IPeriod
 
 				MainFrame.WriteConsole("KEYBOARD ERROR!");
 
-				bool TryToAcquire = true;
+				boolean TryToAcquire = true;
 				do
 				{
 					try { KeyDevice.Acquire(); /* */ TryToAcquire = false; }
@@ -637,7 +637,7 @@ public class Engine implements IPeriod
 	/// <param name="light">Light reference.</param>
 	/// <param name="index">Index of light.</param>
 	/// <returns>Success.</returns>
-	public bool UnRegisterLight(Light light, int index)
+	public boolean UnRegisterLight(Light light, int index)
 	{
 		if(lights[index] == light)
 		{

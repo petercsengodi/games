@@ -9,7 +9,7 @@ public class MeshElement extends Element {
 	private AttributeRange[] attributes;
 	private Shadow shadow_mesh;
 
-	public MeshElement(Engine engine, string filename, bool shadow)
+	public MeshElement(Engine engine, string filename, boolean shadow)
 	{
 		super(engine);
 		ExtendedMaterial[] exmats;
@@ -169,7 +169,7 @@ public class MeshElement extends Element {
 		return corners;
 	}
 
-	public bool Shot(Vector3 start, Vector3 end, bool infinity)
+	public boolean Shot(Vector3 start, Vector3 end, boolean infinity)
 	{
 		if(infinity)
 		{
@@ -177,7 +177,7 @@ public class MeshElement extends Element {
 		}
 
 		IntersectInformation closest;
-		bool res = mesh.Intersect(start, end - start, out closest);
+		boolean res = mesh.Intersect(start, end - start, out closest);
 		if(!res) return false;
 		float len = (end - start).Length();
 		return len > closest.Dist;

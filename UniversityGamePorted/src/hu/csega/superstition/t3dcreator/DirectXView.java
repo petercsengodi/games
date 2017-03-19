@@ -4,16 +4,11 @@ import hu.csega.superstition.gamelib.legacy.modeldata.CEdge;
 import hu.csega.superstition.gamelib.legacy.modeldata.CTriangle;
 import hu.csega.superstition.tools.Updates;
 import hu.csega.superstition.tools.presentation.ButtonControl;
+import hu.csega.superstition.tools.presentation.ToolView;
 
-public class DirectXView extends CView {
+public class DirectXView extends ToolView {
 
-	/// <summary>
-	/// Required designer variable.
-	/// </summary>
-	private System.ComponentModel.Container components = null;
-
-	public DirectXView()
-	{
+	public DirectXView() {
 		// This call is required by the Windows.Forms Form Designer.
 		InitializeComponent();
 		bcontrol = new ButtonControl[3];
@@ -27,7 +22,7 @@ public class DirectXView extends CView {
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected override void Dispose( bool disposing )
+	protected override void Dispose( boolean disposing )
 	{
 		if( disposing )
 		{
@@ -100,7 +95,7 @@ public class DirectXView extends CView {
 	private ButtonControl[] bcontrol;
 	private System.Windows.Forms.Button button1;
 	private System.Windows.Forms.Button button2;
-	private bool show_grid = true;
+	private boolean show_grid = true;
 
 	public Device Device
 	{
@@ -378,7 +373,7 @@ public class DirectXView extends CView {
 	private void DirectXView_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
 	{
 		if(!Initialized) return;
-		bool invalidated = false;
+		boolean invalidated = false;
 		int idx;
 
 		idx = (int)MButton.Left;

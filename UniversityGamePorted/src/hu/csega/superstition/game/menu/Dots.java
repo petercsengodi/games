@@ -3,9 +3,9 @@ package hu.csega.superstition.game.menu;
 public class Dots extends MenuElement {
 	protected FileMenu menu;
 	protected IFileParent parent;
-	protected bool show;
+	protected boolean show;
 
-	public bool Show
+	public boolean Show
 	{
 		get { return show; }
 		set { show = value; }

@@ -35,7 +35,7 @@ public class Server extends System.Windows.Forms.Form
 	private Host[] hosts;
 	private ArrayList controls, rmlist;
 	private IList list_read;
-	private bool alive;
+	private boolean alive;
 	private int idx;
 	private byte[] receive_buffer;
 
@@ -304,7 +304,7 @@ public class Server extends System.Windows.Forms.Form
 		host_box.Invalidate();
 	}
 
-	public bool ReadOnly
+	public boolean ReadOnly
 	{
 		get { return numericUpDown1.ReadOnly; }
 		set
@@ -323,7 +323,7 @@ public class Server extends System.Windows.Forms.Form
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected void Dispose( bool disposing )
+	protected void Dispose( boolean disposing )
 	{
 		if( disposing )
 		{

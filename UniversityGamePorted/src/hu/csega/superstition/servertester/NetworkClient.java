@@ -7,7 +7,7 @@ public class NetworkClient
 	private int main_port;
 	private int packet_size;
 
-	private bool alive;
+	private boolean alive;
 	private Thread thread;
 	private ReceiveData recv_func;
 	private int timeval;
@@ -29,7 +29,7 @@ public class NetworkClient
 		this.packet_size = NetworkOptions.PacketLength();
 	}
 
-	public bool TcpConnect()
+	public boolean TcpConnect()
 	{
 		socket = new Socket(AddressFamily.InterNetwork,
 			SocketType.Stream, ProtocolType.Tcp);

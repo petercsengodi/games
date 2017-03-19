@@ -29,7 +29,7 @@ public class Torus extends JPanel {
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected override void Dispose( bool disposing )
+	protected override void Dispose(boolean disposing)
 	{
 		if( disposing )
 		{

@@ -5,13 +5,13 @@ import org.joml.Vector3f;
 class PlayerObject extends DynamicObject implements IDisposable {
 
 	// For Behaviour
-	public bool OnGround = false,
+	public boolean OnGround = false,
 			OnGroundNextState = false,
 			OnJump = false,
 			ShootRight = false, ShootLeft = false;
 
 	// For Controlling
-	public bool GoForward = false,
+	public boolean GoForward = false,
 			GoBack = false,
 			TurnLeft = false,
 			TurnRight = false,
@@ -44,14 +44,14 @@ class PlayerObject extends DynamicObject implements IDisposable {
 
 
 	protected DynamicObject TorchControl;
-	protected bool isOwned = true;
+	protected boolean isOwned = true;
 	protected Weapon[] weapons;
 	protected int actual_weapon;
 
 
 	protected Network.PlayClient play_client; // network connection
 	protected AllPlayerData all_data; // net-player datas
-	protected bool network_play; // enables/disables net-play
+	protected boolean network_play; // enables/disables net-play
 	protected int userID; // user id on server
 	protected int rate; // making network sending slower than physical happening
 	protected int NETRATE; // rate of sending message
@@ -80,7 +80,7 @@ class PlayerObject extends DynamicObject implements IDisposable {
 			protected class PlayerData : GameObjectData
 			{
 		public Vector3 position, corner1, corner2, velocity, diff;
-		public bool torch_owned, alive;
+		public boolean torch_owned, alive;
 		public GameObjectData torch;
 		public GameObjectData[] weapons;
 		public float angle, view_angle;
@@ -381,7 +381,7 @@ class PlayerObject extends DynamicObject implements IDisposable {
 	/// <summary>
 	/// Player shoot.
 	/// </summary>
-	public void _OnceShot(bool left)
+	public void _OnceShot(boolean left)
 	{
 		if(left && (ShootLeft == false))
 		{

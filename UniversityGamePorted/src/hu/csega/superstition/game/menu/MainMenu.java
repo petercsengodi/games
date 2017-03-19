@@ -39,7 +39,7 @@ public class MainMenu implements IModel
 		lights = new TranslateLight[7];
 	}
 
-	public MainMenu(Engine engine, bool game_menu, Model.Model game_model)
+	public MainMenu(Engine engine, boolean game_menu, Model.Model game_model)
 	{
 		this.engine = engine;
 		param = new ModelParams();

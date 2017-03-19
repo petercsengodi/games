@@ -10,7 +10,7 @@ public class NormalPreview extends JPanel
 	private System.ComponentModel.IContainer components;
 	private TwoWayLinkedGraph Map = null;
 	private ArrayList nodes;
-	private bool RightMouseDown = false;
+	private boolean RightMouseDown = false;
 	private int scrX = 0, scrY = 0, dX, dY;
 	private Bitmap backBuffer = null;
 	private System.Windows.Forms.ImageList imageList1;
@@ -61,7 +61,7 @@ public class NormalPreview extends JPanel
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected override void Dispose( bool disposing )
+	protected override void Dispose( boolean disposing )
 	{
 		if( disposing )
 		{

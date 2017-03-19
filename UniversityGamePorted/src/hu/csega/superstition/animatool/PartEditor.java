@@ -1,6 +1,8 @@
 package hu.csega.superstition.animatool;
 
-public class PartEditor extends CView {
+import hu.csega.superstition.tools.presentation.ToolView;
+
+public class PartEditor extends ToolView {
 
 	private static final float angle = 0.1f;
 
@@ -67,12 +69,11 @@ public class PartEditor extends CView {
 	{
 		if(part == null) return;
 		CModel model = GetData() as CModel;
-		ListView.SelectedIndexCollection indices
-		= conn_list.SelectedIndices;
+		ListView.SelectedIndexCollection indices = conn_list.SelectedIndices;
 		CConnection[] old = part.connections;
 		CConnection[] _new = new CConnection[old.Length - indices.Count];
 
-		bool real;
+		boolean real;
 		int count = 0;
 
 		for(int i = 0; i < old.Length; i++)
@@ -267,7 +268,7 @@ public class PartEditor extends CView {
 		CConnection[] old = part.connections;
 		CConnection[] _new = new CConnection[old.Length];
 
-		bool real;
+		boolean real;
 		int count = 0;
 
 		for(int i = 0; i < old.Length; i++)

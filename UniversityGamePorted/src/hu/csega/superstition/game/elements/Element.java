@@ -6,13 +6,13 @@ public abstract class Element {
 
 	protected Engine engine;
 	private static Vector3 vup = new Vector3f(0f, 1f, 0f);
-	protected bool shadow = true;
+	protected boolean shadow = true;
 	protected Matrix inverz = Matrix.Identity;
 
 	/// <summary>
 	/// Turn on/off element shadow. (True as default.)
 	/// </summary>
-	public bool Shadow
+	public boolean Shadow
 	{
 		get{ return shadow; }
 		set{ shadow = value; }

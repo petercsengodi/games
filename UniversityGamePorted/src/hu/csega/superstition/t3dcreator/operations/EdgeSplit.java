@@ -63,7 +63,7 @@ public class EdgeSplit extends Operation
 
 		// Creating new triangles
 		CVertex[] quadrat = new CVertex[4];
-		int count = 0; bool missed = true; int idx = -1;
+		int count = 0; boolean missed = true; int idx = -1;
 		foreach(CEdge edge in old_triangles[0].edges)
 		{
 			quadrat[count++] = edge.from;

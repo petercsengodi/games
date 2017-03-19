@@ -21,7 +21,7 @@ public class StoryForm extends JPanel
 
 	private ArrayList nodes;
 	private Node SelectedNode;
-	private bool LeftMouseDown, RightMouseDown;
+	private boolean LeftMouseDown, RightMouseDown;
 	private int scrX, scrY, dX, dY;
 	private System.Windows.Forms.ToolBarButton tDelNode;
 	private System.Windows.Forms.PropertyGrid properties;
@@ -30,7 +30,7 @@ public class StoryForm extends JPanel
 	private System.Windows.Forms.ToolBarButton tUnlink;
 	private Pen pen;
 
-	private bool changed;
+	private boolean changed;
 	private System.Windows.Forms.MenuItem mSaveAs;
 	private string workingFile;
 	private string actualDir;
@@ -62,7 +62,7 @@ public class StoryForm extends JPanel
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected override void Dispose( bool disposing )
+	protected override void Dispose( boolean disposing )
 	{
 		if( disposing )
 		{
@@ -326,7 +326,7 @@ public class StoryForm extends JPanel
 		if(result == DialogResult.Cancel) e.Cancel = true;
 	}
 
-	private void Save(bool newpath)
+	private void Save(boolean newpath)
 	{
 		if(!changed) return;
 
@@ -435,7 +435,7 @@ public class StoryForm extends JPanel
 		properties.SelectedObject = SelectedNode = node;
 	}
 
-	public bool SelectNode(int x, int y)
+	public boolean SelectNode(int x, int y)
 	{
 		Node node, preNode = SelectedNode;
 		SelectedNode = null;

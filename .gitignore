@@ -2,6 +2,8 @@
 Alpoc/bin/*
 Agomol/bin/*
 Aship/bin/*
+AGameEngine/bin/*
+ASwingAdapter/bin/*
 
 UniversityGamePorted/bin/*
 UniversityGamePortedTest/bin/*

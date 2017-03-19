@@ -14,7 +14,7 @@ public class OnOff
 		meshOff = engine.GetTextMesh(font, "Off", MenuHelpClass.TextBend, MenuHelpClass.TextExtr);
 	}
 
-	public void Render(Vector3 translation, bool val)
+	public void Render(Vector3 translation, boolean val)
 	{
 		Element drawable = val?meshOn:meshOff;
 		drawable.Render(translation);

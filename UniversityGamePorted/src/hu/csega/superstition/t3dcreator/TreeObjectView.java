@@ -3,28 +3,21 @@ package hu.csega.superstition.t3dcreator;
 import hu.csega.superstition.gamelib.legacy.modeldata.CEdge;
 import hu.csega.superstition.gamelib.legacy.modeldata.CTriangle;
 import hu.csega.superstition.tools.Updates;
+import hu.csega.superstition.tools.presentation.ToolView;
 
-public class TreeObjectView extends CView
-{
+public class TreeObjectView extends ToolView {
+
 	private System.Windows.Forms.TreeView treeView1;
-	/// <summary>
-	/// Required designer variable.
-	/// </summary>
-	private System.ComponentModel.Container components = null;
 
-	public TreeObjectView()
-	{
+	public TreeObjectView() {
 		// This call is required by the Windows.Forms Form Designer.
 		InitializeComponent();
-
-		// TODO: Add any initialization after the InitializeComponent call
-
 	}
 
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected override void Dispose( bool disposing )
+	protected void Dispose(boolean disposing)
 	{
 		if( disposing )
 		{

@@ -28,7 +28,7 @@ class TwoWayLinkedGraph
 
 	public void Link(TWLNode _from, TWLNode _to, TWLLink _link)
 	{
-		bool notfound = true;
+		boolean notfound = true;
 		foreach(object o in nodes) if ((o as TWLNode) == _from) { notfound = false; break; }
 		if(notfound){ nodes.Add(_from); _from.OnInserted(); }
 		notfound = false;
@@ -42,7 +42,7 @@ class TwoWayLinkedGraph
 		_to.OnLinkEnd();
 	}
 
-	public bool IsRelated(TWLNode n1, TWLNode n2)
+	public boolean IsRelated(TWLNode n1, TWLNode n2)
 	{
 		return n1.IsLinkedTo(n2) || n2.IsLinkedTo(n1);
 	}

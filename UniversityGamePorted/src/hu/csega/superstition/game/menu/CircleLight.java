@@ -6,7 +6,7 @@ public class CircleLight implements IMovingLight
 	protected double radiusX, radiusY, phaseX, phaseY;
 	protected Vector3 center, position;
 	public static double PI2 = 2.0 * Math.PI;
-	public static bool circle;
+	public static boolean circle;
 
 	public CircleLight(Engine engine, Color color, Vector3 center,
 			double radiusX, double radiusY, double phaseX, double phaseY)

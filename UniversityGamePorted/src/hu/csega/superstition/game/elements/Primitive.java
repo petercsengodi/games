@@ -5,10 +5,10 @@ public abstract class Primitive extends Element {
 	protected Texture face = null;
 	protected VertexBuffer buffer = null;
 	protected int count, lock_index;
-	protected bool foreign_buffer = false;
+	protected boolean foreign_buffer = false;
 
-	protected bool notEffectedByLight = false;
-	public bool NotEffectedByLight{ get { return notEffectedByLight; } set { notEffectedByLight = value; }}
+	protected boolean notEffectedByLight = false;
+	public boolean NotEffectedByLight{ get { return notEffectedByLight; } set { notEffectedByLight = value; }}
 	public int Count{ get { return count; } }
 
 	/// <summary>

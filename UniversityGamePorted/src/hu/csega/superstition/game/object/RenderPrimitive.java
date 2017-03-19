@@ -3,12 +3,12 @@ package hu.csega.superstition.game.object;
 public class RenderPrimitive implements IRenderObject, IDisposable
 {
 	protected Primitive primitive;
-	protected bool needToDispose = true;
+	protected boolean needToDispose = true;
 
 	/// <summary>
 	/// Whether this object has to dispose itself or not.
 	/// </summary>
-	public bool NeedToDispose
+	public boolean NeedToDispose
 	{
 		get{ return needToDispose; }
 		set{ needToDispose = value; }

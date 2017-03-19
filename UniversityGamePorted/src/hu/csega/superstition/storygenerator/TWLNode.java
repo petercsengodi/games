@@ -28,9 +28,9 @@ class TWLNode
 		linkends.Add(_link);
 	}
 
-	public bool IsLinkedTo(TWLNode n)
+	public boolean IsLinkedTo(TWLNode n)
 	{
-		bool isLinked = false;
+		boolean isLinked = false;
 
 		foreach(object o in links)
 			if(n == ((TWLLink)o).GetTo())

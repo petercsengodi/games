@@ -10,7 +10,7 @@ public class DirectXPreview extends JPanel
 	private System.ComponentModel.IContainer components;
 	private TwoWayLinkedGraph Map = null;
 	private ArrayList nodes;
-	private bool RightMouseDown = false;
+	private boolean RightMouseDown = false;
 	private Vector3 pos = Vector3.Empty;
 	private float angle1 = 0f, angle2 = 0f, dX, dY;
 	private Device device = null;
@@ -108,7 +108,7 @@ public class DirectXPreview extends JPanel
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected override void Dispose( bool disposing )
+	protected override void Dispose( boolean disposing )
 	{
 		if( disposing )
 		{

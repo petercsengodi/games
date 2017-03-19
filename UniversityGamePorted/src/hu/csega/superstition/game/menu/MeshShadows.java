@@ -23,7 +23,7 @@ public class MeshShadows extends MenuElement
 	@Override
 	public void Render()
 	{
-		bool val = param.engine.Options.renderMeshShadow;
+		boolean val = param.engine.Options.renderMeshShadow;
 		super.Render();
 		param.onoff.Render(translation + OnOff.DEFAULT, val);
 	}

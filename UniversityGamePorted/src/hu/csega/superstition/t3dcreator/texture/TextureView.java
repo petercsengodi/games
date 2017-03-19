@@ -1,14 +1,10 @@
 package hu.csega.superstition.t3dcreator.texture;
 
-public class TextureView extends CView {
+import hu.csega.superstition.tools.presentation.ToolView;
 
-	/// <summary>
-	/// Required designer variable.
-	/// </summary>
-	private System.ComponentModel.Container components = null;
+public class TextureView extends ToolView {
 
-	public TextureView()
-	{
+	public TextureView() {
 		// This call is required by the Windows.Forms Form Designer.
 		InitializeComponent();
 	}
@@ -16,7 +12,7 @@ public class TextureView extends CView {
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected override void Dispose( bool disposing )
+	protected override void Dispose( boolean disposing )
 	{
 		if( disposing )
 		{
@@ -240,7 +236,7 @@ public class TextureView extends CView {
 	private void WireFrameView_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
 	{
 		if(!Initialized) return;
-		bool invalidated = false;
+		boolean invalidated = false;
 		int idx;
 
 		idx = (int)MButton.Left;

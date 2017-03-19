@@ -3,8 +3,10 @@ package hu.csega.superstition.animatool;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-public class WireFrameView extends CView
-{
+import hu.csega.superstition.tools.presentation.ToolView;
+
+public class WireFrameView extends ToolView {
+
 	private JButton button1;
 	private JButton button2;
 	private JLabel label1;
@@ -21,7 +23,7 @@ public class WireFrameView extends CView
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected void Dispose( bool disposing )
+	protected void Dispose(boolean disposing)
 	{
 		if( disposing )
 		{
@@ -93,7 +95,7 @@ public class WireFrameView extends CView
 	private Vector3 translation;
 	private double zoom;
 	private ButtonControl[] bcontrol;
-	private bool show_grid;
+	private boolean show_grid;
 	private Vector3 angle = new Vector3(0f, 0f, 0f);
 	private const float rotation =
 			(float)Math.PI / 18;
@@ -373,7 +375,7 @@ public class WireFrameView extends CView
 	private void WireFrameView_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
 	{
 		if(!Initialized) return;
-		bool invalidated = false;
+		boolean invalidated = false;
 		Matrix m = Matrix.Identity;
 		int idx;
 

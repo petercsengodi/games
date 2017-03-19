@@ -4,7 +4,7 @@ class ThrowableTorch extends DynamicObject
 {
 	protected PointLight light;
 	protected Element element;
-	protected bool stand;
+	protected boolean stand;
 
 	/// <summary>
 	/// Serializable data class for torches.
@@ -13,7 +13,7 @@ class ThrowableTorch extends DynamicObject
 			protected class TorchData : GameObjectData
 			{
 		public Vector3 position, corner1, corner2, velocity, diff;
-		public bool stand, alive;
+		public boolean stand, alive;
 
 		public TorchData()
 		{
@@ -29,7 +29,7 @@ class ThrowableTorch extends DynamicObject
 	/// <summary>
 	/// Torch stands or moving.
 	/// </summary>
-	public bool Stand
+	public boolean Stand
 	{
 		get { return stand; }
 		set { stand = value; }

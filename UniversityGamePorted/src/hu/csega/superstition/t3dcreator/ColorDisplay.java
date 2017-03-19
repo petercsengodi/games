@@ -28,7 +28,7 @@ public class ColorDisplay extends System.Windows.Forms.UserControl
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected override void Dispose( bool disposing )
+	protected override void Dispose( boolean disposing )
 	{
 		if( disposing )
 		{

@@ -22,7 +22,7 @@ class Shadows extends MenuElement {
 	@Override
 	public void Render()
 	{
-		bool val = param.engine.Options.renderShadow;
+		boolean val = param.engine.Options.renderShadow;
 		base.Render();
 		param.onoff.Render(translation + OnOff.DEFAULT, val);
 	}

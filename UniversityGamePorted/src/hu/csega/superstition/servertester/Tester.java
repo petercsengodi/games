@@ -44,7 +44,7 @@ public class Tester extends JPanel {
 	private Vector3 null_vector;
 	private Vector3[] all_data;
 
-	public bool ReadOnly
+	public boolean ReadOnly
 	{
 		get{ return port_num.ReadOnly; }
 		set
@@ -77,9 +77,9 @@ public class Tester extends JPanel {
 		OnHostNameChanged();
 	}
 
-	public bool TcpConnect()
+	public boolean TcpConnect()
 	{
-		bool ret;
+		boolean ret;
 		if(client != null) return false;
 		if(address_box.SelectedIndex < 0) return false;
 		server_address = list[address_box.SelectedIndex];
@@ -98,11 +98,11 @@ public class Tester extends JPanel {
 		ChangeHostBox(null);
 	}
 
-	public bool UdpConnect()
+	public boolean UdpConnect()
 	{
 		if(net_player != null) return false;
 		net_player = new PlayClient(server_address, game_port, client_port, userID);
-		bool ret = net_player.UdpConnect();
+		boolean ret = net_player.UdpConnect();
 		if(ret) net_player.StartListenThread(new ReceiveData(ReceiveUdpFunction));
 		else net_player = null;
 		return ret;
@@ -240,7 +240,7 @@ public class Tester extends JPanel {
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected override void Dispose( bool disposing )
+	protected override void Dispose( boolean disposing )
 	{
 		if( disposing )
 		{

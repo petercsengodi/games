@@ -7,7 +7,7 @@ public class ModelParams
 	public Slider slider;
 	public OnOff onoff;
 	public FileMenu filemenu;
-	public bool game_menu;
+	public boolean game_menu;
 	public Model.Model game_model;
 	//	public Texts texts;
 }

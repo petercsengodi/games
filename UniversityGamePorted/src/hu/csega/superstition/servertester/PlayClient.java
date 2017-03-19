@@ -9,7 +9,7 @@ public class PlayClient
 	private long userID;
 	private long counter, last_counter;
 
-	private bool alive;
+	private boolean alive;
 	private Thread thread;
 	private ReceiveData recv_func;
 	private int timeval;
@@ -35,7 +35,7 @@ public class PlayClient
 		this.counter = 0;
 	}
 
-	public bool UdpConnect()
+	public boolean UdpConnect()
 	{
 		socket = new Socket(AddressFamily.InterNetwork,
 			SocketType.Dgram, ProtocolType.Udp);

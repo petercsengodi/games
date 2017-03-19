@@ -5,7 +5,7 @@ public class FileMenuElement extends MenuElement
 	protected string file;
 	protected IFileParent parent;
 	protected Element filename;
-	protected bool disposed = false;
+	protected boolean disposed = false;
 
 	public IFileParent Parent
 	{

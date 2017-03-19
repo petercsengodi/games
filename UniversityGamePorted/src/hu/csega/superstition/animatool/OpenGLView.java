@@ -2,8 +2,9 @@ package hu.csega.superstition.animatool;
 
 import javax.swing.JButton;
 
-public class OpenGLView extends CView
-{
+import hu.csega.superstition.tools.presentation.ToolView;
+
+public class OpenGLView extends ToolView {
 
 	public OpenGLView()
 	{
@@ -76,7 +77,7 @@ public class OpenGLView extends CView
 	private ButtonControl[] bcontrol;
 	private System.Windows.Forms.Button button1;
 	private System.Windows.Forms.Button button2;
-	private bool show_grid = true;
+	private boolean show_grid = true;
 
 	public Device Device
 	{
@@ -364,7 +365,7 @@ public class OpenGLView extends CView
 	private void DirectXView_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
 	{
 		if(!Initialized) return;
-		bool invalidated = false;
+		boolean invalidated = false;
 		int idx;
 
 		idx = (int)MButton.Left;

@@ -5,8 +5,10 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class SceneEditor extends CView
-{
+import hu.csega.superstition.tools.presentation.ToolView;
+
+public class SceneEditor extends ToolView {
+
 	private JButton change_button;
 	private JLabel label1;
 	private JLabel label2;
@@ -40,7 +42,7 @@ public class SceneEditor extends CView
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected void Dispose( bool disposing )
+	protected void Dispose(boolean disposing )
 	{
 		if( disposing )
 		{

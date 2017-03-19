@@ -6,11 +6,11 @@ public class Player {
 
 	private int playerID;
 	private int client_port;
-	private bool active;
+	private boolean active;
 
 	public int PlayerID{ get{ return playerID; } }
 	public int ClientPort{ get{ return client_port; } }
-	public bool Active{ get{ return active; } }
+	public boolean Active{ get{ return active; } }
 	public void SetActive(){ active = true; }
 
 	private Socket socket;
@@ -88,7 +88,7 @@ public class Player {
 		Send(new GameObjectData("Quit Game"));
 	}
 
-	public bool CheckCounter(long counter)
+	public boolean CheckCounter(long counter)
 	{
 		if(counter > last_counter)
 		{

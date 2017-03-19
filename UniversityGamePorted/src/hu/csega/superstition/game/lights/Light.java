@@ -18,7 +18,7 @@ public abstract class Light {
 	/// be a free light slot.
 	/// </summary>
 	/// <returns>True, if activated.</returns>
-	public bool Activate()
+	public boolean Activate()
 	{
 		if(activated) return false;
 		if((index = engine.RegisterLight(this)) == -1) return false;
@@ -32,7 +32,7 @@ public abstract class Light {
 	/// Deactivates light for next renderings.
 	/// </summary>
 	/// <returns>True, if deactivated.</returns>
-	public bool DeActivate()
+	public boolean DeActivate()
 	{
 		if(!activated) return false;
 		if(index == -1) return false;

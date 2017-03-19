@@ -6,7 +6,7 @@ public class HostEntry extends MenuElement
 	protected HostData data;
 	protected hu.csega.superstition.game.network.NetHost host;
 	protected Network.NetworkClient nclient;
-	protected bool publish;
+	protected boolean publish;
 	protected IPAddress address;
 
 	public HostEntry(ModelParams param, IMenu menu,
@@ -26,7 +26,7 @@ public class HostEntry extends MenuElement
 
 	public HostEntry(ModelParams param, IMenu menu,
 			HostData data, Network.NetHost host, IPAddress address,
-			Network.NetworkClient nclient, bool publish) {
+			Network.NetworkClient nclient, boolean publish) {
 		super(param, "Publish Game");
 		this.menu = menu;
 		this.param = param;

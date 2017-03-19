@@ -5,7 +5,7 @@ public class Host {
 	private GameObjectData map;
 	private Player[] players;
 	private Thread thread;
-	private bool alive;
+	private boolean alive;
 
 	private int game_port;
 	private Socket game_socket;
@@ -32,7 +32,7 @@ public class Host {
 		get{ return game_port; }
 	}
 
-	public bool Alive{ get{ return alive; } }
+	public boolean Alive{ get{ return alive; } }
 
 	private Host()
 	{
