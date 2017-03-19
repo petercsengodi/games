@@ -284,19 +284,19 @@ public class StoryForm extends JPanel
 		pen = new Pen(brushBlack, 1);
 		Font font = new Font(FontFamily.GenericSansSerif, 10, FontStyle.Regular);
 
-		foreach(Object o in nodes)
+		for(Object o : nodes)
 		{
 			node = o as Node;
 			node.Function = new Node.NodeFunction(DrawLink);
 		}
 
-		foreach(Object o in nodes)
+		for(Object o : nodes)
 		{
 			node = o as Node;
 			paint.DrawString(node.Text, font, brushBlack, node.X + scrX + 10, node.Y + scrY - 10);
 		}
 
-		foreach(Object o in nodes)
+		for(Object o : nodes)
 		{
 			node = o as Node;
 			if(node == SelectedNode) paint.FillRectangle(brushRed, node.X - 10 + scrX, node.Y - 10 + scrY, 20, 20);
@@ -352,7 +352,7 @@ public class StoryForm extends JPanel
 		ns.Value = "http://tempuri.org/StorySchema.xsd";
 
 		Node node;
-		foreach(Object o in nodes)
+		for(Object o : nodes)
 		{
 			node = o as Node;
 			node.WriteToXMLNode(story, StoryDocument, workingFile);
@@ -388,7 +388,7 @@ public class StoryForm extends JPanel
 			if((e.Button == tDelNode) && (SelectedNode != null))
 			{
 				Node node;
-				foreach(Object o in nodes)
+				for(Object o : nodes)
 				{
 					node = o as Node;
 					node.RemoveLink = SelectedNode;
@@ -401,7 +401,7 @@ public class StoryForm extends JPanel
 			else if((e.Button == tUnlink) && (SelectedNode != null))
 			{
 				Node node;
-				foreach(Object o in nodes)
+				for(Object o : nodes)
 				{
 					node = o as Node;
 					node.RemoveLink = SelectedNode;
@@ -439,7 +439,7 @@ public class StoryForm extends JPanel
 	{
 		Node node, preNode = SelectedNode;
 		SelectedNode = null;
-		foreach(Object o in nodes)
+		for(Object o : nodes)
 		{
 			node = o as Node;
 			if((x <= node.X + 10) && (x >= node.X - 10) && (y <= node.Y + 10) && (y >= node.Y - 10))
@@ -465,7 +465,7 @@ public class StoryForm extends JPanel
 		}
 
 		Node node, node2 = null;
-		foreach(Object o in nodes)
+		for(Object o : nodes)
 		{
 			node = o as Node;
 			if((x <= node.X + 10) && (x >= node.X - 10) && (y <= node.Y + 10) && (y >= node.Y - 10))

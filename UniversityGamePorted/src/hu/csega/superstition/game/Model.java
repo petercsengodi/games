@@ -79,14 +79,14 @@ public class Model implements IModel, IPeriod {
 		}
 		Map.DoForAllNodes(new TWLFunc(IdentifyCurrentRoom));
 
-		foreach(GameObjectData od in d.game_elements)
+		for(GameObjectData od : d.game_elements)
 		{
 			IGameElement element = (IGameElement)od.create();
 			element.SetModel(this);
 			game_elements.Add(element);
 		}
 
-		foreach(GameObjectData sp in d.start_places)
+		for(GameObjectData sp : d.start_places)
 		{
 			start_places.Add(sp.create());
 		}
@@ -180,7 +180,7 @@ public class Model implements IModel, IPeriod {
 
 		ArrayList weapon_rooms = new ArrayList();
 
-		foreach(XmlNode node in root.ChildNodes)
+		for(XmlNode node : root.ChildNodes)
 		{
 			Texts.Add(node.Attributes.GetNamedItem("Text").Value);
 			Rooms.Add(actual = generator.SelectRandomRoom());
@@ -231,14 +231,14 @@ public class Model implements IModel, IPeriod {
 		}
 
 		int i = 0, j = 0, c; string tmp1, tmp2;
-		foreach(XmlNode node in root.ChildNodes)
+		for(XmlNode node : root.ChildNodes)
 		{
 			tmp1 = node.Attributes.GetNamedItem("Text").Value;
 			for(c = 0; c < Texts.Count; c++)
 				if(tmp1.CompareTo(Texts[c] as string) == 0)
 					i = c;
 
-			foreach(XmlNode link in node.ChildNodes)
+			for(XmlNode link : node.ChildNodes)
 			{
 				tmp2 = link.Attributes.GetNamedItem("ref").Value;
 				for(c = 0; c < Texts.Count; c++)
@@ -278,7 +278,7 @@ public class Model implements IModel, IPeriod {
 		Map.DoForAllNodes(new TWLFunc(Build));
 		Map.DoForAllLinks(new TWLFunc(BuildLink));
 
-		foreach(IGameObject g in game_elements)
+		for(IGameObject g : game_elements)
 		{
 			g.Build(engine);
 		}
@@ -511,12 +511,12 @@ public class Model implements IModel, IPeriod {
 		Map.DoForAllLinks(new TWLFunc(player.ClipRooms));
 
 		to_remove.Clear();
-		foreach(IGameElement c in game_elements)
+		for(IGameElement c : game_elements)
 		{
 			c.Clip(player);
 		}
 
-		foreach(Object o in to_remove)
+		for(Object o : to_remove)
 		{
 			game_elements.Remove(o);
 		}
@@ -528,7 +528,7 @@ public class Model implements IModel, IPeriod {
 		}
 
 		player.Period();
-		foreach(IPeriod p in game_elements)
+		for(IPeriod p in game_elements)
 		{
 			p.Period();
 		}

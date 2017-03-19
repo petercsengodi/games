@@ -69,7 +69,7 @@ public class TreeObjectView extends ToolView {
 		treeView1.Nodes.Clear();
 		CModel model = (CModel)GetData();
 
-		foreach(CPart p in model.parts)
+		for(CPart p : model.parts)
 		{
 			treeView1.Nodes.Add(new TreeNode(p.ToString()));
 		}

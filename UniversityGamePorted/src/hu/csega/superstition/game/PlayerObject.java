@@ -202,7 +202,7 @@ class PlayerObject extends DynamicObject implements IDisposable {
 
 		TorchControl.Build(engine);
 
-		foreach(Weapon weapon in weapons)
+		for(Weapon weapon : weapons)
 		{
 			if(weapon != null) weapon.Build(engine);
 		}
@@ -291,7 +291,7 @@ class PlayerObject extends DynamicObject implements IDisposable {
 		actual.Draw(common, scene);
 
 		// Rendering Model's Game Elements
-		foreach(IRenderObject r in model.GameElements)
+		for(IRenderObject r : model.GameElements)
 		{
 			r.Render();
 		}
@@ -468,7 +468,7 @@ class PlayerObject extends DynamicObject implements IDisposable {
 
 
 
-		foreach(Weapon weapon in weapons)
+		for(Weapon weapon : weapons)
 		{
 			if(weapon != null) weapon.Period();
 		}

@@ -174,9 +174,9 @@ public class WireFrameView extends ToolView {
 		//
 		//		CModel model = (CModel)GetData();
 		//		IPart sel = model.Selected as IPart;
-		//		foreach(CFigure f in model.figures)
+		//		for(CFigure f : model.figures)
 		//		{
-		//			foreach(CTriangle t in f.triangles)
+		//			for(CTriangle t : f.triangles)
 		//			{
 		//				/*
 		//				// test // TODO: Delete
@@ -185,7 +185,7 @@ public class WireFrameView extends ToolView {
 		//					t.edges[2].from.position - t.edges[0].from.position);
 		//				normal.Normalize();
 		//				 */
-		//				foreach(CEdge e in t.edges)
+		//				for(CEdge e : t.edges)
 		//				{
 		//					// Draw edge
 		//					pen = pen_normal;
@@ -356,9 +356,9 @@ public class WireFrameView extends ToolView {
 	//			Point m = new Point(e.X - this.Width / 2,
 	//					e.Y - this.Height / 2);
 	//
-	//			foreach(CFigure figure in model.figures)
+	//			for(CFigure figure : model.figures)
 	//			{
-	//				foreach(CVertex vertex in figure.vertices)
+	//				for(CVertex vertex : figure.vertices)
 	//				{
 	//					position = Transform(vertex.position);
 	//					if((m.X >= position.X - 4) && (m.X <= position.X + 4)

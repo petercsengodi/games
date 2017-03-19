@@ -168,15 +168,15 @@ public class CModel implements IModelPart
 		Vector3f average = new Vector3f(0f, 0f, 0f);
 		Vector3f tmp = new Vector3f();
 		//		int num = 0;
-		//		foreach(CFigure f in figures)
+		//		for(CFigure f : figures)
 		//		{
 		//			num += f.vertices.Count;
 		//		}
 		//
 		//		float a = 1f / num;
-		//		foreach(CFigure f in figures)
+		//		for(CFigure f : figures)
 		//		{
-		//			foreach(CVertex v in f.vertices)
+		//			for(CVertex v : f.vertices)
 		//			{
 		//				average += v.position * a;
 		//			}

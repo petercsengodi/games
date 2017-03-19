@@ -310,7 +310,7 @@ public class SceneEditor extends ToolView {
 
 		CModel model = GetData() as CModel;
 
-		foreach(CPart part in model.parts)
+		for(CPart part : model.parts)
 		{
 			Matrix[] matrices = new Matrix[max];
 			Vector3[] center_points = new Vector3[max];
@@ -372,7 +372,7 @@ public class SceneEditor extends ToolView {
 
 		if(source == dest) return;
 
-		foreach(CPart part in model.parts)
+		for(CPart part : model.parts)
 		{
 			part.model_transform[dest] =
 					part.model_transform[source];
@@ -427,7 +427,7 @@ public class SceneEditor extends ToolView {
 		CModel model = GetData() as CModel;
 
 		// Modify each mesh matrix
-		foreach(CPart p in model.parts)
+		for(CPart p : model.parts)
 		{
 			// Reading from vectors
 			Vector3 center_start = p.center_point[start];

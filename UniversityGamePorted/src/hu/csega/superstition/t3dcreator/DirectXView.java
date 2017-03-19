@@ -118,7 +118,7 @@ public class DirectXView extends ToolView {
 		if(part as CFigure != null) part = null;
 		if(part as CTriangle != null) part = null;
 
-		foreach(CFigure figure in model.figures)
+		for(CFigure figure : model.figures)
 		{
 			triangle_count += figure.triangles.Count;
 		}
@@ -142,7 +142,7 @@ public class DirectXView extends ToolView {
 				Pool.Managed);
 		GraphicsStream vertex_stream = vertices.Lock(0, 0, 0);
 
-		foreach(CFigure figure in model.figures)
+		for(CFigure figure : model.figures)
 		{
 			color = color_normal;
 			if(figure.texID != null) color = color_white;
@@ -151,7 +151,7 @@ public class DirectXView extends ToolView {
 				color = color_selected;
 			}
 
-			foreach(CTriangle triangle in figure.triangles)
+			for(CTriangle triangle : figure.triangles)
 			{
 				temp1 = color;
 				if(triangle.Equals(model.Selected))
@@ -159,7 +159,7 @@ public class DirectXView extends ToolView {
 					color = color_selected;
 				}
 
-				foreach(CEdge edge in triangle.edges)
+				for(CEdge edge : triangle.edges)
 				{
 					temp2 = color;
 
@@ -327,7 +327,7 @@ public class DirectXView extends ToolView {
 			device.VertexFormat = CustomVertex.PositionColoredTextured.Format;
 			device.SetStreamSource(0, vertices, 0);
 
-			foreach(CFigure figure in model.figures)
+			for(CFigure figure : model.figures)
 			{
 				count = figure.triangles.Count;
 				if(figure.texID != null)

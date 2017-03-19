@@ -78,7 +78,7 @@ abstract class Hole implements IClipping, IDisposable, IGameObject, IRenderObjec
 	public void Render()
 	{
 		EPlane plane;
-		foreach(Object o in planes)
+		for(Object o : planes)
 		{
 			plane = o as EPlane;
 			plane.Render();
@@ -87,7 +87,7 @@ abstract class Hole implements IClipping, IDisposable, IGameObject, IRenderObjec
 
 	public void Dispose()
 	{
-		foreach(Object o in planes)
+		for(Object o : planes)
 		{
 			(o as IDisposable).Dispose();
 		}
@@ -97,7 +97,7 @@ abstract class Hole implements IClipping, IDisposable, IGameObject, IRenderObjec
 	public void Clip(Clipable clipable)
 	{
 		Clipper clipper;
-		foreach(Object o in clippers)
+		for(Object o : clippers)
 		{
 			clipper = o as Clipper;
 			clipper.Clip(clipable);

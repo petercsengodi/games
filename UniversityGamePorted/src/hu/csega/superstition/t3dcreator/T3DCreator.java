@@ -485,7 +485,7 @@ public class T3DCreator extends JFrame implements Disposable {
 		//			CTriangle triangle = figure.triangles[0] as CTriangle;
 		//			//			if(triangle.neighbours[0] == null)
 		//			//			{
-		//			foreach(CFigure f in m.figures)
+		//			for(CFigure f : m.figures)
 		//			{
 		//				f.CalculateNeighbours();
 		//			}
@@ -497,7 +497,7 @@ public class T3DCreator extends JFrame implements Disposable {
 		//			model.Selected = null;
 		//			model.Memento.Clear();
 		//			model.figures.Clear();
-		//			foreach(CFigure f in m.figures)
+		//			for(CFigure f : m.figures)
 		//			{
 		//				model.figures.Add(f);
 		//			}
@@ -677,7 +677,7 @@ public class T3DCreator extends JFrame implements Disposable {
 	//		CTriangle triangle = model.Selected as CTriangle;
 	//		if(triangle == null) return;
 	//
-	//		foreach(CFigure f in model.figures)
+	//		for(CFigure f : model.figures)
 	//		{
 	//			if(f.hasPart(triangle))
 	//			{
@@ -699,7 +699,7 @@ public class T3DCreator extends JFrame implements Disposable {
 	//		CEdge edge = model.Selected as CEdge;
 	//		if(edge == null) return;
 	//
-	//		foreach(CFigure f in model.figures)
+	//		for(CFigure f : model.figures)
 	//		{
 	//			if(f.hasPart(edge))
 	//			{

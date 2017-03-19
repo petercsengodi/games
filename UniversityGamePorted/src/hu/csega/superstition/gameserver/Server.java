@@ -96,7 +96,7 @@ public class Server extends System.Windows.Forms.Form
 			}
 		}
 
-		foreach(ServerControl ctrl in controls)
+		for(ServerControl ctrl : controls)
 		{
 			ctrl.Dispose();
 		}
@@ -156,13 +156,13 @@ public class Server extends System.Windows.Forms.Form
 			if(list_read.Count > 0)
 			{
 				Socket.Select(list_read, null, null, timeval);
-				foreach(ServerControl ctrl in controls)
+				for(ServerControl ctrl : controls)
 				{
 					idx = list_read.IndexOf(ctrl.Socket);
 					if(idx < 0) continue;
 					ProcessControlCommand(ctrl, ctrl.Receive());
 				}
-				foreach(ServerControl ctrl in rmlist) RemoveServerControl(ctrl);
+				for(ServerControl ctrl : rmlist) RemoveServerControl(ctrl);
 				rmlist.Clear();
 			}
 
@@ -270,7 +270,7 @@ public class Server extends System.Windows.Forms.Form
 
 		control_box.Items.Clear();
 
-		foreach(ServerControl ctrl in controls)
+		for(ServerControl ctrl : controls)
 		{
 			control_box.Items.Add(ctrl.ToString());
 		}

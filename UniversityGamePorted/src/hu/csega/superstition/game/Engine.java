@@ -318,7 +318,7 @@ public class Engine implements IPeriod
 	/// </summary>
 	public void ClearDisposeList()
 	{
-		foreach(Object o in DisposeList)
+		for(Object o : DisposeList)
 		{
 			IDisposable disposable = o as IDisposable;
 			disposable.Dispose();
@@ -381,7 +381,7 @@ public class Engine implements IPeriod
 
 		if(DisposeList.Count > 0)
 		{
-			foreach(Object o in DisposeList)
+			for(Object o : DisposeList)
 			{
 				(o as IDisposable).Dispose();
 				//					GC.SuppressFinalize(null);
@@ -495,7 +495,7 @@ public class Engine implements IPeriod
 					FormWindowState.Minimized) continue;
 
 			Monitor.Enter(this); // Allocating Engine
-			foreach(DInput.BufferedData data in buffer)
+			for(DInput.BufferedData data : buffer)
 			{
 				// Char Code: data.Offset
 				// Up: data.Data & 0x80 == 0

@@ -56,7 +56,7 @@ public abstract class Library {
 
 	public virtual void Clear()
 	{
-		foreach(IDisposable disp in library)
+		for(IDisposable disp : library)
 		{
 			disp.Dispose();
 		}

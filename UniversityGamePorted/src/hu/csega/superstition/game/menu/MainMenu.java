@@ -141,7 +141,7 @@ public class MainMenu implements IModel
 		triangle2.Render();
 
 		// plus animation
-		foreach(SpiderAgent agent in agents)
+		for(SpiderAgent agent : agents)
 		{
 			agent.Render();
 		}
@@ -255,7 +255,7 @@ public class MainMenu implements IModel
 		}
 
 		// plus animation
-		foreach(SpiderAgent agent in agents)
+		for(SpiderAgent agent : agents)
 		{
 			agent.Period();
 		}

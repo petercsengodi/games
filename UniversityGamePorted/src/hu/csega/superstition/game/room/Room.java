@@ -150,7 +150,7 @@ class Room extends TWLNode implements IClipping, IDisposable, IGameObject, IRend
 	public void RenderRoomsInSight()
 	{
 		RenderWithEntrances();
-		foreach(Object o in RoomsInSight) ((Room)o).RenderWithEntrances();
+		for(Object o : RoomsInSight) ((Room)o).RenderWithEntrances();
 	}
 
 	public void IdentifyCurrent(DynamicObject player)
@@ -163,14 +163,14 @@ class Room extends TWLNode implements IClipping, IDisposable, IGameObject, IRend
 	{
 		if(!StaticMathLibrary.InBox(player.position, corner1, corner2))
 		{
-			foreach(Object o in links) ((Room)((TWLLink)o).GetTo()).IdentifyCurrent(player);
-			foreach(Object o in linkends) ((Room)((TWLLink)o).GetFrom()).IdentifyCurrent(player);
+			for(Object o : links) ((Room)((TWLLink)o).GetTo()).IdentifyCurrent(player);
+			for(Object o : linkends) ((Room)((TWLLink)o).GetFrom()).IdentifyCurrent(player);
 		}
 	}
 
 	public void RePlaceObjects()
 	{
-		foreach(Object o in Objects)
+		for(Object o : Objects)
 		{
 			(o as Clipper).Position = CenterOnFloor;
 		}
@@ -309,7 +309,7 @@ class Room extends TWLNode implements IClipping, IDisposable, IGameObject, IRend
 
 
 
-		foreach(Object o in Objects)
+		for(Object o : Objects)
 		{
 			(o as IGameObject).Build(engine);
 			Enemy enemy = o as Enemy;
@@ -325,18 +325,18 @@ class Room extends TWLNode implements IClipping, IDisposable, IGameObject, IRend
 
 	public void Clip(Clipable clipable)
 	{
-		foreach(Object o in Clips) ((IClipping)o).Clip(clipable);
-		foreach(Object o in Objects) ((IClipping)o).Clip(clipable);
+		for(Object o : Clips) ((IClipping)o).Clip(clipable);
+		for(Object o : Objects) ((IClipping)o).Clip(clipable);
 	}
 
 	public void ClipRoomsInSight(Clipable clipable)
 	{
 		Clip(clipable);
-		foreach(Entrance entrance in links)
+		for(Entrance entrance : links)
 		{
 			entrance.Clip(clipable);
 		}
-		foreach(Entrance entrance in linkends)
+		for(Entrance entrance : linkends)
 		{
 			entrance.Clip(clipable);
 		}
@@ -344,22 +344,22 @@ class Room extends TWLNode implements IClipping, IDisposable, IGameObject, IRend
 
 	public void Render()
 	{
-		foreach(Object o in Renders) ((IRenderObject)o).Render();
-		foreach(Object o in Objects) ((IRenderObject)o).Render();
+		for(Object o : Renders) ((IRenderObject)o).Render();
+		for(Object o : Objects) ((IRenderObject)o).Render();
 	}
 
 	public void RenderWithEntrances()
 	{
 		PreRender();
 		Render();
-		foreach(Object o in links) ((IRenderObject)o).Render();
+		for(Object o : links) ((IRenderObject)o).Render();
 		PostRender();
 	}
 
 
 	public void Dispose()
 	{
-		foreach(Object o in Renders)
+		for(Object o : Renders)
 		{
 			(o as IDisposable).Dispose();
 		}
@@ -391,22 +391,22 @@ class Room extends TWLNode implements IClipping, IDisposable, IGameObject, IRend
 
 	public void PreRender()
 	{
-		foreach(Object o in Objects) (o as IGameObject).PreRender();
+		for(Object o : Objects) (o as IGameObject).PreRender();
 	}
 
 	public void PostRender()
 	{
-		foreach(Object o in Objects) (o as IGameObject).PostRender();
+		for(Object o : Objects) (o as IGameObject).PostRender();
 	}
 
 
 	public void Period()
 	{
-		foreach(IPeriod period in Objects) period.Period();
+		for(IPeriod period : Objects) period.Period();
 
 		// Applying changes
-		foreach(Object o in turn_add) Objects.Add(o);
-		foreach(Object o in turn_remove) Objects.Remove(o);
+		for(Object o : turn_add) Objects.Add(o);
+		for(Object o : turn_remove) Objects.Remove(o);
 		turn_add.Clear();
 		turn_remove.Clear();
 	}

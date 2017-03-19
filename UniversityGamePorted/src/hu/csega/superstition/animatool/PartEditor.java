@@ -48,7 +48,7 @@ public class PartEditor extends ToolView {
 		connect_box.Items.Clear();
 		CModel model = GetData() as CModel;
 		connect_box.Items.Add("null");
-		foreach(CPart p in model.parts)
+		for(CPart p : model.parts)
 		{
 			if(p == part) connect_box.Items.Add("[this]");
 			else connect_box.Items.Add(p.ToString());
@@ -252,7 +252,7 @@ public class PartEditor extends ToolView {
 		CModel model = GetData() as CModel;
 		CPart p = (CPart)model.parts[idx];
 
-		foreach(CConnection con in p.connections)
+		for(CConnection con : p.connections)
 		{
 			index_box.Items.Add("x:" + con.point.X +
 					" y:" + con.point.Y + " z:" + con.point.Z);

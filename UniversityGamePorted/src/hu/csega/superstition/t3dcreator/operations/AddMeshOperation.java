@@ -20,7 +20,7 @@ public class AddMeshOperation extends Operation
 	@Override
 	public void OnTransform()
 	{
-		foreach(CFigure figure in figures)
+		for(CFigure figure : figures)
 		{
 			model.figures.Add(figure);
 		}
@@ -29,7 +29,7 @@ public class AddMeshOperation extends Operation
 	@Override
 	public void OnInvert()
 	{
-		foreach(CFigure figure in figures)
+		for(CFigure figure : figures)
 		{
 			model.figures.Remove(figure);
 		}

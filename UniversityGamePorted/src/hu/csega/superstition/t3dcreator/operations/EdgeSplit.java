@@ -20,7 +20,7 @@ public class EdgeSplit extends Operation
 
 		// looking up triangles for vertices
 		int count = 0;
-		foreach(CTriangle t in figure.triangles)
+		for(CTriangle t : figure.triangles)
 		{
 			if(t.hasPart(edge.from) && t.hasPart(edge.to))
 			{
@@ -30,14 +30,14 @@ public class EdgeSplit extends Operation
 		}
 
 		ArrayList n = new ArrayList();
-		foreach(CTriangle t in old_triangles[0].neighbours)
+		for(CTriangle t : old_triangles[0].neighbours)
 		{
 			if(!(t.Equals(old_triangles[0]) || t.Equals(old_triangles[1])))
 			{
 				if(n.IndexOf(t) == -1) n.Add(t);;
 			}
 		}
-		foreach(CTriangle t in old_triangles[1].neighbours)
+		for(CTriangle t : old_triangles[1].neighbours)
 		{
 			if(!(t.Equals(old_triangles[0]) || t.Equals(old_triangles[1])))
 			{
@@ -64,7 +64,7 @@ public class EdgeSplit extends Operation
 		// Creating new triangles
 		CVertex[] quadrat = new CVertex[4];
 		int count = 0; boolean missed = true; int idx = -1;
-		foreach(CEdge edge in old_triangles[0].edges)
+		for(CEdge edge : old_triangles[0].edges)
 		{
 			quadrat[count++] = edge.from;
 			if(missed)
@@ -84,7 +84,7 @@ public class EdgeSplit extends Operation
 				quadrat[(idx + 4) % 4], quadrat[(idx + 5) % 4]);
 
 		count = 0; missed = true; idx = -1;
-		foreach(CEdge edge in old_triangles[1].edges)
+		for(CEdge edge : old_triangles[1].edges)
 		{
 			quadrat[count++] = edge.from;
 			if(missed)

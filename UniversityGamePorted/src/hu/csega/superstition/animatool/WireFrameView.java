@@ -211,7 +211,7 @@ public class WireFrameView extends ToolView {
 
 		CModel model = (CModel)GetData();
 
-		foreach(CPart part in model.parts)
+		for(CPart part : model.parts)
 		{
 			if(part.mesh_file == null) continue;
 			if(part.GetMesh() == null) continue;
@@ -223,7 +223,7 @@ public class WireFrameView extends ToolView {
 			Vector3 pos1, pos2, pos3;
 			Point line1, line2, line3;
 
-			foreach(CConnection con in part.connections)
+			for(CConnection con : part.connections)
 			{
 				pos1 = con.point;
 				pos1 = Vector3.TransformCoordinate(pos1,
@@ -346,9 +346,9 @@ public class WireFrameView extends ToolView {
 
 		CModel model = GetData() as CModel;
 		Vector3 pos; Point line; double d;
-		foreach(CPart p in model.parts)
+		for(CPart p : model.parts)
 		{
-			foreach(CConnection c in p.connections)
+			for(CConnection c : p.connections)
 			{
 				pos = c.point;
 				pos = Vector3.TransformCoordinate(pos,

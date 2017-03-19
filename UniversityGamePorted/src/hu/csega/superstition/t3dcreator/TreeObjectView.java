@@ -72,26 +72,26 @@ public class TreeObjectView extends ToolView {
 		treeView1.Nodes.Clear();
 		CModel model = (CModel)GetData();
 		IPart sel = model.Selected as IPart;
-		foreach(CFigure figure in model.figures)
+		for(CFigure figure : model.figures)
 		{
 			TreeNode f = new TreeNode(figure.ToString());
 			treeView1.Nodes.Add(f);
 			if((sel != null) && (sel.hasPart(figure))) selected = f;
 
-			foreach(CTriangle triangle in figure.triangles)
+			for(CTriangle triangle : figure.triangles)
 			{
 				TreeNode t = new TreeNode(triangle.ToString());
 				f.Nodes.Add(t);
 				if((sel != null) && (sel.hasPart(triangle))) selected = t;
 
-				foreach(CEdge edge in triangle.edges)
+				for(CEdge edge : triangle.edges)
 				{
 					TreeNode v = new TreeNode(edge.from.ToString());
 					t.Nodes.Add(v);
 					if((sel != null) && (sel.hasPart(edge.from))) selected = v;
 				} // End of foreach Vertices
 
-				foreach(CEdge edge in triangle.edges)
+				for(CEdge edge : triangle.edges)
 				{
 					TreeNode e = new TreeNode(edge.ToString());
 					t.Nodes.Add(e);

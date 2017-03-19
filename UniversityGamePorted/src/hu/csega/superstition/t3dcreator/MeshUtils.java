@@ -30,7 +30,7 @@ public class MeshUtils {
 		num_faces = 0;
 		num_vertices = 0;
 
-		foreach(CFigure f in model.figures)
+		for(CFigure f : model.figures)
 		{
 			num_vertices += f.vertices.Count;
 			num_faces += f.triangles.Count;
@@ -58,10 +58,10 @@ public class MeshUtils {
 		{
 			GraphicsStream vb = vbuf.Lock(0, 0, LockFlags.None);
 
-			foreach(CFigure f in model.figures)
+			for(CFigure f : model.figures)
 			{
 
-				foreach(CVertex v in f.vertices)
+				for(CVertex v : f.vertices)
 				{
 					vb.Write(new CustomVertex.PositionNormalTextured(
 							v.position,
@@ -78,10 +78,10 @@ public class MeshUtils {
 		{
 			GraphicsStream ib = ibuf.Lock(0, 0, LockFlags.None);
 
-			foreach(CFigure f in model.figures)
+			for(CFigure f : model.figures)
 			{
 
-				foreach(CTriangle t in f.triangles)
+				for(CTriangle t : f.triangles)
 				{
 					ib.Write((short)( si +
 							f.vertices.IndexOf(t.edges[0].from)));
@@ -105,10 +105,10 @@ public class MeshUtils {
 
 		int tidx = 0;
 		int start = 0;
-		foreach(CFigure f in model.figures)
+		for(CFigure f : model.figures)
 		{
 			// for every triangle in figure set adjacency information
-			foreach(CTriangle t in f.triangles)
+			for(CTriangle t : f.triangles)
 			{
 				// get neighbours
 				adjacency[tidx*3 + 0] =	start +

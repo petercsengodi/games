@@ -13,12 +13,12 @@ class TwoWayLinkedGraph
 
 	public void DoForAllNodes(TWLFunc func)
 	{
-		foreach(Object o in nodes) func(o);
+		for(Object o : nodes) func(o);
 	}
 
 	public void DoForAllLinks(TWLFunc func)
 	{
-		foreach(Object o in nodes) ((TWLNode)o).DoForAllLinks(func);
+		for(Object o : nodes) ((TWLNode)o).DoForAllLinks(func);
 	}
 
 	public void AddNode(TWLNode node)
@@ -29,10 +29,10 @@ class TwoWayLinkedGraph
 	public void Link(TWLNode _from, TWLNode _to, TWLLink _link)
 	{
 		boolean notfound = true;
-		foreach(Object o in nodes) if ((o as TWLNode) == _from) { notfound = false; break; }
+		for(Object o : nodes) if ((o as TWLNode) == _from) { notfound = false; break; }
 		if(notfound){ nodes.Add(_from); _from.OnInserted(); }
 		notfound = false;
-		foreach(Object o in nodes) if ((o as TWLNode) == _to) { notfound = false; break; }
+		for(Object o : nodes) if ((o as TWLNode) == _to) { notfound = false; break; }
 		if(notfound){ nodes.Add(_to); _to.OnInserted(); }
 		_link.SetLinks(_to, _from);
 		_from.AddLink(_link);

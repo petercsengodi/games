@@ -69,7 +69,7 @@ public class TextureView extends ToolView {
 		IPart part = model.Selected as IPart;
 		if(part == null) return null;
 		CFigure ret = null;
-		foreach(CFigure f in model.figures)
+		for(CFigure f : model.figures)
 		{
 			if(f.hasPart(part)) return f;
 		}
@@ -116,10 +116,10 @@ public class TextureView extends ToolView {
 		Pen pen_selected = new Pen(brush_selected, 3f);
 
 		Pen pen;
-		foreach(CTriangle t in f.triangles)
+		for(CTriangle t : f.triangles)
 		{
 			Vector2 tex1, tex2;
-			foreach(CEdge e in t.edges)
+			for(CEdge e : t.edges)
 			{
 				pen = pen_normal;
 				tex1 = e.from.texture_coordinates;
@@ -193,9 +193,9 @@ public class TextureView extends ToolView {
 			CModel model = (CModel)GetData();
 			Point m = new Point(e.X, e.Y);
 
-			foreach(CFigure figure in model.figures)
+			for(CFigure figure : model.figures)
 			{
-				foreach(CVertex vertex in figure.vertices)
+				for(CVertex vertex : figure.vertices)
 				{
 					position = Transform(vertex.texture_coordinates);
 					if((m.X >= position.X - 4) && (m.X <= position.X + 4)

@@ -15,7 +15,7 @@ public class NetHost
 		XmlNode root;
 		doc.Load(file);
 		root = doc.FirstChild;
-		foreach(XmlAttribute attr in root.Attributes)
+		for(XmlAttribute attr : root.Attributes)
 		{
 			if(attr.Name.Equals("name")) name = attr.Value;
 			else if(attr.Name.Equals("address")) address = attr.Value;

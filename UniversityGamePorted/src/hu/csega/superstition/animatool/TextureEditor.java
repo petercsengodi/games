@@ -71,7 +71,7 @@ public class TextureLibrary {
 
 	public void Dispose()
 	{
-		foreach(TexID id in list)
+		for(TexID id : list)
 		{
 			id.Texture.Dispose();
 		}

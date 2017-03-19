@@ -20,7 +20,7 @@ class FaceLibrary
 	{
 		if(cache == null) cache = new ArrayList();
 
-		foreach(Object o in cache)
+		for(Object o : cache)
 		{
 			Cache c = o as Cache;
 			if(c.library == library) return c.list;

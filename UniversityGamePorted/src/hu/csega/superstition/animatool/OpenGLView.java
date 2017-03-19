@@ -99,7 +99,7 @@ public class OpenGLView extends ToolView {
 	//			triangle_count = 0;
 	//
 	//			CModel model = GetData() as CModel;
-	//			foreach(CFigure figure in model.figures)
+	//			for(CFigure figure : model.figures)
 	//			{
 	//				vertex_count += figure.vertices.Count;
 	//				triangle_count += figure.triangles.Count;
@@ -133,21 +133,21 @@ public class OpenGLView extends ToolView {
 	//			GraphicsStream vertex_stream = vertices.Lock(0, 0, 0);
 	//			GraphicsStream index_stream = indices.Lock(0, 0, 0);
 	//
-	//			foreach(CFigure figure in model.figures)
+	//			for(CFigure figure : model.figures)
 	//			{
 	//				color = color_normal;
 	//				if(model.Selected.Equals(figure)) color = color_selected;
 	//				temp_color = color;
 	//
-	//				foreach(CVertex vertex in figure.vertices)
+	//				for(CVertex vertex : figure.vertices)
 	//				{
 	//					if(model.Selected.Equals(vertex)) color = color_selected;
-	//					foreach(CTriangle t in vertex.triangles)
+	//					for(CTriangle t : vertex.triangles)
 	//					{
 	//						if(model.Selected.Equals(t))
 	//							color = color_selected;
 	//					}
-	//					foreach(CEdge e in vertex.edges)
+	//					for(CEdge e : vertex.edges)
 	//					{
 	//						if(model.Selected.Equals(e))
 	//							color = color_selected;
@@ -160,7 +160,7 @@ public class OpenGLView extends ToolView {
 	//					color = temp_color;
 	//				}
 	//
-	//				foreach(CTriangle triangle in figure.triangles)
+	//				for(CTriangle triangle : figure.triangles)
 	//				{
 	//					index_stream.Write(start_index +
 	//						figure.vertices.IndexOf(triangle.vertices[0]));
@@ -313,7 +313,7 @@ public class OpenGLView extends ToolView {
 
 		CModel model = GetData() as CModel;
 
-		foreach(CPart part in model.parts)
+		for(CPart part in model.parts)
 		{
 			if(part.mesh_file == null) continue;
 			if(part.GetMesh() == null) continue;

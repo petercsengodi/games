@@ -35,7 +35,7 @@ public class NormalPreview extends JPanel
 
 		ArrayList rooms = new ArrayList(0);
 
-		foreach(Object o1 in nodes)
+		for(Object o1 : nodes)
 		{
 			Node node = o1 as Node;
 			Room room = maze.SelectRandomRoom();
@@ -43,7 +43,7 @@ public class NormalPreview extends JPanel
 			if((node.Texture != null) && (node.Texture.CompareTo("") != 0))
 				room.Face = node.Texture;
 
-			foreach(Object o2 in rooms)
+			for(Object o2 : rooms)
 			{
 				Room room2 = o2 as Room;
 				if(node.isConnectedTo(room2.NODE))

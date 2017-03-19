@@ -23,7 +23,7 @@ public class TriangleSplit extends Operation
 		// Creates new vertex
 		Vector3 position = new Vector3(0f, 0f, 0f);
 		Vector2 tex_pos = new Vector2(0f, 0f);
-		foreach(CEdge e in triangle.edges)
+		for(CEdge e : triangle.edges)
 		{
 			position += e.from.position;
 			tex_pos += e.from.texture_coordinates;
