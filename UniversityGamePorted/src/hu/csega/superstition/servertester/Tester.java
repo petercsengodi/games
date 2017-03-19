@@ -236,7 +236,7 @@ public class Tester extends JPanel {
 	protected void OnClosing(CancelEventArgs e)
 	{
 		state.trigger("quit");
-		base.OnClosing(e);
+		super.OnClosing(e);
 	}
 
 	/// <summary>
@@ -251,7 +251,7 @@ public class Tester extends JPanel {
 				components.Dispose();
 			}
 		}
-		base.Dispose( disposing );
+		super.Dispose( disposing );
 	}
 
 

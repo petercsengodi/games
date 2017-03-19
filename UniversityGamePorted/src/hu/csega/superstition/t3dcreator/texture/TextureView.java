@@ -21,7 +21,7 @@ public class TextureView extends ToolView {
 				components.Dispose();
 			}
 		}
-		base.Dispose( disposing );
+		super.Dispose( disposing );
 	}
 
 	/// <summary>
@@ -78,7 +78,7 @@ public class TextureView extends ToolView {
 
 	protected void OnPaintBackground(PaintEventArgs pevent)
 	{
-		if(!Initialized) base.OnPaintBackground(pevent);
+		if(!Initialized) super.OnPaintBackground(pevent);
 		else
 		{
 			CFigure selected_figure = SelectedFigure();
@@ -90,7 +90,7 @@ public class TextureView extends ToolView {
 				return;
 			}
 
-			base.OnPaintBackground(pevent);
+			super.OnPaintBackground(pevent);
 		}
 	}
 
@@ -98,7 +98,7 @@ public class TextureView extends ToolView {
 	{
 		if(!Initialized)
 		{
-			base.OnPaint(args);
+			super.OnPaint(args);
 			return;
 		}
 

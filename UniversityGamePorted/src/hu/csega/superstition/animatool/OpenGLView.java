@@ -268,7 +268,7 @@ public class OpenGLView extends ToolView {
 
 	protected void OnPaintBackground(PaintEventArgs pevent)
 	{
-		if(device == null) base.OnPaintBackground (pevent);
+		if(device == null) super.OnPaintBackground (pevent);
 	}
 
 
@@ -276,7 +276,7 @@ public class OpenGLView extends ToolView {
 	{
 		if(device == null)
 		{
-			base.OnPaint (e);
+			super.OnPaint (e);
 			return;
 		}
 

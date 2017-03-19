@@ -26,7 +26,7 @@ class PlayState extends State
 
 	public State trigger(Object Object)
 	{
-		base.trigger(Object);
+		super.trigger(Object);
 		if(Object == null) return menu;
 		else
 		{
@@ -42,7 +42,7 @@ class PlayState extends State
 	@Override
 	public void enter()
 	{
-		base.enter();
+		super.enter();
 		//		engine.Options.depth_algorythm =
 		//			DepthAlgorythm.Pass;
 		engine.Options.depth_algorythm =
@@ -54,7 +54,7 @@ class PlayState extends State
 	{
 		engine.Options.depth_algorythm =
 				DepthAlgorythm.Pass;
-		base.exit();
+		super.exit();
 	}
 
 	private void quitgame()

@@ -4,13 +4,13 @@ class GameState : State
 {
 	public void enter()
 	{
-		base.enter();
+		super.enter();
 		Tester.Instance.ReadOnly = true;
 	}
 
 	public void exit()
 	{
-		base.exit();
+		super.exit();
 		Tester.Instance.UdpDisconnect();
 		Tester.Instance.ReadOnly = false;
 	}
@@ -18,7 +18,7 @@ class GameState : State
 
 	public State trigger(Object Object)
 	{
-		base.trigger (Object);
+		super.trigger (Object);
 		String trigger_string = Object as string;
 		if((trigger_string == null) || (trigger_string.Length == 0))
 			return this;

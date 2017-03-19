@@ -34,7 +34,7 @@ public class WireFrameView extends ToolView {
 				components.Dispose();
 			}
 		}
-		base.Dispose( disposing );
+		super.Dispose( disposing );
 	}
 
 	/// <summary>
@@ -170,14 +170,14 @@ public class WireFrameView extends ToolView {
 
 	protected void OnPaintBackground(PaintEventArgs pevent)
 	{
-		if(!Initialized) base.OnPaintBackground(pevent);
+		if(!Initialized) super.OnPaintBackground(pevent);
 	}
 
 	protected void OnPaint(PaintEventArgs args)
 	{
 		if(!Initialized)
 		{
-			base.OnPaint(args);
+			super.OnPaint(args);
 			return;
 		}
 

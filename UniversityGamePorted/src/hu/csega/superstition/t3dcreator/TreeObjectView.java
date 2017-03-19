@@ -26,7 +26,7 @@ public class TreeObjectView extends ToolView {
 				components.Dispose();
 			}
 		}
-		base.Dispose( disposing );
+		super.Dispose( disposing );
 	}
 
 	/// <summary>

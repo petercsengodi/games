@@ -44,7 +44,7 @@ public class MeshText extends JPanel {
 		//			}
 		//			if(dialog == null) dialog.Dispose();
 		//		}
-		//		base.Dispose( disposing );
+		//		super.Dispose( disposing );
 	}
 
 

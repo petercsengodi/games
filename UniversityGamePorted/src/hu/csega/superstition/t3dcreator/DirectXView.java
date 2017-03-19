@@ -33,7 +33,7 @@ public class DirectXView extends ToolView {
 				components.Dispose();
 			}
 		}
-		base.Dispose( disposing );
+		super.Dispose( disposing );
 	}
 
 
@@ -276,7 +276,7 @@ public class DirectXView extends ToolView {
 
 	protected void OnPaintBackground(PaintEventArgs pevent)
 	{
-		if(device == null) base.OnPaintBackground (pevent);
+		if(device == null) super.OnPaintBackground (pevent);
 	}
 
 
@@ -284,7 +284,7 @@ public class DirectXView extends ToolView {
 	{
 		if(device == null)
 		{
-			base.OnPaint (e);
+			super.OnPaint (e);
 			return;
 		}
 

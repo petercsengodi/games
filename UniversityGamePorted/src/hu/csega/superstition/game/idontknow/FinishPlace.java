@@ -109,7 +109,7 @@ public class FinishPlace extends Clipper implements IGameElement {
 
 	public void Clip(Clipable clipable)
 	{
-		base.Clip (clipable);
+		super.Clip (clipable);
 	}
 
 

@@ -11,7 +11,7 @@ public class StructedMaze extends GridMaze {
 		int index = StaticRandomLibrary.SelectValue(distribution);
 		distribution[index] = 0f;
 		int z = (index / XSize), x = (index % YSize);
-		return base.DefaultRoom(x, z);
+		return super.DefaultRoom(x, z);
 	}
 
 	public void Connect(Room from, Room to)
@@ -82,11 +82,11 @@ public class StructedMaze extends GridMaze {
 
 			if(Graph(actX, actY).room == null)
 			{
-				Room res = base.DefaultRoom(actX, actY);
+				Room res = super.DefaultRoom(actX, actY);
 				res.Post = (RoomPostType)(StaticRandomLibrary.IntValue(4));
 			}
 
-			base.DefaultCorridor(lastX, lastY, actX, actY);
+			super.DefaultCorridor(lastX, lastY, actX, actY);
 
 			lastX = actX;
 			lastY = actY;

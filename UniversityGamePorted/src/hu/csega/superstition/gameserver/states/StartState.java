@@ -7,7 +7,7 @@ public class StartState extends State {
 	@Override
 	public void enter()
 	{
-		base.enter();
+		super.enter();
 		Server.Instance.Start();
 		Server.Instance.ReadOnly = true;
 	}
@@ -15,7 +15,7 @@ public class StartState extends State {
 	@Override
 	public void exit()
 	{
-		base.exit();
+		super.exit();
 		Server.Instance.Stop();
 		Server.Instance.ReadOnly = false;
 	}
@@ -23,7 +23,7 @@ public class StartState extends State {
 	@Override
 	public State trigger(Object Object)
 	{
-		base.trigger(Object);
+		super.trigger(Object);
 		String trigger_string = Object as string;
 		if((trigger_string == null) || (trigger_string.Length == 0))
 			return this;

@@ -4,7 +4,7 @@ class QuitState : State
 {
 	public void enter()
 	{
-		base.enter();
+		super.enter();
 		Tester.Instance.ReadOnly = true;
 	}
 }

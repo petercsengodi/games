@@ -1,48 +1,57 @@
 package hu.csega.superstition.storygenerator;
 
-class TWLNode
-{
-	protected ArrayList links, linkends;
-	protected TWLNode actual; public TWLNode Actual{ get{ return actual; } }
+import java.util.ArrayList;
+import java.util.List;
 
-	public TWLNode()
-	{
-		links = new ArrayList(0);
-		linkends = new ArrayList(0);
+public class TWLNode {
+
+	protected List<TWLLink> links, linkends;
+	protected TWLNode actual;
+
+	public TWLNode() {
+		links = new ArrayList<>(0);
+		linkends = new ArrayList<>(0);
 		actual = null;
 	}
 
-	public void DoForAllLinks(TWLFunc func)
-	{
-		//			for(object o : links) ((TWLLink)o).Func(func);
-		for(Object o : links) func(o);
+	public TWLNode getActual() {
+		return actual;
 	}
 
-	public void AddLink(TWLLink _link)
-	{
-		links.Add(_link);
+	public void doForAllLinks(TWLFunc func) {
+		for(TWLLink link : links) {
+			func.call(link);
+		}
 	}
 
-	public void AddLinkEnd(TWLLink _link)
-	{
-		linkends.Add(_link);
+	public void addLink(TWLLink _link) {
+		links.add(_link);
 	}
 
-	public boolean IsLinkedTo(TWLNode n)
-	{
+	public void addLinkEnd(TWLLink _link) {
+		linkends.add(_link);
+	}
+
+	public boolean isLinkedTo(TWLNode n) {
 		boolean isLinked = false;
 
-		for(Object o : links)
-			if(n == ((TWLLink)o).GetTo())
-			{
+		for(TWLLink link : links) {
+			if(n == link.getTo()) {
 				isLinked = true;
 				break;
 			}
+		}
 
 		return isLinked;
 	}
 
-	virtual public void OnInserted(){}
-	virtual public void OnLinkEnd(){}
-	virtual public void OnLinkStart(){}
+	public void onInserted(){
+	}
+
+	public void onLinkEnd(){
+	}
+
+	public void onLinkStart(){
+	}
+
 }

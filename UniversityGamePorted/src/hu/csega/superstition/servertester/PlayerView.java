@@ -35,7 +35,7 @@ public class PlayerView extends JPanel {
 
 	protected void OnPaint(PaintEventArgs e)
 	{
-		base.OnPaint (e);
+		super.OnPaint (e);
 
 		float w = (float)this.Width, h = (float)this.Height;
 		Graphics g = e.Graphics;
@@ -74,7 +74,7 @@ public class PlayerView extends JPanel {
 
 	protected void OnMouseDown(MouseEventArgs e)
 	{
-		base.OnMouseDown (e);
+		super.OnMouseDown (e);
 		float w = (float)this.Width, h = (float)this.Height;
 		float x = (e.X - w/2) - player.X;
 		float y = (e.Y - w/2) - player.Y;
@@ -94,7 +94,7 @@ public class PlayerView extends JPanel {
 				components.Dispose();
 			}
 		}
-		base.Dispose( disposing );
+		super.Dispose( disposing );
 	}
 
 

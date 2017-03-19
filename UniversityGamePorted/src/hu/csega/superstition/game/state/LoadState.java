@@ -28,7 +28,7 @@ class LoadState extends State
 
 	//	public void enter()
 	//	{
-	//		base.enter();
+	//		super.enter();
 	//		IModel imodel = new LoadingTitle();
 	//		imodel.Initialize(engine);
 	//		model = imodel;
@@ -37,7 +37,7 @@ class LoadState extends State
 	//
 	//	public void exit()
 	//	{
-	//		base.exit();
+	//		super.exit();
 	//		IModel imodel = model;
 	//		model = null;
 	//		imodel.Dispose();

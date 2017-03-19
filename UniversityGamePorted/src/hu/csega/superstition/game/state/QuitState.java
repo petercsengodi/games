@@ -12,7 +12,7 @@ class QuitState extends State
 	@Override
 	public void enter()
 	{
-		base.enter();
+		super.enter();
 		(new Thread(new ThreadStart(main.Close))).Start();
 	}
 

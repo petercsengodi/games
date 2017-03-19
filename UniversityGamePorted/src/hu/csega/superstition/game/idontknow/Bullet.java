@@ -53,7 +53,7 @@ public class Bullet extends DynamicObject implements IGameElement {
 	{
 		float deltat = 0.04f;
 		velocity.Y -= /*10f*/5f * deltat / 2f;
-		base.Period();
+		super.Period();
 	} // End of function Period
 
 	@Override

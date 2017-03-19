@@ -100,7 +100,7 @@ public class AnimaTool extends JFrame {
 		//			MeshLibrary.Instance().Dispose();
 		//			file_control.Dispose();
 		//		}
-		//		base.Dispose( disposing );
+		//		super.Dispose( disposing );
 	}
 
 	private void InitializeComponent()
@@ -129,7 +129,7 @@ public class AnimaTool extends JFrame {
 		this.tabPage2 = new JPanel();
 		this.rad0_1 = new JRadioButton();
 		this.rad0_05 = new JRadioButton();
-		this.operation_box = new JComboBox<Object>();
+		this.operation_box = new JComboBox<>();
 		this.label1 = new JLabel();
 
 		// TODO uncomment, fix

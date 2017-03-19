@@ -37,7 +37,7 @@ public class ModelProperties extends JPanel {
 				components.Dispose();
 			}
 		}
-		base.Dispose( disposing );
+		super.Dispose( disposing );
 	}
 
 

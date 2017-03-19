@@ -31,7 +31,7 @@ class GameMenuState extends State
 
 	public State trigger(Object Object)
 	{
-		base.trigger(Object);
+		super.trigger(Object);
 
 		TriggerParams selection = (TriggerParams)Object;
 		switch(selection.command)
@@ -89,7 +89,7 @@ class GameMenuState extends State
 	@Override
 	public void enter()
 	{
-		base.enter();
+		super.enter();
 		IModel imodel = new MainMenu(engine, true, gameModel);
 		imodel.Initialize(engine);
 		model = imodel;
@@ -99,7 +99,7 @@ class GameMenuState extends State
 	@Override
 	public void exit()
 	{
-		base.exit();
+		super.exit();
 		IModel imodel = model;
 		model = null;
 		imodel.Dispose();

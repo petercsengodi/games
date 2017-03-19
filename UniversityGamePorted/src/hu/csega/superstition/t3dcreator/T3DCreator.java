@@ -134,7 +134,7 @@ public class T3DCreator extends JFrame implements Disposable {
 		//			util.Dispose();
 		//			fprop.Dispose();
 		//		}
-		//		base.Dispose( disposing );
+		//		super.Dispose( disposing );
 	}
 
 	private void initializeComponent()

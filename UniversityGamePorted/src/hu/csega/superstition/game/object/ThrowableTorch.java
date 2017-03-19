@@ -127,6 +127,6 @@ class ThrowableTorch extends DynamicObject
 	{
 		float deltat = 0.04f;
 		if(!stand) velocity.Y -= 10f * deltat / 2f;
-		base.Period();
+		super.Period();
 	}
 }

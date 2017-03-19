@@ -70,7 +70,7 @@ public class NormalPreview extends JPanel
 				components.Dispose();
 			}
 		}
-		base.Dispose( disposing );
+		super.Dispose( disposing );
 	}
 
 

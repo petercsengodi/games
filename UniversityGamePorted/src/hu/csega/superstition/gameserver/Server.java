@@ -315,7 +315,7 @@ public class Server extends System.Windows.Forms.Form
 
 	protected void OnClosing(CancelEventArgs e)
 	{
-		base.OnClosing(e);
+		super.OnClosing(e);
 		state.trigger("quit");
 	}
 
@@ -332,7 +332,7 @@ public class Server extends System.Windows.Forms.Form
 				components.Dispose();
 			}
 		}
-		base.Dispose( disposing );
+		super.Dispose( disposing );
 	}
 
 

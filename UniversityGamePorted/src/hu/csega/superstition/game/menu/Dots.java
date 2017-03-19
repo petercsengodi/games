@@ -39,7 +39,7 @@ public class Dots extends MenuElement {
 	@Override
 	public void Render()
 	{
-		if(show) base.Render();
+		if(show) super.Render();
 	}
 
 }

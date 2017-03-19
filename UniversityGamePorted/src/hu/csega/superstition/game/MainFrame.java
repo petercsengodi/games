@@ -123,7 +123,7 @@ public class MainFrame extends System.Windows.Forms.Form {
 	protected void OnClosing(CancelEventArgs e)
 	{
 		Clean(); // The program seems to need this.
-		base.OnClosing (e);
+		super.OnClosing (e);
 	}
 
 	/// <summary>
@@ -165,7 +165,7 @@ public class MainFrame extends System.Windows.Forms.Form {
 			}
 		}
 
-		base.Dispose( disposing );
+		super.Dispose( disposing );
 	}
 
 	/// <summary>

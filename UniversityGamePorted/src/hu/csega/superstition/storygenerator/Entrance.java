@@ -10,14 +10,14 @@ class Entrance extends TWLLink
 	}
 
 	@Override
-	public void OnLinked()
+	public void onLinked()
 	{
 
 
-		if((degree <=  45) || (degree >= 315)){ ((Room)To).SubWall(Room.WALL_RIGHT);  ((Room)From).SubWall(Room.WALL_LEFT);  }
-		if((degree >=  45) && (degree <= 135)){ ((Room)To).SubWall(Room.WALL_BACK);   ((Room)From).SubWall(Room.WALL_FRONT); }
-		if((degree >= 135) && (degree <= 225)){ ((Room)To).SubWall(Room.WALL_LEFT);   ((Room)From).SubWall(Room.WALL_RIGHT); }
-		if((degree >= 225) && (degree <= 315)){ ((Room)To).SubWall(Room.WALL_FRONT);  ((Room)From).SubWall(Room.WALL_BACK);  }
+		if((degree <=  45) || (degree >= 315)){ ((Room)to).SubWall(Room.WALL_RIGHT);  ((Room)from).SubWall(Room.WALL_LEFT);  }
+		if((degree >=  45) && (degree <= 135)){ ((Room)to).SubWall(Room.WALL_BACK);   ((Room)from).SubWall(Room.WALL_FRONT); }
+		if((degree >= 135) && (degree <= 225)){ ((Room)to).SubWall(Room.WALL_LEFT);   ((Room)from).SubWall(Room.WALL_RIGHT); }
+		if((degree >= 225) && (degree <= 315)){ ((Room)to).SubWall(Room.WALL_FRONT);  ((Room)from).SubWall(Room.WALL_BACK);  }
 
 
 	}

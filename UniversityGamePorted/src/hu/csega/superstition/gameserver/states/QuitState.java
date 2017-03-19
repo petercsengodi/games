@@ -5,7 +5,7 @@ public class QuitState extends State
 	@Override
 	public void enter()
 	{
-		base.enter();
+		super.enter();
 		Server.Instance.ReadOnly = true;
 	}
 

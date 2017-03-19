@@ -38,7 +38,7 @@ public class Torus extends JPanel {
 				components.Dispose();
 			}
 		}
-		base.Dispose( disposing );
+		super.Dispose( disposing );
 	}
 
 	/// <summary>

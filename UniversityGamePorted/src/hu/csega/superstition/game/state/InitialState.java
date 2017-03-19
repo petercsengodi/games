@@ -16,7 +16,7 @@ public class InitialState extends State
 
 	public State trigger(Object Object)
 	{
-		base.trigger(Object);
+		super.trigger(Object);
 
 		if(Object.Equals(false)) return quit;
 		Model gameModel = new Model();

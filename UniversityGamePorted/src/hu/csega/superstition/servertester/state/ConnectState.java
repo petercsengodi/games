@@ -5,21 +5,21 @@ class ConnectState extends State
 	@Override
 	public void enter()
 	{
-		base.enter();
+		super.enter();
 		Tester.Instance.ReadOnly = true;
 	}
 
 	@Override
 	public void exit()
 	{
-		base.exit();
+		super.exit();
 		Tester.Instance.TcpDisconnect();
 		Tester.Instance.ReadOnly = false;
 	}
 
 	public State trigger(Object Object)
 	{
-		base.trigger(Object);
+		super.trigger(Object);
 		string trigger_string = Object as string;
 		if((trigger_string == null) || (trigger_string.Length == 0))
 			return this;

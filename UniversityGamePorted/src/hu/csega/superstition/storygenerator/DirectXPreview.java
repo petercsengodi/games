@@ -120,7 +120,7 @@ public class DirectXPreview extends JPanel
 			}
 			TextureLibrary.TextureDispose();
 		}
-		base.Dispose( disposing );
+		super.Dispose( disposing );
 	}
 
 

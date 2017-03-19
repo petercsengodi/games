@@ -473,7 +473,7 @@ class PlayerObject extends DynamicObject implements IDisposable {
 
 
 
-		base.Period();
+		super.Period();
 
 
 		TorchControl.Period();

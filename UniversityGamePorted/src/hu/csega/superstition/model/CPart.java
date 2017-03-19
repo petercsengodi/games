@@ -4,10 +4,11 @@ import org.joml.Matrix3f;
 import org.joml.Vector3f;
 
 import hu.csega.superstition.animatool.CModel;
-import hu.csega.superstition.animatool.MeshID;
-import hu.csega.superstition.animatool.MeshLibrary;
 import hu.csega.superstition.gamelib.animationdata.CConnection;
 import hu.csega.superstition.gamelib.animationdata.CPartData;
+import hu.csega.superstition.gamelib.model.SMeshRef;
+import hu.csega.superstition.gamelib.model.mesh.SMesh;
+import hu.csega.superstition.util.MeshLibrary;
 import hu.csega.superstition.util.Vectors;
 
 public class CPart implements IPart {
@@ -17,27 +18,23 @@ public class CPart implements IPart {
 
 	public String mesh_file;
 
-	public MeshID mesh;
+	public SMeshRef mesh;
 	public Matrix3f[] model_transform;
 
-	public MeshID getMesh()
-	{
+	public SMeshRef getMesh() {
 		return mesh;
 	}
 
-	public void SetMesh(MeshID mesh)
-	{
+	public void SetMesh(SMeshRef mesh) {
 		this.mesh = mesh;
 	}
 
-	public CPart(CModel model)
-	{
+	public CPart(CModel model) {
 		mesh = null;
 		model_transform = new Matrix3f[model.max_scenes];
 		center_point = new Vector3f[model.max_scenes];
 
-		for(int i = 0; i < model.max_scenes; i++)
-		{
+		for(int i = 0; i < model.max_scenes; i++) {
 			model_transform[i] = new Matrix3f(); // Identity matrix
 			center_point[i] = new Vector3f(0f, 0f, 0f);
 		}
@@ -46,8 +43,7 @@ public class CPart implements IPart {
 	}
 
 	@SuppressWarnings("unused")
-	private CPart()
-	{
+	private CPart() {
 		mesh = null;
 		model_transform = new Matrix3f[0];
 		center_point = new Vector3f[0];
@@ -55,28 +51,26 @@ public class CPart implements IPart {
 	}
 
 	@Override
-	public Vector3f centerPoint(int scene)
-	{
+	public Vector3f centerPoint(int scene) {
 		return center_point[scene];
 	}
 
 	@Override
-	public void scale(Matrix3f matrix, int scene)
-	{
-		model_transform[scene] =
-				model_transform[scene].mul(matrix);
+	public void scale(Matrix3f matrix, int scene) {
+		model_transform[scene] = model_transform[scene].mul(matrix);
 	}
 
 	@Override
-	public void move(Vector3f direction, int scene)
-	{
+	public void move(Vector3f direction, int scene) {
 		center_point[scene] = center_point[scene].add(direction);
 	}
 
 	@Override
-	public String toString()
-	{
-		if(mesh_file == null) return "<empty>";
+	public String toString() {
+		if(mesh_file == null) {
+			return "<empty>";
+		}
+
 		else return mesh_file;
 	}
 
@@ -86,29 +80,29 @@ public class CPart implements IPart {
 		this.model_transform = data.model_transform;
 		this.center_point = data.center_point;
 		this.connections = data.connections;
-		if(this.mesh_file != null)
-			this.mesh = MeshLibrary.instance().loadMesh(this.mesh_file);
+
+		if(this.mesh_file != null) {
+			this.mesh = MeshLibrary.instance().load(this.mesh_file, null);
+		}
+
 		else this.mesh = null;
 	}
 
-	public CPartData GetPartData()
-	{
+	public CPartData GetPartData() {
 		CPartData ret = new CPartData();
 		ret.mesh_file = this.mesh_file;
 		ret.model_transform = this.model_transform;
 		ret.center_point = this.center_point;
 		ret.connections = this.connections;
 
-		if(mesh == null)
-		{
+		if(mesh == null) {
 			return ret;
 		}
 
 		// counting bounding boxes and spheres
-		Mesh m = mesh.simpleMesh;
+		SMesh m = mesh.simpleMesh;
 
-		if(m.numberVertices == 0)
-		{
+		if(m.numberVertices == 0) {
 			return ret;
 		}
 
@@ -119,21 +113,18 @@ public class CPart implements IPart {
 
 		Vector3f temp = new Vector3f(0f, 0f, 0f),
 				average = new Vector3f(0f, 0f, 0f);
-		CustomVertex.PositionOnly[] vertices =
-				m.lockVertexBuffer(CustomVertex.PositionOnly.class,
+		CustomVertex.PositionOnly[] vertices = m.lockVertexBuffer(CustomVertex.PositionOnly.class,
 						LockFlags.ReadOnly, m.numberVertices);
 		float f = 1f / m.numberVertices;
 
-		for(int i = 0; i < model_transform.length; i++)
-		{
+		for(int i = 0; i < model_transform.length; i++) {
 			vertices[0].Position.mul(model_transform[i], temp);
 			ret.bounding_box1[i] = temp;
 			ret.bounding_box2[i] = temp;
 			ret.bounding_sphere_center[i] = temp;
 			ret.bounding_sphere_radius[i] = 0f;
 
-			for(int v = 1; v < m.numberVertices; v++)
-			{
+			for(int v = 1; v < m.numberVertices; v++) {
 				vertices[v].Position.mul(model_transform[i], temp);
 				Vectors.minimize(ret.bounding_box1[i], temp, ret.bounding_box1[i]);
 				Vectors.maximize(ret.bounding_box2[i], temp, ret.bounding_box2[i]);
@@ -141,8 +132,7 @@ public class CPart implements IPart {
 			}
 
 			ret.bounding_sphere_radius[i] = 0f;
-			for(int v = 0; v < m.numberVertices; v++)
-			{
+			for(int v = 0; v < m.numberVertices; v++) {
 				temp.mul(model_transform[i], temp);
 
 				vertices[v].Position.mul(model_transform[i], temp);
@@ -158,6 +148,5 @@ public class CPart implements IPart {
 
 		return ret;
 	}
-
 
 }

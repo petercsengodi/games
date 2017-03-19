@@ -37,7 +37,7 @@ public class ColorDisplay extends System.Windows.Forms.UserControl
 				components.Dispose();
 			}
 		}
-		base.Dispose( disposing );
+		super.Dispose( disposing );
 	}
 
 

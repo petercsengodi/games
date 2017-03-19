@@ -87,10 +87,10 @@ class StructedMaze extends GridMaze
 
 			if(Graph(actX, actY).room == null)
 			{
-				Room res = base.DefaultRoom(actX, actY);
+				Room res = super.DefaultRoom(actX, actY);
 			}
 
-			base.DefaultCorridor(lastX, lastY, actX, actY);
+			super.DefaultCorridor(lastX, lastY, actX, actY);
 
 			lastX = actX;
 			lastY = actY;

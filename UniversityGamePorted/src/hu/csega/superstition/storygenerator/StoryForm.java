@@ -76,7 +76,7 @@ public class StoryForm extends JPanel
 				backBuffer.Dispose();
 			}
 		}
-		base.Dispose( disposing );
+		super.Dispose( disposing );
 	}
 
 	// Not Panel, PanelDrawer !!!

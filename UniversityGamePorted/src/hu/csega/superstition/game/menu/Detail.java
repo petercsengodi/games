@@ -22,7 +22,7 @@ public class Detail extends MenuElement {
 			val = Slider.MEDIUM;
 		else val = Slider.HIGH;
 
-		base.Render();
+		super.Render();
 		param.slider.Render(translation + Slider.DEFAULT[val], val);
 	}
 

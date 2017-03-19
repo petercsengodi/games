@@ -39,7 +39,7 @@ public class FileGrabber extends JPanel
 		{
 			return UITypeEditorEditStyle.Modal;
 		}
-		return base.GetEditStyle(context);
+		return super.GetEditStyle(context);
 	}
 
 }

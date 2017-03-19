@@ -4,7 +4,7 @@ class DisconnectState : State
 {
 	public State trigger(Object Object)
 	{
-		base.trigger(Object);
+		super.trigger(Object);
 		String trigger_string = Object as string;
 		if((trigger_string == null) || (trigger_string.Length == 0))
 			return this;

@@ -41,7 +41,7 @@ public class Ask extends JPanel
 				components.Dispose();
 			}
 		}
-		base.Dispose( disposing );
+		super.Dispose( disposing );
 	}
 
 

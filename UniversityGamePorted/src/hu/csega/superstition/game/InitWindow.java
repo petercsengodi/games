@@ -31,7 +31,7 @@ public class InitWindow extends System.Windows.Forms.Form
 				components.Dispose();
 			}
 		}
-		base.Dispose( disposing );
+		super.Dispose( disposing );
 	}
 
 

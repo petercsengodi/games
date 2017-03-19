@@ -68,7 +68,7 @@ public class NetworkPlay extends MenuElement implements IFileParent
 	@Override
 	public void Dispose()
 	{
-		base.Dispose();
+		super.Dispose();
 	}
 
 }
