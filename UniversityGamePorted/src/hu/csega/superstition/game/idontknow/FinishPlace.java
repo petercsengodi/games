@@ -9,7 +9,7 @@ public class FinishPlace extends Clipper implements IGameElement {
 	protected Engine engine;
 	protected Element element;
 	protected float Angle;
-	protected string mesh;
+	protected String mesh;
 
 	protected float range;
 	protected Light light;

@@ -4,9 +4,9 @@ public class Node
 {
 	private ArrayList links;
 	private int x, y;
-	private string text;
-	private string texture;
-	private string element;
+	private String text;
+	private String texture;
+	private String element;
 	private SpecialProperty special;
 	private WeaponType weapon;
 	private static int num;
@@ -37,7 +37,7 @@ public class Node
 
 	[Category("Game Properties"), Description("Texture Image"),
 	Editor(typeof(BmpFileGrabber), typeof(UITypeEditor)), DefaultValue("")]
-	public string Texture
+	public String Texture
 	{
 		get { return (string)texture.Clone(); }
 		set
@@ -50,7 +50,7 @@ public class Node
 
 	[Category("Game Properties"), Description("Element"),
 	Editor(typeof(XFileGrabber), typeof(UITypeEditor)), DefaultValue("")]
-	public string Element
+	public String Element
 	{
 		get { return (string)element.Clone(); }
 		set	{ element = (string)value.Clone(); }
@@ -113,7 +113,7 @@ public class Node
 		return (links.IndexOf(node) >= 0);
 	}
 
-	public void WriteToXMLNode(XmlNode story, XmlDocument StoryDocument, string filePath)
+	public void WriteToXMLNode(XmlNode story, XmlDocument StoryDocument, String filePath)
 	{
 		Node link; XmlNode n, l; XmlAttribute a;
 		story.AppendChild(n = StoryDocument.CreateElement("Node"));
@@ -180,7 +180,7 @@ public class Node
 
 	public void SetUpLinksFromXml(XmlNode thisNode, ArrayList nodes)
 	{
-		XmlNode xnode; XmlAttribute a; string link; Node lnode;
+		XmlNode xnode; XmlAttribute a; String link; Node lnode;
 		IEnumerator enNode = thisNode.ChildNodes.GetEnumerator(), attr;
 		while(enNode.MoveNext())
 		{

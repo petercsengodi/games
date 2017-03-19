@@ -3,13 +3,13 @@ package hu.csega.superstition.game.network;
 public class NetHost
 {
 	protected int port;
-	protected string address;
-	protected string name;
+	protected String address;
+	protected String name;
 
 	public int Port{ get{ return port; } }
-	public string Name{ get { return name; } }
+	public String Name{ get { return name; } }
 
-	public NetHost(string file)
+	public NetHost(String file)
 	{
 		XmlDocument doc = new XmlDocument();
 		XmlNode root;

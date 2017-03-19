@@ -11,7 +11,7 @@ public class LoadMap extends MenuElement implements IMenu, IFileParent
 	}
 
 	@Override
-	public string getText()
+	public String getText()
 	{
 		return "Load Map";
 	}
@@ -59,7 +59,8 @@ public class LoadMap extends MenuElement implements IMenu, IFileParent
 	}
 
 
-	public IMenu DoChildrenItem(string filename)
+	@Override
+	public IMenu DoChildrenItem(String filename)
 	{
 		param.engine.State.trigger(
 				new TriggerParams(MainMenuSelection.LOAD_MAP, @"..\maps\" + filename));

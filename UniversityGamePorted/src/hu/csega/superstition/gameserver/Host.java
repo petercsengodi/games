@@ -47,7 +47,7 @@ public class Host {
 	}
 
 	public static Host StartNewHost(
-			int game_port, string info, int ID,
+			int game_port, String info, int ID,
 			int limit, GameObjectData map)
 	{
 		if(limit < 1) limit = 1;

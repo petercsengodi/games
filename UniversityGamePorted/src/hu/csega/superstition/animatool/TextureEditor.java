@@ -35,7 +35,7 @@ public class TextureLibrary {
 		return instance;
 	}
 
-	public TexID LoadImage(string name)
+	public TexID LoadImage(String name)
 	{
 		if(name == null) return null;
 		int idx, c = list.Count;
@@ -48,7 +48,7 @@ public class TextureLibrary {
 		}
 		idx = c;
 
-		string fname = @"..\..\..\Superstition\bin\textures\mesh_textures\" + name;
+		String fname = @"..\..\..\Superstition\bin\textures\mesh_textures\" + name;
 				Texture texture = TextureLoader.FromFile(device, fname);
 		TexID id = new TexID(name, texture);
 		list.Add(id);
@@ -57,7 +57,7 @@ public class TextureLibrary {
 
 	public static TexID LoadImage()
 	{
-		string filename;
+		String filename;
 		DialogResult res = instance.dialog.ShowDialog();
 		if((res != DialogResult.Cancel) &&
 				(res != DialogResult.No))

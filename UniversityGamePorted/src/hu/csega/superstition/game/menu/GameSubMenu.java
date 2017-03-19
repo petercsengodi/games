@@ -37,7 +37,7 @@ public class GameSubMenu extends MenuElement implements IMenu
 	}
 
 	@Override
-	public string getText()
+	public String getText()
 	{
 		return "Game";
 	}

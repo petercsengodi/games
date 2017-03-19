@@ -10,7 +10,7 @@ public class SaveGame extends MenuElement implements IMenu, IFileParent {
 	}
 
 	@Override
-	public string getText()
+	public String getText()
 	{
 		return "Save Game";
 	}
@@ -57,11 +57,12 @@ public class SaveGame extends MenuElement implements IMenu, IFileParent {
 		return 0;
 	}
 
-	public IMenu DoChildrenItem(string filename)
+	@Override
+	public IMenu DoChildrenItem(String filename)
 	{
 		int idx = param.filemenu.getLastIndex();
 
-		string fn;
+		String fn;
 		fn = @"..\saves\save" + (idx / 10).ToString()
 				+ (idx % 10).ToString() + ".save";
 		param.engine.State.trigger(

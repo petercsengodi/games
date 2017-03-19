@@ -32,8 +32,8 @@ public class StoryForm extends JPanel
 
 	private boolean changed;
 	private System.Windows.Forms.MenuItem mSaveAs;
-	private string workingFile;
-	private string actualDir;
+	private String workingFile;
+	private String actualDir;
 	private System.Windows.Forms.ToolBarButton tPreview;
 	private System.Windows.Forms.ToolBarButton tDirectXP;
 	private Bitmap backBuffer = null;

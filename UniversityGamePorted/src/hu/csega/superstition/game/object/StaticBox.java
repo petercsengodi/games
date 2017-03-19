@@ -4,18 +4,18 @@ public class StaticBox extends MapObject implements IDisposable
 {
 	protected Primitive[] walls;
 	protected int FLAGS;
-	protected string face;
+	protected String face;
 
 	public static int FLAG_LEFT = 1, FLAG_RIGHT = 2, FLAG_BACK = 4,
 			FLAG_FRONT = 8, FLAG_BOTTOM = 16, FLAG_TOP = 32;
 
-	public StaticBox(Vector3 _corner1, Vector3 _corner2, string face) {
+	public StaticBox(Vector3 _corner1, Vector3 _corner2, String face) {
 		super(_corner1, _corner2);
 		FLAGS = FLAG_LEFT | FLAG_RIGHT | FLAG_FRONT | FLAG_BACK | FLAG_TOP | FLAG_BOTTOM;
 		this.face = face;
 	}
 
-	public StaticBox(Vector3 _corner1, Vector3 _corner2, string face, int FLAGS) {
+	public StaticBox(Vector3 _corner1, Vector3 _corner2, String face, int FLAGS) {
 		super(_corner1, _corner2);
 		this.FLAGS = FLAGS;
 		this.face = face;
@@ -25,7 +25,7 @@ public class StaticBox extends MapObject implements IDisposable
 	protected class BoxData extends GameObjectData {
 		public Vector3 corner1, corner2, position;
 		public int flags;
-		public string face;
+		public String face;
 
 		public BoxData()
 		{

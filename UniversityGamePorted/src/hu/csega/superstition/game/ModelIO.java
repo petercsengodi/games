@@ -2,7 +2,7 @@ package hu.csega.superstition.game;
 
 public class ModelIO {
 
-	public static void SaveModelToFile(Model model, string filename) {
+	public static void SaveModelToFile(Model model, String filename) {
 		BinaryFormatter formatter = new BinaryFormatter();
 		FileStream stream = File.Create(filename);
 		GameObjectData data = model.GetDataModel();
@@ -10,7 +10,7 @@ public class ModelIO {
 		stream.Close();
 	}
 
-	public static void LoadModelFromFile(Model model, string filename) {
+	public static void LoadModelFromFile(Model model, String filename) {
 		BinaryFormatter formatter = new BinaryFormatter();
 		FileStream stream = File.Open(filename, FileMode.Open);
 		GameObjectData data = formatter.Deserialize(stream) as GameObjectData;

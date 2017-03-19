@@ -17,7 +17,7 @@ public class DownArrow extends MenuElement {
 	}
 
 	@Override
-	public string getText()
+	public String getText()
 	{
 		return "< DOWN >";
 	}

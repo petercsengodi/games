@@ -21,7 +21,7 @@ public class Ask extends JPanel
 		InitializeComponent();
 	}
 
-	public Ask(string label)
+	public Ask(String label)
 	{
 		//
 		// Required for Windows Form Designer support

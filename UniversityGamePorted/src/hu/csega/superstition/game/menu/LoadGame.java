@@ -59,7 +59,8 @@ public class LoadGame extends MenuElement implements IMenu, IFileParent
 		return 0;
 	}
 
-	public IMenu DoChildrenItem(string filename)
+	@Override
+	public IMenu DoChildrenItem(String filename)
 	{
 		param.engine.State.trigger(
 				new TriggerParams(MainMenuSelection.LOAD_GAME, "/saves" + filename));

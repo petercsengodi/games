@@ -23,7 +23,8 @@ public class NetworkPlay extends MenuElement implements IFileParent
 		return "Network Play";
 	}
 
-	public IMenu DoChildrenItem(string filename)
+	@Override
+	public IMenu DoChildrenItem(String filename)
 	{
 		Network.NetHost host = new Network.NetHost("../network/" + filename);
 		return new AddressList(param, parent, host);

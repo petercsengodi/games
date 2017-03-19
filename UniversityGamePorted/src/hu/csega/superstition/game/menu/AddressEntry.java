@@ -24,7 +24,7 @@ public class AddressEntry extends MenuElement
 	}
 
 	@Override
-	public string getText()
+	public String getText()
 	{
 		return address.ToString();
 	}

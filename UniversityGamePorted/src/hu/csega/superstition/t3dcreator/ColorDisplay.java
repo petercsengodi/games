@@ -102,7 +102,7 @@ public class ColorDisplay extends System.Windows.Forms.UserControl
 		}
 	}
 
-	public string Label
+	public String Label
 	{
 		get{ return label1.Text; }
 		set{ label1.Text = value; }

@@ -2,7 +2,7 @@ package hu.csega.superstition.game.menu;
 
 public class FileMenuElement extends MenuElement
 {
-	protected string file;
+	protected String file;
 	protected IFileParent parent;
 	protected Element filename;
 	protected boolean disposed = false;
@@ -13,7 +13,7 @@ public class FileMenuElement extends MenuElement
 		set { parent = value; }
 	}
 
-	public FileMenuElement(ModelParams param, IFileParent parent, string file)
+	public FileMenuElement(ModelParams param, IFileParent parent, String file)
 	{
 		super(param);
 
@@ -24,7 +24,7 @@ public class FileMenuElement extends MenuElement
 		filename = param.engine.GetTextMesh(font, file, MenuHelpClass.TextBend, MenuHelpClass.TextExtr);
 	}
 
-	public string File
+	public String File
 	{
 		get{ return file; }
 	}
@@ -36,7 +36,7 @@ public class FileMenuElement extends MenuElement
 	}
 
 	@Override
-	public string getText()
+	public String getText()
 	{
 		return null;
 	}

@@ -31,7 +31,7 @@ public class Dots extends MenuElement {
 	}
 
 	@Override
-	public string getText()
+	public String getText()
 	{
 		return "...";
 	}

@@ -21,7 +21,7 @@ public class Sphere extends JPanel {
 		InitializeComponent();
 	}
 
-	public Sphere(string Title)
+	public Sphere(String Title)
 	{
 		InitializeComponent();
 		this.Text = Title;

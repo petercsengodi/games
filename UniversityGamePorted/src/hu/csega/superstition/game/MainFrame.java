@@ -17,7 +17,7 @@ public class MainFrame extends System.Windows.Forms.Form {
 	static int TimerSetup = 10;
 
 	// Console Output
-	public delegate void OutPut(string text);
+	public delegate void OutPut(String text);
 	public static OutPut WriteConsole;
 
 	/// <summary>
@@ -114,7 +114,7 @@ public class MainFrame extends System.Windows.Forms.Form {
 	/// Does nothing.
 	/// </summary>
 	/// <param name="text">Input should written to Console</param>
-	public void NullOutPut(string text){ }
+	public void NullOutPut(String text){ }
 
 	/// <summary>
 	/// Closing process. Triggered by an Event.

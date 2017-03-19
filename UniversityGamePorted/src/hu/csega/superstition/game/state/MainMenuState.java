@@ -7,7 +7,7 @@ class MainMenuState extends State
 	protected Load_State load;
 	protected Engine engine;
 	protected Model gameModel;
-	protected string filename;
+	protected String filename;
 	protected Network.NetHost host;
 	protected HostData host_data;
 	protected UserInfo user;

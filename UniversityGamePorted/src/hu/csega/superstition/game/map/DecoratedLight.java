@@ -1,7 +1,7 @@
 package hu.csega.superstition.game.map;
 
 public class DecoratedLight extends MapObject {
-	protected string meshFrame, meshGlow;
+	protected String meshFrame, meshGlow;
 	protected Element frame, glow;
 	protected Color color;
 	protected Vector3 light;
@@ -73,7 +73,7 @@ public class DecoratedLight extends MapObject {
 	{
 		public float angle, range;
 		public Vector3 corner1, corner2, position;
-		public string meshFrame, meshGlow;
+		public String meshFrame, meshGlow;
 		public Color color;
 		public Vector3 light;
 

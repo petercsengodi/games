@@ -35,7 +35,7 @@ public class Room extends TWLNode
 	public Vector3 Lower{ get{ return corner1;} }
 	public Vector3 Upper{ get{ return corner2;} }
 
-	public string Face{ get{ return (string)face.Clone(); }
+	public String Face{ get{ return (string)face.Clone(); }
 	set
 	{
 		face = (string)value.Clone();
@@ -44,7 +44,7 @@ public class Room extends TWLNode
 	}
 	}
 
-	public string DirectXTexture
+	public String DirectXTexture
 	{
 		get { return (string)texString.Clone(); }
 		set

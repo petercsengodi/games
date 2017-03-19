@@ -154,7 +154,7 @@ public class Model implements IModel, IPeriod {
 		Map.DoForAllNodes(new TWLFunc(IdentifyCurrentRoom));
 	}
 
-	public void LoadXmlMap(string filename)
+	public void LoadXmlMap(String filename)
 	{
 		//		game_elements = new ArrayList();
 		//		to_remove = new ArrayList();
@@ -230,7 +230,7 @@ public class Model implements IModel, IPeriod {
 
 		}
 
-		int i = 0, j = 0, c; string tmp1, tmp2;
+		int i = 0, j = 0, c; String tmp1, tmp2;
 		for(XmlNode node : root.ChildNodes)
 		{
 			tmp1 = node.Attributes.GetNamedItem("Text").Value;

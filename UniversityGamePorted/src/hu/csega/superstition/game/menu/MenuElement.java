@@ -32,7 +32,7 @@ abstract class MenuElement
 		translation = new Vector3(0f, 0f, 0f);
 	}
 
-	public MenuElement(ModelParams param, string text)
+	public MenuElement(ModelParams param, String text)
 	{
 		this.param = param;
 
@@ -45,7 +45,7 @@ abstract class MenuElement
 		translation = new Vector3(0f, 0f, 0f);
 	}
 
-	public abstract string getText();
+	public abstract String getText();
 
 	public void OnEnter(){}
 	public void OnLeft(){}

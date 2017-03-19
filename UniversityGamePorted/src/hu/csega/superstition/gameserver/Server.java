@@ -124,7 +124,7 @@ public class Server extends System.Windows.Forms.Form
 		OnControlsChanged();
 	}
 
-	public void WriteStatus(string information)
+	public void WriteStatus(String information)
 	{
 		status_label.Text = (string)information.Clone();
 	}
@@ -285,7 +285,7 @@ public class Server extends System.Windows.Forms.Form
 
 		host_box.Items.Clear();
 
-		string temp;
+		String temp;
 		HostData data;
 		for(int i = 0; i < hosts.Length; i++){
 			if(hosts[i] == null) continue;

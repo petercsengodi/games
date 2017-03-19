@@ -19,7 +19,7 @@ class Room extends TWLNode implements IClipping, IDisposable, IGameObject, IRend
 
 	protected int walls;
 	protected Vector3 corner1, corner2;
-	protected string wall_face, floor_face;
+	protected String wall_face, floor_face;
 	protected ArrayList Renders, // This needed to be disposed
 	Clips, Objects; // They don't need any care
 	public ArrayList RoomsInSight, turn_add, turn_remove;
@@ -28,14 +28,14 @@ class Room extends TWLNode implements IClipping, IDisposable, IGameObject, IRend
 
 	public Vector3 Lower{ get{ return corner1;} set {corner1 = value;}}
 	public Vector3 Upper{ get{ return corner2;} set {corner2 = value;} }
-	public string Wall_face{ get{ return wall_face; } set{ wall_face = value; } }
-	public string Floor_face{ get{ return floor_face; } set{ floor_face = value; } }
+	public String Wall_face{ get{ return wall_face; } set{ wall_face = value; } }
+	public String Floor_face{ get{ return floor_face; } set{ floor_face = value; } }
 	public RoomPostType Post{ get{ return post; } set{ post = value; } }
 
 	protected class RoomData extends GameObjectData
 	{
 		public Vector3 corner1, corner2;
-		public string wall_face, floor_face;
+		public String wall_face, floor_face;
 		public RoomPostType post;
 		public GameObjectData[] objects;
 		public Vector3[] rooms_in_sight;
@@ -46,7 +46,7 @@ class Room extends TWLNode implements IClipping, IDisposable, IGameObject, IRend
 		}
 	}
 
-	public Room(Vector3 _corner1, Vector3 _corner2, string wall_face, string floor_face)
+	public Room(Vector3 _corner1, Vector3 _corner2, String wall_face, String floor_face)
 	{
 
 		walls = WALL_SUM;

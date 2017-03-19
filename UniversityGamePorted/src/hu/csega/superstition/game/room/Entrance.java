@@ -5,7 +5,7 @@ class Entrance extends TWLLink implements IClipping, IDisposable, IGameObject, I
 
 	public int degree;
 	protected Vector3 Room1Upper, Room1Lower, Room2Upper, Room2Lower;
-	protected string tex_stair, tex_door;
+	protected String tex_stair, tex_door;
 	protected Stair stair;
 	protected Hole hole;
 
@@ -16,7 +16,7 @@ class Entrance extends TWLLink implements IClipping, IDisposable, IGameObject, I
 			DoorCeiling = 1f,
 			DoorExtrude = 0.1f;
 
-	public Entrance(int _degree, string _TextureStair, string _TextureDoor)
+	public Entrance(int _degree, String _TextureStair, String _TextureDoor)
 	{
 		degree = _degree;
 		tex_stair = _TextureStair;
@@ -31,7 +31,7 @@ class Entrance extends TWLLink implements IClipping, IDisposable, IGameObject, I
 			description = "Entrance";
 		}
 
-		public string stair_texture, hole_texture;
+		public String stair_texture, hole_texture;
 		public int degree;
 		public Vector3 room_from, room_to;
 		public GameObjectData stair, hole;

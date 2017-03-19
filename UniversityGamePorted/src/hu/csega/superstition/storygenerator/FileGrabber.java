@@ -6,7 +6,7 @@ public class FileGrabber extends JPanel
 {
 	private String filter, inital;
 
-	public FileGrabber(string FilterString, string inital)
+	public FileGrabber(String FilterString, String inital)
 	{
 		filter = (string) FilterString.Clone();
 		this.inital = inital;

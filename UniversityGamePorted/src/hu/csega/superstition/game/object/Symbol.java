@@ -5,14 +5,14 @@ class Symbol implements IPeriod, IGameObject
 	protected Vector3 position;
 	protected Element element;
 	protected float Angle;
-	protected string mesh;
+	protected String mesh;
 	protected Color sparkling;
 	protected float range;
 	protected Light light;
 
 	protected static float speed = 0.01f, limit = (float)(Math.PI * 2.0);
 
-	public Symbol(Vector3 position, string mesh, Color sparkling, float range)
+	public Symbol(Vector3 position, String mesh, Color sparkling, float range)
 	{
 		this.position = position;
 		this.mesh = mesh;
@@ -23,7 +23,7 @@ class Symbol implements IPeriod, IGameObject
 	protected class SymbolData extends GameObjectData
 	{
 		public float angle;
-		public string mesh;
+		public String mesh;
 		public Vector3 position;
 		public Color sparkling;
 		public float range;

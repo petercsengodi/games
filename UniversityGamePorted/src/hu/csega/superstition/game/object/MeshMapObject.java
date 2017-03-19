@@ -4,9 +4,9 @@ class MeshMapObject extends MapObject
 {
 	protected Element element;
 	protected float Angle;
-	protected string mesh;
+	protected String mesh;
 
-	public MeshMapObject(string mesh, Vector3 position) {
+	public MeshMapObject(String mesh, Vector3 position) {
 		super(position, position);
 		this.position = position;
 		this.Angle = 0f;
@@ -17,7 +17,7 @@ class MeshMapObject extends MapObject
 	{
 		public float angle;
 		public Vector3 position;
-		public string mesh;
+		public String mesh;
 
 		public MeshMapObjectData()
 		{

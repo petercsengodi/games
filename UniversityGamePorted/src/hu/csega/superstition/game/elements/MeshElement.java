@@ -9,7 +9,7 @@ public class MeshElement extends Element {
 	private AttributeRange[] attributes;
 	private Shadow shadow_mesh;
 
-	public MeshElement(Engine engine, string filename, boolean shadow)
+	public MeshElement(Engine engine, String filename, boolean shadow)
 	{
 		super(engine);
 		ExtendedMaterial[] exmats;

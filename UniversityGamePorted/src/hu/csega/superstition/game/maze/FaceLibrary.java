@@ -4,19 +4,19 @@ class FaceLibrary
 {
 	class Cache
 	{
-		public Cache(string library, string[] list)
+		public Cache(String library, string[] list)
 		{
 			this.library = library;
 			this.list = list;
 		}
 
-		public string library;
+		public String library;
 		public string[] list;
 	}
 
 	protected static ArrayList cache = null;
 
-	public static string[] getLibrary(string library)
+	public static string[] getLibrary(String library)
 	{
 		if(cache == null) cache = new ArrayList();
 
@@ -38,14 +38,14 @@ class FaceLibrary
 		return list;
 	}
 
-	public static string RandomGetFromLibrary(string library)
+	public static String RandomGetFromLibrary(String library)
 	{
 		string[] list = getLibrary(library);
 		int idx = (int)Math.Round(StaticRandomLibrary.DoubleValue(list.Length));
 		return list[idx];
 	}
 
-	public static string RandomGetFromLibrary(string[] list)
+	public static String RandomGetFromLibrary(string[] list)
 	{
 		int idx = (int)Math.Floor(StaticRandomLibrary.DoubleValue(list.Length));
 		return list[idx];

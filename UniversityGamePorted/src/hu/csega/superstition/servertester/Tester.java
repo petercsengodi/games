@@ -33,7 +33,7 @@ public class Tester extends JPanel {
 
 	private long userID;
 	private int main_port, game_port, client_port;
-	private string host_string;
+	private String host_string;
 	private StateControl state;
 	private IPAddress[] list;
 	private IPAddress server_address;
@@ -119,7 +119,7 @@ public class Tester extends JPanel {
 		clientport_ValueChanged(null, null);
 	}
 
-	public void WriteStatus(string status)
+	public void WriteStatus(String status)
 	{
 		status_label.Text = status;
 		history_box.Items.Add(status);

@@ -85,7 +85,7 @@ public class FileMenu implements IMenu {
 
 
 
-	public void Refresh(string dir, string filter, int count, IMenu parent)
+	public void Refresh(String dir, String filter, int count, IMenu parent)
 	{
 		this.parent = parent;
 		fileParent = parent as IFileParent;
@@ -102,7 +102,7 @@ public class FileMenu implements IMenu {
 
 		if(info.Exists)
 		{
-			string name;
+			String name;
 			Object obj;
 			infos = info.GetFiles(filter);
 			for(int i = 0; i < infos.Length; i++)
@@ -213,7 +213,7 @@ public class FileMenu implements IMenu {
 		}
 	}
 
-	public string GetIndexString(int idx)
+	public String GetIndexString(int idx)
 	{
 		return (files[idx] as FileMenuElement).File;
 	}

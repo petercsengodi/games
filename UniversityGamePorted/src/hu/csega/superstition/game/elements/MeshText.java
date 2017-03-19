@@ -8,9 +8,9 @@ public class MeshText extends Element {
 	private float extrusion;
 	private Vector3 center = new Vector3(0f, 0f, 0f);
 	public Vector3 Center { get { return center; } }
-	public string test;
+	public String test;
 
-	public MeshText(Engine engine, System.Drawing.Font font, string text, float deviation, float extrusion)
+	public MeshText(Engine engine, System.Drawing.Font font, String text, float deviation, float extrusion)
 	{
 		super(engine);
 		test = text;

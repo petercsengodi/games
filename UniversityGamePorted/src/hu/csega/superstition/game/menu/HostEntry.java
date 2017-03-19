@@ -102,7 +102,7 @@ public class HostEntry extends MenuElement
 	}
 
 	@Override
-	public string getText()
+	public String getText()
 	{
 		return "Join / Publish";
 	}

@@ -158,7 +158,7 @@ public class MeshText extends JPanel {
 		get { return (float)num_deviation.Value; }
 	}
 
-	public string Value
+	public String Value
 	{
 		get{ return text_box.Text; }
 	}

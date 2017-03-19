@@ -24,7 +24,7 @@ public class StartState extends State {
 	public State trigger(Object Object)
 	{
 		base.trigger(Object);
-		string trigger_string = Object as string;
+		String trigger_string = Object as string;
 		if((trigger_string == null) || (trigger_string.Length == 0))
 			return this;
 		if(trigger_string.Equals("stop")) return new StopState();

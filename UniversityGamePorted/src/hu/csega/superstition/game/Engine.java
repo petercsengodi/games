@@ -169,7 +169,7 @@ public class Engine implements IPeriod
 		}
 		catch(Exception)
 		{
-			string err;
+			String err;
 			shadowEffect = Effect.FromFile(device, @"..\progs\shadow.fx",
 					null, ShaderFlags.None, null, out err);
 			throw new Exception(err);
@@ -524,7 +524,7 @@ public class Engine implements IPeriod
 	/// <param name="face">Texture.</param>
 	/// <returns>Plane Primitve.</returns>
 	public Primitive Pr_Plane(Vector3 Left, Vector3 Right,
-			StaticVectorLibrary.Direction direction, string face)
+			StaticVectorLibrary.Direction direction, String face)
 	{
 		return new EPlane(this, Vector3.Minimize(Left, Right),
 				Vector3.Maximize(Left, Right), direction,
@@ -539,7 +539,7 @@ public class Engine implements IPeriod
 	/// <param name="c">C vector</param>
 	/// <param name="face">Texture name</param>
 	/// <returns>Triangle Primitive</returns>
-	public Primitive Pr_TesselatedTriangle(Vector3 a, Vector3 b, Vector3 c, string face)
+	public Primitive Pr_TesselatedTriangle(Vector3 a, Vector3 b, Vector3 c, String face)
 	{
 		return new ETesselatedTriangle(this, a, b, c,
 				Library.Textures().getTexture(face));
@@ -550,7 +550,7 @@ public class Engine implements IPeriod
 	/// </summary>
 	/// <param name="filename">File Name.</param>
 	/// <returns>Mesh Element.</returns>
-	public MeshElement GetMeshElement(string filename, EngineMeshFlags flag, Color color)
+	public MeshElement GetMeshElement(String filename, EngineMeshFlags flag, Color color)
 	{
 		MeshElement ret = null;
 		if((flag & EngineMeshFlags.NoShadow) > 0)
@@ -569,7 +569,7 @@ public class Engine implements IPeriod
 	/// <param name="deviation">Bending of text.</param>
 	/// <param name="extrusion">Width of text.</param>
 	/// <returns>Mesh element from the Text.</returns>
-	public MeshText GetTextMesh(System.Drawing.Font font, string text, float deviation, float extrusion)
+	public MeshText GetTextMesh(System.Drawing.Font font, String text, float deviation, float extrusion)
 	{
 		return new MeshText(this, font, text, deviation, extrusion);
 	}
@@ -579,7 +579,7 @@ public class Engine implements IPeriod
 	/// </summary>
 	/// <param name="file_name">Animation file name.</param>
 	/// <returns>Requested animation.</returns>
-	public Animation GetAnimation(string file_name)
+	public Animation GetAnimation(String file_name)
 	{
 		Animation ret = new Animation(this);
 		ret.Load(@"..\anims\" + file_name + ".anm");

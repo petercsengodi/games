@@ -7,7 +7,7 @@ public class Detail extends MenuElement {
 	}
 
 	@Override
-	public string getText()
+	public String getText()
 	{
 		return "Detail";
 	}
