@@ -15,7 +15,7 @@ public class TriangleSplit extends Operation
 	}
 
 	@Override
-	public override void OnTransform()
+	public void OnTransform()
 	{
 		// Removes the triangle from figure
 		figure.triangles.Remove(triangle);
@@ -63,7 +63,7 @@ public class TriangleSplit extends Operation
 	}
 
 	@Override
-	public override void OnInvert()
+	public void OnInvert()
 	{
 		// Remove vertex and triangles
 		figure.vertices.Remove(vertex);

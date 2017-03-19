@@ -12,7 +12,7 @@ public class TextureView extends ToolView {
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected override void Dispose( boolean disposing )
+	protected void Dispose( boolean disposing )
 	{
 		if( disposing )
 		{
@@ -44,12 +44,12 @@ public class TextureView extends ToolView {
 	private const double move_step = 1.0;
 	private ButtonControl[] bcontrol;
 
-	public override void UpdateView(Updates update)
+	public void UpdateView(Updates update)
 	{
 		Invalidate();
 	}
 
-	protected override void InitializeView()
+	protected void InitializeView()
 	{
 		bcontrol = new ButtonControl[3];
 		for(int i = 0; i < 3; i++)
@@ -59,7 +59,7 @@ public class TextureView extends ToolView {
 		}
 	}
 
-	protected override void CloseView()
+	protected void CloseView()
 	{
 	}
 
@@ -76,7 +76,7 @@ public class TextureView extends ToolView {
 		return ret;
 	}
 
-	protected override void OnPaintBackground(PaintEventArgs pevent)
+	protected void OnPaintBackground(PaintEventArgs pevent)
 	{
 		if(!Initialized) base.OnPaintBackground(pevent);
 		else
@@ -94,7 +94,7 @@ public class TextureView extends ToolView {
 		}
 	}
 
-	protected override void OnPaint(PaintEventArgs args)
+	protected void OnPaint(PaintEventArgs args)
 	{
 		if(!Initialized)
 		{

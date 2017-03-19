@@ -61,7 +61,7 @@ public class NormalPreview extends JPanel
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected override void Dispose( boolean disposing )
+	protected void Dispose( boolean disposing )
 	{
 		if( disposing )
 		{
@@ -158,7 +158,7 @@ public class NormalPreview extends JPanel
 	}
 
 
-	protected override void OnPaintBackground(PaintEventArgs pevent)
+	protected void OnPaintBackground(PaintEventArgs pevent)
 	{
 	}
 

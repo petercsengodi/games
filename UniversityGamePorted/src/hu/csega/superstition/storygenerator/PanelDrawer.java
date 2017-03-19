@@ -8,7 +8,7 @@ public class PanelDrawer extends JPanel
 	{
 	}
 
-	protected override void OnPaintBackground(PaintEventArgs pevent)
+	protected void OnPaintBackground(PaintEventArgs pevent)
 	{
 	}
 

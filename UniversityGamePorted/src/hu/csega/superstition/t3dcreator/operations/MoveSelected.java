@@ -13,13 +13,13 @@ public class MoveSelected extends Operation
 	}
 
 	@Override
-	public override void OnTransform()
+	public void OnTransform()
 	{
 		part.move(translation);
 	}
 
 	@Override
-	public override void OnInvert()
+	public void OnInvert()
 	{
 		part.move(-translation);
 	}

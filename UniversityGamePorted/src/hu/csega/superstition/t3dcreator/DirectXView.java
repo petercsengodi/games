@@ -22,7 +22,7 @@ public class DirectXView extends ToolView {
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected override void Dispose( boolean disposing )
+	protected void Dispose( boolean disposing )
 	{
 		if( disposing )
 		{
@@ -102,7 +102,7 @@ public class DirectXView extends ToolView {
 		get { return device; }
 	}
 
-	public override void UpdateView(Updates update)
+	public void UpdateView(Updates update)
 	{
 		int color, temp1, temp2,
 		color_normal = Color.Black.ToArgb(),
@@ -189,7 +189,7 @@ public class DirectXView extends ToolView {
 		Invalidate();
 	}
 
-	protected override void InitializeView()
+	protected void InitializeView()
 	{
 		PresentParameters pp = new PresentParameters();
 		pp.AutoDepthStencilFormat = DepthFormat.D16;
@@ -263,7 +263,7 @@ public class DirectXView extends ToolView {
 		grid.Unlock();
 	}
 
-	protected override void CloseView()
+	protected void CloseView()
 	{
 		if(device != null)
 		{
@@ -272,13 +272,13 @@ public class DirectXView extends ToolView {
 		}
 	}
 
-	protected override void OnPaintBackground(PaintEventArgs pevent)
+	protected void OnPaintBackground(PaintEventArgs pevent)
 	{
 		if(device == null) base.OnPaintBackground (pevent);
 	}
 
 
-	protected override void OnPaint(PaintEventArgs e)
+	protected void OnPaint(PaintEventArgs e)
 	{
 		if(device == null)
 		{

@@ -30,7 +30,7 @@ public class Sphere extends JPanel {
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected override void Dispose(boolean disposing )
+	protected void Dispose(boolean disposing )
 	{
 		if( disposing )
 		{

@@ -18,7 +18,7 @@ public class AddMeshOperation extends Operation
 	}
 
 	@Override
-	public override void OnTransform()
+	public void OnTransform()
 	{
 		foreach(CFigure figure in figures)
 		{
@@ -27,7 +27,7 @@ public class AddMeshOperation extends Operation
 	}
 
 	@Override
-	public override void OnInvert()
+	public void OnInvert()
 	{
 		foreach(CFigure figure in figures)
 		{

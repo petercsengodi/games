@@ -15,13 +15,13 @@ public class ScaleSelected extends Operation
 	}
 
 	@Override
-	public override void OnTransform()
+	public void OnTransform()
 	{
 		part.scale(matrix);
 	}
 
 	@Override
-	public override void OnInvert()
+	public void OnInvert()
 	{
 		part.scale(inverse);
 	}

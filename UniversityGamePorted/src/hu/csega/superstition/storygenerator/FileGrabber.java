@@ -12,7 +12,7 @@ public class FileGrabber extends JPanel
 		this.inital = inital;
 	}
 
-	public override object EditValue(System.ComponentModel.ITypeDescriptorContext context, IServiceProvider provider, object value)
+	public object EditValue(System.ComponentModel.ITypeDescriptorContext context, IServiceProvider provider, object value)
 	{
 		object ret;
 
@@ -33,7 +33,7 @@ public class FileGrabber extends JPanel
 		return ret;
 	}
 
-	public override System.Drawing.Design.UITypeEditorEditStyle GetEditStyle(System.ComponentModel.ITypeDescriptorContext context)
+	public System.Drawing.Design.UITypeEditorEditStyle GetEditStyle(System.ComponentModel.ITypeDescriptorContext context)
 	{
 		if (context != null && context.Instance != null)
 		{

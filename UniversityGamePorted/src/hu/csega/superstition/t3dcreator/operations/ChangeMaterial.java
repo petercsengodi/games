@@ -21,7 +21,7 @@ public class ChangeMaterial extends Operation
 	}
 
 	@Override
-	public override void OnTransform()
+	public void OnTransform()
 	{
 		figure.ambient_color = ambient;
 		figure.diffuse_color = diffuse;
@@ -29,7 +29,7 @@ public class ChangeMaterial extends Operation
 	}
 
 	@Override
-	public override void OnInvert()
+	public void OnInvert()
 	{
 		figure.ambient_color = old_ambient;
 		figure.diffuse_color = old_diffuse;

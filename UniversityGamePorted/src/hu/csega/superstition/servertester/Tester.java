@@ -231,7 +231,7 @@ public class Tester extends JPanel {
 		}
 	}
 
-	protected override void OnClosing(CancelEventArgs e)
+	protected void OnClosing(CancelEventArgs e)
 	{
 		state.trigger("quit");
 		base.OnClosing(e);
@@ -240,7 +240,7 @@ public class Tester extends JPanel {
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected override void Dispose( boolean disposing )
+	protected void Dispose( boolean disposing )
 	{
 		if( disposing )
 		{

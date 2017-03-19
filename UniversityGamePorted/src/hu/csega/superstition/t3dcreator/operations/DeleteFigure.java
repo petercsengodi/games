@@ -12,13 +12,13 @@ public class DeleteFigure extends Operation
 	}
 
 	@Override
-	public override void OnTransform()
+	public void OnTransform()
 	{
 		model.figures.Remove(figure);
 	}
 
 	@Override
-	public override void OnInvert()
+	public void OnInvert()
 	{
 		model.figures.Add(figure);
 	}

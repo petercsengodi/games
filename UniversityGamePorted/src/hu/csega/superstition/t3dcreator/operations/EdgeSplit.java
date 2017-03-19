@@ -48,7 +48,7 @@ public class EdgeSplit extends Operation
 	}
 
 	@Override
-	public override void OnTransform()
+	public void OnTransform()
 	{
 		// Removing old triangels from model
 		figure.triangles.Remove(old_triangles[0]);
@@ -116,7 +116,7 @@ public class EdgeSplit extends Operation
 
 
 	@Override
-	public override void OnInvert()
+	public void OnInvert()
 	{
 		// Remove new trianlges and vertices
 		figure.triangles.Remove(new_triangles[0]);

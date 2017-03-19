@@ -30,7 +30,7 @@ public class FigureProperties extends JPanel {
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected override void Dispose(boolean disposing )
+	protected void Dispose(boolean disposing )
 	{
 		if( disposing )
 		{
@@ -180,7 +180,7 @@ public class FigureProperties extends JPanel {
 		model.UpdateViews(Updates.Full);
 	}
 
-	protected override void OnClosing(CancelEventArgs e)
+	protected void OnClosing(CancelEventArgs e)
 	{
 		e.Cancel = true;
 		this.Hide();

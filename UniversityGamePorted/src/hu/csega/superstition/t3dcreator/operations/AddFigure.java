@@ -14,7 +14,7 @@ class AddFigure extends Operation
 	}
 
 	@Override
-	public override void OnTransform()
+	public void OnTransform()
 	{
 		figure = new CFigure(initial);
 		model.figures.Add(figure);
@@ -22,7 +22,7 @@ class AddFigure extends Operation
 	}
 
 	@Override
-	public override void OnInvert()
+	public void OnInvert()
 	{
 		model.figures.Remove(figure);
 		model.Selected = null;

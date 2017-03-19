@@ -2,20 +2,22 @@ package hu.csega.superstition.servertester.state;
 
 class ConnectState extends State
 {
-	public override void enter()
+	@Override
+	public void enter()
 	{
 		base.enter();
 		Tester.Instance.ReadOnly = true;
 	}
 
-	public override void exit()
+	@Override
+	public void exit()
 	{
 		base.exit();
 		Tester.Instance.TcpDisconnect();
 		Tester.Instance.ReadOnly = false;
 	}
 
-	public override State trigger(object Object)
+	public State trigger(object Object)
 	{
 		base.trigger(Object);
 		string trigger_string = Object as string;

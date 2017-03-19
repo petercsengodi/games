@@ -58,7 +58,7 @@ public class TreeObjectView extends ToolView {
 
 	}
 
-	public override void UpdateView(Updates update)
+	public void UpdateView(Updates update)
 	{
 		if((update == Updates.Selection) ||
 				(update == Updates.Move))
@@ -107,12 +107,12 @@ public class TreeObjectView extends ToolView {
 		treeView1.EndUpdate();
 	}
 
-	protected override void InitializeView()
+	protected void InitializeView()
 	{
 
 	}
 
-	protected override void CloseView()
+	protected void CloseView()
 	{
 
 	}

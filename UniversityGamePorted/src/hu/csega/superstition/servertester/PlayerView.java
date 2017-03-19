@@ -31,7 +31,7 @@ public class PlayerView extends JPanel {
 		Invalidate();
 	}
 
-	protected override void OnPaint(PaintEventArgs e)
+	protected void OnPaint(PaintEventArgs e)
 	{
 		base.OnPaint (e);
 
@@ -70,7 +70,7 @@ public class PlayerView extends JPanel {
 		otherBR.Dispose();
 	}
 
-	protected override void OnMouseDown(MouseEventArgs e)
+	protected void OnMouseDown(MouseEventArgs e)
 	{
 		base.OnMouseDown (e);
 		float w = (float)this.Width, h = (float)this.Height;
@@ -83,7 +83,7 @@ public class PlayerView extends JPanel {
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected override void Dispose( boolean disposing )
+	protected void Dispose( boolean disposing )
 	{
 		if( disposing )
 		{

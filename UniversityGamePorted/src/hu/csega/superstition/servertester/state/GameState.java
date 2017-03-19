@@ -2,13 +2,13 @@ package hu.csega.superstition.servertester.state;
 
 class GameState : State
 {
-	public override void enter()
+	public void enter()
 	{
 		base.enter();
 		Tester.Instance.ReadOnly = true;
 	}
 
-	public override void exit()
+	public void exit()
 	{
 		base.exit();
 		Tester.Instance.UdpDisconnect();
@@ -16,7 +16,7 @@ class GameState : State
 	}
 
 
-	public override State trigger(object Object)
+	public State trigger(object Object)
 	{
 		base.trigger (Object);
 		string trigger_string = Object as string;

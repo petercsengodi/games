@@ -12,13 +12,13 @@ public class MoveTexture extends Operation
 	}
 
 	@Override
-	public override void OnTransform()
+	public void OnTransform()
 	{
 		part.moveTexture(translation);
 	}
 
 	@Override
-	public override void OnInvert()
+	public void OnInvert()
 	{
 		part.moveTexture(-translation);
 	}
