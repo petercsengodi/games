@@ -24,6 +24,11 @@ public class CVertex {
 		this.position = new Vector3f();
 	}
 
+	public CVertex(Vector3f v) {
+		this.texture_coordinates = new Vector2f();
+		this.position = new Vector3f().set(v);
+	}
+
 	@XmlField("position")
 	public Vector3f getPosition() {
 		return position;
@@ -74,6 +79,7 @@ public class CVertex {
 		this.edges = edges;
 	}
 
+	@Override
 	public String toString() {
 		if(position == null || texture_coordinates == null)
 			return super.toString();

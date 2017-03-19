@@ -2,6 +2,11 @@ package hu.csega.superstition.t3dcreator.operations;
 
 import org.joml.Vector3f;
 
+import hu.csega.superstition.gamelib.legacy.modeldata.CEdge;
+import hu.csega.superstition.gamelib.legacy.modeldata.CTriangle;
+import hu.csega.superstition.t3dcreator.CFigure;
+import hu.csega.superstition.t3dcreator.CVertex;
+
 public class EdgeSplit extends Operation
 {
 	private CFigure figure;
@@ -53,64 +58,54 @@ public class EdgeSplit extends Operation
 	public void OnTransform()
 	{
 		// Removing old triangels from model
-		figure.triangles.Remove(old_triangles[0]);
-		figure.triangles.Remove(old_triangles[1]);
+		figure.triangles.remove(old_triangles[0]);
+		figure.triangles.remove(old_triangles[1]);
 
 		// Creating new vertex
-		Vector3f position = (old_vertices[0].position +
-				old_vertices[1].position) * 0.5f;
-		Vector2 texture = (old_vertices[0].texture_coordinates +
-				old_vertices[1].texture_coordinates) * 0.5f;
+		Vector3f position = (old_vertices[0].position + old_vertices[1].position) * 0.5f;
+		Vector2f texture = (old_vertices[0].texture_coordinates + old_vertices[1].texture_coordinates) * 0.5f;
 		new_vertex = new CVertex(position, texture);
 
 		// Creating new triangles
 		CVertex[] quadrat = new CVertex[4];
 		int count = 0; boolean missed = true; int idx = -1;
-		for(CEdge edge : old_triangles[0].edges)
-		{
+		for(CEdge edge : old_triangles[0].edges) {
 			quadrat[count++] = edge.from;
-			if(missed)
-			{
-				if(edge.from.Equals(old_vertices[0]) ||
-						edge.from.Equals(old_vertices[1]))
-				{
+
+			if(missed) {
+				if(edge.from.equals(old_vertices[0]) || edge.from.equals(old_vertices[1])) {
 					idx = count;
 					quadrat[count++] = new_vertex;
 					missed = false;
 				}
 			}
 		}
-		new_triangles[0] = new CTriangle(quadrat[(idx + 2) % 4],
-				quadrat[(idx + 3) % 4], quadrat[(idx + 4) % 4]);
-		new_triangles[1] = new CTriangle(quadrat[(idx + 2) % 4],
-				quadrat[(idx + 4) % 4], quadrat[(idx + 5) % 4]);
+
+		new_triangles[0] = new CTriangle(quadrat[(idx + 2) % 4], quadrat[(idx + 3) % 4], quadrat[(idx + 4) % 4]);
+		new_triangles[1] = new CTriangle(quadrat[(idx + 2) % 4], quadrat[(idx + 4) % 4], quadrat[(idx + 5) % 4]);
 
 		count = 0; missed = true; idx = -1;
-		for(CEdge edge : old_triangles[1].edges)
-		{
+		for(CEdge edge : old_triangles[1].edges) {
 			quadrat[count++] = edge.from;
-			if(missed)
-			{
-				if(edge.from.Equals(old_vertices[0]) ||
-						edge.from.Equals(old_vertices[1]))
-				{
+
+			if(missed) {
+				if(edge.from.equals(old_vertices[0]) || edge.from.equals(old_vertices[1])) {
 					idx = count;
 					quadrat[count++] = new_vertex;
 					missed = false;
 				}
 			}
 		}
-		new_triangles[2] = new CTriangle(quadrat[(idx + 2) % 4],
-				quadrat[(idx + 3) % 4], quadrat[(idx + 4) % 4]);
-		new_triangles[3] = new CTriangle(quadrat[(idx + 2) % 4],
-				quadrat[(idx + 4) % 4], quadrat[(idx + 5) % 4]);
+
+		new_triangles[2] = new CTriangle(quadrat[(idx + 2) % 4], quadrat[(idx + 3) % 4], quadrat[(idx + 4) % 4]);
+		new_triangles[3] = new CTriangle(quadrat[(idx + 2) % 4], quadrat[(idx + 4) % 4], quadrat[(idx + 5) % 4]);
 
 		// Addig vertex and triangels to model
-		figure.vertices.Add(new_vertex);
-		figure.triangles.Add(new_triangles[0]);
-		figure.triangles.Add(new_triangles[1]);
-		figure.triangles.Add(new_triangles[2]);
-		figure.triangles.Add(new_triangles[3]);
+		figure.vertices.add(new_vertex);
+		figure.triangles.add(new_triangles[0]);
+		figure.triangles.add(new_triangles[1]);
+		figure.triangles.add(new_triangles[2]);
+		figure.triangles.add(new_triangles[3]);
 
 		// Creating neighbour connection
 		figure.CalculateNeighbours(new_triangles, neighbours);
@@ -118,18 +113,18 @@ public class EdgeSplit extends Operation
 
 
 	@Override
-	public void OnInvert()
-	{
+	public void OnInvert() {
+
 		// Remove new trianlges and vertices
-		figure.triangles.Remove(new_triangles[0]);
-		figure.triangles.Remove(new_triangles[1]);
-		figure.triangles.Remove(new_triangles[2]);
-		figure.triangles.Remove(new_triangles[3]);
-		figure.vertices.Remove(new_vertex);
+		figure.triangles.remove(new_triangles[0]);
+		figure.triangles.remove(new_triangles[1]);
+		figure.triangles.remove(new_triangles[2]);
+		figure.triangles.remove(new_triangles[3]);
+		figure.vertices.remove(new_vertex);
 
 		// Add old triangles
-		figure.triangles.Add(old_triangles[0]);
-		figure.triangles.Add(old_triangles[1]);
+		figure.triangles.add(old_triangles[0]);
+		figure.triangles.add(old_triangles[1]);
 
 		// Fix neighbour connections
 		figure.CalculateNeighbours(old_triangles, neighbours);

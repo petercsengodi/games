@@ -7,8 +7,8 @@ import hu.csega.superstition.game.StaticVectorLibrary;
 import hu.csega.superstition.util.StaticMathLibrary;
 import hu.csega.superstition.util.Vectors;
 
-public class Clipper implements IClipping
-{
+public class Clipper implements IClipping {
+
 	public Vector3f position = new Vector3f(); // Position of the object
 	public Vector3f corner1 = new Vector3f(), corner2 = new Vector3f(); // Relative to position;
 

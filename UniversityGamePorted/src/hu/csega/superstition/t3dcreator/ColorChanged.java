@@ -1,5 +1,7 @@
 package hu.csega.superstition.t3dcreator;
 
-public class ColorChanged {
-	public void ColorChanged(Color color);
+import java.awt.Color;
+
+public interface ColorChanged {
+	void colorChanged(Color color);
 }

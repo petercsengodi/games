@@ -1,25 +1,26 @@
 package hu.csega.superstition.t3dcreator.operations;
 
+import org.joml.Vector2f;
+
+import hu.csega.superstition.model.IPart;
+
 public class MoveTexture extends Operation
 {
-	private Vector2 translation;
+	private Vector2f translation;
 	private IPart part;
 
-	public MoveTexture(IPart part, Vector2 translation)
-	{
+	public MoveTexture(IPart part, Vector2f translation) {
 		this.translation = translation;
 		this.part = part;
 	}
 
 	@Override
-	public void OnTransform()
-	{
+	public void OnTransform() {
 		part.moveTexture(translation);
 	}
 
 	@Override
-	public void OnInvert()
-	{
+	public void OnInvert() {
 		part.moveTexture(-translation);
 	}
 

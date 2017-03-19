@@ -8,8 +8,8 @@ import com.jogamp.opengl.util.texture.Texture;
 
 import hu.csega.superstition.util.StaticMathLibrary;
 
-public class Room extends TWLNode
-{
+public class Room extends TWLNode {
+
 	public final int WALL_LEFT = 1,
 			WALL_RIGHT = 2,
 			WALL_FRONT = 4,

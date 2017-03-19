@@ -2,6 +2,11 @@ package hu.csega.superstition.servertester;
 
 import org.joml.Vector3f;
 
+import hu.csega.superstition.gamelib.network.AllPlayerData;
+import hu.csega.superstition.gamelib.network.GameObjectData;
+import hu.csega.superstition.gamelib.network.HostList;
+import hu.csega.superstition.gamelib.network.NetworkPlayerData;
+
 public class Tester extends JPanel {
 
 	private System.Windows.Forms.TextBox hostname;
@@ -210,31 +215,33 @@ public class Tester extends JPanel {
 
 	public void ReceiveUdpFunction(GameObjectData data)
 	{
-		if((data == null) || (data.Description.Equals("Quit Game"))) // Disconnect client
+		if((data == null) || (data.getDescription().equals("Quit Game"))) // Disconnect client
 		{
 			state.trigger("disconnect");
 			return;
 		}
 
-		this.WriteStatus("Incoming packet: " + data.Description);
+		this.WriteStatus("Incoming packet: " + data.getDescription());
 
-		if(data.Description.Equals("AllNetPlayer"))
+		if(data.getDescription().equals("AllNetPlayer"))
 		{
 			AllPlayerData all_player = (AllPlayerData) data;
-			all_data = new Vector3f[all_player.all_data.Length];
-			for(int i = 0; i < all_player.all_data.Length; i++)
-			{
-				if(all_player.all_data[i] == null) continue;
-				all_data[i] = all_player.all_data[i].position +
-						all_player.all_data[i].difference;
+			all_data = new Vector3f[all_player.all_data.length];
+
+			for(int i = 0; i < all_player.all_data.length; i++) {
+				if(all_player.all_data[i] == null) {
+					continue;
+				}
+
+				all_data[i] = all_player.all_data[i].position + all_player.all_data[i].difference;
 			}
+
 			playerView1.SetPositions(player_position, all_data);
 			playerView1.Invalidate();
 		}
 	}
 
-	protected void OnClosing(CancelEventArgs e)
-	{
+	protected void OnClosing(CancelEventArgs e) {
 		state.trigger("quit");
 		super.OnClosing(e);
 	}
@@ -520,13 +527,12 @@ public class Tester extends JPanel {
 
 	}
 
-	static void Main()
-	{
-		Application.Run(instance = new Tester());
+	public static void main(String[] args) {
+		instance = new Tester();
+		// TODO csega: run
 	}
 
-	private void MouseFunc(float x, float y)
-	{
+	private void MouseFunc(float x, float y) {
 		NetworkPlayerData data = new NetworkPlayerData();
 		data.position = player_position;
 		data.difference = new Vector3f(x, y, 0f);

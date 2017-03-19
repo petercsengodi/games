@@ -1,9 +1,12 @@
 package hu.csega.superstition.storygenerator;
 
-public class Node
-{
-	private ArrayList links;
-	private int x, y;
+import java.util.List;
+
+public class Node {
+
+	private List links;
+	private int x;
+	private int y;
 	private String text;
 	private String texture;
 	private String element;

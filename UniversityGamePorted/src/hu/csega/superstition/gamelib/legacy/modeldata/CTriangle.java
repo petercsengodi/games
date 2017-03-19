@@ -9,6 +9,20 @@ import hu.csega.superstition.xml.XmlField;
 @XmlClass("T3DCreator.CTriangle")
 public class CTriangle {
 
+	public List<CEdge> edges = new ArrayList<>();
+	public List<CTriangle> neighbours = new ArrayList<>();
+	public List<CVertex> vertices = new ArrayList<>();
+	public int count;
+
+	public CTriangle() {
+	}
+
+	public CTriangle(CVertex v1, CVertex v2, CVertex v3) {
+		vertices.add(v1);
+		vertices.add(v2);
+		vertices.add(v3);
+	}
+
 	@XmlField("edges")
 	public List<CEdge> getEdges() {
 		return edges;
@@ -49,14 +63,7 @@ public class CTriangle {
 		this.count = count;
 	}
 
-	public List<CEdge> edges = new ArrayList<>();
-	public List<CTriangle> neighbours = new ArrayList<>();
-	public List<CVertex> vertices = new ArrayList<>();
-	public int count;
-
-	public CTriangle() {
-	}
-
+	@Override
 	public String toString() {
 		return "Triangle"+ " " + count;
 	}
