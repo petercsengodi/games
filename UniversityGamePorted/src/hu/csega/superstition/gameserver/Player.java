@@ -101,7 +101,7 @@ public class Player {
 
 
 
-	public void Dispose()
+	public void dispose()
 	{
 		Disconnect();
 	}

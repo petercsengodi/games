@@ -1,7 +1,7 @@
 package hu.csega.superstition.game.state;
 
-class GameMenuState extends State
-{
+class GameMenuState extends State {
+
 	protected Quit_State quit;
 	protected Play_State play;
 	protected Load_State load;
@@ -18,8 +18,8 @@ class GameMenuState extends State
 
 	public GameMenu_State(Engine engine, Model gameModel, Quit_State quit,
 			Play_State play, Load_State load, MainMenu_State mstate,
-			StateControl cstate)
-	{
+			StateControl cstate) {
+
 		this.quit = quit;
 		this.play = play;
 		this.load = load;
@@ -29,11 +29,13 @@ class GameMenuState extends State
 		this.gameModel = gameModel;
 	}
 
+	@Override
 	public State trigger(Object Object)
 	{
 		super.trigger(Object);
 
 		TriggerParams selection = (TriggerParams)Object;
+
 		switch(selection.command)
 		{
 		case MainMenuSelection.LOAD_MAP:

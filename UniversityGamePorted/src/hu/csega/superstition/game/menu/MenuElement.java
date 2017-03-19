@@ -60,7 +60,7 @@ abstract class MenuElement
 
 	public abstract IMenu DoItem();
 
-	public void Dispose()
+	public void dispose()
 	{
 		if(text != null) text.Dispose();
 	}

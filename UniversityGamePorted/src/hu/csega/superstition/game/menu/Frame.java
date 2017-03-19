@@ -120,7 +120,7 @@ public class Frame {
 		}
 	}
 
-	public void Dispose()
+	public void dispose()
 	{
 		for(int i = 0; i < triangles.Length; i++)
 		{

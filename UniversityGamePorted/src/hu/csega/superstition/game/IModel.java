@@ -1,9 +1,13 @@
 package hu.csega.superstition.game;
 
+import java.awt.Color;
+
 import org.joml.Vector3f;
 
-public interface IModel extends IPeriod, IDisposable
-{
+import hu.csega.superstition.common.Disposable;
+
+public interface IModel extends IPeriod, Disposable {
+
 	/// <summary>
 	/// Doing Initialization Functionalities.
 	/// </summary>
@@ -68,6 +72,5 @@ public interface IModel extends IPeriod, IDisposable
 	/// </summary>
 	/// <returns>Ambient light in Color format</returns>
 	Color GetAmbient();
-
 
 } // End of IModel

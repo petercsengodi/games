@@ -182,7 +182,7 @@ public class MeshUtils {
 
 
 
-	public void Dispose()
+	public void dispose()
 	{
 		dialog.Dispose();
 	}

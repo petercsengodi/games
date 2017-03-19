@@ -96,7 +96,7 @@ public class ServerControl {
 
 
 
-	public void Dispose()
+	public void dispose()
 	{
 		if(socket != null) socket.Close();
 		socket = null;

@@ -2,8 +2,11 @@ package hu.csega.superstition.game.object;
 
 import org.joml.Vector3f;
 
-public class StaticBox extends MapObject implements IDisposable
-{
+import hu.csega.superstition.common.Disposable;
+import hu.csega.superstition.game.elements.Primitive;
+import hu.csega.superstition.gamelib.network.GameObjectData;
+
+public class StaticBox extends MapObject implements Disposable {
 	protected Primitive[] walls;
 	protected int FLAGS;
 	protected String face;
@@ -25,24 +28,23 @@ public class StaticBox extends MapObject implements IDisposable
 
 
 	protected class BoxData extends GameObjectData {
+
 		public Vector3f corner1, corner2, position;
 		public int flags;
 		public String face;
 
-		public BoxData()
-		{
+		public BoxData() {
 			description = "Static Box";
 		}
 
-		public Object create()
-		{
+		public Object create() {
 			return new StaticBox(this);
 		}
 	}
 
 	public StaticBox(GameObjectData data) {
 		super(new Vector3f(), new Vector3f());
-		BoxData d = data as BoxData;
+		BoxData d = (BoxData)data;
 		this.face = d.face;
 		this.corner1 = d.corner1;
 		this.corner2 = d.corner2;
@@ -51,8 +53,7 @@ public class StaticBox extends MapObject implements IDisposable
 	}
 
 	@Override
-	public GameObjectData getData()
-	{
+	public GameObjectData getData() {
 		BoxData ret = new BoxData();
 		ret.face = this.face;
 		ret.flags = this.FLAGS;
@@ -131,19 +132,16 @@ public class StaticBox extends MapObject implements IDisposable
 	}
 
 	@Override
-	public void Render()
-	{
-		for(int i=0; i< walls.Length; i++)
-		{
+	public void Render() {
+		for(int i=0; i< walls.length; i++) {
 			walls[i].Render();
 		} // End of FOR
 	}
 
-	public void Dispose()
-	{
-		for(int i = 0; i < walls.Length; i++)
-		{
-			if(walls[i] != null) walls[i].Dispose();
+	@Override
+	public void dispose() {
+		for(int i = 0; i < walls.length; i++) {
+			if(walls[i] != null) walls[i].dispose();
 		}
 	}
 }

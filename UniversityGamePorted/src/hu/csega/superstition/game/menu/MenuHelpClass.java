@@ -37,7 +37,7 @@ public class MenuHelpClass {
 		}
 	}
 
-	public void Dispose()
+	public void dispose()
 	{
 		for(int i = 0; i < elements.length; i++)
 		{

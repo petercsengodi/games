@@ -60,7 +60,7 @@ public class AddressList implements IMenu
 		return 0;
 	}
 
-	public void Dispose()
+	public void dispose()
 	{
 		helpclass.Dispose();
 		// TODO:  Add AddressList.Dispose implementation

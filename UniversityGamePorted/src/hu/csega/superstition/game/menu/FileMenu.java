@@ -72,7 +72,7 @@ public class FileMenu implements IMenu {
 		return lastIndex;
 	}
 
-	public void Dispose()
+	public void dispose()
 	{
 		for(Object o : files)
 		{

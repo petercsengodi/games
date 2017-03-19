@@ -228,7 +228,7 @@ public class MainMenu implements IModel
 		return Color.FromArgb(64, 64, 64);
 	}
 
-	public void Dispose()
+	public void dispose()
 	{
 		frame.Dispose();
 		main.Dispose();

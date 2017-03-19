@@ -477,7 +477,7 @@ public class Model implements IModel, IPeriod {
 		if(y > 0) player._TurnDown();
 	}
 
-	public void Dispose()
+	public void dispose()
 	{
 		if(Map != null)
 		{
@@ -496,7 +496,7 @@ public class Model implements IModel, IPeriod {
 		Library.Meshes().Clear(); // TODO: allowed?
 	}
 
-	public void Dispose(Object theme)
+	public void dispose(Object theme)
 	{
 		(theme as IDisposable).Dispose();
 	}

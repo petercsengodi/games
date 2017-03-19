@@ -42,7 +42,7 @@ public class FileMenuElement extends MenuElement
 	}
 
 	@Override
-	public void Dispose()
+	public void dispose()
 	{
 		disposed = true;
 		filename.Dispose();

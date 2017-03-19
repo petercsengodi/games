@@ -1,13 +1,16 @@
 package hu.csega.superstition.game.elements;
 
+import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-public abstract class Element {
+import hu.csega.superstition.common.Disposable;
+
+public abstract class Element implements Disposable {
 
 	protected Engine engine;
 	private static Vector3f vup = new Vector3f(0f, 1f, 0f);
 	protected boolean shadow = true;
-	protected Matrix inverz = Matrix.Identity;
+	protected Matrix4f inverz = new Matrix4f().identity();
 
 	/// <summary>
 	/// Turn on/off element shadow. (True as default.)
@@ -112,6 +115,7 @@ public abstract class Element {
 	/// Disposes this element. (Gets itself out of Engine's
 	/// dispose list)
 	/// </summary>
-	abstract public void Dispose();
+	@Override
+	abstract public void dispose();
 
 } // End of Element

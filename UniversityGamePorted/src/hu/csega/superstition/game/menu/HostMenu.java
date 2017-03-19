@@ -92,7 +92,7 @@ public class HostMenu implements IMenu
 		return 0;
 	}
 
-	public void Dispose()
+	public void dispose()
 	{
 		menuhelp.Dispose();
 		// TODO:  Add HostEntry.Dispose implementation

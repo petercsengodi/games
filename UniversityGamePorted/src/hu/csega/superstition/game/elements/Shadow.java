@@ -209,7 +209,7 @@ public class Shadow {
 		}
 	}
 
-	public void Dispose()
+	public void dispose()
 	{
 		vbuffer.Dispose();
 		ibuffer.Dispose();

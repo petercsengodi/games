@@ -639,7 +639,7 @@ class PlayerObject extends DynamicObject implements IDisposable {
 	/// Dispose functionality for Player Objects.
 	/// Does only network closing, yet.
 	/// </summary>
-	public void Dispose()
+	public void dispose()
 	{
 		if(play_client != null) StopNetworkPlay();
 	}

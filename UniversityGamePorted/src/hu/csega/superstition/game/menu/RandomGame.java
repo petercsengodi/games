@@ -68,7 +68,7 @@ public class RandomGame extends MenuElement implements IMenu
 	}
 
 	@Override
-	public void Dispose()
+	public void dispose()
 	{
 		super.Dispose();
 		menuhelp.Dispose();

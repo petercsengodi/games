@@ -323,7 +323,7 @@ public class Server extends System.Windows.Forms.Form
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected void Dispose( boolean disposing )
+	protected void dispose( boolean disposing )
 	{
 		if( disposing )
 		{

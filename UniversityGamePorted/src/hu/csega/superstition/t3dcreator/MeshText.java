@@ -33,7 +33,7 @@ public class MeshText extends JPanel {
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected void Dispose( boolean disposing )
+	protected void dispose( boolean disposing )
 	{
 		// TODO uncomment, fix
 		//		if( disposing )

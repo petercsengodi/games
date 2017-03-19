@@ -59,7 +59,7 @@ public class Main implements IMenu
 		return lastindex;
 	}
 
-	public void Dispose()
+	public void dispose()
 	{
 		menuhelp.Dispose();
 	}

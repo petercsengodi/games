@@ -69,7 +69,7 @@ public class TextureLibrary {
 		return null;
 	}
 
-	public void Dispose()
+	public void dispose()
 	{
 		for(TexID id : list)
 		{

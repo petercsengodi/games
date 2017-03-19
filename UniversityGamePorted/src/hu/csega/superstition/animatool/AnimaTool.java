@@ -89,7 +89,7 @@ public class AnimaTool extends JFrame {
 		//		wireFrameView3.SetView(Perspectives.Left);
 	}
 
-	protected void Dispose( boolean disposing )
+	protected void dispose( boolean disposing )
 	{
 		//		if( disposing )
 		//		{

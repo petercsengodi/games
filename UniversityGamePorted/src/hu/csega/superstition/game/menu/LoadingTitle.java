@@ -83,7 +83,7 @@ public class LoadingTitle implements IModel
 	}
 
 
-	public void Dispose()
+	public void dispose()
 	{
 		text.Dispose();
 	}

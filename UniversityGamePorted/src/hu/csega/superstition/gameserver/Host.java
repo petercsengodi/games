@@ -205,7 +205,7 @@ public class Host {
 
 
 
-	public void Dispose()
+	public void dispose()
 	{
 		Stop();
 	}

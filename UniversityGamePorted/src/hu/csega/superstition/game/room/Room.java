@@ -2,9 +2,7 @@ package hu.csega.superstition.game.room;
 
 import org.joml.Vector3f;
 
-class Room extends TWLNode implements IClipping, IDisposable, IGameObject, IRenderObject
-{
-
+class Room extends TWLNode implements IClipping, IDisposable, IGameObject, IRenderObject {
 
 	public static final int WALL_LEFT = 1,
 			WALL_RIGHT = 2,
@@ -359,7 +357,7 @@ class Room extends TWLNode implements IClipping, IDisposable, IGameObject, IRend
 	}
 
 
-	public void Dispose()
+	public void dispose()
 	{
 		for(Object o : Renders)
 		{

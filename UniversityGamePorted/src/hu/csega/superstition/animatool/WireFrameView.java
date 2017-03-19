@@ -25,7 +25,7 @@ public class WireFrameView extends ToolView {
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected void Dispose(boolean disposing)
+	protected void dispose(boolean disposing)
 	{
 		if( disposing )
 		{

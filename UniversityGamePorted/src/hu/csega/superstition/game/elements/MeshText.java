@@ -53,7 +53,7 @@ public class MeshText extends Element {
 	}
 
 	@Override
-	public void Dispose()
+	public void dispose()
 	{
 		engine.RemoveFromDisposeList(mesh);
 		mesh.Dispose();

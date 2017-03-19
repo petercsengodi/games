@@ -155,7 +155,7 @@ public class MainFrame extends System.Windows.Forms.Form {
 	/// <summary>
 	/// Clean up any resources being used.
 	/// </summary>
-	protected void Dispose( boolean disposing )
+	protected void dispose( boolean disposing )
 	{
 		if( disposing )
 		{
@@ -175,7 +175,7 @@ public class MainFrame extends System.Windows.Forms.Form {
 	/// <summary>
 	/// Cleaning. No need to do any further finalization.
 	/// </summary>
-	public void Dispose() /* "new" kell??? */
+	public void dispose() /* "new" kell??? */
 	{
 		// cleaning
 		Dispose(true);
