@@ -1,13 +1,17 @@
 package hu.csega.superstition.servertester;
 
-[Serializable]
-		class TestMapObject : GameObjectData
-		{
-			private Vector3[] mem;
+import org.joml.Vector3f;
 
-			public TestMapObject()
-			{
-				description = "Map";
-				mem = new Vector3[500];
-			}
-		}
+import hu.csega.superstition.gamelib.network.GameObjectData;
+
+class TestMapObject extends GameObjectData {
+	private Vector3f[] mem;
+
+	public TestMapObject()
+	{
+		description = "Map";
+		mem = new Vector3f[500];
+	}
+
+	private static final long serialVersionUID = 1L;
+}

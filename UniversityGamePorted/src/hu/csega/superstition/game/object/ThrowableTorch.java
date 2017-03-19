@@ -1,17 +1,14 @@
 package hu.csega.superstition.game.object;
 
+import hu.csega.superstition.gamelib.network.GameObjectData;
+
 class ThrowableTorch extends DynamicObject
 {
 	protected PointLight light;
 	protected Element element;
 	protected boolean stand;
 
-	/// <summary>
-	/// Serializable data class for torches.
-	/// </summary>
-	[Serializable]
-			protected class TorchData : GameObjectData
-			{
+	protected class TorchData extends GameObjectData {
 		public Vector3 position, corner1, corner2, velocity, diff;
 		public boolean stand, alive;
 
@@ -24,7 +21,7 @@ class ThrowableTorch extends DynamicObject
 		{
 			return new ThrowableTorch(this);
 		}
-			}
+	}
 
 	/// <summary>
 	/// Torch stands or moving.

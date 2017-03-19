@@ -2,6 +2,8 @@ package hu.csega.superstition.game;
 
 import org.joml.Vector3f;
 
+import hu.csega.superstition.gamelib.network.GameObjectData;
+
 class PlayerObject extends DynamicObject implements IDisposable {
 
 	// For Behaviour
@@ -73,12 +75,8 @@ class PlayerObject extends DynamicObject implements IDisposable {
 		}
 	}
 
-	/// <summary>
-	/// Serializable data class for player.
-	/// </summary>
-	[Serializable]
-			protected class PlayerData : GameObjectData
-			{
+	protected class PlayerData extends GameObjectData {
+
 		public Vector3 position, corner1, corner2, velocity, diff;
 		public boolean torch_owned, alive;
 		public GameObjectData torch;
