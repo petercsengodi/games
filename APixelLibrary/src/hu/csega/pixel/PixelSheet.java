@@ -27,8 +27,5 @@ public class PixelSheet implements Serializable {
 	public static final int WIDTH = 64;
 	public static final int HEIGHT = 64;
 
-	/**
-	 * Default serial version UID.
-	 */
 	private static final long serialVersionUID = 1L;
 }

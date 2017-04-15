@@ -142,9 +142,5 @@ public class PixelLibrary extends ArrayList<PixelSheet> {
 
 	private boolean[] used;
 
-	/**
-	 * Default serial version UID.
-	 */
 	private static final long serialVersionUID = 1L;
-
 }

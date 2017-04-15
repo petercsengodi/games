@@ -105,8 +105,5 @@ public class SwingFrame extends JFrame implements WindowListener, KeyListener {
 	SwingControl swingControl = new SwingControl();
 	SwingThread thread = new SwingThread();
 
-	/**
-	 * Default serial version UID.
-	 */
 	private static final long serialVersionUID = 1L;
 }

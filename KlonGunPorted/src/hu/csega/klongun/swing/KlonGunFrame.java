@@ -98,7 +98,5 @@ public class KlonGunFrame extends JFrame implements KeyListener {
 	private KlonGunCanvas canvas;
 	private KlonGunControl klonGunControl = new KlonGunControl();
 
-	/** Default serial version UID. */
 	private static final long serialVersionUID = 1L;
-
 }

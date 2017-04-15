@@ -150,9 +150,5 @@ public class PixelCanvas extends JPanel implements MouseListener, MouseMotionLis
 	public static final int WINDOW_WIDTH = WIDTH + 2 * PIXEL_WIDTH;
 	public static final int WINDOW_HEIGHT = HEIGHT;
 
-	/**
-	 * Default serial version UID.
-	 */
 	private static final long serialVersionUID = 1L;
-
 }

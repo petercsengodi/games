@@ -204,9 +204,5 @@ public class PixelEditor extends JFrame {
 	private JButton copyOk;
 	private JButton save;
 
-	/**
-	 * Default serial version UID.
-	 */
 	private static final long serialVersionUID = 1L;
-
 }

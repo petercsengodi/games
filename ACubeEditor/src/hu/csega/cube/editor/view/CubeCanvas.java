@@ -138,9 +138,5 @@ public class CubeCanvas extends JPanel implements MouseListener, MouseMotionList
 
 	public static final double PIXEL_TO_ANGLE = 0.1;
 
-	/**
-	 * Default serial version UID.
-	 */
 	private static final long serialVersionUID = 1L;
-
 }

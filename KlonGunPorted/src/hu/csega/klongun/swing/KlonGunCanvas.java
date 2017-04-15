@@ -134,9 +134,5 @@ public class KlonGunCanvas extends JPanel implements MouseListener, MouseMotionL
 	private Point mouseRightAt = new Point(0, 0);
 	private Point translate = new Point(0, 0);
 
-	/**
-	 * Default serial version UID.
-	 */
 	private static final long serialVersionUID = 1L;
-
 }
