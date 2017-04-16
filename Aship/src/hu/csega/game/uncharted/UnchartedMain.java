@@ -1,14 +1,14 @@
 package hu.csega.game.uncharted;
 
 import hu.csega.game.adapters.swing.SwingGameAdapter;
-import hu.csega.game.engine.GameAdapter;
-import hu.csega.game.engine.GameDescriptor;
-import hu.csega.game.engine.GameEngine;
-import hu.csega.game.engine.GameImplementation;
 import hu.csega.game.uncharted.play.UnchartedPhysics;
 import hu.csega.game.uncharted.play.UnchartedRendering;
 import hu.csega.game.uncharted.play.UnchartedRenderingOptions;
 import hu.csega.game.uncharted.play.UnchartedUniverse;
+import hu.csega.games.engine.GameAdapter;
+import hu.csega.games.engine.GameDescriptor;
+import hu.csega.games.engine.GameEngine;
+import hu.csega.games.engine.GameImplementation;
 
 public class UnchartedMain implements GameImplementation {
 

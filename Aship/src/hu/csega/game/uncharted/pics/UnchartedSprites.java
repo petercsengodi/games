@@ -1,7 +1,7 @@
 package hu.csega.game.uncharted.pics;
 
-import hu.csega.game.engine.GameSprite;
-import hu.csega.game.engine.GameSpriteLibrary;
+import hu.csega.games.engine.GameSprite;
+import hu.csega.games.engine.GameSpriteLibrary;
 
 public class UnchartedSprites {
 

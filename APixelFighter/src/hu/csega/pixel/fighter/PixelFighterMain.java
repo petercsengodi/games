@@ -1,11 +1,11 @@
 package hu.csega.pixel.fighter;
 
 import hu.csega.game.adapters.swing.SwingGameAdapter;
-import hu.csega.game.engine.GameAdapter;
-import hu.csega.game.engine.GameDescriptor;
-import hu.csega.game.engine.GameEngine;
-import hu.csega.game.engine.GameImplementation;
-import hu.csega.game.engine.GameObject;
+import hu.csega.games.engine.GameAdapter;
+import hu.csega.games.engine.GameDescriptor;
+import hu.csega.games.engine.GameEngine;
+import hu.csega.games.engine.GameImplementation;
+import hu.csega.games.engine.GameObject;
 
 public class PixelFighterMain implements GameImplementation {
 

@@ -3,9 +3,9 @@ package hu.csega.game.rotary.play;
 import java.util.ArrayList;
 import java.util.List;
 
-import hu.csega.game.engine.GameField;
 import hu.csega.game.rotary.objects.RotaryMapElement;
 import hu.csega.game.rotary.objects.RotaryPlayer;
+import hu.csega.games.engine.GameField;
 
 public class RotaryUniverse extends GameField {
 

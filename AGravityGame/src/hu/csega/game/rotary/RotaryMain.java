@@ -1,14 +1,14 @@
 package hu.csega.game.rotary;
 
 import hu.csega.game.adapters.swing.SwingGameAdapter;
-import hu.csega.game.engine.GameAdapter;
-import hu.csega.game.engine.GameDescriptor;
-import hu.csega.game.engine.GameEngine;
-import hu.csega.game.engine.GameImplementation;
 import hu.csega.game.rotary.play.RotaryPhysics;
 import hu.csega.game.rotary.play.RotaryRendering;
 import hu.csega.game.rotary.play.RotaryRenderingOptions;
 import hu.csega.game.rotary.play.RotaryUniverse;
+import hu.csega.games.engine.GameAdapter;
+import hu.csega.games.engine.GameDescriptor;
+import hu.csega.games.engine.GameEngine;
+import hu.csega.games.engine.GameImplementation;
 
 public class RotaryMain implements GameImplementation {
 

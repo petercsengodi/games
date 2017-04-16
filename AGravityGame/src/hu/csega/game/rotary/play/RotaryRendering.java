@@ -2,13 +2,13 @@ package hu.csega.game.rotary.play;
 
 import java.util.List;
 
-import hu.csega.game.engine.GameColor;
-import hu.csega.game.engine.GameGraphics;
-import hu.csega.game.engine.GameHitShape;
-import hu.csega.game.engine.GamePoint;
-import hu.csega.game.engine.GameRendering;
 import hu.csega.game.rotary.objects.RotaryMapElement;
 import hu.csega.game.rotary.objects.RotaryPlayer;
+import hu.csega.games.engine.GameColor;
+import hu.csega.games.engine.GameGraphics;
+import hu.csega.games.engine.GameHitShape;
+import hu.csega.games.engine.GamePoint;
+import hu.csega.games.engine.GameRendering;
 
 public class RotaryRendering implements GameRendering {
 

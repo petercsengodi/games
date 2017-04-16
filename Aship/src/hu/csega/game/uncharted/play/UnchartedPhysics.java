@@ -1,11 +1,11 @@
 package hu.csega.game.uncharted.play;
 
-import hu.csega.game.engine.GameControl;
-import hu.csega.game.engine.GameKeyListener;
-import hu.csega.game.engine.GameObject;
-import hu.csega.game.engine.GamePhysics;
 import hu.csega.game.uncharted.objects.UnchartedPlayer;
 import hu.csega.game.uncharted.objects.UnchartedPlayerBullet;
+import hu.csega.games.engine.GameControl;
+import hu.csega.games.engine.GameKeyListener;
+import hu.csega.games.engine.GameObject;
+import hu.csega.games.engine.GamePhysics;
 
 public class UnchartedPhysics implements GamePhysics, GameKeyListener {
 

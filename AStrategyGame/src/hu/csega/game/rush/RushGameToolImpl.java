@@ -26,7 +26,7 @@ public class RushGameToolImpl extends AbstractTool implements RushGameTool {
 
 		createComponents();
 
-		window.getContentPane().add((Component)getComponent(ToolCanvas.class));
+		window.addComponent(getComponent(ToolCanvas.class));
 
 		logger.info("Tool initialization finished.");
 	}

@@ -1,7 +1,7 @@
 package hu.csega.game.uncharted.objects;
 
-import hu.csega.game.engine.GameField;
-import hu.csega.game.engine.GameHitBox;
+import hu.csega.games.engine.GameField;
+import hu.csega.games.engine.GameHitBox;
 
 public class UnchartedEnemy extends UnchartedObject {
 

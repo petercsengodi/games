@@ -1,16 +1,16 @@
 package hu.csega.game.uncharted.genes;
 
 import hu.csega.game.adapters.swing.SwingGameAdapter;
-import hu.csega.game.engine.GameAdapter;
-import hu.csega.game.engine.GameColor;
-import hu.csega.game.engine.GameControl;
-import hu.csega.game.engine.GameDescriptor;
-import hu.csega.game.engine.GameEngine;
-import hu.csega.game.engine.GameGraphics;
-import hu.csega.game.engine.GameImplementation;
-import hu.csega.game.engine.GamePhysics;
-import hu.csega.game.engine.GamePoint;
-import hu.csega.game.engine.GameRendering;
+import hu.csega.games.engine.GameAdapter;
+import hu.csega.games.engine.GameColor;
+import hu.csega.games.engine.GameControl;
+import hu.csega.games.engine.GameDescriptor;
+import hu.csega.games.engine.GameEngine;
+import hu.csega.games.engine.GameGraphics;
+import hu.csega.games.engine.GameImplementation;
+import hu.csega.games.engine.GamePhysics;
+import hu.csega.games.engine.GamePoint;
+import hu.csega.games.engine.GameRendering;
 
 public class RandomGeneAndGenerate implements GameImplementation, GamePhysics, GameRendering {
 

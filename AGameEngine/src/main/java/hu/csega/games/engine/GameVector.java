@@ -1,0 +1,12 @@
+package hu.csega.games.engine;
+
+public class GameVector extends GamePoint {
+
+	public GameVector() {
+	}
+
+	public GameVector(double x, double y) {
+		super(x, y);
+	}
+
+}

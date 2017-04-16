@@ -1,14 +1,3 @@
-*.class
-Alpoc/bin/*
-Agomol/bin/*
-Aship/bin/*
-AGameEngine/bin/*
-ASwingAdapter/bin/*
-AStrategyGame/bin/*
-AStrategyGame/target/*
-AnOpenGLAdapter/bin/*
-AnOpenGLAdapter/target/*
-
-UniversityGamePorted/bin/*
-UniversityGamePortedTest/bin/*
+*/bin
+*/target
 
