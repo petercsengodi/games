@@ -3,7 +3,7 @@ package hu.csega.superstition.game.elements;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-import hu.csega.superstition.common.Disposable;
+import hu.csega.games.engine.env.Disposable;
 
 public abstract class Element implements Disposable {
 

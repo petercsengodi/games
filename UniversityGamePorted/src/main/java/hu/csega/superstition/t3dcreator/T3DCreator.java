@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
 
-import hu.csega.superstition.common.Disposable;
+import hu.csega.games.engine.env.Disposable;
 import hu.csega.superstition.fileoperations.FileControl;
 import hu.csega.superstition.tools.presentation.WireFrameView;
 

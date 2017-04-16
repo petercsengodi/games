@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import org.joml.Vector3f;
 
-import hu.csega.superstition.common.Disposable;
+import hu.csega.games.engine.env.Disposable;
 
 public interface IModel extends IPeriod, Disposable {
 

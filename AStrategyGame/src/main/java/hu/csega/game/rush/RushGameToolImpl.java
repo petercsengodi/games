@@ -2,6 +2,8 @@ package hu.csega.game.rush;
 
 import hu.csega.game.rush.model.RushGameModel;
 import hu.csega.game.rush.view.RushGameView;
+import hu.csega.games.adapters.opengl.HelloTexture;
+import hu.csega.games.engine.env.Environment;
 import hu.csega.toolshed.framework.Tool;
 import hu.csega.toolshed.framework.ToolCanvas;
 import hu.csega.toolshed.framework.ToolWindow;
@@ -26,6 +28,12 @@ public class RushGameToolImpl extends AbstractTool implements RushGameTool {
 
 		window.addComponent(getComponent(ToolCanvas.class));
 
+		Environment env = UnitStore.instance(Environment.class);
+
+		example = new HelloTexture();
+		example.setEnvironment(env);
+		example.run();
+
 		logger.info("Tool initialization finished.");
 	}
 
@@ -44,5 +52,15 @@ public class RushGameToolImpl extends AbstractTool implements RushGameTool {
 		registerComponent(ToolCanvas.class, canvas);
 	}
 
-	private Logger logger = LoggerFactory.createLogger(RushGameToolImpl.class);
+	@Override
+	public void finishWork() {
+		logger.info("Start finalizing.");
+		super.finishWork();
+		example.dispose();
+		logger.info("Finalizing done.");
+	}
+
+	private HelloTexture example;
+
+	private static final Logger logger = LoggerFactory.createLogger(RushGameToolImpl.class);
 }

@@ -6,11 +6,11 @@ import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 
+import hu.csega.games.engine.env.EnvironmentImpl;
+import hu.csega.games.engine.env.GameException;
+import hu.csega.superstition.engine.Phase;
 import hu.csega.superstition.engines.connector.Connector;
 import hu.csega.superstition.engines.opengl.ExampleConnector;
-import hu.csega.superstition.env.EnvironmentImpl;
-import hu.csega.superstition.env.GameException;
-import hu.csega.superstition.env.Phase;
 
 // A Fizz-buzz way of running the game
 

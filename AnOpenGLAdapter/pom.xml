@@ -48,6 +48,26 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.jogamp.jogl</groupId>
+			<artifactId>jogl-all-main</artifactId>
+			<version>2.3.2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.jogamp.gluegen/gluegen -->
+		<dependency>
+			<groupId>org.jogamp.gluegen</groupId>
+			<artifactId>gluegen</artifactId>
+			<version>2.2.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.jogamp.gluegen/gluegen-rt -->
+		<dependency>
+			<groupId>org.jogamp.gluegen</groupId>
+			<artifactId>gluegen-rt</artifactId>
+			<version>2.3.2</version>
+		</dependency>
+
+		<dependency>
 			<groupId>hu.csega.games</groupId>
 			<artifactId>AGameEngine</artifactId>
 			<version>1.0.0</version>

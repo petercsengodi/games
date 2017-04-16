@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
-import hu.csega.superstition.common.Disposable;
+import hu.csega.games.engine.env.Disposable;
 import hu.csega.superstition.tools.Updates;
 
 public abstract class ToolView extends JPanel implements Disposable {

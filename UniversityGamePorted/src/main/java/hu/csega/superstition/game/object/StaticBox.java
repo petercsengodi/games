@@ -2,7 +2,7 @@ package hu.csega.superstition.game.object;
 
 import org.joml.Vector3f;
 
-import hu.csega.superstition.common.Disposable;
+import hu.csega.games.engine.env.Disposable;
 import hu.csega.superstition.game.elements.Primitive;
 import hu.csega.superstition.gamelib.network.GameObjectData;
 

@@ -1,7 +1,7 @@
 package hu.csega.superstition.engines.connector;
 
-import hu.csega.superstition.common.Disposable;
-import hu.csega.superstition.env.Environment;
+import hu.csega.games.engine.env.Disposable;
+import hu.csega.games.engine.env.Environment;
 
 public interface Connector extends Disposable {
 
