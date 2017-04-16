@@ -1,4 +1,4 @@
-package hu.csega.game.adapters.swing;
+package hu.csega.games.adapters.swing;
 
 import java.awt.Color;
 import java.awt.Graphics2D;

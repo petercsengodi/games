@@ -1,12 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>hu.csega.games.adapters.swing</groupId>
+	<parent>
+		<groupId>hu.csega.games</groupId>
+		<artifactId>games</artifactId>
+		<version>1.0.0</version>
+	</parent>
 	<artifactId>ASwingAdapter</artifactId>
-	<packaging>jar</packaging>
-	<version>1.0-SNAPSHOT</version>
-	<name>A Swing Adapter</name>
-	<url>http://csega.hu</url>
+	<name>ASwingAdapter</name>
+	<version>1.0.0</version>
 
 	<properties>
 		<jdk.version>1.7</jdk.version>
@@ -14,7 +16,7 @@
 	</properties>
 
 	<build>
-		<finalName>SwingAdapter</finalName>
+		<finalName>ASwingAdapter</finalName>
 		<plugins>
 		
 			<!-- Eclipse project -->
@@ -46,27 +48,9 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
-		</dependency>
-	
-		<!-- https://mvnrepository.com/artifact/org.json/json -->
-		<dependency>
-			<groupId>org.json</groupId>
-			<artifactId>json</artifactId>
-			<version>20090211</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>hu.csega.games.engine</groupId>
+			<groupId>hu.csega.games</groupId>
 			<artifactId>AGameEngine</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>hu.csega.units</groupId>
-			<artifactId>Units</artifactId>
+			<version>1.0.0</version>
 		</dependency>
 	</dependencies>
 

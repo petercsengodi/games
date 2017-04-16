@@ -6,8 +6,8 @@
 		<artifactId>games</artifactId>
 		<version>1.0.0</version>
 	</parent>
-	<artifactId>AGameEngine</artifactId>
-	<name>AGameEngine</name>
+	<artifactId>AnOpenGLAdapter</artifactId>
+	<name>AnOpenGLAdapter</name>
 	<version>1.0.0</version>
 
 	<properties>
@@ -16,7 +16,7 @@
 	</properties>
 
 	<build>
-		<finalName>AGameEngine</finalName>
+		<finalName>AnOpenGLAdapter</finalName>
 		<plugins>
 		
 			<!-- Eclipse project -->
@@ -47,6 +47,11 @@
 	</build>
 
 	<dependencies>
+		<dependency>
+			<groupId>hu.csega.games</groupId>
+			<artifactId>AGameEngine</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 	</dependencies>
 
 </project>
