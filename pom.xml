@@ -65,7 +65,7 @@
 		<module>AGameEngine</module>
 		<module>ASwingAdapter</module>
 		<module>AnOpenGLAdapter</module>
-		<!-- module>AStrategyGame</module>
-		<module>KlonGunPorted</module -->
+		<module>AStrategyGame</module>
+		<module>UniversityGamePorted</module>
 	</modules>
 </project>

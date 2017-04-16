@@ -1,7 +1,5 @@
 package hu.csega.game.rush;
 
-import java.awt.Component;
-
 import hu.csega.game.rush.model.RushGameModel;
 import hu.csega.game.rush.view.RushGameView;
 import hu.csega.toolshed.framework.Tool;
