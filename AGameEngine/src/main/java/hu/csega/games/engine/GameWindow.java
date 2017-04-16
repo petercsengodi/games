@@ -1,5 +1,5 @@
 package hu.csega.games.engine;
 
-public class GameMath {
+public interface GameWindow {
 
 }

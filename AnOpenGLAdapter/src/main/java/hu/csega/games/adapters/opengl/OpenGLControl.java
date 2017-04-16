@@ -1,4 +1,4 @@
-package hu.csega.games.adapters.swing;
+package hu.csega.games.adapters.opengl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import hu.csega.games.engine.GameControl;
 import hu.csega.games.engine.impl.GameKeyListener;
 
-public class SwingControl implements GameControl {
+public class OpenGLControl implements GameControl {
 
 	@Override
 	public boolean isUpOn() {

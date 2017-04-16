@@ -2,10 +2,10 @@ package hu.csega.games.pixel.fighter;
 
 import java.awt.image.BufferedImage;
 
-import hu.csega.games.engine.GameGraphics;
-import hu.csega.games.engine.GameObject;
-import hu.csega.games.engine.GamePoint;
 import hu.csega.games.engine.GameRendering;
+import hu.csega.games.engine.impl.GameGraphics;
+import hu.csega.games.engine.impl.GameObject;
+import hu.csega.games.engine.impl.GamePoint;
 import hu.csega.games.pixel.fighter.pix.PixelFighterSprites;
 
 public class PixelFighterRendering implements GameRendering {

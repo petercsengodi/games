@@ -1,11 +1,13 @@
-package hu.csega.games.adapters.swing;
+package hu.csega.games.adapters.opengl;
+
+import com.jogamp.opengl.awt.GLCanvas;
 
 import hu.csega.games.engine.GamePhysics;
 
-public class SwingThread extends Thread {
+public class OpenGLThread extends Thread {
 
 	private GamePhysics physics;
-	private SwingCanvas canvas;
+	private GLCanvas canvas;
 
 	private long nanoTimeLastTime = System.nanoTime();
 	private long nanoTimeNow = System.nanoTime();
@@ -14,7 +16,7 @@ public class SwingThread extends Thread {
 		this.physics = physics;
 	}
 
-	public void setSwingCanvas(SwingCanvas canvas) {
+	public void setGLCanvas(GLCanvas canvas) {
 		this.canvas = canvas;
 	}
 
@@ -34,5 +36,4 @@ public class SwingThread extends Thread {
 			return;
 		}
 	}
-
 }

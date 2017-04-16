@@ -1,4 +1,4 @@
-package hu.csega.games.engine;
+package hu.csega.games.engine.impl;
 
 public class GameVector extends GamePoint {
 

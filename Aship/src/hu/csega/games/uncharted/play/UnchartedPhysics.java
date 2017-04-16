@@ -1,9 +1,9 @@
 package hu.csega.games.uncharted.play;
 
 import hu.csega.games.engine.GameControl;
-import hu.csega.games.engine.GameKeyListener;
-import hu.csega.games.engine.GameObject;
 import hu.csega.games.engine.GamePhysics;
+import hu.csega.games.engine.impl.GameKeyListener;
+import hu.csega.games.engine.impl.GameObject;
 import hu.csega.games.uncharted.objects.UnchartedPlayer;
 import hu.csega.games.uncharted.objects.UnchartedPlayerBullet;
 

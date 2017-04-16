@@ -1,6 +1,6 @@
 package hu.csega.superstition.engines.opengl;
 
-import hu.csega.games.adapters.opengl.HelloTexture;
+import gl3.helloTexture.HelloTexture;
 import hu.csega.games.engine.env.Environment;
 import hu.csega.superstition.engines.connector.Connector;
 

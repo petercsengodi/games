@@ -1,7 +1,7 @@
 package hu.csega.games.rotary.objects;
 
 import hu.csega.games.engine.GameField;
-import hu.csega.games.engine.GameHitCircle;
+import hu.csega.games.engine.impl.GameHitCircle;
 
 public class RotaryPlayer extends RotaryObject {
 

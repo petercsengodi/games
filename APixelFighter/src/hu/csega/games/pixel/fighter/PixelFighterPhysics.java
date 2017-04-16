@@ -1,8 +1,8 @@
 package hu.csega.games.pixel.fighter;
 
 import hu.csega.games.engine.GameControl;
-import hu.csega.games.engine.GameObject;
 import hu.csega.games.engine.GamePhysics;
+import hu.csega.games.engine.impl.GameObject;
 
 public class PixelFighterPhysics implements GamePhysics {
 

@@ -1,4 +1,4 @@
-package hu.csega.games.engine;
+package hu.csega.games.engine.impl;
 
 import java.util.ArrayList;
 import java.util.List;

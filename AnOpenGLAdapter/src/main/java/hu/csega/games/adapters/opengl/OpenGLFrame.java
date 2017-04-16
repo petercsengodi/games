@@ -1,4 +1,4 @@
-package hu.csega.games.adapters.swing;
+package hu.csega.games.adapters.opengl;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -7,18 +7,20 @@ import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 
+import com.jogamp.opengl.awt.GLCanvas;
+
 import hu.csega.games.engine.GameEngine;
 
-public class SwingFrame extends JFrame implements WindowListener, KeyListener {
+public class OpenGLFrame extends JFrame implements WindowListener, KeyListener {
 
-	public void start(GameEngine engine, SwingCanvas canvas) {
+	public void start(GameEngine engine, GLCanvas canvas) {
 		thread.setGamePhysics(engine.getPhysics());
-		thread.setSwingCanvas(canvas);
+		thread.setGLCanvas(canvas);
 		thread.start();
 	}
 
-	public SwingControl getControl() {
-		return swingControl;
+	public OpenGLControl getControl() {
+		return openGLControl;
 	}
 
 	@Override
@@ -57,52 +59,52 @@ public class SwingFrame extends JFrame implements WindowListener, KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		char keyChar = e.getKeyChar();
-		swingControl.hit(keyChar);
+		openGLControl.hit(keyChar);
 
 		int keyCode = e.getKeyCode();
 		if(keyCode == KeyEvent.VK_LEFT)
-			swingControl.leftIsOn = true;
+			openGLControl.leftIsOn = true;
 		if(keyCode == KeyEvent.VK_RIGHT)
-			swingControl.rightIsOn = true;
+			openGLControl.rightIsOn = true;
 		if(keyCode == KeyEvent.VK_UP)
-			swingControl.upIsOn = true;
+			openGLControl.upIsOn = true;
 		if(keyCode == KeyEvent.VK_DOWN)
-			swingControl.downIsOn = true;
+			openGLControl.downIsOn = true;
 		if(keyCode == KeyEvent.VK_CONTROL)
-			swingControl.controlIsOn = true;
+			openGLControl.controlIsOn = true;
 		if(keyCode == KeyEvent.VK_ALT)
-			swingControl.altIsOn = true;
+			openGLControl.altIsOn = true;
 		if(keyCode == KeyEvent.VK_SHIFT)
-			swingControl.shiftIsOn = true;
+			openGLControl.shiftIsOn = true;
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		int keyCode = e.getKeyCode();
 		if(keyCode == KeyEvent.VK_LEFT)
-			swingControl.leftIsOn = false;
+			openGLControl.leftIsOn = false;
 		if(keyCode == KeyEvent.VK_RIGHT)
-			swingControl.rightIsOn = false;
+			openGLControl.rightIsOn = false;
 		if(keyCode == KeyEvent.VK_UP)
-			swingControl.upIsOn = false;
+			openGLControl.upIsOn = false;
 		if(keyCode == KeyEvent.VK_DOWN)
-			swingControl.downIsOn = false;
+			openGLControl.downIsOn = false;
 		if(keyCode == KeyEvent.VK_CONTROL)
-			swingControl.controlIsOn = false;
+			openGLControl.controlIsOn = false;
 		if(keyCode == KeyEvent.VK_ALT)
-			swingControl.altIsOn = false;
+			openGLControl.altIsOn = false;
 		if(keyCode == KeyEvent.VK_SHIFT)
-			swingControl.shiftIsOn = false;
+			openGLControl.shiftIsOn = false;
 	}
 
-	SwingFrame(String title) {
+	OpenGLFrame(String title) {
 		super(title);
 		addKeyListener(this);
 		addWindowListener(this);
 	}
 
-	SwingControl swingControl = new SwingControl();
-	SwingThread thread = new SwingThread();
+	OpenGLControl openGLControl = new OpenGLControl();
+	OpenGLThread thread = new OpenGLThread();
 
 	private static final long serialVersionUID = 1L;
 }

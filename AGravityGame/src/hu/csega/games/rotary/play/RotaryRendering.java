@@ -2,11 +2,11 @@ package hu.csega.games.rotary.play;
 
 import java.util.List;
 
-import hu.csega.games.engine.GameColor;
-import hu.csega.games.engine.GameGraphics;
-import hu.csega.games.engine.GameHitShape;
-import hu.csega.games.engine.GamePoint;
 import hu.csega.games.engine.GameRendering;
+import hu.csega.games.engine.impl.GameColor;
+import hu.csega.games.engine.impl.GameGraphics;
+import hu.csega.games.engine.impl.GameHitShape;
+import hu.csega.games.engine.impl.GamePoint;
 import hu.csega.games.rotary.objects.RotaryMapElement;
 import hu.csega.games.rotary.objects.RotaryPlayer;
 

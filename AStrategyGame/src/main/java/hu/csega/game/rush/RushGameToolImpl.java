@@ -1,8 +1,17 @@
 package hu.csega.game.rush;
 
+import gl3.helloTexture.HelloTexture;
+import hu.csega.game.rush.engine.RushGamePhysics;
+import hu.csega.game.rush.engine.RushGameRendering;
+import hu.csega.game.rush.engine.RushGameRenderingOptions;
+import hu.csega.game.rush.engine.RushGameField;
 import hu.csega.game.rush.model.RushGameModel;
 import hu.csega.game.rush.view.RushGameView;
-import hu.csega.games.adapters.opengl.HelloTexture;
+import hu.csega.games.adapters.opengl.OpenGLGameAdapter;
+import hu.csega.games.engine.GameAdapter;
+import hu.csega.games.engine.GameDescriptor;
+import hu.csega.games.engine.GameEngine;
+import hu.csega.games.engine.GameImplementation;
 import hu.csega.games.engine.env.Environment;
 import hu.csega.toolshed.framework.Tool;
 import hu.csega.toolshed.framework.ToolCanvas;
@@ -13,7 +22,7 @@ import hu.csega.toolshed.logging.LoggerFactory;
 import hu.csega.units.UnitStore;
 
 @Tool(name = "Rush!")
-public class RushGameToolImpl extends AbstractTool implements RushGameTool {
+public class RushGameToolImpl extends AbstractTool implements RushGameTool, GameImplementation {
 
 	@Override
 	public String getTitle() {
@@ -28,16 +37,43 @@ public class RushGameToolImpl extends AbstractTool implements RushGameTool {
 
 		window.addComponent(getComponent(ToolCanvas.class));
 
-		Environment env = UnitStore.instance(Environment.class);
+//		Environment env = UnitStore.instance(Environment.class);
+//
+//		example = new HelloTexture();
+//		example.setEnvironment(env);
+//		example.run();
 
-		example = new HelloTexture();
-		example.setEnvironment(env);
-		example.run();
+		startGameEngine();
 
 		logger.info("Tool initialization finished.");
 	}
 
-	public void createComponents() {
+	private void startGameEngine() {
+
+		GameDescriptor descriptor = new GameDescriptor();
+		descriptor.setId("uncharted");
+		descriptor.setTitle("Uncharted");
+		descriptor.setVersion("v00.00.0001");
+		descriptor.setDescription("Plain \"shoot'em all\" game with randomly generated maps.");
+
+		GameAdapter adapter = new OpenGLGameAdapter();
+
+		RushGameRenderingOptions options = new RushGameRenderingOptions();
+		options.renderHitShapes = true;
+
+		GameImplementation implementation = new RushGameToolImpl();
+		RushGamePhysics physics = new RushGamePhysics();
+		RushGameRendering rendering = new RushGameRendering(options);
+
+		RushGameField universe = new RushGameField();
+		universe.init();
+		physics.universe = universe;
+		rendering.universe = universe;
+
+		GameEngine.start(descriptor, adapter, implementation, physics, rendering);
+	}
+
+	private void createComponents() {
 		registerComponent(this);
 
 		RushGameModel model = new RushGameModel();
