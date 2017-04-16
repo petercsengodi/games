@@ -1,22 +1,19 @@
 package hu.csega.games.adapters.opengl;
 
-import com.jogamp.opengl.awt.GLCanvas;
-
+import hu.csega.games.engine.GameCanvas;
 import hu.csega.games.engine.GamePhysics;
+import hu.csega.games.engine.GameThread;
 
-public class OpenGLThread extends Thread {
+public class OpenGLThread extends Thread implements GameThread {
 
 	private GamePhysics physics;
-	private GLCanvas canvas;
+	private GameCanvas canvas;
 
 	private long nanoTimeLastTime = System.nanoTime();
 	private long nanoTimeNow = System.nanoTime();
 
-	public void setGamePhysics(GamePhysics physics) {
+	public OpenGLThread(GamePhysics physics, GameCanvas canvas) {
 		this.physics = physics;
-	}
-
-	public void setGLCanvas(GLCanvas canvas) {
 		this.canvas = canvas;
 	}
 
@@ -36,4 +33,5 @@ public class OpenGLThread extends Thread {
 			return;
 		}
 	}
+
 }

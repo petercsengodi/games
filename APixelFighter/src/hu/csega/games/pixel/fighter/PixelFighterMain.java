@@ -25,7 +25,8 @@ public class PixelFighterMain implements GameImplementation {
 
 		physics.setPlayer(new GameObject());
 
-		GameEngine.start(descriptor, adapter, implementation, physics, rendering);
+		GameEngine engine = GameEngine.create(descriptor, adapter, implementation, physics, rendering);
+		engine.startInNewWindow();
 	}
 
 }

@@ -1,6 +1,7 @@
 package hu.csega.games.adapters.swing;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -12,10 +13,11 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
+import hu.csega.games.engine.GameCanvas;
 import hu.csega.games.engine.GameEngine;
 import hu.csega.games.engine.GameRendering;
 
-public class SwingCanvas extends JPanel implements MouseListener, MouseMotionListener {
+public class SwingCanvas extends JPanel implements GameCanvas, MouseListener, MouseMotionListener {
 
 	public static final Dimension PREFERRED_SIZE = new Dimension(800, 600);
 
@@ -25,6 +27,10 @@ public class SwingCanvas extends JPanel implements MouseListener, MouseMotionLis
 		setPreferredSize(PREFERRED_SIZE);
 		addMouseListener(this);
 		addMouseMotionListener(this);
+	}
+
+	public Component getRealCanvas() {
+		return this;
 	}
 
 	@Override

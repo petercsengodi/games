@@ -1,24 +1,56 @@
 package hu.csega.games.adapters.swing;
 
+import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 
+import hu.csega.games.engine.GameCanvas;
 import hu.csega.games.engine.GameEngine;
+import hu.csega.games.engine.GameWindow;
+import hu.csega.games.engine.GameWindowListener;
+import hu.csega.games.engine.impl.GameControlImpl;
 
-public class SwingFrame extends JFrame implements WindowListener, KeyListener {
+public class SwingFrame extends JFrame implements GameWindow, WindowListener, KeyListener {
 
-	public void start(GameEngine engine, SwingCanvas canvas) {
-		thread.setGamePhysics(engine.getPhysics());
-		thread.setSwingCanvas(canvas);
-		thread.start();
+	private GameEngine engine;
+	private GameControlImpl control;
+	private List<GameWindowListener> listeners = new ArrayList<>();
+
+	public SwingFrame(GameEngine engine) {
+		super(engine.getDescriptor().getTitle());
+		this.engine = engine;
+		this.control = (GameControlImpl)this.engine.getControl();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		addWindowListener(this);
+		addKeyListener(this);
 	}
 
-	public SwingControl getControl() {
-		return swingControl;
+	@Override
+	public void register(GameWindowListener listener) {
+		listeners.add(listener);
+	}
+
+	@Override
+	public void add(GameCanvas canvas) {
+		Component component = null;
+
+		if(canvas instanceof SwingCanvas)
+			component = ((SwingCanvas)canvas).getRealCanvas();
+
+		if(component != null)
+			getContentPane().add(component);
+	}
+
+	@Override
+	public void showWindow() {
+		pack();
+		setVisible(true);
 	}
 
 	@Override
@@ -27,7 +59,8 @@ public class SwingFrame extends JFrame implements WindowListener, KeyListener {
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		thread.interrupt();
+		for(GameWindowListener listener : listeners)
+			listener.onFinishingWork();
 	}
 
 	@Override
@@ -57,52 +90,43 @@ public class SwingFrame extends JFrame implements WindowListener, KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		char keyChar = e.getKeyChar();
-		swingControl.hit(keyChar);
+		control.hit(keyChar);
 
 		int keyCode = e.getKeyCode();
 		if(keyCode == KeyEvent.VK_LEFT)
-			swingControl.leftIsOn = true;
+			control.setLeftIsOn(true);
 		if(keyCode == KeyEvent.VK_RIGHT)
-			swingControl.rightIsOn = true;
+			control.setRightIsOn(true);
 		if(keyCode == KeyEvent.VK_UP)
-			swingControl.upIsOn = true;
+			control.setUpIsOn(true);
 		if(keyCode == KeyEvent.VK_DOWN)
-			swingControl.downIsOn = true;
+			control.setDownIsOn(true);
 		if(keyCode == KeyEvent.VK_CONTROL)
-			swingControl.controlIsOn = true;
+			control.setControlIsOn(true);
 		if(keyCode == KeyEvent.VK_ALT)
-			swingControl.altIsOn = true;
+			control.setAltIsOn(true);
 		if(keyCode == KeyEvent.VK_SHIFT)
-			swingControl.shiftIsOn = true;
+			control.setShiftIsOn(true);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		int keyCode = e.getKeyCode();
 		if(keyCode == KeyEvent.VK_LEFT)
-			swingControl.leftIsOn = false;
+			control.setLeftIsOn(false);
 		if(keyCode == KeyEvent.VK_RIGHT)
-			swingControl.rightIsOn = false;
+			control.setRightIsOn(false);
 		if(keyCode == KeyEvent.VK_UP)
-			swingControl.upIsOn = false;
+			control.setUpIsOn(false);
 		if(keyCode == KeyEvent.VK_DOWN)
-			swingControl.downIsOn = false;
+			control.setDownIsOn(false);
 		if(keyCode == KeyEvent.VK_CONTROL)
-			swingControl.controlIsOn = false;
+			control.setControlIsOn(false);
 		if(keyCode == KeyEvent.VK_ALT)
-			swingControl.altIsOn = false;
+			control.setAltIsOn(false);
 		if(keyCode == KeyEvent.VK_SHIFT)
-			swingControl.shiftIsOn = false;
+			control.setShiftIsOn(false);
 	}
-
-	SwingFrame(String title) {
-		super(title);
-		addKeyListener(this);
-		addWindowListener(this);
-	}
-
-	SwingControl swingControl = new SwingControl();
-	SwingThread thread = new SwingThread();
 
 	private static final long serialVersionUID = 1L;
 }

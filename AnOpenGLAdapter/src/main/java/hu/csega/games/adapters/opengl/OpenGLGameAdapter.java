@@ -1,8 +1,6 @@
 package hu.csega.games.adapters.opengl;
 
-import java.awt.Component;
-
-import javax.swing.JFrame;
+import java.awt.Dimension;
 
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLCapabilities;
@@ -11,29 +9,21 @@ import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.awt.GLCanvas;
 
 import hu.csega.games.engine.GameAdapter;
-import hu.csega.games.engine.GameControl;
+import hu.csega.games.engine.GameCanvas;
 import hu.csega.games.engine.GameEngine;
+import hu.csega.games.engine.GameThread;
+import hu.csega.games.engine.GameWindow;
 
 public class OpenGLGameAdapter implements GameAdapter {
 
 	@Override
-	public GameControl createWindow(GameEngine engine) {
-		OpenGLFrame frame = new OpenGLFrame(engine.getDescriptor().getTitle());
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		Component canvas = createCanvas(engine);
-		frame.getContentPane().add(canvas);
-
-		frame.pack();
-		frame.setVisible(true);
-
-		frame.start(engine, (GLCanvas)canvas);
-
-		return frame.openGLControl;
+	public GameWindow createWindow(GameEngine engine) {
+		OpenGLFrame frame = new OpenGLFrame(engine);
+		return frame;
 	}
 
 	@Override
-	public Component createCanvas(GameEngine engine) {
+	public GameCanvas createCanvas(GameEngine engine) {
         GLProfile glProfile = GLProfile.getDefault();
         GLCapabilities glCapabilities = new GLCapabilities( glProfile );
         final GLCanvas glCanvas = new GLCanvas( glCapabilities );
@@ -59,7 +49,13 @@ public class OpenGLGameAdapter implements GameAdapter {
             }
         });
 
-        return glCanvas;
+        glCanvas.setPreferredSize(new Dimension(640, 480));
+        return new OpenGLCanvas(glCanvas);
+	}
+
+	@Override
+	public GameThread createThread(GameEngine engine) {
+		return new OpenGLThread(engine.getPhysics(), engine.getCanvas());
 	}
 
 }

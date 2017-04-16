@@ -25,7 +25,9 @@ public class RandomGeneAndGenerate implements GameImplementation, GamePhysics, G
 		GameAdapter adapter = new SwingGameAdapter();
 
 		RandomGeneAndGenerate implementation = new RandomGeneAndGenerate();
-		GameEngine.start(descriptor, adapter, implementation, implementation, implementation);
+
+		GameEngine engine = GameEngine.create(descriptor, adapter, implementation, implementation, implementation);
+		engine.startInNewWindow();
 	}
 
 	@Override

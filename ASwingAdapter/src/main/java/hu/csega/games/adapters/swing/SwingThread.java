@@ -1,20 +1,19 @@
 package hu.csega.games.adapters.swing;
 
+import hu.csega.games.engine.GameCanvas;
 import hu.csega.games.engine.GamePhysics;
+import hu.csega.games.engine.GameThread;
 
-public class SwingThread extends Thread {
+public class SwingThread extends Thread implements GameThread {
 
 	private GamePhysics physics;
-	private SwingCanvas canvas;
+	private GameCanvas canvas;
 
 	private long nanoTimeLastTime = System.nanoTime();
 	private long nanoTimeNow = System.nanoTime();
 
-	public void setGamePhysics(GamePhysics physics) {
+	public SwingThread(GamePhysics physics, GameCanvas canvas) {
 		this.physics = physics;
-	}
-
-	public void setSwingCanvas(SwingCanvas canvas) {
 		this.canvas = canvas;
 	}
 

@@ -1,10 +1,9 @@
 package hu.csega.games.engine;
 
-import java.awt.Component;
-
 public interface GameAdapter {
 
-	GameControl createWindow(GameEngine engine);
-	Component createCanvas(GameEngine engine);
+	GameWindow createWindow(GameEngine engine);
+	GameCanvas createCanvas(GameEngine engine);
+	GameThread createThread(GameEngine engine);
 
 }

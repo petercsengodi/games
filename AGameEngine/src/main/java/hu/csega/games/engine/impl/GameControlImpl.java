@@ -1,12 +1,11 @@
-package hu.csega.games.adapters.opengl;
+package hu.csega.games.engine.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import hu.csega.games.engine.GameControl;
-import hu.csega.games.engine.impl.GameKeyListener;
 
-public class OpenGLControl implements GameControl {
+public class GameControlImpl implements GameControl {
 
 	@Override
 	public boolean isUpOn() {
@@ -48,7 +47,35 @@ public class OpenGLControl implements GameControl {
 		listeners.add(listener);
 	}
 
-	void hit(char key) {
+	public void setUpIsOn(boolean upIsOn) {
+		this.upIsOn = upIsOn;
+	}
+
+	public void setDownIsOn(boolean downIsOn) {
+		this.downIsOn = downIsOn;
+	}
+
+	public void setLeftIsOn(boolean leftIsOn) {
+		this.leftIsOn = leftIsOn;
+	}
+
+	public void setRightIsOn(boolean rightIsOn) {
+		this.rightIsOn = rightIsOn;
+	}
+
+	public void setControlIsOn(boolean controlIsOn) {
+		this.controlIsOn = controlIsOn;
+	}
+
+	public void setAltIsOn(boolean altIsOn) {
+		this.altIsOn = altIsOn;
+	}
+
+	public void setShiftIsOn(boolean shiftIsOn) {
+		this.shiftIsOn = shiftIsOn;
+	}
+
+	public void hit(char key) {
 		for(GameKeyListener listener : listeners)
 			listener.hit(key);
 	}

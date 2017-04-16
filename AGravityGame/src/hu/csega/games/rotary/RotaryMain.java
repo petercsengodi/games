@@ -34,7 +34,8 @@ public class RotaryMain implements GameImplementation {
 		physics.universe = universe;
 		rendering.universe = universe;
 
-		GameEngine.start(descriptor, adapter, implementation, physics, rendering);
+		GameEngine engine = GameEngine.create(descriptor, adapter, implementation, physics, rendering);
+		engine.startInNewWindow();
 	}
 
 }
