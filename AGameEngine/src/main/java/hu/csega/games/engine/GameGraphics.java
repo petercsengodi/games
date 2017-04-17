@@ -6,7 +6,6 @@ import hu.csega.games.engine.g2d.GameColor;
 import hu.csega.games.engine.g2d.GameHitShape;
 import hu.csega.games.engine.g2d.GamePoint;
 import hu.csega.games.engine.g2d.GameSprite;
-import hu.csega.games.engine.g3d.GameModelBuilder;
 import hu.csega.games.engine.g3d.GameObjectHandler;
 import hu.csega.games.engine.g3d.GameObjectLocation;
 
@@ -25,16 +24,9 @@ public interface GameGraphics {
 	void drawSprite(BufferedImage image, double x, double y);
 	void drawHitShape(GameHitShape hitShape, double x, double y, GameColor color);
 
-	GameObjectHandler loadTexture(String filename);
-	GameObjectHandler buildModel(GameModelBuilder builder);
-	GameObjectHandler loadModel(String filename);
-
 	void startFrame();
 	void placeCamera(GameObjectLocation cameraLocation);
 	void drawModel(GameObjectHandler modelReference, GameObjectLocation modelLocation);
 	void drawAnimation(GameObjectHandler animationReference, GameObjectLocation modelLocation);
 	void endFrame();
-
-	void dispose(GameObjectHandler handler);
-	void disposeAll();
 }

@@ -5,6 +5,7 @@ import hu.csega.games.engine.GameCanvas;
 import hu.csega.games.engine.GameEngine;
 import hu.csega.games.engine.GameThread;
 import hu.csega.games.engine.GameWindow;
+import hu.csega.games.engine.g3d.GameModelStore;
 
 public class SwingGameAdapter implements GameAdapter {
 
@@ -22,5 +23,10 @@ public class SwingGameAdapter implements GameAdapter {
 	@Override
 	public GameThread createThread(GameEngine engine) {
 		return new SwingThread(engine.getPhysics(), engine.getCanvas());
+	}
+
+	@Override
+	public GameModelStore createStore(GameEngine engine) {
+		return null;
 	}
 }

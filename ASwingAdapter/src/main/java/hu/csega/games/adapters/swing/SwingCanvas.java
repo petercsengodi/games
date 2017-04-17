@@ -23,7 +23,7 @@ public class SwingCanvas extends JPanel implements GameCanvas, MouseListener, Mo
 
 	public SwingCanvas(GameEngine gameEngine) {
 		this.gameEngine = gameEngine;
-		this.rendering = gameEngine.getRendering();
+		this.rendering = this.gameEngine.getRendering();
 		setPreferredSize(PREFERRED_SIZE);
 		addMouseListener(this);
 		addMouseMotionListener(this);
@@ -58,12 +58,14 @@ public class SwingCanvas extends JPanel implements GameCanvas, MouseListener, Mo
 	}
 
 	private void paint2d(Graphics2D g) {
-		g.translate(lastSize.width / 2, lastSize.height / 2);
+		int widthDiv2 = lastSize.width / 2;
+		int heightDiv2 = lastSize.height;
+		g.translate(widthDiv2, heightDiv2 / 2);
 
-		SwingGraphics graphics = new SwingGraphics(g, lastSize.width, lastSize.height);
+		SwingGraphics graphics = new SwingGraphics(g, lastSize.width, heightDiv2);
 		rendering.render(graphics);
 
-		g.translate(-lastSize.width / 2, -lastSize.height / 2);
+		g.translate(-widthDiv2, -heightDiv2);
 	}
 
 	@Override

@@ -16,6 +16,7 @@ import hu.csega.games.engine.GameDescriptor;
 import hu.csega.games.engine.GameEngine;
 import hu.csega.games.engine.GameImplementation;
 import hu.csega.games.engine.GameWindowListener;
+import hu.csega.games.engine.g3d.GameModelStore;
 import hu.csega.toolshed.framework.Tool;
 import hu.csega.toolshed.framework.ToolWindow;
 import hu.csega.toolshed.framework.impl.AbstractTool;
@@ -38,12 +39,15 @@ public class RushGameToolImpl extends AbstractTool implements RushGameTool, Game
 
 		createComponents();
 
-		startGameEngine(window);
+		GameEngine engine = startGameEngine(window);
+
+		GameModelStore store = engine.getStore();
+		loadModelsIntoStore(store);
 
 		logger.info("Tool initialization finished.");
 	}
 
-	private void startGameEngine(ToolWindow window) {
+	private GameEngine startGameEngine(ToolWindow window) {
 
 		GameDescriptor descriptor = new GameDescriptor();
 		descriptor.setId("rush");
@@ -68,6 +72,8 @@ public class RushGameToolImpl extends AbstractTool implements RushGameTool, Game
 		RushGameWindowWrapper wrapper = new RushGameWindowWrapper(window, this);
 		GameEngine engine = GameEngine.create(descriptor, adapter, implementation, physics, rendering);
 		engine.startIn(wrapper);
+
+		return engine;
 	}
 
 	private void createComponents() {
@@ -79,6 +85,10 @@ public class RushGameToolImpl extends AbstractTool implements RushGameTool, Game
 		RushGameView view = new RushGameView();
 		view.setModel(model);
 		registerComponent(RushGameView.class, view);
+	}
+
+	private void loadModelsIntoStore(GameModelStore store) {
+		store.loadTexture("res/example/texture.png");
 	}
 
 	@Override

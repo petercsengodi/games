@@ -1,6 +1,8 @@
 package hu.csega.games.engine;
 
-public interface GameCanvas {
+import hu.csega.games.engine.env.Disposable;
+
+public interface GameCanvas extends Disposable {
 
 	void repaint();
 

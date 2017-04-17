@@ -11,7 +11,6 @@ import hu.csega.games.engine.g2d.GameHitCircle;
 import hu.csega.games.engine.g2d.GameHitShape;
 import hu.csega.games.engine.g2d.GamePoint;
 import hu.csega.games.engine.g2d.GameSprite;
-import hu.csega.games.engine.g3d.GameModelBuilder;
 import hu.csega.games.engine.g3d.GameObjectHandler;
 import hu.csega.games.engine.g3d.GameObjectLocation;
 
@@ -130,21 +129,6 @@ public class SwingGraphics implements GameGraphics {
 	}
 
 	@Override
-	public GameObjectHandler loadTexture(String filename) {
-		return null;
-	}
-
-	@Override
-	public GameObjectHandler buildModel(GameModelBuilder builder) {
-		return null;
-	}
-
-	@Override
-	public GameObjectHandler loadModel(String filename) {
-		return null;
-	}
-
-	@Override
 	public void startFrame() {
 	}
 
@@ -162,14 +146,6 @@ public class SwingGraphics implements GameGraphics {
 
 	@Override
 	public void endFrame() {
-	}
-
-	@Override
-	public void dispose(GameObjectHandler handler) {
-	}
-
-	@Override
-	public void disposeAll() {
 	}
 
 }

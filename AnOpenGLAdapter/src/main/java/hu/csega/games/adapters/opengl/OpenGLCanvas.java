@@ -14,8 +14,14 @@ public class OpenGLCanvas implements GameCanvas {
 		return realCanvas;
 	}
 
+	@Override
 	public void repaint() {
 		realCanvas.repaint();
+	}
+
+	@Override
+	public void dispose() {
+		realCanvas.destroy();
 	}
 
 	private GLCanvas realCanvas;

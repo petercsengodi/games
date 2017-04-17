@@ -1,9 +1,11 @@
 package hu.csega.games.engine;
 
+import hu.csega.games.engine.env.Disposable;
 import hu.csega.games.engine.g2d.GameControlImpl;
+import hu.csega.games.engine.g3d.GameModelStore;
 import hu.csega.games.engine.impl.DefaultGameWindowListener;
 
-public class GameEngine {
+public class GameEngine implements Disposable {
 
 	public static GameEngine create(GameDescriptor descriptor,
 			GameAdapter adapter, GameImplementation implementation,
@@ -26,12 +28,13 @@ public class GameEngine {
 
 	public void startIn(GameWindow gameWindow) {
 		this.window = gameWindow;
+		this.store = adapter.createStore(this);
 		this.canvas = adapter.createCanvas(this);
 		this.thread = adapter.createThread(this);
 
 		thread.start();
 		window.add(canvas);
-		window.register(new DefaultGameWindowListener(this.thread));
+		window.register(new DefaultGameWindowListener(this.thread, this));
 		window.showWindow();
 	}
 
@@ -55,6 +58,16 @@ public class GameEngine {
 		return control;
 	}
 
+	public GameModelStore getStore() {
+		return store;
+	}
+
+	@Override
+	public void dispose() {
+		if(canvas != null)
+			canvas.dispose();
+	}
+
 	private GameEngine() {
 	}
 
@@ -67,4 +80,5 @@ public class GameEngine {
 	private GameCanvas canvas;
 	private GameThread thread;
 	private GameControl control;
+	private GameModelStore store;
 }
