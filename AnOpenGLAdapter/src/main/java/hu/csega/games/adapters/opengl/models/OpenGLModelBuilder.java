@@ -31,7 +31,8 @@ public class OpenGLModelBuilder {
 	}
 
 	public int textureIndex(int i) {
-		return store.resolveTexture(textureReference);
+		OpenGLTextureContainer texture = store.resolveTexture(textureReference);
+		return texture.getTextureHandler();
 	}
 
 	public int indexLength(int i) {

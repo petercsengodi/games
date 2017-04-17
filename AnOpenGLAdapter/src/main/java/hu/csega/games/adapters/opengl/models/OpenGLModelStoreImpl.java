@@ -28,13 +28,13 @@ import hu.csega.toolshed.logging.LoggerFactory;
 
 public class OpenGLModelStoreImpl implements OpenGLModelStore {
 
-	private boolean dirty = false;
+	private long identifierCounter = 1;
 	private boolean disposeAllWhenPossible = false;
+
 	private Map<String, GameObjectHandler> handlers = new HashMap<>();
 	private Map<String, GameObjectHandler> toDispose = new HashMap<>();
 	private Set<GameObjectHandler> toInitialize = new HashSet<>();
 	private Map<GameObjectHandler, OpenGLObjectContainer> containers = new HashMap<>();
-	private long counter = 1;
 
 	private boolean programInitialized = false;
 	private int[] programHandlers = new int[2];
@@ -70,12 +70,12 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 			container.initialize(glAutodrawable);
 		}
 
-		dirty = false;
+		toInitialize.clear();
 	}
 
 	@Override
 	public boolean needsInitialization() {
-		return dirty || disposeAllWhenPossible;
+		return !toInitialize.isEmpty() || disposeAllWhenPossible;
 	}
 
 	@Override
@@ -90,7 +90,6 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 		}
 
 		toInitialize.clear();
-		dirty = false;
 	}
 
 	@Override
@@ -106,8 +105,6 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 				container.dispose(glAutodrawable);
 			toInitialize.add(handler);
 		}
-
-		dirty = true;
 	}
 
 	@Override
@@ -123,7 +120,6 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 				container = new OpenGLTextureContainer(filename);
 				containers.put(handler, container);
 				toInitialize.add(handler);
-				dirty = true;
 			}
 		}
 
@@ -132,7 +128,7 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 
 	@Override
 	public GameObjectHandler buildModel(GameModelBuilder builder) {
-		String filename = "__id:" + counter;
+		String filename = "__id:" + identifierCounter;
 		GameObjectHandler handler = nextHandler(GameObjectType.MODEL);
 		handlers.put(filename, handler);
 
@@ -142,7 +138,6 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 		containers.put(handler, container);
 
 		toInitialize.add(handler);
-		dirty = true;
 		return handler;
 	}
 
@@ -170,9 +165,9 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 		disposeAllWhenPossible = true;
 	}
 
-	public int resolveTexture(GameObjectHandler textureReference) {
+	public OpenGLTextureContainer resolveTexture(GameObjectHandler textureReference) {
 		OpenGLTextureContainer texture = (OpenGLTextureContainer)containers.get(textureReference);
-		return texture.getTextureHandler();
+		return texture;
 	}
 
 	public OpenGLModelContainer resolveModel(GameObjectHandler modelReference) {
@@ -311,7 +306,7 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 	}
 
 	private GameObjectHandler nextHandler(GameObjectType type) {
-		return new GameObjectHandler(type, counter++);
+		return new GameObjectHandler(type, identifierCounter++);
 	}
 
 	private static final Logger logger = LoggerFactory.createLogger(OpenGLModelStoreImpl.class);
