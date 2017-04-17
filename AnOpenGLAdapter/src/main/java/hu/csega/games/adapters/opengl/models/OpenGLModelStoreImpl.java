@@ -235,8 +235,8 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 	        int program = shaderProgram.program();
 			programHandlers[PROGRAM_INDEX] = program;
 
-			// TODO removing outer reference to Semantic
 	        gl3.glBindAttribLocation(program, OpenGLAttribute.POSITION, "position");
+	        gl3.glBindAttribLocation(program, OpenGLAttribute.NORMAL, "normalVector");
 	        gl3.glBindAttribLocation(program, OpenGLAttribute.TEXCOORD, "texCoord");
 	        gl3.glBindFragDataLocation(program, OpenGLFragment.COLOR, "outputColor");
 

@@ -157,7 +157,7 @@ public abstract class OpenGLModelContainer implements OpenGLObjectContainer {
 	}
 
 	private void createVertexArrays(GL3 gl3) {
-		int stride = (2 + 2) * Float.BYTES;
+		int stride = (3 + 3 + 2) * Float.BYTES;
 
 		gl3.glGenVertexArrays(numberOfVertexArrays, openGLHandlers, offsetOfVertexArrays);
 		for(int i = 0; i < numberOfVertexArrays; i++) {
@@ -167,12 +167,16 @@ public abstract class OpenGLModelContainer implements OpenGLObjectContainer {
 			gl3.glBindBuffer(GL3.GL_ARRAY_BUFFER, openGLHandlers[offsetOfVertexBuffers + i]);
 
 			gl3.glEnableVertexAttribArray(OpenGLAttribute.POSITION);
-			gl3.glVertexAttribPointer(OpenGLAttribute.POSITION, 2, GL3.GL_FLOAT,
+			gl3.glVertexAttribPointer(OpenGLAttribute.POSITION, 3, GL3.GL_FLOAT,
 					false, stride, 0 * Float.BYTES);
+
+			gl3.glEnableVertexAttribArray(OpenGLAttribute.NORMAL);
+			gl3.glVertexAttribPointer(OpenGLAttribute.NORMAL, 3, GL3.GL_FLOAT,
+					false, stride, 3 * Float.BYTES);
 
 			gl3.glEnableVertexAttribArray(OpenGLAttribute.TEXCOORD);
 			gl3.glVertexAttribPointer(OpenGLAttribute.TEXCOORD, 2, GL3.GL_FLOAT,
-					false, stride, 2 * Float.BYTES);
+					false, stride, 6 * Float.BYTES);
 
 			gl3.glBindBuffer(GL3.GL_ARRAY_BUFFER, 0);
 

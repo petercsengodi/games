@@ -4,7 +4,11 @@
 #version 330
 
 // Incoming vertex position, Model Space.
-in vec2 position;
+in vec3 position;
+
+// Incoming normal vector, Model Space.
+in vec3 normalVector;
+
 // Incoming texture coordinates.
 in vec2 texCoord;
 
@@ -18,7 +22,7 @@ void main() {
 
     // Normally gl_Position is in Clip Space and we calculate it by multiplying 
     // it with the modelToClipMatrix.
-    gl_Position = modelToClipMatrix * vec4(position, 0, 1);
+    gl_Position = modelToClipMatrix * vec4(position, 1);
 
     // We assign the texture coordinate to the outgoing variable.
     interpolatedTexCoord = texCoord;
