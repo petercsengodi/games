@@ -79,6 +79,7 @@ public class OpenGLGraphics implements GameGraphics {
 
 	@Override
 	public void startFrame() {
+		store.startFrame(glAutodrawable);
 	}
 
 	@Override
@@ -96,6 +97,7 @@ public class OpenGLGraphics implements GameGraphics {
 
 	@Override
 	public void endFrame() {
+		store.endFrame(glAutodrawable);
 	}
 
 }

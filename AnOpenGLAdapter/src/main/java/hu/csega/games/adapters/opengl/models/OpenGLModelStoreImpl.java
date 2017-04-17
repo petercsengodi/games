@@ -1,16 +1,25 @@
 package hu.csega.games.adapters.opengl.models;
 
+import static com.jogamp.opengl.GL2ES2.GL_FRAGMENT_SHADER;
+import static com.jogamp.opengl.GL2ES2.GL_VERTEX_SHADER;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.jogamp.opengl.GL3;
 import com.jogamp.opengl.GLAutoDrawable;
+import com.jogamp.opengl.util.glsl.ShaderCode;
+import com.jogamp.opengl.util.glsl.ShaderProgram;
 
+import gl3.helloTexture.Semantic;
 import hu.csega.games.engine.g3d.GameModelBuilder;
 import hu.csega.games.engine.g3d.GameObjectHandler;
 import hu.csega.games.engine.g3d.GameObjectType;
+import hu.csega.toolshed.logging.Logger;
+import hu.csega.toolshed.logging.LoggerFactory;
 
 public class OpenGLModelStoreImpl implements OpenGLModelStore {
 
@@ -22,16 +31,29 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 	private Map<GameObjectHandler, OpenGLObjectContainer> containers = new HashMap<>();
 	private long counter = 1;
 
+	private boolean programInitialized = false;
+	private int[] programHandlers = new int[2];
+
+	private static final String SHADERS_ROOT = "res/example";
+
+	private static final int SAMPLER_INDEX = 0;
+	private static final int PROGRAM_INDEX = 1;
+
 	@Override
 	public void setupScreen(GLAutoDrawable glAutodrawable, int width, int height) {
+		ensureOpenGLProgramIsInitialized(glAutodrawable);
 		if(disposeEnqueued())
 			disposeEnqueuedObjects(glAutodrawable);
 
-		// TODO Auto-generated method stub
+		GL3 gl3 = glAutodrawable.getGL().getGL3();
+        gl3.glViewport(0, 0, width, height);
 	}
 
 	@Override
 	public void reset(GLAutoDrawable glAutodrawable) {
+		disposeOpenGLProgram(glAutodrawable);
+		ensureOpenGLProgramIsInitialized(glAutodrawable);
+
 		if(disposeEnqueued())
 			disposeEnqueuedObjects(glAutodrawable);
 
@@ -51,6 +73,7 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 
 	@Override
 	public void initializeModels(GLAutoDrawable glAutodrawable) {
+		ensureOpenGLProgramIsInitialized(glAutodrawable);
 		if(disposeEnqueued())
 			disposeEnqueuedObjects(glAutodrawable);
 
@@ -65,6 +88,7 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 
 	@Override
 	public void disposeUnderlyingObjects(GLAutoDrawable glAutodrawable) {
+		disposeOpenGLProgram(glAutodrawable);
 		if(disposeEnqueued())
 			disposeEnqueuedObjects(glAutodrawable);
 
@@ -94,8 +118,16 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 
 	@Override
 	public GameObjectHandler buildModel(GameModelBuilder builder) {
-		// TODO Auto-generated method stub
-		return null;
+		String filename = "__id:" + counter;
+		GameObjectHandler handler = nextHandler(GameObjectType.MODEL);
+		handlers.put(filename, handler);
+
+		OpenGLObjectContainer container = new OpenGLCustomModelContainer(filename, builder);
+		containers.put(handler, container);
+
+		toInitialize.add(handler);
+		dirty = true;
+		return handler;
 	}
 
 	@Override
@@ -154,7 +186,95 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 		}
 	}
 
+	private void ensureOpenGLProgramIsInitialized(GLAutoDrawable glAutodrawable) {
+		if(!programInitialized) {
+			logger.info("Initializing program.");
+
+			GL3 gl3 = glAutodrawable.getGL().getGL3();
+
+	        gl3.glGenSamplers(1, programHandlers, SAMPLER_INDEX);
+	        int samplerHandler = programHandlers[SAMPLER_INDEX];
+	        gl3.glSamplerParameteri(samplerHandler, GL3.GL_TEXTURE_MAG_FILTER, GL3.GL_NEAREST);
+	        gl3.glSamplerParameteri(samplerHandler, GL3.GL_TEXTURE_MIN_FILTER, GL3.GL_NEAREST);
+	        gl3.glSamplerParameteri(samplerHandler, GL3.GL_TEXTURE_WRAP_S, GL3.GL_CLAMP_TO_EDGE);
+	        gl3.glSamplerParameteri(samplerHandler, GL3.GL_TEXTURE_WRAP_T, GL3.GL_CLAMP_TO_EDGE);
+
+	        ShaderCode vertShader = ShaderCode.create(gl3, GL_VERTEX_SHADER, this.getClass(),
+	                SHADERS_ROOT, null, "vs", "glsl", null, true);
+	        ShaderCode fragShader = ShaderCode.create(gl3, GL_FRAGMENT_SHADER, this.getClass(),
+	                SHADERS_ROOT, null, "fs", "glsl", null, true);
+
+	        ShaderProgram shaderProgram = new ShaderProgram();
+	        shaderProgram.add(vertShader);
+	        shaderProgram.add(fragShader);
+
+	        shaderProgram.init(gl3);
+
+	        int program = shaderProgram.program();
+			programHandlers[PROGRAM_INDEX] = program;
+
+	        gl3.glBindAttribLocation(program, Semantic.Attr.POSITION, "position");
+	        gl3.glBindAttribLocation(program, Semantic.Attr.TEXCOORD, "texCoord");
+	        gl3.glBindFragDataLocation(program, Semantic.Frag.COLOR, "outputColor");
+
+	        shaderProgram.link(gl3, System.out); // TODO csega: attach logger
+
+	        int modelToClipMatrixUL = gl3.glGetUniformLocation(program, "modelToClipMatrix");
+	        int texture0UL = gl3.glGetUniformLocation(program, "texture0");
+
+	        vertShader.destroy(gl3);
+	        fragShader.destroy(gl3);
+
+	        gl3.glUseProgram(program);
+            gl3.glUniform1i(texture0UL, Semantic.Sampler.DIFFUSE);
+	        gl3.glUseProgram(0);
+
+	        OpenGLErrorUtil.checkError(gl3, "initProgram");
+
+	        gl3.glEnable(GL3.GL_DEPTH_TEST);
+
+	        programInitialized = true;
+			logger.info("Initialized program.");
+		}
+	}
+
+	private void disposeOpenGLProgram(GLAutoDrawable glAutodrawable) {
+		if(programInitialized) {
+			logger.info("Releasing program.");
+
+			GL3 gl3 = glAutodrawable.getGL().getGL3();
+			gl3.glDeleteProgram(programHandlers[PROGRAM_INDEX]);
+			programInitialized = false;
+
+			logger.info("Released program.");
+		}
+	}
+
+	public void startFrame(GLAutoDrawable glAutodrawable) {
+		if(!programInitialized)
+			return;
+
+		GL3 gl3 = glAutodrawable.getGL().getGL3();
+
+        gl3.glClearColor(0f, .33f, 0.66f, 1f);
+        gl3.glClearDepthf(1f);
+        gl3.glClear(GL3.GL_COLOR_BUFFER_BIT | GL3.GL_DEPTH_BUFFER_BIT);
+
+        gl3.glUseProgram(programHandlers[PROGRAM_INDEX]);
+	}
+
+	public void endFrame(GLAutoDrawable glAutodrawable) {
+		if(!programInitialized)
+			return;
+
+		GL3 gl3 = glAutodrawable.getGL().getGL3();
+        gl3.glUseProgram(0);
+        OpenGLErrorUtil.checkError(gl3, "display");
+	}
+
 	private GameObjectHandler nextHandler(GameObjectType type) {
 		return new GameObjectHandler(type, counter++);
 	}
+
+	private static final Logger logger = LoggerFactory.createLogger(OpenGLModelStoreImpl.class);
 }

@@ -40,7 +40,9 @@ public class OpenGLEventListener implements GLEventListener {
 
 		graphics.setStore(store);
 		graphics.setAutoDrawable(glAutodrawable, glAutodrawable.getSurfaceWidth(), glAutodrawable.getSurfaceHeight());
+		graphics.startFrame();
 		engine.getRendering().render(graphics);
+		graphics.endFrame();
 		graphics.clean();
 	}
 
