@@ -34,6 +34,10 @@ public class SwingCanvas extends JPanel implements GameCanvas, MouseListener, Mo
 	}
 
 	@Override
+	public void dispose() {
+	}
+
+	@Override
 	public void update(Graphics g) {
 		paint(g);
 	}

@@ -3,19 +3,19 @@ package hu.csega.games.adapters.opengl;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
 
-import hu.csega.games.adapters.opengl.models.OpenGLModelStore;
+import hu.csega.games.adapters.opengl.models.OpenGLModelStoreImpl;
 import hu.csega.games.engine.GameEngine;
 
 public class OpenGLEventListener implements GLEventListener {
 
 	private GameEngine engine;
 	private OpenGLGraphics graphics;
-	private OpenGLModelStore store;
+	private OpenGLModelStoreImpl store;
 
 	public OpenGLEventListener(GameEngine engine, OpenGLGraphics graphics) {
 		this.engine = engine;
 		this.graphics = graphics;
-		this.store = (OpenGLModelStore) engine.getStore();
+		this.store = (OpenGLModelStoreImpl) engine.getStore();
 	}
 
 	@Override
