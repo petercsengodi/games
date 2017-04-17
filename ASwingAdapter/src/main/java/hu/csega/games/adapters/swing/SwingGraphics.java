@@ -4,13 +4,13 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import hu.csega.games.engine.impl.GameColor;
-import hu.csega.games.engine.impl.GameGraphics;
-import hu.csega.games.engine.impl.GameHitBox;
-import hu.csega.games.engine.impl.GameHitCircle;
-import hu.csega.games.engine.impl.GameHitShape;
-import hu.csega.games.engine.impl.GamePoint;
-import hu.csega.games.engine.impl.GameSprite;
+import hu.csega.games.engine.g2d.GameColor;
+import hu.csega.games.engine.g2d.GameGraphics;
+import hu.csega.games.engine.g2d.GameHitBox;
+import hu.csega.games.engine.g2d.GameHitCircle;
+import hu.csega.games.engine.g2d.GameHitShape;
+import hu.csega.games.engine.g2d.GamePoint;
+import hu.csega.games.engine.g2d.GameSprite;
 
 public class SwingGraphics implements GameGraphics {
 

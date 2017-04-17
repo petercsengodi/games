@@ -1,7 +1,7 @@
 package hu.csega.games.engine;
 
+import hu.csega.games.engine.g2d.GameControlImpl;
 import hu.csega.games.engine.impl.DefaultGameWindowListener;
-import hu.csega.games.engine.impl.GameControlImpl;
 
 public class GameEngine {
 

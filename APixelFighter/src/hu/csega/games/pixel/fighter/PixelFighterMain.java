@@ -5,7 +5,7 @@ import hu.csega.games.engine.GameAdapter;
 import hu.csega.games.engine.GameDescriptor;
 import hu.csega.games.engine.GameEngine;
 import hu.csega.games.engine.GameImplementation;
-import hu.csega.games.engine.impl.GameObject;
+import hu.csega.games.engine.g2d.GameObject;
 
 public class PixelFighterMain implements GameImplementation {
 

@@ -2,7 +2,7 @@ package hu.csega.games.pixel.fighter;
 
 import hu.csega.games.engine.GameControl;
 import hu.csega.games.engine.GamePhysics;
-import hu.csega.games.engine.impl.GameObject;
+import hu.csega.games.engine.g2d.GameObject;
 
 public class PixelFighterPhysics implements GamePhysics {
 

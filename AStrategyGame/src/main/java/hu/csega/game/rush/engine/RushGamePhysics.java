@@ -1,9 +1,9 @@
 package hu.csega.game.rush.engine;
 
 import hu.csega.games.engine.GameControl;
+import hu.csega.games.engine.GameKeyListener;
 import hu.csega.games.engine.GamePhysics;
-import hu.csega.games.engine.impl.GameKeyListener;
-import hu.csega.games.engine.impl.GameObject;
+import hu.csega.games.engine.g2d.GameObject;
 
 public class RushGamePhysics  implements GamePhysics, GameKeyListener {
 

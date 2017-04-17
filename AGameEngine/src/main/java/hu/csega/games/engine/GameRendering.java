@@ -1,6 +1,6 @@
 package hu.csega.games.engine;
 
-import hu.csega.games.engine.impl.GameGraphics;
+import hu.csega.games.engine.g2d.GameGraphics;
 
 public interface GameRendering {
 

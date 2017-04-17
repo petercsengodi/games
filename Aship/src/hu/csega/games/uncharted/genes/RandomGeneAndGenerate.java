@@ -8,9 +8,9 @@ import hu.csega.games.engine.GameEngine;
 import hu.csega.games.engine.GameImplementation;
 import hu.csega.games.engine.GamePhysics;
 import hu.csega.games.engine.GameRendering;
-import hu.csega.games.engine.impl.GameColor;
-import hu.csega.games.engine.impl.GameGraphics;
-import hu.csega.games.engine.impl.GamePoint;
+import hu.csega.games.engine.g2d.GameColor;
+import hu.csega.games.engine.g2d.GameGraphics;
+import hu.csega.games.engine.g2d.GamePoint;
 
 public class RandomGeneAndGenerate implements GameImplementation, GamePhysics, GameRendering {
 

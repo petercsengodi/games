@@ -1,4 +1,4 @@
-package hu.csega.games.engine.impl;
+package hu.csega.games.engine;
 
 public interface GameKeyListener {
 

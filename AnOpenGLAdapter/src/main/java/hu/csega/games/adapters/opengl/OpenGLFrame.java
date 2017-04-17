@@ -14,7 +14,7 @@ import hu.csega.games.engine.GameCanvas;
 import hu.csega.games.engine.GameEngine;
 import hu.csega.games.engine.GameWindow;
 import hu.csega.games.engine.GameWindowListener;
-import hu.csega.games.engine.impl.GameControlImpl;
+import hu.csega.games.engine.g2d.GameControlImpl;
 
 public class OpenGLFrame extends JFrame implements GameWindow, WindowListener, KeyListener {
 

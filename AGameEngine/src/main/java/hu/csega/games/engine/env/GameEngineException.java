@@ -1,23 +1,23 @@
 package hu.csega.games.engine.env;
 
-public class GameException extends RuntimeException {
+public class GameEngineException extends RuntimeException {
 
-	public GameException() {
+	public GameEngineException() {
 	}
 
-	public GameException(String message) {
+	public GameEngineException(String message) {
 		super(message);
 	}
 
-	public GameException(Throwable cause) {
+	public GameEngineException(Throwable cause) {
 		super(cause);
 	}
 
-	public GameException(String message, Throwable cause) {
+	public GameEngineException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
-	public GameException description(String desc) {
+	public GameEngineException description(String desc) {
 		if(desc == null || desc.isEmpty())
 			this.description = null;
 		else

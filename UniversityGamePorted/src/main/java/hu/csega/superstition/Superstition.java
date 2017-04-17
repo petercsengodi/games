@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 
 import hu.csega.games.engine.env.EnvironmentImpl;
-import hu.csega.games.engine.env.GameException;
+import hu.csega.games.engine.env.GameEngineException;
 import hu.csega.superstition.engine.Phase;
 import hu.csega.superstition.engines.connector.Connector;
 import hu.csega.superstition.engines.opengl.ExampleConnector;
@@ -33,7 +33,7 @@ public class Superstition {
 
 			superstition.run();
 
-		} catch(GameException ex) {
+		} catch(GameEngineException ex) {
 
 			handleGameException(ex, superstition);
 
@@ -47,7 +47,7 @@ public class Superstition {
 
 				superstition.finish();
 
-			} catch(GameException ex) {
+			} catch(GameEngineException ex) {
 
 				handleGameException(ex, superstition);
 
@@ -61,7 +61,7 @@ public class Superstition {
 		System.exit(0);
 	}
 
-	public static void handleGameException(GameException ex, Superstition superstition) {
+	public static void handleGameException(GameEngineException ex, Superstition superstition) {
 		StringBuilder msg = new StringBuilder();
 		msg.append("GameException occurred in phase ");
 		msg.append(superstition.phaseString());

@@ -1,8 +1,8 @@
 package hu.csega.games.rotary.play;
 
 import hu.csega.games.engine.GameControl;
+import hu.csega.games.engine.GameKeyListener;
 import hu.csega.games.engine.GamePhysics;
-import hu.csega.games.engine.impl.GameKeyListener;
 import hu.csega.games.rotary.objects.RotaryPlayer;
 
 public class RotaryPhysics implements GamePhysics, GameKeyListener {

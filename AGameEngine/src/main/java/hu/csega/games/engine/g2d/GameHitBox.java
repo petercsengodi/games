@@ -1,4 +1,4 @@
-package hu.csega.games.engine.impl;
+package hu.csega.games.engine.g2d;
 
 public class GameHitBox extends GameHitShape {
 
