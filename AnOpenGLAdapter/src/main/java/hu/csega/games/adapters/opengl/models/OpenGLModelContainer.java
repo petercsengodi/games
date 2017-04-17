@@ -5,6 +5,7 @@ import java.nio.ShortBuffer;
 
 import com.jogamp.opengl.GL3;
 import com.jogamp.opengl.GLAutoDrawable;
+import com.jogamp.opengl.math.FloatUtil;
 import com.jogamp.opengl.util.GLBuffers;
 
 import gl3.helloTexture.Semantic;
@@ -17,6 +18,7 @@ public abstract class OpenGLModelContainer implements OpenGLObjectContainer {
 	private String filename;
 	private boolean initialized = false;
 	private int[] openGLHandlers;
+	private OpenGLModelStoreImpl store;
 
 	private int numberOfHandlers;
 
@@ -28,8 +30,9 @@ public abstract class OpenGLModelContainer implements OpenGLObjectContainer {
 	private int offsetOfIndexBuffers;
 	private int offsetOfVertexArrays;
 
-	public OpenGLModelContainer(String filename) {
+	public OpenGLModelContainer(String filename, OpenGLModelStoreImpl store) {
 		this.filename = filename;
+		this.store = store;
 	}
 
 	@Override
@@ -90,6 +93,9 @@ public abstract class OpenGLModelContainer implements OpenGLObjectContainer {
 	}
 
 	public void draw(GLAutoDrawable glAutodrawable) {
+	    float[] zRotation = new float[16];
+		zRotation = FloatUtil.makeRotationEuler(zRotation, 0, 0, 0, 0 /* diff */);
+
 		GL3 gl3 = glAutodrawable.getGL().getGL3();
 
 		for(int i = 0; i < numberOfVertexArrays; i++) {
@@ -98,6 +104,9 @@ public abstract class OpenGLModelContainer implements OpenGLObjectContainer {
 			int textureIndex = builder().textureIndex(i);
 			int indexLength = builder().indexLength(i);
 
+	        gl3.glUniformMatrix4fv(store.modelToClipMatrix(), 1, false, zRotation, 0);
+	        gl3.glBindSampler(OpenGLSampler.DIFFUSE, store.samplerIndex());
+			gl3.glActiveTexture(GL3.GL_TEXTURE0 + OpenGLSampler.DIFFUSE);
 			gl3.glBindTexture(GL3.GL_TEXTURE_2D, textureIndex);
 
 			gl3.glDrawElements(GL3.GL_TRIANGLES, indexLength, GL3.GL_UNSIGNED_SHORT, 0);

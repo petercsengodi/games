@@ -35,7 +35,7 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 	private int[] programHandlers = new int[2];
 
 	private int modelToClipMatrixUL;
-	private float[] rotation = new float[3];
+	private float[] rotation = new float[] { 1f, 0f, 0f };
 
 	private static final String SHADERS_ROOT = "res/example";
 
@@ -134,7 +134,7 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 
 		OpenGLModelBuilder modelBuilder = new OpenGLModelBuilder(builder, this);
 
-		OpenGLObjectContainer container = new OpenGLCustomModelContainer(filename, modelBuilder);
+		OpenGLObjectContainer container = new OpenGLCustomModelContainer(filename, this, modelBuilder);
 		containers.put(handler, container);
 
 		toInitialize.add(handler);
@@ -285,10 +285,6 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
         gl3.glClear(GL3.GL_COLOR_BUFFER_BIT | GL3.GL_DEPTH_BUFFER_BIT);
 
         gl3.glUseProgram(programHandlers[PROGRAM_INDEX]);
-
-        gl3.glUniformMatrix4fv(modelToClipMatrixUL, 1, false, rotation, 0);
-        gl3.glBindSampler(OpenGLSampler.DIFFUSE, programHandlers[SAMPLER_INDEX]);
-		gl3.glActiveTexture(GL3.GL_TEXTURE0 + OpenGLSampler.DIFFUSE);
 	}
 
 	public void endFrame(GLAutoDrawable glAutodrawable) {
@@ -299,6 +295,14 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
         gl3.glBindSampler(OpenGLSampler.DIFFUSE, 0);
         gl3.glUseProgram(0);
         OpenGLErrorUtil.checkError(gl3, "endFrame");
+	}
+
+	public int samplerIndex() {
+		return programHandlers[PROGRAM_INDEX];
+	}
+
+	public int modelToClipMatrix() {
+		return modelToClipMatrixUL;
 	}
 
 	private GameObjectHandler nextHandler(GameObjectType type) {

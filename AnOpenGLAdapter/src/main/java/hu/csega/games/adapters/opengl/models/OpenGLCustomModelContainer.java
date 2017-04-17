@@ -2,8 +2,8 @@ package hu.csega.games.adapters.opengl.models;
 
 public class OpenGLCustomModelContainer extends OpenGLModelContainer {
 
-	public OpenGLCustomModelContainer(String filename, OpenGLModelBuilder builder) {
-		super(filename);
+	public OpenGLCustomModelContainer(String filename, OpenGLModelStoreImpl store, OpenGLModelBuilder builder) {
+		super(filename, store);
 		this.builder = builder;
 	}
 
