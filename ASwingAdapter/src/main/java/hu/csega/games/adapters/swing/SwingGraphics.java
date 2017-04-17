@@ -11,8 +11,16 @@ import hu.csega.games.engine.g2d.GameHitCircle;
 import hu.csega.games.engine.g2d.GameHitShape;
 import hu.csega.games.engine.g2d.GamePoint;
 import hu.csega.games.engine.g2d.GameSprite;
+import hu.csega.games.engine.g3d.GameModelBuilder;
+import hu.csega.games.engine.g3d.GameObjectHandler;
+import hu.csega.games.engine.g3d.GameObjectLocation;
 
 public class SwingGraphics implements GameGraphics {
+
+	private int[] xPoints = new int[3];
+	private int[] yPoints = new int[3];
+
+	private Graphics2D g;
 
 	public SwingGraphics(Graphics2D g2d) {
 		this.g = g2d;
@@ -107,9 +115,47 @@ public class SwingGraphics implements GameGraphics {
 		return new Color(color.r, color.g, color.b, color.a);
 	}
 
-	private int[] xPoints = new int[3];
-	private int[] yPoints = new int[3];
+	@Override
+	public GameObjectHandler loadTexture(String filename) {
+		return null;
+	}
 
-	private Graphics2D g;
+	@Override
+	public GameObjectHandler buildModel(GameModelBuilder builder) {
+		return null;
+	}
+
+	@Override
+	public GameObjectHandler loadModel(String filename) {
+		return null;
+	}
+
+	@Override
+	public void startFrame() {
+	}
+
+	@Override
+	public void placeCamera(GameObjectLocation cameraLocation) {
+	}
+
+	@Override
+	public void drawModel(GameObjectHandler modelReference, GameObjectLocation modelLocation) {
+	}
+
+	@Override
+	public void drawAnimation(GameObjectHandler animationReference, GameObjectLocation modelLocation) {
+	}
+
+	@Override
+	public void endFrame() {
+	}
+
+	@Override
+	public void dispose(GameObjectHandler handler) {
+	}
+
+	@Override
+	public void disposeAll() {
+	}
 
 }
