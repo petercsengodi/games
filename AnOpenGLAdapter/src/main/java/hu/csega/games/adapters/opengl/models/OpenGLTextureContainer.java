@@ -21,6 +21,12 @@ public class OpenGLTextureContainer implements OpenGLObjectContainer {
 		this.filename = filename;
 	}
 
+	public int getTextureHandler() {
+		if(initialized)
+			return generatedTextureNames[0];
+		return 0;
+	}
+
 	@Override
 	public String filename() {
 		return filename;
@@ -33,7 +39,7 @@ public class OpenGLTextureContainer implements OpenGLObjectContainer {
 
 	@Override
 	public void initialize(GLAutoDrawable glAutodrawable) {
-        logger.trace("Initialing texture: " + filename);
+        logger.trace("Initializing texture: " + filename);
 
         try {
         	GL3 gl3 = glAutodrawable.getGL().getGL3();

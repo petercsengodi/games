@@ -1,11 +1,16 @@
 package hu.csega.games.adapters.opengl.models;
 
-import hu.csega.games.engine.g3d.GameModelBuilder;
-
 public class OpenGLCustomModelContainer extends OpenGLModelContainer {
 
-	public OpenGLCustomModelContainer(String filename, GameModelBuilder builder) {
+	public OpenGLCustomModelContainer(String filename, OpenGLModelBuilder builder) {
 		super(filename);
+		this.builder = builder;
 	}
 
+	@Override
+	protected OpenGLModelBuilder builder() {
+		return builder;
+	}
+
+	private OpenGLModelBuilder builder;
 }

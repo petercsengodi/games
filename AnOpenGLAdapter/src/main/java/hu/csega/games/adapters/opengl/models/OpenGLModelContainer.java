@@ -1,23 +1,14 @@
 package hu.csega.games.adapters.opengl.models;
 
-import static com.jogamp.opengl.GL.GL_INVALID_ENUM;
-import static com.jogamp.opengl.GL.GL_INVALID_FRAMEBUFFER_OPERATION;
-import static com.jogamp.opengl.GL.GL_INVALID_OPERATION;
-import static com.jogamp.opengl.GL.GL_INVALID_VALUE;
-import static com.jogamp.opengl.GL.GL_NO_ERROR;
-import static com.jogamp.opengl.GL.GL_OUT_OF_MEMORY;
-
 import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
 
-import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL3;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.util.GLBuffers;
 
 import gl3.helloTexture.Semantic;
 import hu.csega.games.adapters.opengl.BufferUtils;
-import hu.csega.games.engine.env.GameEngineException;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
@@ -25,11 +16,17 @@ public abstract class OpenGLModelContainer implements OpenGLObjectContainer {
 
 	private String filename;
 	private boolean initialized = false;
-	private int numberOfHandlers;
-	private int offsetOfVertices;
-	private int offsetOfIndices;
-	private int offsetOfVertexArrays;
 	private int[] openGLHandlers;
+
+	private int numberOfHandlers;
+
+	private int numberOfVertexBuffers;
+	private int numberOfIndexBuffers;
+	private int numberOfVertexArrays;
+
+	private int offsetOfVertexBuffers;
+	private int offsetOfIndexBuffers;
+	private int offsetOfVertexArrays;
 
 	public OpenGLModelContainer(String filename) {
 		this.filename = filename;
@@ -49,21 +46,30 @@ public abstract class OpenGLModelContainer implements OpenGLObjectContainer {
 	public void initialize(GLAutoDrawable glAutodrawable) {
 		logger.trace("Initialing model: " + filename);
 
+		OpenGLModelBuilder model = builder();
+
 		if(openGLHandlers == null) {
-			numberOfHandlers = 0;
-			offsetOfVertices = numberOfHandlers;
-			numberOfHandlers += numberOfVertices();
-			offsetOfIndices = numberOfHandlers;
-			numberOfHandlers += numberOfIndices();
-			offsetOfVertexArrays = numberOfHandlers;
-			numberOfHandlers += numberOfVertexArrays();
+			numberOfVertexBuffers = model.numberOfVertexBuffers();
+			numberOfIndexBuffers = model.numberOfIndexBuffers();
+			numberOfVertexArrays = model.numberOfVertexArrays();
+
+			offsetOfVertexBuffers = 0;
+			offsetOfIndexBuffers = numberOfVertexBuffers;
+			offsetOfVertexArrays = numberOfVertexBuffers + numberOfIndexBuffers;
+
+			numberOfHandlers = numberOfVertexBuffers + numberOfIndexBuffers + numberOfVertexArrays;
 			openGLHandlers = new int[numberOfHandlers];
 		}
 
 		try {
 
+			GL3 gl3 = glAutodrawable.getGL().getGL3();
+			createVertexBuffers(gl3);
+			createIndexBuffers(gl3);
+			createVertexArrays(gl3);
+
 		} catch (Exception ex) {
-			logger.error("Exception in texture initialization: " + filename, ex);
+			logger.error("Exception in model initialization: " + filename, ex);
 		}
 
 		initialized = true;
@@ -75,94 +81,95 @@ public abstract class OpenGLModelContainer implements OpenGLObjectContainer {
 		logger.trace("Disposing model: " + filename);
 		GL3 gl3 = glAutodrawable.getGL().getGL3();
 
-		gl3.glDeleteVertexArrays(numberOfVertexArrays(), openGLHandlers, offsetOfVertexArrays);
-		gl3.glDeleteBuffers(numberOfIndices(), openGLHandlers, offsetOfIndices);
-		gl3.glDeleteBuffers(numberOfVertices(), openGLHandlers, offsetOfVertices);
+		gl3.glDeleteVertexArrays(numberOfVertexArrays, openGLHandlers, offsetOfVertexArrays);
+		gl3.glDeleteBuffers(numberOfIndexBuffers, openGLHandlers, offsetOfIndexBuffers);
+		gl3.glDeleteBuffers(numberOfVertexArrays, openGLHandlers, offsetOfVertexBuffers);
 
 		initialized = false;
 		logger.trace("Disposed model: " + filename);
 	}
 
-	protected abstract int numberOfVertices();
-	protected abstract int numberOfIndices();
-	protected abstract int numberOfVertexArrays();
+	public void draw(GLAutoDrawable glAutodrawable) {
+		GL3 gl3 = glAutodrawable.getGL().getGL3();
 
-	private void initVbo(GL3 gl3) {
+		for(int i = 0; i < numberOfVertexArrays; i++) {
+			gl3.glBindVertexArray(openGLHandlers[offsetOfVertexArrays + i]);
 
-		gl3.glGenBuffers(1, objects, Semantic.Object.VBO);
-		gl3.glBindBuffer(GL3.GL_ARRAY_BUFFER, objects[Semantic.Object.VBO]);
-		{
-			FloatBuffer vertexBuffer = GLBuffers.newDirectFloatBuffer(vertexData);
-			int size = vertexData.length * Float.BYTES;
-			gl3.glBufferData(GL3.GL_ARRAY_BUFFER, size, vertexBuffer, GL3.GL_STATIC_DRAW);
-			/**
-			 * Since vertexBuffer is a direct buffer, this means it is outside
-			 * the Garbage Collector job and it is up to us to remove it.
-			 */
-			BufferUtils.destroyDirectBuffer(vertexBuffer);
+			int textureIndex = builder().textureIndex(i);
+			int indexLength = builder().indexLength(i);
+
+			gl3.glBindTexture(GL3.GL_TEXTURE_2D, textureIndex);
+
+			gl3.glDrawElements(GL3.GL_TRIANGLES, indexLength, GL3.GL_UNSIGNED_SHORT, 0);
+
+			gl3.glBindTexture(GL3.GL_TEXTURE_2D, 0);
+			gl3.glBindVertexArray(0);
 		}
-		gl3.glBindBuffer(GL3.GL_ARRAY_BUFFER, 0);
-
-		checkError(gl3, "initVbo");
 	}
 
-	private void initIbo(GL3 gl3) {
+	protected abstract OpenGLModelBuilder builder();
 
-		gl3.glGenBuffers(1, objects, Semantic.Object.IBO);
-		gl3.glBindBuffer(GL3.GL_ELEMENT_ARRAY_BUFFER, objects[Semantic.Object.IBO]);
-		{
-			ShortBuffer indexBuffer = GLBuffers.newDirectShortBuffer(indexData);
+	private void createVertexBuffers(GL3 gl3) {
+		gl3.glGenBuffers(numberOfVertexBuffers, openGLHandlers, offsetOfVertexBuffers);
+		for(int i = 0; i < numberOfVertexBuffers; i++) {
+			gl3.glBindBuffer(GL3.GL_ARRAY_BUFFER, openGLHandlers[offsetOfVertexBuffers + i]);
+
+			float[] vertexData = builder().vertexData(i);
+			int size = vertexData.length * Float.BYTES;
+
+			FloatBuffer vertexBuffer = GLBuffers.newDirectFloatBuffer(vertexData);
+			gl3.glBufferData(GL3.GL_ARRAY_BUFFER, size, vertexBuffer, GL3.GL_STATIC_DRAW);
+			BufferUtils.destroyDirectBuffer(vertexBuffer);
+
+			gl3.glBindBuffer(GL3.GL_ARRAY_BUFFER, 0);
+		}
+
+		OpenGLErrorUtil.checkError(gl3, "createVertexBuffers");
+	}
+
+	private void createIndexBuffers(GL3 gl3) {
+		gl3.glGenBuffers(numberOfIndexBuffers, openGLHandlers, offsetOfIndexBuffers);
+		for(int i = 0; i < numberOfIndexBuffers; i++) {
+			gl3.glBindBuffer(GL3.GL_ELEMENT_ARRAY_BUFFER, openGLHandlers[offsetOfIndexBuffers + i]);
+
+			short[] indexData = builder().indexData(i);
 			int size = indexData.length * Short.BYTES;
+
+			ShortBuffer indexBuffer = GLBuffers.newDirectShortBuffer(indexData);
 			gl3.glBufferData(GL3.GL_ELEMENT_ARRAY_BUFFER, size, indexBuffer, GL3.GL_STATIC_DRAW);
 			BufferUtils.destroyDirectBuffer(indexBuffer);
-		}
-		gl3.glBindBuffer(GL3.GL_ELEMENT_ARRAY_BUFFER, 0);
 
-		checkError(gl3, "initIbo");
+			gl3.glBindBuffer(GL3.GL_ELEMENT_ARRAY_BUFFER, 0);
+		}
+
+		OpenGLErrorUtil.checkError(gl3, "createIndexBuffers");
 	}
 
-	private void initVao(GL3 gl3) {
-		/**
-		 * Let's create the VAO and save in it all the attributes properties.
-		 */
-		gl3.glGenVertexArrays(1, objects, Semantic.Object.VAO);
-		gl3.glBindVertexArray(objects[Semantic.Object.VAO]);
-		{
-			/**
-			 * Ibo is part of the VAO, so we need to bind it and leave it bound.
-			 */
-			gl3.glBindBuffer(GL3.GL_ELEMENT_ARRAY_BUFFER, objects[Semantic.Object.IBO]);
-			{
-				/**
-				 * VBO is not part of VAO, we need it to bind it only when we
-				 * call glEnableVertexAttribArray and glVertexAttribPointer, so
-				 * that VAO knows which VBO the attributes refer to, then we can
-				 * unbind it.
-				 */
-				gl3.glBindBuffer(GL3.GL_ARRAY_BUFFER, objects[Semantic.Object.VBO]);
-				{
-					int stride = (2 + 2) * Float.BYTES;
-					/**
-					 * We draw in 2D on the xy plane, so we need just two
-					 * coordinates for the position, it will be padded to vec4
-					 * as (x, y, 0, 1) in the vertex shader.
-					 */
-					gl3.glEnableVertexAttribArray(Semantic.Attr.POSITION);
-					gl3.glVertexAttribPointer(Semantic.Attr.POSITION, 2, GL3.GL_FLOAT,
-							false, stride, 0 * Float.BYTES);
-					/**
-					 * 2D Texture coordinates.
-					 */
-					gl3.glEnableVertexAttribArray(Semantic.Attr.TEXCOORD);
-					gl3.glVertexAttribPointer(Semantic.Attr.TEXCOORD, 2, GL3.GL_FLOAT,
-							false, stride, 2 * Float.BYTES);
-				}
-				gl3.glBindBuffer(GL3.GL_ARRAY_BUFFER, 0);
-			}
-		}
-		gl3.glBindVertexArray(0);
+	private void createVertexArrays(GL3 gl3) {
+		int stride = (2 + 2) * Float.BYTES;
 
-		OpenGLErrorUtil.checkError(gl3, "initVao");
+		gl3.glGenVertexArrays(numberOfVertexArrays, openGLHandlers, offsetOfVertexArrays);
+		for(int i = 0; i < numberOfVertexArrays; i++) {
+			gl3.glBindVertexArray(openGLHandlers[offsetOfVertexArrays + i]);
+			gl3.glBindBuffer(GL3.GL_ELEMENT_ARRAY_BUFFER, openGLHandlers[offsetOfIndexBuffers + i]);
+
+			gl3.glBindBuffer(GL3.GL_ARRAY_BUFFER, openGLHandlers[offsetOfVertexBuffers + i]);
+
+			// TODO csega: remove outer reference to Attr
+			gl3.glEnableVertexAttribArray(Semantic.Attr.POSITION);
+			gl3.glVertexAttribPointer(Semantic.Attr.POSITION, 2, GL3.GL_FLOAT,
+					false, stride, 0 * Float.BYTES);
+
+			gl3.glEnableVertexAttribArray(Semantic.Attr.TEXCOORD);
+			gl3.glVertexAttribPointer(Semantic.Attr.TEXCOORD, 2, GL3.GL_FLOAT,
+					false, stride, 2 * Float.BYTES);
+
+			gl3.glBindBuffer(GL3.GL_ARRAY_BUFFER, 0);
+
+			gl3.glBindVertexArray(0);
+		}
+
+		OpenGLErrorUtil.checkError(gl3, "createVertexArrays");
 	}
 
 	private static final Logger logger = LoggerFactory.createLogger(OpenGLModelContainer.class);

@@ -34,6 +34,9 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 	private boolean programInitialized = false;
 	private int[] programHandlers = new int[2];
 
+	private int modelToClipMatrixUL;
+	private float[] rotation = new float[3];
+
 	private static final String SHADERS_ROOT = "res/example";
 
 	private static final int SAMPLER_INDEX = 0;
@@ -105,14 +108,21 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 
 	@Override
 	public GameObjectHandler loadTexture(String filename) {
-		GameObjectHandler handler = nextHandler(GameObjectType.TEXTURE);
-		handlers.put(filename, handler);
+		GameObjectHandler handler = handlers.get(filename);
 
-		OpenGLObjectContainer container = new OpenGLTextureContainer(filename);
-		containers.put(handler, container);
+		if(handler == null) {
+			handler = nextHandler(GameObjectType.TEXTURE);
+			handlers.put(filename, handler);
 
-		toInitialize.add(handler);
-		dirty = true;
+			OpenGLObjectContainer container = containers.get(handler);
+			if(container == null) {
+				container = new OpenGLTextureContainer(filename);
+				containers.put(handler, container);
+				toInitialize.add(handler);
+				dirty = true;
+			}
+		}
+
 		return handler;
 	}
 
@@ -122,7 +132,9 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 		GameObjectHandler handler = nextHandler(GameObjectType.MODEL);
 		handlers.put(filename, handler);
 
-		OpenGLObjectContainer container = new OpenGLCustomModelContainer(filename, builder);
+		OpenGLModelBuilder modelBuilder = new OpenGLModelBuilder(builder, this);
+
+		OpenGLObjectContainer container = new OpenGLCustomModelContainer(filename, modelBuilder);
 		containers.put(handler, container);
 
 		toInitialize.add(handler);
@@ -154,6 +166,16 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 		disposeAllWhenPossible = true;
 	}
 
+	public int resolveTexture(GameObjectHandler textureReference) {
+		OpenGLTextureContainer texture = (OpenGLTextureContainer)containers.get(textureReference);
+		return texture.getTextureHandler();
+	}
+
+	public OpenGLModelContainer resolveModel(GameObjectHandler modelReference) {
+		OpenGLModelContainer model = (OpenGLModelContainer)containers.get(modelReference);
+		return model;
+	}
+
 	private boolean disposeEnqueued() {
 		return disposeAllWhenPossible || !toDispose.isEmpty();
 	}
@@ -169,6 +191,7 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 			containers.clear();
 			handlers.clear();
 			disposeAllWhenPossible = false;
+
 		} else {
 			for(Entry<String, GameObjectHandler> entry : toDispose.entrySet()) {
 				String filename = entry.getKey();
@@ -217,9 +240,10 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 	        gl3.glBindAttribLocation(program, Semantic.Attr.TEXCOORD, "texCoord");
 	        gl3.glBindFragDataLocation(program, Semantic.Frag.COLOR, "outputColor");
 
-	        shaderProgram.link(gl3, System.out); // TODO csega: attach logger
+	        shaderProgram.link(gl3, new OpenGLProgramLogger(new OpenGLLogStream()));
+	        modelToClipMatrixUL = gl3.glGetUniformLocation(program, "modelToClipMatrix");
 
-	        int modelToClipMatrixUL = gl3.glGetUniformLocation(program, "modelToClipMatrix");
+	        // TODO: why is texture here
 	        int texture0UL = gl3.glGetUniformLocation(program, "texture0");
 
 	        vertShader.destroy(gl3);
@@ -261,6 +285,10 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
         gl3.glClear(GL3.GL_COLOR_BUFFER_BIT | GL3.GL_DEPTH_BUFFER_BIT);
 
         gl3.glUseProgram(programHandlers[PROGRAM_INDEX]);
+
+        gl3.glUniformMatrix4fv(modelToClipMatrixUL, 1, false, rotation, 0);
+        gl3.glBindSampler(OpenGLSampler.DIFFUSE, programHandlers[SAMPLER_INDEX]);
+		gl3.glActiveTexture(GL3.GL_TEXTURE0 + OpenGLSampler.DIFFUSE);
 	}
 
 	public void endFrame(GLAutoDrawable glAutodrawable) {
@@ -268,8 +296,9 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 			return;
 
 		GL3 gl3 = glAutodrawable.getGL().getGL3();
+        gl3.glBindSampler(OpenGLSampler.DIFFUSE, 0);
         gl3.glUseProgram(0);
-        OpenGLErrorUtil.checkError(gl3, "display");
+        OpenGLErrorUtil.checkError(gl3, "endFrame");
 	}
 
 	private GameObjectHandler nextHandler(GameObjectType type) {

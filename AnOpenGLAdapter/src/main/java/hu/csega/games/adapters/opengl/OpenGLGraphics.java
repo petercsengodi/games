@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 
 import com.jogamp.opengl.GLAutoDrawable;
 
+import hu.csega.games.adapters.opengl.models.OpenGLModelContainer;
 import hu.csega.games.adapters.opengl.models.OpenGLModelStoreImpl;
 import hu.csega.games.engine.GameGraphics;
 import hu.csega.games.engine.g2d.GameColor;
@@ -88,7 +89,8 @@ public class OpenGLGraphics implements GameGraphics {
 
 	@Override
 	public void drawModel(GameObjectHandler modelReference, GameObjectLocation modelLocation) {
-
+		OpenGLModelContainer resolvedModel = store.resolveModel(modelReference);
+		resolvedModel.draw(glAutodrawable);
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package hu.csega.game.rush.engine;
 
 import hu.csega.games.engine.GameGraphics;
 import hu.csega.games.engine.GameRendering;
+import hu.csega.games.engine.g3d.GameObjectHandler;
 
 public class RushGameRendering implements GameRendering {
 
@@ -11,6 +12,8 @@ public class RushGameRendering implements GameRendering {
 
 	@Override
 	public void render(GameGraphics g) {
+
+		g.drawModel(model, null);
 
 //		GameColor red = new GameColor(255, 0, 0);
 //		GameColor green = new GameColor(0, 255, 0);
@@ -49,4 +52,10 @@ public class RushGameRendering implements GameRendering {
 	public RushGameField universe;
 
 	private RushGameRenderingOptions options;
+
+	public void setModel(GameObjectHandler model) {
+		this.model = model;
+	}
+
+	private GameObjectHandler model;
 }
