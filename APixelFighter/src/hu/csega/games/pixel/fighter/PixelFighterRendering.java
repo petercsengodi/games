@@ -2,8 +2,8 @@ package hu.csega.games.pixel.fighter;
 
 import java.awt.image.BufferedImage;
 
+import hu.csega.games.engine.GameGraphics;
 import hu.csega.games.engine.GameRendering;
-import hu.csega.games.engine.g2d.GameGraphics;
 import hu.csega.games.engine.g2d.GameObject;
 import hu.csega.games.engine.g2d.GamePoint;
 import hu.csega.games.pixel.fighter.pix.PixelFighterSprites;

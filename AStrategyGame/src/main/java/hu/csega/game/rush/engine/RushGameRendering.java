@@ -1,7 +1,7 @@
 package hu.csega.game.rush.engine;
 
+import hu.csega.games.engine.GameGraphics;
 import hu.csega.games.engine.GameRendering;
-import hu.csega.games.engine.g2d.GameGraphics;
 
 public class RushGameRendering implements GameRendering {
 

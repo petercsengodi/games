@@ -5,11 +5,11 @@ import hu.csega.games.engine.GameAdapter;
 import hu.csega.games.engine.GameControl;
 import hu.csega.games.engine.GameDescriptor;
 import hu.csega.games.engine.GameEngine;
+import hu.csega.games.engine.GameGraphics;
 import hu.csega.games.engine.GameImplementation;
 import hu.csega.games.engine.GamePhysics;
 import hu.csega.games.engine.GameRendering;
 import hu.csega.games.engine.g2d.GameColor;
-import hu.csega.games.engine.g2d.GameGraphics;
 import hu.csega.games.engine.g2d.GamePoint;
 
 public class RandomGeneAndGenerate implements GameImplementation, GamePhysics, GameRendering {
