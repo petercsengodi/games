@@ -12,6 +12,9 @@ import hu.csega.games.engine.g3d.GameObjectLocation;
 
 public interface GameGraphics {
 
+	int screenWidth();
+	int screenHeight();
+
 	void rotate(double angle);
 	void translate(double tx, double ty);
 

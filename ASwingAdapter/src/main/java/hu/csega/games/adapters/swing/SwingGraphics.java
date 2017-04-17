@@ -21,9 +21,23 @@ public class SwingGraphics implements GameGraphics {
 	private int[] yPoints = new int[3];
 
 	private Graphics2D g;
+	private int width;
+	private int height;
 
-	public SwingGraphics(Graphics2D g2d) {
+	public SwingGraphics(Graphics2D g2d, int width, int height) {
 		this.g = g2d;
+		this.width = width;
+		this.height = height;
+	}
+
+	@Override
+	public int screenWidth() {
+		return width;
+	}
+
+	@Override
+	public int screenHeight() {
+		return height;
 	}
 
 	@Override

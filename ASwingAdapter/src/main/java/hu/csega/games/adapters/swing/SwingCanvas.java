@@ -40,9 +40,16 @@ public class SwingCanvas extends JPanel implements GameCanvas, MouseListener, Mo
 
 	@Override
 	public void paint(Graphics g) {
+		Dimension size = getSize();
+		if(buffer == null || !lastSize.equals(size)) {
+			buffer = new BufferedImage(size.width, size.height, BufferedImage.TYPE_INT_RGB);
+			lastSize.width = size.width;
+			lastSize.height = size.height;
+		}
+
 		Graphics2D g2d = (Graphics2D)buffer.getGraphics();
 		g2d.setColor(Color.LIGHT_GRAY);
-		g2d.fillRect(0, 0, PREFERRED_SIZE.width, PREFERRED_SIZE.height);
+		g2d.fillRect(0, 0, lastSize.width, lastSize.height);
 		g2d.setColor(Color.black);
 
 		paint2d(g2d);
@@ -51,12 +58,12 @@ public class SwingCanvas extends JPanel implements GameCanvas, MouseListener, Mo
 	}
 
 	private void paint2d(Graphics2D g) {
-		g.translate(PREFERRED_SIZE.width / 2, PREFERRED_SIZE.height / 2);
+		g.translate(lastSize.width / 2, lastSize.height / 2);
 
-		SwingGraphics graphics = new SwingGraphics(g);
+		SwingGraphics graphics = new SwingGraphics(g, lastSize.width, lastSize.height);
 		rendering.render(graphics);
 
-		g.translate(-PREFERRED_SIZE.width / 2, -PREFERRED_SIZE.height / 2);
+		g.translate(-lastSize.width / 2, -lastSize.height / 2);
 	}
 
 	@Override
@@ -124,7 +131,9 @@ public class SwingCanvas extends JPanel implements GameCanvas, MouseListener, Mo
 	private GameEngine gameEngine;
 	private GameRendering rendering;
 
-	private BufferedImage buffer = new BufferedImage(PREFERRED_SIZE.width, PREFERRED_SIZE.height, BufferedImage.TYPE_INT_RGB);
+	private BufferedImage buffer = null;
+	private Dimension lastSize = new Dimension(PREFERRED_SIZE.width, PREFERRED_SIZE.height);
+
 	private boolean mouseLeftPressed = false;
 	private boolean mouseRightPressed = false;
 	private Point mouseLeftAt = new Point(0, 0);

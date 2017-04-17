@@ -2,6 +2,8 @@ package hu.csega.games.adapters.opengl;
 
 import java.awt.image.BufferedImage;
 
+import com.jogamp.opengl.GLAutoDrawable;
+
 import hu.csega.games.engine.GameGraphics;
 import hu.csega.games.engine.g2d.GameColor;
 import hu.csega.games.engine.g2d.GameHitShape;
@@ -12,6 +14,26 @@ import hu.csega.games.engine.g3d.GameObjectHandler;
 import hu.csega.games.engine.g3d.GameObjectLocation;
 
 public class OpenGLGraphics implements GameGraphics {
+
+	private GLAutoDrawable glAutodrawable;
+	private int width;
+	private int height;
+
+	public void setAutoDrawable(GLAutoDrawable glAutodrawable, int surfaceWidth, int surfaceHeight) {
+		this.glAutodrawable = glAutodrawable;
+		this.width = surfaceWidth;
+		this.height = surfaceHeight;
+	}
+
+	@Override
+	public int screenWidth() {
+		return width;
+	}
+
+	@Override
+	public int screenHeight() {
+		return height;
+	}
 
 	@Override
 	public void rotate(double angle) {

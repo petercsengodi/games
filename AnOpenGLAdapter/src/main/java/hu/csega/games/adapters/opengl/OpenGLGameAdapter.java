@@ -23,10 +23,12 @@ public class OpenGLGameAdapter implements GameAdapter {
 	}
 
 	@Override
-	public GameCanvas createCanvas(GameEngine engine) {
+	public GameCanvas createCanvas(final GameEngine engine) {
         GLProfile glProfile = GLProfile.getDefault();
         GLCapabilities glCapabilities = new GLCapabilities( glProfile );
         final GLCanvas glCanvas = new GLCanvas( glCapabilities );
+
+        final OpenGLGraphics graphics = new OpenGLGraphics();
 
         glCanvas.addGLEventListener( new GLEventListener() {
 
@@ -45,7 +47,8 @@ public class OpenGLGameAdapter implements GameAdapter {
 
             @Override
             public void display( GLAutoDrawable glAutodrawable ) {
-                // OneTriangle.render( glautodrawable.getGL().getGL2(), glautodrawable.getSurfaceWidth(), glautodrawable.getSurfaceHeight() );
+            	graphics.setAutoDrawable(glAutodrawable, glAutodrawable.getSurfaceWidth(), glAutodrawable.getSurfaceHeight());
+            	engine.getRendering().render(graphics);
             }
         });
 
