@@ -43,7 +43,7 @@ import com.jogamp.opengl.util.glsl.ShaderProgram;
 import com.jogamp.opengl.util.texture.TextureData;
 import com.jogamp.opengl.util.texture.TextureIO;
 
-import hu.csega.games.adapters.opengl.BufferUtils;
+import hu.csega.games.adapters.opengl.utils.BufferUtils;
 import hu.csega.games.engine.env.Disposable;
 import hu.csega.games.engine.env.Environment;
 import hu.csega.toolshed.logging.Logger;

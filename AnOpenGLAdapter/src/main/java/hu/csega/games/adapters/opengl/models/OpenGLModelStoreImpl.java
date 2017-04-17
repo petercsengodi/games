@@ -14,7 +14,12 @@ import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.util.glsl.ShaderCode;
 import com.jogamp.opengl.util.glsl.ShaderProgram;
 
-import gl3.helloTexture.Semantic;
+import hu.csega.games.adapters.opengl.consts.OpenGLAttribute;
+import hu.csega.games.adapters.opengl.consts.OpenGLFragment;
+import hu.csega.games.adapters.opengl.consts.OpenGLSampler;
+import hu.csega.games.adapters.opengl.utils.OpenGLErrorUtil;
+import hu.csega.games.adapters.opengl.utils.OpenGLLogStream;
+import hu.csega.games.adapters.opengl.utils.OpenGLProgramLogger;
 import hu.csega.games.engine.g3d.GameModelBuilder;
 import hu.csega.games.engine.g3d.GameObjectHandler;
 import hu.csega.games.engine.g3d.GameObjectType;
@@ -35,7 +40,6 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 	private int[] programHandlers = new int[2];
 
 	private int modelToClipMatrixUL;
-	private float[] rotation = new float[] { 1f, 0f, 0f };
 
 	private static final String SHADERS_ROOT = "res/example";
 
@@ -236,9 +240,10 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 	        int program = shaderProgram.program();
 			programHandlers[PROGRAM_INDEX] = program;
 
-	        gl3.glBindAttribLocation(program, Semantic.Attr.POSITION, "position");
-	        gl3.glBindAttribLocation(program, Semantic.Attr.TEXCOORD, "texCoord");
-	        gl3.glBindFragDataLocation(program, Semantic.Frag.COLOR, "outputColor");
+			// TODO removing outer reference to Semantic
+	        gl3.glBindAttribLocation(program, OpenGLAttribute.POSITION, "position");
+	        gl3.glBindAttribLocation(program, OpenGLAttribute.TEXCOORD, "texCoord");
+	        gl3.glBindFragDataLocation(program, OpenGLFragment.COLOR, "outputColor");
 
 	        shaderProgram.link(gl3, new OpenGLProgramLogger(new OpenGLLogStream()));
 	        modelToClipMatrixUL = gl3.glGetUniformLocation(program, "modelToClipMatrix");
@@ -250,7 +255,7 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 	        fragShader.destroy(gl3);
 
 	        gl3.glUseProgram(program);
-            gl3.glUniform1i(texture0UL, Semantic.Sampler.DIFFUSE);
+            gl3.glUniform1i(texture0UL, OpenGLSampler.DIFFUSE);
 	        gl3.glUseProgram(0);
 
 	        OpenGLErrorUtil.checkError(gl3, "initProgram");

@@ -1,4 +1,4 @@
-package hu.csega.games.adapters.opengl.models;
+package hu.csega.games.adapters.opengl.consts;
 
 public class OpenGLSampler {
 

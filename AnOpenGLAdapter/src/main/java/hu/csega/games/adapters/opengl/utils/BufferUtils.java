@@ -29,7 +29,7 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package hu.csega.games.adapters.opengl;
+package hu.csega.games.adapters.opengl.utils;
 
 import java.lang.ref.PhantomReference;
 import java.lang.ref.Reference;

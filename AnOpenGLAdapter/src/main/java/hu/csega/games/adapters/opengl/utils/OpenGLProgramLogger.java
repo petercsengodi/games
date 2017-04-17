@@ -1,7 +1,8 @@
-package hu.csega.games.adapters.opengl.models;
+package hu.csega.games.adapters.opengl.utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 

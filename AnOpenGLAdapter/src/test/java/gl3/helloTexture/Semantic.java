@@ -9,7 +9,7 @@ package gl3.helloTexture;
  *
  * @author gbarbieri
  */
-public class Semantic {
+class Semantic {
 
     public static class Attr {
 

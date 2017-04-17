@@ -1,4 +1,4 @@
-package hu.csega.games.adapters.opengl.models;
+package hu.csega.games.adapters.opengl.utils;
 
 import static com.jogamp.opengl.GL.GL_INVALID_ENUM;
 import static com.jogamp.opengl.GL.GL_INVALID_FRAMEBUFFER_OPERATION;

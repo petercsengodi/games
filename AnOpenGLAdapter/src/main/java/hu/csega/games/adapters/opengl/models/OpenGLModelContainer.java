@@ -8,8 +8,10 @@ import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.math.FloatUtil;
 import com.jogamp.opengl.util.GLBuffers;
 
-import gl3.helloTexture.Semantic;
-import hu.csega.games.adapters.opengl.BufferUtils;
+import hu.csega.games.adapters.opengl.consts.OpenGLAttribute;
+import hu.csega.games.adapters.opengl.consts.OpenGLSampler;
+import hu.csega.games.adapters.opengl.utils.BufferUtils;
+import hu.csega.games.adapters.opengl.utils.OpenGLErrorUtil;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
@@ -164,13 +166,12 @@ public abstract class OpenGLModelContainer implements OpenGLObjectContainer {
 
 			gl3.glBindBuffer(GL3.GL_ARRAY_BUFFER, openGLHandlers[offsetOfVertexBuffers + i]);
 
-			// TODO csega: remove outer reference to Attr
-			gl3.glEnableVertexAttribArray(Semantic.Attr.POSITION);
-			gl3.glVertexAttribPointer(Semantic.Attr.POSITION, 2, GL3.GL_FLOAT,
+			gl3.glEnableVertexAttribArray(OpenGLAttribute.POSITION);
+			gl3.glVertexAttribPointer(OpenGLAttribute.POSITION, 2, GL3.GL_FLOAT,
 					false, stride, 0 * Float.BYTES);
 
-			gl3.glEnableVertexAttribArray(Semantic.Attr.TEXCOORD);
-			gl3.glVertexAttribPointer(Semantic.Attr.TEXCOORD, 2, GL3.GL_FLOAT,
+			gl3.glEnableVertexAttribArray(OpenGLAttribute.TEXCOORD);
+			gl3.glVertexAttribPointer(OpenGLAttribute.TEXCOORD, 2, GL3.GL_FLOAT,
 					false, stride, 2 * Float.BYTES);
 
 			gl3.glBindBuffer(GL3.GL_ARRAY_BUFFER, 0);
