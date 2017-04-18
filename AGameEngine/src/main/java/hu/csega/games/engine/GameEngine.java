@@ -62,6 +62,10 @@ public class GameEngine implements Disposable {
 		return store;
 	}
 
+	public GameWindow getWindow() {
+		return window;
+	}
+
 	@Override
 	public void dispose() {
 		if(canvas != null)

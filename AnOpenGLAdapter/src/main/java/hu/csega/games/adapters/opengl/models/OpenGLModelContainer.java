@@ -92,10 +92,12 @@ public abstract class OpenGLModelContainer implements OpenGLObjectContainer {
 
 		initialized = false;
 		logger.trace("Disposed model: " + filename);
+
+		OpenGLErrorUtil.checkError(gl3, "OpenGLModelContainer.dispose");
 	}
 
 	public void draw(GLAutoDrawable glAutodrawable) {
-	    float[] zRotation = new float[16];
+		float[] zRotation = new float[16];
 		zRotation = FloatUtil.makeRotationEuler(zRotation, 0, 0, 0, 0 /* diff */);
 
 		GL3 gl3 = glAutodrawable.getGL().getGL3();
@@ -106,8 +108,8 @@ public abstract class OpenGLModelContainer implements OpenGLObjectContainer {
 			int textureIndex = builder().textureIndex(i);
 			int indexLength = builder().indexLength(i);
 
-	        gl3.glUniformMatrix4fv(store.modelToClipMatrix(), 1, false, zRotation, 0);
-	        gl3.glBindSampler(OpenGLSampler.DIFFUSE, store.samplerIndex());
+			gl3.glUniformMatrix4fv(store.modelToClipMatrix(), 1, false, zRotation, 0);
+			// gl3.glBindSampler(OpenGLSampler.DIFFUSE, store.samplerIndex()); // TODO csega: why is this a problem?
 			gl3.glActiveTexture(GL3.GL_TEXTURE0 + OpenGLSampler.DIFFUSE);
 			gl3.glBindTexture(GL3.GL_TEXTURE_2D, textureIndex);
 
@@ -116,6 +118,8 @@ public abstract class OpenGLModelContainer implements OpenGLObjectContainer {
 			gl3.glBindTexture(GL3.GL_TEXTURE_2D, 0);
 			gl3.glBindVertexArray(0);
 		}
+
+		OpenGLErrorUtil.checkError(gl3, "OpenGLModelContainer.draw");
 	}
 
 	protected abstract OpenGLModelBuilder builder();
@@ -135,7 +139,7 @@ public abstract class OpenGLModelContainer implements OpenGLObjectContainer {
 			gl3.glBindBuffer(GL3.GL_ARRAY_BUFFER, 0);
 		}
 
-		OpenGLErrorUtil.checkError(gl3, "createVertexBuffers");
+		OpenGLErrorUtil.checkError(gl3, "OpenGLModelContainer.createVertexBuffers");
 	}
 
 	private void createIndexBuffers(GL3 gl3) {
@@ -153,7 +157,7 @@ public abstract class OpenGLModelContainer implements OpenGLObjectContainer {
 			gl3.glBindBuffer(GL3.GL_ELEMENT_ARRAY_BUFFER, 0);
 		}
 
-		OpenGLErrorUtil.checkError(gl3, "createIndexBuffers");
+		OpenGLErrorUtil.checkError(gl3, "OpenGLModelContainer.createIndexBuffers");
 	}
 
 	private void createVertexArrays(GL3 gl3) {
@@ -183,7 +187,7 @@ public abstract class OpenGLModelContainer implements OpenGLObjectContainer {
 			gl3.glBindVertexArray(0);
 		}
 
-		OpenGLErrorUtil.checkError(gl3, "createVertexArrays");
+		OpenGLErrorUtil.checkError(gl3, "OpenGLModelContainer.createVertexArrays");
 	}
 
 	private static final Logger logger = LoggerFactory.createLogger(OpenGLModelContainer.class);

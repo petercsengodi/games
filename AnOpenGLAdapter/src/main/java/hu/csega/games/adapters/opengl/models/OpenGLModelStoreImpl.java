@@ -53,7 +53,7 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 			disposeEnqueuedObjects(glAutodrawable);
 
 		GL3 gl3 = glAutodrawable.getGL().getGL3();
-        gl3.glViewport(0, 0, width, height);
+		gl3.glViewport(0, 0, width, height);
 	}
 
 	@Override
@@ -214,50 +214,50 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 
 			GL3 gl3 = glAutodrawable.getGL().getGL3();
 
-	        gl3.glGenSamplers(1, programHandlers, SAMPLER_INDEX);
-	        int samplerHandler = programHandlers[SAMPLER_INDEX];
-	        gl3.glSamplerParameteri(samplerHandler, GL3.GL_TEXTURE_MAG_FILTER, GL3.GL_NEAREST);
-	        gl3.glSamplerParameteri(samplerHandler, GL3.GL_TEXTURE_MIN_FILTER, GL3.GL_NEAREST);
-	        gl3.glSamplerParameteri(samplerHandler, GL3.GL_TEXTURE_WRAP_S, GL3.GL_CLAMP_TO_EDGE);
-	        gl3.glSamplerParameteri(samplerHandler, GL3.GL_TEXTURE_WRAP_T, GL3.GL_CLAMP_TO_EDGE);
+			gl3.glGenSamplers(1, programHandlers, SAMPLER_INDEX);
+			int samplerHandler = programHandlers[SAMPLER_INDEX];
+			gl3.glSamplerParameteri(samplerHandler, GL3.GL_TEXTURE_MAG_FILTER, GL3.GL_NEAREST);
+			gl3.glSamplerParameteri(samplerHandler, GL3.GL_TEXTURE_MIN_FILTER, GL3.GL_NEAREST);
+			gl3.glSamplerParameteri(samplerHandler, GL3.GL_TEXTURE_WRAP_S, GL3.GL_CLAMP_TO_EDGE);
+			gl3.glSamplerParameteri(samplerHandler, GL3.GL_TEXTURE_WRAP_T, GL3.GL_CLAMP_TO_EDGE);
 
-	        ShaderCode vertShader = ShaderCode.create(gl3, GL_VERTEX_SHADER, this.getClass(),
-	                SHADERS_ROOT, null, "vs", "glsl", null, true);
-	        ShaderCode fragShader = ShaderCode.create(gl3, GL_FRAGMENT_SHADER, this.getClass(),
-	                SHADERS_ROOT, null, "fs", "glsl", null, true);
+			ShaderCode vertShader = ShaderCode.create(gl3, GL_VERTEX_SHADER, this.getClass(),
+					SHADERS_ROOT, null, "vs", "glsl", null, true);
+			ShaderCode fragShader = ShaderCode.create(gl3, GL_FRAGMENT_SHADER, this.getClass(),
+					SHADERS_ROOT, null, "fs", "glsl", null, true);
 
-	        ShaderProgram shaderProgram = new ShaderProgram();
-	        shaderProgram.add(vertShader);
-	        shaderProgram.add(fragShader);
+			ShaderProgram shaderProgram = new ShaderProgram();
+			shaderProgram.add(vertShader);
+			shaderProgram.add(fragShader);
 
-	        shaderProgram.init(gl3);
+			shaderProgram.init(gl3);
 
-	        int program = shaderProgram.program();
+			int program = shaderProgram.program();
 			programHandlers[PROGRAM_INDEX] = program;
 
-	        gl3.glBindAttribLocation(program, OpenGLAttribute.POSITION, "position");
-	        gl3.glBindAttribLocation(program, OpenGLAttribute.NORMAL, "normalVector");
-	        gl3.glBindAttribLocation(program, OpenGLAttribute.TEXCOORD, "texCoord");
-	        gl3.glBindFragDataLocation(program, OpenGLFragment.COLOR, "outputColor");
+			gl3.glBindAttribLocation(program, OpenGLAttribute.POSITION, "position");
+			gl3.glBindAttribLocation(program, OpenGLAttribute.NORMAL, "normalVector");
+			gl3.glBindAttribLocation(program, OpenGLAttribute.TEXCOORD, "texCoord");
+			gl3.glBindFragDataLocation(program, OpenGLFragment.COLOR, "outputColor");
 
-	        shaderProgram.link(gl3, new OpenGLProgramLogger(new OpenGLLogStream()));
-	        modelToClipMatrixUL = gl3.glGetUniformLocation(program, "modelToClipMatrix");
+			shaderProgram.link(gl3, new OpenGLProgramLogger(new OpenGLLogStream()));
+			modelToClipMatrixUL = gl3.glGetUniformLocation(program, "modelToClipMatrix");
 
-	        // TODO: why is texture here
-	        int texture0UL = gl3.glGetUniformLocation(program, "texture0");
+			// TODO: why is texture here
+			int texture0UL = gl3.glGetUniformLocation(program, "texture0");
 
-	        vertShader.destroy(gl3);
-	        fragShader.destroy(gl3);
+			vertShader.destroy(gl3);
+			fragShader.destroy(gl3);
 
-	        gl3.glUseProgram(program);
-            gl3.glUniform1i(texture0UL, OpenGLSampler.DIFFUSE);
-	        gl3.glUseProgram(0);
+			gl3.glUseProgram(program);
+			gl3.glUniform1i(texture0UL, OpenGLSampler.DIFFUSE);
+			gl3.glUseProgram(0);
 
-	        OpenGLErrorUtil.checkError(gl3, "initProgram");
+			gl3.glEnable(GL3.GL_DEPTH_TEST);
 
-	        gl3.glEnable(GL3.GL_DEPTH_TEST);
+			OpenGLErrorUtil.checkError(gl3, "ensureOpenGLProgramIsInitialized");
 
-	        programInitialized = true;
+			programInitialized = true;
 			logger.info("Initialized program.");
 		}
 	}
@@ -268,8 +268,9 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 
 			GL3 gl3 = glAutodrawable.getGL().getGL3();
 			gl3.glDeleteProgram(programHandlers[PROGRAM_INDEX]);
-			programInitialized = false;
+			OpenGLErrorUtil.checkError(gl3, "disposeOpenGLProgram");
 
+			programInitialized = false;
 			logger.info("Released program.");
 		}
 	}
@@ -280,11 +281,12 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 
 		GL3 gl3 = glAutodrawable.getGL().getGL3();
 
-        gl3.glClearColor(0f, .33f, 0.66f, 1f);
-        gl3.glClearDepthf(1f);
-        gl3.glClear(GL3.GL_COLOR_BUFFER_BIT | GL3.GL_DEPTH_BUFFER_BIT);
+		gl3.glClearColor(0f, .33f, 0.66f, 1f);
+		gl3.glClearDepthf(1f);
+		gl3.glClear(GL3.GL_COLOR_BUFFER_BIT | GL3.GL_DEPTH_BUFFER_BIT);
 
-        gl3.glUseProgram(programHandlers[PROGRAM_INDEX]);
+		gl3.glUseProgram(programHandlers[PROGRAM_INDEX]);
+		OpenGLErrorUtil.checkError(gl3, "startFrame");
 	}
 
 	public void endFrame(GLAutoDrawable glAutodrawable) {
@@ -292,9 +294,9 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 			return;
 
 		GL3 gl3 = glAutodrawable.getGL().getGL3();
-        gl3.glBindSampler(OpenGLSampler.DIFFUSE, 0);
-        gl3.glUseProgram(0);
-        OpenGLErrorUtil.checkError(gl3, "endFrame");
+		gl3.glBindSampler(OpenGLSampler.DIFFUSE, 0);
+		gl3.glUseProgram(0);
+		OpenGLErrorUtil.checkError(gl3, "endFrame");
 	}
 
 	public int samplerIndex() {

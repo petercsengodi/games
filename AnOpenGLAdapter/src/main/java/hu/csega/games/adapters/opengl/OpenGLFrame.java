@@ -54,6 +54,11 @@ public class OpenGLFrame extends JFrame implements GameWindow, WindowListener, K
 	}
 
 	@Override
+	public void closeWindow() {
+		setVisible(false);
+	}
+
+	@Override
 	public void windowOpened(WindowEvent e) {
 	}
 

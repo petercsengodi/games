@@ -20,24 +20,24 @@ public class OpenGLErrorUtil {
 		if (error != GL_NO_ERROR) {
 			String errorString;
 			switch (error) {
-				case GL_INVALID_ENUM:
-					errorString = "GL_INVALID_ENUM";
-					break;
-				case GL_INVALID_VALUE:
-					errorString = "GL_INVALID_VALUE";
-					break;
-				case GL_INVALID_OPERATION:
-					errorString = "GL_INVALID_OPERATION";
-					break;
-				case GL_INVALID_FRAMEBUFFER_OPERATION:
-					errorString = "GL_INVALID_FRAMEBUFFER_OPERATION";
-					break;
-				case GL_OUT_OF_MEMORY:
-					errorString = "GL_OUT_OF_MEMORY";
-					break;
-				default:
-					errorString = "UNKNOWN";
-					break;
+			case GL_INVALID_ENUM:
+				errorString = "GL_INVALID_ENUM";
+				break;
+			case GL_INVALID_VALUE:
+				errorString = "GL_INVALID_VALUE";
+				break;
+			case GL_INVALID_OPERATION:
+				errorString = "GL_INVALID_OPERATION";
+				break;
+			case GL_INVALID_FRAMEBUFFER_OPERATION:
+				errorString = "GL_INVALID_FRAMEBUFFER_OPERATION";
+				break;
+			case GL_OUT_OF_MEMORY:
+				errorString = "GL_OUT_OF_MEMORY";
+				break;
+			default:
+				errorString = "UNKNOWN";
+				break;
 			}
 
 			String msg = "OpenGL Error(" + errorString + "): " + title;

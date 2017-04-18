@@ -31,8 +31,8 @@ public class RushGameWindowWrapper implements GameWindow {
 		if(canvas instanceof OpenGLCanvas)
 			component = ((OpenGLCanvas)canvas).getRealCanvas();
 
-//		if(canvas instanceof SwingCanvas)
-//			component = ((SwingCanvas)canvas).getRealCanvas();
+		//		if(canvas instanceof SwingCanvas)
+		//			component = ((SwingCanvas)canvas).getRealCanvas();
 
 		if(component != null)
 			toolWindow.addComponent(component);
@@ -40,6 +40,11 @@ public class RushGameWindowWrapper implements GameWindow {
 
 	@Override
 	public void showWindow() {
+	}
+
+	@Override
+	public void closeWindow() {
+		toolWindow.getAwtWindow().setVisible(false);
 	}
 
 }
