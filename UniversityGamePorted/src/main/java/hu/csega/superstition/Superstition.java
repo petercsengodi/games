@@ -1,16 +1,13 @@
 package hu.csega.superstition;
 
-import java.io.OutputStreamWriter;
-
-import org.apache.log4j.ConsoleAppender;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PatternLayout;
-
 import hu.csega.games.engine.env.EnvironmentImpl;
 import hu.csega.games.engine.env.GameEngineException;
 import hu.csega.superstition.engine.Phase;
 import hu.csega.superstition.engines.connector.Connector;
-import hu.csega.superstition.engines.opengl.ExampleConnector;
+import hu.csega.superstition.engines.opengl.SuperstitionOpenGLConnector;
+import hu.csega.toolshed.logging.Level;
+import hu.csega.toolshed.logging.Logger;
+import hu.csega.toolshed.logging.LoggerFactory;
 
 // A Fizz-buzz way of running the game
 
@@ -22,7 +19,20 @@ import hu.csega.superstition.engines.opengl.ExampleConnector;
  */
 public class Superstition {
 
+	private Connector connector;
+	private Phase phase = Phase.ZERO;
+	private EnvironmentImpl env;
+
+	private static Logger logger;
+
+	private static final Level LOGGING_LEVEL = Level.TRACE;
+	private static final String SEPARATOR = "\n-----------------------";
+
 	public static void main(String[] args) {
+		LoggerFactory.setDefaultLevel(LOGGING_LEVEL);
+		logger = LoggerFactory.createLogger(Superstition.class);
+		logger.info("Starting game.");
+
 		EnvironmentImpl env = new EnvironmentImpl();
 		Superstition superstition = new Superstition();
 		superstition.setEnvironment(env);
@@ -39,7 +49,7 @@ public class Superstition {
 
 		} catch(Throwable t) {
 
-			logger.fatal("Fatal error during " + superstition.phaseString() + " phase", t);
+			logger.error("FATAL error during " + superstition.phaseString() + " phase", t);
 
 		} finally {
 
@@ -53,7 +63,7 @@ public class Superstition {
 
 			} catch(Throwable t) {
 
-				logger.fatal("Fatal error during " + superstition.phaseString() + " phase", t);
+				logger.error("FATAL error during " + superstition.phaseString() + " phase", t);
 
 			}
 		}
@@ -80,7 +90,7 @@ public class Superstition {
 		logger.info("Initialization phase started.");
 
 		logger.info("Creating connector for example program.");
-		connector = new ExampleConnector();
+		connector = new SuperstitionOpenGLConnector();
 
 		logger.info("Initialization phase finished.");
 		phase = Phase.INITIALIZATION_OVER;
@@ -126,21 +136,5 @@ public class Superstition {
 
 	public String phaseString() {
 		return (phase == null ? "null" : phase.name());
-	}
-
-	private Connector connector;
-	private Phase phase = Phase.ZERO;
-	private EnvironmentImpl env;
-
-	private static final String SEPARATOR = "\n-----------------------";
-	private static final Logger logger = Logger.getLogger(Superstition.class);
-
-	static {
-		ConsoleAppender appender = new ConsoleAppender();
-		appender.setName("Simple Console Appender");
-		appender.setTarget(ConsoleAppender.SYSTEM_OUT);
-		appender.setWriter(new OutputStreamWriter(System.out));
-		appender.setLayout(new PatternLayout("%-5p [%t]: %m%n"));
-		Logger.getRootLogger().addAppender(appender);
 	}
 }

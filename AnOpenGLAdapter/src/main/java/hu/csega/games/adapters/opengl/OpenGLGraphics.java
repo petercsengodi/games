@@ -94,7 +94,7 @@ public class OpenGLGraphics implements GameGraphics {
 	}
 
 	@Override
-	public void drawAnimation(GameObjectHandler animationReference, GameObjectLocation modelLocation) {
+	public void drawAnimation(GameObjectHandler animationReference, int state, GameObjectLocation modelLocation) {
 	}
 
 	@Override

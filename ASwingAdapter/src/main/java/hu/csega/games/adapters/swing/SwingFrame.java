@@ -128,5 +128,9 @@ public class SwingFrame extends JFrame implements GameWindow, WindowListener, Ke
 			control.setShiftIsOn(false);
 	}
 
+	@Override
+	public void closeWindow() {
+	}
+
 	private static final long serialVersionUID = 1L;
 }

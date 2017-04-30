@@ -81,6 +81,5 @@ public class OpenGLTextureContainer implements OpenGLObjectContainer {
 		logger.trace("Disposed texture: " + filename);
 	}
 
-
 	private static final Logger logger = LoggerFactory.createLogger(OpenGLTextureContainer.class);
 }

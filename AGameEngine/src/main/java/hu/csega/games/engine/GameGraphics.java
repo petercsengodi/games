@@ -27,6 +27,6 @@ public interface GameGraphics {
 	void startFrame();
 	void placeCamera(GameObjectLocation cameraLocation);
 	void drawModel(GameObjectHandler modelReference, GameObjectLocation modelLocation);
-	void drawAnimation(GameObjectHandler animationReference, GameObjectLocation modelLocation);
+	void drawAnimation(GameObjectHandler animationReference, int state, GameObjectLocation modelLocation);
 	void endFrame();
 }

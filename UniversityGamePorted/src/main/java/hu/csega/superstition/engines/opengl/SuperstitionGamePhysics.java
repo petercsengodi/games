@@ -1,10 +1,10 @@
-package hu.csega.game.rush.engine;
+package hu.csega.superstition.engines.opengl;
 
 import hu.csega.games.engine.GameControl;
 import hu.csega.games.engine.GameKeyListener;
 import hu.csega.games.engine.GamePhysics;
 
-public class RushGamePhysics implements GamePhysics, GameKeyListener {
+public class SuperstitionGamePhysics implements GamePhysics, GameKeyListener {
 
 	@Override
 	public void setGameControl(GameControl control) {
@@ -61,7 +61,7 @@ public class RushGamePhysics implements GamePhysics, GameKeyListener {
 //		}
 	}
 
-	public RushGameField universe;
+	public SuperstitionGameField universe;
 
 	private double verticalForce = 200;
 	private double horizontalForce = 200;
