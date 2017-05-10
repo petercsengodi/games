@@ -3,11 +3,11 @@ package hu.csega.game.rush;
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.csega.game.rush.engine.RushGameField;
 import hu.csega.game.rush.engine.RushGamePhysics;
 import hu.csega.game.rush.engine.RushGameRendering;
 import hu.csega.game.rush.engine.RushGameRenderingOptions;
 import hu.csega.game.rush.engine.RushGameWindowWrapper;
-import hu.csega.game.rush.engine.RushGameField;
 import hu.csega.game.rush.model.RushGameModel;
 import hu.csega.game.rush.view.RushGameView;
 import hu.csega.games.adapters.opengl.OpenGLGameAdapter;
