@@ -12,7 +12,7 @@ public class VBGFrame extends JFrame {
 	public static final int DEFAULT_WINDOW_HEIGHT = 600;
 
 	public VBGFrame() {
-		super("Társasjátékok");
+		super("Játékok");
 
 		canvas = new VBGCanvas(this);
 

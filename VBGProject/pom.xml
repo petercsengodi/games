@@ -1,19 +1,26 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>hu.csega.games</groupId>
-		<artifactId>games</artifactId>
-		<version>1.0.0</version>
-	</parent>
+	<groupId>hu.csega.games.vbg.games</groupId>
 	<artifactId>VBGProject</artifactId>
 	<name>VBGProject</name>
 	<version>1.0.0</version>
+	<packaging>jar</packaging>
 
 	<properties>
 		<jdk.version>1.7</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jar.finalName>games</jar.finalName>
 	</properties>
+
+	<dependencies>
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<finalName>VBGProject</finalName>
@@ -45,8 +52,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<dependencies>
-	</dependencies>
 
 </project>
