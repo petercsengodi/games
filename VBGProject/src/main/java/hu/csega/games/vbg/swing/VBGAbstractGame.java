@@ -7,6 +7,8 @@ import java.awt.image.BufferedImage;
 
 public interface VBGAbstractGame extends MouseListener, MouseMotionListener, KeyListener {
 
+	boolean needsRepaint();
+
 	void paint(BufferedImage buffer);
 
 	String compactIntoState();

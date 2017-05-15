@@ -7,9 +7,18 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import hu.csega.games.vbg.VirtualBoredGames;
+import hu.csega.games.vbg.main.VBGAllGames;
 import hu.csega.games.vbg.swing.VBGAbstractGame;
 
 public class VBGTestGame implements VBGAbstractGame {
+
+	private boolean needsRepaint = false;
+
+	@Override
+	public boolean needsRepaint() {
+		return needsRepaint;
+	}
 
 	@Override
 	public void paint(BufferedImage buffer) {
@@ -21,20 +30,15 @@ public class VBGTestGame implements VBGAbstractGame {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-
-
+		VirtualBoredGames.getCanvas().setGame(VBGAllGames.SELECTOR);
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-
-
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-
-
 	}
 
 	@Override
@@ -43,38 +47,26 @@ public class VBGTestGame implements VBGAbstractGame {
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-
-
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-
-
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-
-
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-
-
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-
-
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-
-
 	}
 
 	@Override
@@ -84,8 +76,6 @@ public class VBGTestGame implements VBGAbstractGame {
 
 	@Override
 	public void loadState(String stateRepresentation) {
-
-
 	}
 
 }

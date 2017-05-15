@@ -42,6 +42,13 @@ public class VBGCanvas extends JPanel implements MouseListener, MouseMotionListe
 		repaint();
 	}
 
+	public boolean needsRepaint() {
+		if(this.game != null)
+			return this.game.needsRepaint();
+		else
+			return false;
+	}
+
 	@Override
 	public void paint(Graphics g) {
 		Dimension size = getSize();

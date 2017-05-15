@@ -7,6 +7,8 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 import hu.csega.games.vbg.VirtualBoredGames;
 import hu.csega.games.vbg.swing.VBGAbstractGame;
@@ -14,33 +16,69 @@ import hu.csega.games.vbg.util.GeometricUtil;
 
 public class VBGSelector implements VBGAbstractGame {
 
-	private Rectangle testRectangle = new Rectangle(10, 10, 100, 170);
+	private final List<VBGSelectable> selectables = new ArrayList<>();
+
+	private Rectangle baseRectangle = new Rectangle(10, 10, 100, 170);
 	private int selectedIndex = -1;
+	private int lastWidth = 100;
+	private boolean inited = false;
+	private boolean needsRepaint = false;
+
+	@Override
+	public boolean needsRepaint() {
+		return needsRepaint;
+	}
 
 	@Override
 	public void paint(BufferedImage buffer) {
+		if(!inited) {
+			fillMenu();
+			inited = true;
+		}
+
 		Graphics2D g = (Graphics2D) buffer.getGraphics();
+		lastWidth = buffer.getWidth();
 
-		Color c = (selectedIndex == 0 ? Color.white : Color.darkGray);
+		int row = 0;
+		int col = 0;
 
-		g.setColor(c);
-		g.fillRect(testRectangle.x, testRectangle.y, testRectangle.width, testRectangle.height - 20);
-		g.setColor(Color.black);
-		g.fillRect(testRectangle.x + 5, testRectangle.y + 5, testRectangle.width - 10, testRectangle.height - 30);
-		g.setColor(c);
-		g.setFont(new Font("Arial", 0, 80));
-		g.drawString("T", testRectangle.x + 25, testRectangle.y + testRectangle.height - 65);
-		g.setFont(new Font("Arial", Font.BOLD, 14));
-		g.drawString("Teszt", testRectangle.x, testRectangle.y + testRectangle.height - 5);
+		for(int count = 0; count < selectables.size(); count++) {
+			VBGSelectable selectable = selectables.get(count);
+			String iconCharacter = String.valueOf(selectable.iconCharacter);
+			Color c = (selectedIndex == count ? Color.white : Color.darkGray);
+
+			int left = baseRectangle.x + (baseRectangle.x + baseRectangle.width) * col;
+			if(col > 0 && left + baseRectangle.width >= lastWidth) {
+				left = baseRectangle.x;
+				col = 0;
+				row++;
+			}
+
+			int top = baseRectangle.y + (baseRectangle.y + baseRectangle.height) * row;
+			col++;
+
+			g.setColor(c);
+			g.fillRect(left, top, baseRectangle.width, baseRectangle.height - 20);
+			g.setColor(Color.black);
+			g.fillRect(left + 5, top + 5, baseRectangle.width - 10, baseRectangle.height - 30);
+			g.setColor(c);
+			g.setFont(new Font("Arial", 0, 80));
+			g.drawString(iconCharacter, left + 25, top + baseRectangle.height - 65);
+			g.setFont(new Font("Arial", Font.BOLD, 14));
+			g.drawString(selectable.title, left, top + baseRectangle.height - 5);
+		}
+
+		needsRepaint = false;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		int ex = e.getX();
-		int ey = e.getY();
+		selectedIndex = getSelectionIndex(e.getX(), e.getY());
 
-		if(GeometricUtil.inRect(ex, ey, testRectangle))
-			VirtualBoredGames.getCanvas().setGame(VBGAllGames.TEST_GAME);
+		if(selectedIndex > -1) {
+			VBGAllGames game = selectables.get(selectedIndex).game;
+			VirtualBoredGames.getCanvas().setGame(game);
+		}
 	}
 
 	@Override
@@ -54,13 +92,10 @@ public class VBGSelector implements VBGAbstractGame {
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		int lastSelectedIndex = selectedIndex;
-		if(GeometricUtil.inRect(e.getX(), e.getY(), testRectangle))
-			selectedIndex = 0;
-		else
-			selectedIndex = -1;
+		selectedIndex = getSelectionIndex(e.getX(), e.getY());
 
 		if(lastSelectedIndex != selectedIndex) {
-			VirtualBoredGames.getCanvas().repaint();
+			needsRepaint = true;
 		}
 	}
 
@@ -70,7 +105,7 @@ public class VBGSelector implements VBGAbstractGame {
 		selectedIndex = -1;
 
 		if(lastSelectedIndex != selectedIndex) {
-			VirtualBoredGames.getCanvas().repaint();
+			needsRepaint = true;
 		}
 	}
 
@@ -81,13 +116,10 @@ public class VBGSelector implements VBGAbstractGame {
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		int lastSelectedIndex = selectedIndex;
-		if(GeometricUtil.inRect(e.getX(), e.getY(), testRectangle))
-			selectedIndex = 0;
-		else
-			selectedIndex = -1;
+		selectedIndex = getSelectionIndex(e.getX(), e.getY());
 
 		if(lastSelectedIndex != selectedIndex) {
-			VirtualBoredGames.getCanvas().repaint();
+			needsRepaint = true;
 		}
 	}
 
@@ -112,4 +144,45 @@ public class VBGSelector implements VBGAbstractGame {
 	public void loadState(String stateRepresentation) {
 	}
 
+	private int getSelectionIndex(int x, int y) {
+		int row = 0;
+		int col = 0;
+		Rectangle test = new Rectangle();
+		test.setBounds(baseRectangle);
+
+		for(int count = 0; count < selectables.size(); count++) {
+			test.x = baseRectangle.x + (baseRectangle.x + baseRectangle.width) * col;
+			if(col > 0 && test.x + baseRectangle.width >= lastWidth) {
+				test.x = baseRectangle.x;
+				col = 0;
+				row++;
+			}
+
+			test.y = baseRectangle.y + (baseRectangle.y + baseRectangle.height) * row;
+			col++;
+
+			if(GeometricUtil.inRect(x, y, test))
+				return count;
+		}
+
+		return -1;
+	}
+
+	private void fillMenu() {
+		{
+			VBGSelectable selectable = new VBGSelectable();
+			selectable.title = "Reversi";
+			selectable.iconCharacter = 'R';
+			selectable.game = VBGAllGames.REVERSI;
+			selectables.add(selectable);
+		}
+
+		{
+			VBGSelectable selectable = new VBGSelectable();
+			selectable.title = "Teszt";
+			selectable.iconCharacter = 'T';
+			selectable.game = VBGAllGames.TEST_GAME;
+			selectables.add(selectable);
+		}
+	}
 }
