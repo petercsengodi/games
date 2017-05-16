@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import hu.csega.games.vbg.VirtualBoredGames;
+import hu.csega.games.vbg.main.VBGAllGames;
 import hu.csega.games.vbg.swing.VBGAbstractGame;
 
 public class VBGReversiGame implements VBGAbstractGame {
@@ -25,7 +26,7 @@ public class VBGReversiGame implements VBGAbstractGame {
 	private int puppetWidth = 0;
 	private int puppetHeight = 0;
 
-	private int defaultNumberOfFields = 20;
+	private int defaultNumberOfFields = 7;
 
 	public VBGReversiGame() {
 	}
@@ -92,6 +93,15 @@ public class VBGReversiGame implements VBGAbstractGame {
 				if(animation.delta >= 1) {
 					state.fields[animation.x][animation.y] = animation.result;
 					it.remove();
+
+					// Initiating computer step
+					if(animations.size() == 0) {
+						if(!state.isFreeLeft()) {
+							// TODO: now what?? (there is a winner!)
+						} else if(state.isComputerTurn()) {
+							initiateComputerStep();
+						}
+					}
 				}
 
 			} else {
@@ -113,6 +123,10 @@ public class VBGReversiGame implements VBGAbstractGame {
 			return;
 		}
 
+		VBGReversiPlayer player = state.getCurrentPlayer();
+		if(player.computer)
+			return;
+
 		int x = e.getX() / fieldWidth;
 		int y = e.getY() / fieldHeight;
 
@@ -120,7 +134,9 @@ public class VBGReversiGame implements VBGAbstractGame {
 			return;
 		}
 
-		animations.add(new VBGReversiAnimation(x, y, null, Color.blue, 1));
+		if(state.fields[x][y] == 0) {
+			putPuppet(x, y, player);
+		}
 	}
 
 	@Override
@@ -152,6 +168,9 @@ public class VBGReversiGame implements VBGAbstractGame {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
+		if(e.getKeyChar() == 27) {
+			VirtualBoredGames.getCanvas().setGame(VBGAllGames.SELECTOR);
+		}
 	}
 
 	@Override
@@ -182,6 +201,84 @@ public class VBGReversiGame implements VBGAbstractGame {
 		}
 
 		animations.clear();
+	}
+
+	private void initiateComputerStep() {
+		// TODO Auto-generated method stub
+		outer:
+			for(int x = 0; x < state.numberOfFields; x++) {
+				for(int y = 0; y < state.numberOfFields; y++) {
+					if(state.fields[x][y] == 0) {
+						VBGReversiPlayer player = state.getCurrentPlayer();
+						putPuppet(x, y, player);
+						break outer;
+					}
+				}
+			}
+	}
+
+	private void putPuppet(int x, int y, VBGReversiPlayer player) {
+		animations.add(new VBGReversiAnimation(x, y, null, player.color, player.index));
+		state.putOneAndCheckIfThereIsFreeLeft();
+
+		for(int i = x - 1; i >= 0; i--) {
+			int current = state.fields[i][y];
+			if(current == 0){
+				break;
+			}
+
+			if(current == player.index) {
+				for(int j = x - 1; j > i; j--) {
+					animations.add(new VBGReversiAnimation(j, y, null, player.color, player.index));
+				}
+				break;
+			}
+		}
+
+		for(int i = y - 1; i >= 0; i--) {
+			int current = state.fields[x][i];
+			if(current == 0){
+				break;
+			}
+
+			if(current == player.index) {
+				for(int j = y - 1; j > i; j--) {
+					animations.add(new VBGReversiAnimation(x, j, null, player.color, player.index));
+				}
+				break;
+			}
+		}
+
+		for(int i = x + 1; i < state.numberOfFields; i++) {
+			int current = state.fields[i][y];
+			if(current == 0){
+				break;
+			}
+
+			if(current == player.index) {
+				for(int j = x + 1; j < i; j++) {
+					animations.add(new VBGReversiAnimation(j, y, null, player.color, player.index));
+				}
+				break;
+			}
+		}
+
+
+		for(int i = y + 1; i < state.numberOfFields; i++) {
+			int current = state.fields[x][i];
+			if(current == 0){
+				break;
+			}
+
+			if(current == player.index) {
+				for(int j = y + 1; j < i; j++) {
+					animations.add(new VBGReversiAnimation(x, j, null, player.color, player.index));
+				}
+				break;
+			}
+		}
+
+		state.switchToNextPlayer();
 	}
 
 }

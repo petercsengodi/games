@@ -29,6 +29,8 @@ public class VBGFrame extends JFrame implements WindowListener {
 		Container contentPane = this.getContentPane();
 		contentPane.add(canvas);
 
+		this.addKeyListener(canvas);
+
 		this.addWindowListener(this);
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.setSize(new Dimension(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT));

@@ -63,6 +63,9 @@ public class VBGTestGame implements VBGAbstractGame {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+		if(e.getKeyChar() == 27) {
+			VirtualBoredGames.getCanvas().setGame(VBGAllGames.SELECTOR);
+		}
 	}
 
 	@Override

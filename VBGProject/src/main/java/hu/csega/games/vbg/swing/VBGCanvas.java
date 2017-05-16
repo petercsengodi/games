@@ -25,6 +25,7 @@ public class VBGCanvas extends JPanel implements MouseListener, MouseMotionListe
 	public VBGCanvas(VBGFrame pixelEditor) {
 		addMouseListener(this);
 		addMouseMotionListener(this);
+		addKeyListener(this);
 	}
 
 	public void setGame(VBGAllGames gameContainer) {
