@@ -1,17 +1,8 @@
 package hu.csega.games.adapters.opengl.models;
 
-import java.nio.FloatBuffer;
-import java.nio.ShortBuffer;
-
-import com.jogamp.opengl.GL3;
 import com.jogamp.opengl.GLAutoDrawable;
-import com.jogamp.opengl.math.FloatUtil;
-import com.jogamp.opengl.util.GLBuffers;
 
-import hu.csega.games.adapters.opengl.consts.OpenGLAttribute;
-import hu.csega.games.adapters.opengl.consts.OpenGLSampler;
-import hu.csega.games.adapters.opengl.utils.BufferUtils;
-import hu.csega.games.adapters.opengl.utils.OpenGLErrorUtil;
+import hu.csega.games.adapters.opengl.OpenGLProfileAdapter;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
@@ -21,6 +12,7 @@ public abstract class OpenGLModelContainer implements OpenGLObjectContainer {
 	private boolean initialized = false;
 	private int[] openGLHandlers;
 	private OpenGLModelStoreImpl store;
+	private OpenGLProfileAdapter adapter;
 
 	private int numberOfHandlers;
 
@@ -32,9 +24,10 @@ public abstract class OpenGLModelContainer implements OpenGLObjectContainer {
 	private int offsetOfIndexBuffers;
 	private int offsetOfVertexArrays;
 
-	public OpenGLModelContainer(String filename, OpenGLModelStoreImpl store) {
+	public OpenGLModelContainer(String filename, OpenGLModelStoreImpl store, OpenGLProfileAdapter adapter) {
 		this.filename = filename;
 		this.store = store;
+		this.adapter = adapter;
 	}
 
 	@Override
@@ -48,7 +41,7 @@ public abstract class OpenGLModelContainer implements OpenGLObjectContainer {
 	}
 
 	@Override
-	public void initialize(GLAutoDrawable glAutodrawable) {
+	public void initialize(GLAutoDrawable glAutoDrawable) {
 		logger.trace("Initialing model: " + filename);
 
 		OpenGLModelBuilder model = builder();
@@ -66,16 +59,7 @@ public abstract class OpenGLModelContainer implements OpenGLObjectContainer {
 			openGLHandlers = new int[numberOfHandlers];
 		}
 
-		try {
-
-			GL3 gl3 = glAutodrawable.getGL().getGL3();
-			createVertexBuffers(gl3);
-			createIndexBuffers(gl3);
-			createVertexArrays(gl3);
-
-		} catch (Exception ex) {
-			logger.error("Exception in model initialization: " + filename, ex);
-		}
+		adapter.loadModel(glAutoDrawable, filename, this);
 
 		initialized = true;
 		logger.trace("Initialized model: " + filename);
@@ -84,110 +68,51 @@ public abstract class OpenGLModelContainer implements OpenGLObjectContainer {
 	@Override
 	public void dispose(GLAutoDrawable glAutodrawable) {
 		logger.trace("Disposing model: " + filename);
-		GL3 gl3 = glAutodrawable.getGL().getGL3();
 
-		gl3.glDeleteVertexArrays(numberOfVertexArrays, openGLHandlers, offsetOfVertexArrays);
-		gl3.glDeleteBuffers(numberOfIndexBuffers, openGLHandlers, offsetOfIndexBuffers);
-		gl3.glDeleteBuffers(numberOfVertexArrays, openGLHandlers, offsetOfVertexBuffers);
+		adapter.disposeModel(glAutodrawable, this);
 
 		initialized = false;
 		logger.trace("Disposed model: " + filename);
-
-		OpenGLErrorUtil.checkError(gl3, "OpenGLModelContainer.dispose");
 	}
 
-	public void draw(GLAutoDrawable glAutodrawable) {
-		float[] zRotation = new float[16];
-		zRotation = FloatUtil.makeRotationEuler(zRotation, 0, 0, 0, 0 /* diff */);
-
-		GL3 gl3 = glAutodrawable.getGL().getGL3();
-
-		for(int i = 0; i < numberOfVertexArrays; i++) {
-			gl3.glBindVertexArray(openGLHandlers[offsetOfVertexArrays + i]);
-
-			int textureIndex = builder().textureIndex(i);
-			int indexLength = builder().indexLength(i);
-
-			gl3.glUniformMatrix4fv(store.modelToClipMatrix(), 1, false, zRotation, 0);
-			// gl3.glBindSampler(OpenGLSampler.DIFFUSE, store.samplerIndex()); // TODO csega: why is this a problem?
-			gl3.glActiveTexture(GL3.GL_TEXTURE0 + OpenGLSampler.DIFFUSE);
-			gl3.glBindTexture(GL3.GL_TEXTURE_2D, textureIndex);
-
-			gl3.glDrawElements(GL3.GL_TRIANGLES, indexLength, GL3.GL_UNSIGNED_SHORT, 0);
-
-			gl3.glBindTexture(GL3.GL_TEXTURE_2D, 0);
-			gl3.glBindVertexArray(0);
-		}
-
-		OpenGLErrorUtil.checkError(gl3, "OpenGLModelContainer.draw");
+	public void draw(GLAutoDrawable glAutoDrawable) {
+		adapter.drawModel(glAutoDrawable, this, store);
 	}
 
-	protected abstract OpenGLModelBuilder builder();
+	public abstract OpenGLModelBuilder builder();
 
-	private void createVertexBuffers(GL3 gl3) {
-		gl3.glGenBuffers(numberOfVertexBuffers, openGLHandlers, offsetOfVertexBuffers);
-		for(int i = 0; i < numberOfVertexBuffers; i++) {
-			gl3.glBindBuffer(GL3.GL_ARRAY_BUFFER, openGLHandlers[offsetOfVertexBuffers + i]);
 
-			float[] vertexData = builder().vertexData(i);
-			int size = vertexData.length * Float.BYTES;
 
-			FloatBuffer vertexBuffer = GLBuffers.newDirectFloatBuffer(vertexData);
-			gl3.glBufferData(GL3.GL_ARRAY_BUFFER, size, vertexBuffer, GL3.GL_STATIC_DRAW);
-			BufferUtils.destroyDirectBuffer(vertexBuffer);
-
-			gl3.glBindBuffer(GL3.GL_ARRAY_BUFFER, 0);
-		}
-
-		OpenGLErrorUtil.checkError(gl3, "OpenGLModelContainer.createVertexBuffers");
+	public int[] getOpenGLHandlers() {
+		return openGLHandlers;
 	}
 
-	private void createIndexBuffers(GL3 gl3) {
-		gl3.glGenBuffers(numberOfIndexBuffers, openGLHandlers, offsetOfIndexBuffers);
-		for(int i = 0; i < numberOfIndexBuffers; i++) {
-			gl3.glBindBuffer(GL3.GL_ELEMENT_ARRAY_BUFFER, openGLHandlers[offsetOfIndexBuffers + i]);
-
-			short[] indexData = builder().indexData(i);
-			int size = indexData.length * Short.BYTES;
-
-			ShortBuffer indexBuffer = GLBuffers.newDirectShortBuffer(indexData);
-			gl3.glBufferData(GL3.GL_ELEMENT_ARRAY_BUFFER, size, indexBuffer, GL3.GL_STATIC_DRAW);
-			BufferUtils.destroyDirectBuffer(indexBuffer);
-
-			gl3.glBindBuffer(GL3.GL_ELEMENT_ARRAY_BUFFER, 0);
-		}
-
-		OpenGLErrorUtil.checkError(gl3, "OpenGLModelContainer.createIndexBuffers");
+	public int getNumberOfHandlers() {
+		return numberOfHandlers;
 	}
 
-	private void createVertexArrays(GL3 gl3) {
-		int stride = (3 + 3 + 2) * Float.BYTES;
+	public int getNumberOfVertexBuffers() {
+		return numberOfVertexBuffers;
+	}
 
-		gl3.glGenVertexArrays(numberOfVertexArrays, openGLHandlers, offsetOfVertexArrays);
-		for(int i = 0; i < numberOfVertexArrays; i++) {
-			gl3.glBindVertexArray(openGLHandlers[offsetOfVertexArrays + i]);
-			gl3.glBindBuffer(GL3.GL_ELEMENT_ARRAY_BUFFER, openGLHandlers[offsetOfIndexBuffers + i]);
+	public int getNumberOfIndexBuffers() {
+		return numberOfIndexBuffers;
+	}
 
-			gl3.glBindBuffer(GL3.GL_ARRAY_BUFFER, openGLHandlers[offsetOfVertexBuffers + i]);
+	public int getNumberOfVertexArrays() {
+		return numberOfVertexArrays;
+	}
 
-			gl3.glEnableVertexAttribArray(OpenGLAttribute.POSITION);
-			gl3.glVertexAttribPointer(OpenGLAttribute.POSITION, 3, GL3.GL_FLOAT,
-					false, stride, 0 * Float.BYTES);
+	public int getOffsetOfVertexBuffers() {
+		return offsetOfVertexBuffers;
+	}
 
-			gl3.glEnableVertexAttribArray(OpenGLAttribute.NORMAL);
-			gl3.glVertexAttribPointer(OpenGLAttribute.NORMAL, 3, GL3.GL_FLOAT,
-					false, stride, 3 * Float.BYTES);
+	public int getOffsetOfIndexBuffers() {
+		return offsetOfIndexBuffers;
+	}
 
-			gl3.glEnableVertexAttribArray(OpenGLAttribute.TEXCOORD);
-			gl3.glVertexAttribPointer(OpenGLAttribute.TEXCOORD, 2, GL3.GL_FLOAT,
-					false, stride, 6 * Float.BYTES);
-
-			gl3.glBindBuffer(GL3.GL_ARRAY_BUFFER, 0);
-
-			gl3.glBindVertexArray(0);
-		}
-
-		OpenGLErrorUtil.checkError(gl3, "OpenGLModelContainer.createVertexArrays");
+	public int getOffsetOfVertexArrays() {
+		return offsetOfVertexArrays;
 	}
 
 	private static final Logger logger = LoggerFactory.createLogger(OpenGLModelContainer.class);
