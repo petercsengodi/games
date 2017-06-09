@@ -76,4 +76,9 @@ public class VirtualBoredGames {
 			return null;
 		}
 	}
+
+	public void start() {
+		main(null);
+	}
+
 }
