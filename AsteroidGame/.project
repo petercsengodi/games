@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-  <name>AShipGame</name>
+  <name>AsteroidGame</name>
   <comment>NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
   <projects>
     <project>AGameEngine</project>
-    <project>ASwingAdapter</project>
+    <project>AnOpenGLAdapter</project>
   </projects>
   <buildSpec>
     <buildCommand>

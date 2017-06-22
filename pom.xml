@@ -78,6 +78,7 @@
 		<module>ASwingAdapter</module>
 		<module>AnOpenGLAdapter</module>
 		<module>AStrategyGame</module>
+		<module>AsteroidGame</module>
 		<module>ABoulderDashClone</module>
 		<module>AShipGame</module>
 		<module>AGravityGame</module>

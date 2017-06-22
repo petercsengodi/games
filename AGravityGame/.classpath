@@ -4,7 +4,7 @@
   <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
   <classpathentry kind="output" path="target/classes"/>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-  <classpathentry kind="var" path="M2_REPO/hu/csega/games/AGameEngine/1.0.0/AGameEngine-1.0.0.jar"/>
+  <classpathentry kind="src" path="/AGameEngine"/>
   <classpathentry kind="var" path="M2_REPO/junit/junit/4.11/junit-4.11.jar" sourcepath="M2_REPO/junit/junit/4.11/junit-4.11-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar" sourcepath="M2_REPO/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/json/json/20090211/json-20090211.jar"/>
@@ -14,5 +14,5 @@
   <classpathentry kind="var" path="M2_REPO/hu/csega/toolshed/Units/1.0.0/Units-1.0.0.jar"/>
   <classpathentry kind="var" path="M2_REPO/hu/csega/toolshed/LoggingBitch/1.0.0/LoggingBitch-1.0.0.jar"/>
   <classpathentry kind="var" path="M2_REPO/hu/csega/toolshed/ToolShedFramework/1.0.0/ToolShedFramework-1.0.0.jar"/>
-  <classpathentry kind="var" path="M2_REPO/hu/csega/games/ASwingAdapter/1.0.0/ASwingAdapter-1.0.0.jar"/>
+  <classpathentry kind="src" path="/ASwingAdapter"/>
 </classpath>
