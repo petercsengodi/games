@@ -5,10 +5,6 @@
 
 // Incoming vertex position, Model Space.
 in vec3 position;
-
-// Incoming normal vector, Model Space.
-in vec3 normalVector;
-
 // Incoming texture coordinates.
 in vec2 texCoord;
 
