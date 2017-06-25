@@ -109,6 +109,19 @@ public class OpenGLProfileGL3Adapter implements OpenGLProfileAdapter {
 		gl3.glClear(GL3.GL_COLOR_BUFFER_BIT | GL3.GL_DEPTH_BUFFER_BIT);
 
 		gl3.glUseProgram(programHandlers[PROGRAM_INDEX]);
+
+
+		//		 glMatrixMode(GL_PROJECTION);
+		//		 glLoadIdentity();
+		//		 gluPerspective(50.0, 1.0, 3.0, 7.0);
+		//		 glMatrixMode(GL_MODELVIEW);
+		//		 glLoadIdentity();
+		//		 gluLookAt(0.0, 0.0, 5.0, // eye position
+		//		           0.0, 0.0, 0.0, // reference position / center
+		//		           0.0, 1.0, 0.0  // up-vector
+		//		       );
+
+
 		OpenGLErrorUtil.checkError(gl3, "startFrame");
 	}
 

@@ -8,6 +8,7 @@ import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.awt.GLCanvas;
 
 import hu.csega.games.adapters.opengl.gl2.OpenGLProfileGL2Adapter;
+import hu.csega.games.adapters.opengl.gl2.OpenGLProfileGL2GLUAdapter;
 import hu.csega.games.adapters.opengl.gl3.OpenGLProfileGL3Adapter;
 import hu.csega.games.adapters.opengl.models.OpenGLModelStoreImpl;
 import hu.csega.games.engine.GameAdapter;
@@ -21,6 +22,8 @@ import hu.csega.toolshed.logging.LoggerFactory;
 
 public class OpenGLGameAdapter implements GameAdapter {
 
+	private static final boolean USE_GLU = true;
+
 	private OpenGLProfileAdapter openGLProfileAdapter = null;
 
 	@Override
@@ -32,19 +35,34 @@ public class OpenGLGameAdapter implements GameAdapter {
 	@Override
 	public GameCanvas createCanvas(final GameEngine engine) {
 		GLProfile glProfile;
-		try {
-			glProfile = GLProfile.get(GLProfile.GL3);
-			openGLProfileAdapter = new OpenGLProfileGL3Adapter();
-		} catch(Exception ex1) {
-			logger.warning("Couldn't get GL3! (" + ex1.getMessage() + ')');
 
+
+		if(USE_GLU) {
 			try {
 				glProfile = GLProfile.get(GLProfile.GL2);
-				openGLProfileAdapter = new OpenGLProfileGL2Adapter();
+				openGLProfileAdapter = new OpenGLProfileGL2GLUAdapter();
 			} catch(Exception ex2) {
-				logger.error("Couldn't get GL2 either! (" + ex2.getMessage() + ')');
+				logger.error("Couldn't get GL2 for GLU! (" + ex2.getMessage() + ')');
 				throw new RuntimeException("Couldn't get GLProfile!");
 			}
+
+		} else {
+
+			try {
+				glProfile = GLProfile.get(GLProfile.GL3);
+				openGLProfileAdapter = new OpenGLProfileGL3Adapter();
+			} catch(Exception ex1) {
+				logger.warning("Couldn't get GL3! (" + ex1.getMessage() + ')');
+
+				try {
+					glProfile = GLProfile.get(GLProfile.GL2);
+					openGLProfileAdapter = new OpenGLProfileGL2Adapter();
+				} catch(Exception ex2) {
+					logger.error("Couldn't get GL2 either! (" + ex2.getMessage() + ')');
+					throw new RuntimeException("Couldn't get GLProfile!");
+				}
+			}
+
 		}
 
 		OpenGLModelStoreImpl store = (OpenGLModelStoreImpl)engine.getStore();

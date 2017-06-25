@@ -71,7 +71,6 @@ public class OpenGLProfileGL2Adapter implements OpenGLProfileAdapter {
 		gl2.glUseProgram(0);
 
 		gl2.glEnable(GL2.GL_DEPTH_TEST);
-
 		OpenGLErrorUtil.checkError(gl2, "ensureOpenGLProgramIsInitialized");
 	}
 
