@@ -30,9 +30,9 @@ public class OpenGLModelBuilder {
 		return indexData;
 	}
 
-	public int textureIndex(int i) {
+	public OpenGLTextureContainer textureContainer(int i) {
 		OpenGLTextureContainer texture = store.resolveTexture(textureReference);
-		return texture.getTextureHandler();
+		return texture;
 	}
 
 	public int indexLength(int i) {
@@ -42,15 +42,15 @@ public class OpenGLModelBuilder {
 	private OpenGLModelStoreImpl store;
 	private GameObjectHandler textureReference;
 
-    private float[] vertexData = new float[] {
-        -0.5f, -0.5f, 0f, 0f, 0f, 0f, 0f, 0f,
-        -0.5f, +0.5f, 0f, 0f, 0f, 0f, 0f, 1f,
-        +0.5f, +0.5f, 0f, 0f, 0f, 0f, 1f, 1f,
-        +0.5f, -0.5f, 0f, 0f, 0f, 0f, 1f, 0f
-    };
+	private float[] vertexData = new float[] {
+			-0.5f, -0.5f, 0f, 0f, 0f, 0f, 0f, 0f,
+			-0.5f, +0.5f, 0f, 0f, 0f, 0f, 0f, 1f,
+			+0.5f, +0.5f, 0f, 0f, 0f, 0f, 1f, 1f,
+			+0.5f, -0.5f, 0f, 0f, 0f, 0f, 1f, 0f
+	};
 
-    private short[] indexData = new short[] {
-        0, 1, 3,
-        1, 2, 3
-    };
+	private short[] indexData = new short[] {
+			0, 1, 3,
+			1, 2, 3
+	};
 }

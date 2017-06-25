@@ -31,6 +31,7 @@ import hu.csega.games.adapters.opengl.utils.OpenGLProgramLogger;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
+@Deprecated
 public class OpenGLProfileGL3Adapter implements OpenGLProfileAdapter {
 
 	private int[] programHandlers = new int[2];
@@ -271,7 +272,7 @@ public class OpenGLProfileGL3Adapter implements OpenGLProfileAdapter {
 		for(int i = 0; i < model.getNumberOfVertexArrays(); i++) {
 			gl3.glBindVertexArray(model.getOpenGLHandlers()[model.getOffsetOfVertexArrays() + i]);
 
-			int textureIndex = model.builder().textureIndex(i);
+			int textureIndex = model.builder().textureContainer(i).getTextureHandler();
 			int indexLength = model.builder().indexLength(i);
 
 			gl3.glUniformMatrix4fv(store.modelToClipMatrix(), 1, false, zRotation, 0);

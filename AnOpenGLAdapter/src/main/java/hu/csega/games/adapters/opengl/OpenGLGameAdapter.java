@@ -20,6 +20,7 @@ import hu.csega.games.engine.g3d.GameModelStore;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
+@SuppressWarnings("deprecation")
 public class OpenGLGameAdapter implements GameAdapter {
 
 	private static final boolean USE_GLU = true;

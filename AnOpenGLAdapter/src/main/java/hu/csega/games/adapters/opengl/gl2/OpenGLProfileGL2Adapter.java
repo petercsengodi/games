@@ -19,6 +19,7 @@ import hu.csega.games.adapters.opengl.utils.OpenGLErrorUtil;
 import hu.csega.games.adapters.opengl.utils.OpenGLLogStream;
 import hu.csega.games.adapters.opengl.utils.OpenGLProgramLogger;
 
+@Deprecated
 public class OpenGLProfileGL2Adapter implements OpenGLProfileAdapter {
 
 	private int[] programHandlers = new int[1];
