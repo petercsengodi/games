@@ -95,29 +95,6 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 		gl2.glMatrixMode(GL.GL_TEXTURE);
 
 		OpenGLErrorUtil.checkError(gl2, "startFrame");
-
-		gl2.glBegin(GL2.GL_LINES);// static field
-		gl2.glVertex3f(0.50f, -0.50f, 0);
-		gl2.glVertex3f(-0.50f, 0.50f, 0);
-		gl2.glEnd();
-
-		gl2.glBegin(GL2.GL_TRIANGLE_STRIP);
-
-		gl2.glVertex3f(0f, 0f, 0f);
-		gl2.glNormal3f(0f, 0f, 1f);
-		gl2.glTexCoord2f(0f, 0f);
-
-		gl2.glVertex3f(1f, 0f, 0f);
-		gl2.glNormal3f(0f, 0f, 1f);
-		gl2.glTexCoord2f(1f, 0f);
-
-		gl2.glVertex3f(0f, 1f, 0f);
-		gl2.glNormal3f(0f, 0f, 1f);
-		gl2.glTexCoord2f(0f, 1f);
-
-		gl2.glEnd();
-
-		OpenGLErrorUtil.checkError(gl2, "drawsALine");
 	}
 
 	@Override
@@ -241,7 +218,7 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 			OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw bind vertices 2 " + i);
 
 			int indexLength = model.builder().indexLength(i);
-			gl2.glDrawElements(GL2.GL_TRIANGLES, indexLength, GL2.GL_UNSIGNED_SHORT, 0);
+			gl2.glDrawElements(GL2.GL_TRIANGLE_STRIP, indexLength, GL2.GL_UNSIGNED_SHORT, 0);
 
 			OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw draw element" + i);
 
