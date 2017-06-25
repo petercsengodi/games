@@ -9,13 +9,11 @@ import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.glu.GLU;
-import com.jogamp.opengl.math.FloatUtil;
 import com.jogamp.opengl.util.GLBuffers;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
 
 import hu.csega.games.adapters.opengl.OpenGLProfileAdapter;
-import hu.csega.games.adapters.opengl.consts.OpenGLAttribute;
 import hu.csega.games.adapters.opengl.models.OpenGLModelContainer;
 import hu.csega.games.adapters.opengl.models.OpenGLModelStoreImpl;
 import hu.csega.games.adapters.opengl.models.OpenGLTextureContainer;
@@ -78,10 +76,16 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 		//				);
 
 		glu.gluLookAt(
-				0,  0, -10,
+				0,  0, 10,
 				0,  0,  0,
 				0,  1,  0
 				);
+
+		//		glu.gluLookAt(
+		//				0,  0, -10,
+		//				0,  0,   0,
+		//				0,  1,   0
+		//				);
 
 		// gl2.glPushMatrix();
 
@@ -95,6 +99,22 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 		gl2.glBegin(GL2.GL_LINES);// static field
 		gl2.glVertex3f(0.50f, -0.50f, 0);
 		gl2.glVertex3f(-0.50f, 0.50f, 0);
+		gl2.glEnd();
+
+		gl2.glBegin(GL2.GL_TRIANGLE_STRIP);
+
+		gl2.glVertex3f(0f, 0f, 0f);
+		gl2.glNormal3f(0f, 0f, 1f);
+		gl2.glTexCoord2f(0f, 0f);
+
+		gl2.glVertex3f(1f, 0f, 0f);
+		gl2.glNormal3f(0f, 0f, 1f);
+		gl2.glTexCoord2f(1f, 0f);
+
+		gl2.glVertex3f(0f, 1f, 0f);
+		gl2.glNormal3f(0f, 0f, 1f);
+		gl2.glTexCoord2f(0f, 1f);
+
 		gl2.glEnd();
 
 		OpenGLErrorUtil.checkError(gl2, "drawsALine");
@@ -159,6 +179,7 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 			int size = vertexData.length * Float.BYTES;
 
 			FloatBuffer vertexBuffer = GLBuffers.newDirectFloatBuffer(vertexData);
+			// vertexBuffer.rewind();
 			gl2.glBufferData(GL2.GL_ARRAY_BUFFER, size, vertexBuffer, GL2.GL_STATIC_DRAW);
 			BufferUtils.destroyDirectBuffer(vertexBuffer);
 
@@ -193,23 +214,7 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 		for(int i = 0; i < model.getNumberOfVertexArrays(); i++) {
 			gl2.glBindVertexArray(model.getOpenGLHandlers()[model.getOffsetOfVertexArrays() + i]);
 			gl2.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, model.getOpenGLHandlers()[model.getOffsetOfIndexBuffers() + i]);
-
 			gl2.glBindBuffer(GL2.GL_ARRAY_BUFFER, model.getOpenGLHandlers()[model.getOffsetOfVertexBuffers() + i]);
-
-			gl2.glEnableVertexAttribArray(OpenGLAttribute.POSITION);
-			gl2.glVertexAttribPointer(OpenGLAttribute.POSITION, 3, GL2.GL_FLOAT,
-					false, stride, 0 * Float.BYTES);
-
-			gl2.glEnableVertexAttribArray(OpenGLAttribute.NORMAL);
-			gl2.glVertexAttribPointer(OpenGLAttribute.NORMAL, 3, GL2.GL_FLOAT,
-					false, stride, 3 * Float.BYTES);
-
-			gl2.glEnableVertexAttribArray(OpenGLAttribute.TEXCOORD);
-			gl2.glVertexAttribPointer(OpenGLAttribute.TEXCOORD, 2, GL2.GL_FLOAT,
-					false, stride, 6 * Float.BYTES);
-
-			gl2.glBindBuffer(GL2.GL_ARRAY_BUFFER, 0);
-
 			gl2.glBindVertexArray(0);
 		}
 
@@ -218,16 +223,9 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 
 	@Override
 	public void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, OpenGLModelStoreImpl store) {
-		int stride = (3 + 3 + 2) * Float.BYTES;
-
-		float[] zRotation = new float[16];
-		zRotation = FloatUtil.makeRotationEuler(zRotation, 0, 0, 0, 0 /* diff */);
+		int stride = 3 + 3 + 2;
 
 		GL2 gl2 = glAutoDrawable.getGL().getGL2();
-
-		gl2.glEnableClientState(GL2.GL_VERTEX_ARRAY); // Enable Vertex Arrays
-		gl2.glEnableClientState(GL2.GL_NORMAL_ARRAY); // Enable Normal Vector Arrays
-		gl2.glEnableClientState(GL2.GL_TEXTURE_COORD_ARRAY); // Enable Texture Coordinates Arrays
 
 		OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw init");
 
@@ -239,15 +237,7 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 			OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw texture init" + i);
 
 			gl2.glBindVertexArray(model.getOpenGLHandlers()[model.getOffsetOfVertexArrays() + i]);
-			gl2.glVertexPointer(3, GL2.GL_FLOAT, stride, 0);
-			OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw bind vertices 2 " + i);
-
-			gl2.glBindVertexArray(model.getOpenGLHandlers()[model.getOffsetOfVertexArrays() + i]);
-			gl2.glNormalPointer(GL2.GL_FLOAT, stride, 3);
-			OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw bind vertices 2 " + i);
-
-			gl2.glBindVertexArray(model.getOpenGLHandlers()[model.getOffsetOfVertexArrays() + i]);
-			gl2.glTexCoordPointer(2, GL2.GL_FLOAT, stride, 6);
+			gl2.glInterleavedArrays(GL2.GL_T2F_N3F_V3F, 0, 0);
 			OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw bind vertices 2 " + i);
 
 			int indexLength = model.builder().indexLength(i);
@@ -260,8 +250,6 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 
 			OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw dispose" + i);
 		}
-
-		gl2.glDisableClientState(GL2.GL_INDEX_ARRAY);
 
 		OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw finish");
 	}
