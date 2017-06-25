@@ -14,6 +14,7 @@ import hu.csega.games.adapters.opengl.consts.OpenGLFragment;
 import hu.csega.games.adapters.opengl.consts.OpenGLSampler;
 import hu.csega.games.adapters.opengl.models.OpenGLModelContainer;
 import hu.csega.games.adapters.opengl.models.OpenGLModelStoreImpl;
+import hu.csega.games.adapters.opengl.models.OpenGLTextureContainer;
 import hu.csega.games.adapters.opengl.utils.OpenGLErrorUtil;
 import hu.csega.games.adapters.opengl.utils.OpenGLLogStream;
 import hu.csega.games.adapters.opengl.utils.OpenGLProgramLogger;
@@ -99,13 +100,13 @@ public class OpenGLProfileGL2Adapter implements OpenGLProfileAdapter {
 	}
 
 	@Override
-	public void loadTexture(GLAutoDrawable glAutodrawable, String filename, int[] generatedTextureNames) {
+	public void loadTexture(GLAutoDrawable glAutodrawable, String filename, OpenGLTextureContainer container) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void disposeTexture(GLAutoDrawable glAutoDrawable, int[] generatedTextureNames) {
+	public void disposeTexture(GLAutoDrawable glAutoDrawable, OpenGLTextureContainer container) {
 		// TODO Auto-generated method stub
 
 	}

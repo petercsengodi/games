@@ -1,13 +1,20 @@
 package hu.csega.games.adapters.opengl.gl2;
 
+import java.io.File;
+import java.io.IOException;
+
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
+import com.jogamp.opengl.GLException;
 import com.jogamp.opengl.glu.GLU;
+import com.jogamp.opengl.util.texture.Texture;
+import com.jogamp.opengl.util.texture.TextureIO;
 
 import hu.csega.games.adapters.opengl.OpenGLProfileAdapter;
 import hu.csega.games.adapters.opengl.models.OpenGLModelContainer;
 import hu.csega.games.adapters.opengl.models.OpenGLModelStoreImpl;
+import hu.csega.games.adapters.opengl.models.OpenGLTextureContainer;
 import hu.csega.games.adapters.opengl.utils.OpenGLErrorUtil;
 
 public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
@@ -31,6 +38,7 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 		gl2.glLoadIdentity();
 
 		gl2.glEnable(GL2.GL_DEPTH_TEST);
+		gl2.glEnable(GL.GL_TEXTURE_2D);
 
 		OpenGLErrorUtil.checkError(gl2, "ensureOpenGLProgramIsInitialized");
 	}
@@ -56,9 +64,15 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 
 		gl2.glPushMatrix();
 
-		gl2.glClear( GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT );
-		gl2.glLoadIdentity();
+		OpenGLErrorUtil.checkError(gl2, "modelViewMatrix");
 
+		gl2.glClear( GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT );
+
+		OpenGLErrorUtil.checkError(gl2, "clearBuffers");
+
+
+
+		// gl2.glLoadIdentity();
 		//	    gl2.glTranslatef(x, y, z);
 		//	    gl2.glBegin( GL2.GL_QUADS );
 		//	        gl2.glColor3f( 1, 0, 0 );
@@ -71,10 +85,12 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 	public void endFrame(GLAutoDrawable glAutoDrawable) {
 		GL2 gl2 = glAutoDrawable.getGL().getGL2();
 
-		gl2.glEnd();
-		gl2.glPopMatrix();
+		// gl2.glEnd();
 
+		gl2.glPopMatrix();
 		gl2.glFlush();
+
+		OpenGLErrorUtil.checkError(gl2, "endFrame");
 	}
 
 	@Override
@@ -83,15 +99,22 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 	}
 
 	@Override
-	public void loadTexture(GLAutoDrawable glAutodrawable, String filename, int[] generatedTextureNames) {
-		// TODO Auto-generated method stub
-
+	public void loadTexture(GLAutoDrawable glAutoDrawable, String filename, OpenGLTextureContainer container) {
+		try {
+			GL gl = glAutoDrawable.getGL();
+			Texture texture = TextureIO.newTexture(new File(filename), true);
+			texture.bind(gl);
+			container.setTexture(texture);
+		} catch (GLException | IOException ex) {
+			throw new RuntimeException("Exception occurred while loading texture!", ex);
+		}
 	}
 
 	@Override
-	public void disposeTexture(GLAutoDrawable glAutoDrawable, int[] generatedTextureNames) {
-		// TODO Auto-generated method stub
-
+	public void disposeTexture(GLAutoDrawable glAutoDrawable, OpenGLTextureContainer container) {
+		GL gl = glAutoDrawable.getGL();
+		Texture texture = container.getTexture();
+		texture.destroy(gl);
 	}
 
 	@Override

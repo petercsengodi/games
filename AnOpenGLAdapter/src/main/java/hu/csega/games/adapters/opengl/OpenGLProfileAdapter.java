@@ -4,6 +4,7 @@ import com.jogamp.opengl.GLAutoDrawable;
 
 import hu.csega.games.adapters.opengl.models.OpenGLModelContainer;
 import hu.csega.games.adapters.opengl.models.OpenGLModelStoreImpl;
+import hu.csega.games.adapters.opengl.models.OpenGLTextureContainer;
 
 public interface OpenGLProfileAdapter {
 
@@ -19,9 +20,9 @@ public interface OpenGLProfileAdapter {
 
 	int getModelToClipMatrixUL();
 
-	void loadTexture(GLAutoDrawable glAutodrawable, String filename, int[] generatedTextureNames);
+	void loadTexture(GLAutoDrawable glAutodrawable, String filename, OpenGLTextureContainer container);
 
-	void disposeTexture(GLAutoDrawable glAutoDrawable, int[] generatedTextureNames);
+	void disposeTexture(GLAutoDrawable glAutoDrawable, OpenGLTextureContainer container);
 
 	void loadModel(GLAutoDrawable glAutoDrawable, String filename, OpenGLModelContainer model);
 

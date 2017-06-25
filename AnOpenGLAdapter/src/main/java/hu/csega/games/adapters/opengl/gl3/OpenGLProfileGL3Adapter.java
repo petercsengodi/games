@@ -23,6 +23,7 @@ import hu.csega.games.adapters.opengl.consts.OpenGLFragment;
 import hu.csega.games.adapters.opengl.consts.OpenGLSampler;
 import hu.csega.games.adapters.opengl.models.OpenGLModelContainer;
 import hu.csega.games.adapters.opengl.models.OpenGLModelStoreImpl;
+import hu.csega.games.adapters.opengl.models.OpenGLTextureContainer;
 import hu.csega.games.adapters.opengl.utils.BufferUtils;
 import hu.csega.games.adapters.opengl.utils.OpenGLErrorUtil;
 import hu.csega.games.adapters.opengl.utils.OpenGLLogStream;
@@ -139,7 +140,7 @@ public class OpenGLProfileGL3Adapter implements OpenGLProfileAdapter {
 	}
 
 	@Override
-	public void loadTexture(GLAutoDrawable glAutodrawable, String filename, int[] generatedTextureNames) {
+	public void loadTexture(GLAutoDrawable glAutodrawable, String filename, OpenGLTextureContainer container) {
 
 		try {
 			GL3 gl3 = glAutodrawable.getGL().getGL3();
@@ -147,6 +148,8 @@ public class OpenGLProfileGL3Adapter implements OpenGLProfileAdapter {
 
 			TextureData textureData = TextureIO.newTextureData(gl3.getGLProfile(), textureFile, false, TextureIO.PNG);
 			int level = 0;
+
+			int[] generatedTextureNames = container.getTextureHandlerArray();
 
 			gl3.glGenTextures(1, generatedTextureNames, 0);
 
@@ -171,9 +174,10 @@ public class OpenGLProfileGL3Adapter implements OpenGLProfileAdapter {
 	}
 
 	@Override
-	public void disposeTexture(GLAutoDrawable glAutoDrawable, int[] generatedTextureNames) {
+	public void disposeTexture(GLAutoDrawable glAutoDrawable, OpenGLTextureContainer container) {
 		GL3 gl3 = glAutoDrawable.getGL().getGL3();
-		gl3.glDeleteTextures(1, generatedTextureNames, 0);
+		int[] generatedTextureNames = container.getTextureHandlerArray();
+		gl3.glDeleteTextures(1, generatedTextureNames , 0);
 	}
 
 	@Override
