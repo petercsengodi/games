@@ -79,6 +79,13 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 		gl2.glMatrixMode(GL.GL_TEXTURE);
 
 		OpenGLErrorUtil.checkError(gl2, "startFrame");
+
+		gl2.glBegin(GL2.GL_LINES);// static field
+		gl2.glVertex3f(0.50f, -0.50f, 0);
+		gl2.glVertex3f(-0.50f, 0.50f, 0);
+		gl2.glEnd();
+
+		OpenGLErrorUtil.checkError(gl2, "drawsALine");
 	}
 
 	@Override
