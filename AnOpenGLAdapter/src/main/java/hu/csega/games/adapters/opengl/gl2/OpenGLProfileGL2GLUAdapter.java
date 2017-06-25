@@ -70,7 +70,9 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 
 		OpenGLErrorUtil.checkError(gl2, "clearBuffers");
 
+		gl2.glMatrixMode(GL.GL_TEXTURE);
 
+		OpenGLErrorUtil.checkError(gl2, "startFrame");
 
 		// gl2.glLoadIdentity();
 		//	    gl2.glTranslatef(x, y, z);
@@ -103,6 +105,7 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 		try {
 			GL gl = glAutoDrawable.getGL();
 			Texture texture = TextureIO.newTexture(new File(filename), true);
+			texture.enable(gl);
 			texture.bind(gl);
 			container.setTexture(texture);
 		} catch (GLException | IOException ex) {
