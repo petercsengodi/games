@@ -51,6 +51,18 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 
 		gl2.glEnable(GL2.GL_DEPTH_TEST);
 		gl2.glEnable(GL2.GL_TEXTURE_2D);
+		// gl2.glEnable(GL2.GL_NORMALIZE);
+
+		gl2.glEnable(GL2.GL_NORMALIZE);
+		gl2.glEnable(GL2.GL_AUTO_NORMAL);
+		gl2.glEnable(GL2.GL_LIGHTING);
+		gl2.glEnable(GL2.GL_LIGHT0);
+
+		float[] ambientLight = { 0.5f, 0.5f, 0.5f, 0f };  // strong RED ambient
+		gl2.glLightfv(GL2.GL_LIGHT0, GL2.GL_AMBIENT, ambientLight, 0);
+
+		float[] diffuseLight = { 1f, 2f, 1f, 0f };  // multicolor diffuse
+		gl2.glLightfv(GL2.GL_LIGHT0, GL2.GL_DIFFUSE, diffuseLight, 0);
 
 		gl2.glMatrixMode(GL2.GL_PROJECTION);
 		gl2.glLoadIdentity();
@@ -206,26 +218,52 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 
 	@Override
 	public void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, OpenGLModelStoreImpl store) {
+		int stride = (3 + 3 + 2) * Float.BYTES;
+
 		float[] zRotation = new float[16];
 		zRotation = FloatUtil.makeRotationEuler(zRotation, 0, 0, 0, 0 /* diff */);
 
 		GL2 gl2 = glAutoDrawable.getGL().getGL2();
 
-		for(int i = 0; i < model.getNumberOfVertexArrays(); i++) {
-			gl2.glBindVertexArray(model.getOpenGLHandlers()[model.getOffsetOfVertexArrays() + i]);
+		gl2.glEnableClientState(GL2.GL_VERTEX_ARRAY); // Enable Vertex Arrays
+		gl2.glEnableClientState(GL2.GL_NORMAL_ARRAY); // Enable Normal Vector Arrays
+		gl2.glEnableClientState(GL2.GL_TEXTURE_COORD_ARRAY); // Enable Texture Coordinates Arrays
 
+		OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw init");
+
+		for(int i = 0; i < model.getNumberOfVertexArrays(); i++) {
 			Texture texture = model.builder().textureContainer(i).getTexture();
 			texture.enable(gl2);
 			texture.bind(gl2);
 
+			OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw texture init" + i);
+
+			gl2.glBindVertexArray(model.getOpenGLHandlers()[model.getOffsetOfVertexArrays() + i]);
+			gl2.glVertexPointer(3, GL2.GL_FLOAT, stride, 0);
+			OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw bind vertices 2 " + i);
+
+			gl2.glBindVertexArray(model.getOpenGLHandlers()[model.getOffsetOfVertexArrays() + i]);
+			gl2.glNormalPointer(GL2.GL_FLOAT, stride, 3);
+			OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw bind vertices 2 " + i);
+
+			gl2.glBindVertexArray(model.getOpenGLHandlers()[model.getOffsetOfVertexArrays() + i]);
+			gl2.glTexCoordPointer(2, GL2.GL_FLOAT, stride, 6);
+			OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw bind vertices 2 " + i);
+
 			int indexLength = model.builder().indexLength(i);
 			gl2.glDrawElements(GL2.GL_TRIANGLES, indexLength, GL2.GL_UNSIGNED_SHORT, 0);
 
-			gl2.glBindTexture(GL2.GL_TEXTURE_2D, 0);
+			OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw draw element" + i);
+
 			gl2.glBindVertexArray(0);
+			texture.disable(gl2);
+
+			OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw dispose" + i);
 		}
 
-		OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw");
+		gl2.glDisableClientState(GL2.GL_INDEX_ARRAY);
+
+		OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw finish");
 	}
 
 	@Override
