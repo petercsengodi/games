@@ -14,6 +14,8 @@ public class VBGFrame extends JFrame implements WindowListener {
 	private VBGCanvas canvas;
 	private VBGThread thread;
 
+	private boolean fullScreen = true;
+
 	private boolean programFinished = false;
 
 	public static final int DEFAULT_WINDOW_WIDTH = 800;
@@ -33,7 +35,12 @@ public class VBGFrame extends JFrame implements WindowListener {
 
 		this.addWindowListener(this);
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		this.setSize(new Dimension(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT));
+
+		if(fullScreen) {
+			this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		} else {
+			this.setSize(new Dimension(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT));
+		}
 	}
 
 	public VBGCanvas getCanvas() {
@@ -46,6 +53,10 @@ public class VBGFrame extends JFrame implements WindowListener {
 
 	public boolean programFinished() {
 		return programFinished;
+	}
+
+	public void setFullScreen(boolean b) {
+		this.fullScreen = true;
 	}
 
 	@Override

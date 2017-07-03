@@ -48,6 +48,11 @@ public class SwingFrame extends JFrame implements GameWindow, WindowListener, Ke
 	}
 
 	@Override
+	public void setFullScreen(boolean fullScreen) {
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+	}
+
+	@Override
 	public void showWindow() {
 		pack();
 		setVisible(true);

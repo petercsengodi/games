@@ -26,9 +26,9 @@ public class OpenGLFrame extends JFrame implements GameWindow, WindowListener, K
 		super(engine.getDescriptor().getTitle());
 		this.engine = engine;
 		this.control = (GameControlImpl)this.engine.getControl();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		addWindowListener(this);
-		addKeyListener(this);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.addWindowListener(this);
+		this.addKeyListener(this);
 	}
 
 	@Override
@@ -45,6 +45,11 @@ public class OpenGLFrame extends JFrame implements GameWindow, WindowListener, K
 
 		if(component != null)
 			getContentPane().add(component);
+	}
+
+	@Override
+	public void setFullScreen(boolean fullScreen) {
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	}
 
 	@Override

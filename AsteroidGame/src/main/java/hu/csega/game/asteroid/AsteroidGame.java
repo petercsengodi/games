@@ -36,6 +36,7 @@ public class AsteroidGame {
 		ITool tool = UnitStore.instance(AsteroidGameTool.class);
 		tool.setMessage(msg);
 		toolFrame.embed(tool);
+		toolFrame.setFullScreen(true);
 		toolFrame.start();
 	}
 

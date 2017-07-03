@@ -39,6 +39,7 @@ public class VirtualBoredGames {
 		frame = new VBGFrame();
 		canvas = frame.getCanvas();
 		canvas.setGame(VBGAllGames.SELECTOR);
+		frame.setFullScreen(true);
 		frame.setVisible(true);
 		frame.startThread();
 	}

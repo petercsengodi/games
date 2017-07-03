@@ -39,6 +39,11 @@ public class AsteroidGameWindowWrapper implements GameWindow {
 	}
 
 	@Override
+	public void setFullScreen(boolean fullScreen) {
+		this.toolWindow.setFullScreen(fullScreen);
+	}
+
+	@Override
 	public void showWindow() {
 	}
 

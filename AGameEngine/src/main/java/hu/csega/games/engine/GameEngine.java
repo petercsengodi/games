@@ -23,6 +23,7 @@ public class GameEngine implements Disposable {
 
 	public void startInNewWindow() {
 		GameWindow gameWindow = adapter.createWindow(this);
+		gameWindow.setFullScreen(true);
 		startIn(gameWindow);
 	}
 
