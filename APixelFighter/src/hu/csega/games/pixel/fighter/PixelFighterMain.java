@@ -1,16 +1,16 @@
 package hu.csega.games.pixel.fighter;
 
 import hu.csega.games.adapters.swing.SwingGameAdapter;
-import hu.csega.games.engine.GameAdapter;
-import hu.csega.games.engine.GameDescriptor;
-import hu.csega.games.engine.GameEngine;
-import hu.csega.games.engine.GameImplementation;
-import hu.csega.games.engine.g2d.GameObject;
+import hu.csega.games.engine.impl.GameEngine;
+import hu.csega.games.engine.intf.GameAdapter;
+import hu.csega.games.engine.intf.GameDescriptor;
+import hu.csega.games.engine.intf.GameEngineStep;
+import hu.csega.games.pixel.fighter.engine.PixelFighterInitStep;
+import hu.csega.games.pixel.fighter.engine.PixelFighterRenderingStep;
 
-public class PixelFighterMain implements GameImplementation {
+public class PixelFighterMain {
 
 	public static void main(String[] args) {
-
 		GameDescriptor descriptor = new GameDescriptor();
 		descriptor.setId("pixelFighter");
 		descriptor.setTitle("Pixel Fighter");
@@ -19,13 +19,9 @@ public class PixelFighterMain implements GameImplementation {
 
 		GameAdapter adapter = new SwingGameAdapter();
 
-		PixelFighterMain implementation = new PixelFighterMain();
-		PixelFighterPhysics physics = new PixelFighterPhysics();
-		PixelFighterRendering rendering = new PixelFighterRendering(physics);
-
-		physics.setPlayer(new GameObject());
-
-		GameEngine engine = GameEngine.create(descriptor, adapter, implementation, physics, rendering);
+		GameEngine engine = GameEngine.create(descriptor, adapter);
+		engine.step(GameEngineStep.INIT, new PixelFighterInitStep());
+		engine.step(GameEngineStep.RENDER, new PixelFighterRenderingStep());
 		engine.startInNewWindow();
 	}
 
