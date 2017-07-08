@@ -9,6 +9,10 @@ import hu.csega.superstition.xml.XmlField;
 @XmlClass("Superstition.Animation")
 public class SAnimation implements SObject {
 
+	private String name;
+	private List<SBodyPart> bodyParts;
+	private int maxScenes;
+
 	@XmlField("name")
 	public String getName() {
 		return name;
@@ -39,7 +43,4 @@ public class SAnimation implements SObject {
 		this.maxScenes = maxScenes;
 	}
 
-	private String name;
-	private List<SBodyPart> bodyParts;
-	private int maxScenes;
 }

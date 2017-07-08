@@ -6,6 +6,8 @@ import hu.csega.superstition.xml.XmlField;
 @XmlClass("Superstition.TextureRef")
 public class STextureRef implements SObject {
 
+	private String name;
+
 	public STextureRef() {
 	}
 
@@ -52,6 +54,4 @@ public class STextureRef implements SObject {
 			return false;
 		return true;
 	}
-
-	private String name;
 }

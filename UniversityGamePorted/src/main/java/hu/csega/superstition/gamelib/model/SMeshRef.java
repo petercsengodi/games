@@ -6,6 +6,8 @@ import hu.csega.superstition.xml.XmlField;
 @XmlClass("Superstition.MeshRef")
 public class SMeshRef implements SObject {
 
+	private String name;
+
 	public SMeshRef() {
 	}
 
@@ -52,7 +54,5 @@ public class SMeshRef implements SObject {
 			return false;
 		return true;
 	}
-
-	private String name;
 
 }

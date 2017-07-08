@@ -6,6 +6,8 @@ import hu.csega.superstition.xml.XmlField;
 @XmlClass("Superstition.AnimationRef")
 public class SAnimationRef implements SObject {
 
+	private String name;
+
 	public SAnimationRef() {
 	}
 
@@ -52,6 +54,4 @@ public class SAnimationRef implements SObject {
 			return false;
 		return true;
 	}
-
-	private String name;
 }
