@@ -3,22 +3,21 @@ package hu.csega.game.rush;
 import java.util.ArrayList;
 import java.util.List;
 
-import hu.csega.game.rush.engine.RushGameField;
-import hu.csega.game.rush.engine.RushGamePhysics;
-import hu.csega.game.rush.engine.RushGameRendering;
 import hu.csega.game.rush.engine.RushGameRenderingOptions;
 import hu.csega.game.rush.engine.RushGameWindowWrapper;
 import hu.csega.game.rush.model.RushGameModel;
 import hu.csega.game.rush.view.RushGameView;
 import hu.csega.games.adapters.opengl.OpenGLGameAdapter;
-import hu.csega.games.engine.GameAdapter;
-import hu.csega.games.engine.GameDescriptor;
-import hu.csega.games.engine.GameEngine;
-import hu.csega.games.engine.GameImplementation;
-import hu.csega.games.engine.GameWindowListener;
+import hu.csega.games.engine.GameEngineCallback;
+import hu.csega.games.engine.GameEngineFacade;
 import hu.csega.games.engine.g3d.GameModelBuilder;
 import hu.csega.games.engine.g3d.GameModelStore;
 import hu.csega.games.engine.g3d.GameObjectHandler;
+import hu.csega.games.engine.impl.GameEngine;
+import hu.csega.games.engine.intf.GameAdapter;
+import hu.csega.games.engine.intf.GameDescriptor;
+import hu.csega.games.engine.intf.GameEngineStep;
+import hu.csega.games.engine.intf.GameWindowListener;
 import hu.csega.toolshed.framework.Tool;
 import hu.csega.toolshed.framework.ToolWindow;
 import hu.csega.toolshed.framework.impl.AbstractTool;
@@ -26,7 +25,7 @@ import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
 @Tool(name = "Rush!")
-public class RushGameToolImpl extends AbstractTool implements RushGameTool, GameImplementation {
+public class RushGameToolImpl extends AbstractTool implements RushGameTool {
 
 	private List<GameWindowListener> listeners = new ArrayList<>();
 
@@ -41,10 +40,7 @@ public class RushGameToolImpl extends AbstractTool implements RushGameTool, Game
 
 		createComponents();
 
-		GameEngine engine = startGameEngine(window);
-
-		GameModelStore store = engine.getStore();
-		loadModelsIntoStore(store, (RushGameRendering)engine.getRendering());
+		startGameEngine(window);
 
 		logger.info("Tool initialization finished.");
 	}
@@ -54,7 +50,7 @@ public class RushGameToolImpl extends AbstractTool implements RushGameTool, Game
 		GameDescriptor descriptor = new GameDescriptor();
 		descriptor.setId("rush");
 		descriptor.setTitle(getTitle());
-		descriptor.setVersion("v00.00.0001");
+		descriptor.setVersion("v00.00.0002");
 		descriptor.setDescription("Real-time strategy game.");
 
 		GameAdapter adapter = new OpenGLGameAdapter();
@@ -62,19 +58,24 @@ public class RushGameToolImpl extends AbstractTool implements RushGameTool, Game
 		RushGameRenderingOptions options = new RushGameRenderingOptions();
 		options.renderHitShapes = true;
 
-		GameImplementation implementation = new RushGameToolImpl();
-		RushGamePhysics physics = new RushGamePhysics();
-		RushGameRendering rendering = new RushGameRendering(options);
-
-		RushGameField universe = new RushGameField();
-		universe.init();
-		physics.universe = universe;
-		rendering.universe = universe;
-
 		RushGameWindowWrapper wrapper = new RushGameWindowWrapper(window, this);
-		GameEngine engine = GameEngine.create(descriptor, adapter, implementation, physics, rendering);
-		engine.startIn(wrapper);
+		GameEngine engine = GameEngine.create(descriptor, adapter);
 
+		engine.step(GameEngineStep.INIT, new GameEngineCallback() {
+
+			@Override
+			public Object call(GameEngineFacade facade) {
+				GameModelStore store = facade.store();
+				store.loadTexture("res/example/texture.png");
+
+				GameObjectHandler model = store.buildModel(new GameModelBuilder());
+				facade.setModel(model);
+
+				return facade;
+			}
+		});
+
+		engine.startIn(wrapper);
 		return engine;
 	}
 
@@ -87,12 +88,6 @@ public class RushGameToolImpl extends AbstractTool implements RushGameTool, Game
 		RushGameView view = new RushGameView();
 		view.setModel(model);
 		registerComponent(RushGameView.class, view);
-	}
-
-	private void loadModelsIntoStore(GameModelStore store, RushGameRendering rendering) {
-		store.loadTexture("res/example/texture.png");
-		GameObjectHandler model = store.buildModel(new GameModelBuilder());
-		rendering.setModel(model);
 	}
 
 	@Override

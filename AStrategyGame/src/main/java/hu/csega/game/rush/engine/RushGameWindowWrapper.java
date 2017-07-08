@@ -4,9 +4,9 @@ import java.awt.Component;
 
 import hu.csega.game.rush.RushGameToolImpl;
 import hu.csega.games.adapters.opengl.OpenGLCanvas;
-import hu.csega.games.engine.GameCanvas;
-import hu.csega.games.engine.GameWindow;
-import hu.csega.games.engine.GameWindowListener;
+import hu.csega.games.engine.intf.GameCanvas;
+import hu.csega.games.engine.intf.GameWindow;
+import hu.csega.games.engine.intf.GameWindowListener;
 import hu.csega.toolshed.framework.ToolWindow;
 
 public class RushGameWindowWrapper implements GameWindow {
