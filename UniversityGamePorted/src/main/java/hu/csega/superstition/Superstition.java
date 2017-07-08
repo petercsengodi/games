@@ -2,7 +2,7 @@ package hu.csega.superstition;
 
 import hu.csega.games.engine.env.EnvironmentImpl;
 import hu.csega.games.engine.env.GameEngineException;
-import hu.csega.superstition.engine.Phase;
+import hu.csega.superstition.engines.Phase;
 import hu.csega.superstition.engines.connector.Connector;
 import hu.csega.superstition.engines.opengl.SuperstitionOpenGLConnector;
 import hu.csega.toolshed.logging.Level;

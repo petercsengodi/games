@@ -1,6 +1,7 @@
 package hu.csega.superstition.gamelib.model.animation;
 
 import org.joml.Matrix4f;
+import org.joml.Vector3f;
 import org.joml.Vector4f;
 
 import hu.csega.superstition.gamelib.model.SMeshRef;
@@ -34,6 +35,19 @@ public class SBodyPart implements SObject {
 	@XmlField("centerPoints")
 	public void setCenterPoints(Vector4f[] centerPoints) {
 		this.centerPoints = centerPoints;
+	}
+
+	public void setCenterPoints(Vector3f[] centerPoints) {
+		if(centerPoints == null) {
+			this.centerPoints = null;
+			return;
+		}
+
+		this.centerPoints = new Vector4f[centerPoints.length];
+		for(int i = 0; i < centerPoints.length; i++) {
+			Vector3f c = centerPoints[i];
+			this.centerPoints[i] = new Vector4f(c.x, c.y, c.z, 1f);
+		}
 	}
 
 	@XmlField("mesh")

@@ -12,18 +12,18 @@ import javax.swing.JPanel;
 
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
+import org.joml.Vector4f;
 
-import hu.csega.superstition.t3dcreator.Perspectives;
 import hu.csega.superstition.tools.Updates;
 
 public class WireFrameView extends ToolView {
 
-	private static final double zoom_step = 0.1;
-	private static final double move_step = 1.0;
+	private static final double ZOOM_STEP = 0.1;
+	private static final double MOVE_STEP = 1.0;
 	private static final float rotation = (float)Math.PI / 18;
 
 	private Matrix4f view, invert;
-	private Vector3f translation;
+	private Vector4f translation;
 	private double zoom;
 	private ButtonControl[] bcontrol;
 	private boolean show_grid;
@@ -40,7 +40,7 @@ public class WireFrameView extends ToolView {
 		initializeComponent();
 
 		view = new Matrix4f();
-		translation = new Vector3f();
+		translation = new Vector4f();
 	}
 
 	@Override
