@@ -4,7 +4,7 @@ import hu.csega.games.engine.GameEngineCallback;
 import hu.csega.games.engine.GameEngineFacade;
 import hu.csega.superstition.states.SuperstitionModel;
 
-public class SuperstitionRenderStep implements GameEngineCallback {
+public class SuperstitionModifyStep implements GameEngineCallback {
 
 	@Override
 	public Object call(GameEngineFacade facade) {
@@ -12,8 +12,8 @@ public class SuperstitionRenderStep implements GameEngineCallback {
 		if(model == null)
 			return facade;
 
-		GameEngineCallback realRenderer = model.currentRenderer();
-		return realRenderer.call(facade);
+		GameEngineCallback realModel = model.currentModel();
+		return realModel.call(facade);
 	}
 
 }

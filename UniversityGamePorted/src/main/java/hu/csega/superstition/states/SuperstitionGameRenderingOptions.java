@@ -1,4 +1,4 @@
-package hu.csega.superstition.engines.opengl;
+package hu.csega.superstition.states;
 
 public class SuperstitionGameRenderingOptions {
 

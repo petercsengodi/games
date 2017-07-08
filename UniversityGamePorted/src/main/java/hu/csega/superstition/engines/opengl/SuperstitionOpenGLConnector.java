@@ -9,6 +9,7 @@ import hu.csega.games.engine.impl.GameEngine;
 import hu.csega.games.engine.intf.GameAdapter;
 import hu.csega.games.engine.intf.GameCanvas;
 import hu.csega.games.engine.intf.GameDescriptor;
+import hu.csega.games.engine.intf.GameEngineStep;
 import hu.csega.games.engine.intf.GameWindow;
 import hu.csega.games.engine.intf.GameWindowListener;
 import hu.csega.superstition.engines.connector.Connector;
@@ -68,13 +69,11 @@ public class SuperstitionOpenGLConnector implements Connector, GameWindow {
 		descriptor.setDescription("My work from the university severly changed and ported to Java/OpenGL.");
 
 		GameAdapter adapter = new OpenGLGameAdapter();
-
-		SuperstitionGameRenderingOptions options = new SuperstitionGameRenderingOptions();
-		options.renderHitShapes = true;
-
 		GameEngine engine = GameEngine.create(descriptor, adapter);
 
-
+		engine.step(GameEngineStep.INIT, new SuperstitionInitStep());
+		engine.step(GameEngineStep.MODIFY, new SuperstitionModifyStep());
+		engine.step(GameEngineStep.RENDER, new SuperstitionRenderStep());
 
 		engine.startInNewWindow();
 		return engine;
