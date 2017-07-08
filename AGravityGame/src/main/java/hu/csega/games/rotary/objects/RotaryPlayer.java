@@ -1,13 +1,17 @@
 package hu.csega.games.rotary.objects;
 
-import hu.csega.games.engine.GameField;
 import hu.csega.games.engine.g2d.GameHitCircle;
 
 public class RotaryPlayer extends RotaryObject {
 
-	public RotaryPlayer(GameField gameField) {
-		super(gameField);
+	public double gravitationalPull = 0.0; // angle
+	public double gravitationalPullToReach = 0.0;
+	public boolean turning = false;
 
+	private static final double FULL_CIRCLE = Math.PI * 2;
+	private static final double GRAVITATIONAL_PULL_TURNING = 3;
+
+	public RotaryPlayer() {
 		hitShapes.add(new GameHitCircle(0, 0, 50));
 		outerBox.minX = -50;
 		outerBox.minY = -50;
@@ -45,13 +49,4 @@ public class RotaryPlayer extends RotaryObject {
 
 		// ??? collision detection?
 	}
-
-
-
-	public double gravitationalPull = 0.0; // angle
-	public double gravitationalPullToReach = 0.0;
-	public boolean turning = false;
-
-	private static final double FULL_CIRCLE = Math.PI * 2;
-	private static final double GRAVITATIONAL_PULL_TURNING = 3;
 }

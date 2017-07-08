@@ -11,12 +11,11 @@ import hu.csega.games.adapters.opengl.gl2.OpenGLProfileGL2Adapter;
 import hu.csega.games.adapters.opengl.gl2.OpenGLProfileGL2TriangleAdapter;
 import hu.csega.games.adapters.opengl.gl3.OpenGLProfileGL3Adapter;
 import hu.csega.games.adapters.opengl.models.OpenGLModelStoreImpl;
-import hu.csega.games.engine.GameAdapter;
-import hu.csega.games.engine.GameCanvas;
-import hu.csega.games.engine.GameEngine;
-import hu.csega.games.engine.GameThread;
-import hu.csega.games.engine.GameWindow;
 import hu.csega.games.engine.g3d.GameModelStore;
+import hu.csega.games.engine.impl.GameEngine;
+import hu.csega.games.engine.intf.GameAdapter;
+import hu.csega.games.engine.intf.GameCanvas;
+import hu.csega.games.engine.intf.GameWindow;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
@@ -79,11 +78,6 @@ public class OpenGLGameAdapter implements GameAdapter {
 		glCanvas.addGLEventListener(eventListener);
 
 		return new OpenGLCanvas(glCanvas);
-	}
-
-	@Override
-	public GameThread createThread(GameEngine engine) {
-		return new OpenGLThread(engine.getPhysics(), engine.getCanvas());
 	}
 
 	@Override

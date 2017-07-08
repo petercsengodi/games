@@ -14,5 +14,6 @@
   <classpathentry kind="var" path="M2_REPO/hu/csega/toolshed/Units/1.0.0/Units-1.0.0.jar"/>
   <classpathentry kind="var" path="M2_REPO/hu/csega/toolshed/LoggingBitch/1.0.0/LoggingBitch-1.0.0.jar"/>
   <classpathentry kind="var" path="M2_REPO/hu/csega/toolshed/ToolShedFramework/1.0.0/ToolShedFramework-1.0.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/clojure/clojure/1.8.0/clojure-1.8.0.jar" sourcepath="M2_REPO/org/clojure/clojure/1.8.0/clojure-1.8.0-sources.jar"/>
   <classpathentry kind="src" path="/ASwingAdapter"/>
 </classpath>

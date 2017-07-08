@@ -1,8 +1,8 @@
 package hu.csega.superstition.engines.opengl;
 
-import hu.csega.games.engine.GameControl;
-import hu.csega.games.engine.GameKeyListener;
-import hu.csega.games.engine.GamePhysics;
+import hu.csega.games.engine.intf.GameControl;
+import hu.csega.games.engine.intf.GameKeyListener;
+import hu.csega.games.engine.intf.GamePhysics;
 
 public class SuperstitionGamePhysics implements GamePhysics, GameKeyListener {
 

@@ -6,13 +6,13 @@ import com.jogamp.opengl.GLAutoDrawable;
 
 import hu.csega.games.adapters.opengl.models.OpenGLModelContainer;
 import hu.csega.games.adapters.opengl.models.OpenGLModelStoreImpl;
-import hu.csega.games.engine.GameGraphics;
 import hu.csega.games.engine.g2d.GameColor;
 import hu.csega.games.engine.g2d.GameHitShape;
 import hu.csega.games.engine.g2d.GamePoint;
 import hu.csega.games.engine.g2d.GameSprite;
 import hu.csega.games.engine.g3d.GameObjectHandler;
 import hu.csega.games.engine.g3d.GameObjectLocation;
+import hu.csega.games.engine.intf.GameGraphics;
 
 public class OpenGLGraphics implements GameGraphics {
 

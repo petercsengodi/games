@@ -4,8 +4,8 @@ import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
 
 import hu.csega.games.adapters.opengl.models.OpenGLModelStoreImpl;
-import hu.csega.games.engine.GameEngine;
 import hu.csega.games.engine.env.GameEngineException;
+import hu.csega.games.engine.impl.GameEngine;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 

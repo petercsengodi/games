@@ -3,10 +3,28 @@ package hu.csega.games.engine.g2d;
 import java.util.ArrayList;
 import java.util.List;
 
-import hu.csega.games.engine.GameControl;
-import hu.csega.games.engine.GameKeyListener;
+import hu.csega.games.engine.GameEngineFacade;
+import hu.csega.games.engine.impl.GameEngine;
+import hu.csega.games.engine.intf.GameControl;
+import hu.csega.games.engine.intf.GameKeyListener;
 
 public class GameControlImpl implements GameControl {
+
+	boolean upIsOn = false;
+	boolean downIsOn = false;
+	boolean leftIsOn = false;
+	boolean rightIsOn = false;
+	boolean controlIsOn = false;
+	boolean altIsOn = false;
+	boolean shiftIsOn = false;
+
+	private List<GameKeyListener> listeners = new ArrayList<>();
+
+	private GameEngine engine;
+
+	public GameControlImpl(GameEngine engine) {
+		this.engine = engine;
+	}
 
 	@Override
 	public boolean isUpOn() {
@@ -77,18 +95,10 @@ public class GameControlImpl implements GameControl {
 	}
 
 	public void hit(char key) {
-		for(GameKeyListener listener : listeners)
-			listener.hit(key);
+		GameEngineFacade facade = engine.getFacade();
+		for(GameKeyListener listener : listeners) {
+			listener.hit(facade, key);
+		}
 	}
-
-	boolean upIsOn = false;
-	boolean downIsOn = false;
-	boolean leftIsOn = false;
-	boolean rightIsOn = false;
-	boolean controlIsOn = false;
-	boolean altIsOn = false;
-	boolean shiftIsOn = false;
-
-	private List<GameKeyListener> listeners = new ArrayList<>();
 
 }

@@ -13,17 +13,27 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-import hu.csega.games.engine.GameCanvas;
-import hu.csega.games.engine.GameEngine;
-import hu.csega.games.engine.GameRendering;
+import hu.csega.games.engine.impl.GameEngine;
+import hu.csega.games.engine.intf.GameCanvas;
+import hu.csega.games.engine.intf.GameEngineStep;
 
 public class SwingCanvas extends JPanel implements GameCanvas, MouseListener, MouseMotionListener {
 
 	public static final Dimension PREFERRED_SIZE = new Dimension(800, 600);
 
+	private GameEngine gameEngine;
+
+	private BufferedImage buffer = null;
+	private Dimension lastSize = new Dimension(PREFERRED_SIZE.width, PREFERRED_SIZE.height);
+
+	private boolean mouseLeftPressed = false;
+	private boolean mouseRightPressed = false;
+	private Point mouseLeftAt = new Point(0, 0);
+	private Point mouseRightAt = new Point(0, 0);
+	private Point translate = new Point(0, 0);
+
 	public SwingCanvas(GameEngine gameEngine) {
 		this.gameEngine = gameEngine;
-		this.rendering = this.gameEngine.getRendering();
 		setPreferredSize(PREFERRED_SIZE);
 		addMouseListener(this);
 		addMouseMotionListener(this);
@@ -67,7 +77,7 @@ public class SwingCanvas extends JPanel implements GameCanvas, MouseListener, Mo
 		g.translate(widthDiv2, heightDiv2 / 2);
 
 		SwingGraphics graphics = new SwingGraphics(g, lastSize.width, heightDiv2);
-		rendering.render(graphics);
+		gameEngine.runStep(GameEngineStep.RENDER, graphics);
 
 		g.translate(-widthDiv2, -heightDiv2);
 	}
@@ -133,18 +143,6 @@ public class SwingCanvas extends JPanel implements GameCanvas, MouseListener, Mo
 	@Override
 	public void mouseExited(MouseEvent e) {
 	}
-
-	private GameEngine gameEngine;
-	private GameRendering rendering;
-
-	private BufferedImage buffer = null;
-	private Dimension lastSize = new Dimension(PREFERRED_SIZE.width, PREFERRED_SIZE.height);
-
-	private boolean mouseLeftPressed = false;
-	private boolean mouseRightPressed = false;
-	private Point mouseLeftAt = new Point(0, 0);
-	private Point mouseRightAt = new Point(0, 0);
-	private Point translate = new Point(0, 0);
 
 	private static final long serialVersionUID = 1L;
 }

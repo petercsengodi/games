@@ -1,8 +1,8 @@
 package hu.csega.superstition.engines.opengl;
 
-import hu.csega.games.engine.GameGraphics;
-import hu.csega.games.engine.GameRendering;
 import hu.csega.games.engine.g3d.GameObjectHandler;
+import hu.csega.games.engine.intf.GameGraphics;
+import hu.csega.games.engine.intf.GameRendering;
 
 public class SuperstitionGameRendering implements GameRendering {
 

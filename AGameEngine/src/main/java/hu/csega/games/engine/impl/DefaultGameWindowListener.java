@@ -1,8 +1,8 @@
 package hu.csega.games.engine.impl;
 
-import hu.csega.games.engine.GameEngine;
-import hu.csega.games.engine.GameThread;
-import hu.csega.games.engine.GameWindowListener;
+import hu.csega.games.engine.intf.GameEngineStep;
+import hu.csega.games.engine.intf.GameThread;
+import hu.csega.games.engine.intf.GameWindowListener;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
@@ -22,6 +22,7 @@ public class DefaultGameWindowListener implements GameWindowListener {
 		thread.interrupt();
 
 		logger.info("Disposing engine.");
+		engine.runStep(GameEngineStep.DISPOSE, null);
 		engine.dispose();
 
 		logger.info("Default game window listener finished.");

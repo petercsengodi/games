@@ -1,6 +1,6 @@
 package hu.csega.game.asteroid.engine;
 
-import hu.csega.games.engine.GameField;
+import hu.csega.games.engine.impl.GameField;
 
 public class AsteroidGameField extends GameField {
 

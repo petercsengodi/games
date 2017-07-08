@@ -1,6 +1,6 @@
 package hu.csega.superstition.engines.opengl;
 
-import hu.csega.games.engine.GameField;
+import hu.csega.games.engine.impl.GameField;
 
 public class SuperstitionGameField extends GameField {
 

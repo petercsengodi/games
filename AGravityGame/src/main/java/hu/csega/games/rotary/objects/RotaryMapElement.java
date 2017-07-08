@@ -1,13 +1,10 @@
 package hu.csega.games.rotary.objects;
 
-import hu.csega.games.engine.GameField;
 import hu.csega.games.engine.g2d.GameHitBox;
 
 public class RotaryMapElement extends RotaryObject {
 
-	public RotaryMapElement(GameField gameField) {
-		super(gameField);
-
+	public RotaryMapElement() {
 		hitShapes.add(new GameHitBox(-50, -50, 50, 50));
 		outerBox.minX = -50;
 		outerBox.minY = -50;

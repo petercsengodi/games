@@ -2,7 +2,7 @@ package hu.csega.games.adapters.opengl;
 
 import com.jogamp.opengl.awt.GLCanvas;
 
-import hu.csega.games.engine.GameCanvas;
+import hu.csega.games.engine.intf.GameCanvas;
 
 public class OpenGLCanvas implements GameCanvas {
 
