@@ -270,7 +270,7 @@ public class SMigration {
 		converted.setConnectionIndex(input.getConnection_index());
 		converted.setName(input.getName());
 		converted.setObjectIndex(input.getObject_index());
-		converted.setPoint(new Vector3f(input.getPoint()));
+		converted.setPoint(input.getPoint());
 
 		return converted;
 	}

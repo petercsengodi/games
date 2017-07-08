@@ -1,8 +1,7 @@
 package hu.csega.superstition.gamelib.legacy.modeldata;
 
-import org.joml.Matrix3f;
-import org.joml.Vector2f;
-import org.joml.Vector3f;
+import hu.csega.superstition.gamelib.legacy.modeldata.CEdge;
+import hu.csega.superstition.gamelib.legacy.modeldata.CVertex;
 
 public class CTriangle implements IModelPart {
 	public CEdge[] edges;
@@ -48,51 +47,9 @@ public class CTriangle implements IModelPart {
 	}
 
 
+	@Override
 	public String toString() {
 		return "Triangle"+ " " + count;
-	}
-
-	public void move(Vector3f direction) {
-		for(CEdge e : edges) {
-			e.from.move(direction);
-		}
-	}
-
-	public void moveTexture(Vector2f direction)
-	{
-		for(CEdge e : edges) {
-			e.from.moveTexture(direction);
-		}
-	}
-
-	public boolean hasPart(IModelPart part)
-	{
-		if(part.equals(this))
-			return true;
-
-		boolean ret = false;
-		for(CEdge e : edges) {
-			ret |= part.equals(e);
-			ret |= part.equals(e.from);
-		}
-
-		return ret;
-	}
-
-	public Vector3f centerPoint() {
-		// TODO allocationless
-		Vector3f ret = new Vector3f(0f, 0f, 0f);
-		ret.add(edges[0].from.position, ret);
-		ret.add(edges[1].from.position, ret);
-		ret.add(edges[2].from.position, ret);
-		ret.mul(1f/3f, ret);
-		return ret;
-	}
-
-	public void scale(Matrix3f matrix) {
-		for(CEdge edge : edges) {
-			edge.from.scale(matrix);
-		}
 	}
 
 } // End of class CTriangle

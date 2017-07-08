@@ -54,4 +54,5 @@ public class SMeshRef implements SObject {
 	}
 
 	private String name;
+
 }

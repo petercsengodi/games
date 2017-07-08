@@ -7,6 +7,7 @@ import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.glu.GLU;
+import com.jogamp.opengl.math.FloatUtil;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
 
@@ -125,6 +126,14 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 
 		GL2 gl2 = glAutoDrawable.getGL().getGL2();
 
+		gl2.glPushMatrix();
+
+
+		float[] zRotation = new float[16];
+		zRotation = FloatUtil.makeRotationEuler(zRotation, 0, 0, 0, 0 /* diff */);
+		gl2.glRotatef((float)(45 * Math.PI), (float)(45 * Math.PI), (float)(45 * Math.PI), 1f);
+
+
 		//		gl2.glBegin(GL2.GL_TRIANGLES);
 		//
 		//		gl2.glVertex3f(0f, 0f, 0f);
@@ -180,6 +189,8 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 
 			texture.disable(gl2);
 		}
+
+		gl2.glPopMatrix();
 
 		OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw finish");
 	}

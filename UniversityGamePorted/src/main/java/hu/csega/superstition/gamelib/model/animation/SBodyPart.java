@@ -1,7 +1,7 @@
 package hu.csega.superstition.gamelib.model.animation;
 
 import org.joml.Matrix4f;
-import org.joml.Vector3f;
+import org.joml.Vector4f;
 
 import hu.csega.superstition.gamelib.model.SMeshRef;
 import hu.csega.superstition.gamelib.model.SObject;
@@ -10,6 +10,11 @@ import hu.csega.superstition.xml.XmlField;
 
 @XmlClass("Superstition.SBodyPart")
 public class SBodyPart implements SObject {
+
+	private SConnection[] connections;
+	private Vector4f[] centerPoints;
+	private SMeshRef mesh;
+	private Matrix4f[] modelTransformations;
 
 	@XmlField("connections")
 	public SConnection[] getConnections() {
@@ -22,12 +27,12 @@ public class SBodyPart implements SObject {
 	}
 
 	@XmlField("centerPoints")
-	public Vector3f[] getCenterPoints() {
+	public Vector4f[] getCenterPoints() {
 		return centerPoints;
 	}
 
 	@XmlField("centerPoints")
-	public void setCenterPoints(Vector3f[] centerPoints) {
+	public void setCenterPoints(Vector4f[] centerPoints) {
 		this.centerPoints = centerPoints;
 	}
 
@@ -50,9 +55,4 @@ public class SBodyPart implements SObject {
 	public void setModelTransformations(Matrix4f[] modelTransformations) {
 		this.modelTransformations = modelTransformations;
 	}
-
-	private SConnection[] connections;
-	private Vector3f[] centerPoints;
-	private SMeshRef mesh;
-	private Matrix4f[] modelTransformations;
 }

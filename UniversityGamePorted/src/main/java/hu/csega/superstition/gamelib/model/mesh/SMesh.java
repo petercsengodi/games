@@ -3,12 +3,19 @@ package hu.csega.superstition.gamelib.model.mesh;
 import java.util.ArrayList;
 import java.util.List;
 
-import hu.csega.superstition.gamelib.model.SObject;
+import org.joml.Matrix4f;
+import org.joml.Vector2f;
+import org.joml.Vector4f;
+
+import hu.csega.superstition.collection.VectorStack;
 import hu.csega.superstition.xml.XmlClass;
 import hu.csega.superstition.xml.XmlField;
 
 @XmlClass("Superstition.Mesh")
-public class SMesh implements SObject {
+public class SMesh implements SPhysicalObject {
+
+	String name;
+	List<SShape> figures = new ArrayList<>();
 
 	@XmlField("name")
 	public String getName() {
@@ -30,6 +37,49 @@ public class SMesh implements SObject {
 		this.figures = figures;
 	}
 
-	private String name;
-	private List<SShape> figures = new ArrayList<>();
+	@Override
+	public void move(Vector4f direction) {
+		for(SShape figure : figures)
+			figure.move(direction);
+	}
+
+	@Override
+	public void moveTexture(Vector2f direction) {
+		for(SShape figure : figures)
+			figure.moveTexture(direction);
+	}
+
+	@Override
+	public boolean hasPart(SPhysicalObject part) {
+		if(part.equals(this))
+			return true;
+
+		boolean ret = false;
+		for(SShape figure : figures)
+			ret |= figure.hasPart(part);
+
+		return ret;
+	}
+
+	@Override
+	public Vector4f centerPoint(Vector4f ret) {
+		ret.set(0f, 0f, 0f, 0f);
+		Vector4f tmp = VectorStack.newVector4f();
+
+		float n = 1f / figures.size();
+		for(SShape figure : figures) {
+			figure.centerPoint(tmp).mul(n, tmp);
+			ret.add(tmp, ret);
+		}
+
+		VectorStack.release(tmp);
+		return ret;
+	}
+
+	@Override
+	public void scale(Matrix4f matrix) {
+		for(SShape figure : figures) {
+			figure.scale(matrix);
+		}
+	}
 }

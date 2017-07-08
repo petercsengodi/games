@@ -3,13 +3,25 @@ package hu.csega.superstition.gamelib.model.mesh;
 import java.util.ArrayList;
 import java.util.List;
 
-import hu.csega.superstition.gamelib.model.SObject;
+import org.joml.Matrix4f;
+import org.joml.Vector2f;
+import org.joml.Vector4f;
+
+import hu.csega.superstition.collection.VectorStack;
 import hu.csega.superstition.gamelib.model.STextureRef;
 import hu.csega.superstition.xml.XmlClass;
 import hu.csega.superstition.xml.XmlField;
 
 @XmlClass("Superstition.Shape")
-public class SShape implements SObject {
+public class SShape implements SPhysicalObject {
+
+	int ambientColor;
+	int diffuseColor;
+	int emissiveColor;
+
+	List<SVertex> vertices = new ArrayList<>();
+	List<STriangle> triangles = new ArrayList<>();
+	STextureRef texture;
 
 	@XmlField("vertices")
 	public List<SVertex> getVertices() {
@@ -71,11 +83,52 @@ public class SShape implements SObject {
 		this.emissiveColor = emissiveColor;
 	}
 
-	private int ambientColor;
-	private int diffuseColor;
-	private int emissiveColor;
+	@Override
+	public void move(Vector4f direction) {
+		for(SVertex v : this.vertices) {
+			v.move(direction);
+		}
+	}
 
-	private List<SVertex> vertices = new ArrayList<>();
-	private List<STriangle> triangles = new ArrayList<>();
-	private STextureRef texture;
+	@Override
+	public void moveTexture(Vector2f direction) {
+		for(SVertex v : this.vertices) {
+			v.moveTexture(direction);
+		}
+	}
+
+	@Override
+	public boolean hasPart(SPhysicalObject part)
+	{
+		if(part.equals(this))
+			return true;
+
+		boolean ret = false;
+		for(STriangle t : triangles) {
+			ret |= t.hasPart(part);
+		}
+		return ret;
+	}
+
+	@Override
+	public Vector4f centerPoint(Vector4f ret) {
+		ret.set(0f, 0f, 0f, 0f);
+		Vector4f tmp = VectorStack.newVector4f();
+
+		float n = 1f / vertices.size();
+		for(SVertex vertex : vertices) {
+			vertex.position.mul(n, tmp);
+			ret.add(tmp, ret);
+		}
+
+		VectorStack.release(tmp);
+		return ret;
+	}
+
+	@Override
+	public void scale(Matrix4f matrix) {
+		for(SVertex vertex : vertices) {
+			vertex.scale(matrix);
+		}
+	}
 }

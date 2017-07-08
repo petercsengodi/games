@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.joml.Matrix3f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
@@ -45,13 +44,13 @@ public class CFigure implements IModelPart {
 
 		switch(figure)
 		{
-			case Cube:
-				AddNewCube();
-				break;
+		case Cube:
+			AddNewCube();
+			break;
 
-			default:
-				AddNewTetra();
-				break;
+		default:
+			AddNewTetra();
+			break;
 		}
 	}
 
@@ -176,7 +175,7 @@ public class CFigure implements IModelPart {
 			list.add(t);
 
 		CalculateNeighbours(list);
-//		list.Clear();
+		//		list.Clear();
 	}
 
 	protected void CalculateNeighbours(List<CTriangle> list) {
@@ -190,7 +189,7 @@ public class CFigure implements IModelPart {
 				for(int i = 0; i < 3; i++) {
 					for(int j = 0; j < 3; j++) {
 						if(t1.edges.get(i).from.equals(t2.edges.get(j).to) &&
-							t1.edges.get(i).to.equals(t2.edges.get(j).from)) {
+								t1.edges.get(i).to.equals(t2.edges.get(j).from)) {
 							t1.neighbours.set(i, t2);
 							t2.neighbours.set(j, t1);
 						}
@@ -219,56 +218,6 @@ public class CFigure implements IModelPart {
 	@Override
 	public String toString() {
 		return "Figure";
-	}
-
-	@Override
-	public void move(Vector3f direction) {
-		for(CVertex v : this.vertices) {
-			v.move(direction);
-		}
-	}
-
-	@Override
-	public void moveTexture(Vector2f direction) {
-		for(CVertex v : this.vertices) {
-			v.moveTexture(direction);
-		}
-	}
-
-	@Override
-	public boolean hasPart(IModelPart part)
-	{
-		if(part.equals(this))
-			return true;
-
-		boolean ret = false;
-		for(CTriangle t : triangles)
-		{
-			ret |= t.hasPart(part);
-		}
-		return ret;
-	}
-
-	@Override
-	public Vector3f centerPoint()
-	{
-		// TODO allocationless
-		Vector3f ret = new Vector3f(0f, 0f, 0f);
-		Vector3f tmp = new Vector3f(0f, 0f, 0f);
-		float n = 1f / (float)vertices.size();
-		for(CVertex vertex : vertices) {
-			vertex.position.mul(n, tmp);
-			ret.add(tmp, ret);
-		}
-		return ret;
-	}
-
-	@Override
-	public void scale(Matrix3f matrix)
-	{
-		for(CVertex vertex : vertices) {
-			vertex.scale(matrix);
-		}
 	}
 
 	public void zoom(float factor)
@@ -313,7 +262,7 @@ public class CFigure implements IModelPart {
 		average.mul(0.5f, average);
 
 		radius = Math.max(average.x - min.x, Math.max(
-			average.y - min.y, average.z - min.z));
+				average.y - min.y, average.z - min.z));
 
 		Vector3f tmp = new Vector3f();
 
@@ -331,7 +280,7 @@ public class CFigure implements IModelPart {
 				tx = 1.0 - Math.acos(tmp.x) / Math.PI;
 			}
 
-            v.texture_coordinates = new Vector2f((float)tx, (float)ty);
+			v.texture_coordinates = new Vector2f((float)tx, (float)ty);
 		}
 	}
 

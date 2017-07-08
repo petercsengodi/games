@@ -3,29 +3,41 @@ package hu.csega.superstition.gamelib.model.mesh;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
+import org.joml.Vector4f;
 
-import hu.csega.superstition.gamelib.model.SObject;
 import hu.csega.superstition.xml.XmlClass;
 import hu.csega.superstition.xml.XmlField;
 
 @XmlClass("Superstition.Vertex")
-public class SVertex implements SObject {
+public class SVertex implements SPhysicalObject {
+
+	public Vector4f position;
+	public Vector2f textureCoordinates;
+
+	public List<SVertex> neighbours = new ArrayList<>();
+	public List<STriangle> triangles = new ArrayList<>();
+	public List<SEdge> edges = new ArrayList<>();
 
 	public SVertex() {
 		this.textureCoordinates = new Vector2f();
-		this.position = new Vector3f();
+		this.position = new Vector4f(0f, 0f, 0f, 1f);
 	}
 
 	@XmlField("position")
-	public Vector3f getPosition() {
+	public Vector4f getPosition() {
 		return position;
 	}
 
 	@XmlField("position")
-	public void setPosition(Vector3f position) {
-		this.position = position;
+	public void setPosition(Vector4f position) {
+		this.position.set(position);
+	}
+
+	public void setPosition(Vector3f p) {
+		this.position.set(p.x, p.y, p.z, 1f);
 	}
 
 	@XmlField("textureCoordinates")
@@ -73,15 +85,44 @@ public class SVertex implements SObject {
 		if(position == null || textureCoordinates == null)
 			return super.toString();
 
-		return "Vertex (" + position.x + ";" + position.y + ";" + position.z + ") [" +
-			textureCoordinates.x + ";" + textureCoordinates.y + "]";
+		return "Vertex (" + position.x + ";" + position.y +
+				";" + position.z + ";" + position.w + ") [" +
+				textureCoordinates.x + ";" + textureCoordinates.y + "]";
 	}
 
-	public Vector3f position;
-	public Vector2f textureCoordinates;
+	@Override
+	public void move(Vector4f direction) {
+		this.position.add(direction, position);
+	}
 
-	public List<SVertex> neighbours = new ArrayList<>();
-	public List<STriangle> triangles = new ArrayList<>();
-	public List<SEdge> edges = new ArrayList<>();
+	@Override
+	public void moveTexture(Vector2f direction) {
+		this.textureCoordinates.add(direction, this.textureCoordinates);
+
+		if(textureCoordinates.x < 0f)
+			textureCoordinates.x = 0f;
+		if(textureCoordinates.x > 1f)
+			textureCoordinates.x = 1f;
+		if(textureCoordinates.y < 0f)
+			textureCoordinates.y = 0f;
+		if(textureCoordinates.y > 1f)
+			textureCoordinates.y = 1f;
+	}
+
+	@Override
+	public boolean hasPart(SPhysicalObject part) {
+		return part.equals(this);
+	}
+
+	@Override
+	public Vector4f centerPoint(Vector4f ret) {
+		ret.set(this.position);
+		return ret;
+	}
+
+	@Override
+	public void scale(Matrix4f matrix) {
+		this.position.mul(matrix, position);
+	}
 
 }

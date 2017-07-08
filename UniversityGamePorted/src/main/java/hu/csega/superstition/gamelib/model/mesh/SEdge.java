@@ -1,11 +1,17 @@
 package hu.csega.superstition.gamelib.model.mesh;
+import org.joml.Matrix4f;
+import org.joml.Vector2f;
+import org.joml.Vector4f;
 
-import hu.csega.superstition.gamelib.model.SObject;
 import hu.csega.superstition.xml.XmlClass;
 import hu.csega.superstition.xml.XmlField;
 
 @XmlClass("Superstition.Edge")
-public class SEdge implements SObject {
+public class SEdge implements SPhysicalObject {
+
+	SVertex from;
+	SVertex to;
+	STriangle triangle;
 
 	@XmlField("from")
 	public SVertex getFrom() {
@@ -47,7 +53,40 @@ public class SEdge implements SObject {
 		to.position.x + ";" + to.position.y + ";" + to.position.z + ")";
 	}
 
-	private SVertex from;
-	private SVertex to;
-	private STriangle triangle;
+	public float length() {
+		double xl = from.position.x - to.position.x;
+		double yl = from.position.y - to.position.y;
+		return (float)Math.sqrt(xl * xl + yl * yl);
+	}
+
+	@Override
+	public void move(Vector4f direction) {
+		this.to.move(direction);
+		this.from.move(direction);
+	}
+
+	@Override
+	public void moveTexture(Vector2f direction) {
+		this.to.moveTexture(direction);
+		this.from.moveTexture(direction);
+	}
+
+	@Override
+	public boolean hasPart(SPhysicalObject part) {
+		return part.equals(this) || part.equals(from) || part.equals(to);
+	}
+
+	@Override
+	public Vector4f centerPoint(Vector4f ret) {
+		ret.set(from.position);
+		ret.add(to.position, ret);
+		ret.mul(0.5f, ret);
+		return ret;
+	}
+
+	@Override
+	public void scale(Matrix4f matrix) {
+		from.scale(matrix);
+		to.scale(matrix);
+	}
 }

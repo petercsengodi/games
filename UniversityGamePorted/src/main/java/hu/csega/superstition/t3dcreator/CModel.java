@@ -224,52 +224,6 @@ public class CModel implements IModelPart
 		return ret;
 	}
 
-	@Override
-	public void move(Vector3f direction) {
-		for(CFigure figure : figures)
-			figure.move(direction);
-	}
-
-	@Override
-	public void moveTexture(Vector2f direction) {
-		for(CFigure figure : figures)
-			figure.moveTexture(direction);
-	}
-
-	@Override
-	public boolean hasPart(IModelPart part) {
-		if(part.equals(this))
-			return true;
-
-		boolean ret = false;
-		for(CFigure figure : figures)
-			ret |= figure.hasPart(part);
-
-		return ret;
-	}
-
-	@Override
-	public Vector3f centerPoint() {
-		// TODO allocationless
-		Vector3f ret = new Vector3f(0f, 0f, 0f);
-		Vector3f tmp = new Vector3f();
-
-		float n = 1f / figures.size();
-		for(CFigure figure : figures) {
-			figure.centerPoint().mul(n, tmp);
-			ret.add(tmp, ret);
-		}
-
-		return ret;
-	}
-
-	@Override
-	public void scale(Matrix3f matrix) {
-		for(CFigure figure : figures) {
-			figure.scale(matrix);
-		}
-	}
-
 	public void AddMeshFigure(InitialFigure figure, Device device)
 	{
 		Mesh mesh = null;

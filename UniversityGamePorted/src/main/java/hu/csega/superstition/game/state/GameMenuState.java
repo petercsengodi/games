@@ -1,10 +1,20 @@
 package hu.csega.superstition.game.state;
 
+import hu.csega.superstition.game.IModel;
+import hu.csega.superstition.game.Model;
+import hu.csega.superstition.game.ModelIO;
+import hu.csega.superstition.game.menu.MainMenu;
+import hu.csega.superstition.game.menu.MainMenuSelection;
+import hu.csega.superstition.game.menu.TriggerParams;
+import hu.csega.superstition.gamelib.network.HostData;
+import hu.csega.superstition.gamelib.network.MapBuffer;
+import hu.csega.superstition.gamelib.network.UserInfo;
+
 class GameMenuState extends State {
 
-	protected Quit_State quit;
-	protected Play_State play;
-	protected Load_State load;
+	protected QuitState quit;
+	protected PlayState play;
+	protected LoadState load;
 	protected Engine engine;
 	protected Model gameModel;
 	protected String filename;
@@ -16,8 +26,8 @@ class GameMenuState extends State {
 	protected MainMenu_State mstate;
 	protected StateControl cstate;
 
-	public GameMenu_State(Engine engine, Model gameModel, Quit_State quit,
-			Play_State play, Load_State load, MainMenu_State mstate,
+	public GameMenu_State(Engine engine, Model gameModel, QuitState quit,
+			PlayState play, LoadState load, MainMenu_State mstate,
 			StateControl cstate) {
 
 		this.quit = quit;
@@ -36,8 +46,7 @@ class GameMenuState extends State {
 
 		TriggerParams selection = (TriggerParams)Object;
 
-		switch(selection.command)
-		{
+		switch(selection.command) {
 		case MainMenuSelection.LOAD_MAP:
 			filename = selection.StringParameter;
 			(new Thread(new ThreadStart(loading))).Start();

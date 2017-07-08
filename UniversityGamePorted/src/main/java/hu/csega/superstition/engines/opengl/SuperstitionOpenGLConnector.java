@@ -16,7 +16,6 @@ import hu.csega.games.engine.g3d.GameModelBuilder;
 import hu.csega.games.engine.g3d.GameModelStore;
 import hu.csega.games.engine.g3d.GameObjectHandler;
 import hu.csega.superstition.engines.connector.Connector;
-import hu.csega.toolshed.framework.ToolWindow;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
@@ -43,6 +42,10 @@ public class SuperstitionOpenGLConnector implements Connector, GameImplementatio
 
 	@Override
 	public void add(GameCanvas canvas) {
+	}
+
+	@Override
+	public void setFullScreen(boolean fullScreen) {
 	}
 
 	@Override

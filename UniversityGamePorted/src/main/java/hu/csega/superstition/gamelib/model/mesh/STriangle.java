@@ -3,12 +3,20 @@ package hu.csega.superstition.gamelib.model.mesh;
 import java.util.ArrayList;
 import java.util.List;
 
-import hu.csega.superstition.gamelib.model.SObject;
+import org.joml.Matrix4f;
+import org.joml.Vector2f;
+import org.joml.Vector4f;
+
 import hu.csega.superstition.xml.XmlClass;
 import hu.csega.superstition.xml.XmlField;
 
 @XmlClass("Superstition.Triangle")
-public class STriangle implements SObject {
+public class STriangle implements SPhysicalObject {
+
+	List<SEdge> edges = new ArrayList<>();
+	List<STriangle> neighbours = new ArrayList<>();
+	List<SVertex> vertices = new ArrayList<>();
+	int count;
 
 	@XmlField("edges")
 	public List<SEdge> getEdges() {
@@ -55,8 +63,50 @@ public class STriangle implements SObject {
 		return "Triangle"+ " " + count;
 	}
 
-	private List<SEdge> edges = new ArrayList<>();
-	private List<STriangle> neighbours = new ArrayList<>();
-	private List<SVertex> vertices = new ArrayList<>();
-	private int count;
+	@Override
+	public void move(Vector4f direction) {
+		for(SEdge e : edges) {
+			e.from.move(direction);
+		}
+	}
+
+	@Override
+	public void moveTexture(Vector2f direction) {
+		for(SEdge e : edges) {
+			e.from.moveTexture(direction);
+		}
+	}
+
+	@Override
+	public boolean hasPart(SPhysicalObject part) {
+		if(part.equals(this))
+			return true;
+
+		boolean ret = false;
+		for(SEdge e : edges) {
+			ret |= part.equals(e);
+			ret |= part.equals(e.from);
+		}
+
+		return ret;
+	}
+
+	@Override
+	public Vector4f centerPoint(Vector4f ret) {
+		ret.set(0f, 0f, 0f, 0f);
+
+		for(SEdge edge : edges) {
+			ret.add(edge.from.position, ret);
+		}
+
+		ret.mul(1f/3f, ret);
+		return ret;
+	}
+
+	@Override
+	public void scale(Matrix4f matrix) {
+		for(SEdge edge : edges) {
+			edge.from.scale(matrix);
+		}
+	}
 }
