@@ -5,21 +5,17 @@ import java.util.List;
 
 import hu.csega.games.adapters.opengl.OpenGLGameAdapter;
 import hu.csega.games.engine.env.Environment;
-import hu.csega.games.engine.g3d.GameModelBuilder;
-import hu.csega.games.engine.g3d.GameModelStore;
-import hu.csega.games.engine.g3d.GameObjectHandler;
 import hu.csega.games.engine.impl.GameEngine;
 import hu.csega.games.engine.intf.GameAdapter;
 import hu.csega.games.engine.intf.GameCanvas;
 import hu.csega.games.engine.intf.GameDescriptor;
-import hu.csega.games.engine.intf.GameImplementation;
 import hu.csega.games.engine.intf.GameWindow;
 import hu.csega.games.engine.intf.GameWindowListener;
 import hu.csega.superstition.engines.connector.Connector;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
-public class SuperstitionOpenGLConnector implements Connector, GameImplementation, GameWindow {
+public class SuperstitionOpenGLConnector implements Connector, GameWindow {
 
 	private List<GameWindowListener> listeners = new ArrayList<>();
 
@@ -27,10 +23,7 @@ public class SuperstitionOpenGLConnector implements Connector, GameImplementatio
 	public void run(Environment env) {
 		logger.info(className() + " start run()");
 
-		GameEngine engine = startGameEngine();
-
-		GameModelStore store = engine.getStore();
-		loadModelsIntoStore(store, (SuperstitionGameRendering)engine.getRendering());
+		startGameEngine();
 
 		logger.info(className() + " end run()");
 	}
@@ -79,25 +72,12 @@ public class SuperstitionOpenGLConnector implements Connector, GameImplementatio
 		SuperstitionGameRenderingOptions options = new SuperstitionGameRenderingOptions();
 		options.renderHitShapes = true;
 
-		GameImplementation implementation = this;
-		SuperstitionGamePhysics physics = new SuperstitionGamePhysics();
-		SuperstitionGameRendering rendering = new SuperstitionGameRendering(options);
+		GameEngine engine = GameEngine.create(descriptor, adapter);
 
-		SuperstitionGameField universe = new SuperstitionGameField();
-		universe.init();
-		physics.universe = universe;
-		rendering.universe = universe;
 
-		GameEngine engine = GameEngine.create(descriptor, adapter, implementation, physics, rendering);
+
 		engine.startInNewWindow();
-
 		return engine;
-	}
-
-	private void loadModelsIntoStore(GameModelStore store, SuperstitionGameRendering rendering) {
-		store.loadTexture("res/example/texture.png");
-		GameObjectHandler model = store.buildModel(new GameModelBuilder());
-		rendering.setModel(model);
 	}
 
 	private String className() {
