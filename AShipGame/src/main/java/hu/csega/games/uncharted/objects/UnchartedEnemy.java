@@ -1,11 +1,10 @@
 package hu.csega.games.uncharted.objects;
 
-import hu.csega.games.engine.GameField;
 import hu.csega.games.engine.g2d.GameHitBox;
 
 public class UnchartedEnemy extends UnchartedObject {
 
-	public UnchartedEnemy(GameField gameField) {
+	public UnchartedEnemy(UnchartedField gameField) {
 		super(gameField);
 
 		hitShapes.add(new GameHitBox(0, 50, 0, 40));

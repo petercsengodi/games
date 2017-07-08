@@ -1,23 +1,23 @@
 package hu.csega.games.uncharted;
 
 import hu.csega.games.adapters.swing.SwingGameAdapter;
-import hu.csega.games.engine.GameAdapter;
-import hu.csega.games.engine.GameDescriptor;
-import hu.csega.games.engine.GameEngine;
-import hu.csega.games.engine.GameImplementation;
-import hu.csega.games.uncharted.play.UnchartedPhysics;
-import hu.csega.games.uncharted.play.UnchartedRendering;
+import hu.csega.games.engine.GameEngineCallback;
+import hu.csega.games.engine.GameEngineFacade;
+import hu.csega.games.engine.impl.GameEngine;
+import hu.csega.games.engine.intf.GameAdapter;
+import hu.csega.games.engine.intf.GameDescriptor;
+import hu.csega.games.engine.intf.GameEngineStep;
+import hu.csega.games.uncharted.play.UnchartedModel;
 import hu.csega.games.uncharted.play.UnchartedRenderingOptions;
-import hu.csega.games.uncharted.play.UnchartedUniverse;
 
-public class UnchartedMain implements GameImplementation {
+public class UnchartedMain {
 
 	public static void main(String[] args) {
 
 		GameDescriptor descriptor = new GameDescriptor();
 		descriptor.setId("uncharted");
 		descriptor.setTitle("Uncharted");
-		descriptor.setVersion("v00.00.0001");
+		descriptor.setVersion("v00.00.0002");
 		descriptor.setDescription("Plain \"shoot'em all\" game with randomly generated maps.");
 
 		GameAdapter adapter = new SwingGameAdapter();
@@ -25,16 +25,37 @@ public class UnchartedMain implements GameImplementation {
 		UnchartedRenderingOptions options = new UnchartedRenderingOptions();
 		options.renderHitShapes = true;
 
-		UnchartedMain implementation = new UnchartedMain();
-		UnchartedPhysics physics = new UnchartedPhysics();
-		UnchartedRendering rendering = new UnchartedRendering(options);
+		final UnchartedModel model = new UnchartedModel(options);
 
-		UnchartedUniverse universe = new UnchartedUniverse();
-		universe.init();
-		physics.universe = universe;
-		rendering.universe = universe;
+		GameEngine engine = GameEngine.create(descriptor, adapter);
 
-		GameEngine engine = GameEngine.create(descriptor, adapter, implementation, physics, rendering);
+		engine.step(GameEngineStep.INIT, new GameEngineCallback() {
+
+			@Override
+			public Object call(GameEngineFacade facade) {
+				model.init();
+				return facade;
+			}
+		});
+
+		engine.step(GameEngineStep.MODIFY, new GameEngineCallback() {
+
+			@Override
+			public Object call(GameEngineFacade facade) {
+				model.call(facade);
+				return facade;
+			}
+		});
+
+		engine.step(GameEngineStep.RENDER, new GameEngineCallback() {
+
+			@Override
+			public Object call(GameEngineFacade facade) {
+				model.render(facade);
+				return facade;
+			}
+		});
+
 		engine.startInNewWindow();
 	}
 
