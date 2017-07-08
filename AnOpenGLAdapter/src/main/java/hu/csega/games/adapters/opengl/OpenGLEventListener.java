@@ -6,6 +6,7 @@ import com.jogamp.opengl.GLEventListener;
 import hu.csega.games.adapters.opengl.models.OpenGLModelStoreImpl;
 import hu.csega.games.engine.env.GameEngineException;
 import hu.csega.games.engine.impl.GameEngine;
+import hu.csega.games.engine.intf.GameEngineStep;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
@@ -71,7 +72,9 @@ public class OpenGLEventListener implements GLEventListener {
 			graphics.setStore(store);
 			graphics.setAutoDrawable(glAutodrawable, glAutodrawable.getSurfaceWidth(), glAutodrawable.getSurfaceHeight());
 			graphics.startFrame();
-			engine.getRendering().render(graphics);
+
+			engine.runStep(GameEngineStep.RENDER, graphics);
+
 			graphics.endFrame();
 			graphics.clean();
 		} catch(GameEngineException ex) {

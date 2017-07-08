@@ -74,7 +74,6 @@ public class GameEngine implements Disposable {
 		this.window = gameWindow;
 		this.store = adapter.createStore(this);
 		this.canvas = adapter.createCanvas(this);
-		this.store = adapter.createStore(this);
 
 		if(!initialized) {
 			logger.info("Running initialization.");

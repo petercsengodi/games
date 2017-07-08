@@ -3,21 +3,17 @@ package hu.csega.game.asteroid;
 import java.util.ArrayList;
 import java.util.List;
 
-import hu.csega.game.asteroid.engine.AsteroidGameField;
-import hu.csega.game.asteroid.engine.AsteroidGamePhysics;
-import hu.csega.game.asteroid.engine.AsteroidGameRendering;
 import hu.csega.game.asteroid.engine.AsteroidGameRenderingOptions;
 import hu.csega.game.asteroid.engine.AsteroidGameWindowWrapper;
 import hu.csega.game.asteroid.model.AsteroidGameModel;
+import hu.csega.game.asteroid.steps.AsteroidGameInitStep;
+import hu.csega.game.asteroid.steps.AsteroidGameRenderingStep;
 import hu.csega.game.asteroid.view.AsteroidGameView;
 import hu.csega.games.adapters.opengl.OpenGLGameAdapter;
-import hu.csega.games.engine.g3d.GameModelBuilder;
-import hu.csega.games.engine.g3d.GameModelStore;
-import hu.csega.games.engine.g3d.GameObjectHandler;
 import hu.csega.games.engine.impl.GameEngine;
 import hu.csega.games.engine.intf.GameAdapter;
 import hu.csega.games.engine.intf.GameDescriptor;
-import hu.csega.games.engine.intf.GameImplementation;
+import hu.csega.games.engine.intf.GameEngineStep;
 import hu.csega.games.engine.intf.GameWindowListener;
 import hu.csega.toolshed.framework.Tool;
 import hu.csega.toolshed.framework.ToolWindow;
@@ -25,8 +21,8 @@ import hu.csega.toolshed.framework.impl.AbstractTool;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
-@Tool(name = "Rush!")
-public class AsteroidGameToolImpl extends AbstractTool implements AsteroidGameTool, GameImplementation {
+@Tool(name = "Asteroid Game")
+public class AsteroidGameToolImpl extends AbstractTool implements AsteroidGameTool {
 
 	private List<GameWindowListener> listeners = new ArrayList<>();
 
@@ -41,10 +37,7 @@ public class AsteroidGameToolImpl extends AbstractTool implements AsteroidGameTo
 
 		createComponents();
 
-		GameEngine engine = startGameEngine(window);
-
-		GameModelStore store = engine.getStore();
-		loadModelsIntoStore(store, (AsteroidGameRendering)engine.getRendering());
+		startGameEngine(window);
 
 		logger.info("Tool initialization finished.");
 	}
@@ -54,7 +47,7 @@ public class AsteroidGameToolImpl extends AbstractTool implements AsteroidGameTo
 		GameDescriptor descriptor = new GameDescriptor();
 		descriptor.setId("asteroid");
 		descriptor.setTitle(getTitle());
-		descriptor.setVersion("v00.00.0001");
+		descriptor.setVersion("v00.00.0002");
 		descriptor.setDescription("Asteroid game.");
 
 		GameAdapter adapter = new OpenGLGameAdapter();
@@ -62,17 +55,11 @@ public class AsteroidGameToolImpl extends AbstractTool implements AsteroidGameTo
 		AsteroidGameRenderingOptions options = new AsteroidGameRenderingOptions();
 		options.renderHitShapes = true;
 
-		GameImplementation implementation = new AsteroidGameToolImpl();
-		AsteroidGamePhysics physics = new AsteroidGamePhysics();
-		AsteroidGameRendering rendering = new AsteroidGameRendering(options);
-
-		AsteroidGameField universe = new AsteroidGameField();
-		universe.init();
-		physics.universe = universe;
-		rendering.universe = universe;
+		GameEngine engine = GameEngine.create(descriptor, adapter);
+		engine.step(GameEngineStep.INIT, new AsteroidGameInitStep());
+		engine.step(GameEngineStep.RENDER, new AsteroidGameRenderingStep(options));
 
 		AsteroidGameWindowWrapper wrapper = new AsteroidGameWindowWrapper(window, this);
-		GameEngine engine = GameEngine.create(descriptor, adapter, implementation, physics, rendering);
 		engine.startIn(wrapper);
 
 		return engine;
@@ -89,11 +76,6 @@ public class AsteroidGameToolImpl extends AbstractTool implements AsteroidGameTo
 		registerComponent(AsteroidGameView.class, view);
 	}
 
-	private void loadModelsIntoStore(GameModelStore store, AsteroidGameRendering rendering) {
-		store.loadTexture("res/example/texture.png");
-		GameObjectHandler model = store.buildModel(new GameModelBuilder());
-		rendering.setModel(model);
-	}
 
 	@Override
 	public void finishWork() {
