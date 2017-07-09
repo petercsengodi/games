@@ -85,12 +85,13 @@ public class OpenGLGraphics implements GameGraphics {
 
 	@Override
 	public void placeCamera(GameObjectLocation cameraLocation) {
+		store.placeCamera(glAutodrawable, cameraLocation);
 	}
 
 	@Override
 	public void drawModel(GameObjectHandler modelReference, GameObjectLocation modelLocation) {
 		OpenGLModelContainer resolvedModel = store.resolveModel(modelReference);
-		resolvedModel.draw(glAutodrawable);
+		resolvedModel.draw(glAutodrawable, modelLocation);
 	}
 
 	@Override

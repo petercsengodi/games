@@ -3,6 +3,7 @@ package hu.csega.superstition.states.menu;
 import hu.csega.games.engine.GameEngineCallback;
 import hu.csega.games.engine.GameEngineFacade;
 import hu.csega.games.engine.g3d.GameObjectHandler;
+import hu.csega.games.engine.g3d.GameObjectLocation;
 import hu.csega.games.engine.intf.GameGraphics;
 import hu.csega.superstition.states.SuperstitionModel;
 
@@ -18,7 +19,11 @@ public class SuperstitionMainMenuRenderer implements GameEngineCallback {
 		GameObjectHandler splash = mainMenu.getSplash();
 
 		GameGraphics g = facade.graphics();
-		g.drawModel(splash, null);
+
+		g.placeCamera(mainMenu.camera());
+
+		GameObjectLocation location = new GameObjectLocation();
+		g.drawModel(splash, location );
 
 		return facade;
 	}

@@ -17,6 +17,7 @@ import hu.csega.games.adapters.opengl.models.OpenGLModelContainer;
 import hu.csega.games.adapters.opengl.models.OpenGLModelStoreImpl;
 import hu.csega.games.adapters.opengl.models.OpenGLTextureContainer;
 import hu.csega.games.adapters.opengl.utils.OpenGLErrorUtil;
+import hu.csega.games.engine.g3d.GameObjectLocation;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
@@ -119,7 +120,7 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 	}
 
 	@Override
-	public void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, OpenGLModelStoreImpl store) {
+	public void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, GameObjectLocation location, OpenGLModelStoreImpl store) {
 		int stride = 3 + 3 + 2;
 		float x, y, z;
 		int offset;
@@ -198,6 +199,23 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 	@Override
 	public void disposeModel(GLAutoDrawable glAutodrawable, OpenGLModelContainer model) {
 		// nothing to do in this implementation
+	}
+
+	@Override
+	public void loadAnimation(GLAutoDrawable glAutoDrawable, String filename, OpenGLModelContainer model) {
+	}
+
+	@Override
+	public void drawAnimation(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, OpenGLModelStoreImpl store) {
+	}
+
+	@Override
+	public void disposeAnimation(GLAutoDrawable glAutodrawable, OpenGLModelContainer model) {
+	}
+
+	@Override
+	public void placeCamera(GLAutoDrawable glAutoDrawable, GameObjectLocation cameraSettings) {
+		GL2 gl2 = glAutoDrawable.getGL().getGL2();
 	}
 
 	private static final Logger logger = LoggerFactory.createLogger(OpenGLProfileGL2TriangleAdapter.class);

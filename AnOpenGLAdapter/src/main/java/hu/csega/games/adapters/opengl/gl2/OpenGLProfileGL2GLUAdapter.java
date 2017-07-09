@@ -19,10 +19,16 @@ import hu.csega.games.adapters.opengl.models.OpenGLModelStoreImpl;
 import hu.csega.games.adapters.opengl.models.OpenGLTextureContainer;
 import hu.csega.games.adapters.opengl.utils.BufferUtils;
 import hu.csega.games.adapters.opengl.utils.OpenGLErrorUtil;
+import hu.csega.games.engine.g3d.GameObjectDirection;
+import hu.csega.games.engine.g3d.GameObjectLocation;
+import hu.csega.games.engine.g3d.GameObjectPosition;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
 public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
+
+	private GL2 gl2 = null;
+	private GLU glu = null;
 
 	@Override
 	public void viewPort(GLAutoDrawable glAutoDrawable, int width, int height) {
@@ -44,12 +50,11 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 
 	@Override
 	public void startFrame(GLAutoDrawable glAutoDrawable) {
-		GL2 gl2 = glAutoDrawable.getGL().getGL2();
-		GLU glu = GLU.createGLU(gl2);
+		gl2 = glAutoDrawable.getGL().getGL2();
+		glu = GLU.createGLU(gl2);
 
 		gl2.glEnable(GL2.GL_DEPTH_TEST);
 		gl2.glEnable(GL2.GL_TEXTURE_2D);
-		// gl2.glEnable(GL2.GL_NORMALIZE);
 
 		gl2.glEnable(GL2.GL_NORMALIZE);
 		gl2.glEnable(GL2.GL_AUTO_NORMAL);
@@ -69,24 +74,6 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 		gl2.glMatrixMode(GL2.GL_MODELVIEW);
 		gl2.glLoadIdentity();
 
-		//		glu.gluLookAt(
-		//				0,  0, 10,
-		//				0,  0,  0,
-		//				0,  1,  1
-		//				);
-
-		glu.gluLookAt(
-				0,  0, 10,
-				0,  0,  0,
-				0,  1,  0
-				);
-
-		//		glu.gluLookAt(
-		//				0,  0, -10,
-		//				0,  0,   0,
-		//				0,  1,   0
-		//				);
-
 		// gl2.glPushMatrix();
 
 		OpenGLErrorUtil.checkError(gl2, "modelViewMatrix");
@@ -99,14 +86,15 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 
 	@Override
 	public void endFrame(GLAutoDrawable glAutoDrawable) {
-		GL2 gl2 = glAutoDrawable.getGL().getGL2();
-
 		// gl2.glPopMatrix();
 		// OpenGLErrorUtil.checkError(gl2, "pop");
 
 		gl2.glFlush();
 
 		OpenGLErrorUtil.checkError(gl2, "endFrame");
+
+		gl2 = null;
+		glu = null;
 	}
 
 	@Override
@@ -199,7 +187,7 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 	}
 
 	@Override
-	public void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, OpenGLModelStoreImpl store) {
+	public void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, GameObjectLocation location, OpenGLModelStoreImpl store) {
 		int stride = 3 + 3 + 2;
 
 		GL2 gl2 = glAutoDrawable.getGL().getGL2();
@@ -240,6 +228,31 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 		gl2.glDeleteBuffers(model.getNumberOfVertexArrays(), model.getOpenGLHandlers(), model.getOffsetOfVertexBuffers());
 
 		OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.dispose");
+	}
+
+	@Override
+	public void loadAnimation(GLAutoDrawable glAutoDrawable, String filename, OpenGLModelContainer model) {
+	}
+
+	@Override
+	public void drawAnimation(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, OpenGLModelStoreImpl store) {
+	}
+
+	@Override
+	public void disposeAnimation(GLAutoDrawable glAutodrawable, OpenGLModelContainer model) {
+	}
+
+	@Override
+	public void placeCamera(GLAutoDrawable glAutodrawable, GameObjectLocation cameraSettings) {
+		GameObjectPosition p = cameraSettings.position;
+		GameObjectDirection f = cameraSettings.forward;
+		GameObjectDirection u = cameraSettings.up;
+
+		glu.gluLookAt(
+				p.x, p.y, p.z,
+				f.x, f.y, f.z,
+				u.x, u.y, u.z
+				);
 	}
 
 	private static final Logger logger = LoggerFactory.createLogger(OpenGLProfileGL2GLUAdapter.class);

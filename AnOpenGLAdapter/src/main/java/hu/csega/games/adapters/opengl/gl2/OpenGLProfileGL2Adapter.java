@@ -18,6 +18,7 @@ import hu.csega.games.adapters.opengl.models.OpenGLTextureContainer;
 import hu.csega.games.adapters.opengl.utils.OpenGLErrorUtil;
 import hu.csega.games.adapters.opengl.utils.OpenGLLogStream;
 import hu.csega.games.adapters.opengl.utils.OpenGLProgramLogger;
+import hu.csega.games.engine.g3d.GameObjectLocation;
 
 @Deprecated
 public class OpenGLProfileGL2Adapter implements OpenGLProfileAdapter {
@@ -119,7 +120,7 @@ public class OpenGLProfileGL2Adapter implements OpenGLProfileAdapter {
 	}
 
 	@Override
-	public void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, OpenGLModelStoreImpl store) {
+	public void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, GameObjectLocation location, OpenGLModelStoreImpl store) {
 		// TODO Auto-generated method stub
 
 	}
@@ -128,6 +129,22 @@ public class OpenGLProfileGL2Adapter implements OpenGLProfileAdapter {
 	public void disposeModel(GLAutoDrawable glAutodrawable, OpenGLModelContainer model) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void loadAnimation(GLAutoDrawable glAutoDrawable, String filename, OpenGLModelContainer model) {
+	}
+
+	@Override
+	public void drawAnimation(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, OpenGLModelStoreImpl store) {
+	}
+
+	@Override
+	public void disposeAnimation(GLAutoDrawable glAutodrawable, OpenGLModelContainer model) {
+	}
+
+	@Override
+	public void placeCamera(GLAutoDrawable glAutodrawable, GameObjectLocation cameraSettings) {
 	}
 
 }

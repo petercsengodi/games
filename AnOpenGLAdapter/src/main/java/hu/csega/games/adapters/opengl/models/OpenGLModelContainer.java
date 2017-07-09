@@ -3,6 +3,7 @@ package hu.csega.games.adapters.opengl.models;
 import com.jogamp.opengl.GLAutoDrawable;
 
 import hu.csega.games.adapters.opengl.OpenGLProfileAdapter;
+import hu.csega.games.engine.g3d.GameObjectLocation;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
@@ -75,8 +76,8 @@ public abstract class OpenGLModelContainer implements OpenGLObjectContainer {
 		logger.trace("Disposed model: " + filename);
 	}
 
-	public void draw(GLAutoDrawable glAutoDrawable) {
-		adapter.drawModel(glAutoDrawable, this, store);
+	public void draw(GLAutoDrawable glAutoDrawable, GameObjectLocation location) {
+		adapter.drawModel(glAutoDrawable, this, location, store);
 	}
 
 	public abstract OpenGLModelBuilder builder();
