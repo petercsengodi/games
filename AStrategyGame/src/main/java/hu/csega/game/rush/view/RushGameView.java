@@ -22,8 +22,8 @@ public class RushGameView implements ToolView {
 	}
 
 	@Override
-	public void paint(Graphics2D g, Rectangle visibleRectangle) {
-		Dimension size = visibleRectangle.getSize();
+	public void paint(Graphics2D g, Rectangle rect) {
+		Dimension size = rect.getSize();
 		g.translate(size.width / 2, size.height / 2);
 		g.drawLine(-10, 0, 10, 0);
 		g.drawLine(0, -10, 0, 10);
