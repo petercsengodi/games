@@ -1,4 +1,4 @@
-package hu.csega.superstition.unported.animatool;
+package hu.csega.superstition.animation;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;

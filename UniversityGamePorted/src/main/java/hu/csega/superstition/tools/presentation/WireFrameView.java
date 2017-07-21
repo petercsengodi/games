@@ -14,7 +14,7 @@ import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
-import hu.csega.superstition.tools.Updates;
+import hu.csega.superstition.tools.UpdateScope;
 
 public class WireFrameView extends ToolView {
 
@@ -115,7 +115,7 @@ public class WireFrameView extends ToolView {
 	}
 
 	@Override
-	public void updateView(Updates update) {
+	public void updateView(UpdateScope update) {
 		invalidate();
 	}
 

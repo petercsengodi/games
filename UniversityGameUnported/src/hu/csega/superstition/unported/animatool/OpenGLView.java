@@ -2,8 +2,6 @@ package hu.csega.superstition.unported.animatool;
 
 import javax.swing.JButton;
 
-import org.joml.Vector3f;
-
 import hu.csega.superstition.animation.ButtonControl;
 import hu.csega.superstition.tools.presentation.ToolView;
 

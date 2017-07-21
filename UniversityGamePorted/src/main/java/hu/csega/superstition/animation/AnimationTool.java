@@ -1,4 +1,4 @@
-package hu.csega.superstition.unported.animatool;
+package hu.csega.superstition.animation;
 
 import java.awt.Container;
 import java.awt.Dimension;
@@ -11,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -19,22 +20,30 @@ import javax.swing.JTabbedPane;
 import hu.csega.superstition.fileoperations.FileControl;
 import hu.csega.superstition.fileoperations.FileOperation;
 
-public class AnimaTool extends JFrame {
+public class AnimationTool extends JFrame {
 
-	private JMenu mainMenu1;
-	private JMenuItem menuItem1;
-	private JMenuItem menuItem2;
-	private JMenuItem menuItem3;
-	private JMenuItem menuItem4;
-	private JMenuItem menuItem5;
-	private JMenuItem menuItem6;
-	private JMenuItem menuItem7;
-	private JMenuItem menuItem8;
-	private JMenuItem menuItem9;
+	private AnimationFacade facade;
+	private FileControl fileControl;
+	private Action action = Action.MOVE;
+
+	private JMenuBar menuBar;
+
+	private JMenu menuFile;
+	private JMenuItem menuItemNew;
+	private JMenuItem menuItemOpen;
+	private JMenuItem menuItemSave;
+	private JMenuItem menuItemSaveAs;
+	private JMenuItem menuItemExit;
+
+	private JMenuItem menuItemAddPart;
+	private JMenuItem menuItemRemovePart;
+	private JMenu menuParts;
+
+	private JMenu menuHelp;
+	private JMenuItem menuItemAbout;
+
 	private JTabbedPane tab_control;
 	private JPanel tab_part_editor;
-	private JMenuItem menuItem10;
-	private JMenuItem menuItem11;
 	private JPanel tab_scene_editor;
 	private JButton grid_button;
 	private JRadioButton rad1_0;
@@ -48,8 +57,9 @@ public class AnimaTool extends JFrame {
 	private JComboBox<Object> operation_box;
 	private JLabel label1;
 
+	private TreeObjectView treeView1;
+
 	// TODO uncomment, fix
-	//	private TreeObjectView trview;
 	//	private WireFrameView wireFrameView1;
 	//	private WireFrameView wireFrameView2;
 	//	private WireFrameView wireFrameView3;
@@ -57,29 +67,27 @@ public class AnimaTool extends JFrame {
 	//	private PartEditor partEditor1;
 	//	private OpenGLView dxview;
 
-	public AnimaTool() {
-
+	public AnimationTool(AnimationFacade facade) {
+		this.facade = facade;
 		InitializeComponent();
 
-		file_control = new FileControl(
+		fileControl = new FileControl(
 				new FileOperation() {
 					@Override
 					public void call(String file_name) {
-						LoadFile(file_name);
+						loadFile(file_name);
 					}
 				},
 				new FileOperation(){
 					@Override
 					public void call(String file_name) {
-						SaveFile(file_name);
+						saveFile(file_name);
 					}
 				},
 				"/res/anims", "anm");
 
-		model = new CModel();
-		//		model.RegisterView(partEditor1);
-		//		model.RegisterView(dxview);
-		//		model.RegisterView(trview);
+		//		model.addView(partEditor1);
+		//		model.addView(dxview);
 		//		model.RegisterView(wireFrameView1);
 		//		model.RegisterView(wireFrameView2);
 		//		model.RegisterView(wireFrameView3);
@@ -87,6 +95,12 @@ public class AnimaTool extends JFrame {
 		//		wireFrameView1.SetView(Perspectives.Front);
 		//		wireFrameView2.SetView(Perspectives.Top);
 		//		wireFrameView3.SetView(Perspectives.Left);
+	}
+
+	public void initializeAndShwoTool() {
+		AnimationModel model = facade.getModel();
+		model.addView(treeView1);
+		this.setVisible(true);
 	}
 
 	protected void dispose( boolean disposing )
@@ -105,18 +119,22 @@ public class AnimaTool extends JFrame {
 
 	private void InitializeComponent()
 	{
-		this.mainMenu1 = new JMenu();
-		this.menuItem1 = new JMenuItem();
-		this.menuItem2 = new JMenuItem();
-		this.menuItem3 = new JMenuItem();
-		this.menuItem4 = new JMenuItem();
-		this.menuItem5 = new JMenuItem();
-		this.menuItem6 = new JMenuItem();
-		this.menuItem7 = new JMenuItem();
-		this.menuItem10 = new JMenuItem();
-		this.menuItem11 = new JMenuItem();
-		this.menuItem8 = new JMenuItem();
-		this.menuItem9 = new JMenuItem();
+		this.menuBar = new JMenuBar();
+
+		this.menuFile = new JMenu("File");
+		this.menuItemNew = new JMenuItem("New");
+		this.menuItemOpen = new JMenuItem("Open");
+		this.menuItemSave = new JMenuItem("Save");
+		this.menuItemSaveAs = new JMenuItem("Save as...");
+		this.menuItemExit = new JMenuItem("Exit");
+
+		this.menuParts = new JMenu("Parts");
+		this.menuItemAddPart = new JMenuItem("Add Part");
+		this.menuItemRemovePart = new JMenuItem("Remove Part");
+
+		this.menuHelp = new JMenu("Help");
+		this.menuItemAbout = new JMenuItem("About");
+
 		this.tab_control = new JTabbedPane();
 		this.tab_part_editor = new JPanel();
 		this.tab_scene_editor = new JPanel();
@@ -139,98 +157,84 @@ public class AnimaTool extends JFrame {
 		//		this.wireFrameView1 = new WireFrameView();
 		//		this.wireFrameView2 = new WireFrameView();
 		//		this.wireFrameView3 = new WireFrameView();
-		//
-		//		this.trview = new TreeObjectView();
-		//		this.trview.setLocation(new Point(0, 0));
-		//		this.trview.setSize(new Dimension(120, 296));
 
-		this.mainMenu1.add(this.menuItem1);
-		this.mainMenu1.add(this.menuItem7);
-		this.mainMenu1.add(this.menuItem8);
+		this.treeView1 = new TreeObjectView(facade);
+		this.treeView1.setLocation(new Point(0, 0));
+		this.treeView1.setSize(new Dimension(120, 296));
 
-		this.menuItem1.add(this.menuItem2);
-		this.menuItem1.add(this.menuItem3);
-		this.menuItem1.add(this.menuItem4);
-		this.menuItem1.add(this.menuItem5);
-		this.menuItem1.add(this.menuItem6);
-		this.menuItem1.setText("File");
+		this.menuHelp.add(this.menuItemAbout);
+		this.menuBar.add(this.menuHelp);
 
-		this.menuItem2.setText("New");
-		this.menuItem2.addActionListener(new ActionListener() {
+		this.menuParts.add(this.menuItemAddPart);
+		this.menuParts.add(this.menuItemRemovePart);
+		this.menuBar.add(this.menuParts);
+
+		this.menuFile.add(this.menuItemNew);
+		this.menuFile.add(this.menuItemOpen);
+		this.menuFile.add(this.menuItemSave);
+		this.menuFile.add(this.menuItemSaveAs);
+		this.menuFile.add(this.menuItemExit);
+		this.menuBar.add(this.menuFile);
+
+		this.menuItemNew.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				file_control.saveNew(AnimaTool.this);
-				model.parts.clear();
-				model.scene = 0;
-				model.max_scenes = 1;
-				model.UpdateViews();
+				fileControl.saveNew(AnimationTool.this);
+				AnimationModel model = facade.getModel();
+				model.clear();
 			}
 		});
 
-		this.menuItem3.setText("Open");
-		this.menuItem3.addActionListener(new ActionListener() {
+		this.menuItemOpen.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				file_control.open(AnimaTool.this);
+				fileControl.open(AnimationTool.this);
 			}
 		});
 
-		this.menuItem4.setText("Save");
-		this.menuItem4.addActionListener(new ActionListener() {
+		this.menuItemSave.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				file_control.save(AnimaTool.this);
+				fileControl.save(AnimationTool.this);
 			}
 		});
 
-		this.menuItem5.setText("Save as...");
-		this.menuItem5.addActionListener(new ActionListener() {
+		this.menuItemSaveAs.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				file_control.saveAs(AnimaTool.this);
+				fileControl.saveAs(AnimationTool.this);
 			}
 		});
 
-		this.menuItem6.setText("Quit");
-		this.menuItem6.addActionListener(new ActionListener() {
+		this.menuItemExit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				AnimaTool.this.onClosing();
+				AnimationTool.this.onClosing();
 				System.exit(0);
 			}
 		});
 
-		this.menuItem7.add(this.menuItem10);
-		this.menuItem7.add(this.menuItem11);
-		this.menuItem7.setText("Part");
-
-		this.menuItem10.setText("Add Part");
-		this.menuItem10.addActionListener(new ActionListener() {
+		this.menuItemAddPart.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				model.parts.add(new CPart(model));
-				model.UpdateViews();
+				//				model.parts.add(new CPart(model));
+				//				model.UpdateViews();
 			}
 		});
 
-		this.menuItem11.setText("Delete Part");
-		this.menuItem11.addActionListener(new ActionListener() {
+		this.menuItemRemovePart.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(model.selected != null)
-				{
-					model.DeleteConnectedPart(
-							model.parts.indexOf(model.selected));
-					model.parts.remove(model.selected);
-					model.UpdateViews();
-				}
+				//				if(model.selected != null)
+				//				{
+				//					model.DeleteConnectedPart(
+				//							model.parts.indexOf(model.selected));
+				//					model.parts.remove(model.selected);
+				//					model.UpdateViews();
+				//				}
 			}
 		});
 
-		this.menuItem8.add(this.menuItem9);
-		this.menuItem8.setText("Help");
-
-		this.menuItem9.setText("About");
 		this.tab_control.addTab("Part Editor", this.tab_part_editor);
 		this.tab_control.addTab("Scene Editor", this.tab_scene_editor);
 		this.tab_control.setLocation(new Point(400, 0));
@@ -274,13 +278,11 @@ public class AnimaTool extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(model.isSnapToGrid())
-				{
+				AnimationModel model = facade.getModel();
+				if(model.isSnapToGrid()) {
 					model.setSnapToGrid(false);
 					grid_button.setText("Grid: Off");
-				}
-				else
-				{
+				} else {
 					model.setSnapToGrid(true);
 					grid_button.setText("Grid: On");
 				}
@@ -291,26 +293,19 @@ public class AnimaTool extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				AnimationModel model = facade.getModel();
 				Object sender = e.getSource();
-				if(sender == rad1_0)
-				{
-					model.grid_step = 1f;
-				}
-				else if(sender == rad0_5)
-				{
-					model.grid_step = 0.5f;
-				}
-				else if(sender == rad0_25)
-				{
-					model.grid_step = 0.25f;
-				}
-				else if(sender == rad0_1)
-				{
-					model.grid_step = 0.1f;
-				}
-				else if(sender == rad0_05)
-				{
-					model.grid_step = 0.05f;
+
+				if(sender == rad1_0) {
+					model.setGridStep(1f);
+				} else if(sender == rad0_5) {
+					model.setGridStep(0.5f);
+				} else if(sender == rad0_25) {
+					model.setGridStep(0.25f);
+				} else if(sender == rad0_1) {
+					model.setGridStep(0.1f);
+				} else if(sender == rad0_05) {
+					model.setGridStep(0.05f);
 				}
 
 				// TODO uncomment, fix
@@ -366,7 +361,7 @@ public class AnimaTool extends JFrame {
 		this.operation_box.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				operation = (MoveOperation)operation_box.getSelectedItem();
+				// operation = (MoveOperation)operation_box.getSelectedItem();
 			}
 		});
 
@@ -394,7 +389,8 @@ public class AnimaTool extends JFrame {
 		contentPane.setSize(new Dimension(736, 545));
 
 		this.setSize(new Dimension(800, 600));
-		this.add(this.mainMenu1);
+		this.menuBar.add(menuFile);
+		this.setJMenuBar(menuBar);
 		this.setTitle("AnimaTool");
 
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -408,36 +404,25 @@ public class AnimaTool extends JFrame {
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	}
 
-	public static void main(String[] args) throws Exception {
-		AnimaTool tool = new AnimaTool();
-		tool.setVisible(true);
-	}
-
-	private void LoadFile(String file_name) {
+	private void loadFile(String file_name) {
 		//		SAnimation data = (SAnimation)XmlHandler.Load(file_name);
 		//		model.SetModelData(data);
 		//		model.UpdateViews();
 	}
 
-	private void SaveFile(String file_name) {
+	private void saveFile(String file_name) {
 		//		SAnimation data = model.GetModelData();
 		//		XmlHandler.Save(file_name, data);
 	}
 
 	protected void onClosing() {
-		file_control.save(this);
+		fileControl.save(this);
 	}
 
-	public static MoveOperation GetOperatoion() {
-		return operation;
+	public Action getAction() {
+		return action;
 	}
 
-	private CModel model;
-	private FileControl file_control;
-
-	private static MoveOperation operation = MoveOperation.Move;
-
-	/** Default serial version UID. */
 	private static final long serialVersionUID = 1L;
 
 }

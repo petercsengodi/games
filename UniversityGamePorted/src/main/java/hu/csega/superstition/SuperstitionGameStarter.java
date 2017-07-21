@@ -17,7 +17,7 @@ import hu.csega.toolshed.logging.LoggerFactory;
  * links all the components together.
  * However, not static methods are used, as writing a testable code is prio 1!
  */
-public class Superstition {
+public class SuperstitionGameStarter {
 
 	private Connector connector;
 	private Phase phase = Phase.ZERO;
@@ -30,11 +30,11 @@ public class Superstition {
 
 	public static void main(String[] args) {
 		LoggerFactory.setDefaultLevel(LOGGING_LEVEL);
-		logger = LoggerFactory.createLogger(Superstition.class);
+		logger = LoggerFactory.createLogger(SuperstitionGameStarter.class);
 		logger.info("Starting game.");
 
 		EnvironmentImpl env = new EnvironmentImpl();
-		Superstition superstition = new Superstition();
+		SuperstitionGameStarter superstition = new SuperstitionGameStarter();
 		superstition.setEnvironment(env);
 
 		try {
@@ -71,7 +71,7 @@ public class Superstition {
 		System.exit(0);
 	}
 
-	public static void handleGameException(GameEngineException ex, Superstition superstition) {
+	public static void handleGameException(GameEngineException ex, SuperstitionGameStarter superstition) {
 		StringBuilder msg = new StringBuilder();
 		msg.append("GameException occurred in phase ");
 		msg.append(superstition.phaseString());

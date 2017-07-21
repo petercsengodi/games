@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import hu.csega.games.engine.env.Disposable;
-import hu.csega.superstition.tools.Updates;
+import hu.csega.superstition.tools.UpdateScope;
 
 public abstract class ToolView extends JPanel implements Disposable {
 
@@ -66,13 +66,13 @@ public abstract class ToolView extends JPanel implements Disposable {
 	}
 
 	public void updateView() {
-		updateView(Updates.FULL);
+		updateView(UpdateScope.FULL);
 	}
 
 	public void paintCanvas(ToolCanvas canvas, Graphics2D g) {
 	}
 
-	public abstract void updateView(Updates update);
+	public abstract void updateView(UpdateScope update);
 
 	/** Default serial version UID. */
 	private static final long serialVersionUID = 1L;

@@ -3,28 +3,26 @@ package hu.csega.superstition.animation;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import javax.swing.JTree;
 import javax.swing.event.TreeModelListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
-import hu.csega.superstition.tools.Updates;
+import hu.csega.superstition.tools.UpdateScope;
 import hu.csega.superstition.tools.presentation.ToolView;
 
-public class TreeObjectView extends ToolView implements TreeModel, TreeSelectionListener {
+public class TreeObjectView extends ToolView implements TreeModel, TreeSelectionListener, AnimationView {
 
-	private AnimationModel model;
+	private AnimationFacade facade;
 	private JTree treeView1;
 	private List<TreeModelListener> modelListeners = new ArrayList<>();
 
-	public TreeObjectView(AnimationModel model) {
-		this.model = model;
+	public TreeObjectView(AnimationFacade facade) {
+		this.facade = facade;
 		InitializeComponent();
 	}
 
@@ -42,8 +40,8 @@ public class TreeObjectView extends ToolView implements TreeModel, TreeSelection
 
 
 	@Override
-	public void updateView(Updates update) {
-		if(update == Updates.SELECTION_ONLY || update == Updates.ACTION_ONLY) {
+	public void updateView(UpdateScope update) {
+		if(update == UpdateScope.SELECTION_ONLY || update == UpdateScope.ACTION_ONLY) {
 			return;
 		}
 
@@ -56,9 +54,9 @@ public class TreeObjectView extends ToolView implements TreeModel, TreeSelection
 	private Object selectedItem(TreeNode item)
 	{
 		Object ret = null;
-		CModel model = GetData() as CModel;
-		int idx = treeView1.Nodes.IndexOf(item);
-		if(idx != -1) ret = (GetData() as CModel).parts[idx];
+		AnimationModel model = facade.getModel();
+		//		int idx = treeView1.Nodes.IndexOf(item);
+		//		if(idx != -1) ret = (GetData() as CModel).parts[idx];
 		return ret;
 	}
 
@@ -69,7 +67,7 @@ public class TreeObjectView extends ToolView implements TreeModel, TreeSelection
 
 	@Override
 	public Object getRoot() {
-		return model;
+		return facade.getModel();
 	}
 
 	@Override
@@ -86,7 +84,7 @@ public class TreeObjectView extends ToolView implements TreeModel, TreeSelection
 
 	@Override
 	public boolean isLeaf(Object node) {
-		if(node == model)
+		if(node == facade.getModel())
 			return false;
 		// TODO Auto-generated method stub
 		return false;
@@ -112,6 +110,12 @@ public class TreeObjectView extends ToolView implements TreeModel, TreeSelection
 	@Override
 	public void removeTreeModelListener(TreeModelListener l) {
 		modelListeners.remove(l);
+	}
+
+	@Override
+	public void updateAnimationView(UpdateScope updateScope) {
+		// TODO Auto-generated method stub
+
 	}
 
 	private static final long serialVersionUID = 1L;
