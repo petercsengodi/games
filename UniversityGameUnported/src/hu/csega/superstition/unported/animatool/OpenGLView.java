@@ -4,6 +4,7 @@ import javax.swing.JButton;
 
 import org.joml.Vector3f;
 
+import hu.csega.superstition.animation.ButtonControl;
 import hu.csega.superstition.tools.presentation.ToolView;
 
 public class OpenGLView extends ToolView {

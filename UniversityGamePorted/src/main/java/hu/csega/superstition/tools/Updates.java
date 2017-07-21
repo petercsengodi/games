@@ -1,7 +1,7 @@
 package hu.csega.superstition.tools;
 
 public enum Updates {
-	Full,
-	Move,
-	Selection
+	FULL,
+	ACTION_ONLY,
+	SELECTION_ONLY
 }

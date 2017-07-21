@@ -66,7 +66,7 @@ public abstract class ToolView extends JPanel implements Disposable {
 	}
 
 	public void updateView() {
-		updateView(Updates.Full);
+		updateView(Updates.FULL);
 	}
 
 	public void paintCanvas(ToolCanvas canvas, Graphics2D g) {

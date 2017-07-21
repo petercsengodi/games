@@ -5,6 +5,8 @@ import javax.swing.JLabel;
 
 import org.joml.Vector3f;
 
+import hu.csega.superstition.animation.ButtonControl;
+import hu.csega.superstition.animation.Perspectives;
 import hu.csega.superstition.tools.presentation.ToolView;
 
 public class WireFrameView extends ToolView {

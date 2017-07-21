@@ -1,5 +1,6 @@
 package hu.csega.superstition.unported.animatool;
 
+import hu.csega.superstition.animation.Side;
 import hu.csega.superstition.tools.presentation.ToolView;
 
 public class PartEditor extends ToolView {
