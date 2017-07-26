@@ -30,7 +30,7 @@ public class FreeTriangleMeshXYSideView extends FreeTriangleMeshSideView {
 	}
 
 	@Override
-	protected void selectAll(int x1, int y1, int x2, int y2) {
+	protected void selectAll(int x1, int y1, int x2, int y2, boolean add) {
 		int vx1 = Math.min(x1, x2);
 		int vx2 = Math.max(x1, x2);
 		int vy1 = Math.min(y1, y2);
@@ -41,11 +41,11 @@ public class FreeTriangleMeshXYSideView extends FreeTriangleMeshSideView {
 		cube.setX2(vx2);
 		cube.setY1(vy1);
 		cube.setY2(vy2);
-		cube.setZ1(Double.MIN_VALUE);
-		cube.setZ2(Double.MAX_VALUE);
+		cube.setZ1(Double.NEGATIVE_INFINITY);
+		cube.setZ2(Double.POSITIVE_INFINITY);
 
 		FreeTriangleMeshModel model = getModel();
-		model.selectAll(cube);
+		model.selectAll(cube, add);
 	}
 
 	@Override
@@ -63,6 +63,12 @@ public class FreeTriangleMeshXYSideView extends FreeTriangleMeshSideView {
 	protected void createVertexAt(int x, int y) {
 		FreeTriangleMeshModel model = getModel();
 		model.createVertexAt(x, y, 0);
+	}
+
+	@Override
+	protected void moveSelected(int x, int y) {
+		FreeTriangleMeshModel model = getModel();
+		model.moveSelected(x, y, 0);
 	}
 
 	@Override

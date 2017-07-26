@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -33,6 +34,11 @@ public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanva
 	private boolean mouseRightPressed = false;
 	private Point mouseLeftAt = new Point(0, 0);
 	private Point mouseRightAt = new Point(0, 0);
+
+	private boolean selectionBoxEnabled = false;
+	private Point selectionStart = new Point();
+	private Point selectionEnd = new Point();
+	private Rectangle selectionBox = new Rectangle();
 
 	public FreeTriangleMeshCanvas(GameEngineFacade facade) {
 		this.facade = facade;
@@ -81,11 +87,13 @@ public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanva
 
 	protected abstract void zoom(double delta);
 
-	protected abstract void selectAll(int x1, int y1, int x2, int y2);
+	protected abstract void selectAll(int x1, int y1, int x2, int y2, boolean add);
 
 	protected abstract void selectFirst(int x, int y, int radius, boolean add);
 
 	protected abstract void createVertexAt(int x, int y);
+
+	protected abstract void moveSelected(int x, int y);
 
 	protected abstract Point transformVertexToPoint(FreeTriangleMeshVertex vertex);
 
@@ -98,12 +106,30 @@ public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanva
 	public void mouseDragged(MouseEvent e) {
 		Point p = new Point(e.getX(), e.getY());
 
+		if(mouseLeftPressed) {
+			int dx = mouseLeftAt.x - p.x;
+			int dy = mouseLeftAt.y - p.y;
+			if(selectionBoxEnabled) {
+				selectionEnd.x -= dx;
+				selectionEnd.y -= dy;
+				repaint();
+			} else if(e.isControlDown()) {
+				moveSelected(-dx, dy);
+				repaintEverything();
+			}
+			mouseLeftAt.x = p.x;
+			mouseLeftAt.y = p.y;
+		}
+
 		if(mouseRightPressed) {
-			translate(mouseRightAt.x - p.x, mouseRightAt.y - p.y);
+			int dx = mouseRightAt.x - p.x;
+			int dy = mouseRightAt.y - p.y;
+			translate(dx, dy);
+			repaint();
 			mouseRightAt.x = p.x;
 			mouseRightAt.y = p.y;
-			repaint();
 		}
+
 	}
 
 	@Override
@@ -152,6 +178,11 @@ public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanva
 		if(e.getButton() == 1) {
 			mouseLeftPressed = true;
 			mouseLeftAt = new Point(e.getX(), e.getY());
+			if(!e.isControlDown()) {
+				selectionBoxEnabled = true;
+				selectionStart.x = selectionEnd.x = mouseLeftAt.x;
+				selectionStart.y = selectionEnd.y = mouseLeftAt.y;
+			}
 		}
 
 		if(e.getButton() == 3) {
@@ -164,9 +195,15 @@ public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanva
 	public void mouseReleased(MouseEvent e) {
 		if(e.getButton() == 1) {
 			mouseLeftPressed = false;
-		}
-
-		if(e.getButton() == 3) {
+			if(selectionBoxEnabled) {
+				calculateSelectionBox();
+				Point p1 = transformToModel(selectionStart.x, selectionStart.y);
+				Point p2 = transformToModel(selectionEnd.x, selectionEnd.y);
+				selectAll(p1.x, p1.y, p2.x, p2.y, e.isShiftDown());
+				selectionBoxEnabled = false;
+				repaintEverything();
+			}
+		} else if(e.getButton() == 3) {
 			mouseRightPressed = false;
 		}
 	}
@@ -205,6 +242,12 @@ public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanva
 		}
 
 		g.translate(-widthDiv2, -heightDiv2);
+
+		if(selectionBoxEnabled) {
+			g.setColor(Color.darkGray);
+			calculateSelectionBox();
+			g.drawRect(selectionBox.x, selectionBox.y, selectionBox.width, selectionBox.height);
+		}
 	}
 
 	private Point transformToModel(Point p) {
@@ -233,6 +276,13 @@ public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanva
 		double dy = y1 - y2;
 		double ret = Math.sqrt(dx*dx + dy*dy);
 		return ret;
+	}
+
+	private void calculateSelectionBox() {
+		selectionBox.x = Math.min(selectionStart.x, selectionEnd.x);
+		selectionBox.y = Math.min(selectionStart.y, selectionEnd.y);
+		selectionBox.width = Math.abs(selectionStart.x - selectionEnd.x);
+		selectionBox.height = Math.abs(selectionStart.y - selectionEnd.y);
 	}
 
 	private static final long serialVersionUID = 1L;

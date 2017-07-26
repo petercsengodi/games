@@ -30,8 +30,10 @@ public class FreeTriangleMeshModel implements Serializable {
 	private double openGLBeta;
 	private double openGLZoom = 1.0;
 
-	public void selectAll(FreeTriangleMeshCube cube) {
-		selectedObjects.clear();
+	public void selectAll(FreeTriangleMeshCube cube, boolean add) {
+		if(!add)
+			selectedObjects.clear();
+
 		for(FreeTriangleMeshVertex vertex : vertices) {
 			if(cube.contains(vertex)) {
 				selectedObjects.add(vertex);
@@ -83,6 +85,15 @@ public class FreeTriangleMeshModel implements Serializable {
 				} else {
 					selectedObjects.add(selection);
 				}
+			}
+		}
+	}
+
+	public void moveSelected(double x, double y, double z) {
+		for(Object object : selectedObjects) {
+			if(object instanceof FreeTriangleMeshVertex) {
+				FreeTriangleMeshVertex v = (FreeTriangleMeshVertex) object;
+				v.move(x, y, z);
 			}
 		}
 	}

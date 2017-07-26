@@ -25,6 +25,12 @@ public class FreeTriangleMeshVertex implements Serializable {
 		return new FreeTriangleMeshPoint(pX, pY, pZ);
 	}
 
+	public void move(double x, double y, double z) {
+		pX += x;
+		pY += y;
+		pZ += z;
+	}
+
 	public double getPX() {
 		return pX;
 	}
