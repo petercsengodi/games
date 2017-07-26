@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.JFrame;
 
 import hu.csega.games.adapters.opengl.OpenGLGameAdapter;
+import hu.csega.games.engine.GameEngineFacade;
 import hu.csega.games.engine.env.Environment;
 import hu.csega.games.engine.impl.GameEngine;
 import hu.csega.games.engine.intf.GameAdapter;
@@ -17,7 +18,9 @@ import hu.csega.games.engine.intf.GameEngineStep;
 import hu.csega.games.engine.intf.GameWindow;
 import hu.csega.games.engine.intf.GameWindowListener;
 import hu.csega.superstition.engines.connector.Connector;
-import hu.csega.superstition.ftm.view.FreeTriangleMeshSideView;
+import hu.csega.superstition.ftm.view.FreeTriangleMeshXYSideView;
+import hu.csega.superstition.ftm.view.FreeTriangleMeshXZSideView;
+import hu.csega.superstition.ftm.view.FreeTriangleMeshZYSideView;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
@@ -75,6 +78,7 @@ public class FreeTriangleMeshConnector implements Connector, GameWindow {
 
 		GameAdapter adapter = new OpenGLGameAdapter();
 		GameEngine engine = GameEngine.create(descriptor, adapter);
+		GameEngineFacade facade = engine.getFacade();
 
 		engine.step(GameEngineStep.INIT, new FreeTriangleMeshInitStep());
 		engine.step(GameEngineStep.MODIFY, new FreeTriangleMeshModifyStep());
@@ -86,12 +90,12 @@ public class FreeTriangleMeshConnector implements Connector, GameWindow {
 		JFrame frame = (JFrame) gameWindow;
 		Container contentPane = frame.getContentPane();
 		contentPane.setLayout(new GridLayout(2, 2));
-		contentPane.add(new FreeTriangleMeshSideView(engine));
+		contentPane.add(new FreeTriangleMeshXZSideView(facade));
 
 		engine.startIn(gameWindow);
 
-		contentPane.add(new FreeTriangleMeshSideView(engine));
-		contentPane.add(new FreeTriangleMeshSideView(engine));
+		contentPane.add(new FreeTriangleMeshXYSideView(facade));
+		contentPane.add(new FreeTriangleMeshZYSideView(facade));
 
 		return engine;
 	}

@@ -28,6 +28,15 @@ public class FreeTriangleMeshModel implements Serializable {
 	private double openGLBeta;
 	private double openGLZoom = 1.0;
 
+	public void select(FreeTriangleMeshCube cube) {
+		selectedObjects.clear();
+		for(FreeTriangleMeshVertex vertex : vertices) {
+			if(cube.contains(vertex)) {
+				selectedObjects.add(vertex);
+			}
+		}
+	}
+
 	public List<FreeTriangleMeshVertex> getVertices() {
 		return vertices;
 	}

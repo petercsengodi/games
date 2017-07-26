@@ -13,14 +13,16 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-import hu.csega.games.engine.impl.GameEngine;
+import hu.csega.games.engine.GameEngineFacade;
 import hu.csega.games.engine.intf.GameCanvas;
+import hu.csega.games.engine.intf.GameControl;
+import hu.csega.superstition.ftm.model.FreeTriangleMeshModel;
 
-public class FreeTriangleMeshCanvas extends JPanel implements GameCanvas, MouseListener, MouseMotionListener {
+public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanvas, MouseListener, MouseMotionListener {
 
 	public static final Dimension PREFERRED_SIZE = new Dimension(400, 300);
 
-	private GameEngine gameEngine;
+	private GameEngineFacade facade;
 
 	private BufferedImage buffer = null;
 	private Dimension lastSize = new Dimension(PREFERRED_SIZE.width, PREFERRED_SIZE.height);
@@ -29,10 +31,9 @@ public class FreeTriangleMeshCanvas extends JPanel implements GameCanvas, MouseL
 	private boolean mouseRightPressed = false;
 	private Point mouseLeftAt = new Point(0, 0);
 	private Point mouseRightAt = new Point(0, 0);
-	private Point translate = new Point(0, 0);
 
-	public FreeTriangleMeshCanvas(GameEngine gameEngine) {
-		this.gameEngine = gameEngine;
+	public FreeTriangleMeshCanvas(GameEngineFacade facade) {
+		this.facade = facade;
 		setPreferredSize(PREFERRED_SIZE);
 		addMouseListener(this);
 		addMouseMotionListener(this);
@@ -70,15 +71,13 @@ public class FreeTriangleMeshCanvas extends JPanel implements GameCanvas, MouseL
 		g.drawImage(buffer, 0, 0, null);
 	}
 
-	private void paint2d(Graphics2D g) {
-		int widthDiv2 = lastSize.width / 2;
-		int heightDiv2 = lastSize.height;
-		g.translate(widthDiv2, heightDiv2 / 2);
+	protected abstract void translate(double x, double y);
+	protected abstract void zoom(double delta);
+	protected abstract void select(int x1, int y1, int x2, int y2);
 
-//		SwingGraphics graphics = new SwingGraphics(g, lastSize.width, heightDiv2);
-//		gameEngine.runStep(GameEngineStep.RENDER, graphics);
-
-		g.translate(-widthDiv2, -heightDiv2);
+	protected FreeTriangleMeshModel getModel() {
+		FreeTriangleMeshModel model = (FreeTriangleMeshModel) facade.model();
+		return model;
 	}
 
 	@Override
@@ -86,9 +85,7 @@ public class FreeTriangleMeshCanvas extends JPanel implements GameCanvas, MouseL
 		Point p = new Point(e.getX(), e.getY());
 
 		if(mouseRightPressed) {
-			translate.x += mouseRightAt.x - p.x;
-			translate.y += mouseRightAt.y - p.y;
-
+			translate(mouseRightAt.x - p.x, mouseRightAt.y - p.y);
 			mouseRightAt.x = p.x;
 			mouseRightAt.y = p.y;
 			repaint();
@@ -100,8 +97,18 @@ public class FreeTriangleMeshCanvas extends JPanel implements GameCanvas, MouseL
 		Point p = new Point(e.getX(), e.getY());
 
 		if(mouseRightPressed) {
-			translate.x += mouseRightAt.x - p.x;
-			translate.y += mouseRightAt.y - p.y;
+
+			GameControl control = facade.control();
+			if(control.isControlOn()) {
+				double midX = this.getWidth() / 2.0;
+				double midY = this.getHeight() / 2.0;
+				double oldDistance = distance(midX, midY, mouseRightAt.x, mouseRightAt.y);
+				double newDistance = distance(midX, midY, p.x, p.y);
+				double diffDistance = newDistance - oldDistance;
+				zoom(diffDistance);
+			} else {
+				translate(mouseRightAt.x - p.x, mouseRightAt.y - p.y);
+			}
 
 			mouseRightAt.x = p.x;
 			mouseRightAt.y = p.y;
@@ -119,6 +126,7 @@ public class FreeTriangleMeshCanvas extends JPanel implements GameCanvas, MouseL
 			mouseLeftPressed = true;
 			mouseLeftAt = new Point(e.getX(), e.getY());
 		}
+
 		if(e.getButton() == 3) {
 			mouseRightPressed = true;
 			mouseRightAt = new Point(e.getX(), e.getY());
@@ -130,6 +138,7 @@ public class FreeTriangleMeshCanvas extends JPanel implements GameCanvas, MouseL
 		if(e.getButton() == 1) {
 			mouseLeftPressed = false;
 		}
+
 		if(e.getButton() == 3) {
 			mouseRightPressed = false;
 		}
@@ -141,6 +150,24 @@ public class FreeTriangleMeshCanvas extends JPanel implements GameCanvas, MouseL
 
 	@Override
 	public void mouseExited(MouseEvent e) {
+	}
+
+	private void paint2d(Graphics2D g) {
+		int widthDiv2 = lastSize.width / 2;
+		int heightDiv2 = lastSize.height;
+		g.translate(widthDiv2, heightDiv2 / 2);
+
+//		SwingGraphics graphics = new SwingGraphics(g, lastSize.width, heightDiv2);
+//		gameEngine.runStep(GameEngineStep.RENDER, graphics);
+
+		g.translate(-widthDiv2, -heightDiv2);
+	}
+
+	private double distance(double x1, double y1, double x2, double y2) {
+		double dx = x1 - x2;
+		double dy = y1 - y2;
+		double ret = Math.sqrt(dx*dx + dy*dy);
+		return ret;
 	}
 
 	private static final long serialVersionUID = 1L;

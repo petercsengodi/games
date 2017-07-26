@@ -1,11 +1,11 @@
 package hu.csega.superstition.ftm.view;
 
-import hu.csega.games.engine.impl.GameEngine;
+import hu.csega.games.engine.GameEngineFacade;
 
-public class FreeTriangleMeshSideView extends FreeTriangleMeshCanvas {
+public abstract class FreeTriangleMeshSideView extends FreeTriangleMeshCanvas {
 
-	public FreeTriangleMeshSideView(GameEngine gameEngine) {
-		super(gameEngine);
+	public FreeTriangleMeshSideView(GameEngineFacade facade) {
+		super(facade);
 	}
 
 	private static final long serialVersionUID = 1L;

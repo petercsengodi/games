@@ -15,67 +15,67 @@ public class FreeTriangleMeshVertex implements Serializable {
 	private double tX;
 	private double tY;
 
-	public double getpX() {
+	public double getPX() {
 		return pX;
 	}
 
-	public void setpX(double pX) {
+	public void setPX(double pX) {
 		this.pX = pX;
 	}
 
-	public double getpY() {
+	public double getPY() {
 		return pY;
 	}
 
-	public void setpY(double pY) {
+	public void setPY(double pY) {
 		this.pY = pY;
 	}
 
-	public double getpZ() {
+	public double getPZ() {
 		return pZ;
 	}
 
-	public void setpZ(double pZ) {
+	public void setPZ(double pZ) {
 		this.pZ = pZ;
 	}
 
-	public double getnX() {
+	public double getNX() {
 		return nX;
 	}
 
-	public void setnX(double nX) {
+	public void setNX(double nX) {
 		this.nX = nX;
 	}
 
-	public double getnY() {
+	public double getNY() {
 		return nY;
 	}
 
-	public void setnY(double nY) {
+	public void setNY(double nY) {
 		this.nY = nY;
 	}
 
-	public double getnZ() {
+	public double getNZ() {
 		return nZ;
 	}
 
-	public void setnZ(double nZ) {
+	public void setNZ(double nZ) {
 		this.nZ = nZ;
 	}
 
-	public double gettX() {
+	public double getTX() {
 		return tX;
 	}
 
-	public void settX(double tX) {
+	public void setTX(double tX) {
 		this.tX = tX;
 	}
 
-	public double gettY() {
+	public double getTY() {
 		return tY;
 	}
 
-	public void settY(double tY) {
+	public void setTY(double tY) {
 		this.tY = tY;
 	}
 
