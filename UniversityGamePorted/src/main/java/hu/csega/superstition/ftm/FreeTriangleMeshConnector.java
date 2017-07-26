@@ -1,7 +1,11 @@
-package hu.csega.superstition.engines.opengl;
+package hu.csega.superstition.ftm;
 
+import java.awt.Container;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JFrame;
 
 import hu.csega.games.adapters.opengl.OpenGLGameAdapter;
 import hu.csega.games.engine.env.Environment;
@@ -13,10 +17,11 @@ import hu.csega.games.engine.intf.GameEngineStep;
 import hu.csega.games.engine.intf.GameWindow;
 import hu.csega.games.engine.intf.GameWindowListener;
 import hu.csega.superstition.engines.connector.Connector;
+import hu.csega.superstition.ftm.view.FreeTriangleMeshSideView;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
-public class SuperstitionOpenGLConnector implements Connector, GameWindow {
+public class FreeTriangleMeshConnector implements Connector, GameWindow {
 
 	private List<GameWindowListener> listeners = new ArrayList<>();
 
@@ -63,19 +68,31 @@ public class SuperstitionOpenGLConnector implements Connector, GameWindow {
 	private GameEngine startGameEngine() {
 
 		GameDescriptor descriptor = new GameDescriptor();
-		descriptor.setId("superstition");
-		descriptor.setTitle("Superstition – ported game seed from the university");
+		descriptor.setId("ftm");
+		descriptor.setTitle("Free Triangle Mesh Tool");
 		descriptor.setVersion("v00.00.0001");
-		descriptor.setDescription("My work from the university severly changed and ported to Java/OpenGL.");
+		descriptor.setDescription("A tool for creating vertices and triangles based upon them.");
 
 		GameAdapter adapter = new OpenGLGameAdapter();
 		GameEngine engine = GameEngine.create(descriptor, adapter);
 
-		engine.step(GameEngineStep.INIT, new SuperstitionInitStep());
-		engine.step(GameEngineStep.MODIFY, new SuperstitionModifyStep());
-		engine.step(GameEngineStep.RENDER, new SuperstitionRenderStep());
+		engine.step(GameEngineStep.INIT, new FreeTriangleMeshInitStep());
+		engine.step(GameEngineStep.MODIFY, new FreeTriangleMeshModifyStep());
+		engine.step(GameEngineStep.RENDER, new FreeTriangleMeshRenderStep());
 
-		engine.startInNewWindow();
+		GameWindow gameWindow = adapter.createWindow(engine);
+		gameWindow.setFullScreen(true);
+
+		JFrame frame = (JFrame) gameWindow;
+		Container contentPane = frame.getContentPane();
+		contentPane.setLayout(new GridLayout(2, 2));
+		contentPane.add(new FreeTriangleMeshSideView(engine));
+
+		engine.startIn(gameWindow);
+
+		contentPane.add(new FreeTriangleMeshSideView(engine));
+		contentPane.add(new FreeTriangleMeshSideView(engine));
+
 		return engine;
 	}
 
@@ -83,5 +100,5 @@ public class SuperstitionOpenGLConnector implements Connector, GameWindow {
 		return getClass().getSimpleName();
 	}
 
-	private static final Logger logger = LoggerFactory.createLogger(SuperstitionOpenGLConnector.class);
+	private static final Logger logger = LoggerFactory.createLogger(FreeTriangleMeshConnector.class);
 }
