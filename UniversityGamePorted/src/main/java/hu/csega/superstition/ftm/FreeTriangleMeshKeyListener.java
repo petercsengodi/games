@@ -28,6 +28,20 @@ public class FreeTriangleMeshKeyListener implements GameKeyListener {
 			model.createTriangleStrip();
 			facade.window().repaintEverything();
 		}
+
+		if(facade.control().isControlOn()) {
+			if(key == 'z' || key == 'Z' || key == 26) {
+				FreeTriangleMeshModel model = (FreeTriangleMeshModel)facade.model();
+				model.undo();
+				facade.window().repaintEverything();
+			}
+
+			if(key == 'y' || key == 'Y' || key == 25) {
+				FreeTriangleMeshModel model = (FreeTriangleMeshModel)facade.model();
+				model.redo();
+				facade.window().repaintEverything();
+			}
+		}
 	}
 
 }

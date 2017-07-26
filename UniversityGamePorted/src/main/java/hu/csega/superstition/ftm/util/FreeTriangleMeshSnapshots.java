@@ -28,14 +28,26 @@ public class FreeTriangleMeshSnapshots {
 		nextStates.clear();
 	}
 
-	public void forward() {
+	public Serializable undo(Serializable current) {
+		if(previousStates.isEmpty())
+			return null;
+
+		byte[] currentState = serialize(current);
+		nextStates.add(currentState);
 		byte[] snapshot = previousStates.remove(previousStates.size() - 1);
-		nextStates.add(snapshot);
+		Serializable newState = (Serializable)deserialize(snapshot);
+		return newState;
 	}
 
-	public void rewind() {
+	public Serializable redo(Serializable current) {
+		if(nextStates.isEmpty())
+			return null;
+
+		byte[] currentState = serialize(current);
+		previousStates.add(currentState);
 		byte[] snapshot = nextStates.remove(nextStates.size() - 1);
-		previousStates.add(snapshot);
+		Serializable newState = (Serializable)deserialize(snapshot);
+		return newState;
 	}
 
 	public void clear() {

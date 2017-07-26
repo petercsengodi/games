@@ -204,6 +204,9 @@ public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanva
 				selectionBoxEnabled = false;
 				repaintEverything();
 			}
+
+			FreeTriangleMeshModel model = (FreeTriangleMeshModel) facade.model();
+			model.finalizeMove();
 		} else if(e.getButton() == 3) {
 			mouseRightPressed = false;
 		}
@@ -262,10 +265,6 @@ public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanva
 			calculateSelectionBox();
 			g.drawRect(selectionBox.x, selectionBox.y, selectionBox.width, selectionBox.height);
 		}
-	}
-
-	private Point transformToModel(Point p) {
-		return transformToModel(p.x, p.y);
 	}
 
 	private Point transformToModel(int x, int y) {

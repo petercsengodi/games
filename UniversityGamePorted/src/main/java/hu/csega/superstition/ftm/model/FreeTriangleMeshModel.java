@@ -4,12 +4,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import hu.csega.superstition.ftm.util.FreeTriangleMeshSnapshots;
 import hu.csega.superstition.ftm.util.FreeTriangleMeshSphereLineIntersection;
 
 public class FreeTriangleMeshModel implements Serializable {
 
-	private List<FreeTriangleMeshVertex> vertices = new ArrayList<>();
-	private List<FreeTriangleMeshTriangle> triangles = new ArrayList<>();
+	private transient FreeTriangleMeshSnapshots _snapshots;
+	private FreeTriangleMeshMesh mesh = new FreeTriangleMeshMesh();
 	private List<Object> selectedObjects = new ArrayList<>();
 
 	private double canvasXYTranslateX;
@@ -30,6 +32,30 @@ public class FreeTriangleMeshModel implements Serializable {
 	private double openGLBeta;
 	private double openGLZoom = 1.0;
 
+	private boolean moved = false;
+
+	public FreeTriangleMeshSnapshots snapshots() {
+		if(_snapshots == null)
+			_snapshots = new FreeTriangleMeshSnapshots();
+		return _snapshots;
+	}
+
+	public void undo() {
+		Serializable newState = snapshots().undo(mesh);
+		if(newState != null) {
+			clearSelection();
+			mesh = (FreeTriangleMeshMesh) newState;
+		}
+	}
+
+	public void redo() {
+		Serializable newState = snapshots().redo(mesh);
+		if(newState != null) {
+			clearSelection();
+			mesh = (FreeTriangleMeshMesh) newState;
+		}
+	}
+
 	public void clearSelection() {
 		selectedObjects.clear();
 	}
@@ -38,7 +64,7 @@ public class FreeTriangleMeshModel implements Serializable {
 		if(!add)
 			clearSelection();
 
-		for(FreeTriangleMeshVertex vertex : vertices) {
+		for(FreeTriangleMeshVertex vertex : mesh.getVertices()) {
 			if(cube.contains(vertex)) {
 				selectedObjects.add(vertex);
 			}
@@ -61,7 +87,7 @@ public class FreeTriangleMeshModel implements Serializable {
 		intersection.setLineTarget(line.getX2(), line.getY2(), line.getZ2());
 		intersection.setSphereRadius(radius);
 
-		for(FreeTriangleMeshVertex vertex : vertices) {
+		for(FreeTriangleMeshVertex vertex : mesh.getVertices()) {
 			intersection.setSphereCenter(vertex.getPX(), vertex.getPY(), vertex.getPZ());
 			intersection.calculateConstants();
 
@@ -97,6 +123,10 @@ public class FreeTriangleMeshModel implements Serializable {
 		if(selectedObjects.size() < 3)
 			return;
 
+		snapshots().addState(mesh);
+
+		List<FreeTriangleMeshVertex> vertices = mesh.getVertices();
+		List<FreeTriangleMeshTriangle> triangles = mesh.getTriangles();
 		int i1 = vertices.indexOf(selectedObjects.get(0));
 		int i2 = vertices.indexOf(selectedObjects.get(1));
 		int i3;
@@ -110,8 +140,14 @@ public class FreeTriangleMeshModel implements Serializable {
 	}
 
 	public void deleteVertices() {
-		if(selectedObjects.isEmpty() || vertices.isEmpty())
+		if(selectedObjects.isEmpty())
 			return;
+
+		List<FreeTriangleMeshVertex> vertices = mesh.getVertices();
+		if(vertices.isEmpty())
+			return;
+
+		snapshots().addState(mesh);
 
 		int[] mapping = new int[vertices.size()];
 		int mapToIndex = 0;
@@ -131,7 +167,7 @@ public class FreeTriangleMeshModel implements Serializable {
 			currentIndex++;
 		}
 
-		Iterator<FreeTriangleMeshTriangle> tit = triangles.iterator();
+		Iterator<FreeTriangleMeshTriangle> tit = mesh.getTriangles().iterator();
 		while(tit.hasNext()) {
 			FreeTriangleMeshTriangle t = tit.next();
 
@@ -162,6 +198,14 @@ public class FreeTriangleMeshModel implements Serializable {
 	}
 
 	public void moveSelected(double x, double y, double z) {
+		if(selectedObjects.isEmpty())
+			return;
+
+		if(!moved) {
+			snapshots().addState(mesh);
+			moved = true;
+		}
+
 		for(Object object : selectedObjects) {
 			if(object instanceof FreeTriangleMeshVertex) {
 				FreeTriangleMeshVertex v = (FreeTriangleMeshVertex) object;
@@ -170,24 +214,29 @@ public class FreeTriangleMeshModel implements Serializable {
 		}
 	}
 
+	public void finalizeMove() {
+		moved = false;
+	}
+
 	public void createVertexAt(double x, double y, double z) {
-		vertices.add(new FreeTriangleMeshVertex(x, y, z));
+		snapshots().addState(mesh);
+		mesh.getVertices().add(new FreeTriangleMeshVertex(x, y, z));
 	}
 
 	public List<FreeTriangleMeshVertex> getVertices() {
-		return vertices;
+		return mesh.getVertices();
 	}
 
 	public void setVertices(List<FreeTriangleMeshVertex> vertices) {
-		this.vertices = vertices;
+		this.mesh.setVertices(vertices);
 	}
 
 	public List<FreeTriangleMeshTriangle> getTriangles() {
-		return triangles;
+		return mesh.getTriangles();
 	}
 
 	public void setTriangles(List<FreeTriangleMeshTriangle> triangles) {
-		this.triangles = triangles;
+		this.mesh.setTriangles(triangles);
 	}
 
 	public List<Object> getSelectedObjects() {
