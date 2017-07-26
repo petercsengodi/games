@@ -1,6 +1,6 @@
 package hu.csega.superstition.ftm.util;
 
-import hu.csega.superstition.ftm.model.FreeTriangleMashPoint;
+import hu.csega.superstition.ftm.model.FreeTriangleMeshPoint;
 
 /**
  * This helper class can make an intersection with a line and a sphere using the shapes' equations.
@@ -51,8 +51,8 @@ public class FreeTriangleMeshSphereLineIntersection {
 	private double t1;
 	private double t2;
 
-	private FreeTriangleMashPoint result1 = new FreeTriangleMashPoint();
-	private FreeTriangleMashPoint result2 = new FreeTriangleMashPoint();
+	private FreeTriangleMeshPoint result1 = new FreeTriangleMeshPoint();
+	private FreeTriangleMeshPoint result2 = new FreeTriangleMeshPoint();
 
 	public void setLineSource(double x, double y, double z) {
 		this.sourceX = x;
@@ -74,6 +74,29 @@ public class FreeTriangleMeshSphereLineIntersection {
 
 	public void setSphereRadius(double radius) {
 		this.radius = radius;
+	}
+
+	/** Intersection point can't be calculated well, but we will know, if the intersection happend or not. */
+	public void simulateAMovingAndAStandingSphere(
+			double movingSourceX, double movingSourceY, double movingSourceZ,
+			double movingTargetX, double movingTargetY, double movingTargetZ,
+			double movingSphereRadius,
+			double standingSphereX, double standingSphereY, double standingSphereZ,
+			double standingSphereRadius) {
+
+		this.radius = movingSphereRadius + standingSphereRadius;
+
+		this.sourceX = movingSourceX;
+		this.sourceY = movingSourceY;
+		this.sourceZ = movingSourceZ;
+
+		this.targetX = movingTargetX;
+		this.targetY = movingTargetY;
+		this.targetZ = movingTargetZ;
+
+		this.sphereX = standingSphereX;
+		this.sphereY = standingSphereY;
+		this.sphereZ = standingSphereZ;
 	}
 
 	public void calculateConstants() {
@@ -142,12 +165,12 @@ public class FreeTriangleMeshSphereLineIntersection {
 	}
 
 	/** Call after setters then {@link #calculateConstants()} then {@link #calculateResults()}. */
-	public FreeTriangleMashPoint result1() {
+	public FreeTriangleMeshPoint result1() {
 		return this.result1;
 	}
 
 	/** Call after setters then {@link #calculateConstants()} then {@link #calculateResults()}. */
-	public FreeTriangleMashPoint result2() {
+	public FreeTriangleMeshPoint result2() {
 		return this.result2;
 	}
 
@@ -157,7 +180,7 @@ public class FreeTriangleMeshSphereLineIntersection {
 	}
 
 	/** Call after setters then {@link #calculateConstants()} then {@link #calculateResults()}. */
-	public FreeTriangleMashPoint nearestResult() {
+	public FreeTriangleMeshPoint nearestResult() {
 		if(t1 < t2) {
 			return result1;
 		} else {
@@ -195,4 +218,8 @@ public class FreeTriangleMeshSphereLineIntersection {
 		return this.t2 >= 0 && this.t2 <= 1.0;
 	}
 
+	/** Call after setters then {@link #calculateConstants()} then {@link #calculateResults()}. */
+	public boolean areThereAnyResultsInsideThePatch() {
+		return hasSolution && (this.t1 >= 0 && this.t1 <= 1.0 || this.t2 >= 0 && this.t2 <= 1.0);
+	}
 }

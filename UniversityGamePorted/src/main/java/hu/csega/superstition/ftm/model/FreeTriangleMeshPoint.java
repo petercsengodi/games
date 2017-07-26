@@ -1,18 +1,23 @@
 package hu.csega.superstition.ftm.model;
 
-public class FreeTriangleMashPoint {
+public class FreeTriangleMeshPoint {
 
 	private double x;
 	private double y;
 	private double z;
 
-	public FreeTriangleMashPoint() {
+	public FreeTriangleMeshPoint() {
 	}
 
-	public FreeTriangleMashPoint(double x, double y, double z) {
+	public FreeTriangleMeshPoint(double x, double y, double z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
+	}
+
+	public FreeTriangleMeshVertex toIncompleteVertex() {
+		FreeTriangleMeshVertex ret = new FreeTriangleMeshVertex(x, y, z);
+		return ret;
 	}
 
 	public double getX() {

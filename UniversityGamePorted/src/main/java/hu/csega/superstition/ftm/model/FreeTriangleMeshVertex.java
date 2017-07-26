@@ -21,6 +21,10 @@ public class FreeTriangleMeshVertex implements Serializable {
 		this.pZ = z;
 	}
 
+	public FreeTriangleMeshPoint positionToPoint() {
+		return new FreeTriangleMeshPoint(pX, pY, pZ);
+	}
+
 	public double getPX() {
 		return pX;
 	}
