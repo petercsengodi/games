@@ -15,6 +15,12 @@ public class FreeTriangleMeshVertex implements Serializable {
 	private double tX;
 	private double tY;
 
+	public FreeTriangleMeshVertex(double x, double y, double z) {
+		this.pX = x;
+		this.pY = y;
+		this.pZ = z;
+	}
+
 	public double getPX() {
 		return pX;
 	}

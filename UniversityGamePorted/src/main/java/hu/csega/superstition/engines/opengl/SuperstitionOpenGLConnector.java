@@ -60,6 +60,11 @@ public class SuperstitionOpenGLConnector implements Connector, GameWindow {
 		logger.info(className() + " end dispose()");
 	}
 
+	@Override
+	public void repaintEverything() {
+		// TODO
+	}
+
 	private GameEngine startGameEngine() {
 
 		GameDescriptor descriptor = new GameDescriptor();
@@ -84,4 +89,5 @@ public class SuperstitionOpenGLConnector implements Connector, GameWindow {
 	}
 
 	private static final Logger logger = LoggerFactory.createLogger(SuperstitionOpenGLConnector.class);
+
 }

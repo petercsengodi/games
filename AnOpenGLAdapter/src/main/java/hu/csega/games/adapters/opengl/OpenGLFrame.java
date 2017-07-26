@@ -139,5 +139,10 @@ public class OpenGLFrame extends JFrame implements GameWindow, WindowListener, K
 			control.setShiftIsOn(false);
 	}
 
+	@Override
+	public void repaintEverything() {
+		repaint();
+	}
+
 	private static final long serialVersionUID = 1L;
 }

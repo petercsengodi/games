@@ -5,6 +5,7 @@ import hu.csega.games.engine.g3d.GameModelStore;
 import hu.csega.games.engine.intf.GameControl;
 import hu.csega.games.engine.intf.GameGraphics;
 import hu.csega.games.engine.intf.GameTimer;
+import hu.csega.games.engine.intf.GameWindow;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
@@ -50,6 +51,11 @@ public class GameEngineFacadeImpl implements GameEngineFacade {
 	@Override
 	public GameControl control() {
 		return engine.getControl();
+	}
+
+	@Override
+	public GameWindow window() {
+		return engine.getWindow();
 	}
 
 	@Override

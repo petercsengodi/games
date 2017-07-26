@@ -1,13 +1,19 @@
 package hu.csega.superstition.ftm.view;
 
+import java.awt.Point;
+
 import hu.csega.games.engine.GameEngineFacade;
 import hu.csega.superstition.ftm.model.FreeTriangleMeshCube;
 import hu.csega.superstition.ftm.model.FreeTriangleMeshModel;
+import hu.csega.superstition.ftm.model.FreeTriangleMeshVertex;
 
 public class FreeTriangleMeshZYSideView extends FreeTriangleMeshSideView {
 
 	public FreeTriangleMeshZYSideView(GameEngineFacade facade) {
 		super(facade);
+
+		this.selectionLine.setX1(-1000.0);
+		this.selectionLine.setX2(1000.0);
 	}
 
 	@Override
@@ -24,7 +30,7 @@ public class FreeTriangleMeshZYSideView extends FreeTriangleMeshSideView {
 	}
 
 	@Override
-	protected void select(int x1, int y1, int x2, int y2) {
+	protected void selectAll(int x1, int y1, int x2, int y2) {
 		int vz1 = Math.min(x1, x2);
 		int vz2 = Math.max(x1, x2);
 		int vy1 = Math.min(y1, y2);
@@ -39,7 +45,34 @@ public class FreeTriangleMeshZYSideView extends FreeTriangleMeshSideView {
 		cube.setZ2(vz2);
 
 		FreeTriangleMeshModel model = getModel();
-		model.select(cube);
+		model.selectAll(cube);
+	}
+
+	@Override
+	protected void selectFirst(int x, int y, int radius, boolean add) {
+		selectionLine.setZ1(x);
+		selectionLine.setZ2(x);
+		selectionLine.setY1(y);
+		selectionLine.setY2(y);
+
+		FreeTriangleMeshModel model = getModel();
+		model.selectFirst(intersection, selectionLine, radius, add);
+	}
+
+	@Override
+	protected void createVertexAt(int x, int y) {
+		FreeTriangleMeshModel model = getModel();
+		model.createVertexAt(0, x, y);
+	}
+
+	@Override
+	protected Point transformVertexToPoint(FreeTriangleMeshVertex vertex) {
+		Point ret = new Point();
+
+		ret.x = (int)vertex.getPZ();
+		ret.y = (int)vertex.getPY();
+
+		return ret;
 	}
 
 	private static final long serialVersionUID = 1L;

@@ -26,6 +26,7 @@ import hu.csega.toolshed.logging.LoggerFactory;
 
 public class FreeTriangleMeshConnector implements Connector, GameWindow {
 
+	private GameWindow gameWindow;
 	private List<GameWindowListener> listeners = new ArrayList<>();
 
 	@Override
@@ -84,7 +85,7 @@ public class FreeTriangleMeshConnector implements Connector, GameWindow {
 		engine.step(GameEngineStep.MODIFY, new FreeTriangleMeshModifyStep());
 		engine.step(GameEngineStep.RENDER, new FreeTriangleMeshRenderStep());
 
-		GameWindow gameWindow = adapter.createWindow(engine);
+		gameWindow = adapter.createWindow(engine);
 		gameWindow.setFullScreen(true);
 
 		JFrame frame = (JFrame) gameWindow;
@@ -102,6 +103,12 @@ public class FreeTriangleMeshConnector implements Connector, GameWindow {
 
 	private String className() {
 		return getClass().getSimpleName();
+	}
+
+	@Override
+	public void repaintEverything() {
+		if(gameWindow != null)
+			gameWindow.repaintEverything();
 	}
 
 	private static final Logger logger = LoggerFactory.createLogger(FreeTriangleMeshConnector.class);

@@ -4,6 +4,7 @@ import hu.csega.games.engine.g3d.GameModelStore;
 import hu.csega.games.engine.intf.GameControl;
 import hu.csega.games.engine.intf.GameGraphics;
 import hu.csega.games.engine.intf.GameTimer;
+import hu.csega.games.engine.intf.GameWindow;
 import hu.csega.toolshed.logging.Logger;
 
 /**
@@ -41,6 +42,11 @@ public interface GameEngineFacade {
 	 * Gets the game control interface.
 	 */
 	GameControl control();
+
+	/**
+	 * Gets the main frame / window, if applicable.
+	 */
+	GameWindow window();
 
 	/**
 	 * Gets the timer interface.

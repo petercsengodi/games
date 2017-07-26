@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.csega.superstition.ftm.util.FreeTriangleMeshSphereLineIntersection;
+
 public class FreeTriangleMeshModel implements Serializable {
 
 	private List<FreeTriangleMeshVertex> vertices = new ArrayList<>();
@@ -28,13 +30,65 @@ public class FreeTriangleMeshModel implements Serializable {
 	private double openGLBeta;
 	private double openGLZoom = 1.0;
 
-	public void select(FreeTriangleMeshCube cube) {
+	public void selectAll(FreeTriangleMeshCube cube) {
 		selectedObjects.clear();
 		for(FreeTriangleMeshVertex vertex : vertices) {
 			if(cube.contains(vertex)) {
 				selectedObjects.add(vertex);
 			}
 		}
+	}
+
+	public void selectFirst(FreeTriangleMeshSphereLineIntersection intersection, FreeTriangleMeshLine line, double radius, boolean add) {
+		Object selectedBefore = null;
+		if(selectedObjects.size() == 1)
+			selectedBefore = selectedObjects.get(0);
+
+		if(!add)
+			selectedObjects.clear();
+
+		Object selection = null;
+		double minT = Double.MAX_VALUE;
+		double t;
+
+		intersection.setLineSource(line.getX1(), line.getY1(), line.getZ1());
+		intersection.setLineTarget(line.getX2(), line.getY2(), line.getZ2());
+		intersection.setSphereRadius(radius);
+
+		for(FreeTriangleMeshVertex vertex : vertices) {
+			intersection.setSphereCenter(vertex.getPX(), vertex.getPY(), vertex.getPZ());
+			intersection.calculateConstants();
+
+			if(intersection.solutionExists()) {
+				intersection.calculateResults();
+				t = intersection.lowestT();
+				if(t < minT) {
+					selection = vertex;
+				}
+			}
+		}
+
+		if(selection != null) {
+			if(add) {
+				if(!selectedObjects.remove(selection)) {
+					// we add, if wasn't contained.
+					// if contained, then deleted when calculating the condition.
+					selectedObjects.add(selection);
+				}
+			}
+
+			if(!add) {
+				if(selectedBefore == selection) {
+					// do nothing, deselected the object
+				} else {
+					selectedObjects.add(selection);
+				}
+			}
+		}
+	}
+
+	public void createVertexAt(double x, double y, double z) {
+		vertices.add(new FreeTriangleMeshVertex(x, y, z));
 	}
 
 	public List<FreeTriangleMeshVertex> getVertices() {

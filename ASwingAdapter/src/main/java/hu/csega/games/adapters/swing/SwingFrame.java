@@ -134,6 +134,11 @@ public class SwingFrame extends JFrame implements GameWindow, WindowListener, Ke
 	}
 
 	@Override
+	public void repaintEverything() {
+		repaint();
+	}
+
+	@Override
 	public void closeWindow() {
 	}
 

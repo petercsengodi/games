@@ -44,6 +44,11 @@ public class AsteroidGameWindowWrapper implements GameWindow {
 	}
 
 	@Override
+	public void repaintEverything() {
+		// TODO
+	}
+
+	@Override
 	public void showWindow() {
 	}
 
