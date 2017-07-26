@@ -85,6 +85,8 @@ public class FreeTriangleMeshConnector implements Connector, GameWindow {
 		engine.step(GameEngineStep.MODIFY, new FreeTriangleMeshModifyStep());
 		engine.step(GameEngineStep.RENDER, new FreeTriangleMeshRenderStep());
 
+		engine.getControl().registerKeyListener(new FreeTriangleMeshKeyListener());
+
 		gameWindow = adapter.createWindow(engine);
 		gameWindow.setFullScreen(true);
 

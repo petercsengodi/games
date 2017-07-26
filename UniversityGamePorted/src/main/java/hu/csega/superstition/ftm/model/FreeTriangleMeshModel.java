@@ -2,8 +2,8 @@ package hu.csega.superstition.ftm.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-
 import hu.csega.superstition.ftm.util.FreeTriangleMeshSphereLineIntersection;
 
 public class FreeTriangleMeshModel implements Serializable {
@@ -30,9 +30,13 @@ public class FreeTriangleMeshModel implements Serializable {
 	private double openGLBeta;
 	private double openGLZoom = 1.0;
 
+	public void clearSelection() {
+		selectedObjects.clear();
+	}
+
 	public void selectAll(FreeTriangleMeshCube cube, boolean add) {
 		if(!add)
-			selectedObjects.clear();
+			clearSelection();
 
 		for(FreeTriangleMeshVertex vertex : vertices) {
 			if(cube.contains(vertex)) {
@@ -47,7 +51,7 @@ public class FreeTriangleMeshModel implements Serializable {
 			selectedBefore = selectedObjects.get(0);
 
 		if(!add)
-			selectedObjects.clear();
+			clearSelection();
 
 		Object selection = null;
 		double minT = Double.MAX_VALUE;
@@ -85,6 +89,74 @@ public class FreeTriangleMeshModel implements Serializable {
 				} else {
 					selectedObjects.add(selection);
 				}
+			}
+		}
+	}
+
+	public void createTriangleStrip() {
+		if(selectedObjects.size() < 3)
+			return;
+
+		int i1 = vertices.indexOf(selectedObjects.get(0));
+		int i2 = vertices.indexOf(selectedObjects.get(1));
+		int i3;
+
+		for(int i = 2; i < selectedObjects.size(); i++) {
+			i3 = vertices.indexOf(selectedObjects.get(i));
+			triangles.add(new FreeTriangleMeshTriangle(i1, i2, i3));
+			i1 = i2;
+			i2 = i3;
+		}
+	}
+
+	public void deleteVertices() {
+		if(selectedObjects.isEmpty() || vertices.isEmpty())
+			return;
+
+		int[] mapping = new int[vertices.size()];
+		int mapToIndex = 0;
+		int currentIndex = 0;
+
+		Iterator<FreeTriangleMeshVertex> vit = vertices.iterator();
+		while(vit.hasNext()) {
+			FreeTriangleMeshVertex v = vit.next();
+			if(selectedObjects.remove(v)) { // if contains
+				// delete vertex
+				mapping[currentIndex] = -1;
+				vit.remove();
+			} else {
+				// add index to mapping
+				mapping[currentIndex] = mapToIndex++;
+			}
+			currentIndex++;
+		}
+
+		Iterator<FreeTriangleMeshTriangle> tit = triangles.iterator();
+		while(tit.hasNext()) {
+			FreeTriangleMeshTriangle t = tit.next();
+
+			mapToIndex = mapping[t.getVertex1()];
+			if(mapToIndex == -1) {
+				tit.remove();
+				continue;
+			} else {
+				t.setVertex1(mapToIndex);
+			}
+
+			mapToIndex = mapping[t.getVertex2()];
+			if(mapToIndex == -1) {
+				tit.remove();
+				continue;
+			} else {
+				t.setVertex2(mapToIndex);
+			}
+
+			mapToIndex = mapping[t.getVertex3()];
+			if(mapToIndex == -1) {
+				tit.remove();
+				continue;
+			} else {
+				t.setVertex3(mapToIndex);
 			}
 		}
 	}

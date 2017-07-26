@@ -8,6 +8,12 @@ public class FreeTriangleMeshTriangle implements Serializable {
 	private int vertex2;
 	private int vertex3;
 
+	public FreeTriangleMeshTriangle(int i1, int i2, int i3) {
+		this.vertex1 = i1;
+		this.vertex2 = i2;
+		this.vertex3 = i3;
+	}
+
 	public int getVertex1() {
 		return vertex1;
 	}

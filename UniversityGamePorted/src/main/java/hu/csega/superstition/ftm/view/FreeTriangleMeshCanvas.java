@@ -19,6 +19,7 @@ import hu.csega.games.engine.GameEngineFacade;
 import hu.csega.games.engine.intf.GameCanvas;
 import hu.csega.games.engine.intf.GameControl;
 import hu.csega.superstition.ftm.model.FreeTriangleMeshModel;
+import hu.csega.superstition.ftm.model.FreeTriangleMeshTriangle;
 import hu.csega.superstition.ftm.model.FreeTriangleMeshVertex;
 
 public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanvas, MouseListener, MouseMotionListener {
@@ -228,6 +229,18 @@ public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanva
 		List<Object> selectedObjects = model.getSelectedObjects();
 
 		List<FreeTriangleMeshVertex> vertices = model.getVertices();
+		List<FreeTriangleMeshTriangle> triangles = model.getTriangles();
+
+		g.setColor(Color.darkGray);
+		for(FreeTriangleMeshTriangle triangle : triangles) {
+			Point p1 = transformToScreen(transformVertexToPoint(vertices.get(triangle.getVertex1())));
+			Point p2 = transformToScreen(transformVertexToPoint(vertices.get(triangle.getVertex2())));
+			Point p3 = transformToScreen(transformVertexToPoint(vertices.get(triangle.getVertex3())));
+			g.drawLine(p1.x, p1.y, p2.x, p2.y);
+			g.drawLine(p2.x, p2.y, p3.x, p3.y);
+			g.drawLine(p3.x, p3.y, p1.x, p1.y);
+		}
+
 		for(FreeTriangleMeshVertex vertex : vertices) {
 
 			if(selectedObjects.contains(vertex)) {
@@ -241,10 +254,11 @@ public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanva
 			g.drawRect(transformed.x - 2, transformed.y - 2, 5, 5);
 		}
 
+
 		g.translate(-widthDiv2, -heightDiv2);
 
 		if(selectionBoxEnabled) {
-			g.setColor(Color.darkGray);
+			g.setColor(Color.red);
 			calculateSelectionBox();
 			g.drawRect(selectionBox.x, selectionBox.y, selectionBox.width, selectionBox.height);
 		}
