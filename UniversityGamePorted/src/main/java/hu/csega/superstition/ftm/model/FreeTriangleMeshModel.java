@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import hu.csega.superstition.ftm.util.FreeTriangleMeshSnapshots;
 import hu.csega.superstition.ftm.util.FreeTriangleMeshSphereLineIntersection;
@@ -218,9 +219,29 @@ public class FreeTriangleMeshModel implements Serializable {
 		moved = false;
 	}
 
+	public void moveTexture(double horizontalMove, double verticalMove) {
+		if(selectedObjects.isEmpty())
+			return;
+
+		if(!moved) {
+			snapshots().addState(mesh);
+			moved = true;
+		}
+
+		for(Object object : selectedObjects) {
+			if(object instanceof FreeTriangleMeshVertex) {
+				FreeTriangleMeshVertex v = (FreeTriangleMeshVertex) object;
+				v.moveTexture(horizontalMove, verticalMove);
+			}
+		}
+	}
+
 	public void createVertexAt(double x, double y, double z) {
 		snapshots().addState(mesh);
-		mesh.getVertices().add(new FreeTriangleMeshVertex(x, y, z));
+		FreeTriangleMeshVertex vertex = new FreeTriangleMeshVertex(x, y, z);
+		vertex.setTX(RND.nextDouble());
+		vertex.setTY(RND.nextDouble());
+		mesh.getVertices().add(vertex);
 	}
 
 	public List<FreeTriangleMeshVertex> getVertices() {
@@ -358,6 +379,8 @@ public class FreeTriangleMeshModel implements Serializable {
 	public void setOpenGLZoom(double openGLZoom) {
 		this.openGLZoom = openGLZoom;
 	}
+
+	private static final Random RND = new Random(System.currentTimeMillis());
 
 	private static final long serialVersionUID = 1L;
 }

@@ -43,8 +43,10 @@ public class SwingFrame extends JFrame implements GameWindow, WindowListener, Ke
 		if(canvas instanceof SwingCanvas)
 			component = ((SwingCanvas)canvas).getRealCanvas();
 
-		if(component != null)
+		if(component != null) {
 			getContentPane().add(component);
+			component.addKeyListener(this);
+		}
 	}
 
 	@Override

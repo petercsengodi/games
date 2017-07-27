@@ -2,10 +2,12 @@ package hu.csega.superstition.ftm;
 
 import java.awt.Container;
 import java.awt.GridLayout;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JTabbedPane;
 
 import hu.csega.games.adapters.opengl.OpenGLGameAdapter;
 import hu.csega.games.engine.GameEngineFacade;
@@ -18,6 +20,7 @@ import hu.csega.games.engine.intf.GameEngineStep;
 import hu.csega.games.engine.intf.GameWindow;
 import hu.csega.games.engine.intf.GameWindowListener;
 import hu.csega.superstition.engines.connector.Connector;
+import hu.csega.superstition.ftm.view.FreeTriangleMeshTexture;
 import hu.csega.superstition.ftm.view.FreeTriangleMeshXYSideView;
 import hu.csega.superstition.ftm.view.FreeTriangleMeshXZSideView;
 import hu.csega.superstition.ftm.view.FreeTriangleMeshZYSideView;
@@ -91,6 +94,7 @@ public class FreeTriangleMeshConnector implements Connector, GameWindow {
 		gameWindow.setFullScreen(true);
 
 		JFrame frame = (JFrame) gameWindow;
+		KeyListener keyListener = (KeyListener) gameWindow;
 		Container contentPane = frame.getContentPane();
 		contentPane.setLayout(new GridLayout(2, 2));
 		contentPane.add(new FreeTriangleMeshXZSideView(facade));
@@ -98,7 +102,13 @@ public class FreeTriangleMeshConnector implements Connector, GameWindow {
 		engine.startIn(gameWindow);
 
 		contentPane.add(new FreeTriangleMeshXYSideView(facade));
-		contentPane.add(new FreeTriangleMeshZYSideView(facade));
+
+		JTabbedPane bottomRightTab = new JTabbedPane();
+		bottomRightTab.addKeyListener(keyListener);
+		bottomRightTab.addTab("ZY Wireframe", new FreeTriangleMeshZYSideView(facade));
+		bottomRightTab.addTab("Texture Window", new FreeTriangleMeshTexture(facade));
+
+		contentPane.add(bottomRightTab);
 
 		return engine;
 	}

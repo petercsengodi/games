@@ -31,6 +31,21 @@ public class FreeTriangleMeshVertex implements Serializable {
 		pZ += z;
 	}
 
+	public void moveTexture(double horizontalMove, double verticalMove) {
+		tX += horizontalMove;
+		tY += verticalMove;
+
+		if(tX < 0.0)
+			tX = 0.0;
+		else if(tX > 1.0)
+			tX = 1.0;
+
+		if(tY < 0.0)
+			tY = 0.0;
+		else if(tY > 1.0)
+			tY = 1.0;
+	}
+
 	public double getPX() {
 		return pX;
 	}

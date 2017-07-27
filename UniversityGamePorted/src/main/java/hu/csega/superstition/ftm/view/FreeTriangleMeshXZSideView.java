@@ -68,7 +68,7 @@ public class FreeTriangleMeshXZSideView extends FreeTriangleMeshSideView {
 	@Override
 	protected void moveSelected(int x, int y) {
 		FreeTriangleMeshModel model = getModel();
-		model.moveSelected(x, 0, y);
+		model.moveSelected(x, 0, -y);
 	}
 
 	@Override

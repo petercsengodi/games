@@ -43,8 +43,10 @@ public class OpenGLFrame extends JFrame implements GameWindow, WindowListener, K
 		if(canvas instanceof OpenGLCanvas)
 			component = ((OpenGLCanvas)canvas).getRealCanvas();
 
-		if(component != null)
+		if(component != null) {
 			getContentPane().add(component);
+			component.addKeyListener(this);
+		}
 	}
 
 	@Override
