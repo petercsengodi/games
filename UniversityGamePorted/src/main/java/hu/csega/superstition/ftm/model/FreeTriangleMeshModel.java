@@ -34,6 +34,19 @@ public class FreeTriangleMeshModel implements Serializable {
 	private double openGLZoom = 1.0;
 
 	private boolean moved = false;
+	private transient boolean built = false;
+
+	public boolean isInvalid() {
+		return !built;
+	}
+
+	public void setInvalid(boolean invalid) {
+		this.built = !invalid;
+	}
+
+	public void invalidate() {
+		this.built = false;
+	}
 
 	public FreeTriangleMeshSnapshots snapshots() {
 		if(_snapshots == null)
@@ -46,6 +59,7 @@ public class FreeTriangleMeshModel implements Serializable {
 		if(newState != null) {
 			clearSelection();
 			mesh = (FreeTriangleMeshMesh) newState;
+			invalidate();
 		}
 	}
 
@@ -54,6 +68,7 @@ public class FreeTriangleMeshModel implements Serializable {
 		if(newState != null) {
 			clearSelection();
 			mesh = (FreeTriangleMeshMesh) newState;
+			invalidate();
 		}
 	}
 
@@ -138,6 +153,8 @@ public class FreeTriangleMeshModel implements Serializable {
 			i1 = i2;
 			i2 = i3;
 		}
+
+		invalidate();
 	}
 
 	public void deleteVertices() {
@@ -196,6 +213,8 @@ public class FreeTriangleMeshModel implements Serializable {
 				t.setVertex3(mapToIndex);
 			}
 		}
+
+		invalidate();
 	}
 
 	public void moveSelected(double x, double y, double z) {
@@ -213,6 +232,8 @@ public class FreeTriangleMeshModel implements Serializable {
 				v.move(x, y, z);
 			}
 		}
+
+		invalidate();
 	}
 
 	public void finalizeMove() {
@@ -234,6 +255,8 @@ public class FreeTriangleMeshModel implements Serializable {
 				v.moveTexture(horizontalMove, verticalMove);
 			}
 		}
+
+		invalidate();
 	}
 
 	public void createVertexAt(double x, double y, double z) {

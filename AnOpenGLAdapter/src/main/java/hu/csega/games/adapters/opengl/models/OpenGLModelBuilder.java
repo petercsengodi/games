@@ -1,12 +1,20 @@
 package hu.csega.games.adapters.opengl.models;
 
+import java.util.List;
+
 import hu.csega.games.engine.g3d.GameModelBuilder;
 import hu.csega.games.engine.g3d.GameObjectHandler;
+import hu.csega.games.engine.g3d.GameObjectVertex;
 
 public class OpenGLModelBuilder {
 
+	private OpenGLModelStoreImpl store;
+	private GameObjectHandler textureReference;
+	private GameModelBuilder builder;
+
 	public OpenGLModelBuilder(GameModelBuilder builder, OpenGLModelStoreImpl store) {
-		textureReference = store.loadTexture("res/example/texture.png");
+		textureReference = builder.getTextureHandler(); // "res/example/texture.png"
+		this.builder = builder;
 		this.store = store;
 	}
 
@@ -23,11 +31,34 @@ public class OpenGLModelBuilder {
 	}
 
 	public float[] vertexData(int i) {
-		return vertexData;
+		List<GameObjectVertex> vertices = builder.getVertices();
+		float[] ret = new float[vertices.size() * 8];
+
+		int counter = 0;
+		for(GameObjectVertex vertex : vertices) {
+			ret[counter++] = vertex.position.x;
+			ret[counter++] = vertex.position.y;
+			ret[counter++] = vertex.position.z;
+			ret[counter++] = vertex.normal.x;
+			ret[counter++] = vertex.normal.y;
+			ret[counter++] = vertex.normal.z;
+			ret[counter++] = vertex.tex.x;
+			ret[counter++] = vertex.tex.y;
+		}
+
+		return ret;
 	}
 
 	public short[] indexData(int i) {
-		return indexData;
+		List<Integer> indices = builder.getIndices();
+		short[] ret = new short[indices.size()];
+
+		int counter = 0;
+		for(Integer index : indices) {
+			ret[counter++] = (short)index.intValue();
+		}
+
+		return ret;
 	}
 
 	public OpenGLTextureContainer textureContainer(int i) {
@@ -36,21 +67,6 @@ public class OpenGLModelBuilder {
 	}
 
 	public int indexLength(int i) {
-		return indexData.length;
+		return builder.getIndices().size();
 	}
-
-	private OpenGLModelStoreImpl store;
-	private GameObjectHandler textureReference;
-
-	private float[] vertexData = new float[] {
-			-0.5f, -0.5f, 0f, 0f, 0f, 1f, 0f, 0f,
-			-0.5f, +0.5f, 0f, 0f, 0f, 1f, 0f, 1f,
-			+0.5f, +0.5f, 0f, 0f, 0f, 1f, 1f, 1f,
-			+0.5f, -0.5f, 0f, 0f, 0f, 1f, 1f, 0f
-	};
-
-	private short[] indexData = new short[] {
-			0, 1, 3,
-			1, 2, 3
-	};
 }

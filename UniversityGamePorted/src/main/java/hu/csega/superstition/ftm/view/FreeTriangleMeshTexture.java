@@ -3,9 +3,14 @@ package hu.csega.superstition.ftm.view;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+
 import hu.csega.games.engine.GameEngineFacade;
+import hu.csega.superstition.FreeTriangleMeshToolStarter;
 import hu.csega.superstition.ftm.model.FreeTriangleMeshModel;
 import hu.csega.superstition.ftm.model.FreeTriangleMeshTriangle;
 import hu.csega.superstition.ftm.model.FreeTriangleMeshVertex;
@@ -15,6 +20,9 @@ public class FreeTriangleMeshTexture extends FreeTriangleMeshCanvas {
 	private int imageWidth = 400;
 	private int imageHeight = 400;
 
+	private BufferedImage textureImage = null;
+	private boolean triedToLoadImage = false;
+
 	public FreeTriangleMeshTexture(GameEngineFacade facade) {
 		super(facade);
 	}
@@ -23,7 +31,23 @@ public class FreeTriangleMeshTexture extends FreeTriangleMeshCanvas {
 
 	@Override
 	protected void paint2d(Graphics2D g) {
-		// g.drawImage(texture, 0, 0, null);
+
+		if(textureImage == null) {
+			if(triedToLoadImage) {
+				// ...
+			} else {
+				triedToLoadImage = true;
+				try {
+					textureImage = ImageIO.read(new File(FreeTriangleMeshToolStarter.TEXTURE_FILE));
+				} catch(Exception ex) {
+					textureImage = null;
+				}
+			}
+		}
+
+		if(textureImage != null) {
+			g.drawImage(textureImage, 0, 0, null);
+		}
 
 		FreeTriangleMeshModel model = (FreeTriangleMeshModel) facade.model();
 		List<Object> selectedObjects = model.getSelectedObjects();
@@ -60,12 +84,12 @@ public class FreeTriangleMeshTexture extends FreeTriangleMeshCanvas {
 
 	@Override
 	protected void translate(double x, double y) {
-		// TODO move vertex coordinates
+		// not applicable
 	}
 
 	@Override
 	protected void zoom(double delta) {
-		// TODO scale down vertex coordinates
+		// not applicable
 	}
 
 	@Override
@@ -87,10 +111,13 @@ public class FreeTriangleMeshTexture extends FreeTriangleMeshCanvas {
 	protected void moveSelected(int x, int y) {
 		FreeTriangleMeshModel model = (FreeTriangleMeshModel) facade.model();
 
-		double horizontalStretch = 1.0 / imageWidth;
+		int width = (textureImage == null ? imageWidth : Math.min(imageWidth, textureImage.getWidth()));
+		int height = (textureImage == null ? imageHeight : Math.min(imageHeight, textureImage.getHeight()));
+
+		double horizontalStretch = 1.0 / width;
 		double horizontalMove = x * horizontalStretch;
 
-		double verticalStretch = 1.0 / imageHeight;
+		double verticalStretch = 1.0 / height;
 		double verticalMove = y * verticalStretch;
 
 		model.moveTexture(horizontalMove, verticalMove);
@@ -98,8 +125,11 @@ public class FreeTriangleMeshTexture extends FreeTriangleMeshCanvas {
 
 	@Override
 	protected Point transformVertexToPoint(FreeTriangleMeshVertex vertex) {
-		double x = vertex.getTX() * imageWidth;
-		double y = vertex.getTY() * imageHeight;
+		int width = (textureImage == null ? imageWidth : Math.min(imageWidth, textureImage.getWidth()));
+		int height = (textureImage == null ? imageHeight : Math.min(imageHeight, textureImage.getHeight()));
+
+		double x = vertex.getTX() * width;
+		double y = vertex.getTY() * height;
 		return new Point((int)x, (int)y);
 	}
 }

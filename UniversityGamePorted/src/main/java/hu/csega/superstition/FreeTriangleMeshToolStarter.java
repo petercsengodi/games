@@ -17,6 +17,8 @@ import hu.csega.toolshed.logging.LoggerFactory;
  */
 public class FreeTriangleMeshToolStarter {
 
+	public static final String TEXTURE_FILE = "res/textures/z_other/bunny-texture.jpg";
+
 	private Connector connector;
 	private Phase phase = Phase.ZERO;
 	private EnvironmentImpl env;
