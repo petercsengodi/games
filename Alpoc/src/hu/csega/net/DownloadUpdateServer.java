@@ -13,7 +13,7 @@ public class DownloadUpdateServer {
 			while (true) {
 				System.out.println("Waiting for requests.");
 				Socket connectionSocket = welcomeSocket.accept();
-				new DownloadUpdateThread(connectionSocket).run();
+				new DownloadUpdateThread(connectionSocket).start();
 			}
 		}
 	}
