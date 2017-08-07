@@ -118,7 +118,7 @@ public class FreeTriangleMeshTexture extends FreeTriangleMeshCanvas {
 		double horizontalMove = x * horizontalStretch;
 
 		double verticalStretch = 1.0 / height;
-		double verticalMove = y * verticalStretch;
+		double verticalMove = -y * verticalStretch;
 
 		model.moveTexture(horizontalMove, verticalMove);
 	}
@@ -129,7 +129,7 @@ public class FreeTriangleMeshTexture extends FreeTriangleMeshCanvas {
 		int height = (textureImage == null ? imageHeight : Math.min(imageHeight, textureImage.getHeight()));
 
 		double x = vertex.getTX() * width;
-		double y = vertex.getTY() * height;
+		double y = (1 - vertex.getTY()) * height;
 		return new Point((int)x, (int)y);
 	}
 }

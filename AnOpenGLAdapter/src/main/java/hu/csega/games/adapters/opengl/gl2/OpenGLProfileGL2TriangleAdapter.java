@@ -61,13 +61,13 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 
 		gl2.glMatrixMode(GL2.GL_PROJECTION);
 		gl2.glLoadIdentity();
-		glu.gluPerspective(45.0f, 1, 0.1f, 100.0f);
+		glu.gluPerspective(45.0f, 1, 0.1f, 2000.0f);
 
 		gl2.glMatrixMode(GL2.GL_MODELVIEW);
 		gl2.glLoadIdentity();
 
 		glu.gluLookAt(
-				0,  0, 10,
+				0,  0, -300,
 				0,  0,  0,
 				0,  1,  0
 				);
