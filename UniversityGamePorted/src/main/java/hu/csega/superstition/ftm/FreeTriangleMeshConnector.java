@@ -20,6 +20,7 @@ import hu.csega.games.engine.intf.GameEngineStep;
 import hu.csega.games.engine.intf.GameWindow;
 import hu.csega.games.engine.intf.GameWindowListener;
 import hu.csega.superstition.engines.connector.Connector;
+import hu.csega.superstition.ftm.menu.FreeTriangleMeshMenu;
 import hu.csega.superstition.ftm.view.FreeTriangleMeshTexture;
 import hu.csega.superstition.ftm.view.FreeTriangleMeshXYSideView;
 import hu.csega.superstition.ftm.view.FreeTriangleMeshXZSideView;
@@ -98,6 +99,8 @@ public class FreeTriangleMeshConnector implements Connector, GameWindow {
 		Container contentPane = frame.getContentPane();
 		contentPane.setLayout(new GridLayout(2, 2));
 		contentPane.add(new FreeTriangleMeshXZSideView(facade));
+
+		FreeTriangleMeshMenu.createMenuForJFrame(frame, facade);
 
 		engine.startIn(gameWindow);
 

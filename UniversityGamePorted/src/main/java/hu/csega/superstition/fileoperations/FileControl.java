@@ -105,7 +105,6 @@ public class FileControl {
 		}
 	}
 
-
 	public void save(Component parent)
 	{
 		if(!file_open) return;

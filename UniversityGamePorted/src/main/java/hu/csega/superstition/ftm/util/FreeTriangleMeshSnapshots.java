@@ -88,24 +88,32 @@ public class FreeTriangleMeshSnapshots {
 	}
 
 	public static void writeAllBytes(String fileName, byte[] bytes) {
+		File file = new File(fileName);
+		writeAllBytes(file, bytes);
+	}
+
+	public static void writeAllBytes(File file, byte[] bytes) {
 		if(bytes == null || bytes.length == 0) {
-			logger.error("Not writing zero sized file: " + fileName);
+			logger.error("Not writing zero sized file: " + file.getName());
 			return;
 		}
 
-		File file = new File(fileName);
 		try (OutputStream stream = new FileOutputStream(file)) {
 			stream.write(bytes);
 		} catch(IOException ex) {
-			logger.error("Error during writing file: " + fileName, ex);
+			logger.error("Error during writing file: " + file.getName(), ex);
 		}
 	}
 
 	public static byte[] readAllBytes(String fileName) {
 		File file = new File(fileName);
+		return readAllBytes(file);
+	}
+
+	public static byte[] readAllBytes(File file) {
 		int size = (int)file.length();
 		if(size == 0) {
-			logger.error("Zero sized file: " + fileName);
+			logger.error("Zero sized file: " + file.getName());
 			return null;
 		}
 
@@ -120,7 +128,7 @@ public class FreeTriangleMeshSnapshots {
 					continue;
 
 				if(pos + read > size) {
-					logger.error("Invalid sized file: " + fileName);
+					logger.error("Invalid sized file: " + file.getName());
 					return null;
 				}
 
@@ -128,7 +136,7 @@ public class FreeTriangleMeshSnapshots {
 				pos += read;
 			}
 		} catch(IOException ex) {
-			logger.error("Error during reading file: " + fileName, ex);
+			logger.error("Error during reading file: " + file.getName(), ex);
 			return null;
 		}
 
