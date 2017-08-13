@@ -4,8 +4,9 @@ import hu.csega.games.engine.GameEngineCallback;
 
 public class SuperstitionState {
 
-	public SuperstitionState(GameEngineCallback model, GameEngineCallback renderer) {
+	public SuperstitionState(GameEngineCallback model, GameEngineCallback builder, GameEngineCallback renderer) {
 		this.model = model;
+		this.builder = builder;
 		this.renderer = renderer;
 	}
 
@@ -17,6 +18,14 @@ public class SuperstitionState {
 		this.model = model;
 	}
 
+	public GameEngineCallback getBuilder() {
+		return builder;
+	}
+
+	public void setBuilder(GameEngineCallback builder) {
+		this.builder = builder;
+	}
+
 	public GameEngineCallback getRenderer() {
 		return renderer;
 	}
@@ -26,6 +35,7 @@ public class SuperstitionState {
 	}
 
 	private GameEngineCallback model;
+	private GameEngineCallback builder;
 	private GameEngineCallback renderer;
 
 }
