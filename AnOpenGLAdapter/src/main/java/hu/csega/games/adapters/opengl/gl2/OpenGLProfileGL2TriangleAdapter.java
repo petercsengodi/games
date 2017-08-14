@@ -16,7 +16,9 @@ import hu.csega.games.adapters.opengl.models.OpenGLModelContainer;
 import hu.csega.games.adapters.opengl.models.OpenGLModelStoreImpl;
 import hu.csega.games.adapters.opengl.models.OpenGLTextureContainer;
 import hu.csega.games.adapters.opengl.utils.OpenGLErrorUtil;
+import hu.csega.games.engine.g3d.GameObjectDirection;
 import hu.csega.games.engine.g3d.GameObjectLocation;
+import hu.csega.games.engine.g3d.GameObjectPosition;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
@@ -53,15 +55,15 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 		gl2.glEnable(GL2.GL_LIGHTING);
 		gl2.glEnable(GL2.GL_LIGHT0);
 
-		float[] ambientLight = { 0.5f, 0.5f, 0.5f, 0f };  // strong RED ambient
+		float[] ambientLight = { 1f, 1f, 1f, 0f };
 		gl2.glLightfv(GL2.GL_LIGHT0, GL2.GL_AMBIENT, ambientLight, 0);
 
-		float[] diffuseLight = { 1f, 2f, 1f, 0f };  // multicolor diffuse
+		float[] diffuseLight = { 1f, 2f, 1f, 0f };
 		gl2.glLightfv(GL2.GL_LIGHT0, GL2.GL_DIFFUSE, diffuseLight, 0);
 
 		gl2.glMatrixMode(GL2.GL_PROJECTION);
 		gl2.glLoadIdentity();
-		glu.gluPerspective(45.0f, 1, 0.1f, 2000.0f);
+		glu.gluPerspective(45.0f, 1f, 0.1f, 10000.0f);
 
 		gl2.glMatrixMode(GL2.GL_MODELVIEW);
 		gl2.glLoadIdentity();
@@ -194,6 +196,17 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 	@Override
 	public void placeCamera(GLAutoDrawable glAutoDrawable, GameObjectLocation cameraSettings) {
 		GL2 gl2 = glAutoDrawable.getGL().getGL2();
+		GLU glu = GLU.createGLU(gl2);
+
+		GameObjectPosition p = cameraSettings.position;
+		GameObjectDirection d = cameraSettings.forward;
+		GameObjectDirection u = cameraSettings.up;
+
+		glu.gluLookAt(
+				p.x, p.y, p.z,
+				d.x, d.y, d.z,
+				u.x, u.y, u.z
+				);
 	}
 
 	private static final Logger logger = LoggerFactory.createLogger(OpenGLProfileGL2TriangleAdapter.class);
