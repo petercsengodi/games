@@ -33,19 +33,19 @@ public class SuperstitionGamePlayElements {
 
 		d = new GameObjectDirection(0f, 1f, 0f);
 
-		p = new GameObjectPosition(-1000f, 0f, -1000f);
+		p = new GameObjectPosition(-10f, 0f, -10f);
 		tex = new GameTexturePosition(0f, 0f);
 		groundBuilder.getVertices().add(new GameObjectVertex(p, d, tex));
 
-		p = new GameObjectPosition(1000f, 0f, -1000f);
+		p = new GameObjectPosition(10f, 0f, -10f);
 		tex = new GameTexturePosition(1f, 0f);
 		groundBuilder.getVertices().add(new GameObjectVertex(p, d, tex));
 
-		p = new GameObjectPosition(1000f, 0f, 1000f);
+		p = new GameObjectPosition(10f, 0f, 10f);
 		tex = new GameTexturePosition(1f, 1f);
 		groundBuilder.getVertices().add(new GameObjectVertex(p, d, tex));
 
-		p = new GameObjectPosition(-1000f, 0f, 1000f);
+		p = new GameObjectPosition(-10f, 0f, 10f);
 		tex = new GameTexturePosition(0f, 1f);
 		groundBuilder.getVertices().add(new GameObjectVertex(p, d, tex));
 

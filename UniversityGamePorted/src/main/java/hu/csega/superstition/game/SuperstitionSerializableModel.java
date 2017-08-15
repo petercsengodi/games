@@ -13,8 +13,8 @@ public class SuperstitionSerializableModel implements Serializable {
 	GameObjectLocation groundLocation = new GameObjectLocation();
 
 	public SuperstitionSerializableModel() {
-		groundLocation.position.set(0f, -0.5f, 0f);
-		groundLocation.forward.set(0f, 0f, -1f);
+		groundLocation.position.set(0f, 0f, 0f);
+		groundLocation.forward.set(0f, 0f, 1f);
 		groundLocation.up.set(0f, 1f, 0f);
 	}
 
