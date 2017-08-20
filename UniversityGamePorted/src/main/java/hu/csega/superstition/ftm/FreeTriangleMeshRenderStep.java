@@ -68,19 +68,19 @@ public class FreeTriangleMeshRenderStep implements GameEngineCallback {
 		// Rendering
 		GameGraphics g = facade.graphics();
 
-		//		GameObjectLocation cameraLocation = new GameObjectLocation();
-		//		cameraLocation.position.x = 0;
-		//		cameraLocation.position.y = 0;
-		//		cameraLocation.position.z = -100;
-		//		cameraLocation.forward.x = 0;
-		//		cameraLocation.forward.y = 0;
-		//		cameraLocation.forward.z = -1;
-		//		cameraLocation.up.x = 0;
-		//		cameraLocation.up.y = 1;
-		//		cameraLocation.up.z = 0;
-		//		g.placeCamera(cameraLocation);
-		//
-		//		g.crossHair(0, 0);
+		GameObjectLocation cameraLocation = new GameObjectLocation();
+		cameraLocation.position.x = 0;
+		cameraLocation.position.y = 0;
+		cameraLocation.position.z = -100;
+		cameraLocation.forward.x = 0;
+		cameraLocation.forward.y = 0;
+		cameraLocation.forward.z = -1;
+		cameraLocation.up.x = 0;
+		cameraLocation.up.y = 1;
+		cameraLocation.up.z = 0;
+		g.placeCamera(cameraLocation);
+
+		// g.crossHair(0, 0);
 
 		if(convertedModel != null) {
 			g.drawModel(convertedModel, modelLocation);

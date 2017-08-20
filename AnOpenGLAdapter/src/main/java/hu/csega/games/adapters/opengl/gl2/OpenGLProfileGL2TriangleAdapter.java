@@ -7,6 +7,7 @@ import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.glu.GLU;
+import com.jogamp.opengl.util.gl2.GLUT;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
 
@@ -75,6 +76,8 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 	public void endFrame(GLAutoDrawable glAutoDrawable) {
 		GL2 gl2 = glAutoDrawable.getGL().getGL2();
 
+		// printHello(gl2);
+
 		gl2.glFlush();
 
 		OpenGLErrorUtil.checkError(gl2, "endFrame");
@@ -117,7 +120,10 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 
 		GL2 gl2 = glAutoDrawable.getGL().getGL2();
 
-		// gl2.glPushMatrix();
+		gl2.glPushMatrix();
+
+		GameObjectPosition lp = location.position;
+		gl2.glTranslatef(lp.x, lp.y, lp.z);
 
 		OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw init");
 
@@ -158,7 +164,7 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 			texture.disable(gl2);
 		}
 
-		// gl2.glPopMatrix();
+		gl2.glPopMatrix();
 
 		OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw finish");
 	}
@@ -201,6 +207,29 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 				);
 
 		OpenGLErrorUtil.checkError(gl2, "cameraPlacement");
+	}
+
+	@SuppressWarnings("unused")
+	private void printHello(GL2 gl2) {
+		GLUT glut = new GLUT();
+
+		gl2.glMatrixMode(GL2.GL_MODELVIEW);
+		gl2.glLoadIdentity();
+
+		gl2.glMatrixMode(GL2.GL_PROJECTION);
+		gl2.glLoadIdentity();
+
+		OpenGLErrorUtil.checkError(gl2, "resetTransform");
+
+		String score = "Hello!";
+		gl2.glColor4f( 255, 0, 0, 1);
+	    gl2.glRasterPos2f(0.0f, 0.0f);
+
+	    for (int i = 0; i < score.length(); i++) {
+	    	glut.glutBitmapCharacter(GLUT.BITMAP_TIMES_ROMAN_24, score.charAt(i));
+	    }
+
+	    OpenGLErrorUtil.checkError(gl2, "textOut");
 	}
 
 	private static final Logger logger = LoggerFactory.createLogger(OpenGLProfileGL2TriangleAdapter.class);

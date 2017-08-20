@@ -140,7 +140,7 @@ public class FreeTriangleMeshSnapshots {
 			return null;
 		}
 
-		return array;
+		return ret;
 	}
 
 	private static final Logger logger = LoggerFactory.createLogger(FreeTriangleMeshSnapshots.class);
