@@ -16,7 +16,10 @@ import org.joml.Vector4f;
 
 import hu.csega.superstition.tools.UpdateScope;
 
+@SuppressWarnings("unused")
 public class WireFrameView extends ToolView {
+
+	private static final long serialVersionUID = 1L;
 
 	private static final double ZOOM_STEP = 0.1;
 	private static final double MOVE_STEP = 1.0;

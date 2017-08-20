@@ -13,8 +13,6 @@ import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
-import hu.csega.games.engine.GameEngineFacade;
-import hu.csega.superstition.gamelib.legacy.modeldata.CModel;
 import hu.csega.superstition.tools.UpdateScope;
 import hu.csega.superstition.tools.presentation.ToolView;
 
@@ -54,12 +52,13 @@ public class TreeObjectView extends ToolView implements TreeModel, TreeSelection
 	/**
 	 * Gets, which object is selected in the Tree View.
 	 */
+	@SuppressWarnings("unused")
 	private Object selectedItem(TreeNode item)
 	{
 		Object ret = null;
-		AnimationModel model = facade.getModel();
-		int idx = treeView1.Nodes.IndexOf(item);
-		if(idx != -1) ret = (GetData() as CModel).parts[idx];
+//		AnimationModel model = facade.getModel();
+//		int idx = treeView1.Nodes.IndexOf(item);
+//		if(idx != -1) ret = (GetData() as CModel).parts[idx];
 		return ret;
 	}
 

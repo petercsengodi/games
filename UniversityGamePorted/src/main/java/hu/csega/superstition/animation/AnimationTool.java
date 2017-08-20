@@ -98,8 +98,8 @@ public class AnimationTool extends JFrame {
 	}
 
 	public void initializeAndShwoTool() {
-		AnimationModel model = facade.getModel();
-		model.addView(treeView1);
+		// AnimationModel model = facade.getModel();
+		// model.addView(treeView1);
 		this.setVisible(true);
 	}
 

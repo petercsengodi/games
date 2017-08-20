@@ -6,6 +6,7 @@ import java.util.List;
 import hu.csega.superstition.gamelib.model.animation.SAnimation;
 import hu.csega.superstition.tools.UpdateScope;
 
+@SuppressWarnings("unused")
 public class AnimationModel {
 
 	private final AnimationFacade facade;
