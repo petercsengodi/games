@@ -5,7 +5,9 @@ import hu.csega.games.engine.intf.GameControl;
 public class SuperstitionGameModify {
 
 	private static final double PI2 = Math.PI * 2.0;
-	private static final double PLAYER_MOUSE_SENSITIVITY = 0.01;
+	private static final double PLAYER_MOUSE_HORIZONTAL_SENSITIVITY = 0.003;
+	private static final double PLAYER_MOUSE_VERTICAL_SENSITIVITY = 0.001;
+	private static final double PLAYER_MOUSE_SIGHT_LIMIT = Math.PI/2.0 - 0.01;
 	private static final double PLAYER_ROTATION = 0.01;
 	private static final double PLAYER_FORWARD = 1.0;
 
@@ -61,9 +63,19 @@ public class SuperstitionGameModify {
 	public static void moved(SuperstitionSerializableModel model, int deltaX, int deltaY, boolean leftMouseDown, boolean rightMouseDown) {
 		SuperstitionPlayer player = model.player;
 
-		player.movingRotation += PLAYER_MOUSE_SENSITIVITY * deltaX;
+		player.movingRotation += PLAYER_MOUSE_HORIZONTAL_SENSITIVITY * deltaX;
 		while(player.movingRotation < PI2) {
 			player.movingRotation += PI2;
+		}
+
+		player.sightVerticalRotation += PLAYER_MOUSE_VERTICAL_SENSITIVITY * deltaY;
+
+		if(player.sightVerticalRotation > PLAYER_MOUSE_SIGHT_LIMIT) {
+			player.sightVerticalRotation = PLAYER_MOUSE_SIGHT_LIMIT;
+		}
+
+		if(player.sightVerticalRotation < -PLAYER_MOUSE_SIGHT_LIMIT) {
+			player.sightVerticalRotation = -PLAYER_MOUSE_SIGHT_LIMIT;
 		}
 	}
 

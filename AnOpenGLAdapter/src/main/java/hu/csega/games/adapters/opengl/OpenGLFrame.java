@@ -49,22 +49,6 @@ public class OpenGLFrame extends JFrame implements GameWindow, WindowListener, K
 		this.addKeyListener(this);
 		// this.addMouseListener(this);
 		// this.addMouseMotionListener(this);
-
-		if(CENTER_MOUSE) {
-			try {
-				robot = new Robot();
-				centerMouse = true;
-
-				setCursor(getToolkit().createCustomCursor(
-			            new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB), new Point(0, 0),
-			            "null"));
-			} catch(Exception ex) {
-				ex.printStackTrace();
-				centerMouse = false;
-			}
-		} else {
-			centerMouse = false;
-		}
 	}
 
 	@Override
@@ -315,9 +299,26 @@ public class OpenGLFrame extends JFrame implements GameWindow, WindowListener, K
 		if(!mouseInitialized) {
 			mouseInitialized = true;
 
-			if(centerMouse) {
-				putMouseToCenter();
+
+			if(CENTER_MOUSE) {
+				try {
+					robot = new Robot();
+					centerMouse = true;
+
+					setCursor(getToolkit().createCustomCursor(
+				            new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB), new Point(0, 0),
+				            "null"));
+
+					putMouseToCenter();
+				} catch(Exception ex) {
+					ex.printStackTrace();
+					centerMouse = false;
+				}
 			} else {
+				centerMouse = false;
+			}
+
+			if(!centerMouse) {
 				lastMouseX = e.getXOnScreen();
 				lastMouseY = e.getYOnScreen();
 			}

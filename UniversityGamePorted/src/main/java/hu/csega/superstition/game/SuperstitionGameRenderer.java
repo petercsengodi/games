@@ -15,12 +15,8 @@ public class SuperstitionGameRenderer {
 		cameraLocation.position.x = (float)player.x;
 		cameraLocation.position.y = (float)player.y + 1f;
 		cameraLocation.position.z = (float)player.z;
-		cameraLocation.forward.x = cameraLocation.position.x + (float)(-1.0 * Math.sin(player.movingRotation + player.sightHorizontalRotation));
-		cameraLocation.forward.y = cameraLocation.position.y;
-		cameraLocation.forward.z = cameraLocation.position.z + (float)(1.0 * Math.cos(player.movingRotation + player.sightHorizontalRotation));
-		cameraLocation.up.x = (float)(1.0 * Math.sin(player.sightVerticalRotation) * Math.cos(player.movingRotation + player.sightHorizontalRotation));
-		cameraLocation.up.y = (float)(1.0 * Math.cos(player.sightVerticalRotation));
-		cameraLocation.up.z = (float)(1.0 * Math.sin(player.sightVerticalRotation) * Math.sin(player.movingRotation + player.sightHorizontalRotation));
+		cameraLocation.rotation.x = (float)(player.movingRotation + player.sightHorizontalRotation);
+		cameraLocation.rotation.y = (float)(player.sightVerticalRotation);
 		g.placeCamera(cameraLocation);
 
 		g.drawModel(elements.groundHandler, universe.groundLocation);

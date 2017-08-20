@@ -17,13 +17,17 @@ import hu.csega.games.adapters.opengl.models.OpenGLModelContainer;
 import hu.csega.games.adapters.opengl.models.OpenGLModelStoreImpl;
 import hu.csega.games.adapters.opengl.models.OpenGLTextureContainer;
 import hu.csega.games.adapters.opengl.utils.OpenGLErrorUtil;
-import hu.csega.games.engine.g3d.GameObjectDirection;
 import hu.csega.games.engine.g3d.GameObjectLocation;
 import hu.csega.games.engine.g3d.GameObjectPosition;
+import hu.csega.games.engine.g3d.GameObjectRotation;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
 public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
+
+	private GL2 gl2 = null;
+	private GLU glu = null;
+	private GLUT glut = null;
 
 	@Override
 	public void viewPort(GLAutoDrawable glAutoDrawable, int width, int height) {
@@ -45,8 +49,9 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 
 	@Override
 	public void startFrame(GLAutoDrawable glAutoDrawable) {
-		GL2 gl2 = glAutoDrawable.getGL().getGL2();
-		GLU glu = GLU.createGLU(gl2);
+		gl2 = glAutoDrawable.getGL().getGL2();
+		glu = GLU.createGLU(gl2);
+		glut = new GLUT();
 
 		gl2.glEnable(GL2.GL_DEPTH_TEST);
 		gl2.glEnable(GL2.GL_TEXTURE_2D);
@@ -74,13 +79,17 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 
 	@Override
 	public void endFrame(GLAutoDrawable glAutoDrawable) {
-		GL2 gl2 = glAutoDrawable.getGL().getGL2();
+		gl2 = glAutoDrawable.getGL().getGL2();
 
 		// printHello(gl2);
 
 		gl2.glFlush();
 
 		OpenGLErrorUtil.checkError(gl2, "endFrame");
+
+		glut = null;
+		glu = null;
+		gl2 = null;
 	}
 
 	@Override
@@ -117,8 +126,6 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 		int stride = 3 + 3 + 2;
 		float vx, vy, vz, nx, ny, nz, tx, ty;
 		int offset;
-
-		GL2 gl2 = glAutoDrawable.getGL().getGL2();
 
 		gl2.glPushMatrix();
 
@@ -188,22 +195,58 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 
 	@Override
 	public void placeCamera(GLAutoDrawable glAutoDrawable, GameObjectLocation cameraSettings) {
-		GL2 gl2 = glAutoDrawable.getGL().getGL2();
-		GLU glu = GLU.createGLU(gl2);
-
 		gl2.glMatrixMode(GL2.GL_MODELVIEW);
 		gl2.glLoadIdentity();
 
 		OpenGLErrorUtil.checkError(gl2, "modelViewMatrix");
 
 		GameObjectPosition p = cameraSettings.position;
-		GameObjectDirection d = cameraSettings.forward;
-		GameObjectDirection u = cameraSettings.up;
+		GameObjectRotation r = cameraSettings.rotation;
+
+		double f0x = 0f;
+		double f0y = 0f;
+		double f0z = 1f;
+
+		double f1x = f0x * Math.cos(r.z) - f0y * Math.sin(r.z);
+		double f1y = f0x * Math.sin(r.z) + f0y * Math.cos(r.z);
+		double f1z = f0z;
+
+		double f2x = f1x;
+		double f2y = f1y * Math.cos(r.y) - f1z * Math.sin(r.y);
+		double f2z = f1y * Math.sin(r.y) + f1z * Math.cos(r.y);
+
+		double f3x = f2x * Math.cos(r.x) - f2z * Math.sin(r.x);
+		double f3y = f2y;
+		double f3z = f2x * Math.sin(r.x) + f2z * Math.cos(r.x);
+
+		float fx = (float)f3x + p.x;
+		float fy = (float)f3y + p.y;
+		float fz = (float)f3z + p.z;
+
+		double u0x = 0f;
+		double u0y = 1f;
+		double u0z = 0f;
+
+		double u1x = u0x * Math.cos(r.z) - u0y * Math.sin(r.z);
+		double u1y = u0x * Math.sin(r.z) + u0y * Math.cos(r.z);
+		double u1z = u0z;
+
+		double u2x = u1x;
+		double u2y = u1y * Math.cos(r.y) - u1z * Math.sin(r.y);
+		double u2z = u1y * Math.sin(r.y) + u1z * Math.cos(r.y);
+
+		double u3x = u2x * Math.cos(r.x) - u2z * Math.sin(r.x);
+		double u3y = u2y;
+		double u3z = u2x * Math.sin(r.x) + u2z * Math.cos(r.x);
+
+		float ux = (float)u3x;
+		float uy = (float)u3y;
+		float uz = (float)u3z;
 
 		glu.gluLookAt(
 				p.x, p.y, p.z,
-				d.x, d.y, d.z,
-				u.x, u.y, u.z
+				fx, fy, fz,
+				ux, uy, uz
 				);
 
 		OpenGLErrorUtil.checkError(gl2, "cameraPlacement");
@@ -211,8 +254,6 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 
 	@SuppressWarnings("unused")
 	private void printHello(GL2 gl2) {
-		GLUT glut = new GLUT();
-
 		gl2.glMatrixMode(GL2.GL_MODELVIEW);
 		gl2.glLoadIdentity();
 

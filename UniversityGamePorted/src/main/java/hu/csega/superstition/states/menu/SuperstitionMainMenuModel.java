@@ -14,8 +14,7 @@ public class SuperstitionMainMenuModel implements GameEngineCallback {
 	public SuperstitionMainMenuModel() {
 		cameraLocation = new GameObjectLocation();
 		cameraLocation.position.set(0f, 0f, -10f);
-		cameraLocation.forward.set(0f, 0f, 1f);
-		cameraLocation.up.set(0f, 1f, 0f);
+		cameraLocation.rotation.set(0f, 0f, 0f);
 	}
 
 	@Override

@@ -72,12 +72,6 @@ public class FreeTriangleMeshRenderStep implements GameEngineCallback {
 		cameraLocation.position.x = 0;
 		cameraLocation.position.y = 0;
 		cameraLocation.position.z = -100;
-		cameraLocation.forward.x = 0;
-		cameraLocation.forward.y = 0;
-		cameraLocation.forward.z = -1;
-		cameraLocation.up.x = 0;
-		cameraLocation.up.y = 1;
-		cameraLocation.up.z = 0;
 		g.placeCamera(cameraLocation);
 
 		// g.crossHair(0, 0);
