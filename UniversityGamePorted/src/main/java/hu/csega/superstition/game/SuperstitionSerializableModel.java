@@ -8,6 +8,7 @@ import hu.csega.games.engine.g3d.GameObjectLocation;
 public class SuperstitionSerializableModel implements Serializable {
 
 	SuperstitionPlayer player = new SuperstitionPlayer();
+	boolean sliding = true;
 
 	GameObjectHandler ground;
 	GameObjectLocation groundLocation = new GameObjectLocation();

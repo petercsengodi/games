@@ -67,6 +67,14 @@ public class FreeTriangleMeshConnector implements Connector, GameWindow {
 	}
 
 	@Override
+	public void closeApplication() {
+		for(GameWindowListener listener: listeners) {
+			listener.onFinishingWork();
+		}
+		System.exit(0);
+	}
+
+	@Override
 	public void dispose() {
 		logger.info(className() + " start dispose()");
 

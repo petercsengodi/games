@@ -1,6 +1,8 @@
 package hu.csega.games.adapters.opengl;
 
 import java.awt.Component;
+import java.awt.Point;
+import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -8,6 +10,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +25,8 @@ import hu.csega.games.engine.intf.GameWindowListener;
 public class OpenGLFrame extends JFrame implements GameWindow, WindowListener, KeyListener,
 		MouseListener, MouseMotionListener {
 
+	private static final boolean CENTER_MOUSE = true;
+
 	private GameEngine engine;
 	private GameControlImpl control;
 	private List<GameWindowListener> listeners = new ArrayList<>();
@@ -32,6 +37,9 @@ public class OpenGLFrame extends JFrame implements GameWindow, WindowListener, K
 	private int lastMouseY = 0;
 	private boolean mouseInitialized = false;
 
+	private Robot robot;
+	private boolean centerMouse;
+
 	public OpenGLFrame(GameEngine engine) {
 		super(engine.getDescriptor().getTitle());
 		this.engine = engine;
@@ -39,8 +47,24 @@ public class OpenGLFrame extends JFrame implements GameWindow, WindowListener, K
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.addWindowListener(this);
 		this.addKeyListener(this);
-		this.addMouseListener(this);
-		this.addMouseMotionListener(this);
+		// this.addMouseListener(this);
+		// this.addMouseMotionListener(this);
+
+		if(CENTER_MOUSE) {
+			try {
+				robot = new Robot();
+				centerMouse = true;
+
+				setCursor(getToolkit().createCustomCursor(
+			            new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB), new Point(0, 0),
+			            "null"));
+			} catch(Exception ex) {
+				ex.printStackTrace();
+				centerMouse = false;
+			}
+		} else {
+			centerMouse = false;
+		}
 	}
 
 	@Override
@@ -58,6 +82,8 @@ public class OpenGLFrame extends JFrame implements GameWindow, WindowListener, K
 		if(component != null) {
 			getContentPane().add(component);
 			component.addKeyListener(this);
+			component.addMouseListener(this);
+			component.addMouseMotionListener(this);
 		}
 	}
 
@@ -75,6 +101,14 @@ public class OpenGLFrame extends JFrame implements GameWindow, WindowListener, K
 	@Override
 	public void closeWindow() {
 		setVisible(false);
+	}
+
+	@Override
+	public void closeApplication() {
+		// setVisible(false);
+		for(GameWindowListener listener : listeners)
+			listener.onFinishingWork();
+		System.exit(0);
 	}
 
 	@Override
@@ -110,7 +144,6 @@ public class OpenGLFrame extends JFrame implements GameWindow, WindowListener, K
 	@Override
 	public void keyTyped(KeyEvent e) {
 	}
-
 
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -162,30 +195,60 @@ public class OpenGLFrame extends JFrame implements GameWindow, WindowListener, K
 	public void mouseDragged(MouseEvent e) {
 		initMouseIfNecessary(e);
 
-		int x = e.getXOnScreen();
-		int y = e.getYOnScreen();
+		int x, y;
+
+		if(centerMouse) {
+			x = e.getXOnScreen();
+			y = e.getYOnScreen();
+		} else {
+			x = e.getX();
+			y = e.getY();
+		}
+
 		int deltaX = x - lastMouseX;
 		int deltaY = y - lastMouseY;
 
+		if(deltaX == 0 && deltaY == 0)
+			return;
+
 		control.moved(deltaX, deltaY, leftMouseButtonDown, rightMouseButtonDown);
 
-		lastMouseX = x;
-		lastMouseY = y;
+		if(centerMouse) {
+			putMouseToCenter();
+	    } else {
+			lastMouseX = x;
+			lastMouseY = y;
+		}
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		initMouseIfNecessary(e);
 
-		int x = e.getXOnScreen();
-		int y = e.getYOnScreen();
+		int x, y;
+
+		if(centerMouse) {
+			x = e.getXOnScreen();
+			y = e.getYOnScreen();
+		} else {
+			x = e.getX();
+			y = e.getY();
+		}
+
 		int deltaX = x - lastMouseX;
 		int deltaY = y - lastMouseY;
 
+		if(deltaX == 0 && deltaY == 0)
+			return;
+
 		control.moved(deltaX, deltaY, leftMouseButtonDown, rightMouseButtonDown);
 
-		lastMouseX = x;
-		lastMouseY = y;
+		if(centerMouse) {
+			putMouseToCenter();
+		} else {
+			lastMouseX = x;
+			lastMouseY = y;
+		}
 	}
 
 	@Override
@@ -251,9 +314,20 @@ public class OpenGLFrame extends JFrame implements GameWindow, WindowListener, K
 	private void initMouseIfNecessary(MouseEvent e) {
 		if(!mouseInitialized) {
 			mouseInitialized = true;
-			lastMouseX = e.getXOnScreen();
-			lastMouseY = e.getYOnScreen();
+
+			if(centerMouse) {
+				putMouseToCenter();
+			} else {
+				lastMouseX = e.getXOnScreen();
+				lastMouseY = e.getYOnScreen();
+			}
 		}
+	}
+
+	private void putMouseToCenter() {
+		lastMouseX = this.getLocationOnScreen().x + getWidth() / 2;
+		lastMouseY = this.getLocationOnScreen().y + getHeight() / 2;
+		robot.mouseMove(lastMouseX, lastMouseY);
 	}
 
 	private static final long serialVersionUID = 1L;

@@ -7,6 +7,7 @@ public interface GameWindow {
 	void setFullScreen(boolean fullScreen);
 	void showWindow();
 	void closeWindow();
+	void closeApplication();
 	void repaintEverything();
 
 }

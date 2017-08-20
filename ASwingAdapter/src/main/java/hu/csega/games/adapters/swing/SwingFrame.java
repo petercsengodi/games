@@ -71,6 +71,19 @@ public class SwingFrame extends JFrame implements GameWindow, WindowListener, Ke
 	}
 
 	@Override
+	public void closeWindow() {
+		setVisible(false);
+	}
+
+	@Override
+	public void closeApplication() {
+		setVisible(false);
+		for(GameWindowListener listener : listeners)
+			listener.onFinishingWork();
+		System.exit(0);
+	}
+
+	@Override
 	public void windowOpened(WindowEvent e) {
 	}
 
@@ -148,10 +161,6 @@ public class SwingFrame extends JFrame implements GameWindow, WindowListener, Ke
 	@Override
 	public void repaintEverything() {
 		repaint();
-	}
-
-	@Override
-	public void closeWindow() {
 	}
 
 	@Override

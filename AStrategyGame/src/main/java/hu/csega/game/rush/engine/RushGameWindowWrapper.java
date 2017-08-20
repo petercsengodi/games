@@ -57,4 +57,10 @@ public class RushGameWindowWrapper implements GameWindow {
 		toolWindow.getAwtWindow().setVisible(false);
 	}
 
+	@Override
+	public void closeApplication() {
+		toolWindow.getAwtWindow().setVisible(false);
+		System.exit(0);
+	}
+
 }

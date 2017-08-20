@@ -1,13 +1,28 @@
 package hu.csega.superstition.states;
 
 import hu.csega.games.engine.GameEngineCallback;
+import hu.csega.games.engine.intf.GameKeyListener;
+import hu.csega.games.engine.intf.GameMouseListener;
 
 public class SuperstitionState {
 
-	public SuperstitionState(GameEngineCallback model, GameEngineCallback builder, GameEngineCallback renderer) {
+	private GameEngineCallback model;
+	private GameEngineCallback builder;
+	private GameEngineCallback renderer;
+	private GameKeyListener keyListener;
+	private GameMouseListener mouseListener;
+
+	public SuperstitionState(
+			GameEngineCallback model,
+			GameEngineCallback builder,
+			GameEngineCallback renderer,
+			GameKeyListener keyListener,
+			GameMouseListener mouseListener) {
 		this.model = model;
 		this.builder = builder;
 		this.renderer = renderer;
+		this.keyListener = keyListener;
+		this.mouseListener = mouseListener;
 	}
 
 	public GameEngineCallback getModel() {
@@ -34,8 +49,20 @@ public class SuperstitionState {
 		this.renderer = renderer;
 	}
 
-	private GameEngineCallback model;
-	private GameEngineCallback builder;
-	private GameEngineCallback renderer;
+	public GameKeyListener getKeyListener() {
+		return keyListener;
+	}
+
+	public void setKeyListener(GameKeyListener keyListener) {
+		this.keyListener = keyListener;
+	}
+
+	public GameMouseListener getMouseListener() {
+		return mouseListener;
+	}
+
+	public void setMouseListener(GameMouseListener mouseListener) {
+		this.mouseListener = mouseListener;
+	}
 
 }
