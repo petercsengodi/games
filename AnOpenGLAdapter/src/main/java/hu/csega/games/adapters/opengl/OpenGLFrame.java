@@ -3,6 +3,9 @@ package hu.csega.games.adapters.opengl;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
@@ -10,17 +13,24 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
-import hu.csega.games.engine.g2d.GameControlImpl;
+import hu.csega.games.engine.impl.GameControlImpl;
 import hu.csega.games.engine.impl.GameEngine;
 import hu.csega.games.engine.intf.GameCanvas;
 import hu.csega.games.engine.intf.GameWindow;
 import hu.csega.games.engine.intf.GameWindowListener;
 
-public class OpenGLFrame extends JFrame implements GameWindow, WindowListener, KeyListener {
+public class OpenGLFrame extends JFrame implements GameWindow, WindowListener, KeyListener,
+		MouseListener, MouseMotionListener {
 
 	private GameEngine engine;
 	private GameControlImpl control;
 	private List<GameWindowListener> listeners = new ArrayList<>();
+
+	private boolean leftMouseButtonDown = false;
+	private boolean rightMouseButtonDown = false;
+	private int lastMouseX = 0;
+	private int lastMouseY = 0;
+	private boolean mouseInitialized = false;
 
 	public OpenGLFrame(GameEngine engine) {
 		super(engine.getDescriptor().getTitle());
@@ -29,6 +39,8 @@ public class OpenGLFrame extends JFrame implements GameWindow, WindowListener, K
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.addWindowListener(this);
 		this.addKeyListener(this);
+		this.addMouseListener(this);
+		this.addMouseMotionListener(this);
 	}
 
 	@Override
@@ -144,6 +156,104 @@ public class OpenGLFrame extends JFrame implements GameWindow, WindowListener, K
 	@Override
 	public void repaintEverything() {
 		repaint();
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		initMouseIfNecessary(e);
+
+		int x = e.getXOnScreen();
+		int y = e.getYOnScreen();
+		int deltaX = x - lastMouseX;
+		int deltaY = y - lastMouseY;
+
+		control.moved(deltaX, deltaY, leftMouseButtonDown, rightMouseButtonDown);
+
+		lastMouseX = x;
+		lastMouseY = y;
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		initMouseIfNecessary(e);
+
+		int x = e.getXOnScreen();
+		int y = e.getYOnScreen();
+		int deltaX = x - lastMouseX;
+		int deltaY = y - lastMouseY;
+
+		control.moved(deltaX, deltaY, leftMouseButtonDown, rightMouseButtonDown);
+
+		lastMouseX = x;
+		lastMouseY = y;
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		initMouseIfNecessary(e);
+
+		int x = e.getX();
+		int y = e.getY();
+
+		if(e.getButton() == 1) {
+			control.clicked(x, y, true, false);
+		}
+
+		if(e.getButton() == 3) {
+			control.clicked(x, y, false, true);
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		initMouseIfNecessary(e);
+
+		int x = e.getX();
+		int y = e.getY();
+
+		if(e.getButton() == 1) {
+			leftMouseButtonDown = true;
+			control.pressed(x, y, true, false);
+		}
+
+		if(e.getButton() == 3) {
+			rightMouseButtonDown = true;
+			control.pressed(x, y, false, true);
+		}
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		initMouseIfNecessary(e);
+
+		int x = e.getX();
+		int y = e.getY();
+
+		if(e.getButton() == 1) {
+			leftMouseButtonDown = false;
+			control.released(x, y, true, false);
+		}
+
+		if(e.getButton() == 3) {
+			rightMouseButtonDown = false;
+			control.released(x, y, false, true);
+		}
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+	}
+
+	private void initMouseIfNecessary(MouseEvent e) {
+		if(!mouseInitialized) {
+			mouseInitialized = true;
+			lastMouseX = e.getXOnScreen();
+			lastMouseY = e.getYOnScreen();
+		}
 	}
 
 	private static final long serialVersionUID = 1L;

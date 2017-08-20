@@ -14,4 +14,5 @@ public interface GameControl {
 	boolean isShiftOn();
 
 	void registerKeyListener(GameKeyListener listener);
+	void registerMouseListener(GameMouseListener listener);
 }

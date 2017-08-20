@@ -8,7 +8,6 @@ import java.util.Map;
 import hu.csega.games.engine.GameEngineCallback;
 import hu.csega.games.engine.GameEngineFacade;
 import hu.csega.games.engine.env.Disposable;
-import hu.csega.games.engine.g2d.GameControlImpl;
 import hu.csega.games.engine.g3d.GameModelStore;
 import hu.csega.games.engine.intf.GameAdapter;
 import hu.csega.games.engine.intf.GameCanvas;

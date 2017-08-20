@@ -6,8 +6,20 @@ import java.util.List;
 import hu.csega.games.engine.GameEngineFacade;
 import hu.csega.games.engine.intf.GameControl;
 import hu.csega.games.engine.intf.GameKeyListener;
+import hu.csega.games.engine.intf.GameMouseListener;
 
 public class GameControlImpl implements GameControl {
+
+	boolean upIsOn = false;
+	boolean downIsOn = false;
+	boolean leftIsOn = false;
+	boolean rightIsOn = false;
+	boolean controlIsOn = false;
+	boolean altIsOn = false;
+	boolean shiftIsOn = false;
+
+	private List<GameKeyListener> keyListeners = new ArrayList<>();
+	private List<GameMouseListener> mouseListeners = new ArrayList<>();
 
 	private GameEngine engine;
 
@@ -52,7 +64,12 @@ public class GameControlImpl implements GameControl {
 
 	@Override
 	public void registerKeyListener(GameKeyListener listener) {
-		listeners.add(listener);
+		keyListeners.add(listener);
+	}
+
+	@Override
+	public void registerMouseListener(GameMouseListener listener) {
+		mouseListeners.add(listener);
 	}
 
 	public void setUpIsOn(boolean upIsOn) {
@@ -85,19 +102,37 @@ public class GameControlImpl implements GameControl {
 
 	public void hit(char key) {
 		GameEngineFacade facade = engine.getFacade();
-		for(GameKeyListener listener : listeners) {
+		for(GameKeyListener listener : keyListeners) {
 			listener.hit(facade, key);
 		}
 	}
 
-	boolean upIsOn = false;
-	boolean downIsOn = false;
-	boolean leftIsOn = false;
-	boolean rightIsOn = false;
-	boolean controlIsOn = false;
-	boolean altIsOn = false;
-	boolean shiftIsOn = false;
+	public void pressed(int x, int y, boolean lefMouseButton, boolean rightMouseButton) {
+		GameEngineFacade facade = engine.getFacade();
+		for(GameMouseListener listener : mouseListeners) {
+			listener.pressed(facade, x, y, lefMouseButton, rightMouseButton);
+		}
+	}
 
-	private List<GameKeyListener> listeners = new ArrayList<>();
+	public void released(int x, int y, boolean lefMouseButton, boolean rightMouseButton) {
+		GameEngineFacade facade = engine.getFacade();
+		for(GameMouseListener listener : mouseListeners) {
+			listener.released(facade, x, y, lefMouseButton, rightMouseButton);
+		}
+	}
+
+	public void clicked(int x, int y, boolean lefMouseButton, boolean rightMouseButton) {
+		GameEngineFacade facade = engine.getFacade();
+		for(GameMouseListener listener : mouseListeners) {
+			listener.clicked(facade, x, y, lefMouseButton, rightMouseButton);
+		}
+	}
+
+	public void moved(int deltaX, int deltaY, boolean lefMouseButtonDown, boolean rightMouseButtonDown) {
+		GameEngineFacade facade = engine.getFacade();
+		for(GameMouseListener listener : mouseListeners) {
+			listener.moved(facade, deltaX, deltaY, lefMouseButtonDown, rightMouseButtonDown);
+		}
+	}
 
 }
