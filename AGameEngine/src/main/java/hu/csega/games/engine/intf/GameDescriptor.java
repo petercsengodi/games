@@ -34,8 +34,17 @@ public class GameDescriptor {
 		this.description = description;
 	}
 
+	public boolean isMouseCentered() {
+		return mouseCentered;
+	}
+
+	public void setMouseCentered(boolean mouseCentered) {
+		this.mouseCentered = mouseCentered;
+	}
+
 	private String id;
 	private String title;
 	private String version;
 	private String description;
+	private boolean mouseCentered = true;
 }

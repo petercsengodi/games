@@ -25,6 +25,8 @@ import hu.csega.toolshed.logging.LoggerFactory;
 
 public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 
+	private static final float RAD = (float)(180.0 / Math.PI);
+
 	private GL2 gl2 = null;
 	private GLU glu = null;
 	private GLUT glut = null;
@@ -131,6 +133,9 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 
 		GameObjectPosition lp = location.position;
 		gl2.glTranslatef(lp.x, lp.y, lp.z);
+		gl2.glRotatef(location.rotation.z * RAD, 0f, 0f, 1f);
+		gl2.glRotatef(location.rotation.y * RAD, 1f, 0f, 0f);
+		gl2.glRotatef(location.rotation.x * RAD, 0f, 1f, 0f);
 
 		OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw init");
 
@@ -141,7 +146,7 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 			texture.enable(gl2);
 			texture.bind(gl2);
 
-			gl2.glBegin(GL2.GL_TRIANGLES); // GL_TRIANGLE_STRIP
+			gl2.glBegin(GL2.GL_TRIANGLES);
 
 			float[] verticies = builder.vertexData(part);
 

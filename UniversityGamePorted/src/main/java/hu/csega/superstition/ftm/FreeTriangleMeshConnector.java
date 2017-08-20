@@ -88,6 +88,7 @@ public class FreeTriangleMeshConnector implements Connector, GameWindow {
 		descriptor.setTitle("Free Triangle Mesh Tool");
 		descriptor.setVersion("v00.00.0001");
 		descriptor.setDescription("A tool for creating vertices and triangles based upon them.");
+		descriptor.setMouseCentered(false);
 
 		GameAdapter adapter = new OpenGLGameAdapter();
 		GameEngine engine = GameEngine.create(descriptor, adapter);

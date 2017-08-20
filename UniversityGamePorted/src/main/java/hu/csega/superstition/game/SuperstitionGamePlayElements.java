@@ -10,7 +10,6 @@ import hu.csega.games.engine.g3d.GameObjectHandler;
 import hu.csega.games.engine.g3d.GameObjectPosition;
 import hu.csega.games.engine.g3d.GameObjectVertex;
 import hu.csega.games.engine.g3d.GameTexturePosition;
-import hu.csega.superstition.FreeTriangleMeshToolStarter;
 import hu.csega.superstition.ftm.model.FreeTriangleMeshModel;
 import hu.csega.superstition.ftm.model.FreeTriangleMeshTriangle;
 import hu.csega.superstition.ftm.model.FreeTriangleMeshVertex;
@@ -22,6 +21,7 @@ public class SuperstitionGamePlayElements {
 	GameObjectHandler groundHandler;
 	GameObjectHandler testFTMModel;
 	GameObjectHandler figureFTMModel;
+	GameObjectHandler faceFTMModel;
 
 	public void loadElements(GameEngineFacade facade) {
 		GameModelStore store = facade.store();
@@ -30,12 +30,13 @@ public class SuperstitionGamePlayElements {
 
 		testFTMModel = buildFTM(store, "res/ftm/test.ftm", "res/textures/z_other/wood-texture.jpg");
 		figureFTMModel = buildFTM(store, "res/ftm/figure.ftm", "res/textures/z_other/metal-texture.jpg");
+		faceFTMModel = buildFTM(store, "res/ftm/face.ftm", "res/textures/z_other/face-texture.jpg");
 	}
 
 	private void buildGround(GameModelStore store) {
 		GameModelBuilder groundBuilder = new GameModelBuilder();
 
-		groundTexture = store.loadTexture(FreeTriangleMeshToolStarter.TEXTURE_FILE);
+		groundTexture = store.loadTexture("res/textures/z_other/bunny-texture.jpg");
 		groundBuilder.setTextureHandler(groundTexture);
 
 		GameObjectPosition p;

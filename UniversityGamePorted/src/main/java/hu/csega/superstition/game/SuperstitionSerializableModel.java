@@ -14,6 +14,7 @@ public class SuperstitionSerializableModel implements Serializable {
 	GameObjectLocation groundLocation = new GameObjectLocation();
 	GameObjectLocation testFTMLocation = new GameObjectLocation();
 	GameObjectLocation figureFTMLocation = new GameObjectLocation();
+	GameObjectLocation faceFTMLocation = new GameObjectLocation();
 
 	public SuperstitionSerializableModel() {
 		groundLocation.position.set(0f, 0f, 0f);
@@ -23,7 +24,10 @@ public class SuperstitionSerializableModel implements Serializable {
 		testFTMLocation.rotation.set(0f, 0f, 0f);
 
 		figureFTMLocation.position.set(20f, 0f, 0f);
-		figureFTMLocation.rotation.set(0f, 0f, (float)Math.PI);
+		figureFTMLocation.rotation.set(0f, 0f, 0f);
+
+		faceFTMLocation.position.set(100f, 0f, 100f);
+		faceFTMLocation.rotation.set((float)(Math.PI / 2.0), 0f, 0f);
 	}
 
 	private static final long serialVersionUID = 1L;

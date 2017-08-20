@@ -25,7 +25,7 @@ import hu.csega.games.engine.intf.GameWindowListener;
 public class OpenGLFrame extends JFrame implements GameWindow, WindowListener, KeyListener,
 		MouseListener, MouseMotionListener {
 
-	private static final boolean CENTER_MOUSE = true;
+	private boolean CENTER_MOUSE = true;
 
 	private GameEngine engine;
 	private GameControlImpl control;
@@ -49,6 +49,7 @@ public class OpenGLFrame extends JFrame implements GameWindow, WindowListener, K
 		this.addKeyListener(this);
 		// this.addMouseListener(this);
 		// this.addMouseMotionListener(this);
+		CENTER_MOUSE = engine.getDescriptor().isMouseCentered();
 	}
 
 	@Override
