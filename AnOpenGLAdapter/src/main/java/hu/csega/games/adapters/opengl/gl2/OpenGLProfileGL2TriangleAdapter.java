@@ -65,17 +65,6 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 		gl2.glLoadIdentity();
 		glu.gluPerspective(45.0f, 1f, 0.1f, 10000.0f);
 
-		gl2.glMatrixMode(GL2.GL_MODELVIEW);
-		gl2.glLoadIdentity();
-
-		glu.gluLookAt(
-				0,  0, -300,
-				0,  0,  0,
-				0,  1,  0
-				);
-
-		OpenGLErrorUtil.checkError(gl2, "modelViewMatrix");
-
 		gl2.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
 		gl2.glMatrixMode(GL.GL_TEXTURE);
 
@@ -123,7 +112,7 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 	@Override
 	public void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, GameObjectLocation location, OpenGLModelStoreImpl store) {
 		int stride = 3 + 3 + 2;
-		float x, y, z;
+		float vx, vy, vz, nx, ny, nz, tx, ty;
 		int offset;
 
 		GL2 gl2 = glAutoDrawable.getGL().getGL2();
@@ -148,22 +137,20 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 			for(int index = 0; index < numberOfindicies; index++) {
 				offset = indicies[index] * stride;
 
-				x = verticies[offset++];
-				y = verticies[offset++];
-				z = verticies[offset++];
+				vx = verticies[offset++];
+				vy = verticies[offset++];
+				vz = verticies[offset++];
 
-				gl2.glVertex3f(x, y, z);
+				nx = verticies[offset++];
+				ny = verticies[offset++];
+				nz = verticies[offset++];
 
-				x = verticies[offset++];
-				y = verticies[offset++];
-				z = verticies[offset++];
+				tx = verticies[offset++];
+				ty = verticies[offset++];
 
-				gl2.glNormal3f(x, y, z);
-
-				x = verticies[offset++];
-				y = verticies[offset++];
-
-				gl2.glTexCoord2f(x, y);
+				gl2.glNormal3f(nx, ny, nz);
+				gl2.glTexCoord2f(tx, ty);
+				gl2.glVertex3f(vx, vy, vz);
 			}
 
 			gl2.glEnd();
@@ -198,6 +185,11 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 		GL2 gl2 = glAutoDrawable.getGL().getGL2();
 		GLU glu = GLU.createGLU(gl2);
 
+		gl2.glMatrixMode(GL2.GL_MODELVIEW);
+		gl2.glLoadIdentity();
+
+		OpenGLErrorUtil.checkError(gl2, "modelViewMatrix");
+
 		GameObjectPosition p = cameraSettings.position;
 		GameObjectDirection d = cameraSettings.forward;
 		GameObjectDirection u = cameraSettings.up;
@@ -207,6 +199,8 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 				d.x, d.y, d.z,
 				u.x, u.y, u.z
 				);
+
+		OpenGLErrorUtil.checkError(gl2, "cameraPlacement");
 	}
 
 	private static final Logger logger = LoggerFactory.createLogger(OpenGLProfileGL2TriangleAdapter.class);
