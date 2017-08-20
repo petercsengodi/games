@@ -26,7 +26,7 @@ public class SuperstitionSerializableModel implements Serializable {
 		figureFTMLocation.position.set(20f, 0f, 0f);
 		figureFTMLocation.rotation.set(0f, 0f, 0f);
 
-		faceFTMLocation.position.set(100f, 0f, 100f);
+		faceFTMLocation.position.set(100f, 100f, 100f);
 		faceFTMLocation.rotation.set((float)(Math.PI / 2.0), 0f, 0f);
 	}
 

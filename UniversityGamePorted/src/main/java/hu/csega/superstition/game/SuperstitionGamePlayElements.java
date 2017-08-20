@@ -30,7 +30,7 @@ public class SuperstitionGamePlayElements {
 
 		testFTMModel = buildFTM(store, "res/ftm/test.ftm", "res/textures/z_other/wood-texture.jpg");
 		figureFTMModel = buildFTM(store, "res/ftm/figure.ftm", "res/textures/z_other/metal-texture.jpg");
-		faceFTMModel = buildFTM(store, "res/ftm/face.ftm", "res/textures/z_other/face-texture.jpg");
+		faceFTMModel = buildFTM(store, "res/ftm/heart.ftm", "res/textures/z_other/red-texture.jpg");
 	}
 
 	private void buildGround(GameModelStore store) {
