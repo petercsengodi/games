@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import hu.csega.games.engine.GameEngineFacade;
 import hu.csega.superstition.ftm.model.FreeTriangleMeshModel;
 
+@SuppressWarnings("unused")
 class FileNew implements ActionListener {
 
 	private JFrame frame;

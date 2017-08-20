@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 
 import hu.csega.games.engine.GameEngineFacade;
 
+@SuppressWarnings("unused")
 class FileExit implements ActionListener {
 
 	private JFrame frame;

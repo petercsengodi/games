@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
+@SuppressWarnings("unused")
 public class ToolCanvas extends JPanel implements MouseListener, MouseMotionListener {
 
 	public static final Dimension PREFERRED_SIZE = new Dimension(300, 250);
