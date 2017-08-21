@@ -17,6 +17,9 @@ import hu.csega.superstition.ftm.util.FreeTriangleMeshSnapshots;
 
 public class SuperstitionGamePlayElements {
 
+	private static final float GOUND_DEPTH = -50f;
+	private static final float GOUND_SIZE = 200f;
+
 	GameObjectHandler groundTexture;
 	GameObjectHandler groundHandler;
 	GameObjectHandler testFTMModel;
@@ -28,15 +31,15 @@ public class SuperstitionGamePlayElements {
 
 		buildGround(store);
 
-		testFTMModel = buildFTM(store, "res/ftm/test.ftm", "res/textures/z_other/wood-texture.jpg");
-		figureFTMModel = buildFTM(store, "res/ftm/figure.ftm", "res/textures/z_other/metal-texture.jpg");
+		testFTMModel = buildFTM(store, "res/ftm/test.ftm", "res/textures/z_other/metal-texture.jpg");
+		figureFTMModel = buildFTM(store, "res/ftm/figure.ftm", "res/textures/z_other/wood-texture.jpg");
 		faceFTMModel = buildFTM(store, "res/ftm/heart.ftm", "res/textures/z_other/red-texture.jpg");
 	}
 
 	private void buildGround(GameModelStore store) {
 		GameModelBuilder groundBuilder = new GameModelBuilder();
 
-		groundTexture = store.loadTexture("res/textures/z_other/bunny-texture.jpg");
+		groundTexture = store.loadTexture("res/textures/z_other/grass-texture.png");
 		groundBuilder.setTextureHandler(groundTexture);
 
 		GameObjectPosition p;
@@ -45,28 +48,37 @@ public class SuperstitionGamePlayElements {
 
 		d = new GameObjectDirection(0f, 1f, 0f);
 
-		p = new GameObjectPosition(-1000f, -50f, -1000f);
-		tex = new GameTexturePosition(0f, 0f);
-		groundBuilder.getVertices().add(new GameObjectVertex(p, d, tex));
+		int counter = 0;
 
-		p = new GameObjectPosition(1000f, -50f, -1000f);
-		tex = new GameTexturePosition(1f, 0f);
-		groundBuilder.getVertices().add(new GameObjectVertex(p, d, tex));
+		for(float x = -1000f; x < 1000f; x += GOUND_SIZE) {
+			for(float y = -1000f; y < 1000f; y += GOUND_SIZE) {
 
-		p = new GameObjectPosition(1000f, -50f, 1000f);
-		tex = new GameTexturePosition(1f, 1f);
-		groundBuilder.getVertices().add(new GameObjectVertex(p, d, tex));
+				p = new GameObjectPosition(x, GOUND_DEPTH, y);
+				tex = new GameTexturePosition(0f, 0f);
+				groundBuilder.getVertices().add(new GameObjectVertex(p, d, tex));
 
-		p = new GameObjectPosition(-1000f, -50f, 1000f);
-		tex = new GameTexturePosition(0f, 1f);
-		groundBuilder.getVertices().add(new GameObjectVertex(p, d, tex));
+				p = new GameObjectPosition(x + GOUND_SIZE, GOUND_DEPTH, y);
+				tex = new GameTexturePosition(1f, 0f);
+				groundBuilder.getVertices().add(new GameObjectVertex(p, d, tex));
 
-		groundBuilder.getIndices().add(0);
-		groundBuilder.getIndices().add(1);
-		groundBuilder.getIndices().add(2);
-		groundBuilder.getIndices().add(0);
-		groundBuilder.getIndices().add(3);
-		groundBuilder.getIndices().add(2);
+				p = new GameObjectPosition(x + GOUND_SIZE, GOUND_DEPTH, y + GOUND_SIZE);
+				tex = new GameTexturePosition(1f, 1f);
+				groundBuilder.getVertices().add(new GameObjectVertex(p, d, tex));
+
+				p = new GameObjectPosition(x,GOUND_DEPTH, y + GOUND_SIZE);
+				tex = new GameTexturePosition(0f, 1f);
+				groundBuilder.getVertices().add(new GameObjectVertex(p, d, tex));
+
+				groundBuilder.getIndices().add(counter + 0);
+				groundBuilder.getIndices().add(counter + 1);
+				groundBuilder.getIndices().add(counter + 2);
+				groundBuilder.getIndices().add(counter + 0);
+				groundBuilder.getIndices().add(counter + 3);
+				groundBuilder.getIndices().add(counter + 2);
+
+				counter += 4;
+			}
+		}
 
 		groundHandler = store.buildModel(groundBuilder);
 	}

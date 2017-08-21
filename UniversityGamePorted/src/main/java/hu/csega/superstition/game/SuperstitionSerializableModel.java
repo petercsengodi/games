@@ -17,6 +17,8 @@ public class SuperstitionSerializableModel implements Serializable {
 	GameObjectLocation faceFTMLocation = new GameObjectLocation();
 
 	public SuperstitionSerializableModel() {
+		player.z = -500f;
+
 		groundLocation.position.set(0f, 0f, 0f);
 		groundLocation.rotation.set(0f, 0f, 0f);
 

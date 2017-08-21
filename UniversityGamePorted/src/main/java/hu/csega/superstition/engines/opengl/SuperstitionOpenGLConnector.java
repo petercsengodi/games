@@ -70,7 +70,6 @@ public class SuperstitionOpenGLConnector implements Connector, GameWindow {
 
 	@Override
 	public void repaintEverything() {
-		// TODO
 	}
 
 	private GameEngine startGameEngine() {

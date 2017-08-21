@@ -13,7 +13,7 @@ public class SuperstitionGameRenderer {
 
 		GameObjectLocation cameraLocation = new GameObjectLocation();
 		cameraLocation.position.x = (float)player.x;
-		cameraLocation.position.y = (float)player.y + 1f;
+		cameraLocation.position.y = (float)player.y;
 		cameraLocation.position.z = (float)player.z;
 		cameraLocation.rotation.x = (float)(player.movingRotation + player.sightHorizontalRotation);
 		cameraLocation.rotation.y = (float)(player.sightVerticalRotation);

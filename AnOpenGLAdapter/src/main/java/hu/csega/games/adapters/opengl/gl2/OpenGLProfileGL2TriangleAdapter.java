@@ -63,11 +63,11 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 		gl2.glEnable(GL2.GL_LIGHTING);
 		gl2.glEnable(GL2.GL_LIGHT0);
 
-		float[] ambientLight = { 1f, 1f, 1f, 0f };
+		float[] ambientLight = { 10f, 10f, 10f, 0f };
 		gl2.glLightfv(GL2.GL_LIGHT0, GL2.GL_AMBIENT, ambientLight, 0);
 
-		float[] diffuseLight = { 1f, 2f, 1f, 0f };
-		gl2.glLightfv(GL2.GL_LIGHT0, GL2.GL_DIFFUSE, diffuseLight, 0);
+//		float[] diffuseLight = { 1f, 2f, 1f, 0f };
+//		gl2.glLightfv(GL2.GL_LIGHT0, GL2.GL_DIFFUSE, diffuseLight, 0);
 
 		gl2.glMatrixMode(GL2.GL_PROJECTION);
 		gl2.glLoadIdentity();

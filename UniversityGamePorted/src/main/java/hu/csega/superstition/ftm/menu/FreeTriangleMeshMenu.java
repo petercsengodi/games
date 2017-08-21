@@ -14,14 +14,14 @@ public class FreeTriangleMeshMenu {
 	public static void createMenuForJFrame(JFrame frame, GameEngineFacade facade) {
 		JMenuBar menuBar = new JMenuBar();
 
-		JFileChooser saveDialog = new JFileChooser();
+		JFileChooser saveDialog = new JFileChooser(".");
 		saveDialog.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		saveDialog.setDialogTitle("Select file to save.");
 		saveDialog.setMultiSelectionEnabled(false);
 		saveDialog.setFileFilter(new FileNameExtensionFilter("FreeTriangleMesh file", "ftm"));
 		saveDialog.setApproveButtonText("Save");
 
-		JFileChooser openDialog = new JFileChooser();
+		JFileChooser openDialog = new JFileChooser(".");
 		openDialog.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		openDialog.setDialogTitle("Select file to open.");
 		openDialog.setMultiSelectionEnabled(false);
