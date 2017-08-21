@@ -23,6 +23,11 @@ public class SuperstitionGameRenderer {
 		g.drawModel(elements.testFTMModel, universe.testFTMLocation);
 		g.drawModel(elements.figureFTMModel, universe.figureFTMLocation);
 		g.drawModel(elements.faceFTMModel, universe.faceFTMLocation);
+
+		g.drawModel(elements.boxModel, universe.boxLocation1);
+		g.drawModel(elements.boxModel, universe.boxLocation2);
+		g.drawModel(elements.boxModel, universe.boxLocation3);
+		g.drawModel(elements.boxModel, universe.boxLocation4);
 	}
 
 }

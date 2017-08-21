@@ -66,12 +66,12 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 		float[] ambientLight = { 10f, 10f, 10f, 0f };
 		gl2.glLightfv(GL2.GL_LIGHT0, GL2.GL_AMBIENT, ambientLight, 0);
 
-//		float[] diffuseLight = { 1f, 2f, 1f, 0f };
-//		gl2.glLightfv(GL2.GL_LIGHT0, GL2.GL_DIFFUSE, diffuseLight, 0);
+		//		float[] diffuseLight = { 1f, 2f, 1f, 0f };
+		//		gl2.glLightfv(GL2.GL_LIGHT0, GL2.GL_DIFFUSE, diffuseLight, 0);
 
 		gl2.glMatrixMode(GL2.GL_PROJECTION);
 		gl2.glLoadIdentity();
-		glu.gluPerspective(45.0f, 1f, 0.1f, 10000.0f);
+		glu.gluPerspective(45.0f, 2f, 0.1f, 10000.0f);
 
 		gl2.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
 		gl2.glMatrixMode(GL.GL_TEXTURE);
@@ -269,14 +269,15 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 
 		String score = "Hello!";
 		gl2.glColor4f( 255, 0, 0, 1);
-	    gl2.glRasterPos2f(0.0f, 0.0f);
+		gl2.glRasterPos2f(0.0f, 0.0f);
 
-	    for (int i = 0; i < score.length(); i++) {
-	    	glut.glutBitmapCharacter(GLUT.BITMAP_TIMES_ROMAN_24, score.charAt(i));
-	    }
+		for (int i = 0; i < score.length(); i++) {
+			glut.glutBitmapCharacter(GLUT.BITMAP_TIMES_ROMAN_24, score.charAt(i));
+		}
 
-	    OpenGLErrorUtil.checkError(gl2, "textOut");
+		OpenGLErrorUtil.checkError(gl2, "textOut");
 	}
 
+	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.createLogger(OpenGLProfileGL2TriangleAdapter.class);
 }

@@ -15,10 +15,12 @@ public class SuperstitionGameModify {
 
 		SuperstitionPlayer player = model.player;
 
+		double speedModifier = (control.isControlOn() ? 15.0 : 1.0) * PLAYER_FORWARD;
+
 		if(control.isLeftOn()) {
 			if(control.isShiftOn() ^ model.sliding) {
-				player.x += (PLAYER_FORWARD * Math.cos(player.movingRotation));
-				player.z += (PLAYER_FORWARD * Math.sin(player.movingRotation));
+				player.x += (speedModifier * Math.cos(player.movingRotation));
+				player.z += (speedModifier * Math.sin(player.movingRotation));
 			} else {
 				player.movingRotation -= PLAYER_ROTATION;
 				while(player.movingRotation < PI2) {
@@ -29,8 +31,8 @@ public class SuperstitionGameModify {
 
 		if(control.isRightOn()) {
 			if(control.isShiftOn() ^ model.sliding) {
-				player.x -= (PLAYER_FORWARD * Math.cos(player.movingRotation));
-				player.z -= (PLAYER_FORWARD * Math.sin(player.movingRotation));
+				player.x -= (speedModifier * Math.cos(player.movingRotation));
+				player.z -= (speedModifier * Math.sin(player.movingRotation));
 			} else {
 				player.movingRotation += PLAYER_ROTATION;
 				while(player.movingRotation >= PI2) {
@@ -40,13 +42,13 @@ public class SuperstitionGameModify {
 		}
 
 		if(control.isUpOn()) {
-			player.x += (-PLAYER_FORWARD * Math.sin(player.movingRotation));
-			player.z += (PLAYER_FORWARD * Math.cos(player.movingRotation));
+			player.x += (-speedModifier * Math.sin(player.movingRotation));
+			player.z += (speedModifier * Math.cos(player.movingRotation));
 		}
 
 		if(control.isDownOn()) {
-			player.x -= (-PLAYER_FORWARD * Math.sin(player.movingRotation));
-			player.z -= (PLAYER_FORWARD * Math.cos(player.movingRotation));
+			player.x -= (-speedModifier * Math.sin(player.movingRotation));
+			player.z -= (speedModifier * Math.cos(player.movingRotation));
 		}
 
 	}
