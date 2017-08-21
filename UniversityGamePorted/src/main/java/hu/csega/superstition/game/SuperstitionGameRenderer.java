@@ -6,7 +6,7 @@ import hu.csega.games.engine.intf.GameGraphics;
 
 public class SuperstitionGameRenderer {
 
-	public void renderGame(GameEngineFacade facade, SuperstitionSerializableModel universe, SuperstitionGamePlayElements elements) {
+	public void renderGame(GameEngineFacade facade, SuperstitionSerializableModel universe, SuperstitionGameElements elements) {
 		GameGraphics g = facade.graphics();
 
 		SuperstitionPlayer player = universe.player;

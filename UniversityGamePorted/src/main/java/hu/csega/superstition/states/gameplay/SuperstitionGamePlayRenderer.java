@@ -2,7 +2,7 @@ package hu.csega.superstition.states.gameplay;
 
 import hu.csega.games.engine.GameEngineCallback;
 import hu.csega.games.engine.GameEngineFacade;
-import hu.csega.superstition.game.SuperstitionGamePlayElements;
+import hu.csega.superstition.game.SuperstitionGameElements;
 import hu.csega.superstition.game.SuperstitionGameRenderer;
 import hu.csega.superstition.game.SuperstitionSerializableModel;
 import hu.csega.superstition.states.SuperstitionModel;
@@ -19,7 +19,7 @@ public class SuperstitionGamePlayRenderer implements GameEngineCallback {
 
 		SuperstitionGamePlayModel gamePlayModel = (SuperstitionGamePlayModel) model.currentModel();
 		SuperstitionSerializableModel universe = gamePlayModel.getSerializableModel();
-		SuperstitionGamePlayElements elements = gamePlayModel.getElements();
+		SuperstitionGameElements elements = gamePlayModel.getElements();
 		universeRenderer.renderGame(facade, universe, elements);
 
 		return facade;

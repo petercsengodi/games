@@ -4,13 +4,13 @@ import hu.csega.games.engine.GameEngineCallback;
 import hu.csega.games.engine.GameEngineFacade;
 import hu.csega.games.engine.intf.GameControl;
 import hu.csega.superstition.game.SuperstitionGameModify;
-import hu.csega.superstition.game.SuperstitionGamePlayElements;
+import hu.csega.superstition.game.SuperstitionGameElements;
 import hu.csega.superstition.game.SuperstitionSerializableModel;
 
 public class SuperstitionGamePlayModel implements GameEngineCallback {
 
 	private SuperstitionSerializableModel serializableModel = new SuperstitionSerializableModel();
-	public SuperstitionGamePlayElements elements = new SuperstitionGamePlayElements();
+	public SuperstitionGameElements elements = new SuperstitionGameElements();
 
 	public SuperstitionSerializableModel getSerializableModel() {
 		return serializableModel;
@@ -20,11 +20,11 @@ public class SuperstitionGamePlayModel implements GameEngineCallback {
 		this.serializableModel = serializableModel;
 	}
 
-	public SuperstitionGamePlayElements getElements() {
+	public SuperstitionGameElements getElements() {
 		return elements;
 	}
 
-	public void setElements(SuperstitionGamePlayElements elements) {
+	public void setElements(SuperstitionGameElements elements) {
 		this.elements = elements;
 	}
 

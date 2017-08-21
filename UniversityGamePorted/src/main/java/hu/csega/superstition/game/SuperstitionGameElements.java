@@ -15,7 +15,7 @@ import hu.csega.superstition.ftm.model.FreeTriangleMeshTriangle;
 import hu.csega.superstition.ftm.model.FreeTriangleMeshVertex;
 import hu.csega.superstition.ftm.util.FreeTriangleMeshSnapshots;
 
-public class SuperstitionGamePlayElements {
+public class SuperstitionGameElements {
 
 	private static final float GOUND_DEPTH = -50f;
 	private static final float GOUND_SIZE = 200f;
@@ -33,7 +33,7 @@ public class SuperstitionGamePlayElements {
 
 		testFTMModel = buildFTM(store, "res/ftm/test.ftm", "res/textures/z_other/metal-texture.jpg");
 		figureFTMModel = buildFTM(store, "res/ftm/figure.ftm", "res/textures/z_other/wood-texture.jpg");
-		faceFTMModel = buildFTM(store, "res/ftm/heart.ftm", "res/textures/z_other/red-texture.jpg");
+		faceFTMModel = buildFTM(store, "res/ftm/face.ftm", "res/textures/z_other/face-texture.jpg");
 	}
 
 	private void buildGround(GameModelStore store) {
