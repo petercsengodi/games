@@ -78,6 +78,24 @@ public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanva
 		g2d.fillRect(0, 0, lastSize.width, lastSize.height);
 		g2d.setColor(Color.black);
 
+		int widthDiv2 = lastSize.width / 2;
+		int heightDiv2 = lastSize.height / 2;
+		int halfWidth = (widthDiv2 / 20) * 20;
+		int halfHeight = (heightDiv2 / 20) * 20;
+		g2d.setColor(Color.WHITE);
+		g2d.translate(widthDiv2, heightDiv2);
+
+		for(int x = -halfWidth; x < halfWidth; x += 20) {
+			g2d.drawLine(x, -heightDiv2, x, heightDiv2);
+		}
+
+		for(int y = -halfHeight; y < halfHeight; y += 20) {
+			g2d.drawLine(-widthDiv2, y, widthDiv2, y);
+		}
+
+		g2d.drawRect(-10, -10, 20, 20);
+		g2d.translate(-widthDiv2, -heightDiv2);
+
 		paint2d(g2d);
 
 		g.drawImage(buffer, 0, 0, null);

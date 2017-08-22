@@ -11,7 +11,7 @@ public class SuperstitionGameRenderer {
 
 	private static final float CLOCK_BOX_SIZE = 20f;
 	private static final float CLOCK_BASE_X = 0f;
-	private static final float CLOCK_BASE_Y = 0f;
+	private static final float CLOCK_BASE_Y = 100f;
 	private static final float CLOCK_BASE_Z = -1000f;
 
 	public void renderGame(GameEngineFacade facade, SuperstitionSerializableModel universe, SuperstitionGameElements elements) {
@@ -42,105 +42,69 @@ public class SuperstitionGameRenderer {
 
 	private void drawClock(SuperstitionGameElements elements, GameGraphics g) {
 		GameObjectLocation clockLocation = new GameObjectLocation();
-		clockLocation.position.set(CLOCK_BASE_X, CLOCK_BASE_Y + 2 * CLOCK_BOX_SIZE, CLOCK_BASE_Z);
-		g.drawModel(elements.boxModel2, clockLocation);
-		clockLocation.position.set(CLOCK_BASE_X, CLOCK_BASE_Y + 4 * CLOCK_BOX_SIZE, CLOCK_BASE_Z);
-		g.drawModel(elements.boxModel2, clockLocation);
+		clockLocation.position.set(CLOCK_BASE_X, CLOCK_BASE_Y, CLOCK_BASE_Z);
+		clockLocation.position.set(CLOCK_BASE_X, CLOCK_BASE_Y, CLOCK_BASE_Z);
+		g.drawModel(elements.clock_semi, clockLocation);
 
 		Calendar cal = Calendar.getInstance();
 		int min = cal.get(Calendar.MINUTE);
-		int hour = cal.get(Calendar.HOUR);
+		int hour = cal.get(Calendar.HOUR_OF_DAY);
 
 		String minutes = CLOCK_NUMBERS[min];
-		float offset = 2;
+		float offset = 25f;
 		for(int i = 0; i < minutes.length(); i++) {
 			char c = minutes.charAt(i);
-			draw(offset, c, g, clockLocation, elements.boxModel1);
-			offset += sizeOf(c) + 1;
+			float s = sizeOf(c);
+			offset += s / 2f + 10f;
+			draw(offset, c, g, clockLocation, elements);
+			offset += s / 2f + 10f;
 		}
 
 		String hours = CLOCK_NUMBERS[hour];
-		offset = 0;
+		offset = -25f;
 		for(int i = hours.length() - 1; i >= 0; i--) {
 			char c = hours.charAt(i);
-			offset -= sizeOf(c) + 1;
-			draw(offset, c, g, clockLocation, elements.boxModel1);
+			float s = sizeOf(c);
+			offset -= s / 2f + 10f;
+			draw(offset, c, g, clockLocation, elements);
+			offset -= s / 2f + 10f;
 		}
 	}
 
 	private static float sizeOf(char c) {
 		if(c == '-')
-			return 3;
+			return 80f;
 		if(c == 'I')
-			return 1;
+			return 20f;
 		if(c == 'V')
-			return 5;
+			return 120f;
 		if(c == 'L')
-			return 4;
+			return 80f;
 		if(c == 'X')
-			return 4;
-		return -1;
+			return 120f;
+		return -20f;
 	}
 
-	private static void draw(float x, char c, GameGraphics g, GameObjectLocation loc, GameObjectHandler box) {
+	private static void draw(float x, char c, GameGraphics g, GameObjectLocation loc, SuperstitionGameElements elements) {
+		loc.position.set(CLOCK_BASE_X + x, CLOCK_BASE_Y, CLOCK_BASE_Z);
 		if(c == '-') {
-			box(x + 0, 3, g, loc, box);
-			box(x + 1, 3, g, loc, box);
-			box(x + 2, 3, g, loc, box);
+			g.drawModel(elements.clock_hy, loc);
 		}
 		if(c == 'I') {
-			box(x + 0, 0, g, loc, box);
-			box(x + 0, 1, g, loc, box);
-			box(x + 0, 2, g, loc, box);
-			box(x + 0, 3, g, loc, box);
-			box(x + 0, 4, g, loc, box);
-			box(x + 0, 5, g, loc, box);
-			box(x + 0, 6, g, loc, box);
+			g.drawModel(elements.clock_i, loc);
 		}
 		if(c == 'V') {
-			box(x + 0, 6, g, loc, box);
-			box(x + 4, 6, g, loc, box);
-			box(x + 0, 5, g, loc, box);
-			box(x + 4, 5, g, loc, box);
-			box(x + 0.5f, 4, g, loc, box);
-			box(x + 3.5f, 4, g, loc, box);
-			box(x + 0.5f, 3, g, loc, box);
-			box(x + 3.5f, 3, g, loc, box);
-			box(x + 1f, 2, g, loc, box);
-			box(x + 3f, 2, g, loc, box);
-			box(x + 1.5f, 1, g, loc, box);
-			box(x + 2.5f, 1, g, loc, box);
-			box(x + 2f, 0, g, loc, box);
+			g.drawModel(elements.clock_v, loc);
 		}
 		if(c == 'L') {
-			box(x + 0, 0, g, loc, box);
-			box(x + 1, 0, g, loc, box);
-			box(x + 2, 0, g, loc, box);
-			box(x + 3, 0, g, loc, box);
-			box(x + 0, 1, g, loc, box);
-			box(x + 0, 2, g, loc, box);
-			box(x + 0, 3, g, loc, box);
-			box(x + 0, 4, g, loc, box);
-			box(x + 0, 5, g, loc, box);
-			box(x + 0, 6, g, loc, box);
+			g.drawModel(elements.clock_l, loc);
 		}
 		if(c == 'X') {
-			box(x + 0, 0, g, loc, box);
-			box(x + 0, 6, g, loc, box);
-			box(x + 0.5f, 1, g, loc, box);
-			box(x + 0.5f, 5, g, loc, box);
-			box(x + 1f, 2, g, loc, box);
-			box(x + 1f, 4, g, loc, box);
-			box(x + 1.5f, 3, g, loc, box);
-			box(x + 2f, 2, g, loc, box);
-			box(x + 2f, 4, g, loc, box);
-			box(x + 2.5f, 1, g, loc, box);
-			box(x + 2.5f, 5, g, loc, box);
-			box(x + 3f, 0, g, loc, box);
-			box(x + 3f, 6, g, loc, box);
+			g.drawModel(elements.clock_x, loc);
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private static void box(float x, float y, GameGraphics g, GameObjectLocation loc, GameObjectHandler box) {
 		loc.position.set(CLOCK_BASE_X + x*CLOCK_BOX_SIZE, CLOCK_BASE_Y + y * CLOCK_BOX_SIZE, CLOCK_BASE_Z);
 		g.drawModel(box, loc);

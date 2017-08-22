@@ -23,8 +23,13 @@ public class SuperstitionGameElements {
 	GameObjectHandler groundTexture;
 	GameObjectHandler groundHandler;
 	GameObjectHandler boxModel;
-	GameObjectHandler boxModel1;
-	GameObjectHandler boxModel2;
+
+	GameObjectHandler clock_l;
+	GameObjectHandler clock_x;
+	GameObjectHandler clock_v;
+	GameObjectHandler clock_i;
+	GameObjectHandler clock_semi;
+	GameObjectHandler clock_hy;
 
 	GameObjectHandler testFTMModel;
 	GameObjectHandler figureFTMModel;
@@ -40,8 +45,13 @@ public class SuperstitionGameElements {
 		faceFTMModel = buildFTM(store, "res/ftm/face.ftm", "res/textures/z_other/face-texture.jpg");
 
 		boxModel = buildBox(store, -10f, -10f, -10f, 10f, 10f, 10f, "res/textures/z_other/wood-texture.jpg");
-		boxModel1 = buildBox(store, -10f, -10f, -10f, 10f, 10f, 10f, "res/textures/z_other/red-texture.jpg");
-		boxModel2 = buildBox(store, -10f, -10f, -10f, 10f, 10f, 10f, "res/textures/z_other/wood-texture.jpg");
+
+		clock_l = buildFTM(store, "res/ftm/numbers/l.ftm", "res/textures/z_other/red-texture.jpg");
+		clock_x = buildFTM(store, "res/ftm/numbers/x.ftm", "res/textures/z_other/red-texture.jpg");
+		clock_v = buildFTM(store, "res/ftm/numbers/v.ftm", "res/textures/z_other/red-texture.jpg");
+		clock_i = buildFTM(store, "res/ftm/numbers/i.ftm", "res/textures/z_other/red-texture.jpg");
+		clock_hy = buildFTM(store, "res/ftm/numbers/hy.ftm", "res/textures/z_other/red-texture.jpg");
+		clock_semi = buildFTM(store, "res/ftm/numbers/semi.ftm", "res/textures/z_other/metal-texture.jpg");
 	}
 
 	private void buildGround(GameModelStore store) {
