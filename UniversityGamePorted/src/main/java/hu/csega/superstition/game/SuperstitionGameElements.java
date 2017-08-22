@@ -23,6 +23,8 @@ public class SuperstitionGameElements {
 	GameObjectHandler groundTexture;
 	GameObjectHandler groundHandler;
 	GameObjectHandler boxModel;
+	GameObjectHandler boxModel1;
+	GameObjectHandler boxModel2;
 
 	GameObjectHandler testFTMModel;
 	GameObjectHandler figureFTMModel;
@@ -38,6 +40,8 @@ public class SuperstitionGameElements {
 		faceFTMModel = buildFTM(store, "res/ftm/face.ftm", "res/textures/z_other/face-texture.jpg");
 
 		boxModel = buildBox(store, -10f, -10f, -10f, 10f, 10f, 10f, "res/textures/z_other/wood-texture.jpg");
+		boxModel1 = buildBox(store, -10f, -10f, -10f, 10f, 10f, 10f, "res/textures/z_other/red-texture.jpg");
+		boxModel2 = buildBox(store, -10f, -10f, -10f, 10f, 10f, 10f, "res/textures/z_other/wood-texture.jpg");
 	}
 
 	private void buildGround(GameModelStore store) {
