@@ -7,7 +7,6 @@ import com.jogamp.opengl.GLEventListener;
 import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.awt.GLCanvas;
 
-import hu.csega.games.adapters.opengl.gl2.OpenGLProfileGL2Adapter;
 import hu.csega.games.adapters.opengl.gl2.OpenGLProfileGL2TriangleAdapter;
 import hu.csega.games.adapters.opengl.gl3.OpenGLProfileGL3Adapter;
 import hu.csega.games.adapters.opengl.models.OpenGLModelStoreImpl;
@@ -19,10 +18,9 @@ import hu.csega.games.engine.intf.GameWindow;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
-@SuppressWarnings("deprecation")
 public class OpenGLGameAdapter implements GameAdapter {
 
-	private static final boolean USE_GLU = true;
+	private static final boolean FORCE_GL2_GLU = true;
 
 	private OpenGLProfileAdapter openGLProfileAdapter = null;
 
@@ -37,7 +35,7 @@ public class OpenGLGameAdapter implements GameAdapter {
 		GLProfile glProfile;
 
 
-		if(USE_GLU) {
+		if(FORCE_GL2_GLU) {
 			try {
 				glProfile = GLProfile.get(GLProfile.GL2);
 				// openGLProfileAdapter = new OpenGLProfileGL2GLUAdapter();
@@ -57,7 +55,8 @@ public class OpenGLGameAdapter implements GameAdapter {
 
 				try {
 					glProfile = GLProfile.get(GLProfile.GL2);
-					openGLProfileAdapter = new OpenGLProfileGL2Adapter();
+					// openGLProfileAdapter = new OpenGLProfileGL2Adapter();
+					openGLProfileAdapter = new OpenGLProfileGL2TriangleAdapter();
 				} catch(Exception ex2) {
 					logger.error("Couldn't get GL2 either! (" + ex2.getMessage() + ')');
 					throw new RuntimeException("Couldn't get GLProfile!");

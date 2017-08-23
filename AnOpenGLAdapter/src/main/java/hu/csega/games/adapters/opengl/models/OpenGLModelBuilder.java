@@ -12,10 +12,16 @@ public class OpenGLModelBuilder {
 	private GameObjectHandler textureReference;
 	private GameModelBuilder builder;
 
+	private int[] numberOfVertices;
+
 	public OpenGLModelBuilder(GameModelBuilder builder, OpenGLModelStoreImpl store) {
 		textureReference = builder.getTextureHandler(); // "res/example/texture.png"
 		this.builder = builder;
 		this.store = store;
+
+		int vertexIndex = 0;
+		this.numberOfVertices = new int[1];
+		this.numberOfVertices[vertexIndex] = builder.getVertices().size();
 	}
 
 	public int numberOfVertexBuffers() {
@@ -28,6 +34,10 @@ public class OpenGLModelBuilder {
 
 	public int numberOfVertexArrays() {
 		return 1;
+	}
+
+	public int numberOfVertices(int i) {
+		return numberOfVertices[i];
 	}
 
 	public float[] vertexData(int i) {
