@@ -50,6 +50,7 @@ public class OpenGLGameAdapter implements GameAdapter {
 			try {
 				glProfile = GLProfile.get(GLProfile.GL3);
 				openGLProfileAdapter = new OpenGLProfileGL3Adapter();
+				// openGLProfileAdapter = new OpenGLProfileGL3Adapter2();
 			} catch(Exception ex1) {
 				logger.warning("Couldn't get GL3! (" + ex1.getMessage() + ')');
 

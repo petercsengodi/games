@@ -38,7 +38,7 @@ public class SuperstitionGameElements {
 	public void loadElements(GameEngineFacade facade) {
 		GameModelStore store = facade.store();
 
-		buildGround(store);
+		groundHandler = buildGround(store, "res/textures/z_other/grass-texture.png");
 
 		testFTMModel = buildFTM(store, "res/ftm/test.ftm", "res/textures/z_other/metal-texture.jpg");
 		figureFTMModel = buildFTM(store, "res/ftm/figure.ftm", "res/textures/z_other/wood-texture.jpg");
@@ -54,10 +54,10 @@ public class SuperstitionGameElements {
 		clock_semi = buildFTM(store, "res/ftm/numbers/semi.ftm", "res/textures/z_other/metal-texture.jpg");
 	}
 
-	private void buildGround(GameModelStore store) {
+	private GameObjectHandler buildGround(GameModelStore store, String texture) {
 		GameModelBuilder groundBuilder = new GameModelBuilder();
 
-		groundTexture = store.loadTexture("res/textures/z_other/grass-texture.png");
+		groundTexture = store.loadTexture(texture);
 		groundBuilder.setTextureHandler(groundTexture);
 
 		GameObjectPosition p;
@@ -98,7 +98,7 @@ public class SuperstitionGameElements {
 			}
 		}
 
-		groundHandler = store.buildModel(groundBuilder);
+		return store.buildModel(groundBuilder);
 	}
 
 	private GameObjectHandler buildFTM(GameModelStore store, String ftmFile, String ftmTexture) {
