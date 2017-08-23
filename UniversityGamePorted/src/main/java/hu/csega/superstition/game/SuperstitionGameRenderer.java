@@ -42,6 +42,7 @@ public class SuperstitionGameRenderer {
 
 	private void drawClock(SuperstitionGameElements elements, GameGraphics g) {
 		GameObjectLocation clockLocation = new GameObjectLocation();
+
 		clockLocation.position.set(CLOCK_BASE_X, CLOCK_BASE_Y, CLOCK_BASE_Z);
 		clockLocation.position.set(CLOCK_BASE_X, CLOCK_BASE_Y, CLOCK_BASE_Z);
 		g.drawModel(elements.clock_semi, clockLocation);

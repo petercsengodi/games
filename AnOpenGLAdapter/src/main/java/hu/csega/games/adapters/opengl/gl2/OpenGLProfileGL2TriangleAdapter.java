@@ -140,7 +140,9 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 		OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw init");
 
 		OpenGLModelBuilder builder = model.builder();
-		for(int part = 0; part < builder.numberOfVertexArrays(); part++) {
+		int numberOfShapes = builder.numberOfShapes();
+
+		for(int part = 0; part < numberOfShapes; part++) {
 			OpenGLTextureContainer textureContainer = builder.textureContainer(part);
 			Texture texture = textureContainer.getTexture();
 			texture.enable(gl2);

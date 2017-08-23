@@ -20,7 +20,7 @@ import hu.csega.toolshed.logging.LoggerFactory;
 
 public class OpenGLGameAdapter implements GameAdapter {
 
-	private static final boolean FORCE_GL2_GLU = true;
+	private static final boolean FORCE_GL2_GLU = false;
 
 	private OpenGLProfileAdapter openGLProfileAdapter = null;
 

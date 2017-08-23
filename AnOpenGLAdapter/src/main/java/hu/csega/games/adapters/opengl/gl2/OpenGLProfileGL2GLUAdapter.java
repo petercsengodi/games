@@ -138,8 +138,8 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 	}
 
 	private void createVertexBuffers(GL2 gl2, OpenGLModelContainer model) {
-		gl2.glGenBuffers(model.getNumberOfVertexBuffers(), model.getOpenGLHandlers(), model.getOffsetOfVertexBuffers());
-		for(int i = 0; i < model.getNumberOfVertexBuffers(); i++) {
+		gl2.glGenBuffers(model.getNumberOfShapes(), model.getOpenGLHandlers(), model.getOffsetOfVertexBuffers());
+		for(int i = 0; i < model.getNumberOfShapes(); i++) {
 			gl2.glBindBuffer(GL2.GL_ARRAY_BUFFER, model.getOpenGLHandlers()[model.getOffsetOfVertexBuffers() + i]);
 
 			float[] vertexData = model.builder().vertexData(i);
@@ -157,8 +157,8 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 	}
 
 	private void createIndexBuffers(GL2 gl2, OpenGLModelContainer model) {
-		gl2.glGenBuffers(model.getNumberOfIndexBuffers(), model.getOpenGLHandlers(), model.getOffsetOfIndexBuffers());
-		for(int i = 0; i < model.getNumberOfIndexBuffers(); i++) {
+		gl2.glGenBuffers(model.getNumberOfShapes(), model.getOpenGLHandlers(), model.getOffsetOfIndexBuffers());
+		for(int i = 0; i < model.getNumberOfShapes(); i++) {
 			gl2.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, model.getOpenGLHandlers()[model.getOffsetOfIndexBuffers() + i]);
 
 			short[] indexData = model.builder().indexData(i);
@@ -177,8 +177,8 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 	private void createVertexArrays(GL2 gl2, OpenGLModelContainer model) {
 		int stride = (3 + 3 + 2) * Float.BYTES;
 
-		gl2.glGenVertexArrays(model.getNumberOfVertexArrays(), model.getOpenGLHandlers(), model.getOffsetOfVertexArrays());
-		for(int i = 0; i < model.getNumberOfVertexArrays(); i++) {
+		gl2.glGenVertexArrays(model.getNumberOfShapes(), model.getOpenGLHandlers(), model.getOffsetOfVertexArrays());
+		for(int i = 0; i < model.getNumberOfShapes(); i++) {
 			gl2.glBindVertexArray(model.getOpenGLHandlers()[model.getOffsetOfVertexArrays() + i]);
 			gl2.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, model.getOpenGLHandlers()[model.getOffsetOfIndexBuffers() + i]);
 			gl2.glBindBuffer(GL2.GL_ARRAY_BUFFER, model.getOpenGLHandlers()[model.getOffsetOfVertexBuffers() + i]);
@@ -200,7 +200,7 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 
 		OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw init");
 
-		for(int i = 0; i < model.getNumberOfVertexArrays(); i++) {
+		for(int i = 0; i < model.getNumberOfShapes(); i++) {
 			Texture texture = model.builder().textureContainer(i).getTexture();
 			texture.enable(gl2);
 			texture.bind(gl2);
@@ -231,9 +231,9 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 	public void disposeModel(GLAutoDrawable glAutodrawable, OpenGLModelContainer model) {
 		GL2 gl2 = glAutodrawable.getGL().getGL2();
 
-		gl2.glDeleteVertexArrays(model.getNumberOfVertexArrays(), model.getOpenGLHandlers(), model.getOffsetOfVertexArrays());
-		gl2.glDeleteBuffers(model.getNumberOfIndexBuffers(), model.getOpenGLHandlers(), model.getOffsetOfIndexBuffers());
-		gl2.glDeleteBuffers(model.getNumberOfVertexArrays(), model.getOpenGLHandlers(), model.getOffsetOfVertexBuffers());
+		gl2.glDeleteVertexArrays(model.getNumberOfShapes(), model.getOpenGLHandlers(), model.getOffsetOfVertexArrays());
+		gl2.glDeleteBuffers(model.getNumberOfShapes(), model.getOpenGLHandlers(), model.getOffsetOfIndexBuffers());
+		gl2.glDeleteBuffers(model.getNumberOfShapes(), model.getOpenGLHandlers(), model.getOffsetOfVertexBuffers());
 
 		OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.dispose");
 	}

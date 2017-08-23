@@ -17,9 +17,7 @@ public abstract class OpenGLModelContainer implements OpenGLObjectContainer {
 
 	private int numberOfHandlers;
 
-	private int numberOfVertexBuffers;
-	private int numberOfIndexBuffers;
-	private int numberOfVertexArrays;
+	private int numberOfShapes;
 
 	private int offsetOfVertexBuffers;
 	private int offsetOfIndexBuffers;
@@ -48,15 +46,13 @@ public abstract class OpenGLModelContainer implements OpenGLObjectContainer {
 		OpenGLModelBuilder model = builder();
 
 		if(openGLHandlers == null) {
-			numberOfVertexBuffers = model.numberOfVertexBuffers();
-			numberOfIndexBuffers = model.numberOfIndexBuffers();
-			numberOfVertexArrays = model.numberOfVertexArrays();
+			numberOfShapes = model.numberOfShapes();
 
-			offsetOfVertexBuffers = 0;
-			offsetOfIndexBuffers = numberOfVertexBuffers;
-			offsetOfVertexArrays = numberOfVertexBuffers + numberOfIndexBuffers;
+			offsetOfVertexBuffers = 0 * numberOfShapes;
+			offsetOfIndexBuffers = 1 * numberOfShapes;
+			offsetOfVertexArrays = 1 * numberOfShapes;
 
-			numberOfHandlers = numberOfVertexBuffers + numberOfIndexBuffers + numberOfVertexArrays;
+			numberOfHandlers = 3 * numberOfShapes;
 			openGLHandlers = new int[numberOfHandlers];
 		}
 
@@ -82,8 +78,6 @@ public abstract class OpenGLModelContainer implements OpenGLObjectContainer {
 
 	public abstract OpenGLModelBuilder builder();
 
-
-
 	public int[] getOpenGLHandlers() {
 		return openGLHandlers;
 	}
@@ -92,16 +86,8 @@ public abstract class OpenGLModelContainer implements OpenGLObjectContainer {
 		return numberOfHandlers;
 	}
 
-	public int getNumberOfVertexBuffers() {
-		return numberOfVertexBuffers;
-	}
-
-	public int getNumberOfIndexBuffers() {
-		return numberOfIndexBuffers;
-	}
-
-	public int getNumberOfVertexArrays() {
-		return numberOfVertexArrays;
+	public int getNumberOfShapes() {
+		return numberOfShapes;
 	}
 
 	public int getOffsetOfVertexBuffers() {

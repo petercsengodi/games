@@ -3,6 +3,8 @@ package hu.csega.games.adapters.opengl.gl3;
 import static com.jogamp.opengl.GL2ES2.GL_FRAGMENT_SHADER;
 import static com.jogamp.opengl.GL2ES2.GL_VERTEX_SHADER;
 
+import java.io.File;
+import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
 
@@ -10,14 +12,19 @@ import org.joml.Matrix4f;
 
 import com.jogamp.opengl.GL3;
 import com.jogamp.opengl.GLAutoDrawable;
+import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.util.GLBuffers;
 import com.jogamp.opengl.util.glsl.ShaderCode;
 import com.jogamp.opengl.util.glsl.ShaderProgram;
+import com.jogamp.opengl.util.texture.Texture;
+import com.jogamp.opengl.util.texture.TextureData;
+import com.jogamp.opengl.util.texture.TextureIO;
 
 import hu.csega.games.adapters.opengl.OpenGLProfileAdapter;
 import hu.csega.games.adapters.opengl.consts.OpenGLAttribute;
 import hu.csega.games.adapters.opengl.consts.OpenGLFragment;
 import hu.csega.games.adapters.opengl.consts.OpenGLSampler;
+import hu.csega.games.adapters.opengl.models.OpenGLModelBuilder;
 import hu.csega.games.adapters.opengl.models.OpenGLModelContainer;
 import hu.csega.games.adapters.opengl.models.OpenGLModelStoreImpl;
 import hu.csega.games.adapters.opengl.models.OpenGLTextureContainer;
@@ -58,7 +65,7 @@ public class OpenGLProfileGL3Adapter implements OpenGLProfileAdapter {
 		float aspect = (float) width / height;
 		float zNear = 0.1f;
 		float zFar = 10000.0f;
-		perspectiveMatrix.setPerspectiveLH(viewAngle, aspect, zNear, zFar);
+		perspectiveMatrix.identity().setPerspective(viewAngle, aspect, zNear, zFar);
 	}
 
 	@Override
@@ -118,25 +125,11 @@ public class OpenGLProfileGL3Adapter implements OpenGLProfileAdapter {
 		if(gl3 == null)
 			gl3 = glAutoDrawable.getGL().getGL3();
 
-		gl3.glClearColor(0f, 0f, 0f, 1f);
-		gl3.glClearDepthf(100000f); // 1f
+		gl3.glClearColor(1f, 0f, 0f, 1f);
+		gl3.glClearDepthf(1f); // 1f
 		gl3.glClear(GL3.GL_COLOR_BUFFER_BIT | GL3.GL_DEPTH_BUFFER_BIT);
 
 		gl3.glUseProgram(programHandlers[PROGRAM_INDEX]);
-
-
-
-
-		//		 glMatrixMode(GL_PROJECTION);
-		//		 glLoadIdentity();
-		//		 gluPerspective(50.0, 1.0, 3.0, 7.0);
-		//		 glMatrixMode(GL_MODELVIEW);
-		//		 glLoadIdentity();
-		//		 gluLookAt(0.0, 0.0, 5.0, // eye position
-		//		           0.0, 0.0, 0.0, // reference position / center
-		//		           0.0, 1.0, 0.0  // up-vector
-		//		       );
-
 
 		OpenGLErrorUtil.checkError(gl3, "startFrame");
 	}
@@ -163,34 +156,17 @@ public class OpenGLProfileGL3Adapter implements OpenGLProfileAdapter {
 		if(gl3 == null)
 			gl3 = glAutodrawable.getGL().getGL3();
 
-//		try {
-//			GL3 gl3 = glAutodrawable.getGL().getGL3();
-//			File textureFile = new File(filename);
-//
-//			TextureData textureData = TextureIO.newTextureData(gl3.getGLProfile(), textureFile, false, TextureIO.PNG);
-//			int level = 0;
-//
-//			int[] generatedTextureNames = container.getTextureHandlerArray();
-//
-//			gl3.glGenTextures(1, generatedTextureNames, 0);
-//
-//			gl3.glBindTexture(GL3.GL_TEXTURE_2D, generatedTextureNames[0]);
-//
-//			gl3.glTexImage2D(GL3.GL_TEXTURE_2D, level, textureData.getInternalFormat(),
-//					textureData.getWidth(), textureData.getHeight(), textureData.getBorder(),
-//					textureData.getPixelFormat(), textureData.getPixelType(), textureData.getBuffer());
-//
-//			gl3.glTexParameteri(GL3.GL_TEXTURE_2D, GL3.GL_TEXTURE_BASE_LEVEL, 0);
-//			gl3.glTexParameteri(GL3.GL_TEXTURE_2D, GL3.GL_TEXTURE_MAX_LEVEL, level);
-//
-//			int[] swizzle = new int[]{GL3.GL_RED, GL3.GL_GREEN, GL3.GL_BLUE, GL3.GL_ONE};
-//			gl3.glTexParameterIiv(GL3.GL_TEXTURE_2D, GL3.GL_TEXTURE_SWIZZLE_RGBA, swizzle, 0);
-//
-//			gl3.glBindTexture(GL3.GL_TEXTURE_2D, 0);
-//
-//		} catch (IOException ex) {
-//			logger.error("IOException in texture initialization: " + filename, ex);
-//		}
+		try {
+			GLProfile profile = gl3.getGLProfile();
+			File textureFile = new File(filename);
+			String format = (filename.endsWith("png") ? TextureIO.PNG : TextureIO.JPG);
+			TextureData textureData = TextureIO.newTextureData(profile, textureFile, false, format);
+			Texture texture = TextureIO.newTexture(textureData);
+			texture.enable(gl3);
+			container.setTexture(texture);
+		} catch (IOException ex) {
+			logger.error("IOException in texture initialization: " + filename, ex);
+		}
 
 	}
 
@@ -199,8 +175,9 @@ public class OpenGLProfileGL3Adapter implements OpenGLProfileAdapter {
 		if(gl3 == null)
 			gl3 = glAutoDrawable.getGL().getGL3();
 
-//		int[] generatedTextureNames = container.getTextureHandlerArray();
-//		gl3.glDeleteTextures(1, generatedTextureNames , 0);
+		Texture texture = container.getTexture();
+		texture.disable(gl3);
+		texture.destroy(gl3);
 	}
 
 	@Override
@@ -208,77 +185,69 @@ public class OpenGLProfileGL3Adapter implements OpenGLProfileAdapter {
 		if(gl3 == null)
 			gl3 = glAutoDrawable.getGL().getGL3();
 
+		int[] handlers = model.getOpenGLHandlers();
+		int numberOfShapes = model.getNumberOfShapes();
+		int offsetOfShapesInHandlerArray = model.getOffsetOfVertexArrays();
+		int offsetVerticesInHandleArray = model.getOffsetOfVertexBuffers();
+		int offsetOfIndicesInHandlerArray = model.getOffsetOfIndexBuffers();
+
 		try {
 
-			createVertexArrays(model);
-			// createVertexBuffers(model);
-			// createIndexBuffers(model);
+			// generate IDs in advance
+			gl3.glGenVertexArrays(numberOfShapes, handlers, offsetOfShapesInHandlerArray);
+			gl3.glGenBuffers(numberOfShapes, handlers, offsetVerticesInHandleArray);
+			gl3.glGenBuffers(numberOfShapes, handlers, offsetOfIndicesInHandlerArray);
+
+			for(int i = 0; i < numberOfShapes; i++) {
+				int shapeID = handlers[offsetOfShapesInHandlerArray + i];
+				gl3.glBindVertexArray(shapeID);
+
+				// Add indices to the shape
+
+				int indicesID = handlers[offsetOfIndicesInHandlerArray + i];
+				gl3.glBindBuffer(GL3.GL_ELEMENT_ARRAY_BUFFER, indicesID);
+
+				short[] indexData = model.builder().indexData(i);
+				int sizeOfIndices = indexData.length * Short.BYTES;
+
+				ShortBuffer indexBuffer = GLBuffers.newDirectShortBuffer(indexData);
+				gl3.glBufferData(GL3.GL_ELEMENT_ARRAY_BUFFER, sizeOfIndices, indexBuffer, GL3.GL_STATIC_DRAW);
+				BufferUtils.destroyDirectBuffer(indexBuffer);
+
+				// Add vertices to the shape
+
+				int verticesID = handlers[offsetVerticesInHandleArray + i];
+				gl3.glBindBuffer(GL3.GL_ARRAY_BUFFER, verticesID);
+
+				float[] vertexData = model.builder().vertexData(i);
+				int sizeOfVertices = vertexData.length * Float.BYTES;
+
+				FloatBuffer vertexBuffer = GLBuffers.newDirectFloatBuffer(vertexData);
+				gl3.glBufferData(GL3.GL_ARRAY_BUFFER, sizeOfVertices, vertexBuffer, GL3.GL_STATIC_DRAW);
+				BufferUtils.destroyDirectBuffer(vertexBuffer);
+
+				OpenGLErrorUtil.checkError(gl3, "vertexBuffer " + i);
+
+
+				// Unbind
+
+				// gl3.glBindBuffer(GL3.GL_ELEMENT_ARRAY_BUFFER, 0); // must be left open according to example code
+				gl3.glBindBuffer(GL3.GL_ARRAY_BUFFER, 0); // may be closed after attributes are added according to example code
+				gl3.glBindVertexArray(0);
+			}
+
+			OpenGLErrorUtil.checkError(gl3, "loadModel");
 
 		} catch (Exception ex) {
 			logger.error("Exception in model initialization: " + filename, ex);
 		}
 	}
 
-	private void createVertexBuffers(OpenGLModelContainer model) {
-		for(int i = 0; i < model.getNumberOfVertexBuffers(); i++) {
-			gl3.glBindBuffer(GL3.GL_ARRAY_BUFFER, 0);
-		}
-
-		OpenGLErrorUtil.checkError(gl3, "OpenGLModelContainer.createVertexBuffers");
-	}
-
-	private void createIndexBuffers(OpenGLModelContainer model) {
-		gl3.glGenBuffers(model.getNumberOfIndexBuffers(), model.getOpenGLHandlers(), model.getOffsetOfIndexBuffers());
-		for(int i = 0; i < model.getNumberOfIndexBuffers(); i++) {
-			gl3.glBindBuffer(GL3.GL_ELEMENT_ARRAY_BUFFER, model.getOpenGLHandlers()[model.getOffsetOfIndexBuffers() + i]);
-
-			short[] indexData = model.builder().indexData(i);
-			int size = indexData.length * Short.BYTES;
-
-			ShortBuffer indexBuffer = GLBuffers.newDirectShortBuffer(indexData);
-			gl3.glBufferData(GL3.GL_ELEMENT_ARRAY_BUFFER, size, indexBuffer, GL3.GL_STATIC_DRAW);
-			BufferUtils.destroyDirectBuffer(indexBuffer);
-
-			gl3.glBindBuffer(GL3.GL_ELEMENT_ARRAY_BUFFER, 0);
-		}
-
-		OpenGLErrorUtil.checkError(gl3, "OpenGLModelContainer.createIndexBuffers");
-	}
-
-	private void createVertexArrays(OpenGLModelContainer model) {
-		int[] handlers = model.getOpenGLHandlers();
-		int numberOfVertexArrays = model.getNumberOfVertexArrays();
-		int offsetOfVerticesInHandlerArray = model.getOffsetOfVertexArrays();
-		int offsetOfBuffersInHandleArray = model.getOffsetOfVertexBuffers();
-
-		// generate IDs in advance
-		gl3.glGenVertexArrays(numberOfVertexArrays, handlers, offsetOfVerticesInHandlerArray);
-		gl3.glGenBuffers(numberOfVertexArrays, handlers, offsetOfBuffersInHandleArray);
-
-		for(int i = 0; i < numberOfVertexArrays; i++) {
-			int vertexArrayID = handlers[offsetOfVerticesInHandlerArray + i];
-			gl3.glBindVertexArray(vertexArrayID);
-
-			int bufferID = handlers[offsetOfBuffersInHandleArray + i];
-			gl3.glBindBuffer(GL3.GL_ARRAY_BUFFER, bufferID);
-
-			float[] vertexData = model.builder().vertexData(i);
-			int size = vertexData.length * Float.BYTES;
-
-			FloatBuffer buffer = GLBuffers.newDirectFloatBuffer(vertexData);
-			gl3.glBufferData(GL3.GL_ARRAY_BUFFER, size, buffer, GL3.GL_STATIC_DRAW);
-			BufferUtils.destroyDirectBuffer(buffer);
-
-			gl3.glBindBuffer(GL3.GL_ARRAY_BUFFER, 0);
-			gl3.glBindVertexArray(0);
-		}
-
-		OpenGLErrorUtil.checkError(gl3, "OpenGLModelContainer.createVertexArrays");
-	}
-
 	@Override
 	public void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, GameObjectLocation location, OpenGLModelStoreImpl store) {
-		calculatedMatrix.set(perspectiveMatrix).mul(cameraMatrix);
+		calculatedMatrix.identity();
+		calculatedMatrix.set(perspectiveMatrix);
+		calculatedMatrix.mul(cameraMatrix);
 		calculatedMatrix.get(matrixBuffer);
 
 		FloatBuffer buffer = GLBuffers.newDirectFloatBuffer(matrixBuffer);
@@ -286,59 +255,69 @@ public class OpenGLProfileGL3Adapter implements OpenGLProfileAdapter {
 		BufferUtils.destroyDirectBuffer(buffer);
 
 		int[] handlers = model.getOpenGLHandlers();
-		int numberOfVertexArrays = model.getNumberOfVertexArrays();
-		int offsetOfVerticesInHandlerArray = model.getOffsetOfVertexArrays();
-		int offsetOfBuffersInHandleArray = model.getOffsetOfVertexBuffers();
+		int numberOfShapes = model.getNumberOfShapes();
+		int offsetOfShapesInHandlerArray = model.getOffsetOfVertexArrays();
+		int offsetVerticesInHandleArray = model.getOffsetOfVertexBuffers();
+		int offsetOfIndicesInHandlerArray = model.getOffsetOfIndexBuffers();
 
-		int stride = (3 + 3 + 2) * Float.BYTES;
+		OpenGLModelBuilder builder = model.builder();
 
-		for(int i = 0; i < numberOfVertexArrays; i++) {
-			int vertexArrayID = handlers[offsetOfVerticesInHandlerArray + i];
-			gl3.glBindVertexArray(vertexArrayID);
+		for(int i = 0; i < numberOfShapes; i++) {
+			OpenGLTextureContainer textureContainer = builder.textureContainer(i);
+			Texture texture = textureContainer.getTexture();
+			texture.bind(gl3);
 
-			int bufferID = handlers[offsetOfBuffersInHandleArray + i];
-			gl3.glBindBuffer(GL3.GL_ARRAY_BUFFER, bufferID);
 
-			gl3.glEnableVertexAttribArray(OpenGLAttribute.POSITION);
+			// BIND
 
-			gl3.glVertexAttribPointer(OpenGLAttribute.POSITION, 3, GL3.GL_FLOAT,
-					false, stride, 0 * Float.BYTES);
+			int shapeID = handlers[offsetOfShapesInHandlerArray + i];
+			gl3.glBindVertexArray(shapeID);
+
+			int verticesID = handlers[offsetVerticesInHandleArray + i];
+			gl3.glBindBuffer(GL3.GL_ARRAY_BUFFER, verticesID);
+
+			int indicesID = handlers[offsetOfIndicesInHandlerArray + i];
+			gl3.glBindBuffer(GL3.GL_ELEMENT_ARRAY_BUFFER, indicesID);
+
+
+			// Assign variables in shader
+
+			int stride = (3 + 3 + 2) * Float.BYTES;
 
 			gl3.glEnableVertexAttribArray(OpenGLAttribute.NORMAL);
-			gl3.glVertexAttribPointer(OpenGLAttribute.NORMAL, 3, GL3.GL_FLOAT,
-					false, stride, 3 * Float.BYTES);
+			gl3.glVertexAttribPointer(OpenGLAttribute.NORMAL, 3, GL3.GL_FLOAT, false, stride, 3 * Float.BYTES);
 
 			gl3.glEnableVertexAttribArray(OpenGLAttribute.TEXCOORD);
-			gl3.glVertexAttribPointer(OpenGLAttribute.TEXCOORD, 2, GL3.GL_FLOAT,
-					false, stride, 6 * Float.BYTES);
+			gl3.glVertexAttribPointer(OpenGLAttribute.TEXCOORD, 2, GL3.GL_FLOAT, false, stride, 6 * Float.BYTES);
 
-			int numberOfVertices = model.builder().numberOfVertices(i);
-			gl3.glDrawArrays(GL3.GL_TRIANGLES, 0, numberOfVertices);
+			gl3.glEnableVertexAttribArray(OpenGLAttribute.POSITION);
+			gl3.glVertexAttribPointer(OpenGLAttribute.POSITION, 3, GL3.GL_FLOAT, false, stride, 0 * Float.BYTES);
 
+
+			// Draw
+
+			int numberOfIndices = model.builder().numberOfIndices(i);
+			gl3.glDrawElements(GL3.GL_TRIANGLES, numberOfIndices, GL3.GL_UNSIGNED_SHORT, 0);
+
+
+			// Unassign variables in shader
+
+			gl3.glDisableVertexAttribArray(OpenGLAttribute.POSITION);
+			gl3.glDisableVertexAttribArray(OpenGLAttribute.NORMAL);
+			gl3.glDisableVertexAttribArray(OpenGLAttribute.TEXCOORD);
+
+
+			// UNBIND
+
+			gl3.glBindBuffer(GL3.GL_ELEMENT_ARRAY_BUFFER, 0);
 			gl3.glBindBuffer(GL3.GL_ARRAY_BUFFER, 0);
 			gl3.glBindVertexArray(0);
+			gl3.glBindTexture(GL3.GL_TEXTURE_2D, 0);
+
+			OpenGLErrorUtil.checkError(gl3, "unbind " + model.filename() + " " + i);
 		}
 
-//		GL3 gl3 = glAutoDrawable.getGL().getGL3();
-//
-//		for(int i = 0; i < model.getNumberOfVertexArrays(); i++) {
-//			gl3.glBindVertexArray(model.getOpenGLHandlers()[model.getOffsetOfVertexArrays() + i]);
-//
-//			int textureIndex = model.builder().textureContainer(i).getTextureHandler();
-//			int indexLength = model.builder().indexLength(i);
-//
-//			gl3.glUniformMatrix4fv(store.modelToClipMatrix(), 1, false, zRotation, 0);
-//			// gl3.glBindSampler(OpenGLSampler.DIFFUSE, store.samplerIndex()); // TODO csega: why is this a problem?
-//			gl3.glActiveTexture(GL3.GL_TEXTURE0 + OpenGLSampler.DIFFUSE);
-//			gl3.glBindTexture(GL3.GL_TEXTURE_2D, textureIndex);
-//
-//			gl3.glDrawElements(GL3.GL_TRIANGLES, indexLength, GL3.GL_UNSIGNED_SHORT, 0);
-//
-//			gl3.glBindTexture(GL3.GL_TEXTURE_2D, 0);
-//			gl3.glBindVertexArray(0);
-//		}
-
-		OpenGLErrorUtil.checkError(gl3, "OpenGLModelContainer.draw");
+		OpenGLErrorUtil.checkError(gl3, "draw");
 	}
 
 	@Override
@@ -347,9 +326,14 @@ public class OpenGLProfileGL3Adapter implements OpenGLProfileAdapter {
 			gl3 = glAutodrawable.getGL().getGL3();
 
 		int[] handlers = model.getOpenGLHandlers();
-		gl3.glDeleteVertexArrays(model.getNumberOfVertexArrays(), handlers, model.getOffsetOfVertexArrays());
-		gl3.glDeleteBuffers(model.getNumberOfVertexArrays(), handlers, model.getOffsetOfVertexBuffers());
-		// gl3.glDeleteBuffers(model.getNumberOfIndexBuffers(), handlers, model.getOffsetOfIndexBuffers());
+		int numberOfShapes = model.getNumberOfShapes();
+		int offsetOfShapesInHandlerArray = model.getOffsetOfVertexArrays();
+		int offsetVerticesInHandleArray = model.getOffsetOfVertexBuffers();
+		int offsetOfIndicesInHandlerArray = model.getOffsetOfIndexBuffers();
+
+		gl3.glDeleteVertexArrays(numberOfShapes, handlers, offsetOfShapesInHandlerArray);
+		gl3.glDeleteBuffers(numberOfShapes, handlers, offsetVerticesInHandleArray);
+		gl3.glDeleteBuffers(numberOfShapes, handlers, offsetOfIndicesInHandlerArray);
 
 		OpenGLErrorUtil.checkError(gl3, "OpenGLModelContainer.dispose");
 	}
@@ -414,7 +398,7 @@ public class OpenGLProfileGL3Adapter implements OpenGLProfileAdapter {
 		float uy = (float)u3y;
 		float uz = (float)u3z;
 
-		cameraMatrix.lookAtLH(p.x, p.y, p.z, fx, fy, fz, ux, uy, uz);
+		cameraMatrix.lookAt(p.x, p.y, p.z, fx, fy, fz, ux, uy, uz);
 	}
 
 	private static final Logger logger = LoggerFactory.createLogger(OpenGLProfileGL3Adapter.class);
