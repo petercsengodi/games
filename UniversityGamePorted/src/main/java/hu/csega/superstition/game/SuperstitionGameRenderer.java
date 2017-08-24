@@ -70,6 +70,20 @@ public class SuperstitionGameRenderer {
 			draw(offset, c, g, clockLocation, elements);
 			offset -= s / 2f + 10f;
 		}
+
+		for(float x = -780f; x <= 780f; x+= 20f) {
+			clockLocation.position.set(x, 220f, -1020f);
+			g.drawModel(elements.clock_frame, clockLocation);
+			clockLocation.position.set(x, -20f, -1020f);
+			g.drawModel(elements.clock_frame, clockLocation);
+		}
+
+		for(float y = 0f; y <= 200f; y+= 20f) {
+			clockLocation.position.set(-780f, y, -1020f);
+			g.drawModel(elements.clock_frame, clockLocation);
+			clockLocation.position.set(780f, y, -1020f);
+			g.drawModel(elements.clock_frame, clockLocation);
+		}
 	}
 
 	private static float sizeOf(char c) {

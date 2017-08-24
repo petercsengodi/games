@@ -30,6 +30,7 @@ public class SuperstitionGameElements {
 	GameObjectHandler clock_i;
 	GameObjectHandler clock_semi;
 	GameObjectHandler clock_hy;
+	GameObjectHandler clock_frame;
 
 	GameObjectHandler testFTMModel;
 	GameObjectHandler figureFTMModel;
@@ -52,6 +53,7 @@ public class SuperstitionGameElements {
 		clock_i = buildFTM(store, "res/ftm/numbers/i.ftm", "res/textures/z_other/red-texture.jpg");
 		clock_hy = buildFTM(store, "res/ftm/numbers/hy.ftm", "res/textures/z_other/red-texture.jpg");
 		clock_semi = buildFTM(store, "res/ftm/numbers/semi.ftm", "res/textures/z_other/metal-texture.jpg");
+		clock_frame = buildBox(store, -10f, -10f, -10f, 10f, 10f, 30f, "res/textures/z_other/wood-texture.jpg");
 	}
 
 	private GameObjectHandler buildGround(GameModelStore store, String texture) {
