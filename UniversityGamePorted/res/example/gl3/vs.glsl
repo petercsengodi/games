@@ -1,5 +1,5 @@
 /*
- * Vertex shader.
+ * Vertex shader for the game's main part.
  */
 #version 330
 
