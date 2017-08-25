@@ -71,7 +71,7 @@ public class SuperstitionGameRenderer {
 			offset -= s / 2f + 10f;
 		}
 
-		for(float x = -780f; x <= 780f; x+= 20f) {
+		for(float x = -500f; x <= 780f; x+= 20f) {
 			clockLocation.position.set(x, 220f, -1020f);
 			g.drawModel(elements.clock_frame, clockLocation);
 			clockLocation.position.set(x, -20f, -1020f);
@@ -79,7 +79,7 @@ public class SuperstitionGameRenderer {
 		}
 
 		for(float y = 0f; y <= 200f; y+= 20f) {
-			clockLocation.position.set(-780f, y, -1020f);
+			clockLocation.position.set(-500f, y, -1020f);
 			g.drawModel(elements.clock_frame, clockLocation);
 			clockLocation.position.set(780f, y, -1020f);
 			g.drawModel(elements.clock_frame, clockLocation);
