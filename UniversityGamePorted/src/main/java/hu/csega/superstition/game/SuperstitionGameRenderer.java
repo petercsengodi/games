@@ -28,18 +28,16 @@ public class SuperstitionGameRenderer {
 		g.placeCamera(cameraLocation);
 
 		g.drawModel(elements.groundHandler, universe.groundLocation);
-		g.drawModel(elements.testFTMModel, universe.testFTMLocation);
-		g.drawModel(elements.figureFTMModel, universe.figureFTMLocation);
-		g.drawModel(elements.faceFTMModel, universe.faceFTMLocation);
+		// g.drawModel(elements.testFTMModel, universe.testFTMLocation);
+		// g.drawModel(elements.figureFTMModel, universe.figureFTMLocation);
+		// g.drawModel(elements.faceFTMModel, universe.faceFTMLocation);
 
-		g.drawModel(elements.boxModel, universe.boxLocation1);
-		g.drawModel(elements.boxModel, universe.boxLocation2);
-		g.drawModel(elements.boxModel, universe.boxLocation3);
 		g.drawModel(elements.boxModel, universe.boxLocation4);
 
-		drawClock(elements, g);
+		// drawClock(elements, g);
 	}
 
+	@SuppressWarnings("unused")
 	private void drawClock(SuperstitionGameElements elements, GameGraphics g) {
 		GameObjectLocation clockLocation = new GameObjectLocation();
 

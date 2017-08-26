@@ -37,9 +37,11 @@ public class OpenGLGameAdapter implements GameAdapter {
 
 		if(FORCE_GL2_GLU) {
 			try {
+				logger.info("Trying to acquire GL2 profile...");
 				glProfile = GLProfile.get(GLProfile.GL2);
 				// openGLProfileAdapter = new OpenGLProfileGL2GLUAdapter();
 				openGLProfileAdapter = new OpenGLProfileGL2TriangleAdapter();
+				logger.info("GL2 profile acquired, adapter: " + openGLProfileAdapter.getClass().getSimpleName());
 			} catch(Exception ex2) {
 				logger.error("Couldn't get GL2 for GLU! (" + ex2.getMessage() + ')');
 				throw new RuntimeException("Couldn't get GLProfile!");
@@ -48,16 +50,20 @@ public class OpenGLGameAdapter implements GameAdapter {
 		} else {
 
 			try {
+				logger.info("Trying to acquire GL3 profile...");
 				glProfile = GLProfile.get(GLProfile.GL3);
 				openGLProfileAdapter = new OpenGLProfileGL3Adapter();
 				// openGLProfileAdapter = new OpenGLProfileGL3Adapter2();
+				logger.info("GL3 profile acquired, adapter: " + openGLProfileAdapter.getClass().getSimpleName());
 			} catch(Exception ex1) {
 				logger.warning("Couldn't get GL3! (" + ex1.getMessage() + ')');
 
 				try {
+					logger.info("Trying to acquire GL2 profile...");
 					glProfile = GLProfile.get(GLProfile.GL2);
 					// openGLProfileAdapter = new OpenGLProfileGL2Adapter();
 					openGLProfileAdapter = new OpenGLProfileGL2TriangleAdapter();
+					logger.info("GL2 profile acquired, adapter: " + openGLProfileAdapter.getClass().getSimpleName());
 				} catch(Exception ex2) {
 					logger.error("Couldn't get GL2 either! (" + ex2.getMessage() + ')');
 					throw new RuntimeException("Couldn't get GLProfile!");

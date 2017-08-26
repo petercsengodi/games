@@ -45,7 +45,7 @@ public class SuperstitionGameElements {
 		figureFTMModel = buildFTM(store, "res/ftm/figure.ftm", "res/textures/z_other/wood-texture.jpg");
 		faceFTMModel = buildFTM(store, "res/ftm/face.ftm", "res/textures/z_other/face-texture.jpg");
 
-		boxModel = buildBox(store, -10f, -10f, -10f, 10f, 10f, 10f, "res/textures/z_other/wood-texture.jpg");
+		boxModel = buildBox(store, -30f, -30f, -30f, 30f, 30f, 30f, "res/textures/z_other/wood-texture.jpg");
 
 		clock_l = buildFTM(store, "res/ftm/numbers/l.ftm", "res/textures/z_other/red-texture.jpg");
 		clock_x = buildFTM(store, "res/ftm/numbers/x.ftm", "res/textures/z_other/red-texture.jpg");
@@ -136,22 +136,22 @@ public class SuperstitionGameElements {
 
 		int offset = 0;
 
-		offset = buildRectangle(builder, offset, x1, y1, z1, x2, y1, z1, x2, y2, z1, x1, y2, z1);
-		offset = buildRectangle(builder, offset, x1, y1, z2, x2, y1, z2, x2, y2, z2, x1, y2, z2);
-		offset = buildRectangle(builder, offset, x1, y1, z1, x1, y2, z1, x1, y2, z2, x1, y1, z2);
-		offset = buildRectangle(builder, offset, x2, y1, z1, x2, y2, z1, x2, y2, z2, x2, y1, z2);
-		offset = buildRectangle(builder, offset, x1, y1, z1, x2, y1, z1, x2, y1, z2, x1, y1, z2);
-		offset = buildRectangle(builder, offset, x1, y2, z1, x2, y2, z1, x2, y2, z2, x1, y2, z2);
+		offset = buildRectangle(builder, offset, x1, y1, z1, x2, y1, z1, x2, y2, z1, x1, y2, z1, 0f, 0f, -1f);
+		offset = buildRectangle(builder, offset, x1, y1, z2, x2, y1, z2, x2, y2, z2, x1, y2, z2, 0f, 0f, 1f);
+		offset = buildRectangle(builder, offset, x1, y1, z1, x1, y2, z1, x1, y2, z2, x1, y1, z2, -1f, 0f, 0f);
+		offset = buildRectangle(builder, offset, x2, y1, z1, x2, y2, z1, x2, y2, z2, x2, y1, z2, 1f, 0f, 0f);
+		offset = buildRectangle(builder, offset, x1, y1, z1, x2, y1, z1, x2, y1, z2, x1, y1, z2, 0f, -1f, 0f);
+		offset = buildRectangle(builder, offset, x1, y2, z1, x2, y2, z1, x2, y2, z2, x1, y2, z2, 0f, 1f, 0f);
 
 		return store.buildModel(builder);
 	}
 
 	private int buildRectangle(GameModelBuilder builder, int offset, float x1, float y1, float z1, float x2, float y2, float z2,
-			float x3, float y3, float z3, float x4, float y4, float z4) {
+			float x3, float y3, float z3, float x4, float y4, float z4, float nx, float ny, float nz) {
 
 		GameObjectPosition p;
 		GameTexturePosition tex;
-		GameObjectDirection d = new GameObjectDirection(0f, 1f, 0f);
+		GameObjectDirection d = new GameObjectDirection(nx, ny, nz);
 
 		p = new GameObjectPosition(x1, y1, z1);
 		tex = new GameTexturePosition(0f, 0f);

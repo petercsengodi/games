@@ -31,17 +31,29 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 	private GLU glu = null;
 	private GLUT glut = null;
 
+	private float viewAngle = 90f;
+	private float aspect = 1.5f;
+	private float zNear = 0.1f;
+	private float zFar = 10000.0f;
+
 	@Override
 	public void viewPort(GLAutoDrawable glAutoDrawable, int width, int height) {
 		GL2 gl2 = glAutoDrawable.getGL().getGL2();
 		gl2.glViewport(0, 0, width, height);
 
 		OpenGLErrorUtil.checkError(gl2, "viewPort");
+
+		viewAngle = 90f;
+		aspect = (float) width / height;
+		zNear = 0.1f;
+		zFar = 10000.0f;
 	}
 
 	@Override
 	public void initializeProgram(GLAutoDrawable glAutoDrawable, String shadersRoot) {
 		// Nothing to do currently
+		GL2 gl2 = glAutoDrawable.getGL().getGL2();
+		OpenGLErrorUtil.checkError(gl2, "init");
 	}
 
 	@Override
@@ -58,20 +70,24 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 		gl2.glEnable(GL2.GL_DEPTH_TEST);
 		gl2.glEnable(GL2.GL_TEXTURE_2D);
 
-		gl2.glEnable(GL2.GL_NORMALIZE);
-		gl2.glEnable(GL2.GL_AUTO_NORMAL);
 		gl2.glEnable(GL2.GL_LIGHTING);
 		gl2.glEnable(GL2.GL_LIGHT0);
-
-		float[] ambientLight = { 10f, 10f, 10f, 0f };
-		gl2.glLightfv(GL2.GL_LIGHT0, GL2.GL_AMBIENT, ambientLight, 0);
-
-		//		float[] diffuseLight = { 1f, 2f, 1f, 0f };
-		//		gl2.glLightfv(GL2.GL_LIGHT0, GL2.GL_DIFFUSE, diffuseLight, 0);
+		gl2.glEnable(GL2.GL_NORMALIZE);
+		gl2.glEnable(GL2.GL_AUTO_NORMAL); // ?
 
 		gl2.glMatrixMode(GL2.GL_PROJECTION);
 		gl2.glLoadIdentity();
-		glu.gluPerspective(45.0f, 2f, 0.1f, 10000.0f);
+		glu.gluPerspective(viewAngle, aspect, zNear, zFar);
+
+		// float[] ambientLight = { 1f, 1f, 1f, 0f };
+		float[] ambientLight = { 0.3f, 0.3f, 0.3f, 0f };
+		float[] diffuseLight = { 10000f, 10000f, 10000f, 0f };
+		float[] specular = { 1f, 1f, 1f, 0f};
+		float[] lightPosition = { 100f, 100f, 100f, 0f }; // w = 0f for directed light, w = 1 for spotlight
+		gl2.glLightfv(GL2.GL_LIGHT0, GL2.GL_AMBIENT, ambientLight, 0);
+		gl2.glLightfv(GL2.GL_LIGHT0, GL2.GL_DIFFUSE, diffuseLight, 0);
+		gl2.glLightfv(GL2.GL_LIGHT0, GL2.GL_SPECULAR, specular, 0);
+		gl2.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, lightPosition, 0); // transformed as well
 
 		gl2.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
 		gl2.glMatrixMode(GL.GL_TEXTURE);
@@ -107,6 +123,9 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 		} catch (IOException ex) {
 			throw new RuntimeException("Exception occurred while loading texture!", ex);
 		}
+
+		GL2 gl2 = glAutoDrawable.getGL().getGL2();
+		OpenGLErrorUtil.checkError(gl2, filename);
 	}
 
 	@Override
@@ -121,6 +140,9 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 	public void loadModel(GLAutoDrawable glAutoDrawable, String filename, OpenGLModelContainer model) {
 		// this implementation doesn't create buffers on hardware side,
 		// only draws triangle strips
+
+		GL2 gl2 = glAutoDrawable.getGL().getGL2();
+		OpenGLErrorUtil.checkError(gl2, filename);
 	}
 
 	@Override
@@ -136,8 +158,6 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 		gl2.glRotatef(location.rotation.z * RAD, 0f, 0f, 1f);
 		gl2.glRotatef(location.rotation.y * RAD, 1f, 0f, 0f);
 		gl2.glRotatef(location.rotation.x * RAD, 0f, 1f, 0f);
-
-		OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw init");
 
 		OpenGLModelBuilder builder = model.builder();
 		int numberOfShapes = builder.numberOfShapes();
@@ -179,8 +199,7 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 		}
 
 		gl2.glPopMatrix();
-
-		OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw finish");
+		OpenGLErrorUtil.checkError(gl2, "draw");
 	}
 
 	@Override
@@ -204,8 +223,6 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 	public void placeCamera(GLAutoDrawable glAutoDrawable, GameObjectLocation cameraSettings) {
 		gl2.glMatrixMode(GL2.GL_MODELVIEW);
 		gl2.glLoadIdentity();
-
-		OpenGLErrorUtil.checkError(gl2, "modelViewMatrix");
 
 		GameObjectPosition p = cameraSettings.position;
 		GameObjectRotation r = cameraSettings.rotation;

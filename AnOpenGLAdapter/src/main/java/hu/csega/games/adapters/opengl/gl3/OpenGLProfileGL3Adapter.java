@@ -169,6 +169,7 @@ public class OpenGLProfileGL3Adapter implements OpenGLProfileAdapter {
 			logger.error("IOException in texture initialization: " + filename, ex);
 		}
 
+		OpenGLErrorUtil.checkError(gl3, filename);
 	}
 
 	@Override
@@ -233,7 +234,6 @@ public class OpenGLProfileGL3Adapter implements OpenGLProfileAdapter {
 			}
 
 			OpenGLErrorUtil.checkError(gl3, "loadModel");
-
 		} catch (Exception ex) {
 			logger.error("Exception in model initialization: " + filename, ex);
 		} catch (Throwable t) {
@@ -300,7 +300,6 @@ public class OpenGLProfileGL3Adapter implements OpenGLProfileAdapter {
 
 				int numberOfIndices = model.builder().numberOfIndices(i);
 				gl3.glDrawElements(GL3.GL_TRIANGLES, numberOfIndices, GL3.GL_UNSIGNED_SHORT, 0);
-				OpenGLErrorUtil.checkError(gl3, "draw");
 
 
 				// Unassign variables in shader
@@ -313,7 +312,6 @@ public class OpenGLProfileGL3Adapter implements OpenGLProfileAdapter {
 
 				gl3.glBindBuffer(GL3.GL_ELEMENT_ARRAY_BUFFER, 0);
 				gl3.glBindBuffer(GL3.GL_ARRAY_BUFFER, 0);
-
 				gl3.glBindTexture(GL3.GL_TEXTURE_2D, 0);
 			}
 

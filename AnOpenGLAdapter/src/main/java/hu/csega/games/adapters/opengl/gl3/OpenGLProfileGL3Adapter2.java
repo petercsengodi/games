@@ -167,6 +167,8 @@ public class OpenGLProfileGL3Adapter2 implements OpenGLProfileAdapter {
 			logger.error("IOException in texture initialization: " + filename, ex);
 		}
 
+
+		OpenGLErrorUtil.checkError(gl3, filename);
 	}
 
 	@Override
@@ -225,42 +227,28 @@ public class OpenGLProfileGL3Adapter2 implements OpenGLProfileAdapter {
 				gl3.glBufferData(GL3.GL_ARRAY_BUFFER, sizeOfVertices, vertexBuffer, GL3.GL_STATIC_DRAW);
 				BufferUtils.destroyDirectBuffer(vertexBuffer);
 
-				OpenGLErrorUtil.checkError(gl3, "vertexBuffer " + i);
-
 
 				// Assign variables in shader
 
 				int stride = (3 + 3 + 2) * Float.BYTES;
 
 				gl3.glEnableVertexAttribArray(OpenGLAttribute.TEXCOORD);
-				OpenGLErrorUtil.checkError(gl3, "draw");
 				gl3.glEnableVertexAttribArray(OpenGLAttribute.NORMAL);
-				OpenGLErrorUtil.checkError(gl3, "draw");
 				gl3.glEnableVertexAttribArray(OpenGLAttribute.POSITION);
-				OpenGLErrorUtil.checkError(gl3, "draw");
 
 				gl3.glVertexAttribPointer(OpenGLAttribute.TEXCOORD, 2, GL3.GL_FLOAT, false, stride, 6 * Float.BYTES);
-				OpenGLErrorUtil.checkError(gl3, "draw");
-
 				gl3.glVertexAttribPointer(OpenGLAttribute.NORMAL, 3, GL3.GL_FLOAT, false, stride, 3 * Float.BYTES);
-				OpenGLErrorUtil.checkError(gl3, "draw");
-
 				gl3.glVertexAttribPointer(OpenGLAttribute.POSITION, 3, GL3.GL_FLOAT, false, stride, 0 * Float.BYTES);
-				OpenGLErrorUtil.checkError(gl3, "draw");
 
 
 				// Unbind
 				gl3.glBindVertexArray(0);
-				OpenGLErrorUtil.checkError(gl3, "unbind");
 
 				gl3.glBindBuffer(GL3.GL_ELEMENT_ARRAY_BUFFER, 0); // must be left open according to example code
-				OpenGLErrorUtil.checkError(gl3, "unbind");
 				gl3.glBindBuffer(GL3.GL_ARRAY_BUFFER, 0); // may be closed after attributes are added according to example code
-				OpenGLErrorUtil.checkError(gl3, "unbind");
 			}
 
 			OpenGLErrorUtil.checkError(gl3, "loadModel");
-
 		} catch (Exception ex) {
 			logger.error("Exception in model initialization: " + filename, ex);
 		} catch (Throwable t) {
@@ -288,8 +276,6 @@ public class OpenGLProfileGL3Adapter2 implements OpenGLProfileAdapter {
 			gl3.glUniformMatrix4fv(modelToClipMatrixUL, 1, false, buffer);
 			BufferUtils.destroyDirectBuffer(buffer);
 
-			OpenGLErrorUtil.checkError(gl3, "draw");
-
 			int[] handlers = model.getOpenGLHandlers();
 			int numberOfShapes = model.getNumberOfShapes();
 			int offsetOfShapesInHandlerArray = model.getOffsetOfVertexArrays();
@@ -300,29 +286,23 @@ public class OpenGLProfileGL3Adapter2 implements OpenGLProfileAdapter {
 				OpenGLTextureContainer textureContainer = builder.textureContainer(i);
 				Texture texture = textureContainer.getTexture();
 				texture.bind(gl3);
-				OpenGLErrorUtil.checkError(gl3, "draw");
 
 				// BIND
 
 				int shapeID = handlers[offsetOfShapesInHandlerArray + i];
 				gl3.glBindVertexArray(shapeID);
-				OpenGLErrorUtil.checkError(gl3, "draw");
 
 
 				// Draw
 
 				int numberOfIndices = model.builder().numberOfIndices(i);
 				gl3.glDrawElements(GL3.GL_TRIANGLES, numberOfIndices, GL3.GL_UNSIGNED_SHORT, 0);
-				OpenGLErrorUtil.checkError(gl3, "draw");
 
 
 				// UNBIND
 
 				gl3.glBindVertexArray(0);
-				OpenGLErrorUtil.checkError(gl3, "unbind");
-
 				gl3.glBindTexture(GL3.GL_TEXTURE_2D, 0);
-				OpenGLErrorUtil.checkError(gl3, "unbind");
 			}
 
 			OpenGLErrorUtil.checkError(gl3, "draw");
