@@ -7,6 +7,10 @@ import hu.csega.superstition.engines.connector.Connector;
 public class ExampleConnector implements Connector {
 
 	public ExampleConnector() {
+	}
+
+	@Override
+	public void initialize() {
 		example = new HelloTexture();
 	}
 

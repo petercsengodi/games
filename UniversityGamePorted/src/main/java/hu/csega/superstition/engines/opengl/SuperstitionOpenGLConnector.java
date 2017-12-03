@@ -21,6 +21,10 @@ public class SuperstitionOpenGLConnector implements Connector, GameWindow {
 	private List<GameWindowListener> listeners = new ArrayList<>();
 
 	@Override
+	public void initialize() {
+	}
+
+	@Override
 	public void run(Environment env) {
 		logger.info(className() + " start run()");
 
@@ -96,5 +100,4 @@ public class SuperstitionOpenGLConnector implements Connector, GameWindow {
 	}
 
 	private static final Logger logger = LoggerFactory.createLogger(SuperstitionOpenGLConnector.class);
-
 }
