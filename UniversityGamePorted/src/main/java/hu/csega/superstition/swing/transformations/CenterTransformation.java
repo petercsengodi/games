@@ -12,7 +12,10 @@ public class CenterTransformation implements Transformation {
 	private double centerX;
 	private double centerY;
 
-	CenterTransformation(int canvasWidth, int canvasHeight) {
+	CenterTransformation() {
+	}
+
+	void setCanvasSize(double canvasWidth, double canvasHeight) {
 		this.centerX = canvasWidth / 2.0;
 		this.centerY = canvasHeight / 2.0;
 	}

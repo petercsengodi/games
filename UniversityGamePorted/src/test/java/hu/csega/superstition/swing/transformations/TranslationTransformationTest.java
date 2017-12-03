@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import hu.csega.games.engine.g2d.GamePoint;
 
-public class CenterTransformationTest {
+public class TranslationTransformationTest {
 
 	@Before
 	public void setUp() throws Exception {
@@ -20,12 +20,12 @@ public class CenterTransformationTest {
 
 	@Test
 	public void test() {
-		CenterTransformation ct = new CenterTransformation();
-		ct.setCanvasSize(200.0, 100.0);
-		assertTrue(nearTo(ct.fromModelToCanvas(new GamePoint(0, 0)), 100, 50));
-		assertTrue(nearTo(ct.fromModelToCanvas(new GamePoint(-100, -50)), 0, 0));
-		assertTrue(nearTo(ct.fromCanvasToModel(new GamePoint(0, 0)), -100, -50));
-		assertTrue(nearTo(ct.fromCanvasToModel(new GamePoint(100, 50)), 0, 0));
+		TranslationTransformation tt = new TranslationTransformation();
+		tt.setTranslation(10, 5);
+		assertTrue(nearTo(tt.fromModelToCanvas(new GamePoint(1, 1)), 11, 6));
+		assertTrue(nearTo(tt.fromModelToCanvas(new GamePoint(-100, -50)), -90, -45));
+		assertTrue(nearTo(tt.fromCanvasToModel(new GamePoint(2, 2)), -8, -3));
+		assertTrue(nearTo(tt.fromCanvasToModel(new GamePoint(100, 50)), 90, 45));
 	}
 
 	private boolean nearTo(GamePoint target, double x, double y) {

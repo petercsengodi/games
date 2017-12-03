@@ -5,16 +5,16 @@ public class GameHitBox extends GameHitShape {
 	public GameHitBox() {
 	}
 
-	public GameHitBox(double minX, double maxX, double minY, double maxY) {
+	public GameHitBox(double minX, double minY, double maxX, double maxY) {
 		this.minX = minX;
-		this.maxX = maxX;
 		this.minY = minY;
+		this.maxX = maxX;
 		this.maxY = maxY;
 	}
 
 	public double minX;
-	public double maxX;
 	public double minY;
+	public double maxX;
 	public double maxY;
 
 }
