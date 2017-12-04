@@ -2,27 +2,33 @@ package hu.csega.superstition.swing.transformations;
 
 import hu.csega.games.engine.g2d.GamePoint;
 
-public class ScalingTransformation implements Transformation {
+public class ScalingTransformation extends Transformation {
 
-	double factor = 1.0;
+	private double factorX = 1.0;
+	private double factorY = 1.0;
 
-	ScalingTransformation() {
+	public ScalingTransformation() {
+	}
+
+	public void scale(double factor) {
+		this.scale(factor, factor);
+	}
+
+	public void scale(double factorX, double factorY) {
+		this.factorX = factorX;
+		this.factorY = factorY;
 	}
 
 	@Override
-	public GamePoint fromModelToCanvas(GamePoint source) {
-		GamePoint ret = new GamePoint();
-		ret.x = source.x * 2.0;
-		ret.y = source.y * 2.0;
-		return ret;
+	protected void fromModelToCanvasInPlace(GamePoint ret) {
+		ret.x *= factorX;
+		ret.y *= factorY;
 	}
 
 	@Override
-	public GamePoint fromCanvasToModel(GamePoint source) {
-		GamePoint ret = new GamePoint();
-		ret.x = source.x / 2.0;
-		ret.y = source.y / 2.0;
-		return ret;
+	protected void fromCanvasToModelInPlace(GamePoint ret) {
+		ret.x /= factorX;
+		ret.y /= factorY;
 	}
 
 }

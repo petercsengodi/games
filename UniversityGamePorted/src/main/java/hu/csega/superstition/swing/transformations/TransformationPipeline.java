@@ -1,31 +1,37 @@
 package hu.csega.superstition.swing.transformations;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import hu.csega.games.engine.g2d.GamePoint;
 
-public class TransformationPipeline implements Transformation {
+public class TransformationPipeline extends Transformation {
 
-	List<Transformation> transformations = new ArrayList<>();
+	public static TransformationPipeline createPipeline(Transformation... transformations) {
+		TransformationPipeline ret = new TransformationPipeline();
+		ret.transformations = Arrays.asList(transformations);
+		return ret;
+	}
 
-	@Override
-	public GamePoint fromModelToCanvas(GamePoint source) {
-		GamePoint tmp = source;
+	private List<Transformation> transformations;
 
-		for(Transformation transformation : transformations)
-			tmp = transformation.fromModelToCanvas(tmp);
-
-		return tmp;
+	private TransformationPipeline() {
 	}
 
 	@Override
-	public GamePoint fromCanvasToModel(GamePoint source) {
-		GamePoint tmp = source;
-
-		for(Transformation transformation : transformations)
-			tmp = transformation.fromCanvasToModel(tmp);
-
-		return tmp;
+	protected void fromModelToCanvasInPlace(GamePoint ret) {
+		if(transformations != null) {
+			for(Transformation transformation : transformations)
+				transformation.fromModelToCanvasInPlace(ret);
+		}
 	}
+
+	@Override
+	protected void fromCanvasToModelInPlace(GamePoint ret) {
+		if(transformations != null) {
+			for(Transformation transformation : transformations)
+				transformation.fromCanvasToModelInPlace(ret);
+		}
+	}
+
 }

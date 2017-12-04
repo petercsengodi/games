@@ -2,30 +2,26 @@ package hu.csega.superstition.swing.transformations;
 
 import hu.csega.games.engine.g2d.GamePoint;
 
-public class TranslationTransformation implements Transformation {
+public class TranslationTransformation extends Transformation {
 
-	double tx;
-	double ty;
+	private double tx;
+	private double ty;
 
-	void setTranslation(double tx, double ty) {
+	public void setTranslation(double tx, double ty) {
 		this.tx = tx;
 		this.ty = ty;
 	}
 
 	@Override
-	public GamePoint fromModelToCanvas(GamePoint source) {
-		GamePoint ret = new GamePoint();
-		ret.x = source.x + tx;
-		ret.y = source.y + ty;
-		return ret;
+	protected void fromModelToCanvasInPlace(GamePoint ret) {
+		ret.x = ret.x + tx;
+		ret.y = ret.y + ty;
 	}
 
 	@Override
-	public GamePoint fromCanvasToModel(GamePoint source) {
-		GamePoint ret = new GamePoint();
-		ret.x = source.x - tx;
-		ret.y = source.y - ty;
-		return ret;
+	protected void fromCanvasToModelInPlace(GamePoint ret) {
+		ret.x = ret.x - tx;
+		ret.y = ret.y - ty;
 	}
 
 }

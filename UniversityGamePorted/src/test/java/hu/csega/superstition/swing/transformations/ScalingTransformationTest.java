@@ -21,7 +21,7 @@ public class ScalingTransformationTest {
 	@Test
 	public void test() {
 		ScalingTransformation st = new ScalingTransformation();
-		st.factor = 2.0;
+		st.scale(2.0);
 		assertTrue(nearTo(st.fromModelToCanvas(new GamePoint(1, 1)), 2, 2));
 		assertTrue(nearTo(st.fromModelToCanvas(new GamePoint(-100, -50)), -200, -100));
 		assertTrue(nearTo(st.fromCanvasToModel(new GamePoint(2, 2)), 1, 1));

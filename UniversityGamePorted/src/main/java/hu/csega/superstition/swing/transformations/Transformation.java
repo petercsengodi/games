@@ -2,10 +2,25 @@ package hu.csega.superstition.swing.transformations;
 
 import hu.csega.games.engine.g2d.GamePoint;
 
-public interface Transformation {
+public abstract class Transformation {
 
-	GamePoint fromModelToCanvas(GamePoint source);
+	public final GamePoint fromModelToCanvas(GamePoint source) {
+		GamePoint ret = clone(source);
+		fromModelToCanvasInPlace(ret);
+		return ret;
+	}
 
-	GamePoint fromCanvasToModel(GamePoint source);
+	public final GamePoint fromCanvasToModel(GamePoint source) {
+		GamePoint ret = clone(source);
+		fromCanvasToModelInPlace(ret);
+		return ret;
+	}
 
+	protected abstract void fromModelToCanvasInPlace(GamePoint ret);
+
+	protected abstract void fromCanvasToModelInPlace(GamePoint ret);
+
+	protected final GamePoint clone(GamePoint gp) {
+		return new GamePoint(gp.x, gp.y);
+	}
 }
