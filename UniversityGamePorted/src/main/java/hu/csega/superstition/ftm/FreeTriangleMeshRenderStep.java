@@ -43,7 +43,11 @@ public class FreeTriangleMeshRenderStep implements GameEngineCallback {
 			if(!triangles.isEmpty()) {
 				GameModelBuilder builder = new GameModelBuilder();
 
-				GameObjectHandler textureHandler = store.loadTexture(FreeTriangleMeshToolStarter.TEXTURE_FILE);
+				String textureFilename = model.getTextureFilename();
+				if(textureFilename == null || textureFilename.isEmpty())
+					textureFilename = FreeTriangleMeshToolStarter.TEXTURE_FILE;
+
+				GameObjectHandler textureHandler = store.loadTexture(textureFilename);
 				builder.setTextureHandler(textureHandler);
 
 				for(FreeTriangleMeshVertex v : vertices) {

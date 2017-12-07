@@ -35,6 +35,7 @@ public class FreeTriangleMeshModel implements Serializable {
 
 	private boolean moved = false;
 	private transient boolean built = false;
+	private String textureFilename;
 
 	public boolean isInvalid() {
 		return !built;
@@ -401,6 +402,14 @@ public class FreeTriangleMeshModel implements Serializable {
 
 	public void setOpenGLZoom(double openGLZoom) {
 		this.openGLZoom = openGLZoom;
+	}
+
+	public String getTextureFilename() {
+		return textureFilename;
+	}
+
+	public void setTextureFilename(String textureFilename) {
+		this.textureFilename = textureFilename;
 	}
 
 	private static final Random RND = new Random(System.currentTimeMillis());

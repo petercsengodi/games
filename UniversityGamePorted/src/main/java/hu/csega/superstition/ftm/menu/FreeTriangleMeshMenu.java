@@ -14,6 +14,16 @@ public class FreeTriangleMeshMenu {
 	public static void createMenuForJFrame(JFrame frame, GameEngineFacade facade) {
 		JMenuBar menuBar = new JMenuBar();
 
+		JMenu fileMenu = createFileMenu(frame, facade);
+		menuBar.add(fileMenu);
+
+		JMenu textureMenu = createTextureMenu(frame, facade);
+		menuBar.add(textureMenu);
+
+		frame.setJMenuBar(menuBar);
+	}
+
+	private static JMenu createFileMenu(JFrame frame, GameEngineFacade facade) {
 		JFileChooser saveDialog = new JFileChooser(".");
 		saveDialog.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		saveDialog.setDialogTitle("Select file to save.");
@@ -29,7 +39,6 @@ public class FreeTriangleMeshMenu {
 		openDialog.setApproveButtonText("Open");
 
 		JMenu fileMenu = new JMenu("File");
-		menuBar.add(fileMenu);
 
 		JMenuItem fileNew = new JMenuItem("New");
 		fileNew.addActionListener(new FileNew(frame, saveDialog, facade));
@@ -47,7 +56,24 @@ public class FreeTriangleMeshMenu {
 		fileExit.addActionListener(new FileExit(frame, saveDialog, facade));
 		fileMenu.add(fileExit);
 
-		frame.setJMenuBar(menuBar);
+		return fileMenu;
+	}
+
+	private static JMenu createTextureMenu(JFrame frame, GameEngineFacade facade) {
+		JFileChooser openDialog = new JFileChooser(".");
+		openDialog.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		openDialog.setDialogTitle("Select file to open.");
+		openDialog.setMultiSelectionEnabled(false);
+		openDialog.setFileFilter(new FileNameExtensionFilter("Texture file", "jpg"));
+		openDialog.setApproveButtonText("Open");
+
+		JMenu textureMenu = new JMenu("Texture");
+
+		JMenuItem fileOpen = new JMenuItem("Load");
+		fileOpen.addActionListener(new TextureLoad(frame, openDialog, facade));
+		textureMenu.add(fileOpen);
+
+		return textureMenu;
 	}
 
 }

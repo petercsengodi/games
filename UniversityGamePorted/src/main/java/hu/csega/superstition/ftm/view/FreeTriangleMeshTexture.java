@@ -20,6 +20,7 @@ public class FreeTriangleMeshTexture extends FreeTriangleMeshCanvas {
 	private int imageWidth = 400;
 	private int imageHeight = 400;
 
+	private String textureFilename = null;
 	private BufferedImage textureImage = null;
 	private boolean triedToLoadImage = false;
 
@@ -27,10 +28,18 @@ public class FreeTriangleMeshTexture extends FreeTriangleMeshCanvas {
 		super(facade);
 	}
 
-	private static final long serialVersionUID = 1L;
-
 	@Override
 	protected void paint2d(Graphics2D g) {
+		FreeTriangleMeshModel model = (FreeTriangleMeshModel) facade.model();
+		String textureFilenameInModel = model.getTextureFilename();
+		if(textureFilenameInModel == null || textureFilenameInModel.isEmpty())
+			textureFilenameInModel = FreeTriangleMeshToolStarter.TEXTURE_FILE;
+
+		if(textureFilename == null || !textureFilename.equals(textureFilenameInModel)) {
+			textureFilename = textureFilenameInModel;
+			triedToLoadImage = false;
+			textureImage = null;
+		}
 
 		if(textureImage == null) {
 			if(triedToLoadImage) {
@@ -38,7 +47,7 @@ public class FreeTriangleMeshTexture extends FreeTriangleMeshCanvas {
 			} else {
 				triedToLoadImage = true;
 				try {
-					textureImage = ImageIO.read(new File(FreeTriangleMeshToolStarter.TEXTURE_FILE));
+					textureImage = ImageIO.read(new File(textureFilename));
 				} catch(Exception ex) {
 					textureImage = null;
 				}
@@ -49,7 +58,6 @@ public class FreeTriangleMeshTexture extends FreeTriangleMeshCanvas {
 			g.drawImage(textureImage, 0, 0, null);
 		}
 
-		FreeTriangleMeshModel model = (FreeTriangleMeshModel) facade.model();
 		List<Object> selectedObjects = model.getSelectedObjects();
 
 		List<FreeTriangleMeshVertex> vertices = model.getVertices();
@@ -132,4 +140,6 @@ public class FreeTriangleMeshTexture extends FreeTriangleMeshCanvas {
 		double y = (1 - vertex.getTY()) * height;
 		return new Point((int)x, (int)y);
 	}
+
+	private static final long serialVersionUID = 1L;
 }
