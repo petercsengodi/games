@@ -132,8 +132,13 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 
 	@Override
 	public GameObjectHandler loadModel(String filename) {
-		// TODO Auto-generated method stub
-		return null;
+		GameObjectHandler handler = handlers.get(filename);
+
+		if(handler == null) {
+
+		}
+
+		return handler;
 	}
 
 	@Override

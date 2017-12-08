@@ -1,6 +1,8 @@
 package hu.csega.games.engine.g3d;
 
-public class GameObjectRotation {
+import java.io.Serializable;
+
+public class GameObjectRotation implements Serializable {
 
 	public float x;
 	public float y;
@@ -60,4 +62,5 @@ public class GameObjectRotation {
 		return true;
 	}
 
+	private static final long serialVersionUID = 1L;
 }

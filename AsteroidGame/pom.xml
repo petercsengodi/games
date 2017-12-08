@@ -57,6 +57,16 @@
 			<artifactId>AnOpenGLAdapter</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+		<dependency>
+			<groupId>hu.csega.games</groupId>
+			<artifactId>AMediaLibrary</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>hu.csega.games</groupId>
+			<artifactId>AMediaEditorCollection</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 	</dependencies>
 
 </project>

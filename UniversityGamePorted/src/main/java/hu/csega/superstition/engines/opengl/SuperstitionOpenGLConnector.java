@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hu.csega.games.adapters.opengl.OpenGLGameAdapter;
+import hu.csega.games.common.Connector;
 import hu.csega.games.engine.env.Environment;
 import hu.csega.games.engine.impl.GameEngine;
 import hu.csega.games.engine.intf.GameAdapter;
@@ -12,7 +13,6 @@ import hu.csega.games.engine.intf.GameDescriptor;
 import hu.csega.games.engine.intf.GameEngineStep;
 import hu.csega.games.engine.intf.GameWindow;
 import hu.csega.games.engine.intf.GameWindowListener;
-import hu.csega.superstition.engines.connector.Connector;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 

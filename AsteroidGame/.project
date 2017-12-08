@@ -5,6 +5,8 @@
   <projects>
     <project>AGameEngine</project>
     <project>AnOpenGLAdapter</project>
+    <project>AMediaLibrary</project>
+    <project>AMediaEditorCollection</project>
   </projects>
   <buildSpec>
     <buildCommand>

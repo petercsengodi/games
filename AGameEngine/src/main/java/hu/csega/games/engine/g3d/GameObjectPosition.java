@@ -1,6 +1,8 @@
 package hu.csega.games.engine.g3d;
 
-public class GameObjectPosition {
+import java.io.Serializable;
+
+public class GameObjectPosition implements Serializable {
 
 	public float x;
 	public float y;
@@ -60,4 +62,5 @@ public class GameObjectPosition {
 		return true;
 	}
 
+	private static final long serialVersionUID = 1L;
 }

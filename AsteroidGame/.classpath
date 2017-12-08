@@ -42,4 +42,6 @@
   <classpathentry kind="var" path="M2_REPO/org/jogamp/gluegen/gluegen-rt/2.3.2/gluegen-rt-2.3.2-natives-solaris-i586.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/jogamp/gluegen/gluegen-rt/2.3.2/gluegen-rt-2.3.2-natives-windows-amd64.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/jogamp/gluegen/gluegen-rt/2.3.2/gluegen-rt-2.3.2-natives-windows-i586.jar"/>
+  <classpathentry kind="src" path="/AMediaLibrary"/>
+  <classpathentry kind="src" path="/AMediaEditorCollection"/>
 </classpath>

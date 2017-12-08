@@ -3,7 +3,7 @@ package hu.csega.superstition.animation;
 import java.util.ArrayList;
 import java.util.List;
 
-import hu.csega.superstition.gamelib.model.animation.SAnimation;
+import hu.csega.games.library.animation.SAnimation;
 import hu.csega.superstition.tools.UpdateScope;
 
 @SuppressWarnings("unused")

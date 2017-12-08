@@ -1,6 +1,8 @@
 package hu.csega.games.engine.g3d;
 
-public class GameObjectLocation {
+import java.io.Serializable;
+
+public class GameObjectLocation implements Serializable {
 
 	public GameObjectPosition position = new GameObjectPosition();
 	public GameObjectRotation rotation = new GameObjectRotation();
@@ -10,4 +12,5 @@ public class GameObjectLocation {
 		rotation.copyValuesFrom(other.rotation);
 	}
 
+	private static final long serialVersionUID = 1L;
 }

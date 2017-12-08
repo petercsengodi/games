@@ -1,9 +1,12 @@
 package hu.csega.game.asteroid.steps;
 
 import hu.csega.game.asteroid.engine.AsteroidGameRenderingOptions;
+import hu.csega.game.asteroid.model.AsteroidGameModel;
+import hu.csega.game.asteroid.model.AsteroidGameState;
 import hu.csega.games.engine.GameEngineCallback;
 import hu.csega.games.engine.GameEngineFacade;
 import hu.csega.games.engine.g3d.GameObjectHandler;
+import hu.csega.games.engine.g3d.GameObjectLocation;
 import hu.csega.games.engine.intf.GameGraphics;
 
 public class AsteroidGameRenderingStep implements GameEngineCallback {
@@ -16,11 +19,15 @@ public class AsteroidGameRenderingStep implements GameEngineCallback {
 
 	@Override
 	public Object call(GameEngineFacade facade) {
-		GameObjectHandler model = (GameObjectHandler) facade.model();
+		AsteroidGameModel model = (AsteroidGameModel) facade.model();
 
 		if(model != null) {
 			GameGraphics g = facade.graphics();
-			g.drawModel(model, null);
+			AsteroidGameState gameState = model.getGameState();
+
+			GameObjectHandler shipModel = model.getShipModel();
+			GameObjectLocation shipLocation = gameState.shipLocation;
+			g.drawModel(shipModel, shipLocation);
 		}
 
 		return facade;

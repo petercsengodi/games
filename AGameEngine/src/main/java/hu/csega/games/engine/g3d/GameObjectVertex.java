@@ -1,6 +1,8 @@
 package hu.csega.games.engine.g3d;
 
-public class GameObjectVertex {
+import java.io.Serializable;
+
+public class GameObjectVertex implements Serializable {
 
 	public GameObjectPosition position;
 	public GameObjectDirection normal;
@@ -30,4 +32,5 @@ public class GameObjectVertex {
 		tex.copyValuesFrom(other.tex);
 	}
 
+	private static final long serialVersionUID = 1L;
 }

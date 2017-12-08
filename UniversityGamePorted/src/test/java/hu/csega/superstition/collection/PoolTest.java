@@ -5,6 +5,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import hu.csega.games.library.collection.Pool;
+import hu.csega.games.library.collection.PoolItem;
+
 public class PoolTest {
 
 	@Before

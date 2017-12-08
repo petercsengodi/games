@@ -1,7 +1,7 @@
 package hu.csega.superstition;
 
-import hu.csega.superstition.common.ApplicationStarter;
-import hu.csega.superstition.engines.connector.Connector;
+import hu.csega.games.common.ApplicationStarter;
+import hu.csega.games.common.Connector;
 import hu.csega.superstition.engines.opengl.SuperstitionOpenGLConnector;
 import hu.csega.toolshed.logging.Level;
 import hu.csega.toolshed.logging.Logger;

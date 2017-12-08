@@ -31,9 +31,6 @@ public class AsteroidGameWindowWrapper implements GameWindow {
 		if(canvas instanceof OpenGLCanvas)
 			component = ((OpenGLCanvas)canvas).getRealCanvas();
 
-		//		if(canvas instanceof SwingCanvas)
-		//			component = ((SwingCanvas)canvas).getRealCanvas();
-
 		if(component != null)
 			toolWindow.addComponent(component);
 	}
@@ -45,7 +42,6 @@ public class AsteroidGameWindowWrapper implements GameWindow {
 
 	@Override
 	public void repaintEverything() {
-		// TODO
 	}
 
 	@Override

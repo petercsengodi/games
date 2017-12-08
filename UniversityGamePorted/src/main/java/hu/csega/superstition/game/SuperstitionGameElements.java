@@ -10,10 +10,6 @@ import hu.csega.games.engine.g3d.GameObjectHandler;
 import hu.csega.games.engine.g3d.GameObjectPosition;
 import hu.csega.games.engine.g3d.GameObjectVertex;
 import hu.csega.games.engine.g3d.GameTexturePosition;
-import hu.csega.superstition.ftm.model.FreeTriangleMeshModel;
-import hu.csega.superstition.ftm.model.FreeTriangleMeshTriangle;
-import hu.csega.superstition.ftm.model.FreeTriangleMeshVertex;
-import hu.csega.superstition.ftm.util.FreeTriangleMeshSnapshots;
 
 public class SuperstitionGameElements {
 
