@@ -3,11 +3,11 @@ package hu.csega.game.asteroid;
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.csega.game.asteroid.engine.AsteroidGameInitStep;
 import hu.csega.game.asteroid.engine.AsteroidGameRenderingOptions;
+import hu.csega.game.asteroid.engine.AsteroidGameRenderingStep;
 import hu.csega.game.asteroid.engine.AsteroidGameWindowWrapper;
 import hu.csega.game.asteroid.model.AsteroidGameModel;
-import hu.csega.game.asteroid.steps.AsteroidGameInitStep;
-import hu.csega.game.asteroid.steps.AsteroidGameRenderingStep;
 import hu.csega.game.asteroid.view.AsteroidGameView;
 import hu.csega.games.adapters.opengl.OpenGLGameAdapter;
 import hu.csega.games.engine.impl.GameEngine;

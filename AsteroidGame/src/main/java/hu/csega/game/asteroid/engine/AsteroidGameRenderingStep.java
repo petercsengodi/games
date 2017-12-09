@@ -1,6 +1,5 @@
-package hu.csega.game.asteroid.steps;
+package hu.csega.game.asteroid.engine;
 
-import hu.csega.game.asteroid.engine.AsteroidGameRenderingOptions;
 import hu.csega.game.asteroid.model.AsteroidGameModel;
 import hu.csega.game.asteroid.model.AsteroidGameState;
 import hu.csega.games.engine.GameEngineCallback;
@@ -25,8 +24,14 @@ public class AsteroidGameRenderingStep implements GameEngineCallback {
 			GameGraphics g = facade.graphics();
 			AsteroidGameState gameState = model.getGameState();
 
-			GameObjectHandler shipModel = model.getShipModel();
 			GameObjectLocation shipLocation = gameState.shipLocation;
+
+			GameObjectLocation cameraLocation = new GameObjectLocation();
+			cameraLocation.position.copyValuesFrom(shipLocation.position);
+			cameraLocation.position.z -= 100;
+			g.placeCamera(cameraLocation);
+
+			GameObjectHandler shipModel = model.getShipModel();
 			g.drawModel(shipModel, shipLocation);
 		}
 

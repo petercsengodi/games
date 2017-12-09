@@ -21,7 +21,7 @@ import hu.csega.games.engine.intf.GameGraphics;
 public class FreeTriangleMeshRenderStep implements GameEngineCallback {
 
 	private GameObjectHandler convertedModel = null;
-	private GameObjectLocation modelLocation = new GameObjectLocation();;
+	private GameObjectLocation modelLocation = new GameObjectLocation();
 
 	@Override
 	public Object call(GameEngineFacade facade) {
