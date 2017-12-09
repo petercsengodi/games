@@ -40,6 +40,10 @@ public class SVertex implements SPhysicalObject {
 		this.position.set(p.x, p.y, p.z, 1f);
 	}
 
+	public void setPosition(float px, float py, float pz) {
+		this.position.set(px, py, pz, 1f);
+	}
+
 	@XmlField("textureCoordinates")
 	public Vector2f getTextureCoordinates() {
 		return textureCoordinates;
@@ -47,7 +51,11 @@ public class SVertex implements SPhysicalObject {
 
 	@XmlField("textureCoordinates")
 	public void setTextureCoordinates(Vector2f textureCoordinates) {
-		this.textureCoordinates = textureCoordinates;
+		this.textureCoordinates.set(textureCoordinates.x, textureCoordinates.y);
+	}
+
+	public void setTextureCoordinates(float tx, float ty) {
+		this.textureCoordinates.set(tx, ty);
 	}
 
 	@XmlField("neighbours")

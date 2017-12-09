@@ -1,0 +1,317 @@
+<Superstition.Model version="01.00.0000">
+  <Superstition.Mesh __id="0" name="/home/peter/Documents/Projects/games/AsteroidGame/res/meshes/ship.mesh">
+    <figures>
+      <Superstition.Shape __ref="1"/>
+    </figures>
+  </Superstition.Mesh>
+  <Superstition.Shape __id="1" ambientColor="0" diffuseColor="0" emissiveColor="0">
+    <texture>
+      <Superstition.TextureRef __ref="2"/>
+    </texture>
+    <triangles>
+      <Superstition.Triangle __ref="3"/>
+      <Superstition.Triangle __ref="4"/>
+      <Superstition.Triangle __ref="5"/>
+      <Superstition.Triangle __ref="6"/>
+      <Superstition.Triangle __ref="7"/>
+      <Superstition.Triangle __ref="8"/>
+      <Superstition.Triangle __ref="9"/>
+      <Superstition.Triangle __ref="10"/>
+      <Superstition.Triangle __ref="11"/>
+      <Superstition.Triangle __ref="12"/>
+      <Superstition.Triangle __ref="13"/>
+    </triangles>
+    <vertices>
+    </vertices>
+  </Superstition.Shape>
+  <Superstition.TextureRef __id="2" name="res/textures/red-texture.jpg"/>
+  <Superstition.Triangle __id="3" count="3">
+    <edges>
+    </edges>
+    <neighbours>
+    </neighbours>
+    <vertices>
+      <Superstition.Vertex __ref="14"/>
+      <Superstition.Vertex __ref="15"/>
+      <Superstition.Vertex __ref="16"/>
+    </vertices>
+  </Superstition.Triangle>
+  <Superstition.Triangle __id="4" count="3">
+    <edges>
+    </edges>
+    <neighbours>
+    </neighbours>
+    <vertices>
+      <Superstition.Vertex __ref="16"/>
+      <Superstition.Vertex __ref="17"/>
+      <Superstition.Vertex __ref="14"/>
+    </vertices>
+  </Superstition.Triangle>
+  <Superstition.Triangle __id="5" count="3">
+    <edges>
+    </edges>
+    <neighbours>
+    </neighbours>
+    <vertices>
+      <Superstition.Vertex __ref="16"/>
+      <Superstition.Vertex __ref="18"/>
+      <Superstition.Vertex __ref="17"/>
+    </vertices>
+  </Superstition.Triangle>
+  <Superstition.Triangle __id="6" count="3">
+    <edges>
+    </edges>
+    <neighbours>
+    </neighbours>
+    <vertices>
+      <Superstition.Vertex __ref="16"/>
+      <Superstition.Vertex __ref="18"/>
+      <Superstition.Vertex __ref="19"/>
+    </vertices>
+  </Superstition.Triangle>
+  <Superstition.Triangle __id="7" count="3">
+    <edges>
+    </edges>
+    <neighbours>
+    </neighbours>
+    <vertices>
+      <Superstition.Vertex __ref="20"/>
+      <Superstition.Vertex __ref="19"/>
+      <Superstition.Vertex __ref="16"/>
+    </vertices>
+  </Superstition.Triangle>
+  <Superstition.Triangle __id="8" count="3">
+    <edges>
+    </edges>
+    <neighbours>
+    </neighbours>
+    <vertices>
+      <Superstition.Vertex __ref="21"/>
+      <Superstition.Vertex __ref="20"/>
+      <Superstition.Vertex __ref="16"/>
+    </vertices>
+  </Superstition.Triangle>
+  <Superstition.Triangle __id="9" count="3">
+    <edges>
+    </edges>
+    <neighbours>
+    </neighbours>
+    <vertices>
+      <Superstition.Vertex __ref="22"/>
+      <Superstition.Vertex __ref="21"/>
+      <Superstition.Vertex __ref="16"/>
+    </vertices>
+  </Superstition.Triangle>
+  <Superstition.Triangle __id="10" count="3">
+    <edges>
+    </edges>
+    <neighbours>
+    </neighbours>
+    <vertices>
+      <Superstition.Vertex __ref="23"/>
+      <Superstition.Vertex __ref="22"/>
+      <Superstition.Vertex __ref="16"/>
+    </vertices>
+  </Superstition.Triangle>
+  <Superstition.Triangle __id="11" count="3">
+    <edges>
+    </edges>
+    <neighbours>
+    </neighbours>
+    <vertices>
+      <Superstition.Vertex __ref="24"/>
+      <Superstition.Vertex __ref="23"/>
+      <Superstition.Vertex __ref="16"/>
+    </vertices>
+  </Superstition.Triangle>
+  <Superstition.Triangle __id="12" count="3">
+    <edges>
+    </edges>
+    <neighbours>
+    </neighbours>
+    <vertices>
+      <Superstition.Vertex __ref="25"/>
+      <Superstition.Vertex __ref="24"/>
+      <Superstition.Vertex __ref="16"/>
+    </vertices>
+  </Superstition.Triangle>
+  <Superstition.Triangle __id="13" count="3">
+    <edges>
+    </edges>
+    <neighbours>
+    </neighbours>
+    <vertices>
+      <Superstition.Vertex __ref="25"/>
+      <Superstition.Vertex __ref="15"/>
+      <Superstition.Vertex __ref="16"/>
+    </vertices>
+  </Superstition.Triangle>
+  <Superstition.Vertex __id="14">
+    <edges>
+    </edges>
+    <neighbours>
+    </neighbours>
+    <position>
+      <Math.Vector4 X="24.0" Y="85.0" Z="85.0" W="1.0"/>
+    </position>
+    <textureCoordinates>
+      <Math.Vector2 X="0.5151876" Y="0.7721544"/>
+    </textureCoordinates>
+    <triangles>
+    </triangles>
+  </Superstition.Vertex>
+  <Superstition.Vertex __id="15">
+    <edges>
+    </edges>
+    <neighbours>
+    </neighbours>
+    <position>
+      <Math.Vector4 X="4.0" Y="69.0" Z="69.0" W="1.0"/>
+    </position>
+    <textureCoordinates>
+      <Math.Vector2 X="0.018767603" Y="0.9316961"/>
+    </textureCoordinates>
+    <triangles>
+    </triangles>
+  </Superstition.Vertex>
+  <Superstition.Vertex __id="16">
+    <edges>
+    </edges>
+    <neighbours>
+    </neighbours>
+    <position>
+      <Math.Vector4 X="3.0" Y="37.0" Z="37.0" W="1.0"/>
+    </position>
+    <textureCoordinates>
+      <Math.Vector2 X="0.7286567" Y="0.4029598"/>
+    </textureCoordinates>
+    <triangles>
+    </triangles>
+  </Superstition.Vertex>
+  <Superstition.Vertex __id="17">
+    <edges>
+    </edges>
+    <neighbours>
+    </neighbours>
+    <position>
+      <Math.Vector4 X="52.0" Y="93.0" Z="93.0" W="1.0"/>
+    </position>
+    <textureCoordinates>
+      <Math.Vector2 X="0.13713749" Y="0.7047924"/>
+    </textureCoordinates>
+    <triangles>
+    </triangles>
+  </Superstition.Vertex>
+  <Superstition.Vertex __id="18">
+    <edges>
+    </edges>
+    <neighbours>
+    </neighbours>
+    <position>
+      <Math.Vector4 X="88.0" Y="79.0" Z="79.0" W="1.0"/>
+    </position>
+    <textureCoordinates>
+      <Math.Vector2 X="0.8194938" Y="0.95955086"/>
+    </textureCoordinates>
+    <triangles>
+    </triangles>
+  </Superstition.Vertex>
+  <Superstition.Vertex __id="19">
+    <edges>
+    </edges>
+    <neighbours>
+    </neighbours>
+    <position>
+      <Math.Vector4 X="64.0" Y="-3.0" Z="-3.0" W="1.0"/>
+    </position>
+    <textureCoordinates>
+      <Math.Vector2 X="0.5395137" Y="0.87549365"/>
+    </textureCoordinates>
+    <triangles>
+    </triangles>
+  </Superstition.Vertex>
+  <Superstition.Vertex __id="20">
+    <edges>
+    </edges>
+    <neighbours>
+    </neighbours>
+    <position>
+      <Math.Vector4 X="5.0" Y="-58.0" Z="-58.0" W="1.0"/>
+    </position>
+    <textureCoordinates>
+      <Math.Vector2 X="0.21760131" Y="0.31603917"/>
+    </textureCoordinates>
+    <triangles>
+    </triangles>
+  </Superstition.Vertex>
+  <Superstition.Vertex __id="21">
+    <edges>
+    </edges>
+    <neighbours>
+    </neighbours>
+    <position>
+      <Math.Vector4 X="-60.0" Y="-1.0" Z="-1.0" W="1.0"/>
+    </position>
+    <textureCoordinates>
+      <Math.Vector2 X="0.33724305" Y="0.8610778"/>
+    </textureCoordinates>
+    <triangles>
+    </triangles>
+  </Superstition.Vertex>
+  <Superstition.Vertex __id="22">
+    <edges>
+    </edges>
+    <neighbours>
+    </neighbours>
+    <position>
+      <Math.Vector4 X="-77.0" Y="69.0" Z="69.0" W="1.0"/>
+    </position>
+    <textureCoordinates>
+      <Math.Vector2 X="0.009517734" Y="0.64463943"/>
+    </textureCoordinates>
+    <triangles>
+    </triangles>
+  </Superstition.Vertex>
+  <Superstition.Vertex __id="23">
+    <edges>
+    </edges>
+    <neighbours>
+    </neighbours>
+    <position>
+      <Math.Vector4 X="-67.0" Y="88.0" Z="88.0" W="1.0"/>
+    </position>
+    <textureCoordinates>
+      <Math.Vector2 X="0.60353994" Y="0.14941977"/>
+    </textureCoordinates>
+    <triangles>
+    </triangles>
+  </Superstition.Vertex>
+  <Superstition.Vertex __id="24">
+    <edges>
+    </edges>
+    <neighbours>
+    </neighbours>
+    <position>
+      <Math.Vector4 X="-41.0" Y="90.0" Z="90.0" W="1.0"/>
+    </position>
+    <textureCoordinates>
+      <Math.Vector2 X="0.073685326" Y="0.7817969"/>
+    </textureCoordinates>
+    <triangles>
+    </triangles>
+  </Superstition.Vertex>
+  <Superstition.Vertex __id="25">
+    <edges>
+    </edges>
+    <neighbours>
+    </neighbours>
+    <position>
+      <Math.Vector4 X="-19.0" Y="90.0" Z="90.0" W="1.0"/>
+    </position>
+    <textureCoordinates>
+      <Math.Vector2 X="0.1596948" Y="0.8567748"/>
+    </textureCoordinates>
+    <triangles>
+    </triangles>
+  </Superstition.Vertex>
+</Superstition.Model>

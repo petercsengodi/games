@@ -20,6 +20,9 @@ public class FreeTriangleMeshMenu {
 		JMenu textureMenu = createTextureMenu(frame, facade);
 		menuBar.add(textureMenu);
 
+		JMenu exportMenu = createExportMenu(frame, facade);
+		menuBar.add(exportMenu);
+
 		frame.setJMenuBar(menuBar);
 	}
 
@@ -60,20 +63,37 @@ public class FreeTriangleMeshMenu {
 	}
 
 	private static JMenu createTextureMenu(JFrame frame, GameEngineFacade facade) {
-		JFileChooser openDialog = new JFileChooser(".");
-		openDialog.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		openDialog.setDialogTitle("Select file to open.");
-		openDialog.setMultiSelectionEnabled(false);
-		openDialog.setFileFilter(new FileNameExtensionFilter("Texture file", "jpg"));
-		openDialog.setApproveButtonText("Open");
+		JFileChooser loadTextureDialog = new JFileChooser(".");
+		loadTextureDialog.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		loadTextureDialog.setDialogTitle("Select texture to load.");
+		loadTextureDialog.setMultiSelectionEnabled(false);
+		loadTextureDialog.setFileFilter(new FileNameExtensionFilter("Texture file", "jpg"));
+		loadTextureDialog.setApproveButtonText("Load");
 
 		JMenu textureMenu = new JMenu("Texture");
 
-		JMenuItem fileOpen = new JMenuItem("Load");
-		fileOpen.addActionListener(new TextureLoad(frame, openDialog, facade));
-		textureMenu.add(fileOpen);
+		JMenuItem textureLoadItem = new JMenuItem("Load");
+		textureLoadItem.addActionListener(new TextureLoad(frame, loadTextureDialog, facade));
+		textureMenu.add(textureLoadItem);
 
 		return textureMenu;
+	}
+
+	private static JMenu createExportMenu(JFrame frame, GameEngineFacade facade) {
+		JFileChooser meshExportDialog = new JFileChooser(".");
+		meshExportDialog.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		meshExportDialog.setDialogTitle("Select file to export to.");
+		meshExportDialog.setMultiSelectionEnabled(false);
+		meshExportDialog.setFileFilter(new FileNameExtensionFilter("Mesh export", "mesh"));
+		meshExportDialog.setApproveButtonText("Export");
+
+		JMenu exportMenu = new JMenu("Export");
+
+		JMenuItem meshExportItem = new JMenuItem("To Mesh");
+		meshExportItem.addActionListener(new ExportMesh(frame, meshExportDialog, facade));
+		exportMenu.add(meshExportItem);
+
+		return exportMenu;
 	}
 
 }
