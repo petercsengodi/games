@@ -93,6 +93,7 @@
 		<module>AMediaLibrary</module>
 		<module>AMediaEditorCollection</module>
 		<module>AsteroidGame</module>
+		<module>ACarGame</module>
 		<!-- module>UniversityGamePorted</module -->
 	</modules>
 </project>
