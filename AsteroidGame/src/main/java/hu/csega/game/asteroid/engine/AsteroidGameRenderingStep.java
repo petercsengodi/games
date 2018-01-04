@@ -27,8 +27,10 @@ public class AsteroidGameRenderingStep implements GameEngineCallback {
 			GameObjectLocation shipLocation = gameState.shipLocation;
 
 			GameObjectLocation cameraLocation = new GameObjectLocation();
-			cameraLocation.position.copyValuesFrom(shipLocation.position);
-			cameraLocation.position.z -= 100;
+			cameraLocation.position.x = 0;
+			cameraLocation.position.y = 100;
+			cameraLocation.position.z = 0;
+			cameraLocation.rotation.y = (float)(Math.PI / 4);
 			g.placeCamera(cameraLocation);
 
 			GameObjectHandler shipModel = model.getShipModel();

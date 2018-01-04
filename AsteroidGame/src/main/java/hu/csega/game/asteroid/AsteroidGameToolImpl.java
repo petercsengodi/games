@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hu.csega.game.asteroid.engine.AsteroidGameInitStep;
+import hu.csega.game.asteroid.engine.AsteroidGameModifyingStep;
 import hu.csega.game.asteroid.engine.AsteroidGameRenderingOptions;
 import hu.csega.game.asteroid.engine.AsteroidGameRenderingStep;
 import hu.csega.game.asteroid.engine.AsteroidGameWindowWrapper;
 import hu.csega.game.asteroid.model.AsteroidGameModel;
 import hu.csega.game.asteroid.view.AsteroidGameView;
 import hu.csega.games.adapters.opengl.OpenGLGameAdapter;
+import hu.csega.games.engine.impl.GameControlImpl;
 import hu.csega.games.engine.impl.GameEngine;
 import hu.csega.games.engine.intf.GameAdapter;
 import hu.csega.games.engine.intf.GameDescriptor;
@@ -47,7 +49,7 @@ public class AsteroidGameToolImpl extends AbstractTool implements AsteroidGameTo
 		GameDescriptor descriptor = new GameDescriptor();
 		descriptor.setId("asteroid");
 		descriptor.setTitle(getTitle());
-		descriptor.setVersion("v00.00.0002");
+		descriptor.setVersion("v00.00.0003");
 		descriptor.setDescription("Asteroid game.");
 
 		GameAdapter adapter = new OpenGLGameAdapter();
@@ -57,9 +59,11 @@ public class AsteroidGameToolImpl extends AbstractTool implements AsteroidGameTo
 
 		GameEngine engine = GameEngine.create(descriptor, adapter);
 		engine.step(GameEngineStep.INIT, new AsteroidGameInitStep());
+		engine.step(GameEngineStep.MODIFY, new AsteroidGameModifyingStep());
 		engine.step(GameEngineStep.RENDER, new AsteroidGameRenderingStep(options));
 
-		AsteroidGameWindowWrapper wrapper = new AsteroidGameWindowWrapper(window, this);
+		GameControlImpl control = (GameControlImpl)engine.getControl(); // FIXME this is not nice
+		AsteroidGameWindowWrapper wrapper = new AsteroidGameWindowWrapper(window, this, control);
 		engine.startIn(wrapper);
 
 		return engine;
