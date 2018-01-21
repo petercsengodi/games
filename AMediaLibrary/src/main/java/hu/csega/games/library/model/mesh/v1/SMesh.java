@@ -1,4 +1,4 @@
-package hu.csega.games.library.model.mesh;
+package hu.csega.games.library.model.mesh.v1;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,9 +1,11 @@
-package hu.csega.games.library.xml;
+package hu.csega.games.library.xml.v1;
 
 import org.apache.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import hu.csega.games.library.xml.XmlException;
 
 class XmlRootHandler extends DefaultHandler implements XmlHandler {
 

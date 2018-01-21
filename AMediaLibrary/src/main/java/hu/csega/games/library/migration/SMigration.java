@@ -23,11 +23,11 @@ import hu.csega.games.library.legacy.animationdata.CPartData;
 import hu.csega.games.library.model.SMeshRef;
 import hu.csega.games.library.model.SObject;
 import hu.csega.games.library.model.STextureRef;
-import hu.csega.games.library.model.mesh.SEdge;
-import hu.csega.games.library.model.mesh.SMesh;
-import hu.csega.games.library.model.mesh.SShape;
-import hu.csega.games.library.model.mesh.STriangle;
-import hu.csega.games.library.model.mesh.SVertex;
+import hu.csega.games.library.model.mesh.v1.SEdge;
+import hu.csega.games.library.model.mesh.v1.SMesh;
+import hu.csega.games.library.model.mesh.v1.SShape;
+import hu.csega.games.library.model.mesh.v1.STriangle;
+import hu.csega.games.library.model.mesh.v1.SVertex;
 
 public class SMigration {
 

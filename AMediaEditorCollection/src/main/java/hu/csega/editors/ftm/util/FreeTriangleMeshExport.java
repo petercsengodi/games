@@ -6,12 +6,12 @@ import hu.csega.editors.ftm.model.FreeTriangleMeshModel;
 import hu.csega.editors.ftm.model.FreeTriangleMeshTriangle;
 import hu.csega.editors.ftm.model.FreeTriangleMeshVertex;
 import hu.csega.games.library.model.STextureRef;
-import hu.csega.games.library.model.mesh.SMesh;
-import hu.csega.games.library.model.mesh.SShape;
-import hu.csega.games.library.model.mesh.STriangle;
-import hu.csega.games.library.model.mesh.SVertex;
-import hu.csega.games.library.xml.XmlReflectionException;
-import hu.csega.games.library.xml.XmlWriter;
+import hu.csega.games.library.model.mesh.v1.SMesh;
+import hu.csega.games.library.model.mesh.v1.SShape;
+import hu.csega.games.library.model.mesh.v1.STriangle;
+import hu.csega.games.library.model.mesh.v1.SVertex;
+import hu.csega.games.library.xml.v1.XmlReflectionException;
+import hu.csega.games.library.xml.v1.XmlWriter;
 
 public class FreeTriangleMeshExport {
 

@@ -87,11 +87,22 @@ public class FreeTriangleMeshMenu {
 		meshExportDialog.setFileFilter(new FileNameExtensionFilter("Mesh export", "mesh"));
 		meshExportDialog.setApproveButtonText("Export");
 
-		JMenu exportMenu = new JMenu("Export");
-
 		JMenuItem meshExportItem = new JMenuItem("To Mesh");
 		meshExportItem.addActionListener(new ExportMesh(frame, meshExportDialog, facade));
+
+		JFileChooser mwcExportDialog = new JFileChooser(".");
+		mwcExportDialog.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		mwcExportDialog.setDialogTitle("Select file to export to.");
+		mwcExportDialog.setMultiSelectionEnabled(false);
+		mwcExportDialog.setFileFilter(new FileNameExtensionFilter("Mesh with collision map", "mwc"));
+		mwcExportDialog.setApproveButtonText("Export");
+
+		JMenuItem mwcExportItem = new JMenuItem("To Mesh With Collision");
+		mwcExportItem.addActionListener(new ExportMWC(frame, mwcExportDialog, facade));
+
+		JMenu exportMenu = new JMenu("Export");
 		exportMenu.add(meshExportItem);
+		exportMenu.add(mwcExportItem);
 
 		return exportMenu;
 	}

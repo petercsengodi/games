@@ -11,9 +11,9 @@ import org.xml.sax.SAXException;
 import hu.csega.games.library.migration.MigrationException;
 import hu.csega.games.library.migration.SMigration;
 import hu.csega.games.library.model.SMeshRef;
-import hu.csega.games.library.model.mesh.SMesh;
+import hu.csega.games.library.model.mesh.v1.SMesh;
 import hu.csega.games.library.util.FileUtil;
-import hu.csega.games.library.xml.XmlReader;
+import hu.csega.games.library.xml.v1.XmlReader;
 
 public class MeshLibrary {
 

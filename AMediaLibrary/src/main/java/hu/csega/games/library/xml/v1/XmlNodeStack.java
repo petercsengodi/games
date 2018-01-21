@@ -1,4 +1,4 @@
-package hu.csega.games.library.xml;
+package hu.csega.games.library.xml.v1;
 
 import java.util.ArrayList;
 import java.util.List;

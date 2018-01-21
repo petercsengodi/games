@@ -1,4 +1,4 @@
-package hu.csega.games.library.xml;
+package hu.csega.games.library.xml.v1;
 
 import java.io.Closeable;
 import java.io.FileOutputStream;
@@ -18,6 +18,7 @@ import org.joml.Vector3f;
 import org.joml.Vector4f;
 
 import hu.csega.games.library.util.FileUtil;
+import hu.csega.games.library.xml.XmlClass;
 
 public class XmlWriter implements Closeable {
 

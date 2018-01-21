@@ -1,4 +1,4 @@
-package hu.csega.games.library.model.mesh;
+package hu.csega.games.library.model.mesh.v1;
 
 import org.joml.Matrix4f;
 import org.joml.Vector2f;

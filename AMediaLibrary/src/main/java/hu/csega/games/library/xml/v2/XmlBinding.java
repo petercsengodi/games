@@ -1,4 +1,4 @@
-package hu.csega.games.library.xml;
+package hu.csega.games.library.xml.v2;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -9,42 +9,36 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import hu.csega.games.libary.legacy.modeldata.CEdge;
-import hu.csega.games.libary.legacy.modeldata.CFigure;
-import hu.csega.games.libary.legacy.modeldata.CModel;
-import hu.csega.games.libary.legacy.modeldata.CTexID;
-import hu.csega.games.libary.legacy.modeldata.CTriangle;
-import hu.csega.games.libary.legacy.modeldata.CVertex;
-import hu.csega.games.library.animation.SAnimation;
-import hu.csega.games.library.animation.SBodyPart;
-import hu.csega.games.library.animation.SConnection;
-import hu.csega.games.library.legacy.animationdata.CConnection;
-import hu.csega.games.library.legacy.animationdata.CModelData;
-import hu.csega.games.library.legacy.animationdata.CPartData;
-import hu.csega.games.library.model.SAnimationRef;
-import hu.csega.games.library.model.SMeshRef;
-import hu.csega.games.library.model.STextureRef;
-import hu.csega.games.library.model.mesh.SEdge;
-import hu.csega.games.library.model.mesh.SMesh;
-import hu.csega.games.library.model.mesh.SShape;
-import hu.csega.games.library.model.mesh.STriangle;
-import hu.csega.games.library.model.mesh.SVertex;
-import hu.csega.games.library.story.SMap;
-import hu.csega.games.library.story.SRoom;
+import hu.csega.games.library.xml.XmlClass;
+import hu.csega.games.library.xml.XmlField;
 
 public class XmlBinding {
 
-	public static Collection<XmlFieldBinding> fieldBindingsOf(String xmlTypeName) {
+	private static final Set<Class<?>> ATTRIBUTES = new HashSet<>();
+
+	private final Map<String, Class<?>> nameToClass = new HashMap<>();
+	private final Map<String, XmlBinding> nameToBinding = new HashMap<>();
+	private final Map<String, XmlFieldBinding> fieldToBindings = new TreeMap<>();
+
+	public XmlBinding() {
+	}
+
+	public XmlBinding(Iterable<Class<?>> usedClasses) {
+		for(Class<?> usedClass : usedClasses)
+			registerClass(usedClass);
+	}
+
+	public Collection<XmlFieldBinding> fieldBindingsOf(String xmlTypeName) {
 		Map<String, XmlFieldBinding> map = fieldBindingsMap(xmlTypeName);
 		return (map == null ? null : map.values());
 	}
 
-	public static Map<String, XmlFieldBinding> fieldBindingsMap(String xmlTypeName) {
+	public Map<String, XmlFieldBinding> fieldBindingsMap(String xmlTypeName) {
 		XmlBinding binding = nameToBinding.get(xmlTypeName);
 		return (binding == null ? null : binding.fieldToBindings);
 	}
 
-	public static Class<?> classOf(String type) {
+	public Class<?> classOf(String type) {
 		return nameToClass.get(type);
 	}
 
@@ -52,14 +46,7 @@ public class XmlBinding {
 		return ATTRIBUTES.contains(c);
 	}
 
-	public Map<String, XmlFieldBinding> fieldToBindings = new TreeMap<>();
-
-	private static final Map<String, Class<?>> nameToClass = new HashMap<>();
-	private static final Map<String, XmlBinding> nameToBinding = new HashMap<>();
-
-	private static final Set<Class<?>> ATTRIBUTES = new HashSet<>();
-
-	private static void registerClass(Class<?> classToRegister) {
+	private void registerClass(Class<?> classToRegister) {
 		XmlClass xmlClass = classToRegister.getAnnotation(XmlClass.class);
 		if(xmlClass == null)
 			throw new RuntimeException("XmlCass annotation is missing!");
@@ -171,40 +158,6 @@ public class XmlBinding {
 		ATTRIBUTES.add(Float.class);
 		ATTRIBUTES.add(double.class);
 		ATTRIBUTES.add(Double.class);
-
-		/* Insert bound java classes here! */
-
-		// Legacy animation objects
-		registerClass(CModelData.class);
-		registerClass(CConnection.class);
-		registerClass(CPartData.class);
-
-		// Legacy T3DCreator model objects
-		registerClass(CModel.class);
-		registerClass(CFigure.class);
-		registerClass(CTriangle.class);
-		registerClass(CEdge.class);
-		registerClass(CVertex.class);
-		registerClass(CTexID.class);
-
-		// New model in game
-		registerClass(SAnimationRef.class);
-		registerClass(SMeshRef.class);
-		registerClass(STextureRef.class);
-
-		registerClass(SAnimation.class);
-		registerClass(SBodyPart.class);
-		registerClass(SConnection.class);
-
-		registerClass(SMesh.class);
-		registerClass(STriangle.class);
-		registerClass(SVertex.class);
-		registerClass(SEdge.class);
-		registerClass(SShape.class);
-
-		registerClass(SMap.class);
-		registerClass(SRoom.class);
-
 	}
 
 }

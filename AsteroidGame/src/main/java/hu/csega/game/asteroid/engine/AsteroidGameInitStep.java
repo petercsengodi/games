@@ -18,11 +18,11 @@ import hu.csega.games.engine.g3d.GameObjectHandler;
 import hu.csega.games.engine.g3d.GameObjectPosition;
 import hu.csega.games.engine.g3d.GameObjectVertex;
 import hu.csega.games.engine.g3d.GameTexturePosition;
-import hu.csega.games.library.model.mesh.SMesh;
-import hu.csega.games.library.model.mesh.SShape;
-import hu.csega.games.library.model.mesh.STriangle;
-import hu.csega.games.library.model.mesh.SVertex;
-import hu.csega.games.library.xml.XmlReader;
+import hu.csega.games.library.model.mesh.v1.SMesh;
+import hu.csega.games.library.model.mesh.v1.SShape;
+import hu.csega.games.library.model.mesh.v1.STriangle;
+import hu.csega.games.library.model.mesh.v1.SVertex;
+import hu.csega.games.library.xml.v1.XmlReader;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 

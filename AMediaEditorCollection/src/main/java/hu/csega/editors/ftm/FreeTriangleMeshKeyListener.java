@@ -23,20 +23,20 @@ public class FreeTriangleMeshKeyListener implements GameKeyListener {
 			facade.window().repaintEverything();
 		}
 
-		if(key == 't' || key == 'T') {
+		if(key == 't' || key == 'T') { // create triangle (strip)
 			FreeTriangleMeshModel model = (FreeTriangleMeshModel)facade.model();
 			model.createTriangleStrip();
 			facade.window().repaintEverything();
 		}
 
 		if(facade.control().isControlOn()) {
-			if(key == 'z' || key == 'Z' || key == 26) {
+			if(key == 'z' || key == 'Z' || key == 26) { // undo
 				FreeTriangleMeshModel model = (FreeTriangleMeshModel)facade.model();
 				model.undo();
 				facade.window().repaintEverything();
 			}
 
-			if(key == 'y' || key == 'Y' || key == 25) {
+			if(key == 'y' || key == 'Y' || key == 25) { // re-do
 				FreeTriangleMeshModel model = (FreeTriangleMeshModel)facade.model();
 				model.redo();
 				facade.window().repaintEverything();

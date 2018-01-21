@@ -1,4 +1,4 @@
-package hu.csega.games.library.xml;
+package hu.csega.games.library.xml.v1;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
@@ -12,6 +12,8 @@ import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
+
+import hu.csega.games.library.xml.XmlException;
 
 class XmlLegacyT3DCreatorHandler implements XmlHandler {
 

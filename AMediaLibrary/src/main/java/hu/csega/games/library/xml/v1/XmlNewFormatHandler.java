@@ -1,4 +1,4 @@
-package hu.csega.games.library.xml;
+package hu.csega.games.library.xml.v1;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
@@ -16,6 +16,8 @@ import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
+
+import hu.csega.games.library.xml.XmlException;
 
 /**
  * The new way of parsing the data files.
