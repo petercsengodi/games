@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hu.csega.game.car.engine.CarGameInitStep;
+import hu.csega.game.car.engine.CarGameModifyingStep;
 import hu.csega.game.car.engine.CarGameRenderingOptions;
 import hu.csega.game.car.engine.CarGameRenderingStep;
 import hu.csega.game.car.engine.CarGameWindowWrapper;
@@ -57,6 +58,7 @@ public class CarGameToolImpl extends AbstractTool implements CarGameTool {
 
 		GameEngine engine = GameEngine.create(descriptor, adapter);
 		engine.step(GameEngineStep.INIT, new CarGameInitStep());
+		engine.step(GameEngineStep.MODIFY, new CarGameModifyingStep());
 		engine.step(GameEngineStep.RENDER, new CarGameRenderingStep(options));
 
 		CarGameWindowWrapper wrapper = new CarGameWindowWrapper(window, this);
