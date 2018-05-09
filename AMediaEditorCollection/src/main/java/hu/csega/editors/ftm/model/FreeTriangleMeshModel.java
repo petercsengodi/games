@@ -2,8 +2,10 @@ package hu.csega.editors.ftm.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import hu.csega.editors.ftm.util.FreeTriangleMeshSnapshots;
@@ -36,6 +38,8 @@ public class FreeTriangleMeshModel implements Serializable {
 	private boolean moved = false;
 	private transient boolean built = false;
 	private String textureFilename;
+	
+	private double grid = 10.0;
 
 	public boolean isInvalid() {
 		return !built;
@@ -128,7 +132,7 @@ public class FreeTriangleMeshModel implements Serializable {
 
 			if(!add) {
 				if(selectedBefore == selection) {
-					// do nothing, deselected the object
+					// do nothing, de-select the object
 				} else {
 					selectedObjects.add(selection);
 				}
@@ -232,6 +236,67 @@ public class FreeTriangleMeshModel implements Serializable {
 				FreeTriangleMeshVertex v = (FreeTriangleMeshVertex) object;
 				v.move(x, y, z);
 			}
+		}
+
+		invalidate();
+	}
+
+	public void snapVerticesToGrid() {
+		if(selectedObjects.isEmpty())
+			return;
+
+		snapshots().addState(mesh);
+		
+		for(Object object : selectedObjects) {
+			if(object instanceof FreeTriangleMeshVertex) {
+				FreeTriangleMeshVertex v = (FreeTriangleMeshVertex) object;
+				v.setPX(Math.round(v.getPX() / grid) * grid);
+				v.setPY(Math.round(v.getPY() / grid) * grid);
+				v.setPZ(Math.round(v.getPZ() / grid) * grid);
+			}
+		}
+
+		invalidate();
+	}
+
+	public void duplicateCurrentSelection() {
+		if(selectedObjects.isEmpty())
+			return;
+
+		snapshots().addState(mesh);
+
+		List<Object> toCopy = new ArrayList<>(selectedObjects);
+		selectedObjects.clear();
+		
+		Map<Integer, Integer> map = new HashMap<>();
+
+		List<FreeTriangleMeshVertex> vertices = mesh.getVertices();
+		
+		for(Object object : toCopy) {
+			if(object instanceof FreeTriangleMeshVertex) {
+				FreeTriangleMeshVertex v = (FreeTriangleMeshVertex) object;
+				FreeTriangleMeshVertex v2 = v.copy();
+				v2.move(10.0, 10.0, 10.0);
+				mesh.getVertices().add(v2);
+				selectedObjects.add(v2);
+				map.put(vertices.indexOf(v), vertices.indexOf(v2));
+			}
+		}
+
+		List<FreeTriangleMeshTriangle> newTriangles = new ArrayList<>();
+		
+		for(FreeTriangleMeshTriangle t : mesh.getTriangles()) {
+			Integer i1 = map.get(t.getVertex1());
+			Integer i2 = map.get(t.getVertex2());
+			Integer i3 = map.get(t.getVertex3());
+			if(i1 != null && i2 != null && i3 != null) {
+				FreeTriangleMeshTriangle t2 = new FreeTriangleMeshTriangle(i1, i2, i3);
+				newTriangles.add(t2);
+			}
+		}
+		
+		if(!newTriangles.isEmpty()) {
+			mesh.getTriangles().addAll(newTriangles);
 		}
 
 		invalidate();

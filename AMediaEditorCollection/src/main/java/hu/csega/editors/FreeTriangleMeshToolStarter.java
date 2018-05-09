@@ -17,7 +17,7 @@ import hu.csega.toolshed.logging.LoggerFactory;
  */
 public class FreeTriangleMeshToolStarter {
 
-	public static final String DEFAULT_TEXTURE_FILE = "res/textures/wood-texture.jpg";
+	public static final String DEFAULT_TEXTURE_FILE = "res/textures/ship2.jpg";
 
 	private static final Level LOGGING_LEVEL = Level.TRACE;
 	private static Logger logger;

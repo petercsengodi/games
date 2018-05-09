@@ -29,6 +29,18 @@ public class FreeTriangleMeshKeyListener implements GameKeyListener {
 			facade.window().repaintEverything();
 		}
 
+		if(key == 'g' || key == 'G') { // snap vertices to grid
+			FreeTriangleMeshModel model = (FreeTriangleMeshModel)facade.model();
+			model.snapVerticesToGrid();
+			facade.window().repaintEverything();
+		}
+
+		if(key == 'c' || key == 'C') { // duplicate current selection
+			FreeTriangleMeshModel model = (FreeTriangleMeshModel)facade.model();
+			model.duplicateCurrentSelection();
+			facade.window().repaintEverything();
+		}
+
 		if(facade.control().isControlOn()) {
 			if(key == 'z' || key == 'Z' || key == 26) { // undo
 				FreeTriangleMeshModel model = (FreeTriangleMeshModel)facade.model();

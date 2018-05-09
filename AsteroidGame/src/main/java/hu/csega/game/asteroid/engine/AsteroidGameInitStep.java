@@ -35,7 +35,7 @@ public class AsteroidGameInitStep implements GameEngineCallback {
 		facade.setModel(model);
 
 		GameModelStore store = facade.store();
-		GameObjectHandler ship = builderFrom(store, "res/meshes/ship.mesh");
+		GameObjectHandler ship = builderFrom(store, "res/meshes/ship1.mesh");
 		model.setShipModel(ship);
 
 		return facade;

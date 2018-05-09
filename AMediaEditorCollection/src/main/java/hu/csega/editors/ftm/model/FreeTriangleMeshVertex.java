@@ -15,10 +15,26 @@ public class FreeTriangleMeshVertex implements Serializable {
 	private double tX;
 	private double tY;
 
+	private FreeTriangleMeshVertex() {
+	}
+	
 	public FreeTriangleMeshVertex(double x, double y, double z) {
 		this.pX = x;
 		this.pY = y;
 		this.pZ = z;
+	}
+	
+	public FreeTriangleMeshVertex copy() {
+		FreeTriangleMeshVertex v = new FreeTriangleMeshVertex();
+		v.pX = pX;
+		v.pY = pY;
+		v.pZ = pZ;
+		v.nX = nX;
+		v.nY = nY;
+		v.nZ = nZ;
+		v.tX = tX;
+		v.tY = tY;
+		return v;
 	}
 
 	public FreeTriangleMeshPoint positionToPoint() {

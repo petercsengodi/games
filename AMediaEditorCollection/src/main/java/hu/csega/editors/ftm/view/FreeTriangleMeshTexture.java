@@ -17,8 +17,8 @@ import hu.csega.games.engine.GameEngineFacade;
 
 public class FreeTriangleMeshTexture extends FreeTriangleMeshCanvas {
 
-	private int imageWidth = 400;
-	private int imageHeight = 400;
+	private int imageWidth = 300;
+	private int imageHeight = 300;
 
 	private String textureFilename = null;
 	private BufferedImage textureImage = null;
@@ -55,7 +55,7 @@ public class FreeTriangleMeshTexture extends FreeTriangleMeshCanvas {
 		}
 
 		if(textureImage != null) {
-			g.drawImage(textureImage, 0, 0, null);
+			g.drawImage(textureImage, 0, 0, imageWidth, imageHeight, null);
 		}
 
 		List<Object> selectedObjects = model.getSelectedObjects();
