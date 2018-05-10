@@ -268,13 +268,13 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 		double f1y = f0x * Math.sin(r.z) + f0y * Math.cos(r.z);
 		double f1z = f0z;
 
-		double f2x = f1x;
-		double f2y = f1y * Math.cos(r.y) - f1z * Math.sin(r.y);
-		double f2z = f1y * Math.sin(r.y) + f1z * Math.cos(r.y);
+		double f2x = f1x * Math.cos(r.y) - f1z * Math.sin(r.y);
+		double f2y = f1y;
+		double f2z = f1x * Math.sin(r.y) + f1z * Math.cos(r.y);
 
-		double f3x = f2x * Math.cos(r.x) - f2z * Math.sin(r.x);
-		double f3y = f2y;
-		double f3z = f2x * Math.sin(r.x) + f2z * Math.cos(r.x);
+		double f3x = f2x;
+		double f3y = f2y * Math.cos(r.x) - f2z * Math.sin(r.x);
+		double f3z = f2y * Math.sin(r.x) + f2z * Math.cos(r.x);
 
 		float fx = (float)f3x + p.x;
 		float fy = (float)f3y + p.y;
@@ -288,13 +288,13 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 		double u1y = u0x * Math.sin(r.z) + u0y * Math.cos(r.z);
 		double u1z = u0z;
 
-		double u2x = u1x;
-		double u2y = u1y * Math.cos(r.y) - u1z * Math.sin(r.y);
-		double u2z = u1y * Math.sin(r.y) + u1z * Math.cos(r.y);
+		double u2x = u1x * Math.cos(r.y) - u1z * Math.sin(r.y);
+		double u2y = u1y;
+		double u2z = u1x * Math.sin(r.y) + u1z * Math.cos(r.y);
 
-		double u3x = u2x * Math.cos(r.x) - u2z * Math.sin(r.x);
-		double u3y = u2y;
-		double u3z = u2x * Math.sin(r.x) + u2z * Math.cos(r.x);
+		double u3x = u2x;
+		double u3y = u2y * Math.cos(r.x) - u2z * Math.sin(r.x);
+		double u3z = u2y * Math.sin(r.x) + u2z * Math.cos(r.x);
 
 		float ux = (float)u3x;
 		float uy = (float)u3y;

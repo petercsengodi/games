@@ -30,23 +30,23 @@ public class AsteroidGameModifyingStep implements GameEngineCallback {
 			double speedModifier = (control.isControlOn() ? 15.0 : 1.0) * PLAYER_FORWARD;
 
 			if(control.isUpOn()) {
-				position.x += (-speedModifier * Math.sin(rotation.x));
+				position.x += (speedModifier * Math.sin(rotation.x));
 				position.z += (speedModifier * Math.cos(rotation.x));
 			}
 
 			if(control.isDownOn()) {
-				position.x -= (-speedModifier * Math.sin(rotation.x));
+				position.x -= (speedModifier * Math.sin(rotation.x));
 				position.z -= (speedModifier * Math.cos(rotation.x));
 			}
 
-			if(control.isLeftOn()) {
+			if(control.isRightOn()) {
 				rotation.x -= PLAYER_ROTATION;
 				while(rotation.x < 0) {
 					rotation.x += PI2;
 				}
 			}
 
-			if(control.isRightOn()) {
+			if(control.isLeftOn()) {
 				rotation.x += PLAYER_ROTATION;
 				while(rotation.x >= PI2) {
 					rotation.x -= PI2;

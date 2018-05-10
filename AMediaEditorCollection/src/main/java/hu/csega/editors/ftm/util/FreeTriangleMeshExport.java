@@ -2,6 +2,7 @@ package hu.csega.editors.ftm.util;
 
 import java.io.IOException;
 
+import hu.csega.editors.FreeTriangleMeshToolStarter;
 import hu.csega.editors.ftm.model.FreeTriangleMeshModel;
 import hu.csega.editors.ftm.model.FreeTriangleMeshTriangle;
 import hu.csega.editors.ftm.model.FreeTriangleMeshVertex;
@@ -17,6 +18,11 @@ public class FreeTriangleMeshExport {
 
 	public static void export(FreeTriangleMeshModel model, String filename) {
 		String textureFilename = model.getTextureFilename();
+		
+		// FIXME ???
+		if(textureFilename == null)
+			textureFilename = FreeTriangleMeshToolStarter.DEFAULT_TEXTURE_FILE;
+		
 		STextureRef textureRef = new STextureRef(textureFilename);
 
 		SMesh meshToExport = new SMesh();

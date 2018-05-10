@@ -194,7 +194,7 @@ public class XmlWriter implements Closeable {
 		startOpeningNode("Math.Vector4");
 		printAttribute("X", String.valueOf(v.x));
 		printAttribute("Y", String.valueOf(v.y));
-		printAttribute("Z", String.valueOf(v.y));
+		printAttribute("Z", String.valueOf(v.z));
 		printAttribute("W", String.valueOf(v.w));
 		finishOpeningNodeWithSelfClosure();
 	}
@@ -204,7 +204,7 @@ public class XmlWriter implements Closeable {
 		startOpeningNode("Math.Vector3");
 		printAttribute("X", String.valueOf(v.x));
 		printAttribute("Y", String.valueOf(v.y));
-		printAttribute("Z", String.valueOf(v.y));
+		printAttribute("Z", String.valueOf(v.z));
 		finishOpeningNodeWithSelfClosure();
 	}
 

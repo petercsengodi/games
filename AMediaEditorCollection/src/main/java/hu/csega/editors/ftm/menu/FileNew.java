@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
+import hu.csega.editors.FreeTriangleMeshToolStarter;
 import hu.csega.editors.ftm.model.FreeTriangleMeshModel;
 import hu.csega.games.engine.GameEngineFacade;
 
@@ -24,7 +25,9 @@ class FileNew implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		facade.setModel(new FreeTriangleMeshModel());
+		FreeTriangleMeshModel newModel = new FreeTriangleMeshModel();
+		newModel.setTextureFilename(FreeTriangleMeshToolStarter.DEFAULT_TEXTURE_FILE);
+		facade.setModel(newModel);
 		facade.window().repaintEverything();
 	}
 }
