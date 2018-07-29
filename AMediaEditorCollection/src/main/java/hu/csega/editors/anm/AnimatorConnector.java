@@ -1,21 +1,18 @@
 package hu.csega.editors.anm;
 
 import java.awt.Container;
-import java.awt.GridLayout;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
-import javax.swing.JTabbedPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTree;
+import javax.swing.tree.TreeModel;
 
 import hu.csega.editors.anm.menu.AnimatorMenu;
 import hu.csega.editors.anm.swing.AnimatorContentPaneLayout;
-import hu.csega.editors.ftm.menu.FreeTriangleMeshMenu;
-import hu.csega.editors.ftm.view.FreeTriangleMeshTexture;
-import hu.csega.editors.ftm.view.FreeTriangleMeshXYSideView;
-import hu.csega.editors.ftm.view.FreeTriangleMeshXZSideView;
-import hu.csega.editors.ftm.view.FreeTriangleMeshZYSideView;
+import hu.csega.editors.anm.treeview.AnimatorTreeModel;
 import hu.csega.games.adapters.opengl.OpenGLGameAdapter;
 import hu.csega.games.common.Connector;
 import hu.csega.games.engine.GameEngineFacade;
@@ -24,7 +21,6 @@ import hu.csega.games.engine.impl.GameEngine;
 import hu.csega.games.engine.intf.GameAdapter;
 import hu.csega.games.engine.intf.GameCanvas;
 import hu.csega.games.engine.intf.GameDescriptor;
-import hu.csega.games.engine.intf.GameEngineStep;
 import hu.csega.games.engine.intf.GameWindow;
 import hu.csega.games.engine.intf.GameWindowListener;
 import hu.csega.toolshed.logging.Logger;
@@ -97,7 +93,7 @@ public class AnimatorConnector implements Connector, GameWindow {
 		descriptor.setMouseCentered(false);
 
 		// Open GL View
-		
+
 		GameAdapter adapter = new OpenGLGameAdapter();
 		GameEngine engine = GameEngine.create(descriptor, adapter);
 		GameEngineFacade facade = engine.getFacade();
@@ -109,9 +105,9 @@ public class AnimatorConnector implements Connector, GameWindow {
 
 		engine.getControl().registerKeyListener(new FreeTriangleMeshKeyListener());
 		 */
-		
+
 		// Swing View(s)
-		
+
 		gameWindow = adapter.createWindow(engine);
 		gameWindow.setFullScreen(true);
 
@@ -124,17 +120,19 @@ public class AnimatorConnector implements Connector, GameWindow {
 		AnimatorMenu.createMenuForJFrame(frame, facade);
 
 		// Upper left tile
-		FreeTriangleMeshXZSideView upperLeft = new FreeTriangleMeshXZSideView(facade);
-		contentPane.add(upperLeft);
-		layout.addLayoutComponent(AnimatorContentPaneLayout.UPPER_LEFT, upperLeft);
-		
+		TreeModel treeModel = new AnimatorTreeModel();
+		JTree tree = new JTree(treeModel);
+		JScrollPane scrollPaneForTree = new JScrollPane(tree);
+		contentPane.add(scrollPaneForTree);
+		layout.addLayoutComponent(AnimatorContentPaneLayout.FAR_LEFT_PANEL, scrollPaneForTree);
+
 		// Upper right tile
 		engine.startIn(gameWindow);
 
 		// Lower left tile
 		/*
 		contentPane.add(new FreeTriangleMeshXYSideView(facade));
-		*/
+		 */
 
 		// Lower right tile
 		/*
@@ -144,7 +142,7 @@ public class AnimatorConnector implements Connector, GameWindow {
 		bottomRightTab.addTab("Texture Window", new FreeTriangleMeshTexture(facade));
 		contentPane.add(bottomRightTab);
 		 */
-		
+
 		return engine;
 	}
 

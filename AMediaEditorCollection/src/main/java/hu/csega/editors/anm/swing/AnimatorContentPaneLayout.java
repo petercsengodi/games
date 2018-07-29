@@ -66,10 +66,16 @@ public class AnimatorContentPaneLayout implements LayoutManager {
 
 	private void resizeComponent(String name, Component component, Dimension containerSize) {
 		switch (name) {
+		case FAR_LEFT_PANEL: {
+			int height = (int)containerSize.getHeight();
+			component.setBounds(0, 0, LEFT_PANEL_WIDTH, height);
+			break;
+		}
 		case CANVAS3D: {
-			int width = (int)(containerSize.getWidth() / 2);
+			int width = (int)((containerSize.getWidth() - LEFT_PANEL_WIDTH) / 2);
+			int left = (int)(containerSize.getWidth() - width);
 			int height = (int)(containerSize.getHeight() / 2);
-			component.setBounds(width, 0, width, height);
+			component.setBounds(left, 0, width, height);
 			break;
 		}
 		default:
@@ -83,6 +89,8 @@ public class AnimatorContentPaneLayout implements LayoutManager {
 	public static final String LOWER_LEFT = "lowerLeft";
 	public static final String LOWER_RIGHT = "lowerRight";
 	public static final String CANVAS3D = "canvas3d";
+
+	private static final int LEFT_PANEL_WIDTH = 200;
 
 	private static final Dimension PREFERRED_LAYOUT_SIZE = new Dimension(800, 500);
 }
