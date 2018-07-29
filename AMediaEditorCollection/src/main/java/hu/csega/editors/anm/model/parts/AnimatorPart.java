@@ -11,25 +11,28 @@ import org.json.JSONString;
 public class AnimatorPart implements JSONString {
 
 	String name;
+	boolean visible;
 	final AnimatorPartModel model;
 	final AnimatorPosition origin;
-	final List<AnimatorLocation> joints;
+	final List<AnimatorJoint> joints;
 
 	public AnimatorPart() {
 		this.name = "id-" + System.currentTimeMillis();
+		this.visible = true;
 		this.model = new AnimatorPartModel();
 		this.origin = new AnimatorPosition();
 		this.joints = new ArrayList<>();
 	}
 
-	public AnimatorPart(String name, AnimatorPartModel model, AnimatorPosition origin, List<AnimatorLocation> joints) {
+	public AnimatorPart(String name, boolean visible, AnimatorPartModel model, AnimatorPosition origin, List<AnimatorJoint> joints) {
 		this.name = name;
+		this.visible = visible;
 		this.model = new AnimatorPartModel(model);
 		this.origin = new AnimatorPosition(origin);
 
 		this.joints = new ArrayList<>();
-		for(AnimatorLocation joint : joints)
-			this.joints.add(new AnimatorLocation(joint));
+		for(AnimatorJoint joint : joints)
+			this.joints.add(new AnimatorJoint(joint));
 	}
 
 	public AnimatorPart(AnimatorPart other) {
@@ -48,12 +51,13 @@ public class AnimatorPart implements JSONString {
 
 	public void copyFrom(AnimatorPart other) {
 		this.name = other.name;
+		this.visible = other.visible;
 		this.model.copyFrom(other.model);
 		this.origin.copyFrom(other.origin);
 
 		this.joints.clear();
-		for(AnimatorLocation joint : other.joints)
-			this.joints.add(new AnimatorLocation(joint));
+		for(AnimatorJoint joint : other.joints)
+			this.joints.add(new AnimatorJoint(joint));
 	}
 
 	public void copyFrom(JSONObject json) throws JSONException {
@@ -61,15 +65,16 @@ public class AnimatorPart implements JSONString {
 		if(this.name == null || this.name.length() == 0)
 			this.name = "id-" + System.currentTimeMillis();
 
+		this.visible = json.optBoolean("visible", true);
 		this.model.copyFrom(json.getJSONObject("model"));
 		this.origin.copyFrom(json.getJSONObject("origin"));
 
 		this.joints.clear();
-		JSONArray array = json.getJSONArray("joints");
+		JSONArray array = json.optJSONArray("joints");
 		if(array != null && array.length() > 0) {
 			int len = array.length();
 			for(int i = 0; i < len; i++)
-				this.joints.add(new AnimatorLocation(array.getJSONObject(i)));
+				this.joints.add(new AnimatorJoint(array.getJSONObject(i)));
 		}
 	}
 
@@ -86,14 +91,15 @@ public class AnimatorPart implements JSONString {
 	public JSONObject toJSONObject() throws JSONException {
 		JSONObject json = new JSONObject();
 		json.put("name", name);
+		json.put("visible", visible);
 		json.put("model", model.toJSONObject());
 		json.put("origin", origin.toJSONObject());
 
 		JSONArray array = new JSONArray();
-		for(AnimatorLocation joint : joints)
+		for(AnimatorJoint joint : joints)
 			array.put(joint.toJSONObject());
 
-		json.put("jonts", array);
+		json.put("joints", array);
 		return json;
 	}
 
