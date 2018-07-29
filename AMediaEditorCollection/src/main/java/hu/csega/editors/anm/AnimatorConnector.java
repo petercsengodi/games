@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
 import hu.csega.editors.anm.menu.AnimatorMenu;
+import hu.csega.editors.anm.swing.AnimatorContentPaneLayout;
 import hu.csega.editors.ftm.menu.FreeTriangleMeshMenu;
 import hu.csega.editors.ftm.view.FreeTriangleMeshTexture;
 import hu.csega.editors.ftm.view.FreeTriangleMeshXYSideView;
@@ -117,14 +118,15 @@ public class AnimatorConnector implements Connector, GameWindow {
 		JFrame frame = (JFrame) gameWindow;
 		KeyListener keyListener = (KeyListener) gameWindow;
 		Container contentPane = frame.getContentPane();
-		contentPane.setLayout(new GridLayout(2, 2));
+		AnimatorContentPaneLayout layout = new AnimatorContentPaneLayout();
+		contentPane.setLayout(layout);
 
 		AnimatorMenu.createMenuForJFrame(frame, facade);
 
 		// Upper left tile
-		/*
-		contentPane.add(new FreeTriangleMeshXZSideView(facade));
-		 */
+		FreeTriangleMeshXZSideView upperLeft = new FreeTriangleMeshXZSideView(facade);
+		contentPane.add(upperLeft);
+		layout.addLayoutComponent(AnimatorContentPaneLayout.UPPER_LEFT, upperLeft);
 		
 		// Upper right tile
 		engine.startIn(gameWindow);
