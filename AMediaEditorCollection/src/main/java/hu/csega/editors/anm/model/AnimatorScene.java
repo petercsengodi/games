@@ -16,10 +16,10 @@ import hu.csega.editors.anm.model.parts.AnimatorPart;
 
 public class AnimatorScene implements JSONString {
 
-	double timeBefore;
-	double timeAfter;
-	final List<String> roots = new ArrayList<>();
-	final Map<String, AnimatorPart> parts = new HashMap<>();
+	public double timeBefore;
+	public double timeAfter;
+	public final List<String> roots = new ArrayList<>();
+	public final Map<String, AnimatorPart> parts = new HashMap<>();
 
 	public AnimatorScene() {
 		this.timeBefore = 0.0;
@@ -117,4 +117,10 @@ public class AnimatorScene implements JSONString {
 		return toJSONString();
 	}
 
+	public void add(String string, AnimatorPart animatorPart) {
+		this.roots.add(string);
+		AnimatorPart part = new AnimatorPart(animatorPart);
+		part.name = string;
+		this.parts.put(string, part);
+	}
 }

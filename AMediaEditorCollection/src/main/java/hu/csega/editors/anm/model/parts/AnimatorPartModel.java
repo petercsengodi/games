@@ -6,8 +6,8 @@ import org.json.JSONString;
 
 public class AnimatorPartModel implements JSONString {
 
-	String filename;
-	final AnimatorPosition scale;
+	public String filename;
+	public final AnimatorPosition scale;
 
 	public AnimatorPartModel() {
 		this.filename = null;

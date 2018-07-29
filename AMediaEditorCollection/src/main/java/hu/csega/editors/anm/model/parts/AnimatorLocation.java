@@ -6,9 +6,9 @@ import org.json.JSONString;
 
 public class AnimatorLocation implements JSONString {
 
-	final AnimatorPosition position;
-	final AnimatorPosition direction;
-	final AnimatorPosition up;
+	public final AnimatorPosition position;
+	public final AnimatorPosition direction;
+	public final AnimatorPosition up;
 
 	public AnimatorLocation() {
 		this.position = new AnimatorPosition();

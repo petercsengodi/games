@@ -8,9 +8,9 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
-import javax.swing.tree.TreeModel;
-
 import hu.csega.editors.anm.menu.AnimatorMenu;
+import hu.csega.editors.anm.model.AnimatorScene;
+import hu.csega.editors.anm.model.parts.AnimatorPart;
 import hu.csega.editors.anm.swing.AnimatorContentPaneLayout;
 import hu.csega.editors.anm.treeview.AnimatorTreeModel;
 import hu.csega.games.adapters.opengl.OpenGLGameAdapter;
@@ -119,12 +119,18 @@ public class AnimatorConnector implements Connector, GameWindow {
 
 		AnimatorMenu.createMenuForJFrame(frame, facade);
 
+		// Test data // FIXME remove
+		AnimatorScene scene = new AnimatorScene();
+		scene.add("Root part", new AnimatorPart());
+
 		// Upper left tile
-		TreeModel treeModel = new AnimatorTreeModel();
+		AnimatorTreeModel treeModel = new AnimatorTreeModel();
 		JTree tree = new JTree(treeModel);
 		JScrollPane scrollPaneForTree = new JScrollPane(tree);
 		contentPane.add(scrollPaneForTree);
 		layout.addLayoutComponent(AnimatorContentPaneLayout.FAR_LEFT_PANEL, scrollPaneForTree);
+
+		treeModel.update(scene);
 
 		// Upper right tile
 		engine.startIn(gameWindow);

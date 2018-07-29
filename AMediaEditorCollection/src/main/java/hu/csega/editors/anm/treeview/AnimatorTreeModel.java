@@ -8,10 +8,16 @@ import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
+import hu.csega.editors.anm.model.AnimatorScene;
+
 public class AnimatorTreeModel implements TreeModel {
 
 	private Set<TreeModelListener> listeners = new HashSet<>();
 	private AnimatorTreeRoot root = new AnimatorTreeRoot();
+
+	public void update(AnimatorScene scene) {
+		root.update(scene);
+	}
 
 	@Override
 	public AnimatorTreeRoot getRoot() {
@@ -36,7 +42,7 @@ public class AnimatorTreeModel implements TreeModel {
 	public boolean isLeaf(Object parent) {
 		AnimatorTreeNode node = (AnimatorTreeNode) parent;
 		List<? extends AnimatorTreeNode> children = node.getChildren();
-		return children.isEmpty();
+		return (children == null || children.isEmpty());
 	}
 
 	@Override

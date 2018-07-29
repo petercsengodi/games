@@ -10,11 +10,11 @@ import org.json.JSONString;
 
 public class AnimatorPart implements JSONString {
 
-	String name;
-	boolean visible;
-	final AnimatorPartModel model;
-	final AnimatorPosition origin;
-	final List<AnimatorJoint> joints;
+	public String name;
+	public boolean visible;
+	public final AnimatorPartModel model;
+	public final AnimatorPosition origin;
+	public final List<AnimatorJoint> joints;
 
 	public AnimatorPart() {
 		this.name = "id-" + System.currentTimeMillis();

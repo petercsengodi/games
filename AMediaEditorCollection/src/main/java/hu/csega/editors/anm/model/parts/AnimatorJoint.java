@@ -6,9 +6,9 @@ import org.json.JSONString;
 
 public class AnimatorJoint implements JSONString {
 
-	String name;
-	String part;
-	final AnimatorLocation location;
+	public String name;
+	public String part;
+	public final AnimatorLocation location;
 
 	public AnimatorJoint() {
 		this.name = null;

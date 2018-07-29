@@ -6,7 +6,7 @@ import org.json.JSONString;
 
 public class AnimatorPosition implements JSONString {
 
-	double x, y, z;
+	public double x, y, z;
 
 	public AnimatorPosition() {
 	}
