@@ -8,7 +8,7 @@ public class AnimatorTreeRoot implements AnimatorTreeNode {
 	private List<AnimatorTreeNode> children = new ArrayList<>();
 
 	@Override
-	public List<AnimatorTreeNode> getChildren() {
+	public List<? extends AnimatorTreeNode> getChildren() {
 		return children;
 	}
 

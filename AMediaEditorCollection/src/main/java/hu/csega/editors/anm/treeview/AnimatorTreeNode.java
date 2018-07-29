@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface AnimatorTreeNode {
 
-	List<AnimatorTreeNode> getChildren();
+	List<? extends AnimatorTreeNode> getChildren();
 
 }

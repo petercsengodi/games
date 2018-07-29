@@ -21,21 +21,21 @@ public class AnimatorTreeModel implements TreeModel {
 	@Override
 	public AnimatorTreeNode getChild(Object parent, int index) {
 		AnimatorTreeNode node = (AnimatorTreeNode) parent;
-		List<AnimatorTreeNode> children = node.getChildren();
+		List<? extends AnimatorTreeNode> children = node.getChildren();
 		return children.get(index);
 	}
 
 	@Override
 	public int getChildCount(Object parent) {
 		AnimatorTreeNode node = (AnimatorTreeNode) parent;
-		List<AnimatorTreeNode> children = node.getChildren();
+		List<? extends AnimatorTreeNode> children = node.getChildren();
 		return children.size();
 	}
 
 	@Override
 	public boolean isLeaf(Object parent) {
 		AnimatorTreeNode node = (AnimatorTreeNode) parent;
-		List<AnimatorTreeNode> children = node.getChildren();
+		List<? extends AnimatorTreeNode> children = node.getChildren();
 		return children.isEmpty();
 	}
 
@@ -47,7 +47,7 @@ public class AnimatorTreeModel implements TreeModel {
 	public int getIndexOfChild(Object parent, Object childObject) {
 		AnimatorTreeNode node = (AnimatorTreeNode) parent;
 		AnimatorTreeNode child = (AnimatorTreeNode) childObject;
-		List<AnimatorTreeNode> children = node.getChildren();
+		List<? extends AnimatorTreeNode> children = node.getChildren();
 		return children.indexOf(child);
 	}
 
