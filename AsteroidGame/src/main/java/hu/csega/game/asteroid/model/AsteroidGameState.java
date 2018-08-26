@@ -8,5 +8,11 @@ public class AsteroidGameState implements Serializable {
 
 	public GameObjectLocation shipLocation = new GameObjectLocation();
 
+	public AsteroidGameState() {
+		shipLocation.scale.x = 0.1f;
+		shipLocation.scale.y = 0.1f;
+		shipLocation.scale.z = 0.1f;
+	}
+
 	private static final long serialVersionUID = 1L;
 }

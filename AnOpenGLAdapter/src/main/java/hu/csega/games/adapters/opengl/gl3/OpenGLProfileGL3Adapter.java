@@ -35,6 +35,7 @@ import hu.csega.games.adapters.opengl.utils.OpenGLProgramLogger;
 import hu.csega.games.engine.g3d.GameObjectLocation;
 import hu.csega.games.engine.g3d.GameObjectPosition;
 import hu.csega.games.engine.g3d.GameObjectRotation;
+import hu.csega.games.engine.g3d.GameObjectScale;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
@@ -250,10 +251,12 @@ public class OpenGLProfileGL3Adapter implements OpenGLProfileAdapter {
 
 			GameObjectPosition p = location.position;
 			GameObjectRotation r = location.rotation;
+			GameObjectScale s = location.scale;
 			calculatedMatrix.translate(p.x, p.y, p.z);
+			calculatedMatrix.rotate(r.x, 1f, 0f, 0f);
+			calculatedMatrix.rotate(r.y, 0f, 1f, 0f);
 			calculatedMatrix.rotate(r.z, 0f, 0f, 1f);
-			calculatedMatrix.rotate(r.y, 1f, 0f, 0f);
-			calculatedMatrix.rotate(r.x, 0f, 1f, 0f);
+			calculatedMatrix.scale(s.x, s.y, s.z);
 
 			calculatedMatrix.get(matrixBuffer);
 
