@@ -12,6 +12,7 @@ import hu.csega.games.engine.intf.GameControl;
 public class AsteroidGameModifyingStep implements GameEngineCallback {
 
 	private static final double PI2 = Math.PI * 2.0;
+	private static final double PIP2 = Math.PI / 2.0;
 	private static final double PLAYER_ROTATION = 0.01;
 	private static final double PLAYER_FORWARD = 1.0;
 
@@ -51,6 +52,18 @@ public class AsteroidGameModifyingStep implements GameEngineCallback {
 				while(rotation.x >= PI2) {
 					rotation.x -= PI2;
 				}
+			}
+
+			if(control.isAltOn()) {
+				if(rotation.z < PIP2) {
+					rotation.z += PLAYER_ROTATION;
+					if(rotation.z > PIP2)
+						rotation.z = (float)PIP2;
+				}
+			} else if(rotation.z > 0) {
+				rotation.z -= PLAYER_ROTATION;
+				if(rotation.z < 0)
+					rotation.z = 0;
 			}
 
 		} // null checks

@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.joml.Math;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 import hu.csega.game.asteroid.model.AsteroidGameModel;
@@ -38,7 +39,61 @@ public class AsteroidGameInitStep implements GameEngineCallback {
 		GameObjectHandler ship = builderFrom(store, "res/meshes/ship1.mesh");
 		model.setShipModel(ship);
 
+		GameObjectHandler asteroid1 = buildAsteroid1(store, "res/textures/rock-texture-03.jpg", 200, 10, 0.1);
+		model.setAsteroid1Model(asteroid1);
+
+		GameObjectHandler asteroid2 = buildAsteroid1(store, "res/textures/rock-texture-02.png", 100, 5, 0.1);
+		model.setAsteroid2Model(asteroid2);
+
+		GameObjectHandler asteroid3 = buildAsteroid1(store, "res/textures/rock-texture-01.jpg", 50, 2, 0.1);
+		model.setAsteroid3Model(asteroid3);
+
+		GameObjectHandler shot1 = buildAsteroid1(store, "res/textures/red.png", 10, 0, Math.PI / 4);
+		model.setShot1Model(shot1);
+
 		return facade;
+	}
+
+	public GameObjectHandler buildAsteroid1(GameModelStore store, String textureFilename, double R, double bumps, double delta) {
+		GameObjectHandler texture = store.loadTexture(textureFilename);
+		GameModelBuilder builder = new GameModelBuilder();
+		builder.setTextureHandler(texture);
+
+		// TODO: as first approach, we did not optimize anything with indices
+		int index = 0;
+		for(double alfa = 0.0; alfa < Math.PI * 2.0; alfa += delta) {
+			for(double beta = -Math.PI / 2.0; beta < Math.PI / 2.0; beta += delta) {
+				index = oneVertex(builder, R, index, alfa, beta, bumps);
+				index = oneVertex(builder, R, index, alfa, beta + delta, bumps);
+				index = oneVertex(builder, R, index, alfa + delta, beta, bumps);
+				index = oneVertex(builder, R, index, alfa, beta + delta, bumps);
+				index = oneVertex(builder, R, index, alfa + delta, beta, bumps);
+				index = oneVertex(builder, R, index, alfa + delta, beta + delta, bumps);
+			}
+		}
+
+		return store.buildModel(builder);
+	}
+
+	private int oneVertex(GameModelBuilder builder, double R, int index, double alfa, double beta, double bumps) {
+		R += bumps * Math.sin(alfa * 7.0) * Math.cos(beta * 12.0);
+
+		float x = (float)(R * Math.sin(alfa) * Math.cos(beta));
+		float y = (float)(R * Math.sin(beta));
+		float z = (float)(R * Math.cos(alfa) * Math.cos(beta));
+		Vector4f vp = new Vector4f(x, y, z, 1f);
+
+		float tx = (float)(alfa / (Math.PI * 2.0));
+		float ty = (float)((beta + Math.PI / 2.0) / Math.PI);
+		Vector2f vt = new Vector2f(tx, ty);
+
+		GameObjectPosition p = new GameObjectPosition(vp.x, vp.y, vp.z);
+		GameObjectDirection d = new GameObjectDirection(0f, 1f, 0f);
+		GameTexturePosition tex = new GameTexturePosition(vt.x, vt.y);
+		builder.getVertices().add(new GameObjectVertex(p, d, tex));
+
+		builder.getIndices().add(index++);
+		return index;
 	}
 
 	public GameObjectHandler builderFrom(GameModelStore store, String filename) {

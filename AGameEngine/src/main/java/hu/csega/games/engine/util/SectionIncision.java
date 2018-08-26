@@ -33,6 +33,7 @@ public class SectionIncision {
 	public static boolean incisionSectionAndSphere(
 			double x0, double y0, double x1, double y1,
 			double sx, double sy, double sr) {
+
 		double dx = x1 - x0;
 		double dy = y1 - y0;
 		double dsx = x0 - sx;
@@ -60,6 +61,7 @@ public class SectionIncision {
 	public static boolean incisionSpheres(
 			double x0, double y0, double r0,
 			double x1, double y1, double r1) {
+
 		if(Math.abs(x1 - x0) < EPSILON && Math.abs(y1 - y0) < EPSILON)
 			return false;
 
