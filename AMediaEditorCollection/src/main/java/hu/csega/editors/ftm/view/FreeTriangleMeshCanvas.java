@@ -11,23 +11,29 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
+import hu.csega.editors.common.EditorLensPipeline;
+import hu.csega.editors.common.EditorPoint;
 import hu.csega.editors.ftm.model.FreeTriangleMeshModel;
 import hu.csega.editors.ftm.model.FreeTriangleMeshVertex;
 import hu.csega.games.engine.GameEngineFacade;
 import hu.csega.games.engine.intf.GameCanvas;
-import hu.csega.games.engine.intf.GameControl;
 import hu.csega.games.engine.intf.GameWindow;
 
-public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanvas, MouseListener, MouseMotionListener {
+public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanvas, MouseListener, MouseMotionListener, MouseWheelListener {
 
 	protected GameEngineFacade facade;
 
 	public static final Dimension PREFERRED_SIZE = new Dimension(400, 300);
 	protected Dimension lastSize = new Dimension(PREFERRED_SIZE.width, PREFERRED_SIZE.height);
+
+	public static final double[] ZOOM_VALUES = { 0.0001, 0.001, 0.01, 0.1, 0.2, 0.3, 0.5, 0.75, 1.0, 1.25, 1.50, 2.0, 3.0, 4.0, 5.0, 10.0, 100.0 };
+	public static final int DEFAULT_ZOOM_INDEX = 8;
 
 	private BufferedImage buffer = null;
 
@@ -41,11 +47,15 @@ public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanva
 	private Point selectionEnd = new Point();
 	private Rectangle selectionBox = new Rectangle();
 
+	protected EditorLensPipeline lenses = new EditorLensPipeline();
+	protected int zoomIndex = DEFAULT_ZOOM_INDEX;
+
 	public FreeTriangleMeshCanvas(GameEngineFacade facade) {
 		this.facade = facade;
 		setPreferredSize(PREFERRED_SIZE);
 		addMouseListener(this);
 		addMouseMotionListener(this);
+		addMouseWheelListener(this);
 
 		GameWindow window = facade.window();
 		KeyListener keyListener = (KeyListener) window;
@@ -79,24 +89,6 @@ public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanva
 		g2d.fillRect(0, 0, lastSize.width, lastSize.height);
 		g2d.setColor(Color.black);
 
-		int widthDiv2 = lastSize.width / 2;
-		int heightDiv2 = lastSize.height / 2;
-		int halfWidth = (widthDiv2 / 20) * 20;
-		int halfHeight = (heightDiv2 / 20) * 20;
-		g2d.setColor(Color.WHITE);
-		g2d.translate(widthDiv2, heightDiv2);
-
-		for(int x = -halfWidth; x < halfWidth; x += 20) {
-			g2d.drawLine(x, -heightDiv2, x, heightDiv2);
-		}
-
-		for(int y = -halfHeight; y < halfHeight; y += 20) {
-			g2d.drawLine(-widthDiv2, y, widthDiv2, y);
-		}
-
-		g2d.drawRect(-10, -10, 20, 20);
-		g2d.translate(-widthDiv2, -heightDiv2);
-
 		paint2d(g2d);
 
 		g.drawImage(buffer, 0, 0, null);
@@ -110,15 +102,15 @@ public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanva
 
 	protected abstract void zoom(double delta);
 
-	protected abstract void selectAll(int x1, int y1, int x2, int y2, boolean add);
+	protected abstract void selectAll(double x1, double y1, double x2, double y2, boolean add);
 
-	protected abstract void selectFirst(int x, int y, int radius, boolean add);
+	protected abstract void selectFirst(double x, double y, double radius, boolean add);
 
-	protected abstract void createVertexAt(int x, int y);
+	protected abstract void createVertexAt(double x, double y);
 
-	protected abstract void moveSelected(int x, int y);
+	protected abstract void moveSelected(double x, double y);
 
-	protected abstract Point transformVertexToPoint(FreeTriangleMeshVertex vertex);
+	protected abstract EditorPoint transformVertexToPoint(FreeTriangleMeshVertex vertex);
 
 	protected FreeTriangleMeshModel getModel() {
 		FreeTriangleMeshModel model = (FreeTriangleMeshModel) facade.model();
@@ -145,8 +137,8 @@ public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanva
 		}
 
 		if(mouseRightPressed) {
-			int dx = mouseRightAt.x - p.x;
-			int dy = mouseRightAt.y - p.y;
+			int dx = p.x - mouseRightAt.x;
+			int dy = p.y - mouseRightAt.y;
 			translate(dx, dy);
 			repaint();
 			mouseRightAt.x = p.x;
@@ -160,19 +152,7 @@ public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanva
 		Point p = new Point(e.getX(), e.getY());
 
 		if(mouseRightPressed) {
-
-			GameControl control = facade.control();
-			if(control.isControlOn()) {
-				double midX = this.getWidth() / 2.0;
-				double midY = this.getHeight() / 2.0;
-				double oldDistance = distance(midX, midY, mouseRightAt.x, mouseRightAt.y);
-				double newDistance = distance(midX, midY, p.x, p.y);
-				double diffDistance = newDistance - oldDistance;
-				zoom(diffDistance);
-			} else {
-				translate(mouseRightAt.x - p.x, mouseRightAt.y - p.y);
-			}
-
+			translate(p.x - mouseRightAt.x, p.y - mouseRightAt.y);
 			mouseRightAt.x = p.x;
 			mouseRightAt.y = p.y;
 			repaint();
@@ -203,9 +183,9 @@ public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanva
 			mouseLeftPressed = false;
 			if(selectionBoxEnabled) {
 				calculateSelectionBox();
-				Point p1 = transformToModel(selectionStart.x, selectionStart.y);
-				Point p2 = transformToModel(selectionEnd.x, selectionEnd.y);
-				selectAll(p1.x, p1.y, p2.x, p2.y, e.isShiftDown());
+				EditorPoint p1 = transformToModel(selectionStart.x, selectionStart.y);
+				EditorPoint p2 = transformToModel(selectionEnd.x, selectionEnd.y);
+				selectAll(p1.getX(), p1.getY(), p2.getX(), p2.getY(), e.isShiftDown());
 				selectionBoxEnabled = false;
 				repaintEverything();
 			}
@@ -222,13 +202,13 @@ public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanva
 		if(e.getButton() == MouseEvent.BUTTON1) {
 			if(e.isControlDown()) {
 				// create new vertex
-				Point p = transformToModel(e.getX(), e.getY());
-				createVertexAt(p.x, p.y);
+				EditorPoint p = transformToModel(e.getX(), e.getY());
+				createVertexAt(p.getX(), p.getY());
 				repaintEverything();
 			} else {
 				// select one vertex
-				Point p = transformToModel(e.getX(), e.getY());
-				selectFirst(p.x, p.y, 5, e.isShiftDown());
+				EditorPoint p = transformToModel(e.getX(), e.getY());
+				selectFirst(p.getX(), p.getY(), 5, e.isShiftDown());
 				repaintEverything();
 			}
 		}
@@ -240,6 +220,18 @@ public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanva
 
 	@Override
 	public void mouseExited(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		int numberOfRotations = e.getWheelRotation();
+		zoomIndex += numberOfRotations;
+		if(zoomIndex < 0)
+			zoomIndex = 0;
+		else if(zoomIndex >= ZOOM_VALUES.length)
+			zoomIndex = ZOOM_VALUES.length - 1;
+		lenses.setScale(ZOOM_VALUES[zoomIndex]);
+		repaint();
 	}
 
 	protected Rectangle calculateSelectionBox() {
@@ -254,14 +246,10 @@ public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanva
 		}
 	}
 
-	private Point transformToModel(int x, int y) {
+	private EditorPoint transformToModel(int x, int y) {
 		int widthDiv2 = lastSize.width / 2;
 		int heightDiv2 = lastSize.height / 2;
-
-		Point ret = new Point();
-		ret.x = x - widthDiv2;
-		ret.y = heightDiv2 - y;
-		return ret;
+		return lenses.fromScreenToModel(x - widthDiv2, heightDiv2 - y);
 	}
 
 	protected double distance(double x1, double y1, double x2, double y2) {

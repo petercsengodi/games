@@ -2,7 +2,6 @@ package hu.csega.editors.ftm.view;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.List;
@@ -10,6 +9,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import hu.csega.editors.FreeTriangleMeshToolStarter;
+import hu.csega.editors.common.EditorPoint;
 import hu.csega.editors.ftm.model.FreeTriangleMeshModel;
 import hu.csega.editors.ftm.model.FreeTriangleMeshTriangle;
 import hu.csega.editors.ftm.model.FreeTriangleMeshVertex;
@@ -70,12 +70,12 @@ public class FreeTriangleMeshTexture extends FreeTriangleMeshCanvas {
 			FreeTriangleMeshVertex v3 = vertices.get(triangle.getVertex3());
 
 			if(selectedObjects.contains(v1) || selectedObjects.contains(v2) || selectedObjects.contains(v3)) {
-				Point p1 = transformVertexToPoint(v1);
-				Point p2 = transformVertexToPoint(v2);
-				Point p3 = transformVertexToPoint(v3);
-				g.drawLine(p1.x, p1.y, p2.x, p2.y);
-				g.drawLine(p2.x, p2.y, p3.x, p3.y);
-				g.drawLine(p3.x, p3.y, p1.x, p1.y);
+				EditorPoint p1 = transformVertexToPoint(v1);
+				EditorPoint p2 = transformVertexToPoint(v2);
+				EditorPoint p3 = transformVertexToPoint(v3);
+				g.drawLine((int)p1.getX(), (int)p1.getY(), (int)p2.getX(), (int)p2.getY());
+				g.drawLine((int)p2.getX(), (int)p2.getY(), (int)p3.getX(), (int)p3.getY());
+				g.drawLine((int)p3.getX(), (int)p3.getY(), (int)p1.getX(), (int)p1.getY());
 			}
 		}
 
@@ -84,8 +84,8 @@ public class FreeTriangleMeshTexture extends FreeTriangleMeshCanvas {
 
 			if(object instanceof FreeTriangleMeshVertex) {
 				FreeTriangleMeshVertex vertex = (FreeTriangleMeshVertex) object;
-				Point p = transformVertexToPoint(vertex);
-				g.drawRect(p.x - 2, p.y - 2, 5, 5);
+				EditorPoint p = transformVertexToPoint(vertex);
+				g.drawRect((int)p.getX() - 2, (int)p.getY() - 2, 5, 5);
 			}
 		}
 	}
@@ -101,22 +101,22 @@ public class FreeTriangleMeshTexture extends FreeTriangleMeshCanvas {
 	}
 
 	@Override
-	protected void selectAll(int x1, int y1, int x2, int y2, boolean add) {
+	protected void selectAll(double x1, double y1, double x2, double y2, boolean add) {
 		// not applicable
 	}
 
 	@Override
-	protected void selectFirst(int x, int y, int radius, boolean add) {
+	protected void selectFirst(double x, double y, double radius, boolean add) {
 		// not applicable
 	}
 
 	@Override
-	protected void createVertexAt(int x, int y) {
+	protected void createVertexAt(double x, double y) {
 		// not applicable
 	}
 
 	@Override
-	protected void moveSelected(int x, int y) {
+	protected void moveSelected(double x, double y) {
 		FreeTriangleMeshModel model = (FreeTriangleMeshModel) facade.model();
 
 		int width = (textureImage == null ? imageWidth : Math.min(imageWidth, textureImage.getWidth()));
@@ -132,13 +132,13 @@ public class FreeTriangleMeshTexture extends FreeTriangleMeshCanvas {
 	}
 
 	@Override
-	protected Point transformVertexToPoint(FreeTriangleMeshVertex vertex) {
+	protected EditorPoint transformVertexToPoint(FreeTriangleMeshVertex vertex) {
 		int width = (textureImage == null ? imageWidth : Math.min(imageWidth, textureImage.getWidth()));
 		int height = (textureImage == null ? imageHeight : Math.min(imageHeight, textureImage.getHeight()));
 
 		double x = vertex.getTX() * width;
 		double y = (1 - vertex.getTY()) * height;
-		return new Point((int)x, (int)y);
+		return new EditorPoint(x, y, 0.0, 1.0);
 	}
 
 	private static final long serialVersionUID = 1L;

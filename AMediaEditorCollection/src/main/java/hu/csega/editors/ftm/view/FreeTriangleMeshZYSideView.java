@@ -1,7 +1,6 @@
 package hu.csega.editors.ftm.view;
 
-import java.awt.Point;
-
+import hu.csega.editors.common.EditorPoint;
 import hu.csega.editors.ftm.model.FreeTriangleMeshCube;
 import hu.csega.editors.ftm.model.FreeTriangleMeshModel;
 import hu.csega.editors.ftm.model.FreeTriangleMeshVertex;
@@ -21,6 +20,7 @@ public class FreeTriangleMeshZYSideView extends FreeTriangleMeshSideView {
 		FreeTriangleMeshModel model = getModel();
 		model.setCanvasZYTranslateX(x);
 		model.setCanvasZYTranslateY(y);
+		lenses.addTranslation(x, y, 0.0);
 	}
 
 	@Override
@@ -30,11 +30,11 @@ public class FreeTriangleMeshZYSideView extends FreeTriangleMeshSideView {
 	}
 
 	@Override
-	protected void selectAll(int x1, int y1, int x2, int y2, boolean add) {
-		int vz1 = Math.min(x1, x2);
-		int vz2 = Math.max(x1, x2);
-		int vy1 = Math.min(y1, y2);
-		int vy2 = Math.max(y1, y2);
+	protected void selectAll(double x1, double y1, double x2, double y2, boolean add) {
+		double vz1 = Math.min(x1, x2);
+		double vz2 = Math.max(x1, x2);
+		double vy1 = Math.min(y1, y2);
+		double vy2 = Math.max(y1, y2);
 
 		FreeTriangleMeshCube cube = new FreeTriangleMeshCube();
 		cube.setX1(Double.NEGATIVE_INFINITY);
@@ -49,7 +49,7 @@ public class FreeTriangleMeshZYSideView extends FreeTriangleMeshSideView {
 	}
 
 	@Override
-	protected void selectFirst(int x, int y, int radius, boolean add) {
+	protected void selectFirst(double x, double y, double radius, boolean add) {
 		selectionLine.setZ1(x);
 		selectionLine.setZ2(x);
 		selectionLine.setY1(y);
@@ -60,23 +60,23 @@ public class FreeTriangleMeshZYSideView extends FreeTriangleMeshSideView {
 	}
 
 	@Override
-	protected void createVertexAt(int x, int y) {
+	protected void createVertexAt(double x, double y) {
 		FreeTriangleMeshModel model = getModel();
 		model.createVertexAt(0, y, x);
 	}
 
 	@Override
-	protected void moveSelected(int x, int y) {
+	protected void moveSelected(double x, double y) {
 		FreeTriangleMeshModel model = getModel();
 		model.moveSelected(0, -y, x);
 	}
 
 	@Override
-	protected Point transformVertexToPoint(FreeTriangleMeshVertex vertex) {
-		Point ret = new Point();
+	protected EditorPoint transformVertexToPoint(FreeTriangleMeshVertex vertex) {
+		EditorPoint ret = new EditorPoint();
 
-		ret.x = (int)vertex.getPZ();
-		ret.y = (int)vertex.getPY();
+		ret.setX(vertex.getPZ());
+		ret.setY(vertex.getPY());
 
 		return ret;
 	}

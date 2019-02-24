@@ -1,7 +1,6 @@
 package hu.csega.editors.anm;
 
 import java.awt.Container;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -112,7 +111,7 @@ public class AnimatorConnector implements Connector, GameWindow {
 		gameWindow.setFullScreen(true);
 
 		JFrame frame = (JFrame) gameWindow;
-		KeyListener keyListener = (KeyListener) gameWindow;
+		// KeyListener keyListener = (KeyListener) gameWindow;
 		Container contentPane = frame.getContentPane();
 		AnimatorContentPaneLayout layout = new AnimatorContentPaneLayout();
 		contentPane.setLayout(layout);

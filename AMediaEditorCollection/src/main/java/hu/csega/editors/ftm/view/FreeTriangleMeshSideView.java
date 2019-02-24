@@ -2,10 +2,10 @@ package hu.csega.editors.ftm.view;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.List;
 
+import hu.csega.editors.common.EditorPoint;
 import hu.csega.editors.ftm.model.FreeTriangleMeshLine;
 import hu.csega.editors.ftm.model.FreeTriangleMeshModel;
 import hu.csega.editors.ftm.model.FreeTriangleMeshTriangle;
@@ -31,6 +31,26 @@ public abstract class FreeTriangleMeshSideView extends FreeTriangleMeshCanvas {
 		//		SwingGraphics graphics = new SwingGraphics(g, lastSize.width, heightDiv2);
 		//		gameEngine.runStep(GameEngineStep.RENDER, graphics);
 
+		{
+			g.setColor(Color.WHITE);
+
+			for(int x = -400; x <= 400; x += 20) {
+				EditorPoint p1 = transformToScreen(new EditorPoint(x, -400, 0.0, 1.0));
+				EditorPoint p2 = transformToScreen(new EditorPoint(x, 400, 0.0, 1.0));
+				drawLine(g, p1, p2);
+			}
+
+			for(int y = -400; y <= 400; y += 20) {
+				EditorPoint p1 = transformToScreen(new EditorPoint(-400, y, 0.0, 1.0));
+				EditorPoint p2 = transformToScreen(new EditorPoint(400, y, 0.0, 1.0));
+				drawLine(g, p1, p2);
+			}
+
+			EditorPoint p1 = transformToScreen(new EditorPoint(-10, -10, 0.0, 1.0));
+			EditorPoint p2 = transformToScreen(new EditorPoint(10, 10, 0.0, 1.0));
+			drawRectangle(g, p1, p2);
+		}
+
 		FreeTriangleMeshModel model = (FreeTriangleMeshModel) facade.model();
 		List<Object> selectedObjects = model.getSelectedObjects();
 
@@ -39,12 +59,12 @@ public abstract class FreeTriangleMeshSideView extends FreeTriangleMeshCanvas {
 
 		g.setColor(Color.darkGray);
 		for(FreeTriangleMeshTriangle triangle : triangles) {
-			Point p1 = transformToScreen(transformVertexToPoint(vertices.get(triangle.getVertex1())));
-			Point p2 = transformToScreen(transformVertexToPoint(vertices.get(triangle.getVertex2())));
-			Point p3 = transformToScreen(transformVertexToPoint(vertices.get(triangle.getVertex3())));
-			g.drawLine(p1.x, p1.y, p2.x, p2.y);
-			g.drawLine(p2.x, p2.y, p3.x, p3.y);
-			g.drawLine(p3.x, p3.y, p1.x, p1.y);
+			EditorPoint p1 = transformToScreen(transformVertexToPoint(vertices.get(triangle.getVertex1())));
+			EditorPoint p2 = transformToScreen(transformVertexToPoint(vertices.get(triangle.getVertex2())));
+			EditorPoint p3 = transformToScreen(transformVertexToPoint(vertices.get(triangle.getVertex3())));
+			drawLine(g, p1, p2);
+			drawLine(g, p2, p3);
+			drawLine(g, p3, p1);
 		}
 
 		for(FreeTriangleMeshVertex vertex : vertices) {
@@ -55,9 +75,9 @@ public abstract class FreeTriangleMeshSideView extends FreeTriangleMeshCanvas {
 				g.setColor(Color.black);
 			}
 
-			Point p = transformVertexToPoint(vertex);
-			Point transformed = transformToScreen(p);
-			g.drawRect(transformed.x - 2, transformed.y - 2, 5, 5);
+			EditorPoint p = transformVertexToPoint(vertex);
+			EditorPoint transformed = transformToScreen(p);
+			g.drawRect((int)transformed.getX() - 2, (int)transformed.getY() - 2, 5, 5);
 		}
 
 
@@ -71,11 +91,16 @@ public abstract class FreeTriangleMeshSideView extends FreeTriangleMeshCanvas {
 		}
 	}
 
-	private Point transformToScreen(Point p) {
-		Point ret = new Point();
-		ret.x = p.x;
-		ret.y = -p.y;
-		return ret;
+	private EditorPoint transformToScreen(EditorPoint p) {
+		return lenses.fromModelToScreen(p.getX(), -p.getY(), 0.0);
+	}
+
+	private void drawLine(Graphics2D g, EditorPoint end1, EditorPoint end2) {
+		g.drawLine((int)end1.getX(), (int)end1.getY(), (int)end2.getX(), (int)end2.getY());
+	}
+
+	private void drawRectangle(Graphics2D g, EditorPoint end1, EditorPoint end2) {
+		g.drawRect((int)end1.getX(), (int)end1.getY(), (int)(end2.getX() - end1.getX()), (int)(end2.getY() - end1.getY()));
 	}
 
 	private static final long serialVersionUID = 1L;

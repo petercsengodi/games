@@ -1,5 +1,6 @@
 package hu.csega.editors.ftm;
 
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.KeyListener;
@@ -14,6 +15,7 @@ import hu.csega.editors.ftm.view.FreeTriangleMeshTexture;
 import hu.csega.editors.ftm.view.FreeTriangleMeshXYSideView;
 import hu.csega.editors.ftm.view.FreeTriangleMeshXZSideView;
 import hu.csega.editors.ftm.view.FreeTriangleMeshZYSideView;
+import hu.csega.games.adapters.opengl.OpenGLCanvas;
 import hu.csega.games.adapters.opengl.OpenGLGameAdapter;
 import hu.csega.games.common.Connector;
 import hu.csega.games.engine.GameEngineFacade;
@@ -98,9 +100,11 @@ public class FreeTriangleMeshConnector implements Connector, GameWindow {
 		GameEngine engine = GameEngine.create(descriptor, adapter);
 		GameEngineFacade facade = engine.getFacade();
 
+		FreeTriangleMeshRenderStep renderer = new FreeTriangleMeshRenderStep();
+
 		engine.step(GameEngineStep.INIT, new FreeTriangleMeshInitStep());
 		engine.step(GameEngineStep.MODIFY, new FreeTriangleMeshModifyStep());
-		engine.step(GameEngineStep.RENDER, new FreeTriangleMeshRenderStep());
+		engine.step(GameEngineStep.RENDER, renderer);
 
 		engine.getControl().registerKeyListener(new FreeTriangleMeshKeyListener());
 
@@ -125,6 +129,16 @@ public class FreeTriangleMeshConnector implements Connector, GameWindow {
 		bottomRightTab.addTab("Texture Window", new FreeTriangleMeshTexture(facade));
 
 		contentPane.add(bottomRightTab);
+
+		GameCanvas canvas = engine.getCanvas();
+		FreeTriangleMeshMouseController mouseController = new FreeTriangleMeshMouseController(canvas);
+
+		Component component = ((OpenGLCanvas) canvas).getRealCanvas();
+		component.addMouseListener(mouseController);
+		component.addMouseMotionListener(mouseController);
+		component.addMouseWheelListener(mouseController);
+
+		renderer.setMouseController(mouseController);
 
 		return engine;
 	}

@@ -23,6 +23,12 @@ public class FreeTriangleMeshRenderStep implements GameEngineCallback {
 	private GameObjectHandler convertedModel = null;
 	private GameObjectLocation modelLocation = new GameObjectLocation();
 
+	private FreeTriangleMeshMouseController mouseController = null;
+
+	public void setMouseController(FreeTriangleMeshMouseController mouseController) {
+		this.mouseController = mouseController;
+	}
+
 	@Override
 	public Object call(GameEngineFacade facade) {
 		FreeTriangleMeshModel model = (FreeTriangleMeshModel) facade.model();
@@ -69,18 +75,31 @@ public class FreeTriangleMeshRenderStep implements GameEngineCallback {
 			model.setInvalid(false);
 		}
 
+		double alfa = 0.0;
+		double beta = 0.0;
+		double distance = 100.0;
+
+		if(mouseController != null) {
+			double scaling = mouseController.getScaling();
+			distance *= scaling;
+			alfa = mouseController.getAlfa();
+			beta = mouseController.getBeta();
+		}
+
 		// Rendering
 		GameGraphics g = facade.graphics();
 
 		GameObjectLocation cameraLocation = new GameObjectLocation();
 		cameraLocation.position.x = 0;
 		cameraLocation.position.y = 0;
-		cameraLocation.position.z = -100;
+		cameraLocation.position.z = -(float)distance;
 		g.placeCamera(cameraLocation);
 
 		// g.crossHair(0, 0);
 
 		if(convertedModel != null) {
+			modelLocation.rotation.y = (float)alfa;
+			modelLocation.rotation.x = (float)beta;
 			g.drawModel(convertedModel, modelLocation);
 		}
 
