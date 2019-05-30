@@ -22,8 +22,8 @@ public class AnimatorTreePart implements AnimatorTreeNode {
 		if(cachedChildren == null) {
 			for(AnimatorJoint joint : wrapped.joints) {
 				if(joint.name != null) {
-					AnimatorPart part = scene.parts.get(joint.name);
-					cachedChildren.add(new AnimatorTreePart(part, scene));
+					// ??????? AnimatorPart part = scene.partPlacements.get(joint.name);
+					// ????? cachedChildren.add(new AnimatorTreePart(part, scene));
 				}
 			}
 		}

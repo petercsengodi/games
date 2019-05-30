@@ -12,27 +12,25 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONString;
 
-import hu.csega.editors.anm.model.parts.AnimatorPart;
-
 public class AnimatorScene implements JSONString {
 
 	public double timeBefore;
 	public double timeAfter;
 	public final List<String> roots = new ArrayList<>();
-	public final Map<String, AnimatorPart> parts = new HashMap<>();
+	public final Map<String, AnimatorPartPlacement> partPlacements = new HashMap<>();
 
 	public AnimatorScene() {
 		this.timeBefore = 0.0;
 		this.timeAfter = 0.0;
 	}
 
-	public AnimatorScene(double timeBefore, double timeAfter, List<String> roots, Map<String, AnimatorPart> parts) {
+	public AnimatorScene(double timeBefore, double timeAfter, List<String> roots, Map<String, AnimatorPartPlacement> parts) {
 		this.timeBefore = timeBefore;
 		this.timeAfter = timeAfter;
 		this.roots.addAll(roots);
 
-		for(Entry<String, AnimatorPart> entry : parts.entrySet())
-			this.parts.put(entry.getKey(), new AnimatorPart(entry.getValue()));
+		for(Entry<String, AnimatorPartPlacement> entry : parts.entrySet())
+			this.partPlacements.put(entry.getKey(), new AnimatorPartPlacement(entry.getValue()));
 	}
 
 	public AnimatorScene(AnimatorScene other) {
@@ -55,9 +53,9 @@ public class AnimatorScene implements JSONString {
 		this.roots.clear();
 		this.roots.addAll(other.roots);
 
-		this.parts.clear();
-		for(Entry<String, AnimatorPart> entry : other.parts.entrySet())
-			this.parts.put(entry.getKey(), new AnimatorPart(entry.getValue()));
+		this.partPlacements.clear();
+		for(Entry<String, AnimatorPartPlacement> entry : other.partPlacements.entrySet())
+			this.partPlacements.put(entry.getKey(), new AnimatorPartPlacement(entry.getValue()));
 	}
 
 	public void copyFrom(JSONObject json) throws JSONException {
@@ -72,14 +70,14 @@ public class AnimatorScene implements JSONString {
 				this.roots.add(array.getString(i));
 		}
 
-		this.parts.clear();
+		this.partPlacements.clear();
 		JSONObject map = json.optJSONObject("parts");
 		if(map != null && map.length() > 0) {
 			Iterator<?> keys = map.keys();
 			while(keys.hasNext()) {
 				String key = keys.next().toString();
 				JSONObject value = map.getJSONObject(key);
-				this.parts.put(key, new AnimatorPart(value));
+				this.partPlacements.put(key, /* new AnimatorPartPlacement(value) */ null);
 			}
 		}
 	}
@@ -104,8 +102,8 @@ public class AnimatorScene implements JSONString {
 			array.put(root);
 
 		JSONObject map = new JSONObject();
-		for(Entry<String, AnimatorPart> entry : parts.entrySet())
-			map.put(entry.getKey(), entry.getValue().toJSONObject());
+		for(Entry<String, AnimatorPartPlacement> entry : partPlacements.entrySet())
+			/* map.put(entry.getKey(), entry.getValue().toJSONObject()) */;
 
 		json.put("roots", array);
 		json.put("parts", map);
@@ -117,10 +115,10 @@ public class AnimatorScene implements JSONString {
 		return toJSONString();
 	}
 
-	public void add(String string, AnimatorPart animatorPart) {
+	public void add(String string, AnimatorPartPlacement animatorPart) {
 		this.roots.add(string);
-		AnimatorPart part = new AnimatorPart(animatorPart);
-		part.name = string;
-		this.parts.put(string, part);
+		AnimatorPartPlacement part = new AnimatorPartPlacement(animatorPart);
+		// part.name = string;
+		this.partPlacements.put(string, part);
 	}
 }

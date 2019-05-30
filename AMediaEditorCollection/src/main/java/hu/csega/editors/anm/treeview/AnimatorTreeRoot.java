@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hu.csega.editors.anm.model.AnimatorScene;
-import hu.csega.editors.anm.model.parts.AnimatorPart;
 
 public class AnimatorTreeRoot implements AnimatorTreeNode {
 
@@ -16,8 +15,8 @@ public class AnimatorTreeRoot implements AnimatorTreeNode {
 		this.children.clear();
 
 		for(String root : scene.roots) {
-			AnimatorPart part = scene.parts.get(root);
-			children.add(new AnimatorTreePart(part, scene));
+			// ????? AnimatorPart part = scene.partPlacements.get(root);
+			// ????? children.add(new AnimatorTreePart(part, scene));
 		}
 	}
 

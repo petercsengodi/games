@@ -10,9 +10,9 @@ import org.json.JSONString;
 
 public class AnimatorModel implements JSONString {
 
-	String title;
-	int currentScene;
-	final List<AnimatorScene> scenes = new ArrayList<>();
+	public String title;
+	public int currentScene;
+	public final List<AnimatorScene> scenes = new ArrayList<>();
 
 	public AnimatorModel() {
 	}
@@ -26,7 +26,6 @@ public class AnimatorModel implements JSONString {
 	}
 
 	public AnimatorModel(AnimatorModel other) {
-		this();
 		copyFrom(other);
 	}
 
@@ -35,7 +34,6 @@ public class AnimatorModel implements JSONString {
 	}
 
 	public AnimatorModel(JSONObject json) throws JSONException {
-		this();
 		copyFrom(json);
 	}
 

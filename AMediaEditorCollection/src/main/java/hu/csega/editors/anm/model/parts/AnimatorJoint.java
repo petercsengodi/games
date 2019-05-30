@@ -6,20 +6,15 @@ import org.json.JSONString;
 
 public class AnimatorJoint implements JSONString {
 
-	public String name;
-	public String part;
-	public final AnimatorLocation location;
+	public String name = null;
+	public final AnimatorLocation location = new AnimatorLocation();
 
 	public AnimatorJoint() {
-		this.name = null;
-		this.part = null;
-		this.location = new AnimatorLocation();
 	}
 
-	public AnimatorJoint(String name, String filename, AnimatorLocation location) {
+	public AnimatorJoint(String name, AnimatorLocation location) {
 		this.name = name;
-		this.part = filename;
-		this.location = new AnimatorLocation(location);
+		this.location.copyFrom(location);
 	}
 
 	public AnimatorJoint(AnimatorJoint other) {
@@ -38,13 +33,11 @@ public class AnimatorJoint implements JSONString {
 
 	public void copyFrom(AnimatorJoint other) {
 		this.name = other.name;
-		this.part = other.part;
 		this.location.copyFrom(other.location);
 	}
 
 	public void copyFrom(JSONObject json) throws JSONException {
 		this.name = json.optString("name");
-		this.part = json.optString("part");
 		this.location.copyFrom(json.getJSONObject("location"));
 	}
 
@@ -61,7 +54,6 @@ public class AnimatorJoint implements JSONString {
 	public JSONObject toJSONObject() throws JSONException {
 		JSONObject json = new JSONObject();
 		json.put("name", name);
-		json.put("part", part);
 		json.put("location", location.toJSONObject());
 		return json;
 	}
@@ -77,7 +69,6 @@ public class AnimatorJoint implements JSONString {
 		int result = 1;
 		result = prime * result + ((location == null) ? 0 : location.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((part == null) ? 0 : part.hashCode());
 		return result;
 	}
 
@@ -99,11 +90,6 @@ public class AnimatorJoint implements JSONString {
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
-			return false;
-		if (part == null) {
-			if (other.part != null)
-				return false;
-		} else if (!part.equals(other.part))
 			return false;
 		return true;
 	}

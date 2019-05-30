@@ -8,8 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import hu.csega.editors.anm.menu.AnimatorMenu;
-import hu.csega.editors.anm.model.AnimatorScene;
-import hu.csega.editors.anm.model.parts.AnimatorPart;
 import hu.csega.editors.anm.swing.AnimatorContentPaneLayout;
 import hu.csega.editors.anm.treeview.AnimatorTreeModel;
 import hu.csega.games.adapters.opengl.OpenGLGameAdapter;
@@ -20,6 +18,7 @@ import hu.csega.games.engine.impl.GameEngine;
 import hu.csega.games.engine.intf.GameAdapter;
 import hu.csega.games.engine.intf.GameCanvas;
 import hu.csega.games.engine.intf.GameDescriptor;
+import hu.csega.games.engine.intf.GameEngineStep;
 import hu.csega.games.engine.intf.GameWindow;
 import hu.csega.games.engine.intf.GameWindowListener;
 import hu.csega.toolshed.logging.Logger;
@@ -97,6 +96,8 @@ public class AnimatorConnector implements Connector, GameWindow {
 		GameEngine engine = GameEngine.create(descriptor, adapter);
 		GameEngineFacade facade = engine.getFacade();
 
+		engine.step(GameEngineStep.INIT, new AnimatorInitStep());
+
 		/*
 		engine.step(GameEngineStep.INIT, new FreeTriangleMeshInitStep());
 		engine.step(GameEngineStep.MODIFY, new FreeTriangleMeshModifyStep());
@@ -118,10 +119,6 @@ public class AnimatorConnector implements Connector, GameWindow {
 
 		AnimatorMenu.createMenuForJFrame(frame, facade);
 
-		// Test data // FIXME remove
-		AnimatorScene scene = new AnimatorScene();
-		scene.add("Root part", new AnimatorPart());
-
 		// Upper left tile
 		AnimatorTreeModel treeModel = new AnimatorTreeModel();
 		JTree tree = new JTree(treeModel);
@@ -129,7 +126,7 @@ public class AnimatorConnector implements Connector, GameWindow {
 		contentPane.add(scrollPaneForTree);
 		layout.addLayoutComponent(AnimatorContentPaneLayout.FAR_LEFT_PANEL, scrollPaneForTree);
 
-		treeModel.update(scene);
+		// ??????? treeModel.update(scene);
 
 		// Upper right tile
 		engine.startIn(gameWindow);
