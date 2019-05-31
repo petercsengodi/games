@@ -97,6 +97,7 @@ public class AnimatorConnector implements Connector, GameWindow {
 		GameEngineFacade facade = engine.getFacade();
 
 		engine.step(GameEngineStep.INIT, new AnimatorInitStep());
+		engine.step(GameEngineStep.RENDER, new AnimatorRenderStep());
 
 		/*
 		engine.step(GameEngineStep.INIT, new FreeTriangleMeshInitStep());
