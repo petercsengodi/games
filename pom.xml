@@ -95,5 +95,6 @@
 		<module>AsteroidGame</module>
 		<module>ACarGame</module>
 		<!-- module>UniversityGamePorted</module -->
+                <module>WizardGame</module>
 	</modules>
 </project>
