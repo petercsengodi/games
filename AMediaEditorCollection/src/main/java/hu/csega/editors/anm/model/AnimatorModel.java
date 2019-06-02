@@ -1,18 +1,24 @@
 package hu.csega.editors.anm.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONString;
 
+import hu.csega.editors.anm.model.parts.AnimatorPart;
+
 public class AnimatorModel implements JSONString {
 
 	public String title;
 	public int currentScene;
+	public final Map<String, AnimatorPart> parts = new HashMap<>();
 	public final List<AnimatorScene> scenes = new ArrayList<>();
+	public final AnimatorEditorModel editorModel = new AnimatorEditorModel();
 
 	public AnimatorModel() {
 	}

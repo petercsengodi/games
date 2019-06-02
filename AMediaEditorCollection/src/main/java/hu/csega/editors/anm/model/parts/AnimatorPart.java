@@ -83,8 +83,8 @@ public class AnimatorPart implements JSONString {
 		try {
 			JSONObject json = toJSONObject();
 			return json.toString();
-		} catch (JSONException e) {
-			return "{ \"error\": \"toString\"}";
+		} catch (JSONException ex) {
+			throw new RuntimeException("Couldn't create JSON!", ex);
 		}
 	}
 

@@ -9,6 +9,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import hu.csega.editors.anm.menu.AnimatorMenu;
 import hu.csega.editors.anm.swing.AnimatorContentPaneLayout;
+import hu.csega.editors.anm.swing.AnimatorTopDownViewPort;
 import hu.csega.editors.anm.treeview.AnimatorTreeModel;
 import hu.csega.games.adapters.opengl.OpenGLGameAdapter;
 import hu.csega.games.common.Connector;
@@ -126,6 +127,9 @@ public class AnimatorConnector implements Connector, GameWindow {
 		JScrollPane scrollPaneForTree = new JScrollPane(tree);
 		contentPane.add(scrollPaneForTree);
 		layout.addLayoutComponent(AnimatorContentPaneLayout.FAR_LEFT_PANEL, scrollPaneForTree);
+
+		AnimatorTopDownViewPort topDownViewPort = new AnimatorTopDownViewPort(facade);
+		layout.addLayoutComponent(AnimatorContentPaneLayout.UPPER_LEFT, topDownViewPort);
 
 		// ??????? treeModel.update(scene);
 

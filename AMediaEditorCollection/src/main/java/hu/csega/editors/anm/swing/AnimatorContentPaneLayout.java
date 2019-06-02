@@ -71,6 +71,14 @@ public class AnimatorContentPaneLayout implements LayoutManager {
 			component.setBounds(0, 0, LEFT_PANEL_WIDTH, height);
 			break;
 		}
+
+		case UPPER_LEFT: {
+			int height = (int)containerSize.getHeight() / 2;
+			int width = ((int)containerSize.getWidth() - LEFT_PANEL_WIDTH) / 2;
+			component.setBounds(LEFT_PANEL_WIDTH, 0, width, height);
+			break;
+		}
+
 		case CANVAS3D: {
 			int width = (int)((containerSize.getWidth() - LEFT_PANEL_WIDTH) / 2);
 			int left = (int)(containerSize.getWidth() - width);

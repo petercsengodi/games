@@ -1,4 +1,4 @@
-package hu.csega.editors.ftm.view;
+package hu.csega.editors.anm.swing;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -14,18 +14,29 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JPanel;
 
-import hu.csega.editors.common.EditorLensPipeline;
+import hu.csega.editors.anm.model.AnimatorModel;
+import hu.csega.editors.anm.model.AnimatorPartPlacement;
+import hu.csega.editors.anm.model.AnimatorPartPlacementChild;
+import hu.csega.editors.anm.model.AnimatorScene;
+import hu.csega.editors.anm.model.parts.AnimatorJoint;
+import hu.csega.editors.anm.model.parts.AnimatorPart;
+import hu.csega.editors.anm.model.parts.AnimatorPartModel;
+import hu.csega.editors.anm.model.parts.AnimatorPartTriangle;
+import hu.csega.editors.anm.model.parts.AnimatorPartVertex;
+import hu.csega.editors.anm.model.parts.AnimatorPosition;
 import hu.csega.editors.common.EditorPoint;
-import hu.csega.editors.ftm.model.FreeTriangleMeshModel;
-import hu.csega.editors.ftm.model.FreeTriangleMeshVertex;
+import hu.csega.editors.common.EditorTransformation;
+import hu.csega.editors.common.TransformationStack;
 import hu.csega.games.engine.GameEngineFacade;
 import hu.csega.games.engine.intf.GameCanvas;
 import hu.csega.games.engine.intf.GameWindow;
 
-public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanvas, MouseListener, MouseMotionListener, MouseWheelListener {
+public abstract class AnimatorAbstractViewPort extends JPanel implements GameCanvas, MouseListener, MouseMotionListener, MouseWheelListener {
 
 	protected GameEngineFacade facade;
 
@@ -47,10 +58,12 @@ public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanva
 	private Point selectionEnd = new Point();
 	private Rectangle selectionBox = new Rectangle();
 
-	protected EditorLensPipeline lenses = new EditorLensPipeline();
 	protected int zoomIndex = DEFAULT_ZOOM_INDEX;
 
-	public FreeTriangleMeshCanvas(GameEngineFacade facade) {
+	protected EditorTransformation transformation = new EditorTransformation();
+	protected TransformationStack transformationStack = new TransformationStack();
+
+	public AnimatorAbstractViewPort(GameEngineFacade facade) {
 		this.facade = facade;
 		setPreferredSize(PREFERRED_SIZE);
 		addMouseListener(this);
@@ -94,6 +107,90 @@ public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanva
 		g.drawImage(buffer, 0, 0, null);
 	}
 
+	protected void paint2d(Graphics2D g) {
+		EditorPoint topLeft = new EditorPoint(0, 0, 0, 1);
+		EditorPoint bottomRight = new EditorPoint(lastSize.width, lastSize.height, 0, 1);
+
+		transformation.fromScreenToModel(topLeft);
+		transformation.fromScreenToModel(bottomRight);
+
+		AnimatorModel model = getModel();
+		AnimatorScene scene = model.scenes.get(model.currentScene);
+
+		transformationStack.push(transformation.transformation);
+
+		for(String rootKey : scene.roots) {
+			AnimatorPartPlacement root = scene.partPlacements.get(rootKey);
+			render(g, model, root);
+		}
+
+		transformationStack.pop();
+	}
+
+	protected void render(Graphics2D g, AnimatorModel model, AnimatorPartPlacement partPlacement) {
+		transformationStack.push(partPlacement.transformation);
+
+		AnimatorPart part = model.parts.get(partPlacement.part);
+		renderWires(g, Color.GRAY, part.model);
+
+		for(AnimatorJoint joint : part.joints) {
+			renderPosition(g, Color.GRAY, joint.location.position);
+		}
+
+		for(AnimatorPartPlacementChild child : partPlacement.children) {
+			render(g, model, child.partPlacement);
+		}
+
+		transformationStack.pop();
+	}
+
+	private void renderPosition(Graphics2D g, Color color, AnimatorPosition position) {
+		EditorPoint p = new EditorPoint();
+		p.setX(position.x);
+		p.setY(position.y);
+		p.setZ(position.z);
+		p.setW(1.0);
+
+		transformation.fromModelToScreen(p);
+		drawPoint(g, color, p);
+	}
+
+	private void renderWires(Graphics2D g, Color color, AnimatorPartModel model) {
+		List<AnimatorPartVertex> vertices = model.getVertices();
+		int numberOfVertices = vertices.size();
+		List<EditorPoint> points = new ArrayList<>(numberOfVertices);
+
+		for(AnimatorPartVertex vertex : vertices) {
+			EditorPoint p = fromVertex(vertex);
+			transformation.fromModelToScreen(p);
+			points.add(p);
+		}
+
+		for(AnimatorPartTriangle triangle : model.triangles) {
+			EditorPoint p1 = points.get(triangle.getVertex1());
+			EditorPoint p2 = points.get(triangle.getVertex2());
+			EditorPoint p3 = points.get(triangle.getVertex3());
+			drawTriangle(g, color, p1, p2, p3);
+		}
+	}
+
+	protected void drawPoint(Graphics2D g, Color color, EditorPoint p) {
+		g.setColor(color);
+		g.drawOval((int)p.getX() - 3, (int)p.getY() - 3, 7, 7);
+	}
+
+	protected void drawTriangle(Graphics2D g, Color color, EditorPoint p1, EditorPoint p2, EditorPoint p3) {
+		g.setColor(color);
+		g.drawLine((int)p1.getX(), (int)p1.getY(), (int)p2.getX(), (int)p2.getY());
+		g.drawLine((int)p2.getX(), (int)p2.getY(), (int)p3.getX(), (int)p3.getY());
+		g.drawLine((int)p3.getX(), (int)p3.getY(), (int)p1.getX(), (int)p1.getY());
+	}
+
+	protected void drawLine(Graphics2D g, Color color, EditorPoint p1, EditorPoint p2) {
+		g.setColor(color);
+		g.drawLine((int)p1.getX(), (int)p1.getY(), (int)p2.getX(), (int)p2.getY());
+	}
+
 	public void repaintEverything() {
 		facade.window().repaintEverything();
 	}
@@ -110,10 +207,10 @@ public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanva
 
 	protected abstract void moveSelected(double x, double y);
 
-	protected abstract EditorPoint transformVertexToPoint(FreeTriangleMeshVertex vertex);
+	// protected abstract EditorPoint transformVertexToPoint(FreeTriangleMeshVertex vertex);
 
-	protected FreeTriangleMeshModel getModel() {
-		FreeTriangleMeshModel model = (FreeTriangleMeshModel) facade.model();
+	protected AnimatorModel getModel() {
+		AnimatorModel model = (AnimatorModel) facade.model();
 		return model;
 	}
 
@@ -190,8 +287,8 @@ public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanva
 				repaintEverything();
 			}
 
-			FreeTriangleMeshModel model = getModel();
-			model.finalizeMove();
+			AnimatorModel model = getModel();
+			model.editorModel.finalizeMove();
 		} else if(e.getButton() == 3) {
 			mouseRightPressed = false;
 		}
@@ -230,7 +327,6 @@ public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanva
 			zoomIndex = 0;
 		else if(zoomIndex >= ZOOM_VALUES.length)
 			zoomIndex = ZOOM_VALUES.length - 1;
-		lenses.setScale(ZOOM_VALUES[zoomIndex]);
 		repaint();
 	}
 
@@ -249,7 +345,20 @@ public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanva
 	private EditorPoint transformToModel(int x, int y) {
 		int widthDiv2 = lastSize.width / 2;
 		int heightDiv2 = lastSize.height / 2;
-		return lenses.fromScreenToModel(x - widthDiv2, heightDiv2 - y);
+		return fromScreenToModel(x - widthDiv2, heightDiv2 - y);
+	}
+
+	private EditorPoint fromScreenToModel(int i, int j) {
+		return new EditorPoint(); // FIXME
+	}
+
+	private EditorPoint fromVertex(AnimatorPartVertex vertex) {
+		EditorPoint p = new EditorPoint();
+		p.setX(vertex.getPx());
+		p.setY(vertex.getPy());
+		p.setZ(vertex.getPz());
+		p.setW(1.0);
+		return p;
 	}
 
 	protected double distance(double x1, double y1, double x2, double y2) {
@@ -258,8 +367,6 @@ public abstract class FreeTriangleMeshCanvas extends JPanel implements GameCanva
 		double ret = Math.sqrt(dx*dx + dy*dy);
 		return ret;
 	}
-
-	protected abstract void paint2d(Graphics2D g);
 
 	private static final long serialVersionUID = 1L;
 }

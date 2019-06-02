@@ -1,22 +1,25 @@
 package hu.csega.editors.anm.model.parts;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONString;
 
 public class AnimatorPartModel implements JSONString {
 
-	public String filename;
-	public final AnimatorPosition scale;
+	public String filename = null;
+	public List<AnimatorPartVertex> vertices = new ArrayList<>();
+	public List<AnimatorPartTriangle> triangles = new ArrayList<>();
 
 	public AnimatorPartModel() {
-		this.filename = null;
-		this.scale = new AnimatorPosition();
 	}
 
-	public AnimatorPartModel(String filename, AnimatorPosition scale) {
+	public AnimatorPartModel(String filename, List<AnimatorPartVertex> vertices, List<AnimatorPartTriangle> triangles) {
 		this.filename = filename;
-		this.scale = new AnimatorPosition(scale);
+		this.vertices.addAll(vertices);
+		this.triangles.addAll(triangles);
 	}
 
 	public AnimatorPartModel(AnimatorPartModel other) {
@@ -35,12 +38,15 @@ public class AnimatorPartModel implements JSONString {
 
 	public void copyFrom(AnimatorPartModel other) {
 		this.filename = other.filename;
-		this.scale.copyFrom(other.scale);
+		this.vertices.clear();
+		this.vertices.addAll(other.vertices);
+		this.triangles.clear();
+		this.triangles.addAll(other.triangles);
 	}
 
 	public void copyFrom(JSONObject json) throws JSONException {
 		this.filename = json.optString("filename");
-		this.scale.copyFrom(json.getJSONObject("scale"));
+		// FIXME
 	}
 
 	@Override
@@ -48,15 +54,15 @@ public class AnimatorPartModel implements JSONString {
 		try {
 			JSONObject json = toJSONObject();
 			return json.toString();
-		} catch (JSONException e) {
-			return "{ \"error\": \"toString\"}";
+		} catch (JSONException ex) {
+			throw new RuntimeException("Couldn't create JSON!", ex);
 		}
 	}
 
 	public JSONObject toJSONObject() throws JSONException {
 		JSONObject json = new JSONObject();
 		json.put("filename", filename);
-		json.put("scale", scale.toJSONObject());
+		// FIXME
 		return json;
 	}
 
@@ -65,35 +71,28 @@ public class AnimatorPartModel implements JSONString {
 		return toJSONString();
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((filename == null) ? 0 : filename.hashCode());
-		result = prime * result + ((scale == null) ? 0 : scale.hashCode());
-		return result;
+	public String getFilename() {
+		return filename;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		AnimatorPartModel other = (AnimatorPartModel) obj;
-		if (filename == null) {
-			if (other.filename != null)
-				return false;
-		} else if (!filename.equals(other.filename))
-			return false;
-		if (scale == null) {
-			if (other.scale != null)
-				return false;
-		} else if (!scale.equals(other.scale))
-			return false;
-		return true;
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
+	public List<AnimatorPartVertex> getVertices() {
+		return vertices;
+	}
+
+	public void setVertices(List<AnimatorPartVertex> vertices) {
+		this.vertices = vertices;
+	}
+
+	public List<AnimatorPartTriangle> getTriangles() {
+		return triangles;
+	}
+
+	public void setTriangles(List<AnimatorPartTriangle> triangles) {
+		this.triangles = triangles;
 	}
 
 }
