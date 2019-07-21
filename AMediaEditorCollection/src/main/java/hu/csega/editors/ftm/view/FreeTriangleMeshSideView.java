@@ -59,25 +59,28 @@ public abstract class FreeTriangleMeshSideView extends FreeTriangleMeshCanvas {
 
 		g.setColor(Color.darkGray);
 		for(FreeTriangleMeshTriangle triangle : triangles) {
-			EditorPoint p1 = transformToScreen(transformVertexToPoint(vertices.get(triangle.getVertex1())));
-			EditorPoint p2 = transformToScreen(transformVertexToPoint(vertices.get(triangle.getVertex2())));
-			EditorPoint p3 = transformToScreen(transformVertexToPoint(vertices.get(triangle.getVertex3())));
-			drawLine(g, p1, p2);
-			drawLine(g, p2, p3);
-			drawLine(g, p3, p1);
+			if(model.enabled(triangle)) {
+				EditorPoint p1 = transformToScreen(transformVertexToPoint(vertices.get(triangle.getVertex1())));
+				EditorPoint p2 = transformToScreen(transformVertexToPoint(vertices.get(triangle.getVertex2())));
+				EditorPoint p3 = transformToScreen(transformVertexToPoint(vertices.get(triangle.getVertex3())));
+				drawLine(g, p1, p2);
+				drawLine(g, p2, p3);
+				drawLine(g, p3, p1);
+			}
 		}
 
 		for(FreeTriangleMeshVertex vertex : vertices) {
+			if(model.enabled(vertex)) {
+				if(selectedObjects.contains(vertex)) {
+					g.setColor(Color.red);
+				} else {
+					g.setColor(Color.black);
+				}
 
-			if(selectedObjects.contains(vertex)) {
-				g.setColor(Color.red);
-			} else {
-				g.setColor(Color.black);
+				EditorPoint p = transformVertexToPoint(vertex);
+				EditorPoint transformed = transformToScreen(p);
+				g.drawRect((int)transformed.getX() - 2, (int)transformed.getY() - 2, 5, 5);
 			}
-
-			EditorPoint p = transformVertexToPoint(vertex);
-			EditorPoint transformed = transformToScreen(p);
-			g.drawRect((int)transformed.getX() - 2, (int)transformed.getY() - 2, 5, 5);
 		}
 
 

@@ -8,10 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTree;
 
 import hu.csega.editors.ftm.menu.FreeTriangleMeshMenu;
 import hu.csega.editors.ftm.view.FreeTriangleMeshTexture;
+import hu.csega.editors.ftm.view.FreeTriangleMeshTreeMapping;
 import hu.csega.editors.ftm.view.FreeTriangleMeshXYSideView;
 import hu.csega.editors.ftm.view.FreeTriangleMeshXZSideView;
 import hu.csega.editors.ftm.view.FreeTriangleMeshZYSideView;
@@ -34,6 +37,7 @@ public class FreeTriangleMeshConnector implements Connector, GameWindow {
 
 	private GameWindow gameWindow;
 	private List<GameWindowListener> listeners = new ArrayList<>();
+	private JTree tree;
 
 	@Override
 	public void initialize() {
@@ -128,6 +132,11 @@ public class FreeTriangleMeshConnector implements Connector, GameWindow {
 		bottomRightTab.addTab("ZY Wireframe", new FreeTriangleMeshZYSideView(facade));
 		bottomRightTab.addTab("Texture Window", new FreeTriangleMeshTexture(facade));
 
+		FreeTriangleMeshTreeMapping treeModel = new FreeTriangleMeshTreeMapping(facade);
+		tree = new JTree(treeModel);
+		JScrollPane scrollPaneForTree = new JScrollPane(tree);
+		bottomRightTab.addTab("Tree View", scrollPaneForTree);
+
 		contentPane.add(bottomRightTab);
 
 		GameCanvas canvas = engine.getCanvas();
@@ -151,6 +160,10 @@ public class FreeTriangleMeshConnector implements Connector, GameWindow {
 	public void repaintEverything() {
 		if(gameWindow != null)
 			gameWindow.repaintEverything();
+		if(tree != null) {
+			tree.invalidate();
+			tree.repaint();
+		}
 	}
 
 	private static final Logger logger = LoggerFactory.createLogger(FreeTriangleMeshConnector.class);

@@ -53,6 +53,18 @@ public class FreeTriangleMeshKeyListener implements GameKeyListener {
 				model.redo();
 				facade.window().repaintEverything();
 			}
+
+			if(key >= '0' && key <= '9') {
+				FreeTriangleMeshModel model = (FreeTriangleMeshModel)facade.model();
+				model.setGroupForSelectedVertices(key - '0');
+				facade.window().repaintEverything();
+			}
+		} else {
+			if(key >= '0' && key <= '9') {
+				FreeTriangleMeshModel model = (FreeTriangleMeshModel)facade.model();
+				model.setToggleGroupVisibility(key - '0');
+				facade.window().repaintEverything();
+			}
 		}
 	}
 

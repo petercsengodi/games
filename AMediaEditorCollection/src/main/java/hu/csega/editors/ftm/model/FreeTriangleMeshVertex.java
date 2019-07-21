@@ -15,15 +15,19 @@ public class FreeTriangleMeshVertex implements Serializable {
 	private double tX;
 	private double tY;
 
+	private int group;
+
 	private FreeTriangleMeshVertex() {
+		this.group = 0;
 	}
-	
+
 	public FreeTriangleMeshVertex(double x, double y, double z) {
 		this.pX = x;
 		this.pY = y;
 		this.pZ = z;
+		this.group = 0;
 	}
-	
+
 	public FreeTriangleMeshVertex copy() {
 		FreeTriangleMeshVertex v = new FreeTriangleMeshVertex();
 		v.pX = pX;
@@ -124,6 +128,14 @@ public class FreeTriangleMeshVertex implements Serializable {
 
 	public void setTY(double tY) {
 		this.tY = tY;
+	}
+
+	public int getGroup() {
+		return group;
+	}
+
+	public void setGroup(int group) {
+		this.group = group;
 	}
 
 	private static final long serialVersionUID = 1L;

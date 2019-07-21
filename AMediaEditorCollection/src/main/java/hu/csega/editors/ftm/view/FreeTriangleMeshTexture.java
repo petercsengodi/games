@@ -65,17 +65,19 @@ public class FreeTriangleMeshTexture extends FreeTriangleMeshCanvas {
 
 		g.setColor(Color.darkGray);
 		for(FreeTriangleMeshTriangle triangle : triangles) {
-			FreeTriangleMeshVertex v1 = vertices.get(triangle.getVertex1());
-			FreeTriangleMeshVertex v2 = vertices.get(triangle.getVertex2());
-			FreeTriangleMeshVertex v3 = vertices.get(triangle.getVertex3());
+			if(model.enabled(triangle)) {
+				FreeTriangleMeshVertex v1 = vertices.get(triangle.getVertex1());
+				FreeTriangleMeshVertex v2 = vertices.get(triangle.getVertex2());
+				FreeTriangleMeshVertex v3 = vertices.get(triangle.getVertex3());
 
-			if(selectedObjects.contains(v1) || selectedObjects.contains(v2) || selectedObjects.contains(v3)) {
-				EditorPoint p1 = transformVertexToPoint(v1);
-				EditorPoint p2 = transformVertexToPoint(v2);
-				EditorPoint p3 = transformVertexToPoint(v3);
-				g.drawLine((int)p1.getX(), (int)p1.getY(), (int)p2.getX(), (int)p2.getY());
-				g.drawLine((int)p2.getX(), (int)p2.getY(), (int)p3.getX(), (int)p3.getY());
-				g.drawLine((int)p3.getX(), (int)p3.getY(), (int)p1.getX(), (int)p1.getY());
+				if(selectedObjects.contains(v1) || selectedObjects.contains(v2) || selectedObjects.contains(v3)) {
+					EditorPoint p1 = transformVertexToPoint(v1);
+					EditorPoint p2 = transformVertexToPoint(v2);
+					EditorPoint p3 = transformVertexToPoint(v3);
+					g.drawLine((int)p1.getX(), (int)p1.getY(), (int)p2.getX(), (int)p2.getY());
+					g.drawLine((int)p2.getX(), (int)p2.getY(), (int)p3.getX(), (int)p3.getY());
+					g.drawLine((int)p3.getX(), (int)p3.getY(), (int)p1.getX(), (int)p1.getY());
+				}
 			}
 		}
 
@@ -84,8 +86,10 @@ public class FreeTriangleMeshTexture extends FreeTriangleMeshCanvas {
 
 			if(object instanceof FreeTriangleMeshVertex) {
 				FreeTriangleMeshVertex vertex = (FreeTriangleMeshVertex) object;
-				EditorPoint p = transformVertexToPoint(vertex);
-				g.drawRect((int)p.getX() - 2, (int)p.getY() - 2, 5, 5);
+				if(model.enabled(vertex)) {
+					EditorPoint p = transformVertexToPoint(vertex);
+					g.drawRect((int)p.getX() - 2, (int)p.getY() - 2, 5, 5);
+				}
 			}
 		}
 	}

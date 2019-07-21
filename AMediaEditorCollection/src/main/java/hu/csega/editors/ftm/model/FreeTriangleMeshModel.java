@@ -16,6 +16,7 @@ public class FreeTriangleMeshModel implements Serializable {
 	private transient FreeTriangleMeshSnapshots _snapshots;
 	private FreeTriangleMeshMesh mesh = new FreeTriangleMeshMesh();
 	private List<Object> selectedObjects = new ArrayList<>();
+	private List<FreeTriangleMeshGroup> groups = new ArrayList<>();
 
 	private double canvasXYTranslateX;
 	private double canvasXYTranslateY;
@@ -38,7 +39,7 @@ public class FreeTriangleMeshModel implements Serializable {
 	private boolean moved = false;
 	private transient boolean built = false;
 	private String textureFilename;
-	
+
 	private double grid = 10.0;
 
 	public boolean isInvalid() {
@@ -86,7 +87,7 @@ public class FreeTriangleMeshModel implements Serializable {
 			clearSelection();
 
 		for(FreeTriangleMeshVertex vertex : mesh.getVertices()) {
-			if(cube.contains(vertex)) {
+			if(enabled(vertex) && cube.contains(vertex)) {
 				selectedObjects.add(vertex);
 			}
 		}
@@ -246,7 +247,7 @@ public class FreeTriangleMeshModel implements Serializable {
 			return;
 
 		snapshots().addState(mesh);
-		
+
 		for(Object object : selectedObjects) {
 			if(object instanceof FreeTriangleMeshVertex) {
 				FreeTriangleMeshVertex v = (FreeTriangleMeshVertex) object;
@@ -267,11 +268,11 @@ public class FreeTriangleMeshModel implements Serializable {
 
 		List<Object> toCopy = new ArrayList<>(selectedObjects);
 		selectedObjects.clear();
-		
+
 		Map<Integer, Integer> map = new HashMap<>();
 
 		List<FreeTriangleMeshVertex> vertices = mesh.getVertices();
-		
+
 		for(Object object : toCopy) {
 			if(object instanceof FreeTriangleMeshVertex) {
 				FreeTriangleMeshVertex v = (FreeTriangleMeshVertex) object;
@@ -284,7 +285,7 @@ public class FreeTriangleMeshModel implements Serializable {
 		}
 
 		List<FreeTriangleMeshTriangle> newTriangles = new ArrayList<>();
-		
+
 		for(FreeTriangleMeshTriangle t : mesh.getTriangles()) {
 			Integer i1 = map.get(t.getVertex1());
 			Integer i2 = map.get(t.getVertex2());
@@ -294,7 +295,7 @@ public class FreeTriangleMeshModel implements Serializable {
 				newTriangles.add(t2);
 			}
 		}
-		
+
 		if(!newTriangles.isEmpty()) {
 			mesh.getTriangles().addAll(newTriangles);
 		}
@@ -331,6 +332,82 @@ public class FreeTriangleMeshModel implements Serializable {
 		vertex.setTX(RND.nextDouble());
 		vertex.setTY(RND.nextDouble());
 		mesh.getVertices().add(vertex);
+	}
+
+	public void setGroupForSelectedVertices(int i) {
+		initGroupsIfNeeded();
+		if(selectedObjects != null && !selectedObjects.isEmpty()) {
+			for(Object object : selectedObjects) {
+				if(object instanceof FreeTriangleMeshVertex) {
+					FreeTriangleMeshVertex v = (FreeTriangleMeshVertex) object;
+					v.setGroup(i);
+				}
+			}
+		}
+
+		invalidate();
+	}
+
+	public void setToggleGroupVisibility(int i) {
+		if(i >= 1 && i <= 9) {
+			initGroupsIfNeeded();
+			FreeTriangleMeshGroup group = groups.get(i - 1);
+			boolean newValue = !group.isEnabled();
+			group.setEnabled(newValue);
+
+			if(newValue == false && selectedObjects != null) {
+				Iterator<Object> it = selectedObjects.iterator();
+				while(it.hasNext()) {
+					Object object = it.next();
+					if(object instanceof FreeTriangleMeshVertex) {
+						FreeTriangleMeshVertex vertex = (FreeTriangleMeshVertex) object;
+						if(vertex.getGroup() == group.getGroup()) {
+							it.remove();
+						}
+					}
+				}
+			}
+
+			invalidate();
+		}
+	}
+
+	public boolean enabled(FreeTriangleMeshTriangle triangle) {
+		List<FreeTriangleMeshVertex> vertices = getVertices();
+		FreeTriangleMeshVertex vertex;
+
+		vertex = vertices.get(triangle.getVertex1());
+		if(!enabled(vertex)) {
+			return false;
+		}
+
+		vertex = vertices.get(triangle.getVertex2());
+		if(!enabled(vertex)) {
+			return false;
+		}
+
+		vertex = vertices.get(triangle.getVertex3());
+		if(!enabled(vertex)) {
+			return false;
+		}
+
+		return true;
+	}
+
+	public boolean enabled(FreeTriangleMeshVertex vertex) {
+		int groupIndex = vertex.getGroup() - 1;
+		if(groupIndex < 0 || groupIndex >= 9) {
+			return true;
+		} else {
+			initGroupsIfNeeded();
+			FreeTriangleMeshGroup group = groups.get(groupIndex);
+			return group.isEnabled();
+		}
+	}
+
+	public List<FreeTriangleMeshGroup> getGroups() {
+		initGroupsIfNeeded();
+		return groups;
 	}
 
 	public List<FreeTriangleMeshVertex> getVertices() {
@@ -477,7 +554,21 @@ public class FreeTriangleMeshModel implements Serializable {
 		this.textureFilename = textureFilename;
 	}
 
+	private void initGroupsIfNeeded() {
+		if(groups == null || groups.isEmpty()) {
+			if(groups == null) {
+				groups = new ArrayList<>();
+			}
+
+			for(int i = 1; i <= 9; i++) {
+				FreeTriangleMeshGroup group = new FreeTriangleMeshGroup(i);
+				groups.add(group);
+			}
+		}
+	}
+
 	private static final Random RND = new Random(System.currentTimeMillis());
 
 	private static final long serialVersionUID = 1L;
+
 }

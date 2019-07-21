@@ -64,9 +64,11 @@ public class FreeTriangleMeshRenderStep implements GameEngineCallback {
 				}
 
 				for(FreeTriangleMeshTriangle t : triangles) {
-					builder.getIndices().add(t.getVertex1());
-					builder.getIndices().add(t.getVertex2());
-					builder.getIndices().add(t.getVertex3());
+					if(model.enabled(t)) {
+						builder.getIndices().add(t.getVertex1());
+						builder.getIndices().add(t.getVertex2());
+						builder.getIndices().add(t.getVertex3());
+					}
 				}
 
 				convertedModel = store.buildModel(builder);
