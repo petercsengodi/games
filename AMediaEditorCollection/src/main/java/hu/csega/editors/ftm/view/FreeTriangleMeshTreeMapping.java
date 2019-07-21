@@ -1,23 +1,28 @@
 package hu.csega.editors.ftm.view;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
-import hu.csega.editors.ftm.model.FreeTriangleMeshModel;
 import hu.csega.games.engine.GameEngineFacade;
 
 public class FreeTriangleMeshTreeMapping implements TreeModel {
 
 	private Set<TreeModelListener> listeners = new HashSet<>();
 	private String root = "Mesh";
-	private GameEngineFacade facade;
+	private List<FreeTriangleMeshGroupTreeNode> nodes;
 
 	public FreeTriangleMeshTreeMapping(GameEngineFacade facade) {
-		this.facade = facade;
+		this.nodes = new ArrayList<>();
+		for(int groupIndex = 1; groupIndex <= 9; groupIndex++) {
+			FreeTriangleMeshGroupTreeNode node = new FreeTriangleMeshGroupTreeNode(facade, groupIndex);
+			nodes.add(node);
+		}
 	}
 
 	@Override
@@ -26,25 +31,22 @@ public class FreeTriangleMeshTreeMapping implements TreeModel {
 	}
 
 	@Override
-	public Object getChild(Object parent, int index) {
+	public Object getChild(Object parent, int nodeIndex) {
 		try {
-			if(parent == root && index >= 0 && index < 9) {
-				FreeTriangleMeshModel model = (FreeTriangleMeshModel) facade.model();
-				if(model != null) {
-					return model.getGroups().get(index);
-				}
+			if(parent == root && nodeIndex >= 0 && nodeIndex < 9) {
+				return nodes.get(nodeIndex);
 			}
 		} catch(RuntimeException ex) {
 			ex.printStackTrace();
 		}
 
-		return null;
+		return "";
 	}
 
 	@Override
 	public int getChildCount(Object parent) {
 		if(parent == root) {
-			return 9;
+			return nodes.size();
 		} else {
 			return 0;
 		}
@@ -63,10 +65,7 @@ public class FreeTriangleMeshTreeMapping implements TreeModel {
 	public int getIndexOfChild(Object parent, Object childObject) {
 		try {
 			if(parent == root) {
-				FreeTriangleMeshModel model = (FreeTriangleMeshModel) facade.model();
-				if(model != null) {
-					return model.getGroups().indexOf(childObject);
-				}
+				return nodes.indexOf(childObject);
 			}
 		} catch(RuntimeException ex) {
 			ex.printStackTrace();
