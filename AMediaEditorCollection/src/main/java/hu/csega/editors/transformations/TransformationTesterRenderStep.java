@@ -21,12 +21,6 @@ public class TransformationTesterRenderStep implements GameEngineCallback {
 	private GameObjectHandler convertedModel = null;
 	private GameObjectLocation modelLocation = new GameObjectLocation();
 
-	private TransformationTesterMouseController mouseController = null;
-
-	public void setMouseController(TransformationTesterMouseController mouseController) {
-		this.mouseController = mouseController;
-	}
-
 	@Override
 	public Object call(GameEngineFacade facade) {
 		TransformationTesterModel model = (TransformationTesterModel) facade.model();
@@ -59,31 +53,16 @@ public class TransformationTesterRenderStep implements GameEngineCallback {
 			convertedModel = store.buildModel(builder);
 		}
 
-		double alfa = 0.0;
-		double beta = 0.0;
-		double distance = 100.0;
-
-		if(mouseController != null) {
-			double scaling = mouseController.getScaling();
-			distance *= scaling;
-			alfa = mouseController.getAlfa();
-			beta = mouseController.getBeta();
-		}
 
 		// Rendering
 		GameGraphics g = facade.graphics();
 
-		GameObjectLocation cameraLocation = new GameObjectLocation();
-		cameraLocation.position.x = 0;
-		cameraLocation.position.y = 0;
-		cameraLocation.position.z = -(float)distance;
+		GameObjectLocation cameraLocation = model.getCamera();
 		g.placeCamera(cameraLocation);
 
 		// g.crossHair(0, 0);
 
 		if(convertedModel != null) {
-			modelLocation.rotation.y = (float)alfa;
-			modelLocation.rotation.x = (float)beta;
 			g.drawModel(convertedModel, modelLocation);
 		}
 

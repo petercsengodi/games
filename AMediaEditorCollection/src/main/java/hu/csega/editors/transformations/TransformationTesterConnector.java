@@ -120,15 +120,13 @@ public class TransformationTesterConnector implements Connector, GameWindow {
 		contentPane.add(new TransformationTesterXYSideView(facade));
 		contentPane.add(new TransformationTesterTransformedView(facade));
 
-		GameCanvas canvas = engine.getCanvas();
-		TransformationTesterMouseController mouseController = new TransformationTesterMouseController(canvas);
+		TransformationTesterMouseController mouseController = new TransformationTesterMouseController(facade);
 
+		GameCanvas canvas = engine.getCanvas();
 		Component component = ((OpenGLCanvas) canvas).getRealCanvas();
 		component.addMouseListener(mouseController);
 		component.addMouseMotionListener(mouseController);
 		component.addMouseWheelListener(mouseController);
-
-		renderer.setMouseController(mouseController);
 
 		return engine;
 	}

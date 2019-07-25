@@ -14,6 +14,9 @@ public class TransformationTesterMenu {
 		JMenu fileMenu = createFileMenu(frame, facade);
 		menuBar.add(fileMenu);
 
+		JMenu cameraMenu = createCameraMenu(frame, facade);
+		menuBar.add(cameraMenu);
+
 		frame.setJMenuBar(menuBar);
 	}
 
@@ -27,4 +30,13 @@ public class TransformationTesterMenu {
 		return fileMenu;
 	}
 
+	private static JMenu createCameraMenu(JFrame frame, GameEngineFacade facade) {
+		JMenu fileMenu = new JMenu("Camera");
+
+		JMenuItem fileExit = new JMenuItem("Reset");
+		fileExit.addActionListener(new CameraReset(frame, facade));
+		fileMenu.add(fileExit);
+
+		return fileMenu;
+	}
 }

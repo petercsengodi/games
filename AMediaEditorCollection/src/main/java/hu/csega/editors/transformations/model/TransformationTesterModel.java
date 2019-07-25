@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.csega.games.engine.g3d.GameObjectLocation;
+import hu.csega.toolshed.logging.Logger;
+import hu.csega.toolshed.logging.LoggerFactory;
+
 public class TransformationTesterModel implements Serializable {
 
 	private double canvasXYTranslateX;
@@ -28,10 +32,12 @@ public class TransformationTesterModel implements Serializable {
 	private double openGLBeta;
 	private double openGLZoom = 1.0;
 
-	private List<TransformationTesterVertex> vertices;
+	private GameObjectLocation camera = new GameObjectLocation();
 
 	private TransformationTesterVertex clickStart = new TransformationTesterVertex(0, 0, 0);
 	private TransformationTesterVertex clickEnd = new TransformationTesterVertex(0, 0, 0);
+
+	private List<TransformationTesterVertex> vertices;
 
 	public TransformationTesterModel() {
 		this.vertices = new ArrayList<>();
@@ -302,6 +308,7 @@ public class TransformationTesterModel implements Serializable {
 
 	public void setClickStart(TransformationTesterVertex clickStart) {
 		this.clickStart = clickStart;
+		logger.info("SET LINE START: (" + clickStart.getPX() + "; " + clickStart.getPY() + "; " + clickEnd.getPZ() + ')');
 	}
 
 	public TransformationTesterVertex getClickEnd() {
@@ -310,7 +317,20 @@ public class TransformationTesterModel implements Serializable {
 
 	public void setClickEnd(TransformationTesterVertex clickEnd) {
 		this.clickEnd = clickEnd;
+		logger.info("SET LINE END: (" + clickEnd.getPX() + "; " + clickEnd.getPY() + "; " + clickEnd.getPZ() + ')');
+	}
+
+	public GameObjectLocation getCamera() {
+		return camera;
+	}
+
+	public void resetCamera() {
+		camera.position.set(0f,  0f,  0f);
+		camera.rotation.set(0f,  0f,  0f);
+		camera.scale.set(1f,  1f,  1f);
 	}
 
 	private static final long serialVersionUID = 1L;
+
+	private static final Logger logger = LoggerFactory.createLogger(TransformationTesterModel.class);
 }

@@ -52,6 +52,10 @@ public class OpenGLProfileGL3Adapter2 implements OpenGLProfileAdapter {
 
 	private GL3 gl3 = null;
 
+	private GameObjectPosition cameraEye = new GameObjectPosition();
+	private GameObjectPosition cameraCenter = new GameObjectPosition();
+	private GameObjectPosition cameraUp = new GameObjectPosition();
+
 	@Override
 	public void viewPort(GLAutoDrawable glAutoDrawable, int width, int height) {
 		if(gl3 == null)
@@ -346,51 +350,15 @@ public class OpenGLProfileGL3Adapter2 implements OpenGLProfileAdapter {
 		if(gl3 == null)
 			gl3 = glAutodrawable.getGL().getGL3();
 
-		GameObjectPosition p = cameraSettings.position;
-		GameObjectRotation r = cameraSettings.rotation;
 
-		double f0x = 0f;
-		double f0y = 0f;
-		double f0z = 1f;
-
-		double f1x = f0x * Math.cos(r.z) - f0y * Math.sin(r.z);
-		double f1y = f0x * Math.sin(r.z) + f0y * Math.cos(r.z);
-		double f1z = f0z;
-
-		double f2x = f1x * Math.cos(r.y) - f1z * Math.sin(r.y);
-		double f2y = f1y;
-		double f2z = f1x * Math.sin(r.y) + f1z * Math.cos(r.y);
-
-		double f3x = f2x;
-		double f3y = f2y * Math.cos(r.x) - f2z * Math.sin(r.x);
-		double f3z = f2y * Math.sin(r.x) + f2z * Math.cos(r.x);
-
-		float fx = (float)f3x + p.x;
-		float fy = (float)f3y + p.y;
-		float fz = (float)f3z + p.z;
-
-		double u0x = 0f;
-		double u0y = 1f;
-		double u0z = 0f;
-
-		double u1x = u0x * Math.cos(r.z) - u0y * Math.sin(r.z);
-		double u1y = u0x * Math.sin(r.z) + u0y * Math.cos(r.z);
-		double u1z = u0z;
-
-		double u2x = u1x * Math.cos(r.y) - u1z * Math.sin(r.y);
-		double u2y = u1y;
-		double u2z = u1x * Math.sin(r.y) + u1z * Math.cos(r.y);
-
-		double u3x = u2x;
-		double u3y = u2y * Math.cos(r.x) - u2z * Math.sin(r.x);
-		double u3z = u2y * Math.sin(r.x) + u2z * Math.cos(r.x);
-
-		float ux = (float)u3x;
-		float uy = (float)u3y;
-		float uz = (float)u3z;
+		cameraSettings.calculateEye(cameraEye);
+		cameraSettings.calculateCenter(cameraCenter);
+		cameraSettings.calculateUp(cameraUp);
 
 		cameraMatrix.identity();
-		cameraMatrix.lookAt(p.x, p.y, p.z, fx, fy, fz, ux, uy, uz);
+		cameraMatrix.lookAt(cameraEye.x, cameraEye.y, cameraEye.z,
+				cameraCenter.x, cameraCenter.y, cameraCenter.z,
+				cameraUp.x, cameraUp.y, cameraUp.z);
 	}
 
 	private static final Logger logger = LoggerFactory.createLogger(OpenGLProfileGL3Adapter2.class);

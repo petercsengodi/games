@@ -1,7 +1,5 @@
 package hu.csega.editors.transformations.view;
 
-import org.joml.Matrix4d;
-
 import hu.csega.editors.transformations.model.TransformationTesterModel;
 import hu.csega.games.engine.GameEngineFacade;
 
@@ -25,14 +23,23 @@ public class TransformationTesterXZSideView extends TransformationTesterSideView
 	}
 
 	@Override
-	protected void calculateTransformationMatrices() {
+	protected void calculateTransformationMatrices(double screenWidth, double screenHeight) {
 		TransformationTesterModel model = getModel();
 		double scale = model.getCanvasXZZoom();
 		double translateX = model.getCanvasXZTranslateX();
 		double translateY = model.getCanvasXZTranslateY();
 
 		// Calculate model -> screen matrix
-		this.screenTransformationMatrix = new Matrix4d().scale(scale).translate(translateX, translateY, 0.0);
+		this.screenTransformationMatrix.identity();
+
+		// VIEW -> SCREEN
+		this.screenTransformationMatrix.translate(screenWidth / 2.0, screenHeight / 2.0, 0.0);
+
+		// MODEL -> VIEW
+		this.screenTransformationMatrix
+		.translate(translateX, translateY, 0.0)
+		.scale(scale)
+		.rotateX(Math.PI / 2.0);
 
 		// Calculate screen -> model matrix
 		this.screenTransformationMatrix.invertAffine(this.inverseTransformationMatrix);

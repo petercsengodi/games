@@ -7,11 +7,13 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
-import hu.csega.games.engine.intf.GameCanvas;
+import hu.csega.editors.transformations.model.TransformationTesterModel;
+import hu.csega.games.engine.GameEngineFacade;
+import hu.csega.games.engine.g3d.GameObjectLocation;
 
 public class TransformationTesterMouseController implements MouseListener, MouseMotionListener, MouseWheelListener{
 
-	public static final double[] ZOOM_VALUES = { 0.0001, 0.001, 0.01, 0.1, 0.2, 0.3, 0.5, 0.75, 1.0, 1.25, 1.50, 2.0, 3.0, 4.0, 5.0, 10.0, 100.0 };
+	public static final double[] ZOOM_VALUES = { 0.0001, 0.001, 0.01, 0.1, 0.2, 0.3, 0.5, 0.75, 1.0, 1.25, 1.50, 2.0, 3.0, 4.0, 5.0, 10.0, 100.0, 200.0, 500.0 };
 	public static final int DEFAULT_ZOOM_INDEX = ZOOM_VALUES.length - 2;
 
 	private int zoomIndex = DEFAULT_ZOOM_INDEX;
@@ -22,18 +24,10 @@ public class TransformationTesterMouseController implements MouseListener, Mouse
 	private boolean mouseRightPressed = false;
 	private Point mouseRightAt = new Point(0, 0);
 
-	private GameCanvas canvas;
+	private GameEngineFacade facade;
 
-	public double getAlfa() {
-		return alfa;
-	}
-
-	public double getBeta() {
-		return beta;
-	}
-
-	public TransformationTesterMouseController(GameCanvas canvas) {
-		this.canvas = canvas;
+	public TransformationTesterMouseController(GameEngineFacade facade) {
+		this.facade = facade;
 	}
 
 	public double getScaling() {
@@ -48,7 +42,7 @@ public class TransformationTesterMouseController implements MouseListener, Mouse
 			zoomIndex = 0;
 		else if(zoomIndex >= ZOOM_VALUES.length)
 			zoomIndex = ZOOM_VALUES.length - 1;
-		canvas.repaint();
+		recalculateAndRepaint();
 	}
 
 	@Override
@@ -105,10 +99,31 @@ public class TransformationTesterMouseController implements MouseListener, Mouse
 			else if(beta > BETA_LIMIT)
 				beta = BETA_LIMIT;
 
-			canvas.repaint();
 			mouseRightAt.x = e.getX();
 			mouseRightAt.y = e.getY();
+			recalculateAndRepaint();
 		}
+	}
+
+	private void recalculateAndRepaint() {
+		double distance = ZOOM_VALUES[zoomIndex];
+		double py = distance * Math.sin(beta);
+		double projectedDistance = distance * Math.cos(beta);
+		double px = projectedDistance * Math.sin(alfa);
+		double pz = projectedDistance * Math.cos(alfa);
+
+		TransformationTesterModel model = (TransformationTesterModel) facade.model();
+		GameObjectLocation camera = model.getCamera();
+
+		/*
+		camera.position.set((float)px, (float)py, (float)pz);
+		camera.rotation.set((float)(beta), (float)(Math.PI-alfa), 0f);
+		 */
+
+		camera.position.set(0f, 0f, 0f);
+		camera.rotation.set((float)(beta), (float)(alfa), 0f);
+
+		facade.window().repaintEverything();
 	}
 
 	private static final double PI2 = 2*Math.PI;

@@ -81,7 +81,7 @@ public abstract class TransformationTesterCanvas extends JPanel implements GameC
 			lastSize.height = size.height;
 		}
 
-		calculateTransformationMatrices();
+		calculateTransformationMatrices(size.width, size.height);
 
 		Graphics2D g2d = (Graphics2D)buffer.getGraphics();
 		g2d.setColor(Color.LIGHT_GRAY);
@@ -101,7 +101,7 @@ public abstract class TransformationTesterCanvas extends JPanel implements GameC
 
 	protected abstract void zoom(double delta);
 
-	protected abstract void calculateTransformationMatrices();
+	protected abstract void calculateTransformationMatrices(double screenWidth, double screenHeight);
 
 	protected TransformationTesterVertex screenTransformation(TransformationTesterVertex vertex) {
 		Vector4d v = new Vector4d(vertex.getPX(), vertex.getPY(), vertex.getPZ(), 1.0f);
@@ -110,8 +110,22 @@ public abstract class TransformationTesterCanvas extends JPanel implements GameC
 		return new TransformationTesterVertex(result.x() / w, result.y() / w, result.z() / w);
 	}
 
+	protected TransformationTesterVertex screenTransformation(double x, double y, double z) {
+		Vector4d v = new Vector4d(x, y, z, 1.0f);
+		Vector4d result = screenTransformationMatrix.transform(v);
+		double w = result.w();
+		return new TransformationTesterVertex(result.x() / w, result.y() / w, result.z() / w);
+	}
+
 	protected TransformationTesterVertex inverseTransformation(TransformationTesterVertex vertex) {
 		Vector4d v = new Vector4d(vertex.getPX(), vertex.getPY(), vertex.getPZ(), 1.0f);
+		Vector4d result = inverseTransformationMatrix.transform(v);
+		double w = result.w();
+		return new TransformationTesterVertex(result.x() / w, result.y() / w, result.z() / w);
+	}
+
+	protected TransformationTesterVertex inverseTransformation(double x, double y, double z) {
+		Vector4d v = new Vector4d(x, y, z, 1.0f);
 		Vector4d result = inverseTransformationMatrix.transform(v);
 		double w = result.w();
 		return new TransformationTesterVertex(result.x() / w, result.y() / w, result.z() / w);
