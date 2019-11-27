@@ -1,4 +1,4 @@
-package hu.csega.editors.anm.swing;
+package hu.csega.editors.anm.swing.old;
 
 import java.awt.Component;
 import java.awt.Container;

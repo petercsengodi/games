@@ -5,12 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTree;
 import hu.csega.editors.anm.menu.AnimatorMenu;
-import hu.csega.editors.anm.swing.AnimatorContentPaneLayout;
-import hu.csega.editors.anm.swing.AnimatorTopDownViewPort;
-import hu.csega.editors.anm.treeview.AnimatorTreeModel;
+import hu.csega.editors.anm.swing.AnimatorRootLayoutManager;
 import hu.csega.games.adapters.opengl.OpenGLGameAdapter;
 import hu.csega.games.common.Connector;
 import hu.csega.games.engine.GameEngineFacade;
@@ -100,55 +96,23 @@ public class AnimatorConnector implements Connector, GameWindow {
 		engine.step(GameEngineStep.INIT, new AnimatorInitStep());
 		engine.step(GameEngineStep.RENDER, new AnimatorRenderStep());
 
-		/*
-		engine.step(GameEngineStep.INIT, new FreeTriangleMeshInitStep());
-		engine.step(GameEngineStep.MODIFY, new FreeTriangleMeshModifyStep());
-		engine.step(GameEngineStep.RENDER, new FreeTriangleMeshRenderStep());
-
-		engine.getControl().registerKeyListener(new FreeTriangleMeshKeyListener());
-		 */
 
 		// Swing View(s)
 
 		gameWindow = adapter.createWindow(engine);
 		gameWindow.setFullScreen(true);
+		logger.info("Window/Frame instance created: " + gameWindow.getClass().getName());
 
 		JFrame frame = (JFrame) gameWindow;
-		// KeyListener keyListener = (KeyListener) gameWindow;
 		Container contentPane = frame.getContentPane();
-		AnimatorContentPaneLayout layout = new AnimatorContentPaneLayout();
+		AnimatorRootLayoutManager layout = new AnimatorRootLayoutManager();
 		contentPane.setLayout(layout);
 
 		AnimatorMenu.createMenuForJFrame(frame, facade);
 
-		// Upper left tile
-		AnimatorTreeModel treeModel = new AnimatorTreeModel();
-		JTree tree = new JTree(treeModel);
-		JScrollPane scrollPaneForTree = new JScrollPane(tree);
-		contentPane.add(scrollPaneForTree);
-		layout.addLayoutComponent(AnimatorContentPaneLayout.FAR_LEFT_PANEL, scrollPaneForTree);
-
-		AnimatorTopDownViewPort topDownViewPort = new AnimatorTopDownViewPort(facade);
-		layout.addLayoutComponent(AnimatorContentPaneLayout.UPPER_LEFT, topDownViewPort);
-
-		// ??????? treeModel.update(scene);
 
 		// Upper right tile
 		engine.startIn(gameWindow);
-
-		// Lower left tile
-		/*
-		contentPane.add(new FreeTriangleMeshXYSideView(facade));
-		 */
-
-		// Lower right tile
-		/*
-		JTabbedPane bottomRightTab = new JTabbedPane();
-		bottomRightTab.addKeyListener(keyListener);
-		bottomRightTab.addTab("ZY Wireframe", new FreeTriangleMeshZYSideView(facade));
-		bottomRightTab.addTab("Texture Window", new FreeTriangleMeshTexture(facade));
-		contentPane.add(bottomRightTab);
-		 */
 
 		return engine;
 	}
