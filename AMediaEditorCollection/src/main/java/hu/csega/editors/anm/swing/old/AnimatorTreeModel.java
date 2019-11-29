@@ -1,4 +1,4 @@
-package hu.csega.editors.anm.treeview;
+package hu.csega.editors.anm.swing.old;
 
 import java.util.HashSet;
 import java.util.List;

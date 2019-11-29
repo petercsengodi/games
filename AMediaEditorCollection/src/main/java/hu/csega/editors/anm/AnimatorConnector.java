@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
+
 import hu.csega.editors.anm.menu.AnimatorMenu;
 import hu.csega.editors.anm.swing.AnimatorRootLayoutManager;
 import hu.csega.games.adapters.opengl.OpenGLGameAdapter;
@@ -113,6 +116,12 @@ public class AnimatorConnector implements Connector, GameWindow {
 
 		// Upper right tile
 		engine.startIn(gameWindow);
+
+
+		JList list = new JList<>();
+		JScrollPane scrollableList = new JScrollPane(list);
+		contentPane.add("PartsList", scrollableList);
+
 
 		return engine;
 	}
