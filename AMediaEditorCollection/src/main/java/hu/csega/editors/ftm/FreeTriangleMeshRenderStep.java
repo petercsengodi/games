@@ -12,7 +12,7 @@ import hu.csega.games.engine.g3d.GameModelBuilder;
 import hu.csega.games.engine.g3d.GameModelStore;
 import hu.csega.games.engine.g3d.GameObjectDirection;
 import hu.csega.games.engine.g3d.GameObjectHandler;
-import hu.csega.games.engine.g3d.GameObjectLocation;
+import hu.csega.games.engine.g3d.GameObjectPlacement;
 import hu.csega.games.engine.g3d.GameObjectPosition;
 import hu.csega.games.engine.g3d.GameObjectVertex;
 import hu.csega.games.engine.g3d.GameTexturePosition;
@@ -21,7 +21,12 @@ import hu.csega.games.engine.intf.GameGraphics;
 public class FreeTriangleMeshRenderStep implements GameEngineCallback {
 
 	private GameObjectHandler convertedModel = null;
-	private GameObjectLocation modelLocation = new GameObjectLocation();
+	private GameObjectPlacement modelPlacement = new GameObjectPlacement();
+
+	private GameObjectPosition cameraPosition = new GameObjectPosition(0f, 0f, 0f);
+	private GameObjectPosition cameraTarget = new GameObjectPosition(0f, 0f, 0f);
+	private GameObjectDirection cameraUp = new GameObjectDirection(0f, 1f, 0f);
+	private GameObjectPlacement cameraPlacement = new GameObjectPlacement();
 
 	private FreeTriangleMeshMouseController mouseController = null;
 
@@ -89,20 +94,18 @@ public class FreeTriangleMeshRenderStep implements GameEngineCallback {
 		}
 
 		// Rendering
-		GameGraphics g = facade.graphics();
-
-		GameObjectLocation cameraLocation = new GameObjectLocation();
-		cameraLocation.position.x = 0;
-		cameraLocation.position.y = 0;
-		cameraLocation.position.z = -(float)distance;
-		g.placeCamera(cameraLocation);
-
-		// g.crossHair(0, 0);
 
 		if(convertedModel != null) {
-			modelLocation.rotation.y = (float)alfa;
-			modelLocation.rotation.x = (float)beta;
-			g.drawModel(convertedModel, modelLocation);
+			GameGraphics g = facade.graphics();
+
+			cameraPosition.x = (float)Math.cos(alfa);
+			cameraPosition.y = 0f;
+			cameraPosition.z = (float)Math.sin(alfa);
+
+			cameraPlacement.setPositionTargetUp(cameraPosition, cameraTarget, cameraUp);
+
+			g.placeCamera(cameraPlacement);
+			g.drawModel(convertedModel, modelPlacement);
 		}
 
 		return facade;

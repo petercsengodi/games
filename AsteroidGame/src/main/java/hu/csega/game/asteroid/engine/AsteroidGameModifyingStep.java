@@ -4,9 +4,8 @@ import hu.csega.game.asteroid.model.AsteroidGameModel;
 import hu.csega.game.asteroid.model.AsteroidGameState;
 import hu.csega.games.engine.GameEngineCallback;
 import hu.csega.games.engine.GameEngineFacade;
-import hu.csega.games.engine.g3d.GameObjectLocation;
+import hu.csega.games.engine.g3d.GameObjectPlacement;
 import hu.csega.games.engine.g3d.GameObjectPosition;
-import hu.csega.games.engine.g3d.GameObjectRotation;
 import hu.csega.games.engine.intf.GameControl;
 
 public class AsteroidGameModifyingStep implements GameEngineCallback {
@@ -24,10 +23,10 @@ public class AsteroidGameModifyingStep implements GameEngineCallback {
 
 		if(state != null && control != null) {
 
-			GameObjectLocation player = state.shipLocation;
+			GameObjectPlacement player = state.shipPlacement;
 			GameObjectPosition position = player.position;
-			GameObjectRotation rotation = player.rotation;
 
+			/*
 			double speedModifier = (control.isControlOn() ? 15.0 : 1.0) * PLAYER_FORWARD;
 
 			if(control.isUpOn()) {
@@ -65,6 +64,7 @@ public class AsteroidGameModifyingStep implements GameEngineCallback {
 				if(rotation.z < 0)
 					rotation.z = 0;
 			}
+			 */
 
 		} // null checks
 

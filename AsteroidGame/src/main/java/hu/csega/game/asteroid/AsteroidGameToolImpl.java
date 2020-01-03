@@ -1,5 +1,6 @@
 package hu.csega.game.asteroid;
 
+import java.awt.Container;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +65,8 @@ public class AsteroidGameToolImpl extends AbstractTool implements AsteroidGameTo
 
 		GameControlImpl control = (GameControlImpl)engine.getControl(); // FIXME this is not nice
 		AsteroidGameWindowWrapper wrapper = new AsteroidGameWindowWrapper(window, this, control);
-		engine.startIn(wrapper);
+		Container container = wrapper.getContainer();
+		engine.startIn(wrapper, container);
 
 		return engine;
 	}

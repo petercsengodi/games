@@ -5,7 +5,7 @@ import hu.csega.game.asteroid.model.AsteroidGameState;
 import hu.csega.games.engine.GameEngineCallback;
 import hu.csega.games.engine.GameEngineFacade;
 import hu.csega.games.engine.g3d.GameObjectHandler;
-import hu.csega.games.engine.g3d.GameObjectLocation;
+import hu.csega.games.engine.g3d.GameObjectPlacement;
 import hu.csega.games.engine.intf.GameGraphics;
 
 public class AsteroidGameRenderingStep implements GameEngineCallback {
@@ -26,27 +26,24 @@ public class AsteroidGameRenderingStep implements GameEngineCallback {
 			GameGraphics g = facade.graphics();
 			AsteroidGameState gameState = model.getGameState();
 
-			GameObjectLocation shipLocation = gameState.shipLocation;
+			GameObjectPlacement shipPlacement = gameState.shipPlacement;
 
 			f += 0.005f;
 
-			GameObjectLocation cameraLocation = new GameObjectLocation();
-			cameraLocation.position.x = 0;
-			cameraLocation.position.y = 200;
-			cameraLocation.position.z = 0;
-			cameraLocation.rotation.x = (float)(Math.PI / 2.0);
-			cameraLocation.rotation.y = 0;
-			cameraLocation.rotation.z = 0;
-			g.placeCamera(cameraLocation);
-
-			//			GameObjectLocation cameraLocation = new GameObjectLocation();
-			//			cameraLocation.position.x = 200;
-			//			cameraLocation.position.y = 0;
-			//			cameraLocation.position.z = 0;
-			//			g.placeCamera(cameraLocation);
+			GameObjectPlacement cameraPlacement = new GameObjectPlacement();
+			cameraPlacement.position.x = 0;
+			cameraPlacement.position.y = 200;
+			cameraPlacement.position.z = 0;
+			cameraPlacement.target.x = 0;
+			cameraPlacement.target.y = 0;
+			cameraPlacement.target.z = 0;
+			cameraPlacement.up.x = 1f;
+			cameraPlacement.up.y = 0;
+			cameraPlacement.up.z = 0;
+			g.placeCamera(cameraPlacement);
 
 			GameObjectHandler shipModel = model.getShipModel();
-			g.drawModel(shipModel, shipLocation);
+			g.drawModel(shipModel, shipPlacement);
 		}
 
 		return facade;

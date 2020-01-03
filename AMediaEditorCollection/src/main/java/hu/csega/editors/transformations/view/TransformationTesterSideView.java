@@ -6,7 +6,8 @@ import hu.csega.editors.common.EditorPoint;
 import hu.csega.editors.transformations.model.TransformationTesterModel;
 import hu.csega.editors.transformations.model.TransformationTesterVertex;
 import hu.csega.games.engine.GameEngineFacade;
-import hu.csega.games.engine.g3d.GameObjectLocation;
+import hu.csega.games.engine.g3d.GameObjectDirection;
+import hu.csega.games.engine.g3d.GameObjectPlacement;
 import hu.csega.games.engine.g3d.GameObjectPosition;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
@@ -47,13 +48,13 @@ public abstract class TransformationTesterSideView extends TransformationTesterC
 		drawLine(g, start, end);
 
 		g.setColor(Color.cyan);
-		GameObjectLocation camera = model.getCamera();
+		GameObjectPlacement camera = model.getCamera();
 		GameObjectPosition eye = new GameObjectPosition();
 		GameObjectPosition center = new GameObjectPosition();
-		GameObjectPosition up = new GameObjectPosition();
+		GameObjectDirection up = new GameObjectDirection();
 
 		camera.calculateEye(eye);
-		camera.calculateCenterDirection(center);
+		camera.calculateTarget(center);
 		camera.calculateUp(up);
 
 		center.x = center.x * 40 + eye.x;

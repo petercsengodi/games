@@ -1,96 +1,48 @@
 package hu.csega.editors.anm.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONString;
+import javax.swing.ListModel;
+import javax.swing.event.ListDataListener;
 
 import hu.csega.editors.anm.model.parts.AnimatorPart;
 
-public class AnimatorModel implements JSONString {
+public class AnimatorModel implements ListModel<AnimatorPart> {
 
-	public String title;
-	public int currentScene;
-	public final Map<String, AnimatorPart> parts = new HashMap<>();
-	public final List<AnimatorScene> scenes = new ArrayList<>();
-	public final AnimatorEditorModel editorModel = new AnimatorEditorModel();
+	public boolean gridEnabled = true;
+	public double gridSize = 30.0;
+
+	private List<AnimatorPart> parts = new ArrayList<>();
 
 	public AnimatorModel() {
-	}
-
-	public AnimatorModel(String title, int currentScene, List<AnimatorScene> scenes) {
-		this.title = title;
-		this.currentScene = currentScene;
-
-		for(AnimatorScene scene : scenes)
-			this.scenes.add(new AnimatorScene(scene));
-	}
-
-	public AnimatorModel(AnimatorModel other) {
-		copyFrom(other);
-	}
-
-	public AnimatorModel(String s) throws JSONException {
-		this(new JSONObject(s));
-	}
-
-	public AnimatorModel(JSONObject json) throws JSONException {
-		copyFrom(json);
-	}
-
-	public void copyFrom(AnimatorModel other) {
-		this.title = other.title;
-		this.currentScene = other.currentScene;
-
-		this.scenes.clear();
-		for(AnimatorScene scene : other.scenes)
-			this.scenes.add(new AnimatorScene(scene));
-	}
-
-	public void copyFrom(JSONObject json) throws JSONException {
-		this.title = json.optString("title");
-		this.currentScene = json.optInt("currentScene", 0);
-
-		this.scenes.clear();
-		JSONArray array = json.optJSONArray("scenes");
-		if(array != null && array.length() > 0) {
-			int len = array.length();
-			for(int i = 0; i < len; i++)
-				this.scenes.add(new AnimatorScene(array.getJSONObject(i)));
+		for(int i = 0; i < 100; i++) {
+			AnimatorPart part = new AnimatorPart();
+			part.setId("id-" + i);
+			part.setDisplayName("Part " + i);
+			parts.add(part);
 		}
 	}
 
-	@Override
-	public String toJSONString() {
-		try {
-			JSONObject json = toJSONObject();
-			return json.toString();
-		} catch (JSONException e) {
-			return "{ \"error\": \"toString\"}";
-		}
-	}
-
-	public JSONObject toJSONObject() throws JSONException {
-		JSONObject json = new JSONObject();
-		json.put("title", title);
-		json.put("currentScene", currentScene);
-
-		JSONArray array = new JSONArray();
-		for(AnimatorScene scene : scenes)
-			array.put(scene.toJSONObject());
-
-		json.put("scenes", array);
-		return json;
+	public void finalizeMove() {
 	}
 
 	@Override
-	public String toString() {
-		return toJSONString();
+	public int getSize() {
+		return parts.size();
+	}
+
+	@Override
+	public AnimatorPart getElementAt(int index) {
+		return parts.get(index);
+	}
+
+	@Override
+	public void addListDataListener(ListDataListener l) {
+	}
+
+	@Override
+	public void removeListDataListener(ListDataListener l) {
 	}
 
 }

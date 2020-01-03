@@ -11,7 +11,7 @@ import com.jogamp.opengl.GLAutoDrawable;
 import hu.csega.games.adapters.opengl.OpenGLProfileAdapter;
 import hu.csega.games.engine.g3d.GameModelBuilder;
 import hu.csega.games.engine.g3d.GameObjectHandler;
-import hu.csega.games.engine.g3d.GameObjectLocation;
+import hu.csega.games.engine.g3d.GameObjectPlacement;
 import hu.csega.games.engine.g3d.GameObjectType;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
@@ -159,8 +159,8 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 		disposeAllWhenPossible = true;
 	}
 
-	public void placeCamera(GLAutoDrawable glAutodrawable, GameObjectLocation cameraLocation) {
-		adapter.placeCamera(glAutodrawable, cameraLocation);
+	public void placeCamera(GLAutoDrawable glAutodrawable, GameObjectPlacement cameraPlacement) {
+		adapter.placeCamera(glAutodrawable, cameraPlacement);
 	}
 
 	public OpenGLTextureContainer resolveTexture(GameObjectHandler textureReference) {

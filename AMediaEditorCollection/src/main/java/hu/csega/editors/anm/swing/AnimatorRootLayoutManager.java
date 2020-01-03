@@ -16,6 +16,10 @@ import hu.csega.toolshed.logging.LoggerFactory;
 public class AnimatorRootLayoutManager implements LayoutManager, LayoutManager2 {
 
 	public static final String CANVAS3D = "openGLCanvas";
+	public static final String PARTS_LIST = "partsList";
+	public static final String PARTS_SETTINGS = "partsSettings";
+	public static final String CORNER_CONTROLLER = "cornerController";
+	public static final String SCENE_EDITOR = "sceneEditor";
 
 	private Map<Component, String> componentToName = new Hashtable<>();
 	private Map<String, Component> nameToComponent = new Hashtable<>();
@@ -111,9 +115,36 @@ public class AnimatorRootLayoutManager implements LayoutManager, LayoutManager2 
 		logger.info("Recalculating positions for a box " + width + 'x' + height + '.');
 		Component component;
 
+		int w20 = (int)(width * 0.2);
+		int w40 = (int)(width * 0.4);
+		int w60 = (int)(width * 0.6);
+
+		int h20 = (int)(height * 0.2);
+		int h80 = (int)(height * 0.8);
+
 		component = nameToComponent.get(CANVAS3D);
 		if(component != null) {
-			component.setBounds(0, 0, width, height);
+			component.setBounds(w40, 0, w60, h80);
+		}
+
+		component = nameToComponent.get(PARTS_LIST);
+		if(component != null) {
+			component.setBounds(0, 0, w20, h80);
+		}
+
+		component = nameToComponent.get(PARTS_SETTINGS);
+		if(component != null) {
+			component.setBounds(w20, 0, w20, h80);
+		}
+
+		component = nameToComponent.get(CORNER_CONTROLLER);
+		if(component != null) {
+			component.setBounds(0, h80, w40, h20);
+		}
+
+		component = nameToComponent.get(SCENE_EDITOR);
+		if(component != null) {
+			component.setBounds(w40, h80, w60, h20);
 		}
 	}
 

@@ -58,7 +58,7 @@ public class FreeTriangleMeshConnector implements Connector, GameWindow {
 	}
 
 	@Override
-	public void add(GameCanvas canvas) {
+	public void add(GameCanvas canvas, Container container) {
 	}
 
 	@Override
@@ -123,7 +123,7 @@ public class FreeTriangleMeshConnector implements Connector, GameWindow {
 
 		FreeTriangleMeshMenu.createMenuForJFrame(frame, facade);
 
-		engine.startIn(gameWindow);
+		engine.startIn(gameWindow, contentPane);
 
 		contentPane.add(new FreeTriangleMeshXYSideView(facade));
 

@@ -1,4 +1,4 @@
-package hu.csega.editors.anm.model.parts;
+package hu.csega.editors.anm.model.old.parts;
 
 import org.json.JSONException;
 import org.json.JSONObject;

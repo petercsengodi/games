@@ -1,6 +1,8 @@
 package hu.csega.games.engine.g3d;
 
-public class GameObjectDirection {
+import java.io.Serializable;
+
+public class GameObjectDirection implements Serializable {
 
 	public float x;
 	public float y;
@@ -59,5 +61,7 @@ public class GameObjectDirection {
 			return false;
 		return true;
 	}
+
+	private static final long serialVersionUID = 1L;
 
 }

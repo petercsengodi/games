@@ -5,7 +5,7 @@ import com.jogamp.opengl.GLAutoDrawable;
 import hu.csega.games.adapters.opengl.models.OpenGLModelContainer;
 import hu.csega.games.adapters.opengl.models.OpenGLModelStoreImpl;
 import hu.csega.games.adapters.opengl.models.OpenGLTextureContainer;
-import hu.csega.games.engine.g3d.GameObjectLocation;
+import hu.csega.games.engine.g3d.GameObjectPlacement;
 
 public interface OpenGLProfileAdapter {
 
@@ -27,7 +27,7 @@ public interface OpenGLProfileAdapter {
 
 	void loadModel(GLAutoDrawable glAutoDrawable, String filename, OpenGLModelContainer model);
 
-	void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, GameObjectLocation location, OpenGLModelStoreImpl store);
+	void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, GameObjectPlacement placement, OpenGLModelStoreImpl store);
 
 	void disposeModel(GLAutoDrawable glAutodrawable, OpenGLModelContainer model);
 
@@ -37,5 +37,5 @@ public interface OpenGLProfileAdapter {
 
 	void disposeAnimation(GLAutoDrawable glAutodrawable, OpenGLModelContainer model);
 
-	void placeCamera(GLAutoDrawable glAutodrawable, GameObjectLocation cameraSettings);
+	void placeCamera(GLAutoDrawable glAutodrawable, GameObjectPlacement cameraPlacement);
 }

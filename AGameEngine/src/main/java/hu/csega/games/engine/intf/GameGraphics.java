@@ -7,7 +7,7 @@ import hu.csega.games.engine.g2d.GameHitShape;
 import hu.csega.games.engine.g2d.GamePoint;
 import hu.csega.games.engine.g2d.GameSprite;
 import hu.csega.games.engine.g3d.GameObjectHandler;
-import hu.csega.games.engine.g3d.GameObjectLocation;
+import hu.csega.games.engine.g3d.GameObjectPlacement;
 
 public interface GameGraphics {
 
@@ -25,8 +25,8 @@ public interface GameGraphics {
 	void drawHitShape(GameHitShape hitShape, double x, double y, GameColor color);
 
 	void startFrame();
-	void placeCamera(GameObjectLocation cameraLocation);
-	void drawModel(GameObjectHandler modelReference, GameObjectLocation modelLocation);
-	void drawAnimation(GameObjectHandler animationReference, int state, GameObjectLocation modelLocation);
+	void placeCamera(GameObjectPlacement cameraLocation);
+	void drawModel(GameObjectHandler modelReference, GameObjectPlacement modelLocation);
+	void drawAnimation(GameObjectHandler animationReference, int state, GameObjectPlacement modelLocation);
 	void endFrame();
 }

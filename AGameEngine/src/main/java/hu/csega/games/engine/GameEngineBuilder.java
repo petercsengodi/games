@@ -55,6 +55,7 @@ public class GameEngineBuilder {
 			if(engine == null) {
 				logger.error("Game Engine wasn't created!");
 			} else {
+				// TODO not nice this way
 				engine.startInNewWindow();
 			}
 

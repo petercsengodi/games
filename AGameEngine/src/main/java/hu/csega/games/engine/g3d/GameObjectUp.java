@@ -2,16 +2,16 @@ package hu.csega.games.engine.g3d;
 
 import java.io.Serializable;
 
-public class GameObjectRotation implements Serializable {
+public class GameObjectUp implements Serializable {
 
 	public float x;
 	public float y;
 	public float z;
 
-	public GameObjectRotation() {
+	public GameObjectUp() {
 	}
 
-	public GameObjectRotation(float x, float y, float z) {
+	public GameObjectUp(float x, float y, float z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -23,7 +23,7 @@ public class GameObjectRotation implements Serializable {
 		this.z = z;
 	}
 
-	public void copyValuesFrom(GameObjectRotation other) {
+	public void copyValuesFrom(GameObjectUp other) {
 		this.x = other.x;
 		this.y = other.y;
 		this.z = other.z;
@@ -52,7 +52,7 @@ public class GameObjectRotation implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		GameObjectRotation other = (GameObjectRotation) obj;
+		GameObjectUp other = (GameObjectUp) obj;
 		if (Float.floatToIntBits(x) != Float.floatToIntBits(other.x))
 			return false;
 		if (Float.floatToIntBits(y) != Float.floatToIntBits(other.y))
@@ -63,4 +63,5 @@ public class GameObjectRotation implements Serializable {
 	}
 
 	private static final long serialVersionUID = 1L;
+
 }

@@ -3,7 +3,7 @@ package hu.csega.editors.anm.swing.old;
 import java.util.ArrayList;
 import java.util.List;
 
-import hu.csega.editors.anm.model.AnimatorScene;
+import hu.csega.editors.anm.model.old.AnimatorScene;
 
 public class AnimatorTreeRoot implements AnimatorTreeNode {
 

@@ -1,6 +1,7 @@
 package hu.csega.games.adapters.opengl;
 
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Point;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
@@ -23,7 +24,7 @@ import hu.csega.games.engine.intf.GameWindow;
 import hu.csega.games.engine.intf.GameWindowListener;
 
 public class OpenGLFrame extends JFrame implements GameWindow, WindowListener, KeyListener,
-		MouseListener, MouseMotionListener {
+MouseListener, MouseMotionListener {
 
 	private boolean CENTER_MOUSE = true;
 
@@ -58,14 +59,14 @@ public class OpenGLFrame extends JFrame implements GameWindow, WindowListener, K
 	}
 
 	@Override
-	public void add(GameCanvas canvas) {
+	public void add(GameCanvas canvas, Container container) {
 		Component component = null;
 
 		if(canvas instanceof OpenGLCanvas)
 			component = ((OpenGLCanvas)canvas).getRealCanvas();
 
 		if(component != null) {
-			getContentPane().add(component);
+			container.add(component);
 			component.addKeyListener(this);
 			component.addMouseListener(this);
 			component.addMouseMotionListener(this);
@@ -200,7 +201,7 @@ public class OpenGLFrame extends JFrame implements GameWindow, WindowListener, K
 
 		if(centerMouse) {
 			putMouseToCenter();
-	    } else {
+		} else {
 			lastMouseX = x;
 			lastMouseY = y;
 		}
@@ -307,8 +308,8 @@ public class OpenGLFrame extends JFrame implements GameWindow, WindowListener, K
 					centerMouse = true;
 
 					setCursor(getToolkit().createCustomCursor(
-				            new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB), new Point(0, 0),
-				            "null"));
+							new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB), new Point(0, 0),
+							"null"));
 
 					putMouseToCenter();
 				} catch(Exception ex) {

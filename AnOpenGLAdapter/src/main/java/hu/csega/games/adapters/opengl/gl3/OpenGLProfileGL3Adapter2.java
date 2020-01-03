@@ -9,6 +9,7 @@ import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
 
 import org.joml.Matrix4f;
+import org.joml.Vector4f;
 
 import com.jogamp.opengl.GL3;
 import com.jogamp.opengl.GLAutoDrawable;
@@ -32,9 +33,7 @@ import hu.csega.games.adapters.opengl.utils.BufferUtils;
 import hu.csega.games.adapters.opengl.utils.OpenGLErrorUtil;
 import hu.csega.games.adapters.opengl.utils.OpenGLLogStream;
 import hu.csega.games.adapters.opengl.utils.OpenGLProgramLogger;
-import hu.csega.games.engine.g3d.GameObjectLocation;
-import hu.csega.games.engine.g3d.GameObjectPosition;
-import hu.csega.games.engine.g3d.GameObjectRotation;
+import hu.csega.games.engine.g3d.GameObjectPlacement;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
@@ -52,9 +51,12 @@ public class OpenGLProfileGL3Adapter2 implements OpenGLProfileAdapter {
 
 	private GL3 gl3 = null;
 
-	private GameObjectPosition cameraEye = new GameObjectPosition();
-	private GameObjectPosition cameraCenter = new GameObjectPosition();
-	private GameObjectPosition cameraUp = new GameObjectPosition();
+	private Vector4f tmpEye = new Vector4f();
+	private Vector4f tmpCenter = new Vector4f();
+	private Vector4f tmpUp = new Vector4f();
+	private Matrix4f basicLookAt = new Matrix4f();
+	private Matrix4f inverseLookAt = new Matrix4f();
+	private Matrix4f basicScale = new Matrix4f();
 
 	@Override
 	public void viewPort(GLAutoDrawable glAutoDrawable, int width, int height) {
@@ -261,18 +263,18 @@ public class OpenGLProfileGL3Adapter2 implements OpenGLProfileAdapter {
 	}
 
 	@Override
-	public void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, GameObjectLocation location, OpenGLModelStoreImpl store) {
+	public void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, GameObjectPlacement placement, OpenGLModelStoreImpl store) {
 		try {
 
 			calculatedMatrix.set(perspectiveMatrix);
 			calculatedMatrix.mul(cameraMatrix);
 
-			GameObjectPosition p = location.position;
-			GameObjectRotation r = location.rotation;
-			calculatedMatrix.translate(p.x, p.y, p.z);
-			calculatedMatrix.rotate(r.z, 0f, 0f, 1f);
-			calculatedMatrix.rotate(r.y, 1f, 0f, 0f);
-			calculatedMatrix.rotate(r.x, 0f, 1f, 0f);
+			placement.calculateBasicLookAt(basicLookAt);
+			placement.calculateInverseLookAt(basicLookAt, tmpEye, tmpCenter, tmpUp, inverseLookAt);
+			calculatedMatrix.mul(inverseLookAt);
+
+			placement.calculateBasicScaleMatrix(basicScale);
+			calculatedMatrix.mul(basicScale);
 
 			calculatedMatrix.get(matrixBuffer);
 
@@ -346,19 +348,11 @@ public class OpenGLProfileGL3Adapter2 implements OpenGLProfileAdapter {
 	}
 
 	@Override
-	public void placeCamera(GLAutoDrawable glAutodrawable, GameObjectLocation cameraSettings) {
+	public void placeCamera(GLAutoDrawable glAutodrawable, GameObjectPlacement cameraPlacement) {
 		if(gl3 == null)
 			gl3 = glAutodrawable.getGL().getGL3();
 
-
-		cameraSettings.calculateEye(cameraEye);
-		cameraSettings.calculateCenter(cameraCenter);
-		cameraSettings.calculateUp(cameraUp);
-
-		cameraMatrix.identity();
-		cameraMatrix.lookAt(cameraEye.x, cameraEye.y, cameraEye.z,
-				cameraCenter.x, cameraCenter.y, cameraCenter.z,
-				cameraUp.x, cameraUp.y, cameraUp.z);
+		cameraPlacement.calculateBasicLookAt(cameraMatrix);
 	}
 
 	private static final Logger logger = LoggerFactory.createLogger(OpenGLProfileGL3Adapter2.class);

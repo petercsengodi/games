@@ -8,7 +8,7 @@ import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
-import hu.csega.editors.anm.model.AnimatorScene;
+import hu.csega.editors.anm.model.old.AnimatorScene;
 
 public class AnimatorTreeModel implements TreeModel {
 

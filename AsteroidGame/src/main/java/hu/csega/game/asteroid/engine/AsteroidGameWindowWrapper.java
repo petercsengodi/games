@@ -1,6 +1,7 @@
 package hu.csega.game.asteroid.engine;
 
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -25,13 +26,17 @@ public class AsteroidGameWindowWrapper implements GameWindow, KeyListener {
 		this.toolWindow.getAwtWindow().addKeyListener(this);
 	}
 
+	public Container getContainer() {
+		return this.toolWindow.getAwtWindow();
+	}
+
 	@Override
 	public void register(GameWindowListener listener) {
 		gameTool.registerGameWindowListener(listener);
 	}
 
 	@Override
-	public void add(GameCanvas canvas) {
+	public void add(GameCanvas canvas, Container container) {
 		Component component = null;
 
 		if(canvas instanceof OpenGLCanvas)

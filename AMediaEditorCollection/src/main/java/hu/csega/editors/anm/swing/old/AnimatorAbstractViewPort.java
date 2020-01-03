@@ -19,16 +19,16 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import hu.csega.editors.anm.model.AnimatorModel;
-import hu.csega.editors.anm.model.AnimatorPartPlacement;
-import hu.csega.editors.anm.model.AnimatorPartPlacementChild;
-import hu.csega.editors.anm.model.AnimatorScene;
-import hu.csega.editors.anm.model.parts.AnimatorJoint;
-import hu.csega.editors.anm.model.parts.AnimatorPart;
-import hu.csega.editors.anm.model.parts.AnimatorPartModel;
-import hu.csega.editors.anm.model.parts.AnimatorPartTriangle;
-import hu.csega.editors.anm.model.parts.AnimatorPartVertex;
-import hu.csega.editors.anm.model.parts.AnimatorPosition;
+import hu.csega.editors.anm.model.old.AnimatorModel;
+import hu.csega.editors.anm.model.old.AnimatorPartPlacement;
+import hu.csega.editors.anm.model.old.AnimatorPartPlacementChild;
+import hu.csega.editors.anm.model.old.AnimatorScene;
+import hu.csega.editors.anm.model.old.parts.AnimatorJoint;
+import hu.csega.editors.anm.model.old.parts.AnimatorPart;
+import hu.csega.editors.anm.model.old.parts.AnimatorPartModel;
+import hu.csega.editors.anm.model.old.parts.AnimatorPartTriangle;
+import hu.csega.editors.anm.model.old.parts.AnimatorPartVertex;
+import hu.csega.editors.anm.model.old.parts.AnimatorPosition;
 import hu.csega.editors.common.EditorPoint;
 import hu.csega.editors.common.EditorTransformation;
 import hu.csega.editors.common.TransformationStack;
@@ -288,7 +288,7 @@ public abstract class AnimatorAbstractViewPort extends JPanel implements GameCan
 			}
 
 			AnimatorModel model = getModel();
-			model.editorModel.finalizeMove();
+			// model.editorModel.finalizeMove();
 		} else if(e.getButton() == 3) {
 			mouseRightPressed = false;
 		}

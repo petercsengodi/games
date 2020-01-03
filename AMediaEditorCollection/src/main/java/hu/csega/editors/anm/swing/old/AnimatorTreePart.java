@@ -2,9 +2,9 @@ package hu.csega.editors.anm.swing.old;
 
 import java.util.List;
 
-import hu.csega.editors.anm.model.AnimatorScene;
-import hu.csega.editors.anm.model.parts.AnimatorJoint;
-import hu.csega.editors.anm.model.parts.AnimatorPart;
+import hu.csega.editors.anm.model.old.AnimatorScene;
+import hu.csega.editors.anm.model.old.parts.AnimatorJoint;
+import hu.csega.editors.anm.model.old.parts.AnimatorPart;
 
 public class AnimatorTreePart implements AnimatorTreeNode {
 

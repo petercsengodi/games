@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import hu.csega.games.engine.g3d.GameObjectLocation;
+import hu.csega.games.engine.g3d.GameObjectPlacement;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
@@ -32,7 +32,7 @@ public class TransformationTesterModel implements Serializable {
 	private double openGLBeta;
 	private double openGLZoom = 1.0;
 
-	private GameObjectLocation camera = new GameObjectLocation();
+	private GameObjectPlacement camera = new GameObjectPlacement();
 
 	private TransformationTesterVertex clickStart = new TransformationTesterVertex(0, 0, 0);
 	private TransformationTesterVertex clickEnd = new TransformationTesterVertex(0, 0, 0);
@@ -40,6 +40,8 @@ public class TransformationTesterModel implements Serializable {
 	private List<TransformationTesterVertex> vertices;
 
 	public TransformationTesterModel() {
+		resetCamera();
+
 		this.vertices = new ArrayList<>();
 
 		// 1. side: z = -100
@@ -320,13 +322,14 @@ public class TransformationTesterModel implements Serializable {
 		logger.info("SET LINE END: (" + clickEnd.getPX() + "; " + clickEnd.getPY() + "; " + clickEnd.getPZ() + ')');
 	}
 
-	public GameObjectLocation getCamera() {
+	public GameObjectPlacement getCamera() {
 		return camera;
 	}
 
 	public void resetCamera() {
 		camera.position.set(0f,  0f,  0f);
-		camera.rotation.set(0f,  0f,  0f);
+		camera.target.set(0f,  0f,  1f);
+		camera.up.set(0f,  -1f,  0f);
 		camera.scale.set(1f,  1f,  1f);
 	}
 

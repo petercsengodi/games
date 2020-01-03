@@ -1,5 +1,6 @@
 package hu.csega.superstition.engines.opengl;
 
+import java.awt.Container;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class SuperstitionOpenGLConnector implements Connector, GameWindow {
 	}
 
 	@Override
-	public void add(GameCanvas canvas) {
+	public void add(GameCanvas canvas, Container container) {
 	}
 
 	@Override

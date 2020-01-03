@@ -3,6 +3,9 @@ package hu.csega.games.adapters.opengl.gl2;
 import java.io.File;
 import java.io.IOException;
 
+import org.joml.Matrix4f;
+import org.joml.Vector4f;
+
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
@@ -17,15 +20,13 @@ import hu.csega.games.adapters.opengl.models.OpenGLModelContainer;
 import hu.csega.games.adapters.opengl.models.OpenGLModelStoreImpl;
 import hu.csega.games.adapters.opengl.models.OpenGLTextureContainer;
 import hu.csega.games.adapters.opengl.utils.OpenGLErrorUtil;
-import hu.csega.games.engine.g3d.GameObjectLocation;
+import hu.csega.games.engine.g3d.GameObjectDirection;
+import hu.csega.games.engine.g3d.GameObjectPlacement;
 import hu.csega.games.engine.g3d.GameObjectPosition;
-import hu.csega.games.engine.g3d.GameObjectRotation;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
 public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
-
-	private static final float RAD = (float)(180.0 / Math.PI);
 
 	private GL2 gl2 = null;
 	private GLU glu = null;
@@ -35,6 +36,18 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 	private float aspect = 1.5f;
 	private float zNear = 0.1f;
 	private float zFar = 10000.0f;
+
+	private GameObjectPosition cameraEye = new GameObjectPosition();
+	private GameObjectPosition cameraCenter = new GameObjectPosition();
+	private GameObjectDirection cameraUp = new GameObjectDirection();
+
+	private Vector4f tmpEye = new Vector4f();
+	private Vector4f tmpCenter = new Vector4f();
+	private Vector4f tmpUp = new Vector4f();
+	private Matrix4f basicLookAt = new Matrix4f();
+	private Matrix4f inverseLookAt = new Matrix4f();
+
+	private float[] tmpMatrix = new float[16];
 
 	@Override
 	public void viewPort(GLAutoDrawable glAutoDrawable, int width, int height) {
@@ -146,18 +159,19 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 	}
 
 	@Override
-	public void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, GameObjectLocation location, OpenGLModelStoreImpl store) {
+	public void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, GameObjectPlacement placement, OpenGLModelStoreImpl store) {
 		int stride = 3 + 3 + 2;
 		float vx, vy, vz, nx, ny, nz, tx, ty;
 		int offset;
 
 		gl2.glPushMatrix();
 
-		GameObjectPosition lp = location.position;
-		gl2.glTranslatef(lp.x, lp.y, lp.z);
-		gl2.glRotatef(location.rotation.z * RAD, 0f, 0f, 1f);
-		gl2.glRotatef(location.rotation.y * RAD, 1f, 0f, 0f);
-		gl2.glRotatef(location.rotation.x * RAD, 0f, 1f, 0f);
+		placement.calculateBasicLookAt(basicLookAt);
+		placement.calculateInverseLookAt(basicLookAt, tmpEye, tmpCenter, tmpUp, inverseLookAt);
+		inverseLookAt.get(tmpMatrix);
+		gl2.glMultMatrixf(tmpMatrix, 0);
+
+		gl2.glScalef(placement.scale.x, placement.scale.y, placement.scale.z);
 
 		OpenGLModelBuilder builder = model.builder();
 		int numberOfShapes = builder.numberOfShapes();
@@ -220,58 +234,18 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 	}
 
 	@Override
-	public void placeCamera(GLAutoDrawable glAutoDrawable, GameObjectLocation cameraSettings) {
+	public void placeCamera(GLAutoDrawable glAutoDrawable, GameObjectPlacement cameraPlacement) {
 		gl2.glMatrixMode(GL2.GL_MODELVIEW);
 		gl2.glLoadIdentity();
 
-		GameObjectPosition p = cameraSettings.position;
-		GameObjectRotation r = cameraSettings.rotation;
-
-		double f0x = 0f;
-		double f0y = 0f;
-		double f0z = 1f;
-
-		double f1x = f0x * Math.cos(r.z) - f0y * Math.sin(r.z);
-		double f1y = f0x * Math.sin(r.z) + f0y * Math.cos(r.z);
-		double f1z = f0z;
-
-		double f2x = f1x * Math.cos(r.y) - f1z * Math.sin(r.y);
-		double f2y = f1y;
-		double f2z = f1x * Math.sin(r.y) + f1z * Math.cos(r.y);
-
-		double f3x = f2x;
-		double f3y = f2y * Math.cos(r.x) - f2z * Math.sin(r.x);
-		double f3z = f2y * Math.sin(r.x) + f2z * Math.cos(r.x);
-
-		float fx = (float)f3x + p.x;
-		float fy = (float)f3y + p.y;
-		float fz = (float)f3z + p.z;
-
-		double u0x = 0f;
-		double u0y = 1f;
-		double u0z = 0f;
-
-		double u1x = u0x * Math.cos(r.z) - u0y * Math.sin(r.z);
-		double u1y = u0x * Math.sin(r.z) + u0y * Math.cos(r.z);
-		double u1z = u0z;
-
-		double u2x = u1x * Math.cos(r.y) - u1z * Math.sin(r.y);
-		double u2y = u1y;
-		double u2z = u1x * Math.sin(r.y) + u1z * Math.cos(r.y);
-
-		double u3x = u2x;
-		double u3y = u2y * Math.cos(r.x) - u2z * Math.sin(r.x);
-		double u3z = u2y * Math.sin(r.x) + u2z * Math.cos(r.x);
-
-		float ux = (float)u3x;
-		float uy = (float)u3y;
-		float uz = (float)u3z;
+		cameraPlacement.calculateEye(cameraEye);
+		cameraPlacement.calculateCenter(cameraCenter);
+		cameraPlacement.calculateUp(cameraUp);
 
 		glu.gluLookAt(
-				p.x, p.y, p.z,
-				fx, fy, fz,
-				ux, uy, uz
-				);
+				cameraEye.x, cameraEye.y, cameraEye.z,
+				cameraCenter.x, cameraCenter.y, cameraCenter.z,
+				cameraUp.x, cameraUp.y, cameraUp.z);
 
 		OpenGLErrorUtil.checkError(gl2, "cameraPlacement");
 	}

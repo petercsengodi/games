@@ -3,18 +3,17 @@ package hu.csega.superstition.states.menu;
 import hu.csega.games.engine.GameEngineCallback;
 import hu.csega.games.engine.GameEngineFacade;
 import hu.csega.games.engine.g3d.GameObjectHandler;
-import hu.csega.games.engine.g3d.GameObjectLocation;
+import hu.csega.games.engine.g3d.GameObjectPlacement;
 
 public class SuperstitionMainMenuModel implements GameEngineCallback {
 
 	private GameObjectHandler splash;
 
-	private GameObjectLocation cameraLocation;
+	private GameObjectPlacement cameraPlacement;
 
 	public SuperstitionMainMenuModel() {
-		cameraLocation = new GameObjectLocation();
-		cameraLocation.position.set(0f, 0f, -10f);
-		cameraLocation.rotation.set(0f, 0f, 0f);
+		cameraPlacement = new GameObjectPlacement();
+		cameraPlacement.position.set(0f, 0f, -10f);
 	}
 
 	@Override
@@ -30,8 +29,8 @@ public class SuperstitionMainMenuModel implements GameEngineCallback {
 		this.splash = splash;
 	}
 
-	public GameObjectLocation camera() {
-		return cameraLocation;
+	public GameObjectPlacement camera() {
+		return cameraPlacement;
 	}
 
 }

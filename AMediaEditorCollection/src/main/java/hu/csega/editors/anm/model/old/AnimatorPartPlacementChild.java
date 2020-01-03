@@ -1,4 +1,4 @@
-package hu.csega.editors.anm.model;
+package hu.csega.editors.anm.model.old;
 
 public class AnimatorPartPlacementChild {
 

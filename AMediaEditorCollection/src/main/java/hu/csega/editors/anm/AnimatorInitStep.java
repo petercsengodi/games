@@ -1,13 +1,13 @@
 package hu.csega.editors.anm;
 
 import hu.csega.editors.anm.model.AnimatorModel;
-import hu.csega.editors.anm.model.AnimatorPartPlacement;
-import hu.csega.editors.anm.model.AnimatorPartPlacementChild;
-import hu.csega.editors.anm.model.AnimatorScene;
-import hu.csega.editors.anm.model.parts.AnimatorJoint;
-import hu.csega.editors.anm.model.parts.AnimatorLocation;
-import hu.csega.editors.anm.model.parts.AnimatorPart;
-import hu.csega.editors.anm.model.parts.AnimatorPosition;
+import hu.csega.editors.anm.model.old.AnimatorPartPlacement;
+import hu.csega.editors.anm.model.old.AnimatorPartPlacementChild;
+import hu.csega.editors.anm.model.old.AnimatorScene;
+import hu.csega.editors.anm.model.old.parts.AnimatorJoint;
+import hu.csega.editors.anm.model.old.parts.AnimatorLocation;
+import hu.csega.editors.anm.model.old.parts.AnimatorPart;
+import hu.csega.editors.anm.model.old.parts.AnimatorPosition;
 import hu.csega.games.engine.GameEngineCallback;
 import hu.csega.games.engine.GameEngineFacade;
 
@@ -71,7 +71,7 @@ public class AnimatorInitStep implements GameEngineCallback {
 
 		for(int i = 0; i < 5; i++) {
 			AnimatorScene scene = generateTestScene(i, base, top);
-			model.scenes.add(scene);
+			// model.scenes.add(scene);
 		}
 	}
 

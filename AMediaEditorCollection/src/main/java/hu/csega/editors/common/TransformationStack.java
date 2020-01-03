@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import org.joml.Matrix4d;
 import org.joml.Vector4d;
 
-import hu.csega.editors.anm.model.AnimatorTransformation;
+import hu.csega.editors.anm.model.old.AnimatorTransformation;
 
 // Not thread-safe.
 public class TransformationStack {

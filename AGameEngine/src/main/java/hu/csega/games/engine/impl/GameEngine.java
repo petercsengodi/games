@@ -1,9 +1,12 @@
 package hu.csega.games.engine.impl;
 
+import java.awt.Container;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.swing.JFrame;
 
 import hu.csega.games.engine.GameEngineCallback;
 import hu.csega.games.engine.GameEngineFacade;
@@ -64,12 +67,13 @@ public class GameEngine implements Disposable {
 	}
 
 	public void startInNewWindow() {
+		// TODO not nice this way.
 		GameWindow gameWindow = adapter.createWindow(this);
 		gameWindow.setFullScreen(true);
-		startIn(gameWindow);
+		startIn(gameWindow, ((JFrame)gameWindow).getContentPane());
 	}
 
-	public void startIn(GameWindow gameWindow) {
+	public void startIn(GameWindow gameWindow, Container container) {
 		this.window = gameWindow;
 		this.store = adapter.createStore(this);
 		this.canvas = adapter.createCanvas(this);
@@ -83,7 +87,7 @@ public class GameEngine implements Disposable {
 		this.thread = new GameThreadImpl(this);
 		thread.start();
 
-		window.add(canvas);
+		window.add(canvas, container);
 		window.register(new DefaultGameWindowListener(this.thread, this));
 		window.showWindow();
 	}

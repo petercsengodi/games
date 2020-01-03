@@ -11,7 +11,7 @@ import hu.csega.games.engine.g2d.GameHitShape;
 import hu.csega.games.engine.g2d.GamePoint;
 import hu.csega.games.engine.g2d.GameSprite;
 import hu.csega.games.engine.g3d.GameObjectHandler;
-import hu.csega.games.engine.g3d.GameObjectLocation;
+import hu.csega.games.engine.g3d.GameObjectPlacement;
 import hu.csega.games.engine.intf.GameGraphics;
 
 public class OpenGLGraphics implements GameGraphics {
@@ -84,7 +84,7 @@ public class OpenGLGraphics implements GameGraphics {
 	}
 
 	@Override
-	public void placeCamera(GameObjectLocation cameraLocation) {
+	public void placeCamera(GameObjectPlacement cameraLocation) {
 		if(cameraLocation == null) {
 			return;
 		}
@@ -93,18 +93,18 @@ public class OpenGLGraphics implements GameGraphics {
 	}
 
 	@Override
-	public void drawModel(GameObjectHandler modelReference, GameObjectLocation modelLocation) {
-		if(modelReference == null || modelLocation == null) {
+	public void drawModel(GameObjectHandler modelReference, GameObjectPlacement modelPlacement) {
+		if(modelReference == null || modelPlacement == null) {
 			return;
 		}
 
 		OpenGLModelContainer resolvedModel = store.resolveModel(modelReference);
-		resolvedModel.draw(glAutodrawable, modelLocation);
+		resolvedModel.draw(glAutodrawable, modelPlacement);
 	}
 
 	@Override
-	public void drawAnimation(GameObjectHandler animationReference, int state, GameObjectLocation modelLocation) {
-		if(animationReference == null || modelLocation == null) {
+	public void drawAnimation(GameObjectHandler animationReference, int state, GameObjectPlacement modelPlacement) {
+		if(animationReference == null || modelPlacement == null) {
 			return;
 		}
 	}

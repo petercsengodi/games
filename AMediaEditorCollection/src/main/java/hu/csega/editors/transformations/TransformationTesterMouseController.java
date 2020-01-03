@@ -7,9 +7,12 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
+import org.joml.Matrix4f;
+import org.joml.Vector4f;
+
 import hu.csega.editors.transformations.model.TransformationTesterModel;
 import hu.csega.games.engine.GameEngineFacade;
-import hu.csega.games.engine.g3d.GameObjectLocation;
+import hu.csega.games.engine.g3d.GameObjectPlacement;
 
 public class TransformationTesterMouseController implements MouseListener, MouseMotionListener, MouseWheelListener{
 
@@ -23,6 +26,11 @@ public class TransformationTesterMouseController implements MouseListener, Mouse
 
 	private boolean mouseRightPressed = false;
 	private Point mouseRightAt = new Point(0, 0);
+
+	private Vector4f position = new Vector4f();
+	private Vector4f target = new Vector4f();
+	private Vector4f up = new Vector4f();
+	private Matrix4f rotation = new Matrix4f();
 
 	private GameEngineFacade facade;
 
@@ -107,21 +115,24 @@ public class TransformationTesterMouseController implements MouseListener, Mouse
 
 	private void recalculateAndRepaint() {
 		double distance = ZOOM_VALUES[zoomIndex];
-		double py = distance * Math.sin(beta);
-		double projectedDistance = distance * Math.cos(beta);
-		double px = projectedDistance * Math.sin(alfa);
-		double pz = projectedDistance * Math.cos(alfa);
+
+		rotation.identity();
+		rotation.rotateAffineXYZ((float)beta, (float)alfa, 0f);
+
+		position.set(0f, 0f, -(float)distance, 1f);
+		rotation.transform(position);
+
+		target.set(0f, 0f, 0f, 1f);
+
+		up.set(0f, -1f, 0f, 1f);
+		rotation.transform(up);
 
 		TransformationTesterModel model = (TransformationTesterModel) facade.model();
-		GameObjectLocation camera = model.getCamera();
+		GameObjectPlacement cameraPlacement = model.getCamera();
 
-		/*
-		camera.position.set((float)px, (float)py, (float)pz);
-		camera.rotation.set((float)(beta), (float)(Math.PI-alfa), 0f);
-		 */
-
-		camera.position.set(0f, 0f, 0f);
-		camera.rotation.set((float)(beta), (float)(alfa), 0f);
+		cameraPlacement.position.set(position.x, position.y, position.z);
+		cameraPlacement.target.set(target.x, target.y, target.z);
+		cameraPlacement.up.set(up.x, up.y, up.z);
 
 		facade.window().repaintEverything();
 	}

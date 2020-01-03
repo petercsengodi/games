@@ -10,7 +10,7 @@ import hu.csega.games.engine.g3d.GameModelBuilder;
 import hu.csega.games.engine.g3d.GameModelStore;
 import hu.csega.games.engine.g3d.GameObjectDirection;
 import hu.csega.games.engine.g3d.GameObjectHandler;
-import hu.csega.games.engine.g3d.GameObjectLocation;
+import hu.csega.games.engine.g3d.GameObjectPlacement;
 import hu.csega.games.engine.g3d.GameObjectPosition;
 import hu.csega.games.engine.g3d.GameObjectVertex;
 import hu.csega.games.engine.g3d.GameTexturePosition;
@@ -19,13 +19,19 @@ import hu.csega.games.engine.intf.GameGraphics;
 public class TransformationTesterRenderStep implements GameEngineCallback {
 
 	private GameObjectHandler convertedModel = null;
-	private GameObjectLocation modelLocation = new GameObjectLocation();
+	private GameObjectPlacement modelPlacement = null;
 
 	@Override
 	public Object call(GameEngineFacade facade) {
 		TransformationTesterModel model = (TransformationTesterModel) facade.model();
 		if(model == null)
 			return facade;
+
+		if(modelPlacement == null) {
+			modelPlacement = new GameObjectPlacement();
+			modelPlacement.target.set(0f, 0f, 1f);
+			modelPlacement.up.set(0f, 1f, 0f);
+		}
 
 		if(convertedModel == null) {
 			List<TransformationTesterVertex> vertices = model.getVertices();
@@ -57,13 +63,13 @@ public class TransformationTesterRenderStep implements GameEngineCallback {
 		// Rendering
 		GameGraphics g = facade.graphics();
 
-		GameObjectLocation cameraLocation = model.getCamera();
+		GameObjectPlacement cameraLocation = model.getCamera();
 		g.placeCamera(cameraLocation);
 
 		// g.crossHair(0, 0);
 
 		if(convertedModel != null) {
-			g.drawModel(convertedModel, modelLocation);
+			g.drawModel(convertedModel, modelPlacement);
 		}
 
 		return facade;

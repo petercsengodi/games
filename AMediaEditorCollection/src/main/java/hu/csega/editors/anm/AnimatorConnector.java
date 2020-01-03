@@ -1,14 +1,23 @@
 package hu.csega.editors.anm;
 
+import java.awt.Color;
 import java.awt.Container;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.ListModel;
 
 import hu.csega.editors.anm.menu.AnimatorMenu;
+import hu.csega.editors.anm.model.AnimatorModel;
+import hu.csega.editors.anm.model.parts.AnimatorPart;
+import hu.csega.editors.anm.swing.AnimatorColorPanel;
 import hu.csega.editors.anm.swing.AnimatorRootLayoutManager;
 import hu.csega.games.adapters.opengl.OpenGLGameAdapter;
 import hu.csega.games.common.Connector;
@@ -48,7 +57,7 @@ public class AnimatorConnector implements Connector, GameWindow {
 	}
 
 	@Override
-	public void add(GameCanvas canvas) {
+	public void add(GameCanvas canvas, Container container) {
 	}
 
 	@Override
@@ -113,15 +122,29 @@ public class AnimatorConnector implements Connector, GameWindow {
 
 		AnimatorMenu.createMenuForJFrame(frame, facade);
 
+		JTabbedPane tabbedPane = new JTabbedPane();
 
-		// Upper right tile
-		engine.startIn(gameWindow);
+		JComponent panelWireFrame = new JPanel();
+		tabbedPane.addTab("Wireframe", panelWireFrame);
 
+		JComponent panel3D = new JPanel();
+		panel3D.setLayout(new GridLayout(1, 1));
+		tabbedPane.addTab("3D Canvas", panel3D);
 
-		JList list = new JList<>();
+		contentPane.add(AnimatorRootLayoutManager.CANVAS3D, tabbedPane);
+
+		// Adds canvas to content pane, but the model doesn't exist at this point.
+		engine.startIn(gameWindow, panel3D);
+
+		// Now the model exists.
+		ListModel<AnimatorPart> listModel = (AnimatorModel)facade.model();
+		JList<AnimatorPart> list = new JList<>(listModel);
 		JScrollPane scrollableList = new JScrollPane(list);
-		contentPane.add("PartsList", scrollableList);
+		contentPane.add(AnimatorRootLayoutManager.PARTS_LIST, scrollableList);
 
+		contentPane.add(AnimatorRootLayoutManager.PARTS_SETTINGS, new AnimatorColorPanel(Color.RED));
+		contentPane.add(AnimatorRootLayoutManager.CORNER_CONTROLLER, new AnimatorColorPanel(Color.BLUE));
+		contentPane.add(AnimatorRootLayoutManager.SCENE_EDITOR, new AnimatorColorPanel(Color.GREEN));
 
 		return engine;
 	}
