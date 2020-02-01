@@ -31,6 +31,7 @@ import hu.csega.games.engine.intf.GameDescriptor;
 import hu.csega.games.engine.intf.GameEngineStep;
 import hu.csega.games.engine.intf.GameWindow;
 import hu.csega.games.engine.intf.GameWindowListener;
+import hu.csega.games.units.UnitStore;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
@@ -105,6 +106,8 @@ public class AnimatorConnector implements Connector, GameWindow {
 		GameAdapter adapter = new OpenGLGameAdapter();
 		GameEngine engine = GameEngine.create(descriptor, adapter);
 		GameEngineFacade facade = engine.getFacade();
+
+		UnitStore.registerInstance(GameEngineFacade.class, facade);
 
 		engine.step(GameEngineStep.INIT, new AnimatorInitStep());
 		engine.step(GameEngineStep.RENDER, new AnimatorRenderStep());

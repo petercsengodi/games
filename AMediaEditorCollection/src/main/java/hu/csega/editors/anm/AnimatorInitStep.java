@@ -1,5 +1,6 @@
 package hu.csega.editors.anm;
 
+import hu.csega.editors.anm.components.ComponentOpenGLTransformer;
 import hu.csega.editors.anm.model.AnimatorModel;
 import hu.csega.editors.anm.model.old.AnimatorPartPlacement;
 import hu.csega.editors.anm.model.old.AnimatorPartPlacementChild;
@@ -10,8 +11,11 @@ import hu.csega.editors.anm.model.old.parts.AnimatorPart;
 import hu.csega.editors.anm.model.old.parts.AnimatorPosition;
 import hu.csega.games.engine.GameEngineCallback;
 import hu.csega.games.engine.GameEngineFacade;
+import hu.csega.games.units.UnitStore;
 
 public class AnimatorInitStep implements GameEngineCallback {
+
+	private ComponentOpenGLTransformer animatorModelBuilder;
 
 	@Override
 	public Object call(GameEngineFacade facade) {
@@ -19,6 +23,9 @@ public class AnimatorInitStep implements GameEngineCallback {
 		facade.setModel(model);
 
 		initializeTestModel(model);
+
+		this.animatorModelBuilder = UnitStore.instance(ComponentOpenGLTransformer.class);
+		animatorModelBuilder.setGameEngineFacade(facade);
 
 		return facade;
 	}

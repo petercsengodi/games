@@ -21,6 +21,12 @@ public class UnitStore {
 		}
 	}
 
+	public static void registerDefaultImplementation(Class<?> interfaceClass, Class<?> defaultImplementation) {
+		synchronized (unitStoreMap) {
+			providerMap.put(interfaceClass, new UnitDefaultImplementationProvider(defaultImplementation));
+		}
+	}
+
 	@SuppressWarnings("unchecked")
 	static <T> T createOrGetUnit(Object parent, Class<T> unitClass) {
 		synchronized (unitStoreMap) {
@@ -72,10 +78,6 @@ public class UnitStore {
 		}
 
 		T object = (T)implementation.newInstance();
-
-		if(object instanceof AbstractUnit)
-			((AbstractUnit)object).injectComponents(parent);
-
 		return object;
 	}
 

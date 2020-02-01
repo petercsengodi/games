@@ -1,7 +1,9 @@
 package hu.csega.editors;
 
 import hu.csega.editors.anm.AnimatorConnector;
+import hu.csega.editors.anm.components.ComponentOpenGLTransformer;
 import hu.csega.editors.anm.components.ComponentWireFrameTransformer;
+import hu.csega.editors.anm.components.stubs.StubOpenGLTransformer;
 import hu.csega.editors.anm.components.stubs.StubWireFrameTransformer;
 import hu.csega.games.common.ApplicationStarter;
 import hu.csega.games.common.Connector;
@@ -46,7 +48,11 @@ public class AnimatorStarter {
 		Connector connector = new AnimatorConnector();
 		UnitStore.registerInstance(Connector.class, connector);
 
+		// UnitStore.registerInstance(ComponentWireFrameTransformer.class, new StubWireFrameTransformer());
+		// UnitStore.registerDefaultImplementation(ComponentOpenGLTransformer.class, AnimatorModelBuilder.class);
+
 		UnitStore.registerInstance(ComponentWireFrameTransformer.class, new StubWireFrameTransformer());
+		UnitStore.registerInstance(ComponentOpenGLTransformer.class, new StubOpenGLTransformer());
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		// 3. Starting application:
