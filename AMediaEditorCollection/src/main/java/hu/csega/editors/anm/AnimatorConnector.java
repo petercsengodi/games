@@ -19,6 +19,7 @@ import hu.csega.editors.anm.model.AnimatorModel;
 import hu.csega.editors.anm.model.parts.AnimatorPart;
 import hu.csega.editors.anm.swing.AnimatorColorPanel;
 import hu.csega.editors.anm.swing.AnimatorRootLayoutManager;
+import hu.csega.editors.anm.swing.AnimatorWireFrameView;
 import hu.csega.games.adapters.opengl.OpenGLGameAdapter;
 import hu.csega.games.common.Connector;
 import hu.csega.games.engine.GameEngineFacade;
@@ -124,7 +125,7 @@ public class AnimatorConnector implements Connector, GameWindow {
 
 		JTabbedPane tabbedPane = new JTabbedPane();
 
-		JComponent panelWireFrame = new JPanel();
+		JComponent panelWireFrame = new AnimatorWireFrameView();
 		tabbedPane.addTab("Wireframe", panelWireFrame);
 
 		JComponent panel3D = new JPanel();

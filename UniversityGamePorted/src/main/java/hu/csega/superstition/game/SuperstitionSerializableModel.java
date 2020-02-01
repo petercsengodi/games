@@ -24,22 +24,21 @@ public class SuperstitionSerializableModel implements Serializable {
 	public SuperstitionSerializableModel() {
 		player.z = -500f;
 
-		groundPlacement.position.set(0f, 0f, 0f);
+		groundPlacement.moveTo(0f, 0f, 0f);
 
-		testFTMPlacement.position.set(0f, 0f, 0f);
+		testFTMPlacement.moveTo(0f, 0f, 0f);
 
-		figureFTMPlacement.position.set(20f, 0f, 0f);
+		figureFTMPlacement.moveTo(20f, 0f, 0f);
 
-		faceFTMPlacement.position.set(100f, 100f, 100f);
+		faceFTMPlacement.moveTo(100f, 100f, 100f);
 
-		boxPlacement1.position.set(-120f, 10f, -20f);
+		boxPlacement1.moveTo(-120f, 10f, -20f);
 
-		boxPlacement2.position.set(-130f, -10f, -20f);
+		boxPlacement2.moveTo(-130f, -10f, -20f);
 
-		boxPlacement3.position.set(-140f, -30f, -20f);
+		boxPlacement3.moveTo(-140f, -30f, -20f);
 
-		boxPlacement4.position.set(-150f, -50f, -20f);
-		boxPlacement4.target.set(-150f, -50f, -10f);
+		boxPlacement4.moveTo(-150f, -50f, -20f);
 	}
 
 	private static final long serialVersionUID = 1L;
