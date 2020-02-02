@@ -5,13 +5,11 @@ import hu.csega.editors.anm.components.ComponentRefreshViews;
 import hu.csega.editors.anm.model.Animation;
 import hu.csega.editors.anm.model.AnimationPersistent;
 import hu.csega.editors.anm.model.AnimatorModel;
-import hu.csega.editors.anm.ui.AnimatorUIComponents;
 import hu.csega.games.units.UnitStore;
 
 public class AnimatorRefreshViews implements ComponentRefreshViews {
 
 	private AnimatorModel model;
-	private AnimatorUIComponents ui;
 	private ComponentExtractPartList partListExtractor;
 
 	@Override
@@ -22,14 +20,6 @@ public class AnimatorRefreshViews implements ComponentRefreshViews {
 				return;
 			}
 		}
-
-		if(ui == null) {
-			ui = UnitStore.instance(AnimatorUIComponents.class);
-			if(ui == null) {
-				return;
-			}
-		}
-
 
 		if(partListExtractor == null) {
 			partListExtractor = UnitStore.instance(ComponentExtractPartList.class);

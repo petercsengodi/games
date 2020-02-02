@@ -1,7 +1,6 @@
 package hu.csega.editors;
 
 import hu.csega.editors.anm.AnimatorConnector;
-import hu.csega.editors.anm.AnimatorModelBuilder;
 import hu.csega.editors.anm.AnimatorRefreshViews;
 import hu.csega.editors.anm.components.Component3DView;
 import hu.csega.editors.anm.components.ComponentExtractPartList;
@@ -65,7 +64,7 @@ public class AnimatorStarter {
 		UnitStore.registerDefaultImplementation(AnimatorUIComponents.class, AnimatorUIComponents.class);
 		UnitStore.registerDefaultImplementation(ComponentRefreshViews.class, AnimatorRefreshViews.class);
 		UnitStore.registerDefaultImplementation(ComponentPartListView.class, AnimatorPartListView.class);
-		UnitStore.registerDefaultImplementation(ComponentOpenGLTransformer.class, AnimatorModelBuilder.class);
+		// UnitStore.registerDefaultImplementation(ComponentOpenGLTransformer.class, AnimatorModelBuilder.class);
 		UnitStore.registerDefaultImplementation(ComponentExtractPartList.class, AnimatorExtractPartList.class);
 		UnitStore.registerDefaultImplementation(Component3DView.class, Animator3DView.class);
 
