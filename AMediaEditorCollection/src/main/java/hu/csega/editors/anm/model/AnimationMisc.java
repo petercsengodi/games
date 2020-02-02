@@ -2,13 +2,23 @@ package hu.csega.editors.anm.model;
 
 public class AnimationMisc {
 
+	private int currentScene;
 	private AnimationPlacement camera;
+
 	private boolean gridEnabled;
 	private String filename;
 	private boolean saved;
 
 	private double[] zooming;
 	private double[] grid;
+
+	public int getCurrentScene() {
+		return currentScene;
+	}
+
+	public void setCurrentScene(int currentScene) {
+		this.currentScene = currentScene;
+	}
 
 	public AnimationPlacement getCamera() {
 		return camera;

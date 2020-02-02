@@ -6,6 +6,7 @@ import hu.csega.games.adapters.opengl.models.OpenGLModelContainer;
 import hu.csega.games.adapters.opengl.models.OpenGLModelStoreImpl;
 import hu.csega.games.adapters.opengl.models.OpenGLTextureContainer;
 import hu.csega.games.engine.g3d.GameObjectPlacement;
+import hu.csega.games.engine.g3d.GameTransformation;
 
 public interface OpenGLProfileAdapter {
 
@@ -28,6 +29,8 @@ public interface OpenGLProfileAdapter {
 	void loadModel(GLAutoDrawable glAutoDrawable, String filename, OpenGLModelContainer model);
 
 	void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, GameObjectPlacement placement, OpenGLModelStoreImpl store);
+
+	void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, GameTransformation transformation, OpenGLModelStoreImpl store);
 
 	void disposeModel(GLAutoDrawable glAutodrawable, OpenGLModelContainer model);
 

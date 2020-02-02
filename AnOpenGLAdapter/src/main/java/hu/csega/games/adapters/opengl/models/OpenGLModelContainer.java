@@ -4,6 +4,7 @@ import com.jogamp.opengl.GLAutoDrawable;
 
 import hu.csega.games.adapters.opengl.OpenGLProfileAdapter;
 import hu.csega.games.engine.g3d.GameObjectPlacement;
+import hu.csega.games.engine.g3d.GameTransformation;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
@@ -74,6 +75,10 @@ public abstract class OpenGLModelContainer implements OpenGLObjectContainer {
 
 	public void draw(GLAutoDrawable glAutoDrawable, GameObjectPlacement placement) {
 		adapter.drawModel(glAutoDrawable, this, placement, store);
+	}
+
+	public void draw(GLAutoDrawable glAutoDrawable, GameTransformation transformation) {
+		adapter.drawModel(glAutoDrawable, this, transformation, store);
 	}
 
 	public abstract OpenGLModelBuilder builder();

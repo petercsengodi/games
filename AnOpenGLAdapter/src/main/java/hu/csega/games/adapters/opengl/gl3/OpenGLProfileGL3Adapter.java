@@ -34,6 +34,7 @@ import hu.csega.games.adapters.opengl.utils.OpenGLErrorUtil;
 import hu.csega.games.adapters.opengl.utils.OpenGLLogStream;
 import hu.csega.games.adapters.opengl.utils.OpenGLProgramLogger;
 import hu.csega.games.engine.g3d.GameObjectPlacement;
+import hu.csega.games.engine.g3d.GameTransformation;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
@@ -57,6 +58,7 @@ public class OpenGLProfileGL3Adapter implements OpenGLProfileAdapter {
 	private Matrix4f basicLookAt = new Matrix4f();
 	private Matrix4f inverseLookAt = new Matrix4f();
 	private Matrix4f basicScale = new Matrix4f();
+	private Matrix4f modelTransformation = new Matrix4f();
 
 	@Override
 	public void viewPort(GLAutoDrawable glAutoDrawable, int width, int height) {
@@ -249,19 +251,74 @@ public class OpenGLProfileGL3Adapter implements OpenGLProfileAdapter {
 
 	@Override
 	public void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, GameObjectPlacement placement, OpenGLModelStoreImpl store) {
+		calculatedMatrix.set(perspectiveMatrix);
+		calculatedMatrix.mul(cameraMatrix);
+
+		placement.calculateBasicLookAt(basicLookAt);
+		placement.calculateInverseLookAt(basicLookAt, tmpEye, tmpCenter, tmpUp, inverseLookAt);
+		calculatedMatrix.mul(inverseLookAt);
+
+		placement.calculateBasicScaleMatrix(basicScale);
+		calculatedMatrix.mul(basicScale);
+
+		calculatedMatrix.get(matrixBuffer);
+
+		drawModel(glAutoDrawable, model, store);
+	}
+
+	@Override
+	public void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, GameTransformation transformation, OpenGLModelStoreImpl store) {
+		calculatedMatrix.set(perspectiveMatrix);
+		calculatedMatrix.mul(cameraMatrix);
+
+		transformation.exportTo(modelTransformation);
+		calculatedMatrix.mul(modelTransformation);
+
+		calculatedMatrix.get(matrixBuffer);
+
+		drawModel(glAutoDrawable, model, store);
+	}
+
+	@Override
+	public void disposeModel(GLAutoDrawable glAutodrawable, OpenGLModelContainer model) {
+		if(gl3 == null)
+			gl3 = glAutodrawable.getGL().getGL3();
+
+		int[] handlers = model.getOpenGLHandlers();
+		int numberOfShapes = model.getNumberOfShapes();
+		int offsetOfShapesInHandlerArray = model.getOffsetOfVertexArrays();
+		int offsetVerticesInHandleArray = model.getOffsetOfVertexBuffers();
+		int offsetOfIndicesInHandlerArray = model.getOffsetOfIndexBuffers();
+
+		gl3.glDeleteVertexArrays(numberOfShapes, handlers, offsetOfShapesInHandlerArray);
+		gl3.glDeleteBuffers(numberOfShapes, handlers, offsetVerticesInHandleArray);
+		gl3.glDeleteBuffers(numberOfShapes, handlers, offsetOfIndicesInHandlerArray);
+
+		OpenGLErrorUtil.checkError(gl3, "OpenGLModelContainer.dispose");
+	}
+
+	@Override
+	public void loadAnimation(GLAutoDrawable glAutoDrawable, String filename, OpenGLModelContainer model) {
+	}
+
+	@Override
+	public void drawAnimation(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, OpenGLModelStoreImpl store) {
+	}
+
+	@Override
+	public void disposeAnimation(GLAutoDrawable glAutodrawable, OpenGLModelContainer model) {
+	}
+
+	@Override
+	public void placeCamera(GLAutoDrawable glAutodrawable, GameObjectPlacement cameraPlacement) {
+		if(gl3 == null)
+			gl3 = glAutodrawable.getGL().getGL3();
+
+		cameraPlacement.calculateBasicLookAt(cameraMatrix);
+	}
+
+	private void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, OpenGLModelStoreImpl store) {
 		try {
-
-			calculatedMatrix.set(perspectiveMatrix);
-			calculatedMatrix.mul(cameraMatrix);
-
-			placement.calculateBasicLookAt(basicLookAt);
-			placement.calculateInverseLookAt(basicLookAt, tmpEye, tmpCenter, tmpUp, inverseLookAt);
-			calculatedMatrix.mul(inverseLookAt);
-
-			placement.calculateBasicScaleMatrix(basicScale);
-			calculatedMatrix.mul(basicScale);
-
-			calculatedMatrix.get(matrixBuffer);
 
 			FloatBuffer buffer = GLBuffers.newDirectFloatBuffer(matrixBuffer);
 			gl3.glUniformMatrix4fv(modelToClipMatrixUL, 1, false, buffer);
@@ -325,44 +382,6 @@ public class OpenGLProfileGL3Adapter implements OpenGLProfileAdapter {
 		} catch (Throwable t) {
 			throw new RuntimeException("initialization", t);
 		}
-	}
-
-	@Override
-	public void disposeModel(GLAutoDrawable glAutodrawable, OpenGLModelContainer model) {
-		if(gl3 == null)
-			gl3 = glAutodrawable.getGL().getGL3();
-
-		int[] handlers = model.getOpenGLHandlers();
-		int numberOfShapes = model.getNumberOfShapes();
-		int offsetOfShapesInHandlerArray = model.getOffsetOfVertexArrays();
-		int offsetVerticesInHandleArray = model.getOffsetOfVertexBuffers();
-		int offsetOfIndicesInHandlerArray = model.getOffsetOfIndexBuffers();
-
-		gl3.glDeleteVertexArrays(numberOfShapes, handlers, offsetOfShapesInHandlerArray);
-		gl3.glDeleteBuffers(numberOfShapes, handlers, offsetVerticesInHandleArray);
-		gl3.glDeleteBuffers(numberOfShapes, handlers, offsetOfIndicesInHandlerArray);
-
-		OpenGLErrorUtil.checkError(gl3, "OpenGLModelContainer.dispose");
-	}
-
-	@Override
-	public void loadAnimation(GLAutoDrawable glAutoDrawable, String filename, OpenGLModelContainer model) {
-	}
-
-	@Override
-	public void drawAnimation(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, OpenGLModelStoreImpl store) {
-	}
-
-	@Override
-	public void disposeAnimation(GLAutoDrawable glAutodrawable, OpenGLModelContainer model) {
-	}
-
-	@Override
-	public void placeCamera(GLAutoDrawable glAutodrawable, GameObjectPlacement cameraPlacement) {
-		if(gl3 == null)
-			gl3 = glAutodrawable.getGL().getGL3();
-
-		cameraPlacement.calculateBasicLookAt(cameraMatrix);
 	}
 
 	private static final Logger logger = LoggerFactory.createLogger(OpenGLProfileGL3Adapter.class);

@@ -23,6 +23,19 @@ public class AnimatorPartListItem {
 
 	@Override
 	public String toString() {
-		return name;
+		if(name == null) {
+			return nameFromIndex();
+		}
+
+		String trimmed = name.trim();
+		if(trimmed.length() == 0) {
+			return nameFromIndex();
+		}
+
+		return trimmed;
+	}
+
+	private String nameFromIndex() {
+		return "[Index: " + index + ']';
 	}
 }

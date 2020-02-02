@@ -19,6 +19,7 @@ import hu.csega.games.adapters.opengl.utils.OpenGLErrorUtil;
 import hu.csega.games.adapters.opengl.utils.OpenGLLogStream;
 import hu.csega.games.adapters.opengl.utils.OpenGLProgramLogger;
 import hu.csega.games.engine.g3d.GameObjectPlacement;
+import hu.csega.games.engine.g3d.GameTransformation;
 
 @Deprecated
 public class OpenGLProfileGL2Adapter implements OpenGLProfileAdapter {
@@ -121,6 +122,12 @@ public class OpenGLProfileGL2Adapter implements OpenGLProfileAdapter {
 
 	@Override
 	public void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, GameObjectPlacement placement, OpenGLModelStoreImpl store) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, GameTransformation transformation, OpenGLModelStoreImpl store) {
 		// TODO Auto-generated method stub
 
 	}

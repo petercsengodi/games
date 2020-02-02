@@ -23,6 +23,7 @@ import hu.csega.games.adapters.opengl.utils.OpenGLErrorUtil;
 import hu.csega.games.engine.g3d.GameObjectDirection;
 import hu.csega.games.engine.g3d.GameObjectPlacement;
 import hu.csega.games.engine.g3d.GameObjectPosition;
+import hu.csega.games.engine.g3d.GameTransformation;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
@@ -160,10 +161,6 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 
 	@Override
 	public void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, GameObjectPlacement placement, OpenGLModelStoreImpl store) {
-		int stride = 3 + 3 + 2;
-		float vx, vy, vz, nx, ny, nz, tx, ty;
-		int offset;
-
 		gl2.glPushMatrix();
 
 		placement.calculateBasicLookAt(basicLookAt);
@@ -173,47 +170,16 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 
 		gl2.glScalef(placement.scale.x, placement.scale.y, placement.scale.z);
 
-		OpenGLModelBuilder builder = model.builder();
-		int numberOfShapes = builder.numberOfShapes();
+		drawModel(glAutoDrawable, model, store);
+	}
 
-		for(int part = 0; part < numberOfShapes; part++) {
-			OpenGLTextureContainer textureContainer = builder.textureContainer(part);
-			Texture texture = textureContainer.getTexture();
-			texture.enable(gl2);
-			texture.bind(gl2);
+	@Override
+	public void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, GameTransformation transformation, OpenGLModelStoreImpl store) {
+		gl2.glPushMatrix();
 
-			gl2.glBegin(GL2.GL_TRIANGLES);
+		gl2.glMultMatrixf(transformation.getFloats(), 0);
 
-			float[] verticies = builder.vertexData(part);
-
-			int numberOfindicies = builder.indexLength(part);
-			short[] indicies = builder.indexData(part);
-			for(int index = 0; index < numberOfindicies; index++) {
-				offset = indicies[index] * stride;
-
-				vx = verticies[offset++];
-				vy = verticies[offset++];
-				vz = verticies[offset++];
-
-				nx = verticies[offset++];
-				ny = verticies[offset++];
-				nz = verticies[offset++];
-
-				tx = verticies[offset++];
-				ty = verticies[offset++];
-
-				gl2.glNormal3f(nx, ny, nz);
-				gl2.glTexCoord2f(tx, ty);
-				gl2.glVertex3f(vx, vy, vz);
-			}
-
-			gl2.glEnd();
-
-			texture.disable(gl2);
-		}
-
-		gl2.glPopMatrix();
-		OpenGLErrorUtil.checkError(gl2, "draw");
+		drawModel(glAutoDrawable, model, store);
 	}
 
 	@Override
@@ -269,6 +235,54 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 		}
 
 		OpenGLErrorUtil.checkError(gl2, "textOut");
+	}
+
+	private void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, OpenGLModelStoreImpl store) {
+		int stride = 3 + 3 + 2;
+		float vx, vy, vz, nx, ny, nz, tx, ty;
+		int offset;
+
+		OpenGLModelBuilder builder = model.builder();
+		int numberOfShapes = builder.numberOfShapes();
+
+		for(int part = 0; part < numberOfShapes; part++) {
+			OpenGLTextureContainer textureContainer = builder.textureContainer(part);
+			Texture texture = textureContainer.getTexture();
+			texture.enable(gl2);
+			texture.bind(gl2);
+
+			gl2.glBegin(GL2.GL_TRIANGLES);
+
+			float[] verticies = builder.vertexData(part);
+
+			int numberOfindicies = builder.indexLength(part);
+			short[] indicies = builder.indexData(part);
+			for(int index = 0; index < numberOfindicies; index++) {
+				offset = indicies[index] * stride;
+
+				vx = verticies[offset++];
+				vy = verticies[offset++];
+				vz = verticies[offset++];
+
+				nx = verticies[offset++];
+				ny = verticies[offset++];
+				nz = verticies[offset++];
+
+				tx = verticies[offset++];
+				ty = verticies[offset++];
+
+				gl2.glNormal3f(nx, ny, nz);
+				gl2.glTexCoord2f(tx, ty);
+				gl2.glVertex3f(vx, vy, vz);
+			}
+
+			gl2.glEnd();
+
+			texture.disable(gl2);
+		}
+
+		gl2.glPopMatrix();
+		OpenGLErrorUtil.checkError(gl2, "draw");
 	}
 
 	@SuppressWarnings("unused")

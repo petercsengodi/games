@@ -34,6 +34,7 @@ import hu.csega.games.adapters.opengl.utils.OpenGLErrorUtil;
 import hu.csega.games.adapters.opengl.utils.OpenGLLogStream;
 import hu.csega.games.adapters.opengl.utils.OpenGLProgramLogger;
 import hu.csega.games.engine.g3d.GameObjectPlacement;
+import hu.csega.games.engine.g3d.GameTransformation;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
@@ -57,6 +58,7 @@ public class OpenGLProfileGL3Adapter2 implements OpenGLProfileAdapter {
 	private Matrix4f basicLookAt = new Matrix4f();
 	private Matrix4f inverseLookAt = new Matrix4f();
 	private Matrix4f basicScale = new Matrix4f();
+	private Matrix4f modelTransformation = new Matrix4f();
 
 	@Override
 	public void viewPort(GLAutoDrawable glAutoDrawable, int width, int height) {
@@ -264,57 +266,35 @@ public class OpenGLProfileGL3Adapter2 implements OpenGLProfileAdapter {
 
 	@Override
 	public void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, GameObjectPlacement placement, OpenGLModelStoreImpl store) {
-		try {
+		calculatedMatrix.set(perspectiveMatrix);
+		calculatedMatrix.mul(cameraMatrix);
 
-			calculatedMatrix.set(perspectiveMatrix);
-			calculatedMatrix.mul(cameraMatrix);
+		placement.calculateBasicLookAt(basicLookAt);
+		placement.calculateInverseLookAt(basicLookAt, tmpEye, tmpCenter, tmpUp, inverseLookAt);
+		calculatedMatrix.mul(inverseLookAt);
 
-			placement.calculateBasicLookAt(basicLookAt);
-			placement.calculateInverseLookAt(basicLookAt, tmpEye, tmpCenter, tmpUp, inverseLookAt);
-			calculatedMatrix.mul(inverseLookAt);
+		placement.calculateBasicScaleMatrix(basicScale);
+		calculatedMatrix.mul(basicScale);
 
-			placement.calculateBasicScaleMatrix(basicScale);
-			calculatedMatrix.mul(basicScale);
+		calculatedMatrix.get(matrixBuffer);
 
-			calculatedMatrix.get(matrixBuffer);
+		drawModel(glAutoDrawable, model, store);
+	}
 
-			FloatBuffer buffer = GLBuffers.newDirectFloatBuffer(matrixBuffer);
-			gl3.glUniformMatrix4fv(modelToClipMatrixUL, 1, false, buffer);
-			BufferUtils.destroyDirectBuffer(buffer);
+	@Override
+	public void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, GameTransformation transformation, OpenGLModelStoreImpl store) {
+		calculatedMatrix.set(perspectiveMatrix);
+		calculatedMatrix.mul(cameraMatrix);
 
-			int[] handlers = model.getOpenGLHandlers();
-			int numberOfShapes = model.getNumberOfShapes();
-			int offsetOfShapesInHandlerArray = model.getOffsetOfVertexArrays();
+		float[] m = transformation.getFloats();
+		modelTransformation.set(m[0], m[1], m[2], m[3],
+				m[4], m[5], m[6], m[7],
+				m[8], m[9], m[10], m[11],
+				m[12], m[13], m[14], m[15]);
 
-			OpenGLModelBuilder builder = model.builder();
+		calculatedMatrix.get(modelTransformation);
 
-			for(int i = 0; i < numberOfShapes; i++) {
-				OpenGLTextureContainer textureContainer = builder.textureContainer(i);
-				Texture texture = textureContainer.getTexture();
-				texture.bind(gl3);
-
-				// BIND
-
-				int shapeID = handlers[offsetOfShapesInHandlerArray + i];
-				gl3.glBindVertexArray(shapeID);
-
-
-				// Draw
-
-				int numberOfIndices = model.builder().numberOfIndices(i);
-				gl3.glDrawElements(GL3.GL_TRIANGLES, numberOfIndices, GL3.GL_UNSIGNED_SHORT, 0);
-
-
-				// UNBIND
-
-				gl3.glBindVertexArray(0);
-				gl3.glBindTexture(GL3.GL_TEXTURE_2D, 0);
-			}
-
-			OpenGLErrorUtil.checkError(gl3, "draw");
-		} catch (Throwable t) {
-			throw new RuntimeException("initialization", t);
-		}
+		drawModel(glAutoDrawable, model, store);
 	}
 
 	@Override
@@ -353,6 +333,47 @@ public class OpenGLProfileGL3Adapter2 implements OpenGLProfileAdapter {
 			gl3 = glAutodrawable.getGL().getGL3();
 
 		cameraPlacement.calculateBasicLookAt(cameraMatrix);
+	}
+
+	private void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, OpenGLModelStoreImpl store) {
+		try {
+			FloatBuffer buffer = GLBuffers.newDirectFloatBuffer(matrixBuffer);
+			gl3.glUniformMatrix4fv(modelToClipMatrixUL, 1, false, buffer);
+			BufferUtils.destroyDirectBuffer(buffer);
+
+			int[] handlers = model.getOpenGLHandlers();
+			int numberOfShapes = model.getNumberOfShapes();
+			int offsetOfShapesInHandlerArray = model.getOffsetOfVertexArrays();
+
+			OpenGLModelBuilder builder = model.builder();
+
+			for(int i = 0; i < numberOfShapes; i++) {
+				OpenGLTextureContainer textureContainer = builder.textureContainer(i);
+				Texture texture = textureContainer.getTexture();
+				texture.bind(gl3);
+
+				// BIND
+
+				int shapeID = handlers[offsetOfShapesInHandlerArray + i];
+				gl3.glBindVertexArray(shapeID);
+
+
+				// Draw
+
+				int numberOfIndices = model.builder().numberOfIndices(i);
+				gl3.glDrawElements(GL3.GL_TRIANGLES, numberOfIndices, GL3.GL_UNSIGNED_SHORT, 0);
+
+
+				// UNBIND
+
+				gl3.glBindVertexArray(0);
+				gl3.glBindTexture(GL3.GL_TEXTURE_2D, 0);
+			}
+
+			OpenGLErrorUtil.checkError(gl3, "draw");
+		} catch (Throwable t) {
+			throw new RuntimeException("initialization", t);
+		}
 	}
 
 	private static final Logger logger = LoggerFactory.createLogger(OpenGLProfileGL3Adapter2.class);

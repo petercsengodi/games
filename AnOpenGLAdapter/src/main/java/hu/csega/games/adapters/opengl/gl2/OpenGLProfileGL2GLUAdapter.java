@@ -25,6 +25,7 @@ import hu.csega.games.adapters.opengl.utils.OpenGLErrorUtil;
 import hu.csega.games.engine.g3d.GameObjectDirection;
 import hu.csega.games.engine.g3d.GameObjectPlacement;
 import hu.csega.games.engine.g3d.GameObjectPosition;
+import hu.csega.games.engine.g3d.GameTransformation;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
@@ -214,27 +215,22 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 
 		OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw init");
 
-		for(int i = 0; i < model.getNumberOfShapes(); i++) {
-			Texture texture = model.builder().textureContainer(i).getTexture();
-			texture.enable(gl2);
-			texture.bind(gl2);
+		drawModel(glAutoDrawable, model, store);
 
-			OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw texture init" + i);
+		gl2.glPopMatrix();
 
-			gl2.glBindVertexArray(model.getOpenGLHandlers()[model.getOffsetOfVertexArrays() + i]);
-			gl2.glInterleavedArrays(GL2.GL_T2F_N3F_V3F, 0, 0);
-			OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw bind vertices 2 " + i);
+		OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw finish");
+	}
 
-			int indexLength = model.builder().indexLength(i);
-			gl2.glDrawElements(GL2.GL_TRIANGLE_STRIP, indexLength, GL2.GL_UNSIGNED_SHORT, 0);
+	@Override
+	public void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, GameTransformation transformation, OpenGLModelStoreImpl store) {
+		gl2.glPushMatrix();
 
-			OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw draw element" + i);
+		gl2.glMultMatrixf(transformation.getFloats(), 0);
 
-			gl2.glBindVertexArray(0);
-			texture.disable(gl2);
+		OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw init");
 
-			OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw dispose" + i);
-		}
+		drawModel(glAutoDrawable, model, store);
 
 		gl2.glPopMatrix();
 
@@ -280,6 +276,31 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 				cameraEye.x, cameraEye.y, cameraEye.z,
 				cameraCenter.x, cameraCenter.y, cameraCenter.z,
 				cameraUp.x, cameraUp.y, cameraUp.z);
+	}
+
+	private void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, OpenGLModelStoreImpl store) {
+
+		for(int i = 0; i < model.getNumberOfShapes(); i++) {
+			Texture texture = model.builder().textureContainer(i).getTexture();
+			texture.enable(gl2);
+			texture.bind(gl2);
+
+			OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw texture init" + i);
+
+			gl2.glBindVertexArray(model.getOpenGLHandlers()[model.getOffsetOfVertexArrays() + i]);
+			gl2.glInterleavedArrays(GL2.GL_T2F_N3F_V3F, 0, 0);
+			OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw bind vertices 2 " + i);
+
+			int indexLength = model.builder().indexLength(i);
+			gl2.glDrawElements(GL2.GL_TRIANGLE_STRIP, indexLength, GL2.GL_UNSIGNED_SHORT, 0);
+
+			OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw draw element" + i);
+
+			gl2.glBindVertexArray(0);
+			texture.disable(gl2);
+
+			OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw dispose" + i);
+		}
 	}
 
 	private static final Logger logger = LoggerFactory.createLogger(OpenGLProfileGL2GLUAdapter.class);

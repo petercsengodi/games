@@ -12,6 +12,7 @@ import hu.csega.games.engine.g2d.GamePoint;
 import hu.csega.games.engine.g2d.GameSprite;
 import hu.csega.games.engine.g3d.GameObjectHandler;
 import hu.csega.games.engine.g3d.GameObjectPlacement;
+import hu.csega.games.engine.g3d.GameTransformation;
 import hu.csega.games.engine.intf.GameGraphics;
 
 public class OpenGLGraphics implements GameGraphics {
@@ -100,6 +101,16 @@ public class OpenGLGraphics implements GameGraphics {
 
 		OpenGLModelContainer resolvedModel = store.resolveModel(modelReference);
 		resolvedModel.draw(glAutodrawable, modelPlacement);
+	}
+
+	@Override
+	public void drawModel(GameObjectHandler modelReference, GameTransformation transformation) {
+		if(modelReference == null || transformation == null) {
+			return;
+		}
+
+		OpenGLModelContainer resolvedModel = store.resolveModel(modelReference);
+		resolvedModel.draw(glAutodrawable, transformation);
 	}
 
 	@Override
