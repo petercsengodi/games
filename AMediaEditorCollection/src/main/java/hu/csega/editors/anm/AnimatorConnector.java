@@ -155,6 +155,8 @@ public class AnimatorConnector implements Connector, GameWindow {
 		contentPane.add(AnimatorRootLayoutManager.CORNER_CONTROLLER, components.commonSettingsPanel);
 		contentPane.add(AnimatorRootLayoutManager.SCENE_EDITOR, components.scenesPanel);
 
+		layout.updateAfterAllComponentsAreAdded();
+
 		refreshViews = UnitStore.instance(ComponentRefreshViews.class);
 
 		return engine;

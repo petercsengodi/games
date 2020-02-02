@@ -25,6 +25,13 @@ public class AnimatorRootLayoutManager implements LayoutManager, LayoutManager2 
 	private Map<String, Component> nameToComponent = new Hashtable<>();
 	private boolean invalid = true;
 
+	private int width = 1024;
+	private int height = 768;
+
+	public void updateAfterAllComponentsAreAdded() {
+		this.recalculatePositions(width, height);
+	}
+
 	@Override
 	public void addLayoutComponent(Component component, Object constraints) {
 		String name = (constraints instanceof String ? (String)constraints : null);
@@ -112,6 +119,9 @@ public class AnimatorRootLayoutManager implements LayoutManager, LayoutManager2 
 	}
 
 	private void recalculatePositions(int width, int height) {
+		this.width = width;
+		this.height = height;
+
 		logger.info("Recalculating positions for a box " + width + 'x' + height + '.');
 		Component component;
 
