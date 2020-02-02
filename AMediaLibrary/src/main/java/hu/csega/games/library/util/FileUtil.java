@@ -79,7 +79,7 @@ public class FileUtil {
 		if(index > -1)
 			fileName = fileName.substring(index + 1);
 
-		if(fileName.endsWith(".t3d") || fileName.endsWith(".anm"))
+		if(fileName.endsWith(".t3d") || fileName.endsWith(".anm") || fileName.endsWith(".ftm"))
 			fileName = fileName.substring(0, fileName.length() - 4);
 
 		if(fileName.endsWith(".x"))

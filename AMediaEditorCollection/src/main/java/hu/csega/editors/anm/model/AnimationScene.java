@@ -1,16 +1,16 @@
 package hu.csega.editors.anm.model;
 
-import java.util.List;
+import java.util.Map;
 
 public class AnimationScene {
 
-	private List<AnimationScenePart> sceneParts;
+	private Map<Integer, AnimationScenePart> sceneParts;
 
-	public List<AnimationScenePart> getSceneParts() {
+	public Map<Integer, AnimationScenePart> getSceneParts() {
 		return sceneParts;
 	}
 
-	public void setSceneParts(List<AnimationScenePart> sceneParts) {
+	public void setSceneParts(Map<Integer, AnimationScenePart> sceneParts) {
 		this.sceneParts = sceneParts;
 	}
 

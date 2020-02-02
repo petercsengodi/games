@@ -1,6 +1,5 @@
 package hu.csega.editors.anm.components.stubs;
 
-import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -8,8 +7,8 @@ import java.util.List;
 import org.joml.Matrix4f;
 import org.joml.Vector4f;
 
-import hu.csega.editors.anm.components.Component3DView;
-import hu.csega.editors.anm.model.AnimationPersistent;
+import hu.csega.editors.anm.components.ComponentOpenGLExtractor;
+import hu.csega.editors.anm.model.AnimatorModel;
 import hu.csega.editors.anm.view3d.AnimatorSet;
 import hu.csega.editors.anm.view3d.AnimatorSetPart;
 import hu.csega.games.engine.GameEngineFacade;
@@ -20,14 +19,17 @@ import hu.csega.games.engine.g3d.GameObjectVertex;
 import hu.csega.games.engine.g3d.GameTransformation;
 import hu.csega.games.units.UnitStore;
 
-public class Stub3DView implements Component3DView {
+public class StubOpenGLExtractor implements ComponentOpenGLExtractor {
 
-	private Component canvas;
 	private AnimatorSet set;
 
 	@Override
-	public AnimatorSet provide() {
-		if(set == null) {
+	public void accept(AnimatorModel model) {
+		createTestData();
+	}
+
+	private void createTestData() {
+		if (set == null) {
 			set = new AnimatorSet();
 
 			Matrix4f basicLookAt = new Matrix4f();
@@ -70,7 +72,7 @@ public class Stub3DView implements Component3DView {
 			GameObjectHandler model = facade.store().buildModel(builder);
 
 			GameTransformation transformation = new GameTransformation();
-			GameObjectPlacement	placement = new GameObjectPlacement();
+			GameObjectPlacement placement = new GameObjectPlacement();
 			placement.target.set(0f, 0f, 1f);
 			placement.up.set(0f, 1f, 0f);
 			placement.calculateBasicLookAt(basicLookAt);
@@ -86,14 +88,6 @@ public class Stub3DView implements Component3DView {
 			set.setCamera(cameraPlacement);
 			set.setParts(Arrays.asList(part));
 		}
-
-		return set;
-	}
-
-	@Override
-	public void accept(AnimationPersistent persistent) {
-		if(canvas != null)
-			canvas.repaint();
 	}
 
 }

@@ -15,6 +15,7 @@ public class AnimatorMenu {
 		JMenuBar menuBar = new JMenuBar();
 
 		menuBar.add(createFileMenu(frame, facade));
+		menuBar.add(createModelMenu(frame, facade));
 		menuBar.add(createViewMenu(frame, facade));
 
 		frame.setJMenuBar(menuBar);
@@ -35,7 +36,7 @@ public class AnimatorMenu {
 		openDialog.setFileFilter(new FileNameExtensionFilter("FreeTriangleMesh file", "ftm"));
 		openDialog.setApproveButtonText("Open");
 
-		JMenu fileMenu = new JMenu("File");
+		JMenu menu = new JMenu("File");
 
 		/*
 
@@ -55,18 +56,28 @@ public class AnimatorMenu {
 
 		JMenuItem fileExit = new JMenuItem("Exit");
 		fileExit.addActionListener(new AnimatorMenuItemExit(frame, saveDialog, facade));
-		fileMenu.add(fileExit);
+		menu.add(fileExit);
 
-		return fileMenu;
+		return menu;
+	}
+
+	private static JMenu createModelMenu(JFrame frame, GameEngineFacade facade) {
+		JMenu menu = new JMenu("Model");
+
+		JMenuItem addNewPart = new JMenuItem("Add New Part");
+		addNewPart.addActionListener(new AnimatorMenuAddNewPart());
+		menu.add(addNewPart);
+
+		return menu;
 	}
 
 	private static JMenu createViewMenu(JFrame frame, GameEngineFacade facade) {
-		JMenu viewMenu = new JMenu("View");
+		JMenu menu = new JMenu("View");
 
 		JMenuItem refreshViews = new JMenuItem("Refresh All");
 		refreshViews.addActionListener(new AnimatorMenuRefreshAll());
-		viewMenu.add(refreshViews);
+		menu.add(refreshViews);
 
-		return viewMenu;
+		return menu;
 	}
 }

@@ -4,19 +4,21 @@ import hu.csega.editors.anm.AnimatorConnector;
 import hu.csega.editors.anm.AnimatorRefreshViews;
 import hu.csega.editors.anm.components.Component3DView;
 import hu.csega.editors.anm.components.ComponentExtractPartList;
+import hu.csega.editors.anm.components.ComponentOpenGLExtractor;
 import hu.csega.editors.anm.components.ComponentOpenGLTransformer;
 import hu.csega.editors.anm.components.ComponentPartListView;
+import hu.csega.editors.anm.components.ComponentPartManipulator;
 import hu.csega.editors.anm.components.ComponentRefreshViews;
 import hu.csega.editors.anm.components.ComponentWireFrameTransformer;
-import hu.csega.editors.anm.components.stubs.Stub3DView;
-import hu.csega.editors.anm.components.stubs.StubExtractPartList;
-import hu.csega.editors.anm.components.stubs.StubOpenGLTransformer;
 import hu.csega.editors.anm.components.stubs.StubWireFrameTransformer;
 import hu.csega.editors.anm.model.AnimatorModel;
+import hu.csega.editors.anm.model.manipulators.AnimatorPartManipulator;
 import hu.csega.editors.anm.transformation.AnimatorExtractPartList;
 import hu.csega.editors.anm.ui.AnimatorPartListView;
 import hu.csega.editors.anm.ui.AnimatorUIComponents;
 import hu.csega.editors.anm.view3d.Animator3DView;
+import hu.csega.editors.anm.view3d.AnimatorOpenGLExtractor;
+import hu.csega.editors.anm.view3d.AnimatorOpenGLTransformer;
 import hu.csega.games.common.ApplicationStarter;
 import hu.csega.games.common.Connector;
 import hu.csega.games.library.TextureLibrary;
@@ -64,20 +66,32 @@ public class AnimatorStarter {
 		UnitStore.registerDefaultImplementation(AnimatorUIComponents.class, AnimatorUIComponents.class);
 		UnitStore.registerDefaultImplementation(ComponentRefreshViews.class, AnimatorRefreshViews.class);
 		UnitStore.registerDefaultImplementation(ComponentPartListView.class, AnimatorPartListView.class);
-		// UnitStore.registerDefaultImplementation(ComponentOpenGLTransformer.class, AnimatorModelBuilder.class);
+		UnitStore.registerDefaultImplementation(ComponentOpenGLTransformer.class, AnimatorOpenGLTransformer.class);
+		UnitStore.registerDefaultImplementation(ComponentOpenGLExtractor.class, AnimatorOpenGLExtractor.class);
 		UnitStore.registerDefaultImplementation(ComponentExtractPartList.class, AnimatorExtractPartList.class);
+		UnitStore.registerDefaultImplementation(ComponentPartManipulator.class, AnimatorPartManipulator.class);
 		UnitStore.registerDefaultImplementation(Component3DView.class, Animator3DView.class);
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		// 3. Register test instances if needed:
 
 		UnitStore.registerInstance(ComponentWireFrameTransformer.class, new StubWireFrameTransformer());
-		UnitStore.registerInstance(ComponentOpenGLTransformer.class, new StubOpenGLTransformer());
-		UnitStore.registerInstance(ComponentExtractPartList.class, new StubExtractPartList());
-		UnitStore.registerInstance(Component3DView.class, new Stub3DView());
+		// UnitStore.registerInstance(ComponentOpenGLTransformer.class, new StubOpenGLTransformer());
+		// UnitStore.registerInstance(ComponentExtractPartList.class, new StubExtractPartList());
+		// UnitStore.registerInstance(Component3DView.class, new Stub3DView());
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		// 4. Starting application:
+		// 4. Checking current directory
+
+		AnimatorUIComponents ui = UnitStore.instance(AnimatorUIComponents.class);
+		ui.userDirectory = System.getProperty("user.dir");
+		logger.info("User directory: " + ui.userDirectory);
+		logger.info("Project path: " + files.projectPath());
+		ui.meshDirectory = files.projectPath() + "res/ftm/";
+		logger.info("Mesh directory: " + ui.meshDirectory);
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		// 5. Starting application:
 
 		ApplicationStarter starter = new ApplicationStarter(connector);
 		starter.start(args);

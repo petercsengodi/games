@@ -5,6 +5,8 @@ public class AnimationMisc {
 	private int currentScene;
 	private AnimationPlacement camera;
 
+	private int maxPartIndex;
+
 	private boolean gridEnabled;
 	private String filename;
 	private boolean saved;
@@ -26,6 +28,14 @@ public class AnimationMisc {
 
 	public void setCamera(AnimationPlacement camera) {
 		this.camera = camera;
+	}
+
+	public int getMaxPartIndex() {
+		return maxPartIndex;
+	}
+
+	public void setMaxPartIndex(int maxPartIndex) {
+		this.maxPartIndex = maxPartIndex;
 	}
 
 	public boolean isGridEnabled() {

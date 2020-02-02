@@ -4,27 +4,10 @@ import java.util.List;
 
 public class AnimationPart {
 
-	private int meshIndex;
-	private int textureIndex;
 	private String name;
+	private String mesh;
 	private AnimationTransformation basicTransformation;
 	private List<AnimationPartJoint> joints;
-
-	public int getMeshIndex() {
-		return meshIndex;
-	}
-
-	public void setMeshIndex(int meshIndex) {
-		this.meshIndex = meshIndex;
-	}
-
-	public int getTextureIndex() {
-		return textureIndex;
-	}
-
-	public void setTextureIndex(int textureIndex) {
-		this.textureIndex = textureIndex;
-	}
 
 	public String getName() {
 		return name;
@@ -32,6 +15,14 @@ public class AnimationPart {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getMesh() {
+		return mesh;
+	}
+
+	public void setMesh(String mesh) {
+		this.mesh = mesh;
 	}
 
 	public AnimationTransformation getBasicTransformation() {

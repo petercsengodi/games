@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
+import hu.csega.editors.anm.components.Component3DView;
 import hu.csega.editors.anm.components.ComponentRefreshViews;
 import hu.csega.editors.anm.menu.AnimatorMenu;
 import hu.csega.editors.anm.swing.AnimatorRootLayoutManager;
@@ -109,8 +110,14 @@ public class AnimatorConnector implements Connector, GameWindow {
 
 		UnitStore.registerInstance(GameEngineFacade.class, facade);
 
-		engine.step(GameEngineStep.INIT, new AnimatorInitStep());
-		engine.step(GameEngineStep.RENDER, new AnimatorRenderStep());
+		AnimatorInitStep animatorInitStep = new AnimatorInitStep();
+
+		AnimatorRenderStep animatorRenderStep = new AnimatorRenderStep();
+		Component3DView view = UnitStore.instance(Component3DView.class);
+		view.setRenderer(animatorRenderStep);
+
+		engine.step(GameEngineStep.INIT, animatorInitStep);
+		engine.step(GameEngineStep.RENDER, animatorRenderStep);
 
 
 		// Swing View(s)
@@ -120,12 +127,12 @@ public class AnimatorConnector implements Connector, GameWindow {
 		components.gameWindow.setFullScreen(true);
 		logger.info("Window/Frame instance created: " + components.gameWindow.getClass().getName());
 
-		JFrame frame = (JFrame) components.gameWindow;
-		Container contentPane = frame.getContentPane();
+		components.frame = (JFrame) components.gameWindow;
+		Container contentPane = components.frame.getContentPane();
 		AnimatorRootLayoutManager layout = new AnimatorRootLayoutManager();
 		contentPane.setLayout(layout);
 
-		AnimatorMenu.createMenuForJFrame(frame, facade);
+		AnimatorMenu.createMenuForJFrame(components.frame, facade);
 
 		components.tabbedPane = new JTabbedPane();
 

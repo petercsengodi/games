@@ -1,6 +1,7 @@
 package hu.csega.editors.anm;
 
 import hu.csega.editors.anm.components.ComponentExtractPartList;
+import hu.csega.editors.anm.components.ComponentOpenGLExtractor;
 import hu.csega.editors.anm.components.ComponentRefreshViews;
 import hu.csega.editors.anm.model.Animation;
 import hu.csega.editors.anm.model.AnimationPersistent;
@@ -11,6 +12,7 @@ public class AnimatorRefreshViews implements ComponentRefreshViews {
 
 	private AnimatorModel model;
 	private ComponentExtractPartList partListExtractor;
+	private ComponentOpenGLExtractor openGLExtractor;
 
 	@Override
 	public void refreshAll() {
@@ -25,6 +27,10 @@ public class AnimatorRefreshViews implements ComponentRefreshViews {
 			partListExtractor = UnitStore.instance(ComponentExtractPartList.class);
 		}
 
+		if(openGLExtractor == null) {
+			openGLExtractor = UnitStore.instance(ComponentOpenGLExtractor.class);
+		}
+
 		AnimationPersistent persistent = model.getPersistent();
 		Animation animation = null;
 
@@ -33,7 +39,13 @@ public class AnimatorRefreshViews implements ComponentRefreshViews {
 		}
 
 		if(partListExtractor != null) {
-			partListExtractor.accept(animation);
+			synchronized (model) {
+				partListExtractor.accept(animation);
+			}
+		}
+
+		if(openGLExtractor != null) {
+			openGLExtractor.accept(model);
 		}
 
 	} // end of refreshAll

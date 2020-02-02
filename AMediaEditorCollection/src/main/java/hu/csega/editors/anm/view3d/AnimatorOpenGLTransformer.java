@@ -1,11 +1,10 @@
-package hu.csega.editors.anm.components.stubs;
+package hu.csega.editors.anm.view3d;
 
 import hu.csega.editors.anm.components.Component3DView;
 import hu.csega.editors.anm.components.ComponentOpenGLTransformer;
-import hu.csega.editors.anm.view3d.AnimatorSet;
 import hu.csega.games.units.UnitStore;
 
-public class StubOpenGLTransformer implements ComponentOpenGLTransformer {
+public class AnimatorOpenGLTransformer implements ComponentOpenGLTransformer {
 
 	private Component3DView view;
 

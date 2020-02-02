@@ -2,18 +2,9 @@ package hu.csega.editors.anm.model;
 
 public class AnimationScenePart {
 
-	private int partIndex;
 	private AnimationTransformation modelTransformation;
 	private AnimationTransformation partTransformation;
 	private boolean visible;
-
-	public int getPartIndex() {
-		return partIndex;
-	}
-
-	public void setPartIndex(int partIndex) {
-		this.partIndex = partIndex;
-	}
 
 	public AnimationTransformation getModelTransformation() {
 		return modelTransformation;

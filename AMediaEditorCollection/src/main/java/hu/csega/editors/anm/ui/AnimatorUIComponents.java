@@ -1,5 +1,7 @@
 package hu.csega.editors.anm.ui;
 
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -14,6 +16,14 @@ public class AnimatorUIComponents {
 	// 3D engine
 
 	public GameWindow gameWindow;
+
+	//////////////////////////////////////////////////////////////////////////////
+	// Dialogs
+
+	public JFrame frame;
+	public JFileChooser addNewPartFile;
+	public String userDirectory;
+	public String meshDirectory;
 
 	//////////////////////////////////////////////////////////////////////////////
 	// Part list
