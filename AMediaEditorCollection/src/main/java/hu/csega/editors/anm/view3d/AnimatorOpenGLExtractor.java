@@ -105,7 +105,15 @@ public class AnimatorOpenGLExtractor implements ComponentOpenGLExtractor {
 					} else {
 						camera.up.set(0f, 1f, 0f);
 					}
+				} else {
+					camera.position.set(0f, 400f, -400f);
+					camera.target.set(0f, 0f, 0f);
+					camera.up.set(0f, 1f, 0f);
 				}
+			} else {
+				camera.position.set(0f, 400f, -400f);
+				camera.target.set(0f, 0f, 0f);
+				camera.up.set(0f, 1f, 0f);
 			}
 
 			Animation animation = persistent.getAnimation();

@@ -20,7 +20,7 @@ public class OpenGLModelBuilder {
 	private int[] numberOfIndices;
 
 	public OpenGLModelBuilder(GameModelBuilder builder, OpenGLModelStoreImpl store) {
-		textureReference = builder.getTextureHandler(); // "res/example/texture.png"
+		this.textureReference = builder.getTextureHandler(); // "res/example/texture.png"
 		this.builder = builder;
 		this.store = store;
 
@@ -34,7 +34,7 @@ public class OpenGLModelBuilder {
 	}
 
 	public OpenGLModelBuilder(GameMesh mesh, OpenGLModelStoreImpl store) {
-		textureReference = store.loadTexture(mesh.getTexture());
+		this.textureReference = store.loadTexture(mesh.getTexture());
 		this.store = store;
 		this.mesh = mesh;
 
