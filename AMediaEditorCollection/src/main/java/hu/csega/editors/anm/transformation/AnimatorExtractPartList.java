@@ -5,15 +5,15 @@ import java.util.List;
 import java.util.Map;
 
 import hu.csega.editors.anm.components.ComponentExtractPartList;
+import hu.csega.editors.anm.components.ComponentPartListView;
 import hu.csega.editors.anm.model.Animation;
 import hu.csega.editors.anm.model.AnimationPart;
 import hu.csega.editors.anm.ui.AnimatorPartListItem;
-import hu.csega.editors.anm.ui.AnimatorPartList;
 import hu.csega.games.units.UnitStore;
 
 public class AnimatorExtractPartList implements ComponentExtractPartList {
 
-	private AnimatorPartList partList;
+	private ComponentPartListView view;
 	private List<AnimatorPartListItem> items;
 
 	@Override
@@ -42,12 +42,15 @@ public class AnimatorExtractPartList implements ComponentExtractPartList {
 
 	@Override
 	public void accept(Animation animation) {
-		if(partList == null) {
-			partList = UnitStore.instance(AnimatorPartList.class);
+		if(view == null) {
+			view = UnitStore.instance(ComponentPartListView.class);
+			if(view == null) {
+				return;
+			}
 		}
 
 		items = transform(animation);
-		partList.accept(items);
+		view.accept(items);
 	}
 
 	@Override

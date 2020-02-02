@@ -5,12 +5,15 @@ import hu.csega.editors.anm.AnimatorModelBuilder;
 import hu.csega.editors.anm.components.Component3DView;
 import hu.csega.editors.anm.components.ComponentExtractPartList;
 import hu.csega.editors.anm.components.ComponentOpenGLTransformer;
+import hu.csega.editors.anm.components.ComponentPartListView;
 import hu.csega.editors.anm.components.ComponentWireFrameTransformer;
 import hu.csega.editors.anm.components.stubs.Stub3DView;
 import hu.csega.editors.anm.components.stubs.StubExtractPartList;
 import hu.csega.editors.anm.components.stubs.StubOpenGLTransformer;
 import hu.csega.editors.anm.components.stubs.StubWireFrameTransformer;
 import hu.csega.editors.anm.transformation.AnimatorExtractPartList;
+import hu.csega.editors.anm.ui.AnimatorPartListView;
+import hu.csega.editors.anm.ui.AnimatorUIComponents;
 import hu.csega.editors.anm.view3d.Animator3DView;
 import hu.csega.games.common.ApplicationStarter;
 import hu.csega.games.common.Connector;
@@ -55,6 +58,8 @@ public class AnimatorStarter {
 		Connector connector = new AnimatorConnector();
 		UnitStore.registerInstance(Connector.class, connector);
 
+		UnitStore.registerDefaultImplementation(AnimatorUIComponents.class, AnimatorUIComponents.class);
+		UnitStore.registerDefaultImplementation(ComponentPartListView.class, AnimatorPartListView.class);
 		UnitStore.registerDefaultImplementation(ComponentOpenGLTransformer.class, AnimatorModelBuilder.class);
 		UnitStore.registerDefaultImplementation(ComponentExtractPartList.class, AnimatorExtractPartList.class);
 		UnitStore.registerDefaultImplementation(Component3DView.class, Animator3DView.class);

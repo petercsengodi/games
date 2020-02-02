@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hu.csega.editors.anm.components.ComponentExtractPartList;
+import hu.csega.editors.anm.components.ComponentPartListView;
 import hu.csega.editors.anm.model.Animation;
-import hu.csega.editors.anm.ui.AnimatorPartList;
 import hu.csega.editors.anm.ui.AnimatorPartListItem;
 import hu.csega.games.units.UnitStore;
 
 public class StubExtractPartList implements ComponentExtractPartList {
 
-	private AnimatorPartList partList;
+	private ComponentPartListView view;
 	private List<AnimatorPartListItem> items;
 
 	public StubExtractPartList() {
@@ -39,11 +39,14 @@ public class StubExtractPartList implements ComponentExtractPartList {
 
 	@Override
 	public void accept(Animation arg0) {
-		if(partList == null) {
-			partList = UnitStore.instance(AnimatorPartList.class);
+		if(view == null) {
+			view = UnitStore.instance(ComponentPartListView.class);
+			if(view == null) {
+				return;
+			}
 		}
 
-		partList.accept(items);
+		view.accept(items);
 	}
 
 }

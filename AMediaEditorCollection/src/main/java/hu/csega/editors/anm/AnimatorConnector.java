@@ -5,17 +5,19 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import hu.csega.editors.anm.menu.AnimatorMenu;
 import hu.csega.editors.anm.swing.AnimatorRootLayoutManager;
 import hu.csega.editors.anm.swing.AnimatorWireFrameView;
 import hu.csega.editors.anm.ui.AnimatorCommonSettingsPanel;
 import hu.csega.editors.anm.ui.AnimatorPartEditorPanel;
-import hu.csega.editors.anm.ui.AnimatorPartList;
+import hu.csega.editors.anm.ui.AnimatorPartListModel;
 import hu.csega.editors.anm.ui.AnimatorScenesPanel;
+import hu.csega.editors.anm.ui.AnimatorUIComponents;
 import hu.csega.games.adapters.opengl.OpenGLGameAdapter;
 import hu.csega.games.common.Connector;
 import hu.csega.games.engine.GameEngineFacade;
@@ -122,25 +124,34 @@ public class AnimatorConnector implements Connector, GameWindow {
 
 		AnimatorMenu.createMenuForJFrame(frame, facade);
 
-		JTabbedPane tabbedPane = new JTabbedPane();
+		AnimatorUIComponents components = UnitStore.instance(AnimatorUIComponents.class);
+		components.tabbedPane = new JTabbedPane();
 
-		JComponent panelWireFrame = new AnimatorWireFrameView();
-		tabbedPane.addTab("Wireframe", panelWireFrame);
+		components.panelWireFrame = new AnimatorWireFrameView();
+		components.tabbedPane.addTab("Wireframe", components.panelWireFrame);
 
-		JComponent panel3D = new JPanel();
-		panel3D.setLayout(new GridLayout(1, 1));
-		tabbedPane.addTab("3D Canvas", panel3D);
+		components.panel3D = new JPanel();
+		components.panel3D.setLayout(new GridLayout(1, 1));
+		components.tabbedPane.addTab("3D Canvas", components.panel3D);
 
-		contentPane.add(AnimatorRootLayoutManager.CANVAS3D, tabbedPane);
+		contentPane.add(AnimatorRootLayoutManager.CANVAS3D, components.tabbedPane);
 
 		// Adds canvas to content pane, but the model doesn't exist at this point.
-		engine.startIn(gameWindow, panel3D);
+		engine.startIn(gameWindow, components.panel3D);
+
+		components.partListModel = new AnimatorPartListModel();
+		components.partList = new JList<>(components.partListModel);
+		components.partListScrollPane = new JScrollPane(components.partList);
+
+		components.partEditorPanel = new AnimatorPartEditorPanel();
+		components.commonSettingsPanel = new AnimatorCommonSettingsPanel();
+		components.scenesPanel = new AnimatorScenesPanel();
 
 		// Now the model exists.
-		contentPane.add(AnimatorRootLayoutManager.PARTS_LIST, UnitStore.instance(AnimatorPartList.class).getAWTComponent());
-		contentPane.add(AnimatorRootLayoutManager.PARTS_SETTINGS, UnitStore.instance(AnimatorPartEditorPanel.class));
-		contentPane.add(AnimatorRootLayoutManager.CORNER_CONTROLLER, UnitStore.instance(AnimatorCommonSettingsPanel.class));
-		contentPane.add(AnimatorRootLayoutManager.SCENE_EDITOR, UnitStore.instance(AnimatorScenesPanel.class));
+		contentPane.add(AnimatorRootLayoutManager.PARTS_LIST, components.partListScrollPane);
+		contentPane.add(AnimatorRootLayoutManager.PARTS_SETTINGS, components.partEditorPanel);
+		contentPane.add(AnimatorRootLayoutManager.CORNER_CONTROLLER, components.commonSettingsPanel);
+		contentPane.add(AnimatorRootLayoutManager.SCENE_EDITOR, components.scenesPanel);
 
 		return engine;
 	}
