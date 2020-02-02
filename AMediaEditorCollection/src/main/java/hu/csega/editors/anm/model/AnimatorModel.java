@@ -3,46 +3,42 @@ package hu.csega.editors.anm.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.ListModel;
-import javax.swing.event.ListDataListener;
+public class AnimatorModel {
 
-import hu.csega.editors.anm.model.parts.AnimatorPart;
-
-public class AnimatorModel implements ListModel<AnimatorPart> {
-
-	public boolean gridEnabled = true;
-	public double gridSize = 30.0;
-
-	private List<AnimatorPart> parts = new ArrayList<>();
+	private AnimationPersistent persistent;
+	private List<Object> previousStates;
+	private List<Object> nextStates;
 
 	public AnimatorModel() {
-		for(int i = 0; i < 100; i++) {
-			AnimatorPart part = new AnimatorPart();
-			part.setId("id-" + i);
-			part.setDisplayName("Part " + i);
-			parts.add(part);
-		}
+		this.previousStates = new ArrayList<>();
+		this.nextStates = new ArrayList<>();
 	}
 
-	public void finalizeMove() {
+	public void finalizeMoves() {
 	}
 
-	@Override
-	public int getSize() {
-		return parts.size();
+	public AnimationPersistent getPersistent() {
+		return persistent;
 	}
 
-	@Override
-	public AnimatorPart getElementAt(int index) {
-		return parts.get(index);
+	public void setPersistent(AnimationPersistent persistent) {
+		this.persistent = persistent;
 	}
 
-	@Override
-	public void addListDataListener(ListDataListener l) {
+	public List<Object> getPreviousStates() {
+		return previousStates;
 	}
 
-	@Override
-	public void removeListDataListener(ListDataListener l) {
+	public void setPreviousStates(List<Object> previousStates) {
+		this.previousStates = previousStates;
+	}
+
+	public List<Object> getNextStates() {
+		return nextStates;
+	}
+
+	public void setNextStates(List<Object> nextStates) {
+		this.nextStates = nextStates;
 	}
 
 }

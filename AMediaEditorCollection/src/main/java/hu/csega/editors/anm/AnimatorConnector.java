@@ -1,6 +1,5 @@
 package hu.csega.editors.anm;
 
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.util.ArrayList;
@@ -8,18 +7,15 @@ import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.ListModel;
-
 import hu.csega.editors.anm.menu.AnimatorMenu;
-import hu.csega.editors.anm.model.AnimatorModel;
-import hu.csega.editors.anm.model.parts.AnimatorPart;
-import hu.csega.editors.anm.swing.AnimatorColorPanel;
 import hu.csega.editors.anm.swing.AnimatorRootLayoutManager;
 import hu.csega.editors.anm.swing.AnimatorWireFrameView;
+import hu.csega.editors.anm.ui.AnimatorCommonSettingsPanel;
+import hu.csega.editors.anm.ui.AnimatorPartEditorPanel;
+import hu.csega.editors.anm.ui.AnimatorPartList;
+import hu.csega.editors.anm.ui.AnimatorScenesPanel;
 import hu.csega.games.adapters.opengl.OpenGLGameAdapter;
 import hu.csega.games.common.Connector;
 import hu.csega.games.engine.GameEngineFacade;
@@ -141,14 +137,10 @@ public class AnimatorConnector implements Connector, GameWindow {
 		engine.startIn(gameWindow, panel3D);
 
 		// Now the model exists.
-		ListModel<AnimatorPart> listModel = (AnimatorModel)facade.model();
-		JList<AnimatorPart> list = new JList<>(listModel);
-		JScrollPane scrollableList = new JScrollPane(list);
-		contentPane.add(AnimatorRootLayoutManager.PARTS_LIST, scrollableList);
-
-		contentPane.add(AnimatorRootLayoutManager.PARTS_SETTINGS, new AnimatorColorPanel(Color.RED));
-		contentPane.add(AnimatorRootLayoutManager.CORNER_CONTROLLER, new AnimatorColorPanel(Color.BLUE));
-		contentPane.add(AnimatorRootLayoutManager.SCENE_EDITOR, new AnimatorColorPanel(Color.GREEN));
+		contentPane.add(AnimatorRootLayoutManager.PARTS_LIST, UnitStore.instance(AnimatorPartList.class).getAWTComponent());
+		contentPane.add(AnimatorRootLayoutManager.PARTS_SETTINGS, UnitStore.instance(AnimatorPartEditorPanel.class));
+		contentPane.add(AnimatorRootLayoutManager.CORNER_CONTROLLER, UnitStore.instance(AnimatorCommonSettingsPanel.class));
+		contentPane.add(AnimatorRootLayoutManager.SCENE_EDITOR, UnitStore.instance(AnimatorScenesPanel.class));
 
 		return engine;
 	}

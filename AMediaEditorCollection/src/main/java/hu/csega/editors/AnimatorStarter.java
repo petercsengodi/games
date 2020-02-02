@@ -1,10 +1,14 @@
 package hu.csega.editors;
 
 import hu.csega.editors.anm.AnimatorConnector;
+import hu.csega.editors.anm.AnimatorModelBuilder;
+import hu.csega.editors.anm.components.ComponentExtractPartList;
 import hu.csega.editors.anm.components.ComponentOpenGLTransformer;
 import hu.csega.editors.anm.components.ComponentWireFrameTransformer;
+import hu.csega.editors.anm.components.stubs.StubExtractPartList;
 import hu.csega.editors.anm.components.stubs.StubOpenGLTransformer;
 import hu.csega.editors.anm.components.stubs.StubWireFrameTransformer;
+import hu.csega.editors.anm.transformation.AnimatorExtractPartList;
 import hu.csega.games.common.ApplicationStarter;
 import hu.csega.games.common.Connector;
 import hu.csega.games.library.TextureLibrary;
@@ -48,14 +52,18 @@ public class AnimatorStarter {
 		Connector connector = new AnimatorConnector();
 		UnitStore.registerInstance(Connector.class, connector);
 
-		// UnitStore.registerInstance(ComponentWireFrameTransformer.class, new StubWireFrameTransformer());
-		// UnitStore.registerDefaultImplementation(ComponentOpenGLTransformer.class, AnimatorModelBuilder.class);
+		UnitStore.registerDefaultImplementation(ComponentOpenGLTransformer.class, AnimatorModelBuilder.class);
+		UnitStore.registerDefaultImplementation(ComponentExtractPartList.class, AnimatorExtractPartList.class);
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		// 3. Register test instances if needed:
 
 		UnitStore.registerInstance(ComponentWireFrameTransformer.class, new StubWireFrameTransformer());
 		UnitStore.registerInstance(ComponentOpenGLTransformer.class, new StubOpenGLTransformer());
+		UnitStore.registerInstance(ComponentExtractPartList.class, new StubExtractPartList());
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		// 3. Starting application:
+		// 4. Starting application:
 
 		ApplicationStarter starter = new ApplicationStarter(connector);
 		starter.start(args);
