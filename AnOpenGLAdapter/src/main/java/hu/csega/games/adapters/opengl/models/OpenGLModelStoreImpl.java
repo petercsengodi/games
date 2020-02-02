@@ -1,14 +1,23 @@
 package hu.csega.games.adapters.opengl.models;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.jogamp.opengl.GLAutoDrawable;
 
 import hu.csega.games.adapters.opengl.OpenGLProfileAdapter;
+import hu.csega.games.engine.ftm.GameMesh;
 import hu.csega.games.engine.g3d.GameModelBuilder;
 import hu.csega.games.engine.g3d.GameObjectHandler;
 import hu.csega.games.engine.g3d.GameObjectPlacement;
@@ -31,6 +40,8 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 	private boolean programInitialized = false;
 
 	private static final String SHADERS_ROOT = "res/example";
+
+	private byte[] buffer = new byte[4096];
 
 	public void setAdapter(OpenGLProfileAdapter adapter) {
 		this.adapter = adapter;
@@ -103,13 +114,13 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 		if(handler == null) {
 			handler = nextHandler(GameObjectType.TEXTURE);
 			handlers.put(filename, handler);
+		}
 
-			OpenGLObjectContainer container = containers.get(handler);
-			if(container == null) {
-				container = new OpenGLTextureContainer(adapter, filename);
-				containers.put(handler, container);
-				toInitialize.add(handler);
-			}
+		OpenGLObjectContainer container = containers.get(handler);
+		if(container == null) {
+			container = new OpenGLTextureContainer(adapter, filename);
+			containers.put(handler, container);
+			toInitialize.add(handler);
 		}
 
 		return handler;
@@ -135,7 +146,30 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 		GameObjectHandler handler = handlers.get(filename);
 
 		if(handler == null) {
+			handler = nextHandler(GameObjectType.MODEL);
+			handlers.put(filename, handler);
+		}
 
+		OpenGLObjectContainer container = containers.get(handler);
+		if(container == null) {
+
+			File file = new File(filename);
+			byte[] bytes = load(file);
+			String string = new String(bytes, UTF_8);
+
+			OpenGLModelBuilder modelBuilder;
+			try {
+				JSONObject json = new JSONObject(string);
+				GameMesh mesh = new GameMesh();
+				mesh.fromJSONObject(json);
+				modelBuilder = new OpenGLModelBuilder(mesh, this);
+			} catch(JSONException ex) {
+				throw new RuntimeException("Couldn't parse file: " + filename);
+			}
+
+			container = new OpenGLCustomModelContainer(filename, this, adapter, modelBuilder);
+			containers.put(handler, container);
+			toInitialize.add(handler);
 		}
 
 		return handler;
@@ -249,6 +283,30 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 	private GameObjectHandler nextHandler(GameObjectType type) {
 		return new GameObjectHandler(type, identifierCounter++);
 	}
+
+	private byte[] load(File file) {
+		if(!file.exists() || file.isDirectory()) {
+			throw new RuntimeException("Not exists or not a file: " + file.getAbsolutePath());
+		}
+
+		try (FileInputStream stream = new FileInputStream(file)) {
+
+			ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+			int len = 0;
+			while((len = stream.read(buffer)) > -1) {
+				if(len > 0) {
+					output.write(buffer, 0, len);
+				}
+			}
+
+			return output.toByteArray();
+		} catch(IOException ex) {
+			throw new RuntimeException("Error when loading file: " + file.getAbsolutePath(), ex);
+		}
+	}
+
+	private static final Charset UTF_8 = Charset.forName("UTF-8");
 
 	private static final Logger logger = LoggerFactory.createLogger(OpenGLModelStoreImpl.class);
 }

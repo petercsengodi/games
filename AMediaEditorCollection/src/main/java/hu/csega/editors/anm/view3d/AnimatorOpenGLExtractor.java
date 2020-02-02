@@ -86,18 +86,24 @@ public class AnimatorOpenGLExtractor implements ComponentOpenGLExtractor {
 					if(pos != null && pos.getV() != null) {
 						float[] v = pos.getV();
 						camera.position.set(v[0], v[1], v[2]);
+					} else {
+						camera.position.set(0f, 0f, -100f);
 					}
 
 					AnimationVector tar = cam.getTarget();
 					if(tar != null && tar.getV() != null) {
 						float[] v = tar.getV();
 						camera.target.set(v[0], v[1], v[2]);
+					} else {
+						camera.target.set(0f, 0f, 0f);
 					}
 
 					AnimationVector up = cam.getTarget();
 					if(up != null && up.getV() != null) {
 						float[] v = up.getV();
 						camera.up.set(v[0], v[1], v[2]);
+					} else {
+						camera.up.set(0f, 1f, 0f);
 					}
 				}
 			}
