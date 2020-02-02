@@ -6,8 +6,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
 import hu.csega.editors.anm.swing.AnimatorWireFrameView;
+import hu.csega.games.engine.intf.GameWindow;
 
 public class AnimatorUIComponents {
+
+	//////////////////////////////////////////////////////////////////////////////
+	// 3D engine
+
+	public GameWindow gameWindow;
 
 	//////////////////////////////////////////////////////////////////////////////
 	// Part list

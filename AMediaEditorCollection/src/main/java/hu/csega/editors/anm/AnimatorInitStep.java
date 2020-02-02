@@ -19,7 +19,7 @@ public class AnimatorInitStep implements GameEngineCallback {
 
 	@Override
 	public Object call(GameEngineFacade facade) {
-		AnimatorModel model = new AnimatorModel();
+		AnimatorModel model = UnitStore.instance(AnimatorModel.class);
 		facade.setModel(model);
 
 		initializeTestModel(model);

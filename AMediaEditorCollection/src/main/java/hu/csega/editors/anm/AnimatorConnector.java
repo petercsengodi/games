@@ -10,6 +10,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+
+import hu.csega.editors.anm.components.ComponentRefreshViews;
 import hu.csega.editors.anm.menu.AnimatorMenu;
 import hu.csega.editors.anm.swing.AnimatorRootLayoutManager;
 import hu.csega.editors.anm.swing.AnimatorWireFrameView;
@@ -35,7 +37,7 @@ import hu.csega.toolshed.logging.LoggerFactory;
 
 public class AnimatorConnector implements Connector, GameWindow {
 
-	private GameWindow gameWindow;
+	private ComponentRefreshViews refreshViews;
 	private List<GameWindowListener> listeners = new ArrayList<>();
 
 	@Override
@@ -113,18 +115,18 @@ public class AnimatorConnector implements Connector, GameWindow {
 
 		// Swing View(s)
 
-		gameWindow = adapter.createWindow(engine);
-		gameWindow.setFullScreen(true);
-		logger.info("Window/Frame instance created: " + gameWindow.getClass().getName());
+		AnimatorUIComponents components = UnitStore.instance(AnimatorUIComponents.class);
+		components.gameWindow = adapter.createWindow(engine);
+		components.gameWindow.setFullScreen(true);
+		logger.info("Window/Frame instance created: " + components.gameWindow.getClass().getName());
 
-		JFrame frame = (JFrame) gameWindow;
+		JFrame frame = (JFrame) components.gameWindow;
 		Container contentPane = frame.getContentPane();
 		AnimatorRootLayoutManager layout = new AnimatorRootLayoutManager();
 		contentPane.setLayout(layout);
 
 		AnimatorMenu.createMenuForJFrame(frame, facade);
 
-		AnimatorUIComponents components = UnitStore.instance(AnimatorUIComponents.class);
 		components.tabbedPane = new JTabbedPane();
 
 		components.panelWireFrame = new AnimatorWireFrameView();
@@ -137,7 +139,7 @@ public class AnimatorConnector implements Connector, GameWindow {
 		contentPane.add(AnimatorRootLayoutManager.CANVAS3D, components.tabbedPane);
 
 		// Adds canvas to content pane, but the model doesn't exist at this point.
-		engine.startIn(gameWindow, components.panel3D);
+		engine.startIn(components.gameWindow, components.panel3D);
 
 		components.partListModel = new AnimatorPartListModel();
 		components.partList = new JList<>(components.partListModel);
@@ -153,6 +155,8 @@ public class AnimatorConnector implements Connector, GameWindow {
 		contentPane.add(AnimatorRootLayoutManager.CORNER_CONTROLLER, components.commonSettingsPanel);
 		contentPane.add(AnimatorRootLayoutManager.SCENE_EDITOR, components.scenesPanel);
 
+		refreshViews = UnitStore.instance(ComponentRefreshViews.class);
+
 		return engine;
 	}
 
@@ -162,8 +166,9 @@ public class AnimatorConnector implements Connector, GameWindow {
 
 	@Override
 	public void repaintEverything() {
-		if(gameWindow != null)
-			gameWindow.repaintEverything();
+		if(refreshViews != null) {
+			refreshViews.refreshAll();
+		}
 	}
 
 	private static final Logger logger = LoggerFactory.createLogger(AnimatorConnector.class);

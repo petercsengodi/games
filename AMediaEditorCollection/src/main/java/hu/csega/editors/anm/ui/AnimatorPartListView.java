@@ -7,7 +7,7 @@ import hu.csega.games.units.UnitStore;
 
 public class AnimatorPartListView implements ComponentPartListView {
 
-	private AnimatorUIComponents uiComponents;
+	private AnimatorUIComponents ui;
 
 	@Override
 	public Void provide() {
@@ -16,20 +16,20 @@ public class AnimatorPartListView implements ComponentPartListView {
 
 	@Override
 	public void accept(List<AnimatorPartListItem> items) {
-		if(uiComponents == null) {
-			uiComponents = UnitStore.instance(AnimatorUIComponents.class);
-			if(uiComponents == null) {
+		if(ui == null) {
+			ui = UnitStore.instance(AnimatorUIComponents.class);
+			if(ui == null) {
 				return;
 			}
 		}
 
-		if(uiComponents.partListModel != null) {
-			uiComponents.partListModel.setItems(items);
+		if(ui.partListModel != null) {
+			ui.partListModel.setItems(items);
+			if(ui.partList != null) {
+				ui.partList.updateUI();
+			}
 		}
 
-		if(uiComponents.partList != null) {
-			uiComponents.partList.repaint();
-		}
 	}
 
 }

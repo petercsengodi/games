@@ -14,8 +14,8 @@ public class AnimatorMenu {
 	public static void createMenuForJFrame(JFrame frame, GameEngineFacade facade) {
 		JMenuBar menuBar = new JMenuBar();
 
-		JMenu fileMenu = createFileMenu(frame, facade);
-		menuBar.add(fileMenu);
+		menuBar.add(createFileMenu(frame, facade));
+		menuBar.add(createViewMenu(frame, facade));
 
 		frame.setJMenuBar(menuBar);
 	}
@@ -38,7 +38,7 @@ public class AnimatorMenu {
 		JMenu fileMenu = new JMenu("File");
 
 		/*
-		
+
 		JMenuItem fileNew = new JMenuItem("New");
 		fileNew.addActionListener(new FileNew(frame, saveDialog, facade));
 		fileMenu.add(fileNew);
@@ -51,12 +51,22 @@ public class AnimatorMenu {
 		fileSave.addActionListener(new FileSave(frame, saveDialog, facade));
 		fileMenu.add(fileSave);
 
-		*/
+		 */
 
 		JMenuItem fileExit = new JMenuItem("Exit");
 		fileExit.addActionListener(new AnimatorMenuItemExit(frame, saveDialog, facade));
 		fileMenu.add(fileExit);
 
 		return fileMenu;
+	}
+
+	private static JMenu createViewMenu(JFrame frame, GameEngineFacade facade) {
+		JMenu viewMenu = new JMenu("View");
+
+		JMenuItem refreshViews = new JMenuItem("Refresh All");
+		refreshViews.addActionListener(new AnimatorMenuRefreshAll());
+		viewMenu.add(refreshViews);
+
+		return viewMenu;
 	}
 }
