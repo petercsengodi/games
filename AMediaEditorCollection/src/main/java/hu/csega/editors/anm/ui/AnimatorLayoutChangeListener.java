@@ -1,4 +1,4 @@
-package hu.csega.editors.anm.swing;
+package hu.csega.editors.anm.ui;
 
 import java.awt.Component;
 

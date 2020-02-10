@@ -1,4 +1,4 @@
-package hu.csega.editors.anm.swing;
+package hu.csega.editors.anm.ui;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -12,6 +12,9 @@ public class AnimatorLayoutManager implements LayoutManager, LayoutManager2 {
 
 	private static final int MAX_NUMBER_OF_COMPONENTS = 30;
 
+	private int width;
+	private int height;
+
 	private int preferredWidth;
 	private int preferredHeight;
 
@@ -23,6 +26,9 @@ public class AnimatorLayoutManager implements LayoutManager, LayoutManager2 {
 	public AnimatorLayoutManager(int preferredWidth, int preferredHeight) {
 		this.preferredWidth = preferredWidth;
 		this.preferredHeight = preferredHeight;
+
+		this.width = preferredWidth;
+		this.height = preferredHeight;
 	}
 
 	@Override
@@ -32,11 +38,18 @@ public class AnimatorLayoutManager implements LayoutManager, LayoutManager2 {
 		}
 
 		components[numberOfComponents] = component;
+
+		AnimatorLayoutChangeListener listener = null;
 		if(constraints instanceof AnimatorLayoutChangeListener) {
-			listeners[numberOfComponents] = (AnimatorLayoutChangeListener) constraints;
+			listener = (AnimatorLayoutChangeListener) constraints;
+			listeners[numberOfComponents] = listener;
 		}
 
 		numberOfComponents++;
+
+		if(component != null && listener != null) {
+			listener.arrange(component, width, height);
+		}
 	}
 
 	@Override
@@ -61,7 +74,7 @@ public class AnimatorLayoutManager implements LayoutManager, LayoutManager2 {
 
 	@Override
 	public void removeLayoutComponent(Component component) {
-		throw new UnsupportedOperationException("removeLayoutComponent");
+		// throw new UnsupportedOperationException("removeLayoutComponent");
 	}
 
 	@Override
@@ -84,8 +97,8 @@ public class AnimatorLayoutManager implements LayoutManager, LayoutManager2 {
 		logger.info("Parent: " + (parent != null ? parent.getClass().getName() : "–"));
 
 		if(invalid) {
-			int width = parent.getWidth();
-			int height = parent.getHeight();
+			width = parent.getWidth();
+			height = parent.getHeight();
 			recalculatePositions(width, height);
 		}
 	}

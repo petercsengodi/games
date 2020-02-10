@@ -33,9 +33,12 @@ public class AnimatorUIComponents {
 	public JScrollPane partListScrollPane;
 
 	//////////////////////////////////////////////////////////////////////////////
-	// Tabs
+	// Tabs / Views
 
 	public JTabbedPane tabbedPane;
+	public AnimatorWireFrameView panelFront;
+	public AnimatorWireFrameView panelTop;
+	public AnimatorWireFrameView panelSide;
 	public AnimatorWireFrameView panelWireFrame;
 	public JPanel panel3D;
 	public AnimatorPartEditorPanel partEditorPanel;

@@ -136,6 +136,15 @@ public class AnimatorConnector implements Connector, GameWindow {
 
 		components.tabbedPane = new JTabbedPane();
 
+		components.panelFront = new AnimatorWireFrameView();
+		components.tabbedPane.addTab("Front", components.panelFront);
+
+		components.panelTop = new AnimatorWireFrameView();
+		components.tabbedPane.addTab("Top", components.panelTop);
+
+		components.panelSide = new AnimatorWireFrameView();
+		components.tabbedPane.addTab("Side", components.panelSide);
+
 		components.panelWireFrame = new AnimatorWireFrameView();
 		components.tabbedPane.addTab("Wireframe", components.panelWireFrame);
 
