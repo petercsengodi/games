@@ -1,5 +1,6 @@
 package hu.csega.wizardgame.engine;
 
+import java.awt.Container;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class WizardGameOpenGLConnector implements Connector, GameWindow {
 	}
 
 	@Override
-	public void add(GameCanvas canvas) {
+	public void add(GameCanvas arg0, Container arg1) {
 	}
 
 	@Override
