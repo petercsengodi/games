@@ -98,9 +98,12 @@ public class FreeTriangleMeshRenderStep implements GameEngineCallback {
 		if(convertedModel != null) {
 			GameGraphics g = facade.graphics();
 
-			cameraPosition.x = (float)Math.cos(alfa);
-			cameraPosition.y = 0f;
-			cameraPosition.z = (float)Math.sin(alfa);
+			double y = distance * Math.sin(beta);
+			double distanceReduced = distance * Math.cos(beta);
+
+			cameraPosition.x = (float)(Math.cos(alfa) * distanceReduced);
+			cameraPosition.y = (float) y;
+			cameraPosition.z = (float)(Math.sin(alfa) * distanceReduced);
 
 			cameraPlacement.setPositionTargetUp(cameraPosition, cameraTarget, cameraUp);
 
