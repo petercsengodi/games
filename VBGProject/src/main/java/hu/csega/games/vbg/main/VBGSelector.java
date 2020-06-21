@@ -16,12 +16,11 @@ import hu.csega.games.vbg.util.GeometricUtil;
 
 public class VBGSelector implements VBGAbstractGame {
 
-	private final List<VBGSelectable> selectables = new ArrayList<>();
+	private static final List<VBGSelectable> selectables = new ArrayList<>();
 
 	private Rectangle baseRectangle = new Rectangle(10, 10, 100, 170);
 	private int selectedIndex = -1;
 	private int lastWidth = 100;
-	private boolean inited = false;
 	private boolean needsRepaint = false;
 
 	@Override
@@ -31,11 +30,6 @@ public class VBGSelector implements VBGAbstractGame {
 
 	@Override
 	public void paint(BufferedImage buffer) {
-		if(!inited) {
-			fillMenu();
-			inited = true;
-		}
-
 		Graphics2D g = (Graphics2D) buffer.getGraphics();
 		lastWidth = buffer.getWidth();
 
@@ -168,20 +162,12 @@ public class VBGSelector implements VBGAbstractGame {
 		return -1;
 	}
 
-	private void fillMenu() {
+	public static void fillMenu() {
 		{
 			VBGSelectable selectable = new VBGSelectable();
-			selectable.title = "Reversi";
-			selectable.iconCharacter = 'R';
-			selectable.game = VBGAllGames.REVERSI;
-			selectables.add(selectable);
-		}
-
-		{
-			VBGSelectable selectable = new VBGSelectable();
-			selectable.title = "Teszt";
-			selectable.iconCharacter = 'T';
-			selectable.game = VBGAllGames.TEST_GAME;
+			selectable.title = "Üdvözlet";
+			selectable.iconCharacter = 'Ü';
+			selectable.game = VBGAllGames.GREETINGS;
 			selectables.add(selectable);
 		}
 	}

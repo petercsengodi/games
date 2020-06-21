@@ -1,14 +1,12 @@
 package hu.csega.games.vbg.main;
 
-import hu.csega.games.vbg.games.reversi.VBGReversiGame;
-import hu.csega.games.vbg.games.test.VBGTestGame;
 import hu.csega.games.vbg.swing.VBGAbstractGame;
+import hu.csega.games.vbg.games.greetings.VBGGreetingsGame;
 
 public enum VBGAllGames {
 
 	SELECTOR(new VBGSelector()),
-	TEST_GAME(new VBGTestGame()),
-	REVERSI(new VBGReversiGame());
+	GREETINGS(new VBGGreetingsGame());
 
 	private VBGAbstractGame game;
 

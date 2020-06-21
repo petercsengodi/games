@@ -15,7 +15,7 @@ public class VBGThread extends Thread {
 				VBGFrame frame = VirtualBoredGames.getFrame();
 				if(frame.programFinished()) {
 					System.out.println("Exiting thread.");
-					return; // exitting program
+					return; // exiting program
 				}
 
 				long start = System.currentTimeMillis();
