@@ -1,4 +1,4 @@
-package hu.csega.pixel.editor;
+package hu.csega.pixel.editor.original;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -19,24 +19,11 @@ import hu.csega.pixel.PixelSheet;
 
 public class PixelEditor extends JFrame {
 
-	public static final String PIX_FILE = "tmp.pix";
-	public static final int MAXIMUM_NUMBER_OF_SHEETS = 100;
-
-	public static void main(String[] args) {
-		PixelEditor editor = new PixelEditor();
-
-		File f = new File(PIX_FILE);
-		if(f.exists()) {
-			editor.library = PixelLibrary.load(f);
-		} else {
-			editor.library = new PixelLibrary(MAXIMUM_NUMBER_OF_SHEETS);
-		}
-
-		editor.setVisible(true);
-	}
-
-	public PixelEditor() {
+	public PixelEditor(String filename, int maximumNumberOfSheets) {
 		super("Pixel Editor");
+
+		this.maximumNumberOfSheets = maximumNumberOfSheets;
+		this.filename = filename;
 
 		Container contentPane = this.getContentPane();
 		contentPane.setLayout(new BorderLayout());
@@ -99,7 +86,7 @@ public class PixelEditor extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setCurrentSheet(MAXIMUM_NUMBER_OF_SHEETS - 1);
+				setCurrentSheet(PixelEditor.this.maximumNumberOfSheets - 1);
 			}
 
 		});
@@ -135,6 +122,17 @@ public class PixelEditor extends JFrame {
 		this.pack();
 	}
 
+	public void startEditor() {
+		File f = new File(filename);
+		if(f.exists()) {
+			library = PixelLibrary.load(f);
+		} else {
+			library = new PixelLibrary(maximumNumberOfSheets);
+		}
+
+		setVisible(true);
+	}
+
 	public PixelSheet getCurrentSheet() {
 		return library.get(currentSheet);
 	}
@@ -144,7 +142,7 @@ public class PixelEditor extends JFrame {
 	}
 
 	private void saveToFile() {
-		File f = new File(PIX_FILE);
+		File f = new File(filename);
 		if(f.exists())
 			f.delete();
 		library.save(f);
@@ -168,8 +166,8 @@ public class PixelEditor extends JFrame {
 	private int checkIndex(int i) {
 		if(i < 0)
 			i = 0;
-		if(i > MAXIMUM_NUMBER_OF_SHEETS - 1)
-			i = MAXIMUM_NUMBER_OF_SHEETS - 1;
+		if(i > maximumNumberOfSheets - 1)
+			i = maximumNumberOfSheets - 1;
 		return i;
 	}
 
@@ -188,6 +186,9 @@ public class PixelEditor extends JFrame {
 			sheetFrom.copyValuesInto(sheetTo);
 		}
 	}
+
+	private final String filename;
+	private final int maximumNumberOfSheets;
 
 	private PixelLibrary library;
 	private int currentSheet = 0;

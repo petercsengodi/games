@@ -1,4 +1,4 @@
-package hu.csega.pixel.editor;
+package hu.csega.pixel.editor.original;
 
 import java.awt.Color;
 import java.awt.Dimension;

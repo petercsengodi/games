@@ -2,55 +2,65 @@ package hu.csega.pixel;
 
 public class Palette {
 
+	public static int pixelIndexOf(int ri, int gi, int bi) {
+		return ((ri * TONES + gi) * TONES) + bi;
+	}
+
 	public static int indexOf(int r, int g, int b, int a) {
 		if(a < 255) {
 			return INDEX_OF_TRANSPARENT;
 		}
 
-		int divider = 256 / (TONES - 1);
+		int ri = toneIndexOf(r);
+		int gi = toneIndexOf(g);
+		int bi = toneIndexOf(b);
+		return ((ri * TONES) + gi) * TONES + bi;
+	}
 
-		int ri = r + 1 / divider;
-		if(ri > TONES - 1)
-			ri = TONES - 1;
-		if(ri < 0)
-			ri = 0;
+	public static int toneIndexOf(int component) {
+		if(component <= 0) {
+			return 0;
+		}
 
-		int gi = g + 1 / divider;
-		if(gi > TONES - 1)
-			gi = TONES - 1;
-		if(gi < 0)
-			gi = 0;
+		if(component >= 255) {
+			return TONES - 1;
+		}
 
-		int bi = b + 1 / divider;
-		if(bi > TONES - 1)
-			bi = TONES - 1;
-		if(bi < 0)
-			bi = 0;
+		for(int i = 1; i < TONES; i++) {
+			if(component <= INT_TO_COLOR_TONE[i]) {
+				return i;
+			}
+		}
 
-		return ((r * TONES) + g) * TONES + b;
+		return 0;
 	}
 
 	public static Pixel get(int r, int g, int b, int a) {
 		return PIXELS[indexOf(r, g, b, a)];
 	}
 
-	public static final int TONES = 5;
-	public static final int[] INT_TO_COLOR_TONE = new int[] { 0, 63, 127, 191, 255};
+	public static final int[] INT_TO_COLOR_TONE = new int[] { 0, 31, 63, 95, 127, 159, 191, 223, 255};
+	public static final int TONES = INT_TO_COLOR_TONE.length;
 	public static final int INDEX_OF_TRANSPARENT = TONES * TONES * TONES;
 	public static final int NUMBER_OF_COLORS = INDEX_OF_TRANSPARENT + 1;
 	public static final Pixel[] PIXELS = new Pixel[NUMBER_OF_COLORS];
 
 	static {
 		int index = 0;
-		for(int r = 0; r < TONES; r++) {
-			for(int g = 0; g < TONES; g++) {
-				for(int b = 0; b < TONES; b++) {
+		int pixelIndex;
+
+		for(int ri = 0; ri < TONES; ri++) {
+			for(int gi = 0; gi < TONES; gi++) {
+				for(int bi = 0; bi < TONES; bi++) {
 					Pixel pixel = new Pixel();
-					pixel.red = INT_TO_COLOR_TONE[r];
-					pixel.green = INT_TO_COLOR_TONE[g];
-					pixel.blue = INT_TO_COLOR_TONE[b];
+					pixel.red = INT_TO_COLOR_TONE[ri];
+					pixel.green = INT_TO_COLOR_TONE[gi];
+					pixel.blue = INT_TO_COLOR_TONE[bi];
 					pixel.alpha = 255;
-					PIXELS[index++] = pixel;
+
+					pixelIndex = pixelIndexOf(ri, gi, bi);
+					PIXELS[pixelIndex] = pixel;
+					index++;
 				}
 			}
 		}

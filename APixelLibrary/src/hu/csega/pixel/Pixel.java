@@ -29,5 +29,10 @@ public class Pixel implements Serializable {
 		return ret;
 	}
 
+	@Override
+	public String toString() {
+		return "R:"+red+"|G:"+green+"|B:"+blue+"|A:"+alpha;
+	}
+
 	private static final long serialVersionUID = 1L;
 }
