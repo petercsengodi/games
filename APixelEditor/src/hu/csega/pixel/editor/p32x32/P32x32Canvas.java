@@ -66,6 +66,12 @@ public class P32x32Canvas extends JPanel implements MouseListener, MouseMotionLi
 			drawBackgroundPixel(g, pixelEditor.getSpWidth() + startX + cx, startY, color);
 		}
 
+		// Draw the current color
+		startY += 2;
+		for(int cx = 1; cx <= 5; cx++) {
+			drawPixel(g, pixelEditor.getSpWidth() + startX + cx, startY, pixel);
+		}
+
 
 		// Draw the image with the pixel size of eight
 		startX = (3 * Palette.TONES + pixelEditor.getSpWidth()) * PIXEL_WIDTH + 10;
