@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.List;
 
-import hu.csega.editors.common.EditorPoint;
+import hu.csega.editors.common.lens.EditorPoint;
 import hu.csega.editors.ftm.model.FreeTriangleMeshLine;
 import hu.csega.editors.ftm.model.FreeTriangleMeshModel;
 import hu.csega.editors.ftm.model.FreeTriangleMeshTriangle;

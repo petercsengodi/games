@@ -2,7 +2,8 @@ package hu.csega.editors.transformations.view;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import hu.csega.editors.common.EditorPoint;
+
+import hu.csega.editors.common.lens.EditorPoint;
 import hu.csega.editors.transformations.model.TransformationTesterModel;
 import hu.csega.editors.transformations.model.TransformationTesterVertex;
 import hu.csega.games.engine.GameEngineFacade;

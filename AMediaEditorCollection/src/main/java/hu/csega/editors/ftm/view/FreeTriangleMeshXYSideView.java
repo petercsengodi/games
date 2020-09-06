@@ -1,6 +1,6 @@
 package hu.csega.editors.ftm.view;
 
-import hu.csega.editors.common.EditorPoint;
+import hu.csega.editors.common.lens.EditorPoint;
 import hu.csega.editors.ftm.model.FreeTriangleMeshCube;
 import hu.csega.editors.ftm.model.FreeTriangleMeshModel;
 import hu.csega.editors.ftm.model.FreeTriangleMeshVertex;

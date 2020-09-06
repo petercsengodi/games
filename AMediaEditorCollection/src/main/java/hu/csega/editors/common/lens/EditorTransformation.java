@@ -1,4 +1,4 @@
-package hu.csega.editors.common;
+package hu.csega.editors.common.lens;
 
 import org.joml.Matrix4d;
 import org.joml.Vector4d;
