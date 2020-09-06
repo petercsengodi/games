@@ -214,8 +214,19 @@ public class DragAndDropView extends JPanel implements CommonUIComponent<JFrame,
 		if(e.getButton() == 1) {
 			mouseLeftPressed = false;
 			if(selectionBoxEnabled) {
-				calculateSelectionBox();
-				// Select elements inside box.
+				Rectangle box = calculateSelectionBox();
+
+				selectedObjects.clear();
+				for(DragAndDropModelObject object : orderedObjects) {
+					double x1 = box.getMinX();
+					double y1 = box.getMinY();
+					double x2 = box.getMaxX();
+					double y2 = box.getMaxY();
+					if(object.hitShapeIsInsideOfBox(x1, y1, x2, y2)) {
+						selectedObjects.add(object);
+					}
+				}
+
 				selectionBoxEnabled = false;
 				repaintEverything();
 			} else if(selectionClickEnabled) {
@@ -308,8 +319,11 @@ public class DragAndDropView extends JPanel implements CommonUIComponent<JFrame,
 
 		if(selectionBoxEnabled) {
 			g.setColor(Color.RED);
-			g.drawRect(selectionStart.x, selectionStart.y, selectionEnd.x - selectionStart.x,
-					selectionEnd.y - selectionStart.y);
+			int rx = Math.min(selectionStart.x, selectionEnd.x);
+			int ry = Math.min(selectionStart.y, selectionEnd.y);
+			int rwidth = Math.max(selectionStart.x, selectionEnd.x) - rx;
+			int rheight = Math.max(selectionStart.y, selectionEnd.y) - ry;
+			g.drawRect(rx, ry, rwidth, rheight);
 		}
 	}
 
