@@ -118,7 +118,7 @@ public class DragAndDropHitLine implements DragAndDropHitShape {
 		// Solving the quadratic equation:
 		double a = (dx*dx + dy*dy);
 		double b = 2*(hx*dx + hy*dy);
-		double c = (hx*hx + hy*hy + r2);
+		double c = (hx*hx + hy*hy - r2);
 
 		// Solution: t1,2 = (-b +- sqrt(b^2 - 4*a*c)) / (2*a)
 		double D = b*b - 4*a*c;

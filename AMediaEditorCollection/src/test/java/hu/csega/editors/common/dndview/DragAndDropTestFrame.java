@@ -34,7 +34,9 @@ public class DragAndDropTestFrame extends JFrame {
 		DragAndDropTestFrame parent = new DragAndDropTestFrame("Drag & Drop Test Frame");
 		parent.setVisible(true);
 
-		parent.getView().addModelObject(new DADVTestTriangle());
+		DragAndDropView view = parent.getView();
+		view.addModelObject(new DADVTestLine());
+		view.addModelObject(new DADVTestTriangle());
 	}
 
 	private static final long serialVersionUID = 1L;
