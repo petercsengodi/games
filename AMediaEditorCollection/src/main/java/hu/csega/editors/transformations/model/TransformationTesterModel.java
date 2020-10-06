@@ -43,60 +43,65 @@ public class TransformationTesterModel implements Serializable {
 		resetCamera();
 
 		this.vertices = new ArrayList<>();
+		double ZERO = 0.0;
+		double ONE = 1.0 / 3.0;
+		double TWO = 2.0 / 3.0;
+		double THREE = 1.0;
 
-		// 1. side: z = -100
-		this.vertices.add(new TransformationTesterVertex(100, 100, -100, 1, 1));
-		this.vertices.add(new TransformationTesterVertex(100, -100, -100, 1, 0));
-		this.vertices.add(new TransformationTesterVertex(-100, 100, -100, 0, 1));
 
-		this.vertices.add(new TransformationTesterVertex(100, -100, -100, 1, 0));
-		this.vertices.add(new TransformationTesterVertex(-100, 100, -100, 0, 1));
-		this.vertices.add(new TransformationTesterVertex(-100, -100, -100, 0, 0));
+		// 1. side: z = -100 // FRONT
+		this.vertices.add(new TransformationTesterVertex(100, 100, -100, TWO, ONE));
+		this.vertices.add(new TransformationTesterVertex(100, -100, -100, TWO, TWO));
+		this.vertices.add(new TransformationTesterVertex(-100, 100, -100, ONE, ONE));
 
-		// 2. side: z = 100
-		this.vertices.add(new TransformationTesterVertex(100, 100, 100, 1, 1));
-		this.vertices.add(new TransformationTesterVertex(100, -100, 100, 1, 0));
-		this.vertices.add(new TransformationTesterVertex(-100, 100, 100, 0, 1));
+		this.vertices.add(new TransformationTesterVertex(100, -100, -100, TWO, TWO));
+		this.vertices.add(new TransformationTesterVertex(-100, 100, -100, ONE, ONE));
+		this.vertices.add(new TransformationTesterVertex(-100, -100, -100, ONE, TWO));
 
-		this.vertices.add(new TransformationTesterVertex(100, -100, 100, 1, 0));
-		this.vertices.add(new TransformationTesterVertex(-100, 100, 100, 0, 1));
-		this.vertices.add(new TransformationTesterVertex(-100, -100, 100, 0, 0));
+		// 2. side: z = 100 // BACK
+		this.vertices.add(new TransformationTesterVertex(100, 100, 100, TWO, ZERO));
+		this.vertices.add(new TransformationTesterVertex(100, -100, 100, TWO, ONE));
+		this.vertices.add(new TransformationTesterVertex(-100, 100, 100, THREE, ZERO));
 
-		// 3. side: x = -100
-		this.vertices.add(new TransformationTesterVertex(-100, 100, 100, 1, 1));
-		this.vertices.add(new TransformationTesterVertex(-100, 100, -100, 1, 0));
-		this.vertices.add(new TransformationTesterVertex(-100, -100, 100, 0, 1));
+		this.vertices.add(new TransformationTesterVertex(100, -100, 100, TWO, ONE));
+		this.vertices.add(new TransformationTesterVertex(-100, 100, 100, THREE, ZERO));
+		this.vertices.add(new TransformationTesterVertex(-100, -100, 100, THREE, ONE));
 
-		this.vertices.add(new TransformationTesterVertex(-100, 100, -100, 1, 0));
-		this.vertices.add(new TransformationTesterVertex(-100, -100, 100, 0, 1));
-		this.vertices.add(new TransformationTesterVertex(-100, -100, -100, 0, 0));
+		// 3. side: x = -100 // LEFT
+		this.vertices.add(new TransformationTesterVertex(-100, 100, 100, ONE, ZERO));
+		this.vertices.add(new TransformationTesterVertex(-100, 100, -100, TWO, ZERO));
+		this.vertices.add(new TransformationTesterVertex(-100, -100, 100, ONE, ONE));
 
-		// 4. side: x = 100
-		this.vertices.add(new TransformationTesterVertex(100, 100, 100, 1, 1));
-		this.vertices.add(new TransformationTesterVertex(100, 100, -100, 1, 0));
-		this.vertices.add(new TransformationTesterVertex(100, -100, 100, 0, 1));
+		this.vertices.add(new TransformationTesterVertex(-100, 100, -100, TWO, ZERO));
+		this.vertices.add(new TransformationTesterVertex(-100, -100, 100, ONE, ONE));
+		this.vertices.add(new TransformationTesterVertex(-100, -100, -100, TWO, ONE));
 
-		this.vertices.add(new TransformationTesterVertex(100, 100, -100, 1, 0));
-		this.vertices.add(new TransformationTesterVertex(100, -100, 100, 0, 1));
-		this.vertices.add(new TransformationTesterVertex(100, -100, -100, 0, 0));
+		// 4. side: x = 100 // RIGHT
+		this.vertices.add(new TransformationTesterVertex(100, 100, 100, THREE, ONE));
+		this.vertices.add(new TransformationTesterVertex(100, 100, -100, TWO, ONE));
+		this.vertices.add(new TransformationTesterVertex(100, -100, 100, THREE, TWO));
 
-		// 5. side: y = -100
-		this.vertices.add(new TransformationTesterVertex(100, -100, 100, 1, 1));
-		this.vertices.add(new TransformationTesterVertex(100, -100, -100, 1, 0));
-		this.vertices.add(new TransformationTesterVertex(-100, -100, 100, 0, 1));
+		this.vertices.add(new TransformationTesterVertex(100, 100, -100, TWO, ONE));
+		this.vertices.add(new TransformationTesterVertex(100, -100, 100, THREE, TWO));
+		this.vertices.add(new TransformationTesterVertex(100, -100, -100, TWO, TWO));
 
-		this.vertices.add(new TransformationTesterVertex(100, -100, -100, 1, 0));
-		this.vertices.add(new TransformationTesterVertex(-100, -100, 100, 0, 1));
-		this.vertices.add(new TransformationTesterVertex(-100, -100, -100, 0, 0));
+		// 5. side: y = -100 // TOP
+		this.vertices.add(new TransformationTesterVertex(100, -100, 100, ONE, ONE));
+		this.vertices.add(new TransformationTesterVertex(100, -100, -100, ONE, ZERO));
+		this.vertices.add(new TransformationTesterVertex(-100, -100, 100, ZERO, ONE));
 
-		// 6. side: y = 100
-		this.vertices.add(new TransformationTesterVertex(100, 100, 100, 1, 1));
-		this.vertices.add(new TransformationTesterVertex(100, 100, -100, 1, 0));
-		this.vertices.add(new TransformationTesterVertex(-100, 100, 100, 0, 1));
+		this.vertices.add(new TransformationTesterVertex(100, -100, -100, ONE, ZERO));
+		this.vertices.add(new TransformationTesterVertex(-100, -100, 100, ZERO, ONE));
+		this.vertices.add(new TransformationTesterVertex(-100, -100, -100, ZERO, ZERO));
 
-		this.vertices.add(new TransformationTesterVertex(100, 100, -100, 1, 0));
-		this.vertices.add(new TransformationTesterVertex(-100, 100, 100, 0, 1));
-		this.vertices.add(new TransformationTesterVertex(-100, 100, -100, 0, 0));
+		// 6. side: y = 100 // BOTTOM
+		this.vertices.add(new TransformationTesterVertex(100, 100, 100, ONE, ONE));
+		this.vertices.add(new TransformationTesterVertex(100, 100, -100, ONE, TWO));
+		this.vertices.add(new TransformationTesterVertex(-100, 100, 100, ZERO, ONE));
+
+		this.vertices.add(new TransformationTesterVertex(100, 100, -100, ONE, TWO));
+		this.vertices.add(new TransformationTesterVertex(-100, 100, 100, ZERO, ONE));
+		this.vertices.add(new TransformationTesterVertex(-100, 100, -100, ZERO, TWO));
 	}
 
 	public List<TransformationTesterVertex> getVertices() {

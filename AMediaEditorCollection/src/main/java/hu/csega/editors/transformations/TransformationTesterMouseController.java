@@ -16,7 +16,8 @@ import hu.csega.games.engine.g3d.GameObjectPlacement;
 
 public class TransformationTesterMouseController implements MouseListener, MouseMotionListener, MouseWheelListener{
 
-	public static final double[] ZOOM_VALUES = { 0.0001, 0.001, 0.01, 0.1, 0.2, 0.3, 0.5, 0.75, 1.0, 1.25, 1.50, 2.0, 3.0, 4.0, 5.0, 10.0, 100.0, 200.0, 500.0 };
+	public static final double[] ZOOM_VALUES = { 0.0001, 0.001, 0.01, 0.1, 0.2, 0.3, 0.5, 0.75, 1.0, 1.25, 1.50,
+			2.0, 3.0, 4.0, 5.0, 10.0, 20.0, 50.0, 100.0, 200.0, 500.0, 1000.0, 2000.0, 5000.0 };
 	public static final int DEFAULT_ZOOM_INDEX = ZOOM_VALUES.length - 2;
 
 	private int zoomIndex = DEFAULT_ZOOM_INDEX;

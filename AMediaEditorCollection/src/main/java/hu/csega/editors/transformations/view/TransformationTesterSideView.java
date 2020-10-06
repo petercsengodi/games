@@ -51,26 +51,28 @@ public abstract class TransformationTesterSideView extends TransformationTesterC
 		g.setColor(Color.cyan);
 		GameObjectPlacement camera = model.getCamera();
 		GameObjectPosition eye = new GameObjectPosition();
-		GameObjectPosition center = new GameObjectPosition();
+		GameObjectDirection direction = new GameObjectDirection();
 		GameObjectDirection up = new GameObjectDirection();
 
 		camera.calculateEye(eye);
-		camera.calculateTarget(center);
+		camera.calculateDirection(direction);
 		camera.calculateUp(up);
 
-		center.x = center.x * 40 + eye.x;
-		center.y = center.y * 40 + eye.y;
-		center.z = center.z * 40 + eye.z;
+		float lcenter = (float) Math.sqrt(direction.x * direction.x + direction.y * direction.y + direction.z * direction.z);
+		direction.x = direction.x * 100 / lcenter + eye.x;
+		direction.y = direction.y * 100 / lcenter + eye.y;
+		direction.z = direction.z * 100 / lcenter + eye.z;
 
-		up.x = up.x * 40 + eye.x;
-		up.y = up.y * 40 + eye.y;
-		up.z = up.z * 40 + eye.z;
+		float lup = (float) Math.sqrt(up.x * up.x + up.y * up.y + up.z * up.z);
+		up.x = up.x * 40 / lup + eye.x;
+		up.y = up.y * 40 / lup + eye.y;
+		up.z = up.z * 40 / lup + eye.z;
 
 		EditorPoint cameraPosition = transformVertexToPoint(screenTransformation(eye.x, eye.y, eye.z));
 		drawCircle(g, cameraPosition, 15);
 		drawCircle(g, cameraPosition, 10);
 
-		EditorPoint cameraTarget = transformVertexToPoint(screenTransformation(center.x, center.y, center.z));
+		EditorPoint cameraTarget = transformVertexToPoint(screenTransformation(direction.x, direction.y, direction.z));
 		drawCircle(g, cameraTarget, 5);
 		drawLine(g, cameraPosition, cameraTarget);
 

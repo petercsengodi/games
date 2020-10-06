@@ -29,7 +29,7 @@ public class TransformationTesterRenderStep implements GameEngineCallback {
 
 		if(modelPlacement == null) {
 			modelPlacement = new GameObjectPlacement();
-			modelPlacement.target.set(0f, 0f, 1f);
+			modelPlacement.target.set(0f, 0f, -1f);
 			modelPlacement.up.set(0f, 1f, 0f);
 		}
 
@@ -40,7 +40,7 @@ public class TransformationTesterRenderStep implements GameEngineCallback {
 
 			GameModelBuilder builder = new GameModelBuilder();
 
-			String textureFilename = "res/textures/wood-texture.jpg";
+			String textureFilename = "res/textures/labels.jpg";
 
 			GameObjectHandler textureHandler = store.loadTexture(textureFilename);
 			builder.setTextureHandler(textureHandler);
