@@ -4,7 +4,7 @@ import java.util.List;
 
 import hu.csega.editors.anm.view3d.AnimatorSet;
 import hu.csega.editors.anm.view3d.AnimatorSetPart;
-import hu.csega.editors.ftm.FreeTriangleMeshMouseController;
+import hu.csega.editors.ftm.layer1.presentation.opengl.FreeTriangleMeshMouseController;
 import hu.csega.games.engine.GameEngineCallback;
 import hu.csega.games.engine.GameEngineFacade;
 import hu.csega.games.engine.g3d.GameObjectHandler;

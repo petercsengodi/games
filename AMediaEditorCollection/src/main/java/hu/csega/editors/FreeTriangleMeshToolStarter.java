@@ -1,6 +1,6 @@
 package hu.csega.editors;
 
-import hu.csega.editors.ftm.FreeTriangleMeshConnector;
+import hu.csega.editors.ftm.layer1.presentation.opengl.FreeTriangleMeshConnector;
 import hu.csega.games.common.ApplicationStarter;
 import hu.csega.games.common.Connector;
 import hu.csega.games.library.TextureLibrary;

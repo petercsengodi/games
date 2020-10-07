@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import hu.csega.editors.ftm.util.FreeTriangleMeshSnapshots;
+import hu.csega.editors.ftm.layer4.data.FreeTriangleMeshSnapshots;
 import hu.csega.editors.ftm.util.FreeTriangleMeshSphereLineIntersection;
 
 public class FreeTriangleMeshModel implements Serializable {
