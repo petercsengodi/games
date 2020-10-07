@@ -1,4 +1,4 @@
-package hu.csega.editors.transformations;
+package hu.csega.editors.transformations.layer1.presentation.opengl;
 
 import hu.csega.games.engine.GameEngineFacade;
 import hu.csega.games.engine.intf.GameKeyListener;

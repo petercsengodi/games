@@ -1,9 +1,9 @@
-package hu.csega.editors.transformations;
+package hu.csega.editors.transformations.layer1.presentation.opengl;
 
 import java.util.List;
 
-import hu.csega.editors.transformations.model.TransformationTesterModel;
-import hu.csega.editors.transformations.model.TransformationTesterVertex;
+import hu.csega.editors.transformations.layer4.data.TransformationTesterModel;
+import hu.csega.editors.transformations.layer4.data.TransformationTesterVertex;
 import hu.csega.games.engine.GameEngineCallback;
 import hu.csega.games.engine.GameEngineFacade;
 import hu.csega.games.engine.g3d.GameModelBuilder;

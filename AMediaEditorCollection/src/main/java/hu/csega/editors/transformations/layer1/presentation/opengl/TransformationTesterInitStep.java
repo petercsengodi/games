@@ -1,6 +1,6 @@
-package hu.csega.editors.transformations;
+package hu.csega.editors.transformations.layer1.presentation.opengl;
 
-import hu.csega.editors.transformations.model.TransformationTesterModel;
+import hu.csega.editors.transformations.layer4.data.TransformationTesterModel;
 import hu.csega.games.engine.GameEngineCallback;
 import hu.csega.games.engine.GameEngineFacade;
 

@@ -1,10 +1,10 @@
-package hu.csega.editors.transformations.menu;
+package hu.csega.editors.transformations.layer1.presentation.swing.menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 
-import hu.csega.editors.transformations.model.TransformationTesterModel;
+import hu.csega.editors.transformations.layer4.data.TransformationTesterModel;
 import hu.csega.games.engine.GameEngineFacade;
 
 @SuppressWarnings("unused")

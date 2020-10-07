@@ -1,4 +1,4 @@
-package hu.csega.editors.transformations.menu;
+package hu.csega.editors.transformations.layer1.presentation.swing.menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

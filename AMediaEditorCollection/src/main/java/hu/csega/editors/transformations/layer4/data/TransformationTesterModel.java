@@ -1,4 +1,4 @@
-package hu.csega.editors.transformations.model;
+package hu.csega.editors.transformations.layer4.data;
 
 import java.io.Serializable;
 import java.util.ArrayList;

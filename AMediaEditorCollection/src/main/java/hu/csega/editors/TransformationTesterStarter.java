@@ -1,6 +1,6 @@
 package hu.csega.editors;
 
-import hu.csega.editors.transformations.TransformationTesterConnector;
+import hu.csega.editors.transformations.layer1.presentation.opengl.TransformationTesterConnector;
 import hu.csega.games.common.ApplicationStarter;
 import hu.csega.games.common.Connector;
 import hu.csega.games.library.TextureLibrary;

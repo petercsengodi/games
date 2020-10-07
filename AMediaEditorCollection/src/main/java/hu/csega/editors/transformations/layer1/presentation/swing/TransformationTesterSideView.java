@@ -1,11 +1,11 @@
-package hu.csega.editors.transformations.view;
+package hu.csega.editors.transformations.layer1.presentation.swing;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 
 import hu.csega.editors.common.lens.EditorPoint;
-import hu.csega.editors.transformations.model.TransformationTesterModel;
-import hu.csega.editors.transformations.model.TransformationTesterVertex;
+import hu.csega.editors.transformations.layer4.data.TransformationTesterModel;
+import hu.csega.editors.transformations.layer4.data.TransformationTesterVertex;
 import hu.csega.games.engine.GameEngineFacade;
 import hu.csega.games.engine.g3d.GameObjectDirection;
 import hu.csega.games.engine.g3d.GameObjectPlacement;

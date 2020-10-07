@@ -1,6 +1,6 @@
-package hu.csega.editors.transformations.view;
+package hu.csega.editors.transformations.layer1.presentation.swing;
 
-import hu.csega.editors.transformations.model.TransformationTesterModel;
+import hu.csega.editors.transformations.layer4.data.TransformationTesterModel;
 import hu.csega.games.engine.GameEngineFacade;
 
 public class TransformationTesterXZSideView extends TransformationTesterSideView {

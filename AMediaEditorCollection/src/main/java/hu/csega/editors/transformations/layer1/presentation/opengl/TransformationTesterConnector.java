@@ -1,4 +1,4 @@
-package hu.csega.editors.transformations;
+package hu.csega.editors.transformations.layer1.presentation.opengl;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -8,10 +8,10 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
-import hu.csega.editors.transformations.menu.TransformationTesterMenu;
-import hu.csega.editors.transformations.view.TransformationTesterTransformedView;
-import hu.csega.editors.transformations.view.TransformationTesterXYSideView;
-import hu.csega.editors.transformations.view.TransformationTesterXZSideView;
+import hu.csega.editors.transformations.layer1.presentation.swing.TransformationTesterTransformedView;
+import hu.csega.editors.transformations.layer1.presentation.swing.TransformationTesterXYSideView;
+import hu.csega.editors.transformations.layer1.presentation.swing.TransformationTesterXZSideView;
+import hu.csega.editors.transformations.layer1.presentation.swing.menu.TransformationTesterMenu;
 import hu.csega.games.adapters.opengl.OpenGLCanvas;
 import hu.csega.games.adapters.opengl.OpenGLGameAdapter;
 import hu.csega.games.common.Connector;

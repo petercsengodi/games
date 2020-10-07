@@ -1,4 +1,4 @@
-package hu.csega.editors.transformations;
+package hu.csega.editors.transformations.layer1.presentation.opengl;
 
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -10,7 +10,7 @@ import java.awt.event.MouseWheelListener;
 import org.joml.Matrix4f;
 import org.joml.Vector4f;
 
-import hu.csega.editors.transformations.model.TransformationTesterModel;
+import hu.csega.editors.transformations.layer4.data.TransformationTesterModel;
 import hu.csega.games.engine.GameEngineFacade;
 import hu.csega.games.engine.g3d.GameObjectPlacement;
 
