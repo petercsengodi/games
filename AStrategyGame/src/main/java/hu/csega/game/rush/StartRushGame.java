@@ -1,5 +1,6 @@
 package hu.csega.game.rush;
 
+import hu.csega.game.rush.layer1.presentation.RushGameTool;
 import hu.csega.toolshed.framework.ITool;
 import hu.csega.toolshed.framework.ToolCallback;
 import hu.csega.toolshed.framework.ToolMessage;

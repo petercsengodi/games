@@ -1,4 +1,4 @@
-package hu.csega.game.rush.view;
+package hu.csega.game.rush.layer1.presentation;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;

@@ -1,4 +1,4 @@
-package hu.csega.game.rush.engine;
+package hu.csega.game.rush.layer1.presentation;
 
 public class RushGameRenderingOptions {
 

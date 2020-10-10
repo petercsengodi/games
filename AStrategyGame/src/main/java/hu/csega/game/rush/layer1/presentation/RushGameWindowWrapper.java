@@ -1,8 +1,8 @@
-package hu.csega.game.rush.engine;
+package hu.csega.game.rush.layer1.presentation;
 
 import java.awt.Component;
+import java.awt.Container;
 
-import hu.csega.game.rush.RushGameToolImpl;
 import hu.csega.games.adapters.opengl.OpenGLCanvas;
 import hu.csega.games.engine.intf.GameCanvas;
 import hu.csega.games.engine.intf.GameWindow;
@@ -19,13 +19,17 @@ public class RushGameWindowWrapper implements GameWindow {
 		this.rush = rush;
 	}
 
+	public Container getContainer() {
+		return this.toolWindow.getAwtWindow();
+	}
+
 	@Override
 	public void register(GameWindowListener listener) {
 		rush.registerGameWindowListener(listener);
 	}
 
 	@Override
-	public void add(GameCanvas canvas) {
+	public void add(GameCanvas canvas, Container container) {
 		Component component = null;
 
 		if(canvas instanceof OpenGLCanvas)

@@ -1,12 +1,9 @@
-package hu.csega.game.rush;
+package hu.csega.game.rush.layer1.presentation;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import hu.csega.game.rush.engine.RushGameRenderingOptions;
-import hu.csega.game.rush.engine.RushGameWindowWrapper;
-import hu.csega.game.rush.model.RushGameModel;
-import hu.csega.game.rush.view.RushGameView;
+import hu.csega.game.rush.layer4.data.RushGameModel;
 import hu.csega.games.adapters.opengl.OpenGLGameAdapter;
 import hu.csega.games.engine.GameEngineCallback;
 import hu.csega.games.engine.GameEngineFacade;
@@ -75,7 +72,7 @@ public class RushGameToolImpl extends AbstractTool implements RushGameTool {
 			}
 		});
 
-		engine.startIn(wrapper);
+		engine.startIn(wrapper, wrapper.getContainer());
 		return engine;
 	}
 

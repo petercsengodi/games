@@ -1,4 +1,4 @@
-package hu.csega.game.rush;
+package hu.csega.game.rush.layer1.presentation;
 
 import hu.csega.toolshed.framework.ITool;
 import hu.csega.units.DefaultImplementation;
