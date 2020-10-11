@@ -7,9 +7,7 @@ import hu.csega.game.rush.layer4.data.RushGameModel;
 import hu.csega.games.adapters.opengl.OpenGLGameAdapter;
 import hu.csega.games.engine.GameEngineCallback;
 import hu.csega.games.engine.GameEngineFacade;
-import hu.csega.games.engine.g3d.GameModelBuilder;
 import hu.csega.games.engine.g3d.GameModelStore;
-import hu.csega.games.engine.g3d.GameObjectHandler;
 import hu.csega.games.engine.impl.GameEngine;
 import hu.csega.games.engine.intf.GameAdapter;
 import hu.csega.games.engine.intf.GameDescriptor;
@@ -63,14 +61,16 @@ public class RushGameToolImpl extends AbstractTool implements RushGameTool {
 			@Override
 			public Object call(GameEngineFacade facade) {
 				GameModelStore store = facade.store();
-				store.loadTexture("res/example/texture.png");
 
-				GameObjectHandler model = store.buildModel(new GameModelBuilder());
+				RushGameModel model = new RushGameModel();
+				model.init(store);
+
 				facade.setModel(model);
-
 				return facade;
 			}
 		});
+
+		engine.step(GameEngineStep.RENDER, new RushRenderStep());
 
 		engine.startIn(wrapper, wrapper.getContainer());
 		return engine;
