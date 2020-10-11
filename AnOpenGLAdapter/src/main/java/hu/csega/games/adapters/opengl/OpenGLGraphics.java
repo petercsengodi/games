@@ -12,6 +12,7 @@ import hu.csega.games.engine.g2d.GamePoint;
 import hu.csega.games.engine.g2d.GameSprite;
 import hu.csega.games.engine.g3d.GameObjectHandler;
 import hu.csega.games.engine.g3d.GameObjectPlacement;
+import hu.csega.games.engine.g3d.GameSelectionLine;
 import hu.csega.games.engine.g3d.GameTransformation;
 import hu.csega.games.engine.intf.GameGraphics;
 
@@ -123,6 +124,11 @@ public class OpenGLGraphics implements GameGraphics {
 	@Override
 	public void endFrame() {
 		store.endFrame(glAutodrawable);
+	}
+
+	@Override
+	public void setBaseMatricesAndViewPort(GameSelectionLine selectionLine) {
+		store.setBaseMatricesAndViewPort(selectionLine);
 	}
 
 }

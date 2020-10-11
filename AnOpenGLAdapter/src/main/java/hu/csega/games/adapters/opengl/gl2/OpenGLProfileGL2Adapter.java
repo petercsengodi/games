@@ -3,6 +3,8 @@ package hu.csega.games.adapters.opengl.gl2;
 import static com.jogamp.opengl.GL2ES2.GL_FRAGMENT_SHADER;
 import static com.jogamp.opengl.GL2ES2.GL_VERTEX_SHADER;
 
+import org.joml.Matrix4f;
+
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.util.glsl.ShaderCode;
@@ -19,6 +21,7 @@ import hu.csega.games.adapters.opengl.utils.OpenGLErrorUtil;
 import hu.csega.games.adapters.opengl.utils.OpenGLLogStream;
 import hu.csega.games.adapters.opengl.utils.OpenGLProgramLogger;
 import hu.csega.games.engine.g3d.GameObjectPlacement;
+import hu.csega.games.engine.g3d.GameSelectionLine;
 import hu.csega.games.engine.g3d.GameTransformation;
 
 @Deprecated
@@ -29,10 +32,29 @@ public class OpenGLProfileGL2Adapter implements OpenGLProfileAdapter {
 
 	private int modelToClipMatrixUL;
 
+	private int width;
+	private int height;
+	private Matrix4f inverseCameraMatrix = new Matrix4f();
+	private Matrix4f inversePerspectiveMatrix = new Matrix4f();
+
+	private Matrix4f perspectiveMatrix = new Matrix4f();
+	private Matrix4f cameraMatrix = new Matrix4f();
+
 	@Override
 	public void viewPort(GLAutoDrawable glAutoDrawable, int width, int height) {
 		GL2 gl2 = glAutoDrawable.getGL().getGL2();
 		gl2.glViewport(0, 0, width, height);
+
+		this.width = width;
+		this.height = height;
+
+		float viewAngle = (float) Math.toRadians(45);
+		float aspect = (float) width / height;
+		float zNear = 0.1f;
+		float zFar = 10000.0f;
+		perspectiveMatrix.identity().setPerspective(viewAngle, aspect, zNear, zFar);
+
+		perspectiveMatrix.invert(inversePerspectiveMatrix);
 	}
 
 	@Override
@@ -152,6 +174,13 @@ public class OpenGLProfileGL2Adapter implements OpenGLProfileAdapter {
 
 	@Override
 	public void placeCamera(GLAutoDrawable glAutodrawable, GameObjectPlacement cameraPlacement) {
+		cameraPlacement.calculateBasicLookAt(cameraMatrix);
+		cameraMatrix.invert(inverseCameraMatrix);
+	}
+
+	@Override
+	public void setBaseMatricesAndViewPort(GameSelectionLine selectionLine) {
+		selectionLine.setBaseMatricesAndViewPort(inversePerspectiveMatrix, inverseCameraMatrix, width, height);
 	}
 
 }

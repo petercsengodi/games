@@ -8,6 +8,7 @@ import hu.csega.games.engine.g2d.GamePoint;
 import hu.csega.games.engine.g2d.GameSprite;
 import hu.csega.games.engine.g3d.GameObjectHandler;
 import hu.csega.games.engine.g3d.GameObjectPlacement;
+import hu.csega.games.engine.g3d.GameSelectionLine;
 import hu.csega.games.engine.g3d.GameTransformation;
 
 public interface GameGraphics {
@@ -31,4 +32,7 @@ public interface GameGraphics {
 	void drawModel(GameObjectHandler modelReference, GameTransformation transformation);
 	void drawAnimation(GameObjectHandler animationReference, int state, GameObjectPlacement modelLocation);
 	void endFrame();
+
+	void setBaseMatricesAndViewPort(GameSelectionLine selectionLine);
+
 }

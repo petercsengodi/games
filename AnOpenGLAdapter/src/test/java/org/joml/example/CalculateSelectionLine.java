@@ -3,9 +3,9 @@ package org.joml.example;
 import org.joml.Matrix4f;
 import org.joml.Vector4f;
 
-import hu.csega.games.engine.g3d.GameObjectDirection;
+import hu.csega.games.engine.g3d.GameHitBox;
 import hu.csega.games.engine.g3d.GameObjectPlacement;
-import hu.csega.games.engine.g3d.GameObjectPosition;
+import hu.csega.games.engine.g3d.GameSelectionLine;
 
 public class CalculateSelectionLine {
 
@@ -13,10 +13,6 @@ public class CalculateSelectionLine {
 
 		// Object placement.
 		GameObjectPlacement placement = new GameObjectPlacement();
-		placement.setPositionDirectionUp(
-				new GameObjectPosition(100f, 30f, 50f),
-				new GameObjectDirection(25f, 25f, 15f),
-				new GameObjectDirection(3f, 3f, 10f));
 
 		Matrix4f inverseModelTransformation = new Matrix4f();
 
@@ -93,6 +89,7 @@ public class CalculateSelectionLine {
 		Vector4f cw = weightOf(ct1,  ct2,  ct3);
 		System.out.println("CT: " + ct1 + " " + ct2 + " " + ct3 + "\nWeight point: " + cw);
 
+		float referenceValue;
 		{
 			// Selection line:
 			Vector4f sl1 = new Vector4f(tw.x, tw.y, 0f, 1f);
@@ -105,6 +102,7 @@ public class CalculateSelectionLine {
 			// Equation: p = (tl2 - tl1) * t + tl1 Intersection of the y=0 plane:
 			float t = -tl1.y / (tl2.y - tl1.y);
 			System.out.println("T parameter: " + t);
+			referenceValue = t;
 
 			float x = (tl2.x - tl1.x) * t + tl1.x;
 			float z = (tl2.z - tl1.z) * t + tl1.z;
@@ -132,6 +130,24 @@ public class CalculateSelectionLine {
 			System.out.println("Point on y=0 plane: " + intersection);
 			System.out.println("Original weight point: " + sw);
 		}
+
+		GameSelectionLine line = new GameSelectionLine();
+		line.setBaseMatricesAndViewPort(inversePerspectiveMatrix, inverseCamera, WIDTH, HEIGHT);
+		line.initialize(tw.x, tw.y);
+		System.out.println("Selection line in world: " + line);
+
+		Vector4f nt1 = norm(new Vector4f(line.nearEndPoint));
+		Vector4f nt2 = norm(new Vector4f(line.farEndPoint));
+		Vector4f sl1 = new Vector4f(tw.x, tw.y, 0f, 1f);
+		Vector4f sl2 = new Vector4f(tw.x, tw.y, 1f, 1f);
+		Vector4f tl1 = transform(sl1, inversePerspectiveMatrix, inverseCamera);
+		Vector4f tl2 = transform(sl2, inversePerspectiveMatrix, inverseCamera);
+		System.out.println("Selection line in world: " + nt1 + " -> " + nt2 + " Reference values: " + tl1 + " -> " + tl2);
+
+		GameHitBox box = new GameHitBox(-50, 0, -50, 50, 20, 50);
+		float t = line.intersection(placement, box);
+		System.out.println("T parameter: " + t + " Reference value: " + referenceValue);
+
 	}
 
 	public static Vector4f transform(Vector4f basic, Matrix4f... transformation) {

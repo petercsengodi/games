@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Container;
 
 import hu.csega.games.adapters.opengl.OpenGLCanvas;
+import hu.csega.games.engine.GameEngineFacade;
 import hu.csega.games.engine.intf.GameCanvas;
 import hu.csega.games.engine.intf.GameWindow;
 import hu.csega.games.engine.intf.GameWindowListener;
@@ -13,10 +14,12 @@ public class RushGameWindowWrapper implements GameWindow {
 
 	private ToolWindow toolWindow;
 	private RushGameToolImpl rush;
+	private GameEngineFacade facade;
 
-	public RushGameWindowWrapper(ToolWindow toolWindow, RushGameToolImpl rush) {
+	public RushGameWindowWrapper(ToolWindow toolWindow, RushGameToolImpl rush, GameEngineFacade facade) {
 		this.toolWindow = toolWindow;
 		this.rush = rush;
+		this.facade = facade;
 	}
 
 	public Container getContainer() {
@@ -38,8 +41,10 @@ public class RushGameWindowWrapper implements GameWindow {
 		//		if(canvas instanceof SwingCanvas)
 		//			component = ((SwingCanvas)canvas).getRealCanvas();
 
-		if(component != null)
+		if(component != null) {
 			toolWindow.addComponent(component);
+			component.addMouseListener(new RushMouseController(facade));
+		}
 	}
 
 	@Override

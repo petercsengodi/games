@@ -53,7 +53,6 @@ public class RushGameToolImpl extends AbstractTool implements RushGameTool {
 		RushGameRenderingOptions options = new RushGameRenderingOptions();
 		options.renderHitShapes = true;
 
-		RushGameWindowWrapper wrapper = new RushGameWindowWrapper(window, this);
 		GameEngine engine = GameEngine.create(descriptor, adapter);
 
 		engine.step(GameEngineStep.INIT, new GameEngineCallback() {
@@ -72,6 +71,7 @@ public class RushGameToolImpl extends AbstractTool implements RushGameTool {
 
 		engine.step(GameEngineStep.RENDER, new RushRenderStep());
 
+		RushGameWindowWrapper wrapper = new RushGameWindowWrapper(window, this, engine.getFacade());
 		engine.startIn(wrapper, wrapper.getContainer());
 		return engine;
 	}

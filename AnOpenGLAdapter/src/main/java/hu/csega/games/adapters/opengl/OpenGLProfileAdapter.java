@@ -6,6 +6,7 @@ import hu.csega.games.adapters.opengl.models.OpenGLModelContainer;
 import hu.csega.games.adapters.opengl.models.OpenGLModelStoreImpl;
 import hu.csega.games.adapters.opengl.models.OpenGLTextureContainer;
 import hu.csega.games.engine.g3d.GameObjectPlacement;
+import hu.csega.games.engine.g3d.GameSelectionLine;
 import hu.csega.games.engine.g3d.GameTransformation;
 
 public interface OpenGLProfileAdapter {
@@ -41,4 +42,7 @@ public interface OpenGLProfileAdapter {
 	void disposeAnimation(GLAutoDrawable glAutodrawable, OpenGLModelContainer model);
 
 	void placeCamera(GLAutoDrawable glAutodrawable, GameObjectPlacement cameraPlacement);
+
+	void setBaseMatricesAndViewPort(GameSelectionLine selectionLine);
+
 }

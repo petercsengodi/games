@@ -34,6 +34,7 @@ import hu.csega.games.adapters.opengl.utils.OpenGLErrorUtil;
 import hu.csega.games.adapters.opengl.utils.OpenGLLogStream;
 import hu.csega.games.adapters.opengl.utils.OpenGLProgramLogger;
 import hu.csega.games.engine.g3d.GameObjectPlacement;
+import hu.csega.games.engine.g3d.GameSelectionLine;
 import hu.csega.games.engine.g3d.GameTransformation;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
@@ -60,10 +61,18 @@ public class OpenGLProfileGL3Adapter implements OpenGLProfileAdapter {
 	private Matrix4f basicScale = new Matrix4f();
 	private Matrix4f modelTransformation = new Matrix4f();
 
+	private int width;
+	private int height;
+	private Matrix4f inverseCameraMatrix = new Matrix4f();
+	private Matrix4f inversePerspectiveMatrix = new Matrix4f();
+
 	@Override
 	public void viewPort(GLAutoDrawable glAutoDrawable, int width, int height) {
 		if(gl3 == null)
 			gl3 = glAutoDrawable.getGL().getGL3();
+
+		this.width = width;
+		this.height = height;
 
 		gl3.glViewport(0, 0, width, height);
 		gl3 = null;
@@ -73,6 +82,8 @@ public class OpenGLProfileGL3Adapter implements OpenGLProfileAdapter {
 		float zNear = 0.1f;
 		float zFar = 10000.0f;
 		perspectiveMatrix.identity().setPerspective(viewAngle, aspect, zNear, zFar);
+
+		perspectiveMatrix.invert(inversePerspectiveMatrix);
 	}
 
 	@Override
@@ -315,6 +326,7 @@ public class OpenGLProfileGL3Adapter implements OpenGLProfileAdapter {
 			gl3 = glAutodrawable.getGL().getGL3();
 
 		cameraPlacement.calculateBasicLookAt(cameraMatrix);
+		cameraMatrix.invert(inverseCameraMatrix);
 	}
 
 	private void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, OpenGLModelStoreImpl store) {
@@ -382,6 +394,11 @@ public class OpenGLProfileGL3Adapter implements OpenGLProfileAdapter {
 		} catch (Throwable t) {
 			throw new RuntimeException("initialization", t);
 		}
+	}
+
+	@Override
+	public void setBaseMatricesAndViewPort(GameSelectionLine selectionLine) {
+		selectionLine.setBaseMatricesAndViewPort(inversePerspectiveMatrix, inverseCameraMatrix, width, height);
 	}
 
 	private static final Logger logger = LoggerFactory.createLogger(OpenGLProfileGL3Adapter.class);

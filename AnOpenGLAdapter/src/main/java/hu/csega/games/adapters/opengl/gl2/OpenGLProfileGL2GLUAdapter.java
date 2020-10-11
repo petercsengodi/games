@@ -25,6 +25,7 @@ import hu.csega.games.adapters.opengl.utils.OpenGLErrorUtil;
 import hu.csega.games.engine.g3d.GameObjectDirection;
 import hu.csega.games.engine.g3d.GameObjectPlacement;
 import hu.csega.games.engine.g3d.GameObjectPosition;
+import hu.csega.games.engine.g3d.GameSelectionLine;
 import hu.csega.games.engine.g3d.GameTransformation;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
@@ -46,12 +47,31 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 
 	private float[] tmpMatrix = new float[16];
 
+	private int width;
+	private int height;
+	private Matrix4f inverseCameraMatrix = new Matrix4f();
+	private Matrix4f inversePerspectiveMatrix = new Matrix4f();
+
+	private Matrix4f perspectiveMatrix = new Matrix4f();
+	private Matrix4f cameraMatrix = new Matrix4f();
+
 	@Override
 	public void viewPort(GLAutoDrawable glAutoDrawable, int width, int height) {
 		GL2 gl2 = glAutoDrawable.getGL().getGL2();
 		gl2.glViewport(0, 0, width, height);
 
+		this.width = width;
+		this.height = height;
+
 		OpenGLErrorUtil.checkError(gl2, "viewPort");
+
+		float viewAngle = (float) Math.toRadians(45);
+		float aspect = (float) width / height;
+		float zNear = 0.1f;
+		float zFar = 10000.0f;
+		perspectiveMatrix.identity().setPerspective(viewAngle, aspect, zNear, zFar);
+
+		perspectiveMatrix.invert(inversePerspectiveMatrix);
 	}
 
 	@Override
@@ -276,6 +296,9 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 				cameraEye.x, cameraEye.y, cameraEye.z,
 				cameraCenter.x, cameraCenter.y, cameraCenter.z,
 				cameraUp.x, cameraUp.y, cameraUp.z);
+
+		cameraPlacement.calculateBasicLookAt(cameraMatrix);
+		cameraMatrix.invert(inverseCameraMatrix);
 	}
 
 	private void drawModel(GLAutoDrawable glAutoDrawable, OpenGLModelContainer model, OpenGLModelStoreImpl store) {
@@ -301,6 +324,11 @@ public class OpenGLProfileGL2GLUAdapter implements OpenGLProfileAdapter {
 
 			OpenGLErrorUtil.checkError(gl2, "OpenGLModelContainer.draw dispose" + i);
 		}
+	}
+
+	@Override
+	public void setBaseMatricesAndViewPort(GameSelectionLine selectionLine) {
+		selectionLine.setBaseMatricesAndViewPort(inversePerspectiveMatrix, inverseCameraMatrix, width, height);
 	}
 
 	private static final Logger logger = LoggerFactory.createLogger(OpenGLProfileGL2GLUAdapter.class);

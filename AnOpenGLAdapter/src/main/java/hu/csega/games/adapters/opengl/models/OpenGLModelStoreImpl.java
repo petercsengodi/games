@@ -22,6 +22,7 @@ import hu.csega.games.engine.g3d.GameModelBuilder;
 import hu.csega.games.engine.g3d.GameObjectHandler;
 import hu.csega.games.engine.g3d.GameObjectPlacement;
 import hu.csega.games.engine.g3d.GameObjectType;
+import hu.csega.games.engine.g3d.GameSelectionLine;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
@@ -304,6 +305,10 @@ public class OpenGLModelStoreImpl implements OpenGLModelStore {
 		} catch(IOException ex) {
 			throw new RuntimeException("Error when loading file: " + file.getAbsolutePath(), ex);
 		}
+	}
+
+	public void setBaseMatricesAndViewPort(GameSelectionLine selectionLine) {
+		adapter.setBaseMatricesAndViewPort(selectionLine);
 	}
 
 	private static final Charset UTF_8 = Charset.forName("UTF-8");

@@ -23,6 +23,7 @@ import hu.csega.games.adapters.opengl.utils.OpenGLErrorUtil;
 import hu.csega.games.engine.g3d.GameObjectDirection;
 import hu.csega.games.engine.g3d.GameObjectPlacement;
 import hu.csega.games.engine.g3d.GameObjectPosition;
+import hu.csega.games.engine.g3d.GameSelectionLine;
 import hu.csega.games.engine.g3d.GameTransformation;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
@@ -50,10 +51,21 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 
 	private float[] tmpMatrix = new float[16];
 
+	private int width;
+	private int height;
+	private Matrix4f inverseCameraMatrix = new Matrix4f();
+	private Matrix4f inversePerspectiveMatrix = new Matrix4f();
+
+	private Matrix4f perspectiveMatrix = new Matrix4f();
+	private Matrix4f cameraMatrix = new Matrix4f();
+
 	@Override
 	public void viewPort(GLAutoDrawable glAutoDrawable, int width, int height) {
 		GL2 gl2 = glAutoDrawable.getGL().getGL2();
 		gl2.glViewport(0, 0, width, height);
+
+		this.width = width;
+		this.height = height;
 
 		OpenGLErrorUtil.checkError(gl2, "viewPort");
 
@@ -61,6 +73,14 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 		aspect = (float) width / height;
 		zNear = 0.1f;
 		zFar = 10000.0f;
+
+		float viewAngle = (float) Math.toRadians(45);
+		float aspect = (float) width / height;
+		float zNear = 0.1f;
+		float zFar = 10000.0f;
+		perspectiveMatrix.identity().setPerspective(viewAngle, aspect, zNear, zFar);
+
+		perspectiveMatrix.invert(inversePerspectiveMatrix);
 	}
 
 	@Override
@@ -214,6 +234,9 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 				cameraUp.x, cameraUp.y, cameraUp.z);
 
 		OpenGLErrorUtil.checkError(gl2, "cameraPlacement");
+
+		cameraPlacement.calculateBasicLookAt(cameraMatrix);
+		cameraMatrix.invert(inverseCameraMatrix);
 	}
 
 	@SuppressWarnings("unused")
@@ -283,6 +306,11 @@ public class OpenGLProfileGL2TriangleAdapter implements OpenGLProfileAdapter {
 
 		gl2.glPopMatrix();
 		OpenGLErrorUtil.checkError(gl2, "draw");
+	}
+
+	@Override
+	public void setBaseMatricesAndViewPort(GameSelectionLine selectionLine) {
+		selectionLine.setBaseMatricesAndViewPort(inversePerspectiveMatrix, inverseCameraMatrix, width, height);
 	}
 
 	@SuppressWarnings("unused")

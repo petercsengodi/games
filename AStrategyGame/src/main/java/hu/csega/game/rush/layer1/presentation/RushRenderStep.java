@@ -46,6 +46,8 @@ public class RushRenderStep implements GameEngineCallback {
 		cameraPlacement.setPositionTargetUp(cameraPosition, cameraTarget, cameraUp);
 		g.placeCamera(cameraPlacement);
 
+		g.setBaseMatricesAndViewPort(model.getGameSelectionLine());
+
 		RushTerrain[][] terrainTiles = model.getTerrainTiles();
 		for(int x = 0; x < terrainTiles.length; x++) {
 			RushTerrain[] terrainTilesColumn = terrainTiles[x];
