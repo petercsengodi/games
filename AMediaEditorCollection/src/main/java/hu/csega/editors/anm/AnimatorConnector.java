@@ -14,13 +14,13 @@ import javax.swing.JTabbedPane;
 import hu.csega.editors.anm.components.Component3DView;
 import hu.csega.editors.anm.components.ComponentRefreshViews;
 import hu.csega.editors.anm.menu.AnimatorMenu;
-import hu.csega.editors.anm.swing.AnimatorRootLayoutManager;
 import hu.csega.editors.anm.swing.AnimatorWireFrameView;
 import hu.csega.editors.anm.ui.AnimatorCommonSettingsPanel;
 import hu.csega.editors.anm.ui.AnimatorPartEditorPanel;
 import hu.csega.editors.anm.ui.AnimatorPartListModel;
 import hu.csega.editors.anm.ui.AnimatorScenesPanel;
 import hu.csega.editors.anm.ui.AnimatorUIComponents;
+import hu.csega.editors.anm.ui.layout.root.AnimatorRootLayoutManager;
 import hu.csega.games.adapters.opengl.OpenGLGameAdapter;
 import hu.csega.games.common.Connector;
 import hu.csega.games.engine.GameEngineFacade;
@@ -152,7 +152,7 @@ public class AnimatorConnector implements Connector, GameWindow {
 		components.panel3D.setLayout(new GridLayout(1, 1));
 		components.tabbedPane.addTab("3D Canvas", components.panel3D);
 
-		contentPane.add(AnimatorRootLayoutManager.CANVAS3D, components.tabbedPane);
+		contentPane.add(AnimatorRootLayoutManager.MULTI_TAB, components.tabbedPane);
 
 		// Adds canvas to content pane, but the model doesn't exist at this point.
 		engine.startIn(components.gameWindow, components.panel3D);

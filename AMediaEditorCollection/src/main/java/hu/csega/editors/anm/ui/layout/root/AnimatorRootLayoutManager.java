@@ -1,4 +1,4 @@
-package hu.csega.editors.anm.swing;
+package hu.csega.editors.anm.ui.layout.root;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -8,14 +8,12 @@ import java.awt.LayoutManager2;
 import java.util.Hashtable;
 import java.util.Map;
 
-import com.jogamp.opengl.awt.GLCanvas;
-
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
 public class AnimatorRootLayoutManager implements LayoutManager, LayoutManager2 {
 
-	public static final String CANVAS3D = "openGLCanvas";
+	public static final String MULTI_TAB = "multiTab";
 	public static final String PARTS_LIST = "partsList";
 	public static final String PARTS_SETTINGS = "partsSettings";
 	public static final String CORNER_CONTROLLER = "cornerController";
@@ -40,12 +38,7 @@ public class AnimatorRootLayoutManager implements LayoutManager, LayoutManager2 
 
 	@Override
 	public void addLayoutComponent(String name, Component component) {
-		logger.info("Adding component: " + component + " With name: " + name);
-
-		if(component instanceof GLCanvas) {
-			name = CANVAS3D;
-			logger.info("Adding OpenGL related canvas. Name set to: " + name);
-		}
+		logger.info("Adding component: " + component.getClass().getSimpleName() + " With name: " + name);
 
 		if(name == null || component == null) {
 			throw new RuntimeException("Neither of the arguments should be null!");
@@ -132,7 +125,7 @@ public class AnimatorRootLayoutManager implements LayoutManager, LayoutManager2 
 		int h20 = (int)(height * 0.2);
 		int h80 = (int)(height * 0.8);
 
-		component = nameToComponent.get(CANVAS3D);
+		component = nameToComponent.get(MULTI_TAB);
 		if(component != null) {
 			component.setBounds(w40, 0, w60, h80);
 		}

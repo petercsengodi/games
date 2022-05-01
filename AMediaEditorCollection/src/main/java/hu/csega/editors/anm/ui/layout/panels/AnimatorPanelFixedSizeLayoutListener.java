@@ -1,13 +1,13 @@
-package hu.csega.editors.anm.ui;
+package hu.csega.editors.anm.ui.layout.panels;
 
 import java.awt.Component;
 
-public abstract class AnimatorFixedSizeLayoutListener implements AnimatorLayoutChangeListener {
+public abstract class AnimatorPanelFixedSizeLayoutListener implements AnimatorPanelLayoutChangeListener {
 
 	private int offsetX;
 	private int offsetY;
 
-	public AnimatorFixedSizeLayoutListener(int offsetX, int offsetY) {
+	public AnimatorPanelFixedSizeLayoutListener(int offsetX, int offsetY) {
 		this.offsetX = offsetX;
 		this.offsetY = offsetY;
 	}

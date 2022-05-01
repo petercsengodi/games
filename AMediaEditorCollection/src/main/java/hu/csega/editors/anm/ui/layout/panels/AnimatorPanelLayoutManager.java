@@ -1,14 +1,15 @@
-package hu.csega.editors.anm.ui;
+package hu.csega.editors.anm.ui.layout.panels;
 
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
 import java.awt.LayoutManager2;
+
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
-public class AnimatorLayoutManager implements LayoutManager, LayoutManager2 {
+public class AnimatorPanelLayoutManager implements LayoutManager, LayoutManager2 {
 
 	private static final int MAX_NUMBER_OF_COMPONENTS = 30;
 
@@ -20,10 +21,10 @@ public class AnimatorLayoutManager implements LayoutManager, LayoutManager2 {
 
 	private int numberOfComponents = 0;
 	private Component[] components = new Component[MAX_NUMBER_OF_COMPONENTS];
-	private AnimatorLayoutChangeListener[] listeners = new AnimatorLayoutChangeListener[MAX_NUMBER_OF_COMPONENTS];
+	private AnimatorPanelLayoutChangeListener[] listeners = new AnimatorPanelLayoutChangeListener[MAX_NUMBER_OF_COMPONENTS];
 	private boolean invalid = true;
 
-	public AnimatorLayoutManager(int preferredWidth, int preferredHeight) {
+	public AnimatorPanelLayoutManager(int preferredWidth, int preferredHeight) {
 		this.preferredWidth = preferredWidth;
 		this.preferredHeight = preferredHeight;
 
@@ -39,9 +40,9 @@ public class AnimatorLayoutManager implements LayoutManager, LayoutManager2 {
 
 		components[numberOfComponents] = component;
 
-		AnimatorLayoutChangeListener listener = null;
-		if(constraints instanceof AnimatorLayoutChangeListener) {
-			listener = (AnimatorLayoutChangeListener) constraints;
+		AnimatorPanelLayoutChangeListener listener = null;
+		if(constraints instanceof AnimatorPanelLayoutChangeListener) {
+			listener = (AnimatorPanelLayoutChangeListener) constraints;
 			listeners[numberOfComponents] = listener;
 		}
 
@@ -107,12 +108,12 @@ public class AnimatorLayoutManager implements LayoutManager, LayoutManager2 {
 		logger.info("Recalculating positions for a box " + width + 'x' + height + '.');
 		for(int i = 0; i < numberOfComponents; i++) {
 			Component component = components[i];
-			AnimatorLayoutChangeListener listener = listeners[i];
+			AnimatorPanelLayoutChangeListener listener = listeners[i];
 			if(component != null && listener != null) {
 				listener.arrange(component, width, height);
 			}
 		}
 	}
 
-	private static final Logger logger = LoggerFactory.createLogger(AnimatorLayoutManager.class);
+	private static final Logger logger = LoggerFactory.createLogger(AnimatorPanelLayoutManager.class);
 }
