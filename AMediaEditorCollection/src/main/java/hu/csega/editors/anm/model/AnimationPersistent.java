@@ -1,6 +1,8 @@
 package hu.csega.editors.anm.model;
 
-public class AnimationPersistent {
+import java.io.Serializable;
+
+public class AnimationPersistent implements Serializable {
 
 	private String name;
 	private Animation animation;
@@ -29,5 +31,7 @@ public class AnimationPersistent {
 	public void setMisc(AnimationMisc misc) {
 		this.misc = misc;
 	}
+
+	private static final long serialVersionUID = 1L;
 
 }

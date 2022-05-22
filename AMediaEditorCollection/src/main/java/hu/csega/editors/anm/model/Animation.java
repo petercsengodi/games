@@ -1,5 +1,6 @@
 package hu.csega.editors.anm.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -8,10 +9,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
-public class Animation {
+public class Animation implements Serializable {
 
 	private Map<Integer, AnimationPart> parts;
 	private List<AnimationScene> scenes;
+	private int maxPartIndex;
 
 	public Map<Integer, AnimationPart> getParts() {
 		return parts;
@@ -27,6 +29,14 @@ public class Animation {
 
 	public void setScenes(List<AnimationScene> scenes) {
 		this.scenes = scenes;
+	}
+
+	public int getMaxPartIndex() {
+		return maxPartIndex;
+	}
+
+	public void setMaxPartIndex(int maxPartIndex) {
+		this.maxPartIndex = maxPartIndex;
 	}
 
 	public void cleanUpScenes() {
@@ -70,4 +80,7 @@ public class Animation {
 		}
 
 	}
+
+	private static final long serialVersionUID = 1L;
+
 }

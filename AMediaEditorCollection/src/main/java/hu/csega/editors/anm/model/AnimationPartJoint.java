@@ -1,6 +1,8 @@
 package hu.csega.editors.anm.model;
 
-public class AnimationPartJoint {
+import java.io.Serializable;
+
+public class AnimationPartJoint implements Serializable {
 
 	private int partIndex;
 	private AnimationVector relativePosition;
@@ -29,5 +31,7 @@ public class AnimationPartJoint {
 	public void setRelativeTransformation(AnimationTransformation relativeTransformation) {
 		this.relativeTransformation = relativeTransformation;
 	}
+
+	private static final long serialVersionUID = 1L;
 
 }

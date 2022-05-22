@@ -7,7 +7,6 @@ import java.util.TreeMap;
 import hu.csega.editors.anm.components.ComponentPartManipulator;
 import hu.csega.editors.anm.components.ComponentRefreshViews;
 import hu.csega.editors.anm.model.Animation;
-import hu.csega.editors.anm.model.AnimationMisc;
 import hu.csega.editors.anm.model.AnimationPart;
 import hu.csega.editors.anm.model.AnimationPartJoint;
 import hu.csega.editors.anm.model.AnimationPersistent;
@@ -48,15 +47,9 @@ public class AnimatorPartManipulator implements ComponentPartManipulator {
 				persistent.setAnimation(animation);
 			}
 
-			AnimationMisc misc = persistent.getMisc();
-			if(misc == null) {
-				misc = new AnimationMisc();
-				persistent.setMisc(misc);
-			}
-
-			int lastIndex = misc.getMaxPartIndex();
+			int lastIndex = animation.getMaxPartIndex();
 			int newIndex = lastIndex + 1;
-			misc.setMaxPartIndex(newIndex);
+			animation.setMaxPartIndex(newIndex);
 
 			Map<Integer, AnimationPart> parts = animation.getParts();
 			if(parts == null) {

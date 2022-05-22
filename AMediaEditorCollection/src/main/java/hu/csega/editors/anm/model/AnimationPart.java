@@ -1,8 +1,9 @@
 package hu.csega.editors.anm.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class AnimationPart {
+public class AnimationPart implements Serializable {
 
 	private String name;
 	private String mesh;
@@ -40,5 +41,7 @@ public class AnimationPart {
 	public void setJoints(List<AnimationPartJoint> joints) {
 		this.joints = joints;
 	}
+
+	private static final long serialVersionUID = 1L;
 
 }

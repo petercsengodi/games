@@ -1,6 +1,8 @@
 package hu.csega.editors.anm.model;
 
-public class AnimationVector {
+import java.io.Serializable;
+
+public class AnimationVector implements Serializable {
 
 	/** Vector, float, 4x1. */
 	private float[] v;
@@ -17,5 +19,7 @@ public class AnimationVector {
 	public void setV(float[] v) {
 		this.v = v;
 	}
+
+	private static final long serialVersionUID = 1L;
 
 }

@@ -1,8 +1,9 @@
 package hu.csega.editors.anm.model;
 
+import java.io.Serializable;
 import java.util.Map;
 
-public class AnimationScene {
+public class AnimationScene implements Serializable {
 
 	private Map<Integer, AnimationScenePart> sceneParts;
 
@@ -13,5 +14,7 @@ public class AnimationScene {
 	public void setSceneParts(Map<Integer, AnimationScenePart> sceneParts) {
 		this.sceneParts = sceneParts;
 	}
+
+	private static final long serialVersionUID = 1L;
 
 }

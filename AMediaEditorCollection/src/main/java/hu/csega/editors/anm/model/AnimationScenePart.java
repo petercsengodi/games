@@ -1,6 +1,8 @@
 package hu.csega.editors.anm.model;
 
-public class AnimationScenePart {
+import java.io.Serializable;
+
+public class AnimationScenePart implements Serializable {
 
 	private AnimationTransformation modelTransformation;
 	private AnimationTransformation partTransformation;
@@ -29,5 +31,7 @@ public class AnimationScenePart {
 	public void setVisible(boolean visible) {
 		this.visible = visible;
 	}
+
+	private static final long serialVersionUID = 1L;
 
 }

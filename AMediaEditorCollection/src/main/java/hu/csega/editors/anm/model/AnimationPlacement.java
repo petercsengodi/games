@@ -1,6 +1,8 @@
 package hu.csega.editors.anm.model;
 
-public class AnimationPlacement {
+import java.io.Serializable;
+
+public class AnimationPlacement implements Serializable {
 
 	private AnimationVector position;
 	private AnimationVector target;
@@ -29,5 +31,7 @@ public class AnimationPlacement {
 	public void setUp(AnimationVector up) {
 		this.up = up;
 	}
+
+	private static final long serialVersionUID = 1L;
 
 }

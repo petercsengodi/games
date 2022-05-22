@@ -1,11 +1,11 @@
 package hu.csega.editors.anm.model;
 
-public class AnimationMisc {
+import java.io.Serializable;
+
+public class AnimationMisc implements Serializable {
 
 	private int currentScene;
 	private AnimationPlacement camera;
-
-	private int maxPartIndex;
 
 	private boolean gridEnabled;
 	private String filename;
@@ -28,14 +28,6 @@ public class AnimationMisc {
 
 	public void setCamera(AnimationPlacement camera) {
 		this.camera = camera;
-	}
-
-	public int getMaxPartIndex() {
-		return maxPartIndex;
-	}
-
-	public void setMaxPartIndex(int maxPartIndex) {
-		this.maxPartIndex = maxPartIndex;
 	}
 
 	public boolean isGridEnabled() {
@@ -77,5 +69,7 @@ public class AnimationMisc {
 	public void setGrid(double[] grid) {
 		this.grid = grid;
 	}
+
+	private static final long serialVersionUID = 1L;
 
 }

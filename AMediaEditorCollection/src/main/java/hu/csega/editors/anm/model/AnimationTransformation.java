@@ -1,6 +1,8 @@
 package hu.csega.editors.anm.model;
 
-public class AnimationTransformation {
+import java.io.Serializable;
+
+public class AnimationTransformation implements Serializable {
 
 	/** Matrix, float, 4x4. */
 	private float[] m;
@@ -20,5 +22,7 @@ public class AnimationTransformation {
 	public void setM(float[] m) {
 		this.m = m;
 	}
+
+	private static final long serialVersionUID = 1L;
 
 }
