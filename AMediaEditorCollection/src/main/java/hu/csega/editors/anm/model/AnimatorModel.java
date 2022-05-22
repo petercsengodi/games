@@ -12,8 +12,8 @@ import java.util.List;
 public class AnimatorModel {
 
 	private AnimationPersistent persistent;
-	private List<Object> previousStates;
-	private List<Object> nextStates;
+	private List<AnimationSnapshot> previousStates;
+	private List<AnimationSnapshot> nextStates;
 
 	public AnimatorModel() {
 		this.previousStates = new ArrayList<>();
@@ -31,20 +31,28 @@ public class AnimatorModel {
 		this.persistent = persistent;
 	}
 
-	public List<Object> getPreviousStates() {
-		return previousStates;
+	public void addNewState(Animation animation) {
+		AnimationSnapshot snaphost = new AnimationSnapshot(serialize(animation));
+		previousStates.add(snaphost);
+		nextStates.clear();
 	}
 
-	public void setPreviousStates(List<Object> previousStates) {
-		this.previousStates = previousStates;
+	public Animation undo() {
+		if(previousStates.isEmpty())
+			return null;
+
+		AnimationSnapshot snapshot = previousStates.remove(previousStates.size() - 1);
+		nextStates.add(snapshot);
+		return (Animation) deserialize(snapshot.getBytes());
 	}
 
-	public List<Object> getNextStates() {
-		return nextStates;
-	}
+	public Animation redo() {
+		if(nextStates.isEmpty())
+			return null;
 
-	public void setNextStates(List<Object> nextStates) {
-		this.nextStates = nextStates;
+		AnimationSnapshot snapshot = nextStates.remove(nextStates.size() - 1);
+		previousStates.add(snapshot);
+		return (Animation) deserialize(snapshot.getBytes());
 	}
 
 	private static byte[] serialize(Serializable object) {
