@@ -2,7 +2,7 @@ package hu.csega.editors.anm.components.stubs;
 
 import hu.csega.editors.anm.components.Component3DView;
 import hu.csega.editors.anm.components.ComponentOpenGLTransformer;
-import hu.csega.editors.anm.view3d.AnimatorSet;
+import hu.csega.editors.anm.layer1.view3d.AnimatorSet;
 import hu.csega.games.units.UnitStore;
 
 public class StubOpenGLTransformer implements ComponentOpenGLTransformer {

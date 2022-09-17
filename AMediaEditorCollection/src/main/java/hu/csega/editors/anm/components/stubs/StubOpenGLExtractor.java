@@ -8,9 +8,9 @@ import org.joml.Matrix4f;
 import org.joml.Vector4f;
 
 import hu.csega.editors.anm.components.ComponentOpenGLExtractor;
-import hu.csega.editors.anm.model.AnimatorModel;
-import hu.csega.editors.anm.view3d.AnimatorSet;
-import hu.csega.editors.anm.view3d.AnimatorSetPart;
+import hu.csega.editors.anm.layer1.view3d.AnimatorSet;
+import hu.csega.editors.anm.layer1.view3d.AnimatorSetPart;
+import hu.csega.editors.anm.layer4.data.model.AnimatorModel;
 import hu.csega.games.engine.GameEngineFacade;
 import hu.csega.games.engine.g3d.GameModelBuilder;
 import hu.csega.games.engine.g3d.GameObjectHandler;

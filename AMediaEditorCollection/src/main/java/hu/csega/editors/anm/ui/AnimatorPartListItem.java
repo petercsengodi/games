@@ -4,14 +4,7 @@ public class AnimatorPartListItem {
 
 	private int index;
 	private String name;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+	private String mesh;
 
 	public int getIndex() {
 		return index;
@@ -21,21 +14,37 @@ public class AnimatorPartListItem {
 		this.index = index;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getMesh() {
+		return mesh;
+	}
+
+	public void setMesh(String mesh) {
+		this.mesh = mesh;
+	}
+
 	@Override
 	public String toString() {
 		if(name == null) {
-			return nameFromIndex();
+			return nameFromIndexAndMesh();
 		}
 
 		String trimmed = name.trim();
 		if(trimmed.length() == 0) {
-			return nameFromIndex();
+			return nameFromIndexAndMesh();
 		}
 
 		return trimmed;
 	}
 
-	private String nameFromIndex() {
-		return "[Index: " + index + ']';
+	private String nameFromIndexAndMesh() {
+		return "[Index: " + index + ", " + mesh + ']';
 	}
 }

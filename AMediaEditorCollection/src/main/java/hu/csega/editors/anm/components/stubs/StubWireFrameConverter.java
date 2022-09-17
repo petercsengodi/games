@@ -4,10 +4,10 @@ import java.awt.Color;
 import java.util.Arrays;
 
 import hu.csega.editors.anm.components.ComponentWireFrameConverter;
-import hu.csega.editors.anm.model.AnimatorModel;
-import hu.csega.editors.anm.swing.AnimatorWireFrame;
-import hu.csega.editors.anm.swing.AnimatorWireFrameLine;
-import hu.csega.editors.anm.swing.AnimatorWireFramePoint;
+import hu.csega.editors.anm.layer1.swing.wireframe.AnimatorWireFrame;
+import hu.csega.editors.anm.layer1.swing.wireframe.AnimatorWireFrameLine;
+import hu.csega.editors.anm.layer1.swing.wireframe.AnimatorWireFramePoint;
+import hu.csega.editors.anm.layer4.data.model.AnimatorModel;
 
 public class StubWireFrameConverter implements ComponentWireFrameConverter {
 

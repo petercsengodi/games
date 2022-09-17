@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
-import hu.csega.editors.anm.swing.AnimatorWireFrameView;
+import hu.csega.editors.anm.layer1.swing.wireframe.AnimatorWireFrameView;
 import hu.csega.games.engine.intf.GameWindow;
 
 public class AnimatorUIComponents {

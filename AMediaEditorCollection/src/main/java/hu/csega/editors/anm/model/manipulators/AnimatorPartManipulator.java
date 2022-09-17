@@ -6,12 +6,12 @@ import java.util.TreeMap;
 
 import hu.csega.editors.anm.components.ComponentPartManipulator;
 import hu.csega.editors.anm.components.ComponentRefreshViews;
-import hu.csega.editors.anm.model.Animation;
-import hu.csega.editors.anm.model.AnimationPart;
-import hu.csega.editors.anm.model.AnimationPartJoint;
-import hu.csega.editors.anm.model.AnimationPersistent;
-import hu.csega.editors.anm.model.AnimationTransformation;
-import hu.csega.editors.anm.model.AnimatorModel;
+import hu.csega.editors.anm.layer4.data.model.Animation;
+import hu.csega.editors.anm.layer4.data.model.AnimationPart;
+import hu.csega.editors.anm.layer4.data.model.AnimationPartJoint;
+import hu.csega.editors.anm.layer4.data.model.AnimationPersistent;
+import hu.csega.editors.anm.layer4.data.model.AnimationTransformation;
+import hu.csega.editors.anm.layer4.data.model.AnimatorModel;
 import hu.csega.games.common.CommonManipulable;
 import hu.csega.games.units.UnitStore;
 import hu.csega.toolshed.logging.Logger;

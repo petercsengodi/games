@@ -1,7 +1,7 @@
 package hu.csega.editors.anm.components;
 
-import hu.csega.editors.anm.model.AnimatorModel;
-import hu.csega.editors.anm.swing.AnimatorWireFrame;
+import hu.csega.editors.anm.layer1.swing.wireframe.AnimatorWireFrame;
+import hu.csega.editors.anm.layer4.data.model.AnimatorModel;
 import hu.csega.games.common.CommonDataTransformer;
 
 public interface ComponentWireFrameConverter extends CommonDataTransformer<AnimatorModel, AnimatorWireFrame> {

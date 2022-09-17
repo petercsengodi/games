@@ -1,6 +1,6 @@
 package hu.csega.editors.anm;
 
-import hu.csega.editors.anm.model.AnimatorModel;
+import hu.csega.editors.anm.layer4.data.model.AnimatorModel;
 import hu.csega.games.engine.GameEngineCallback;
 import hu.csega.games.engine.GameEngineFacade;
 import hu.csega.games.units.UnitStore;

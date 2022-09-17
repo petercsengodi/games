@@ -3,9 +3,9 @@ package hu.csega.editors.anm;
 import hu.csega.editors.anm.components.ComponentExtractPartList;
 import hu.csega.editors.anm.components.ComponentOpenGLExtractor;
 import hu.csega.editors.anm.components.ComponentRefreshViews;
-import hu.csega.editors.anm.model.Animation;
-import hu.csega.editors.anm.model.AnimationPersistent;
-import hu.csega.editors.anm.model.AnimatorModel;
+import hu.csega.editors.anm.layer4.data.model.Animation;
+import hu.csega.editors.anm.layer4.data.model.AnimationPersistent;
+import hu.csega.editors.anm.layer4.data.model.AnimatorModel;
 import hu.csega.games.units.UnitStore;
 
 public class AnimatorRefreshViews implements ComponentRefreshViews {
