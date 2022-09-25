@@ -1,4 +1,4 @@
-package hu.csega.editors.anm.ui;
+package hu.csega.editors.anm.layer1.swing.components.partlist;
 
 import java.util.List;
 
@@ -34,5 +34,4 @@ public class AnimatorPartListModel implements ListModel<AnimatorPartListItem> {
 	@Override
 	public void removeListDataListener(ListDataListener l) {
 	}
-
 }

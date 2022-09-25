@@ -7,6 +7,7 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
+import hu.csega.editors.anm.components.ComponentRefreshViews;
 import hu.csega.editors.anm.layer4.data.animation.Animation;
 import hu.csega.editors.anm.layer4.data.migration.LegacyAnimationMigrator;
 import hu.csega.editors.anm.layer4.data.model.AnimationPersistent;
@@ -15,6 +16,7 @@ import hu.csega.editors.anm.layer5.files.storage.LegacyAnimationParser;
 import hu.csega.editors.ftm.layer4.data.FreeTriangleMeshSnapshots;
 import hu.csega.games.engine.GameEngineFacade;
 import hu.csega.games.library.legacy.animationdata.CModelData;
+import hu.csega.games.units.UnitStore;
 import hu.csega.toolshed.logging.Logger;
 import hu.csega.toolshed.logging.LoggerFactory;
 
@@ -62,9 +64,8 @@ class AnimatorMenuItemOpen implements ActionListener {
 				AnimationPersistent persistent = (AnimationPersistent) AnimatorModel.deserialize(bytes);
 			}
 
-
-			// facade.setModel(model);
-			facade.window().repaintEverything();
+			ComponentRefreshViews refreshViews = UnitStore.instance(ComponentRefreshViews.class);
+			refreshViews.refreshAll();
 			break;
 
 		default:

@@ -13,11 +13,11 @@ import javax.swing.JTabbedPane;
 
 import hu.csega.editors.anm.components.Component3DView;
 import hu.csega.editors.anm.components.ComponentRefreshViews;
+import hu.csega.editors.anm.layer1.swing.components.partlist.AnimatorPartEditorPanel;
+import hu.csega.editors.anm.layer1.swing.components.partlist.AnimatorPartListModel;
 import hu.csega.editors.anm.layer1.swing.menu.AnimatorMenu;
 import hu.csega.editors.anm.layer1.swing.wireframe.AnimatorWireFrameView;
 import hu.csega.editors.anm.ui.AnimatorCommonSettingsPanel;
-import hu.csega.editors.anm.ui.AnimatorPartEditorPanel;
-import hu.csega.editors.anm.ui.AnimatorPartListModel;
 import hu.csega.editors.anm.ui.AnimatorScenesPanel;
 import hu.csega.editors.anm.ui.AnimatorUIComponents;
 import hu.csega.editors.anm.ui.layout.root.AnimatorRootLayoutManager;

@@ -1,8 +1,9 @@
-package hu.csega.editors.anm.ui;
+package hu.csega.editors.anm.layer1.swing.components.partlist;
 
 import java.util.List;
 
 import hu.csega.editors.anm.components.ComponentPartListView;
+import hu.csega.editors.anm.ui.AnimatorUIComponents;
 import hu.csega.games.units.UnitStore;
 
 public class AnimatorPartListView implements ComponentPartListView {
