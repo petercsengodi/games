@@ -5,7 +5,7 @@ import java.util.List;
 
 import hu.csega.editors.anm.components.ComponentExtractPartList;
 import hu.csega.editors.anm.components.ComponentPartListView;
-import hu.csega.editors.anm.layer4.data.model.Animation;
+import hu.csega.editors.anm.layer4.data.animation.Animation;
 import hu.csega.editors.anm.ui.AnimatorPartListItem;
 import hu.csega.games.units.UnitStore;
 

@@ -2,7 +2,7 @@ package hu.csega.editors.anm.components;
 
 import java.util.List;
 
-import hu.csega.editors.anm.layer4.data.model.Animation;
+import hu.csega.editors.anm.layer4.data.animation.Animation;
 import hu.csega.editors.anm.ui.AnimatorPartListItem;
 import hu.csega.games.common.CommonDataTransformer;
 import hu.csega.games.common.CommonDrain;

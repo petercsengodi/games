@@ -3,12 +3,26 @@ package hu.csega.editors.anm.layer5.files.storage;
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
 
+import hu.csega.editors.anm.layer4.data.migration.LegacyAnimationMigrator;
+import hu.csega.games.library.legacy.animationdata.CModelData;
+
 public class TestLoadTestAnimation {
 
 	public static void main(String[] args) {
 		ByteArrayInputStream stream = new ByteArrayInputStream(HUMAN_RUN_ANM.getBytes(StandardCharsets.UTF_8));
 		Object result = LegacyAnimationParser.parseAnimationFile(stream);
 		System.out.println("Result class: " + (result == null ? null : result.getClass().getName()));
+
+		Object migratedObject = null;
+		if(result instanceof CModelData) {
+			migratedObject = LegacyAnimationMigrator.migrate((CModelData)result);
+		}
+
+		System.out.println("Migrated object class: " + (result == null ? null : result.getClass().getName()));
+		System.out.flush();
+
+		AnimationExportGenerator.generateExport(migratedObject, System.out);
+		System.out.flush();
 	}
 
 	private static final String HUMAN_RUN_ANM = "<meta description=\"Xml Data Binder\" version=\"0.5.0000\">\n" +

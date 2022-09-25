@@ -1,4 +1,4 @@
-package hu.csega.editors.anm.layer4.data.model;
+package hu.csega.editors.anm.layer4.data.animation;
 
 import java.io.Serializable;
 import java.util.List;

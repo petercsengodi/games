@@ -2,6 +2,9 @@ package hu.csega.editors.anm.layer4.data.model;
 
 import java.io.Serializable;
 
+import hu.csega.editors.anm.layer4.data.animation.Animation;
+import hu.csega.editors.anm.layer4.data.animation.AnimationMisc;
+
 public class AnimationPersistent implements Serializable {
 
 	private String name;

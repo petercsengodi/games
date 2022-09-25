@@ -9,6 +9,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.csega.editors.anm.layer4.data.animation.Animation;
+import hu.csega.editors.anm.layer4.data.animation.AnimationMisc;
+
 public class AnimatorModel {
 
 	private AnimationPersistent persistent;
@@ -27,8 +30,21 @@ public class AnimatorModel {
 		return persistent;
 	}
 
+	public void loadAnimation(String filename, Animation animation) {
+		AnimationMisc misc = new AnimationMisc();
+		misc.setFilename(filename);
+
+		AnimationPersistent persistent = new AnimationPersistent();
+		persistent.setAnimation(animation);
+		persistent.setName(filename);
+		persistent.setMisc(misc);
+		setPersistent(persistent);
+	}
+
 	public void setPersistent(AnimationPersistent persistent) {
 		this.persistent = persistent;
+		this.previousStates.clear();
+		this.nextStates.clear();
 	}
 
 	public void addNewState(Animation animation) {
@@ -55,7 +71,7 @@ public class AnimatorModel {
 		return (Animation) deserialize(snapshot.getBytes());
 	}
 
-	private static byte[] serialize(Serializable object) {
+	public static byte[] serialize(Serializable object) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		try (ObjectOutputStream out = new ObjectOutputStream(baos)) {
 			out.writeObject(object);
@@ -65,7 +81,7 @@ public class AnimatorModel {
 		return baos.toByteArray();
 	}
 
-	private static Serializable deserialize(byte[] array) {
+	public static Serializable deserialize(byte[] array) {
 		Serializable ret = null;
 
 		ByteArrayInputStream bais = new ByteArrayInputStream(array);

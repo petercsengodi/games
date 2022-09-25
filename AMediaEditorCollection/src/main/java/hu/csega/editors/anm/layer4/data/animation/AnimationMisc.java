@@ -1,4 +1,4 @@
-package hu.csega.editors.anm.layer4.data.model;
+package hu.csega.editors.anm.layer4.data.animation;
 
 import java.io.Serializable;
 
@@ -68,6 +68,11 @@ public class AnimationMisc implements Serializable {
 
 	public void setGrid(double[] grid) {
 		this.grid = grid;
+	}
+
+	public AnimationMisc() {
+		this.gridEnabled = true;
+		this.saved = true;
 	}
 
 	private static final long serialVersionUID = 1L;
