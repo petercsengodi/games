@@ -1,7 +1,6 @@
 package hu.csega.editors;
 
 import hu.csega.editors.anm.AnimatorConnector;
-import hu.csega.editors.anm.AnimatorRefreshViews;
 import hu.csega.editors.anm.components.Component3DView;
 import hu.csega.editors.anm.components.ComponentExtractPartList;
 import hu.csega.editors.anm.components.ComponentOpenGLExtractor;
@@ -9,18 +8,25 @@ import hu.csega.editors.anm.components.ComponentOpenGLTransformer;
 import hu.csega.editors.anm.components.ComponentPartListView;
 import hu.csega.editors.anm.components.ComponentPartManipulator;
 import hu.csega.editors.anm.components.ComponentRefreshViews;
+import hu.csega.editors.anm.components.ComponentWireFrameConverter;
+import hu.csega.editors.anm.components.ComponentWireFrameRenderer;
 import hu.csega.editors.anm.components.ComponentWireFrameTransformer;
 import hu.csega.editors.anm.components.stubs.StubWireFrameTransformer;
 import hu.csega.editors.anm.layer1.swing.components.partlist.AnimatorPartListView;
+import hu.csega.editors.anm.layer1.swing.wireframe.AnimatorWireFrameConverter;
+import hu.csega.editors.anm.layer1.swing.wireframe.AnimatorWireFrameTransformer;
+import hu.csega.editors.anm.layer1.swing.wireframe.AnimatorWireFrameView;
 import hu.csega.editors.anm.layer1.view3d.Animator3DView;
 import hu.csega.editors.anm.layer1.view3d.AnimatorOpenGLExtractor;
 import hu.csega.editors.anm.layer1.view3d.AnimatorOpenGLTransformer;
 import hu.csega.editors.anm.layer2.transformation.AnimatorExtractPartList;
 import hu.csega.editors.anm.layer4.data.model.AnimatorModel;
+import hu.csega.editors.anm.layer4.data.model.AnimatorRefreshViews;
 import hu.csega.editors.anm.model.manipulators.AnimatorPartManipulator;
 import hu.csega.editors.anm.ui.AnimatorUIComponents;
 import hu.csega.games.common.ApplicationStarter;
 import hu.csega.games.common.Connector;
+import hu.csega.games.library.MeshLibrary;
 import hu.csega.games.library.TextureLibrary;
 import hu.csega.games.library.util.FileUtil;
 import hu.csega.games.units.UnitStore;
@@ -58,6 +64,7 @@ public class AnimatorStarter {
 		FileUtil files = new FileUtil("AMediaEditorCollection");
 		UnitStore.registerInstance(FileUtil.class, files);
 		UnitStore.registerInstance(TextureLibrary.class, new TextureLibrary(files));
+		UnitStore.registerInstance(MeshLibrary.class, new MeshLibrary(files));
 
 		Connector connector = new AnimatorConnector();
 		UnitStore.registerInstance(Connector.class, connector);
@@ -71,6 +78,9 @@ public class AnimatorStarter {
 		UnitStore.registerDefaultImplementation(ComponentExtractPartList.class, AnimatorExtractPartList.class);
 		UnitStore.registerDefaultImplementation(ComponentPartManipulator.class, AnimatorPartManipulator.class);
 		UnitStore.registerDefaultImplementation(Component3DView.class, Animator3DView.class);
+		UnitStore.registerDefaultImplementation(ComponentWireFrameConverter.class, AnimatorWireFrameConverter.class);
+		UnitStore.registerDefaultImplementation(ComponentWireFrameTransformer.class, AnimatorWireFrameTransformer.class);
+		UnitStore.registerDefaultImplementation(ComponentWireFrameRenderer.class, AnimatorWireFrameView.class);
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		// 3. Register test instances if needed:

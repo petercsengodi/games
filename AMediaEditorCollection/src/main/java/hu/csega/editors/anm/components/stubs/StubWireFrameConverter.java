@@ -11,6 +11,8 @@ import hu.csega.editors.anm.layer4.data.model.AnimatorModel;
 
 public class StubWireFrameConverter implements ComponentWireFrameConverter {
 
+	private AnimatorWireFrame wireFrame;
+
 	@Override
 	public AnimatorWireFrame transform(AnimatorModel model) {
 		AnimatorWireFramePoint source = new AnimatorWireFramePoint();
@@ -32,6 +34,16 @@ public class StubWireFrameConverter implements ComponentWireFrameConverter {
 
 		AnimatorWireFrame wireFrame = new AnimatorWireFrame();
 		wireFrame.setLines(Arrays.asList(line));
+		return wireFrame;
+	}
+
+	@Override
+	public void accept(AnimatorModel model) {
+		wireFrame = transform(model);
+	}
+
+	@Override
+	public AnimatorWireFrame provide() {
 		return wireFrame;
 	}
 
